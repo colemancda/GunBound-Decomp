@@ -1,8 +1,35 @@
-/* FUN_004f2240 - 0x004f2240 in the original binary.
+/* MultiplyMatrix4x4InPlace - 0x004f2240 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Multiplies two 4x4 float matrices and writes the product back over the
+ * left operand.
+ *
+ * NAMED 2026-08-27, together with MultiplyMatrix4x4ToScratch (0x004f1f50).
+ * The two bodies are the same multiply term for term -- out[r*4+c] = sum
+ * over k of lhs[r*4+k] * rhs[k*4+c], the row-major 4x4 concatenation, and
+ * the same exact shortcut when the right operand's last column is
+ * (0,0,0,1) -- with EBX standing in for the other's ECX.  The one
+ * difference is the destination, and it is what the two names contrast:
+ * the closing sixteen-float copy targets EBX itself, and there is no
+ * return value, where 0x004f1f50 copies into the shared static DAT_005a9350
+ * and returns it.
+ *
+ * The external evidence that these are matrices is written up in
+ * MultiplyMatrix4x4ToScratch.c: four 0x40-byte matrix slots at +0xe0,
+ * +0x120, +0x160 and +0x1a0 of one object, the 4x4 identity fill FUN_004e9cc0
+ * and FUN_004f37b0 put in the +0xe0 slot, and the D3D-style left-handed
+ * perspective projection FUN_004e9cc0 builds into DAT_005a9290.  Specific to
+ * this half: tools/callsite_regs.py reports EBX UNIFORM = ebp at all four
+ * sites, which the callers set to that +0xe0 slot, and EAX is the
+ * immediately preceding 0x004f1f50 return, so the pair composes as
+ * `node = node x scratch` and this call is the one that lands the result.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * The note that follows predates the naming and still uses the old Ghidra
+ * symbols: FUN_004f1f50 is MultiplyMatrix4x4ToScratch and FUN_004f2240 is
+ * MultiplyMatrix4x4InPlace.  It is reproduced unchanged.
  *
  * DROPPED REGISTERS RESOLVED BUT DELIBERATELY NOT APPLIED (2026-08-27).
  * This and its twin FUN_004f1f50 are the same 4x4 matrix multiply: one
@@ -40,7 +67,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004f2240(void)
+void MultiplyMatrix4x4InPlace(void)
 
 {
   char cVar1;

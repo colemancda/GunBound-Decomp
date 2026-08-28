@@ -581,7 +581,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00450730,159,AdvanceSpriteAnimation,false,32,0,RAW-src
 004507d0,60,TickActiveObjectLayers,false,3,0,RAW-src
 00450810,73,FUN_00450810,false,1,0,RAW-src
-00450860,60,FUN_00450860,false,4,0,RAW-src
+00450860,60,DrawActiveObjectLayers,false,4,0,RAW-src
 004508a0,729,RenderWeatherHazards,false,1,5,RAW-src
 00450b80,73,FUN_00450b80,false,1,0,RAW-src
 00450bd0,73,FUN_00450bd0,false,1,0,RAW-src
@@ -1293,8 +1293,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f1e20,119,FUN_004f1e20,false,1,2,RAW-src
 004f1eb0,89,FUN_004f1eb0,false,1,0,RAW-src
 004f1f10,64,CalculateAngleFromDelta,false,28,0,RAW-src
-004f1f50,742,FUN_004f1f50,false,6,1,RAW-src
-004f2240,750,FUN_004f2240,false,4,1,RAW-src
+004f1f50,742,MultiplyMatrix4x4ToScratch,false,6,1,RAW-src
+004f2240,750,MultiplyMatrix4x4InPlace,false,4,1,RAW-src
 004f2530,448,FUN_004f2530,false,1,0,RAW-src
 004f26f0,74,FillPixels16,false,6,0,RAW-src
 004f2740,202,BlendPixels16,false,2,0,RAW-src

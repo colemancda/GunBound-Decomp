@@ -39,12 +39,12 @@ void __thiscall FUN_004e9cc0(int *param_1,undefined4 param_2)
   }
   if (param_1[0x34] == 0) {
     FUN_004f3440();
-    FUN_004f1f50();
-    FUN_004f2240();
+    MultiplyMatrix4x4ToScratch();
+    MultiplyMatrix4x4InPlace();
   }
   else {
-    FUN_004f1f50();
-    FUN_004f2240();
+    MultiplyMatrix4x4ToScratch();
+    MultiplyMatrix4x4InPlace();
     param_1[0x26] = param_1[0x44];
     param_1[0x27] = param_1[0x45];
     param_1[0x28] = param_1[0x46];

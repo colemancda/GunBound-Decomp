@@ -16,14 +16,14 @@ void __fastcall FUN_004f38a0(int param_1)
   undefined4 *puVar4;
   
   if (*(char *)(param_1 + 0xdc) == '\x01') {
-    puVar2 = (undefined4 *)FUN_004f1f50();
+    puVar2 = (undefined4 *)MultiplyMatrix4x4ToScratch();
     puVar4 = (undefined4 *)(param_1 + 0x120);
     for (iVar3 = 0x10; iVar3 != 0; iVar3 = iVar3 + -1) {
       *puVar4 = *puVar2;
       puVar2 = puVar2 + 1;
       puVar4 = puVar4 + 1;
     }
-    puVar2 = (undefined4 *)FUN_004f1f50();
+    puVar2 = (undefined4 *)MultiplyMatrix4x4ToScratch();
     puVar4 = (undefined4 *)(param_1 + 0x160);
     for (iVar3 = 0x10; iVar3 != 0; iVar3 = iVar3 + -1) {
       *puVar4 = *puVar2;

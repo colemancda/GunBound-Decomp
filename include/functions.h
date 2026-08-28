@@ -701,7 +701,7 @@ void __fastcall FUN_00450700(undefined4 param_1,undefined4 param_2,undefined4 *r
 void AdvanceSpriteAnimation(int animObj);
 void TickActiveObjectLayers(int regEbx);
 void FUN_00450810(int regEbx);
-void FUN_00450860(int regEbx);
+void DrawActiveObjectLayers(int regEbx);
 void RenderWeatherHazards();
 void FUN_00450b80(int regEbx);
 void FUN_00450bd0(int regEbx);
@@ -1371,8 +1371,8 @@ void FUN_004f1da0();
 void FUN_004f1e20();
 void FUN_004f1eb0();
 int CalculateAngleFromDelta(); /* real args (dx, dy); K&R-empty and __cdecl deliberately - see CalculateAngleFromDelta.c */
-undefined4 * __fastcall FUN_004f1f50();
-void FUN_004f2240();
+undefined4 * __fastcall MultiplyMatrix4x4ToScratch();
+void MultiplyMatrix4x4InPlace();
 void __fastcall FUN_004f2530();
 void FillPixels16();
 void BlendPixels16();

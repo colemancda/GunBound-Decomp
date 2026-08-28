@@ -1,8 +1,45 @@
-/* FUN_004f1f50 - 0x004f1f50 in the original binary.
+/* MultiplyMatrix4x4ToScratch - 0x004f1f50 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Multiplies two 4x4 float matrices and leaves the product in one shared
+ * static scratch matrix, DAT_005a9350, which it also returns.
+ *
+ * NAMED 2026-08-27, together with its in-place twin MultiplyMatrix4x4InPlace
+ * (0x004f2240).  The arithmetic here is an algebraic identity rather than a
+ * restatement of control flow -- out[r*4+c] = sum over k of lhs[r*4+k] *
+ * rhs[k*4+c], the row-major 4x4 concatenation, with an exact shortcut when
+ * the right operand's last column is (0,0,0,1) and the product's last column
+ * is therefore the left operand's unchanged -- but what settles that the
+ * operands really are matrices is outside the body:
+ *
+ *   - FUN_004f38a0 copies this function's sixteen-dword return straight into
+ *     `param_1 + 0x120` and `param_1 + 0x160`, and takes its own ECX operand
+ *     from `param_1 + 0xe0` and `param_1 + 0x120`.  Those, with the
+ *     `param_1 + 0x1a0` the other callers pass, are four 0x40-byte matrix
+ *     slots in one object.
+ *   - FUN_004e9cc0 and FUN_004f37b0 fill the +0xe0 slot with a 4x4 IDENTITY
+ *     when the node has no source transform: a sixteen-dword zero fill, then
+ *     0x3f800000 (1.0f) written at int indices 0, 5, 10 and 15 -- the
+ *     diagonal, and nothing else.
+ *   - FUN_004e9cc0 builds one of the EAX operands, DAT_005a9290, as a
+ *     D3D-style left-handed perspective projection: a sixteen-dword zero
+ *     fill, then m00 = cot(fov) * the aspect term, m11 = cot(fov),
+ *     m22 = zf / (zf - zn) at +0x28, m23 = 1.0 at +0x2c and
+ *     m32 = -zn * zf / (zf - zn) at +0x38.  That is a matrix by construction.
+ *
+ * The name says ToScratch because the destination is a single fixed global
+ * shared by every call, not caller-owned storage: FUN_004f38a0 copies it out
+ * immediately, and FUN_004e9cc0 / FUN_004f37b0 hand it straight to
+ * MultiplyMatrix4x4InPlace as that call's EAX operand, so the pair composes
+ * as `node = node x scratch`.  No library identity backs the name -- the
+ * binary carries no engine or source-path strings to match against.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * The note that follows predates the naming and still uses the old Ghidra
+ * symbols: FUN_004f1f50 is MultiplyMatrix4x4ToScratch and FUN_004f2240 is
+ * MultiplyMatrix4x4InPlace.  It is reproduced unchanged.
  *
  * DROPPED REGISTERS RESOLVED BUT DELIBERATELY NOT APPLIED (2026-08-27).
  * This and its twin FUN_004f2240 are the same 4x4 matrix multiply: one
@@ -40,7 +77,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 * __fastcall FUN_004f1f50(float *param_1)
+undefined4 * __fastcall MultiplyMatrix4x4ToScratch(float *param_1)
 
 {
   char cVar1;
