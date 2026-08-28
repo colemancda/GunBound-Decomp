@@ -4,17 +4,37 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
- */
+ *
+ * ARGUMENTS RE-SLOTTED AND EBX RECOVERED (2026-08-27).  All six call sites
+ * passed NOTHING to this two-parameter __fastcall, so param_1 and param_2
+ * were reading stale ECX/EDX and unaff_EBX was an uninitialised destination.
+ *
+ * Every site sets the same three registers in the same order: `lea ebx,
+ * [esp+0x94 or 0x114]`, `mov ecx,1` (twice via edi/esi), `lea edx,
+ * [esp+0x134]`.  So param_1 is 1 and param_2 is one address at all six.
+ *
+ * The frame is anchored by this caller's own strcpy: the C writes through
+ * `(int)local_ff + (-1 - (int)param_2)`, i.e. base E-0x100, and the binary's
+ * matching `lea edx,[esp+0x12c]` fixes esp at E-0x22c.  That makes the call
+ * sites' [esp+0x134] E-0xf8 -- eight bytes into the length-prefixed command
+ * buffer whose length byte is local_100 -- and [esp+0x94] / [esp+0x114]
+ * E-0x198 / E-0x118, which land INSIDE local_1a0[116] and local_120[32] at
+ * offset 8 rather than on any declared local of their own.
+ *
+ * Only one of the six writes to the local_120 buffer, and the source names it
+ * without any ordering assumption: that site is followed by `_atol(local_120)`
+ * while the other five sit beside local_1a0 uses -- matching the single
+ * binary site that uses `lea ebx,[esp+0x114]` instead of `+0x94`. */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00421870(int param_1,int param_2)
+void __fastcall FUN_00421870(int param_1,int param_2,undefined4 *regEbx)
 
 {
   int iVar1;
   uint uVar2;
   uint uVar3;
-  undefined4 *unaff_EBX;
+  undefined4 *unaff_EBX = regEbx;
   undefined4 *puVar4;
   undefined4 *puVar5;
   

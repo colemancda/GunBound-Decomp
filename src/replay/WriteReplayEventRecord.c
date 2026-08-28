@@ -251,7 +251,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
             QueueOutgoingPacketField(0xffffffff);
           }
           FUN_004e7560(0,(int)&g_replayContext,(uint)*pbVar22);
-          FUN_004e77e0(&g_replayContext);
+          FUN_004e77e0(&g_replayContext,1);
           pbVar22 = param_3;
           if ((*(int *)(&DAT_006a76f8 + g_clientContext) != 0) &&
              (local_d78 = 0, *(int *)(&DAT_006a76f8 + g_clientContext) != 0)) {

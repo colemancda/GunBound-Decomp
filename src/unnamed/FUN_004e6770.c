@@ -152,11 +152,11 @@ LAB_004e6b17:
           } while ((int)uVar8 < 8);
           *(int *)(param_1 + 0x44de8) = *(int *)(param_1 + 0x44de8) + 1;
           *(undefined4 *)(param_1 + 0x44de4) = 0;
-          FUN_004e77e0(param_1);
+          FUN_004e77e0(param_1,-1);
         }
         else {
 LAB_004e6ae3:
-          FUN_004e77e0(param_1);
+          FUN_004e77e0(param_1,-1);
         }
       }
       WSAEventSelect(*(undefined4 *)(param_1 + 0x14),*(undefined4 *)(param_1 + 0xc),0);

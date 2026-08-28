@@ -45,7 +45,7 @@ void __fastcall State03_GameRoomList_HandleMouseInput(int param_1,int dummyEDX,u
   (void)dummyEDX;
   if (param_2 < 0x204) {
     if (param_2 == 0x203) {
-      iVar3 = RoomCardHitTest(param_4 >> 0x10,0);
+      iVar3 = RoomCardHitTest(param_4 >> 0x10,0,param_4 & 0xffff);
       if (iVar3 != -1) {
         cVar2 = FUN_00406400(0,0,(int)&g_activeObjectRegistry,5);
         if (cVar2 == '\x01') {
@@ -55,7 +55,7 @@ void __fastcall State03_GameRoomList_HandleMouseInput(int param_1,int dummyEDX,u
       }
     }
     else if ((param_2 != 0x100) && (param_2 == 0x201)) {
-      iVar3 = RoomCardHitTest(param_4 >> 0x10,0);
+      iVar3 = RoomCardHitTest(param_4 >> 0x10,0,param_4 & 0xffff);
       if (iVar3 != -1) {
         *(int *)(param_1 + 4) = iVar3;
         InvokeWidget(5,1);
@@ -66,7 +66,7 @@ void __fastcall State03_GameRoomList_HandleMouseInput(int param_1,int dummyEDX,u
     }
   }
   else if (param_2 == 0x204) {
-    iVar4 = RoomCardHitTest(param_4 >> 0x10,1);
+    iVar4 = RoomCardHitTest(param_4 >> 0x10,1,param_4 & 0xffff);
     iVar1 = g_connectionContextA;
     iVar3 = g_clientContext;
     if ((iVar4 != -1) && (*(int *)(g_clientContext + 0x4464c + iVar4 * 4) == 1)) {

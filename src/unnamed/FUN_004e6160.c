@@ -265,7 +265,7 @@ LAB_004e64e4:
          local_243 < 8)) {
         *(uint *)(param_1 + 0x144 + (uint)(local_243 >> 5) * 4) =
              *(uint *)(param_1 + 0x144 + (uint)(local_243 >> 5) * 4) & ~(1 << (local_243 & 0x1f));
-        FUN_004e77e0(param_1);
+        FUN_004e77e0(param_1,1);
         return 1;
       }
 LAB_004e6760:

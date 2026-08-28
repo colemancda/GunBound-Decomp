@@ -106,7 +106,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
           iVar4 = iVar4 + -1;
           iVar3 = iVar3 + 1 + (int)*(char *)((int)local_ff + iVar3 + -1);
         } while (iVar4 != 0);
-        FUN_00421870();
+        FUN_00421870(1,(int)&local_100 + 8,(undefined4 *)(local_1a0 + 8));
         iVar4 = __stricmp(local_1a0,(char *)(g_clientContext + 0x23330));
         if (iVar4 == 0) {
           return 1;
@@ -144,7 +144,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
       if (iVar4 == 0) {
         if (iVar3 == 2) {
           if (g_currentGameState == 3) {
-            FUN_00421870();
+            FUN_00421870(1,(int)&local_100 + 8,(undefined4 *)(local_1a0 + 8));
             lVar6 = _atol(local_1a0);
             if ((lVar6 + -1 < 999) && (lVar6 = _atol(local_1a0), lVar6 + -1 < 0)) {
               iVar3 = 0;
@@ -194,7 +194,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
             iVar4 = 1;
             do {
               pcVar2 = local_1a0;
-              FUN_00421870();
+              FUN_00421870(1,(int)&local_100 + 8,(undefined4 *)(local_1a0 + 8));
               do {
                 cVar1 = *pcVar2;
                 pcVar2 = pcVar2 + 1;
@@ -557,7 +557,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
             if (g_currentGameState != 9) {
               return 1;
             }
-            FUN_00421870();
+            FUN_00421870(1,(int)&local_100 + 8,(undefined4 *)(local_120 + 8));
             RefreshReadyRoomControls(g_gameStateVTableArray[9],0,0);
             iVar3 = g_connectionContextA;
             iVar4 = g_clientContext + 0x45354;
@@ -592,7 +592,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
             iVar4 = 1;
             do {
               pcVar2 = local_1a0;
-              FUN_00421870();
+              FUN_00421870(1,(int)&local_100 + 8,(undefined4 *)(local_1a0 + 8));
               do {
                 cVar1 = *pcVar2;
                 pcVar2 = pcVar2 + 1;
@@ -614,7 +614,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
     if (g_currentGameState == 9) {
       cVar1 = CompareChecksumMatch(param_1 + 0x3b6c4,param_1 + 0x3b49c);
       if (cVar1 != '\0') {
-        FUN_00421870();
+        FUN_00421870(1,(int)&local_100 + 8,(undefined4 *)(local_1a0 + 8));
         iVar3 = 0;
         pcVar2 = (char *)(param_1 + 0x457f1);
         while (iVar5 = __stricmp(pcVar2,local_1a0), iVar4 = g_connectionContextA, iVar5 != 0) {

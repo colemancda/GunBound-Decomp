@@ -4,11 +4,19 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
- */
+ *
+ * DROPPED REGISTER RECOVERED (2026-08-27): in_EAX is a mode discriminator the
+ * body branches on twice -- `if (iVar6 != in_EAX)` and `(in_EAX == 1)` -- so
+ * the four sites were switching on whatever happened to be in EAX.
+ *
+ * It is a literal at every site and needs no pairing at all: `mov eax,1` at
+ * 0x4112a4 and 0x4e65a0, `or eax,0xffffffff` at 0x4e6ac3 and 0x4e6ae4.  The
+ * two -1 sites are both in FUN_004e6770 and take the same value, so even
+ * within that caller there is nothing to disambiguate. */
 #include "ghidra_types.h"
 
 
-void FUN_004e77e0(int param_1)
+void FUN_004e77e0(int param_1,int regEax)
 
 {
   uint *puVar1;
@@ -16,7 +24,7 @@ void FUN_004e77e0(int param_1)
   byte bVar3;
   int *piVar4;
   char cVar5;
-  int in_EAX;
+  int in_EAX = regEax;
   int iVar6;
   DWORD DVar7;
   uint uVar8;
