@@ -25,7 +25,13 @@ void __fastcall FUN_00502800(int param_1,undefined4 regEax)
      ((uint)((*(int *)(param_1 + 8) - iVar1) / 0x34) <
       (uint)((*(int *)(param_1 + 0xc) - iVar1) / 0x34))) {
     iVar1 = *(int *)(param_1 + 8);
-    FUN_00504160(param_1);
+    /* DROPPED-REG FIX 2026-08-28: this call was mis-slotted, not just
+       short. The original puts the vector's END pointer in ECX
+       (`mov ecx,esi` with esi = *(param_1+8) at 0x502854) and pushes
+       param_1 as the never-read stack word; the port had param_1 in ECX.
+       Count = 1 (`mov eax,1` at 0x50284f); the element is EBX, captured
+       from the incoming EAX by `mov ebx,eax` at 0x50280b. */
+    FUN_00504160(iVar1,0,param_1,1,(undefined4 *)regEax);
     *(int *)(param_1 + 8) = iVar1 + 0x34;
     return;
   }

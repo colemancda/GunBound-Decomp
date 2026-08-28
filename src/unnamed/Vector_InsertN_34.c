@@ -9,11 +9,32 @@
  * element being inserted, 0x34 bytes wide (the stride this function multiplies
  * by).  Ghidra dropped it because its only users were dropped registers.  The
  * next ebp slot in use is 0x18, so the object has room for exactly that width.
+ *
+ * DROPPED-REG FIX (2026-08-28): the register that FILLS that buffer is
+ * EDX, and it is now a parameter. The very first thing the function does
+ * is `lea eax,[ebp-0x4c]` / `call 0x503680` at 0x502e41-0x502e49, i.e.
+ * copy-construct the by-value element from EDX into the local buffer;
+ * EDX is read before anything writes it. Its one caller FUN_00502a20
+ * loads it from its own param_3 at 0x502a67.
+ *
+ * All three helper calls below were argless and are now written out. The
+ * two array helpers take a stack word neither of them reads (the unused
+ * allocator of the STL shape) plus a phantom EDX, so their calls carry a
+ * literal 0 in the EDX slot and param_3 in the stack one - see
+ * src/unnamed/FUN_00504160.c and src/unnamed/FUN_005045a0.c.
+ *
+ * The three FUN_005045a0 calls are the three halves of an insert:
+ *   0x502f31  head    [*(param_2+4), param_3)          -> the new buffer
+ *   0x502f63  tail    [param_3, *(param_2+8))          -> after the gap
+ *   0x503006  tail    [param_3, *(param_2+8))          -> shifted up
+ *   0x503062  last n  [*(param_2+8) - n*0x34, end)     -> the end
+ * and the first of them returns the destination end that the following
+ * FUN_00504160 uses as its own destination, a value the port discarded.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall Vector_InsertN_34(uint param_1,int param_2,int param_3)
+void __thiscall Vector_InsertN_34(uint param_1,int param_2,int param_3,undefined4 *regEdx)
 
 {
   void *_Memory;
@@ -23,6 +44,7 @@ void __thiscall Vector_InsertN_34(uint param_1,int param_2,int param_3)
   undefined4 uVar4;
   uint uVar5;
   uint extraout_ECX;
+  int iDestEnd;
   undefined4 *unaff_FS_OFFSET;
   undefined1 local_50 [0x34];   /* the inserted element; see the header note */
   undefined4 local_10;
@@ -33,7 +55,7 @@ void __thiscall Vector_InsertN_34(uint param_1,int param_2,int param_3)
   puStack_c = &LAB_00537980;
   local_10 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_10;
-  FUN_00503680();
+  FUN_00503680(0,regEdx,(undefined4 *)local_50);
   iVar2 = *(int *)(param_2 + 4);
   if (iVar2 == 0) {
     uVar5 = 0;
@@ -77,9 +99,9 @@ void __thiscall Vector_InsertN_34(uint param_1,int param_2,int param_3)
       }
       pvVar3 = operator_new(uVar5 * 0x34);
       local_8 = 0;
-      FUN_005045a0(param_3);
-      FUN_00504160(param_3);
-      FUN_005045a0(param_3);
+      iDestEnd = FUN_005045a0(*(int *)(param_2 + 4),0,param_3,(int)pvVar3,param_3);
+      FUN_00504160(iDestEnd,0,param_3,param_1,(undefined4 *)local_50);
+      FUN_005045a0(param_3,0,param_3,iDestEnd + param_1 * 0x34,*(int *)(param_2 + 8));
       _Memory = *(void **)(param_2 + 4);
       if (_Memory == (void *)0x0) {
         iVar2 = 0;
@@ -97,13 +119,15 @@ void __thiscall Vector_InsertN_34(uint param_1,int param_2,int param_3)
       return;
     }
     if ((uint)((*(int *)(param_2 + 8) - param_3) / 0x34) < param_1) {
-      FUN_005045a0(param_3);
+      FUN_005045a0(param_3,0,param_3,param_3 + param_1 * 0x34,*(int *)(param_2 + 8));
       local_8 = 2;
-      FUN_00504160(param_3);
+      FUN_00504160(*(int *)(param_2 + 8),0,param_3,
+                   param_1 - (*(int *)(param_2 + 8) - param_3) / 0x34,(undefined4 *)local_50);
       *(uint *)(param_2 + 8) = *(int *)(param_2 + 8) + param_1 * 0x34;
     }
     else {
-      uVar4 = FUN_005045a0(param_3);
+      uVar4 = FUN_005045a0(*(int *)(param_2 + 8) - param_1 * 0x34,0,param_3,
+                           *(int *)(param_2 + 8),*(int *)(param_2 + 8));
       *(undefined4 *)(param_2 + 8) = uVar4;
       Vector_CopyBackward_34(0,(undefined4 *)param_2,(undefined4 *)local_50,(undefined4 *)param_3);
     }
