@@ -10,7 +10,7 @@
 void FUN_005438f0(void)
 
 {
-  FUN_004f1770();
+  FUN_004f1770((undefined4 *)g_spriteRegistry);
   return;
 }
 

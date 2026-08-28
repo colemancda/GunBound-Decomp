@@ -377,7 +377,11 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
          * that the line above just put in local_4980. */
         FUN_00503e10((int)local_4980,(int)(pcVar12 + 4));
         FUN_004fcd80(local_4914,0x11,param_1 + 0x182c);
-        FUN_004fdc50();
+        /* RECOVERED (2026-08-28), orig 0x5018d9/0x5018dd: `lea esi,[esp+0x7c]`
+         * is local_4914 (0x4990-0x7c) and `lea eax,[esp+0x116]` is
+         * local_48ba + 0x40 (0x48ba sits at esp_base+0xd6), both at zero
+         * pending depth. EAX is the 18-byte destination, ESI the source. */
+        FUN_004fdc50((int)(local_48ba + 0x40),(int)local_4914);
         /* RECOVERED (2026-08-28), orig 0x5018e9 `mov esi,[esp+0x10]` and
          * 0x5018bd/0x5018f4 `mov edi,[esp+0x14]` / `add edi,0x17cc`: ESI is
          * that same 14-byte record, EDI the string map at param_1+0x17cc, and
@@ -537,14 +541,16 @@ LAB_00501b17:
        * param_2 offset on this path, as the *(param_2 + 0x22/0x26/0x2a) reads
        * below already show. */
       FUN_00503e10((int)local_4900,param_2 + 0x16);
-      FUN_004fdc50();
+      /* RECOVERED (2026-08-28), orig 0x50208c/0x502090: `lea esi,[esp+0x24]`
+       * is &local_496c and `lea eax,[esp+0x104]` is local_48ba + 0x2e. */
+      FUN_004fdc50((int)(local_48ba + 0x2e),(int)&local_496c);
       FUN_00503e30((undefined4)(local_48ba + 0x2e),(undefined4 *)local_4900,
                    (int *)(local_497c + 0x17cc));
       local_4924 = *(undefined4 *)(param_2 + 0x22);
       local_4920 = *(undefined4 *)(param_2 + 0x26);
       local_4978 = CONCAT22(SUBFIELD(local_4978,2,undefined2),*(undefined2 *)(param_2 + 0x2a));
       local_491c = 0;
-      FUN_004fdc50();
+      FUN_004fdc50((int)local_4914,(int)&local_496c);
       iVar7 = local_497c;
       FUN_00502750(iVar7 + 0x17ac,(int)local_4914);
       FUN_00503a10((int)&local_496c,iVar7 + -0x2c8);
@@ -585,7 +591,7 @@ LAB_00501b17:
           }
           else {
             FUN_00503a50(local_4970,&local_496c);
-            FUN_004fdc50();
+            FUN_004fdc50((int)(local_48ba + 0x1c),(int)&local_496c);
             FUN_004fe500();
           }
           uVar10 = 0;
