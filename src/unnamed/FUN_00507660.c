@@ -86,11 +86,12 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
               *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
               /* FIXED (2026-07-15): dropped `self`/`count` args - disasm-
                * confirmed at 0x5077e8. self=EAX=g_connectionContextA (=iVar2
-               * above). count=EDX=[ebx-0xc] where ebx is this function's
-               * (already use-before-set, pre-existing bug) puVar4 pointer
-               * reloaded at 0x50775a - that same [ptr-0xc] field is exactly
-               * puVar4[1], already read just above at line 69 for the
-               * length-prefix byte, so reuse it here as-is. */
+               * above). count=EDX=[ebx-0xc] where ebx is the string reloaded
+               * at 0x50775a - that same [ptr-0xc] field is exactly
+               * puVar4[1], read just above for the length-prefix byte.
+               * (The "use-before-set puVar4" this note used to flag was
+               * resolved 2026-08-28: puVar4 is the CString header base,
+               * assigned from the recovered FUN_004055b0 handle above.) */
               AppendPacketBytes(0,iVar2,(uint)puVar4[1],puVar5);
               EncodePacketBody(0,iVar2);
               SendOutgoingPacket(iVar2);
