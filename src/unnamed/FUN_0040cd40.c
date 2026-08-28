@@ -11,7 +11,7 @@ void FUN_0040cd40(undefined4 *regEax)
 
 {
   
-  FUN_004f2e40();
+  FUN_004f2e40(regEax);
   *regEax = &PTR_FUN_005520a0;
   regEax[2] = 0;
   return;

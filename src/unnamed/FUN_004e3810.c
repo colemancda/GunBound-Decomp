@@ -25,7 +25,7 @@ undefined4 * FUN_004e3810(undefined4 *param_1)
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053776e;
   *unaff_FS_OFFSET = &local_c;
-  FUN_004f2e40();
+  FUN_004f2e40((undefined4 *)((int)param_1 + 0x85c));
   param_1[0x217] = &PTR_FUN_00555b7c;
   local_4 = 0;
   *param_1 = 0;

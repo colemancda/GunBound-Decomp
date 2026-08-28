@@ -1384,7 +1384,7 @@ void FUN_004f2d60(int regEbx);
 void EnqueueInputEvent();
 void __fastcall FUN_004f2e10();
 void * __thiscall FUN_004f2e20();
-void FUN_004f2e40();
+void FUN_004f2e40(undefined4 *regEsi);
 undefined4 * __thiscall FUN_004f2ea0();
 void __fastcall FUN_004f2ee0();
 /* K&R-empty deliberately (like FindSpriteFrame): only RegisterActiveObject.c's
