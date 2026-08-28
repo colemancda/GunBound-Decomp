@@ -10,13 +10,13 @@
 #include "ghidra_types.h"
 
 
-int ConnectToHostPort(undefined4 param_1,u_short param_2)
+int ConnectToHostPort(undefined4 param_1,u_short param_2,int regEbx)
 
 {
   SOCKET s;
   int iVar1;
   int iVar2;
-  undefined4 unaff_EBX;
+  int unaff_EBX = regEbx;
   sockaddr local_10;
   
   s = socket(2,1,0);
@@ -43,7 +43,10 @@ int ConnectToHostPort(undefined4 param_1,u_short param_2)
     }
     iVar2 = connect(s,&local_10,0x10);
     if ((iVar2 == -1) && (iVar2 = WSAGetLastError(), iVar2 != 0x2733)) {
-      FUN_004ff720();
+      /* DROPPED-REG FIX 2026-08-28: orig 0x4fe682 `lea eax,[ebx+4]` - the
+         raw list at manager+4 - with the node (the ConfigureAsyncSocket
+         result) still in EDI from 0x4fe64b. */
+      FUN_004ff720((int *)(unaff_EBX + 4),(int *)iVar1);
       return 0;
     }
   }

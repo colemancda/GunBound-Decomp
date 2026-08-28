@@ -13,16 +13,16 @@
 #include "ghidra_types.h"
 
 
-void CommEngineSend(void)
+void CommEngineSend(int param_1,int regEax,int regEbx)
 
 {
   int *piVar1;
   int *piVar2;
-  int in_EAX;
+  int in_EAX = regEax;
   int iVar3;
   int iVar4;
   size_t _Size;
-  int unaff_EBX;
+  int unaff_EBX = regEbx;
   char *buf;
   
   if (in_EAX == 0) {
@@ -42,7 +42,7 @@ void CommEngineSend(void)
                (iVar4 = shutdown(*(SOCKET *)(unaff_EBX + 8),2), iVar4 != -1)) {
               return;
             }
-            FUN_004fe6a0();
+            FUN_004fe6a0(0,(int *)param_1,(int *)unaff_EBX);
             return;
           }
           if (*(int *)(iVar4 + 0x1778) <= iVar3) break;
@@ -71,7 +71,7 @@ void CommEngineSend(void)
   }
   else if ((*(SOCKET *)(unaff_EBX + 8) == 0xffffffff) ||
           (iVar4 = shutdown(*(SOCKET *)(unaff_EBX + 8),2), iVar4 == -1)) {
-    FUN_004fe6a0();
+    FUN_004fe6a0(0,(int *)param_1,(int *)unaff_EBX);
     return;
   }
   return;

@@ -267,7 +267,9 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
         }
       }
       else if ((uVar6 == 0x1fff) && (param_3 == 2)) {
-        FUN_004fdda0(param_1 + -0x2f0);
+        /* DROPPED-REG FIX 2026-08-28: the node, `mov esi,[edi+0x1780]` at
+           0x501d0d with edi = param_1. */
+        FUN_004fdda0((int *)(param_1 + -0x2f0),*(int *)(param_1 + 0x1780));
         (**(code **)(**(int **)(param_1 + 0x17bc) + 8))(*puVar1);
       }
       goto LAB_00502483;

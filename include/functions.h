@@ -1488,8 +1488,8 @@ bool FUN_004fdb40(int param_1,int regEcx);
 int __fastcall FUN_004fdc30();
 void FUN_004fdc50(int regEax,int regEsi);
 void CreateCommEngineNotifyWindow();
-undefined4 ResolveHostAddress();
-undefined4 FUN_004fdda0();
+undefined4 ResolveHostAddress(undefined4 param_1,undefined4 param_2,char *regEax);
+undefined4 FUN_004fdda0(int *param_1,int regEsi);
 void FUN_004fddd0();
 void DestroyCommEngine();
 undefined4 CreateBoundSocket();
@@ -1497,8 +1497,8 @@ void FUN_004fe490();
 undefined4 __fastcall FUN_004fe500();
 void __fastcall FUN_004fe590(undefined4 param_1,undefined4 *param_2,undefined4 *regEax);
 void CopyNameField_12(int regEsi,int regEdi);
-int ConnectToHostPort(undefined4 param_1,u_short param_2); /* narrow u_short arg: empty-paren decl conflicts under gcc */
-void __fastcall FUN_004fe6a0();
+int ConnectToHostPort(undefined4 param_1,u_short param_2,int regEbx); /* narrow u_short arg: empty-paren decl conflicts under gcc */
+void __fastcall FUN_004fe6a0(undefined4 param_1,int *param_2,int *regEax);
 LRESULT __stdcall CommEngineNotifyWndProc(HWND, UINT, WPARAM, uint);
 undefined4 FUN_004fe860();
 LRESULT __stdcall FUN_004fecb0(HWND, UINT, WPARAM, uint);
@@ -1514,12 +1514,12 @@ void __fastcall IntMap_CopyValue_1768(undefined4 param_1,undefined4 *param_2,und
 void __fastcall CArray_CopyElement_1750(undefined4 param_1,undefined4 *param_2,undefined4 *regEax);
 int HashStringNoCase(int regEdi);
 undefined4 __thiscall ConfigureAsyncSocket();
-void __thiscall CommEngineRecv();
-void CommEngineSend();
-void __fastcall FUN_004ff640(int *param_1,int regEbx);
+void __thiscall CommEngineRecv(int *param_1,int param_2,undefined4 *regEdi);
+void CommEngineSend(int param_1,int regEax,int regEbx);
+void __fastcall FUN_004ff640(int *param_1,int regEbx,int *regEax);
 void FUN_004ff690(undefined4 param_1,int regEax);
 void FUN_004ff6d0();
-void FUN_004ff720();
+void FUN_004ff720(int *regEax,int *regEdi);
 void FUN_004ff770();
 void FUN_004ffbe0();
 void FUN_004ffe80();

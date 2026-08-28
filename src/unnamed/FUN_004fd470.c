@@ -39,7 +39,12 @@ FUN_004fd470(int param_1,undefined4 param_2,undefined4 param_3,char *param_4,cha
     }
     CreateBoundSocket();
     if (*(char *)(param_1 + 0x1a70) == '\0') {
-      iVar2 = ResolveHostAddress(param_1 + 4,param_3);
+      /* DROPPED-REG FIX 2026-08-28: the hostname is this function's
+         param_2 - `mov eax,[esp+0x10]` at 0x4fd4f1, ONE push deep (the
+         pending push of param_3 at 0x4fd4f0), reaches entry+4; the same
+         textual [esp+0x10] one instruction earlier, at zero depth, is
+         param_3. The pending-push term is the whole difference. */
+      iVar2 = ResolveHostAddress(param_1 + 4,param_3,(char *)param_2);
       *(int *)(param_1 + 0x1a74) = iVar2;
       if (iVar2 == 0) {
         return 0;

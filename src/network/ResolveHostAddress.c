@@ -9,12 +9,12 @@
 #include "ghidra_types.h"
 
 
-undefined4 ResolveHostAddress(undefined4 param_1,undefined4 param_2)
+undefined4 ResolveHostAddress(undefined4 param_1,undefined4 param_2,char *regEax)
 
 {
   char **ppcVar1;
   char *pcVar2;
-  char *in_EAX;
+  char *in_EAX = regEax;
   ulong uVar3;
   hostent *phVar4;
   char **ppcVar5;
@@ -40,7 +40,11 @@ undefined4 ResolveHostAddress(undefined4 param_1,undefined4 param_2)
     uVar6 = FUN_00504e90();
     uVar3 = *(ulong *)phVar4->h_addr_list[uVar6 % uVar8];
   }
-  uVar7 = ConnectToHostPort(uVar3,param_2);
+  /* DROPPED-REG FIX 2026-08-28: the manager for ConnectToHostPort's EBX
+     is this function's own param_1 - `mov ebx,[esp+0x10]` at 0x4fdd79,
+     one pending push deep, is entry+4 - the parameter the body never
+     otherwise touches. */
+  uVar7 = ConnectToHostPort(uVar3,param_2,(int)param_1);
   return uVar7;
 }
 

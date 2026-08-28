@@ -29,7 +29,11 @@ void FUN_004fd230(undefined4 *param_1)
   s = *(SOCKET *)(param_1[0x69d] + 8);
   if (s == 0xffffffff) {
 LAB_004fd2a0:
-    FUN_004fe6a0();
+    /* DROPPED-REG FIX 2026-08-28: orig 0x4fd253 `lea ebx,[edi+4]` - the
+       vtable'd engine sub-object at param_1+4 whose vtable 0x5575b8 this
+       very constructor installs - and 0x4fd27e `mov esi,[edi+0x1a74]` =
+       param_1[0x69d], the node. */
+    FUN_004fe6a0(0,(int *)(param_1 + 1),(int *)param_1[0x69d]);
   }
   else {
     iVar1 = shutdown(s,2);
