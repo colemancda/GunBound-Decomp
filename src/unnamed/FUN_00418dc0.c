@@ -39,8 +39,12 @@ void FUN_00418dc0(int param_1)
   }
   SUBFIELD(local_4,0,undefined1) = 0x5d;
   _eh_vector_destructor_iterator_(&DAT_006aa630 + param_1,4,10,FUN_00405320);
-  FUN_00415560();
-  FUN_00415560();
+  /* DROPPED-REG FIX 2026-08-28: `lea eax,[edi+0x6aa44c]` at 0x418e76 and
+     `lea eax,[edi+0x6aa41c]` at 0x418e81 - ADDRESSES of two arena-offset
+     maps, with edi = param_1. Written numerically because 0x6aa41c has
+     only a #define in globals.h, not an extern to take the address of. */
+  FUN_00415560((int *)(param_1 + 0x6aa44c));
+  FUN_00415560((int *)(param_1 + 0x6aa41c));
   SUBFIELD(local_4,0,undefined1) = 0x5a;
   if (*(int *)(&DAT_006aa1f8 + param_1) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(&DAT_006aa1f8 + param_1),&g_valueGuardKeyTable);
