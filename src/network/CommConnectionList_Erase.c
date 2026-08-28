@@ -1,8 +1,19 @@
-/* FUN_004ff720 - 0x004ff720 in the original binary.
+/* CommConnectionList_Erase - 0x004ff720 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-08-28): the erase member of the comm engine's intrusive
+ * doubly-linked connection list (the RAW list at engine+4 = owner+8,
+ * per commit 1b842e4c's three agreeing witnesses, restated below).
+ * Unlink, destroy the node's payload, recycle the node onto the
+ * free list at +0x10, decrement the live count, full teardown via
+ * FUN_004ff6d0 when it reaches zero - erase-with-node-recycling.
+ * The three callers are ConnectToHostPort's failure arm and the two
+ * searching wrappers, now CommEngineCloseConnection (was FUN_004fe6a0)
+ * and CommEngineConnectComplete (was FUN_004ff640).
+ *
  *
  * DROPPED-REG FIX (2026-08-28): EAX is the RAW connection list - head at
  * +0, tail at +4, live count at +8, free-list head at +0x10 - and EDI
@@ -22,7 +33,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004ff720(int *regEax,int *regEdi)
+void CommConnectionList_Erase(int *regEax,int *regEdi)
 
 {
   int iVar1;

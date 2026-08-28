@@ -42,7 +42,7 @@ void CommEngineSend(int param_1,int regEax,int regEbx)
                (iVar4 = shutdown(*(SOCKET *)(unaff_EBX + 8),2), iVar4 != -1)) {
               return;
             }
-            FUN_004fe6a0(0,(int *)param_1,(int *)unaff_EBX);
+            CommEngineCloseConnection(0,(int *)param_1,(int *)unaff_EBX);
             return;
           }
           if (*(int *)(iVar4 + 0x1778) <= iVar3) break;
@@ -71,7 +71,7 @@ void CommEngineSend(int param_1,int regEax,int regEbx)
   }
   else if ((*(SOCKET *)(unaff_EBX + 8) == 0xffffffff) ||
           (iVar4 = shutdown(*(SOCKET *)(unaff_EBX + 8),2), iVar4 == -1)) {
-    FUN_004fe6a0(0,(int *)param_1,(int *)unaff_EBX);
+    CommEngineCloseConnection(0,(int *)param_1,(int *)unaff_EBX);
     return;
   }
   return;

@@ -21,11 +21,11 @@ void __fastcall FUN_00502890(undefined4 param_1,int regEsi)
      ((uint)(*(int *)(regEsi + 8) - iVar1 >> 3) < (uint)(*(int *)(regEsi + 0xc) - iVar1 >> 3))
      ) {
     iVar1 = *(int *)(regEsi + 8);
-    FUN_00504190(iVar1,param_1);
+    Vector_UninitFillN_8(iVar1,param_1);
     *(int *)(regEsi + 8) = iVar1 + 8;
     return;
   }
-  FUN_00503130(regEsi,*(undefined4 *)(regEsi + 8),1);
+  Vector_InsertN_8(regEsi,*(undefined4 *)(regEsi + 8),1);
   return;
 }
 

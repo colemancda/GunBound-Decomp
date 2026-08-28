@@ -375,7 +375,7 @@ LAB_0049ea8b:
           }
           break;
         }
-        cVar2 = FUN_00450e10(local_15c0,(int)(&DAT_006a7f88 + g_clientContext),local_15ac);
+        cVar2 = HitTestMobilesAndJewels(local_15c0,(int)(&DAT_006a7f88 + g_clientContext),local_15ac);
         if (cVar2 != '\0') {
           FUN_00458920(&local_15c4,&local_15c0,local_1598,local_1594,local_1590,local_1584,
                        local_1588,0,1,param_2);
@@ -639,7 +639,7 @@ LAB_0049f398:
           }
           break;
         }
-        cVar2 = FUN_00450e10(local_15ac,(int)(&DAT_006a7f88 + g_clientContext),local_15c4);
+        cVar2 = HitTestMobilesAndJewels(local_15ac,(int)(&DAT_006a7f88 + g_clientContext),local_15c4);
         if (cVar2 != '\0') {
           FUN_00458a00(&local_15c4,&local_15c0,local_1598,local_1594,local_1590,local_1584,
                        local_1588,0,1,param_2);

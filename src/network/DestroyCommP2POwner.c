@@ -1,13 +1,25 @@
-/* FUN_004fd230 - 0x004fd230 in the original binary.
+/* DestroyCommP2POwner - 0x004fd230 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-08-28): the destructor paired with ConstructCommP2POwner
+ * (0x4fd0f0) - it re-installs the exact four vtables that constructor
+ * stamps (0x5575c8 at +0, 0x5575b8 at +4, 0x5575ac at +0x2c, 0x5575a8
+ * at +0x2f4 = param_1[0xbd]), shuts down and erases the held
+ * connection node at +0x1a74 (param_1[0x69d], the node
+ * CommP2POwnerConnect stores), kills the timer, destroys the notify
+ * windows, frees the buffers, and runs the base teardowns. Its lone
+ * caller is FUN_004fd3c0, the ref-counted deleting wrapper in vtable
+ * 0x5575c8 slot 1 (`dec [this+0x1a6c]`, dtor + _free at zero). The
+ * composite's original class name is unknown; "CommP2POwner" is the
+ * tree's working handle - see ConstructCommP2POwner's header.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004fd230(undefined4 *param_1)
+void DestroyCommP2POwner(undefined4 *param_1)
 
 {
   SOCKET s;
@@ -33,7 +45,7 @@ LAB_004fd2a0:
        vtable'd engine sub-object at param_1+4 whose vtable 0x5575b8 this
        very constructor installs - and 0x4fd27e `mov esi,[edi+0x1a74]` =
        param_1[0x69d], the node. */
-    FUN_004fe6a0(0,(int *)(param_1 + 1),(int *)param_1[0x69d]);
+    CommEngineCloseConnection(0,(int *)(param_1 + 1),(int *)param_1[0x69d]);
   }
   else {
     iVar1 = shutdown(s,2);

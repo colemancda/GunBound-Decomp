@@ -21,7 +21,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
   undefined4 uVar9;
   char *pcStack_14; /* DROPPED-REG FIX 2026-08-28: the CString handle at
                        entry-0x14, in the sub-esp,8 hole; written only by
-                       the FUN_004055b0 call, read back as puVar5 */
+                       the AssignStringFromText call, read back as puVar5 */
   undefined4 uStack_c;
   undefined1 *puStack_8;
   undefined4 uStack_4;
@@ -63,7 +63,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
            and puVar5 the string itself. Both are now assigned here
            instead of the floating `puVar5 = puVar4 + 4` Ghidra hoisted
            to the top of the function. */
-        FUN_004055b0(0,(char *)(*(int *)(*(int *)(param_1 + 0xc) + uVar6 * 4) + 0x38),
+        AssignStringFromText(0,(char *)(*(int *)(*(int *)(param_1 + 0xc) + uVar6 * 4) + 0x38),
                      (int)&pcStack_14);
         puVar4 = (undefined4 *)(pcStack_14 + -0x10);
         puVar5 = (undefined4 *)pcStack_14;
@@ -91,7 +91,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
                * puVar4[1], read just above for the length-prefix byte.
                * (The "use-before-set puVar4" this note used to flag was
                * resolved 2026-08-28: puVar4 is the CString header base,
-               * assigned from the recovered FUN_004055b0 handle above.) */
+               * assigned from the recovered AssignStringFromText handle above.) */
               AppendPacketBytes(0,iVar2,(uint)puVar4[1],puVar5);
               EncodePacketBody(0,iVar2);
               SendOutgoingPacket(iVar2);

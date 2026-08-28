@@ -1,8 +1,21 @@
-/* FUN_00503110 - 0x00503110 in the original binary.
+/* Vector_DestroyRange_8 - 0x00503110 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-08-28): the destroy-[first,last) member of the 8-byte
+ * {CStringA, CStringA} vector family, joining the Vector_*_34 / _1e
+ * sets named 2026-08-25/28; suffix 8 = the element stride, per the
+ * family convention. In the VC7.1 <vector> this tree's Vector_* shapes
+ * come from, this is the member the library itself calls
+ * _Destroy(_First, _Last); DestroyRange spells that out the way
+ * UninitCopy spells _Ucopy. The destroy-everything sibling (sweep +
+ * free + null the base/end/cap trio, the library's _Tidy) is
+ * Vector_Tidy_8 at 0x502a90.
+ *
+ * (The note below predates the renames of 2026-08-28: FUN_00415890 is
+ * now CStringPair_Destroy, FUN_00503130 is Vector_InsertN_8.)
  *
  * DROPPED-REG FIX (2026-08-28): destroys the 8-byte {CStringA,CStringA}
  * elements in [regEax, regEdi) via FUN_00415890 - the destroy half of
@@ -23,14 +36,14 @@
 #include "ghidra_types.h"
 
 
-void FUN_00503110(int regEax,int regEdi)
+void Vector_DestroyRange_8(int regEax,int regEdi)
 
 {
   int in_EAX = regEax;
   int unaff_EDI = regEdi;
   
   for (; in_EAX != unaff_EDI; in_EAX = in_EAX + 8) {
-    FUN_00415890(in_EAX);
+    CStringPair_Destroy(in_EAX);
   }
   return;
 }

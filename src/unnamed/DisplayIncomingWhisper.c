@@ -1,9 +1,25 @@
-/* FUN_00402400 - 0x00402400 in the original binary.
+/* DisplayIncomingWhisper - 0x00402400 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-08-28, verb LIKELY): shows a private message received
+ * from a peer. Both ported callers are receive arms handing a sender
+ * name plus message text - DispatchDirectLinkPacket's opcode-0x1000
+ * arm and FUN_00402300 (the 0xa100 path). After the ignore-list check
+ * (FUN_004259d0 == -1 means not ignored) it formats
+ * "<sender>> <message>" - the separator DAT_00551e34/DAT_00551e36 is
+ * the literal bytes "> \0" in .data - appends that line to the rolling
+ * 0x180-byte chat backlog (FUN_00426120's ring at &DAT_006aa47c), and
+ * routes the raw text into the sender's CChatLogPanel: the panel
+ * looked up by PanelManager_FindByName is keyed 0x4e21 = 20001, which
+ * is BuildChatLogPanel's class - "the whisper/direct-message window"
+ * per docs/widgets.md - and the name it matches on is this function's
+ * own EBX = the SENDER (`mov ebx,eax` at 0x402416, read-only through
+ * both lookup sites at 0x402577/0x4025a4). When the panel does not
+ * exist yet, FUN_004025e0 builds the peer record and the panel
+ * (BuildChatLogPanel), and 0x505900 finally appends (text, len) to it.
  *
  * DROPPED-REG FIX (2026-08-28): EAX is the sender NAME string - handed
  * to FUN_004259d0 for the ignore-list check and strcpy'd into the
@@ -20,7 +36,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00402400(undefined4 param_1,char *param_2,uint param_3,char *regEax)
+void DisplayIncomingWhisper(undefined4 param_1,char *param_2,uint param_3,char *regEax)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not

@@ -1,8 +1,19 @@
-/* FUN_004fe6a0 - 0x004fe6a0 in the original binary.
+/* CommEngineCloseConnection - 0x004fe6a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-08-28): close one connection - fire the engine's notify
+ * virtual (vtable 0x5575b8 slot 2), verify the node is still on the
+ * engine's list, closesocket the SOCKET at node+8, and erase the node
+ * via CommConnectionList_Erase (was FUN_004ff720). Six call sites make
+ * it the engine's one shared close routine: CommEngineRecv's and
+ * CommEngineSend's error paths (three sites), the FD_CLOSE (0x20) arm
+ * of CommEngineNotifyWndProc, the failed-shutdown fallback in
+ * CommEngineShutdownConnection (was FUN_004fdda0), and the owner's
+ * destructor DestroyCommP2POwner (was FUN_004fd230).
+ *
  *
  * DROPPED-REG FIX (2026-08-28): EAX is the connection NODE to close and
  * erase - held in EDI for the whole body (`mov edi,eax` at 0x4fe6a2),
@@ -24,7 +35,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004fe6a0(undefined4 param_1,int *param_2,int *regEax)
+void __fastcall CommEngineCloseConnection(undefined4 param_1,int *param_2,int *regEax)
 
 {
   int *in_EAX = regEax;
@@ -42,7 +53,7 @@ void __fastcall FUN_004fe6a0(undefined4 param_1,int *param_2,int *regEax)
     if (in_EAX[2] != 0xffffffff) {
       closesocket(in_EAX[2]);
     }
-    FUN_004ff720(param_2 + 1,in_EAX);
+    CommConnectionList_Erase(param_2 + 1,in_EAX);
   }
   return;
 }

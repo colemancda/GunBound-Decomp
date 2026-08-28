@@ -75,14 +75,14 @@ LAB_004fe749:
     break;
   case 0x10:
     /* DROPPED-REG FIX 2026-08-28: the node, in EAX at every arm. */
-    FUN_004ff640((int *)LVar3,param_4 >> 0x10,(int *)puVar1);
+    CommEngineConnectComplete((int *)LVar3,param_4 >> 0x10,(int *)puVar1);
     return 0;
   case 0x20:
     /* DROPPED-REG FIX 2026-08-28: orig 0x4fe7b8 `mov edx,esi` (the
        engine) with the node still in EAX. ECX is STALE in the original
        on this arm - no write reaches it - so 0 is passed to match the
        other five sites rather than reproduce an uninitialised read. */
-    FUN_004fe6a0(0,(int *)LVar3,(int *)puVar1);
+    CommEngineCloseConnection(0,(int *)LVar3,(int *)puVar1);
     return 0;
   }
   return 0;

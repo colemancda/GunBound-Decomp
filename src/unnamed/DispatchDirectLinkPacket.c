@@ -58,7 +58,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
         /* DROPPED-REG FIX 2026-08-28: `mov eax,edi` at 0x403550 with EDI =
            this function's regEax name record, by the same dominance proof
            as the FUN_00404700 site. */
-        FUN_00402400(param_2,(char *)(param_1 + 8),(int)pcVar6 - (param_1 + 9),(char *)regEax);
+        DisplayIncomingWhisper(param_2,(char *)(param_1 + 8),(int)pcVar6 - (param_1 + 9),(char *)regEax);
         return;
       }
       if (uVar2 == 0) {

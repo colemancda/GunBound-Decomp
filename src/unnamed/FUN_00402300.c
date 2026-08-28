@@ -52,7 +52,7 @@ void __thiscall FUN_00402300(int param_1,int param_2,int regEax)
     /* DROPPED-REG FIX 2026-08-28: the name is this function's own local
        record - `lea eax,[esp+0x18]` at 0x40239a, three pending pushes
        deep, reaches the local_10 the copy above just filled. */
-    FUN_00402400(param_1,regEax + 0x20,param_2 + -0x20,(char *)&local_10);
+    DisplayIncomingWhisper(param_1,regEax + 0x20,param_2 + -0x20,(char *)&local_10);
   }
   return;
 }

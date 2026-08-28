@@ -288,8 +288,8 @@ void FUN_00436dc0(int a, int b, unsigned int c);
 void FUN_00436bd0(int a, int b, unsigned int c);
 void FUN_00436ec0(int a, int b);
 /* Point-vs-entities hit test; registry and x recovered 2026-08-28 - see
- * src/unnamed/FUN_00450e10.c. */
-char FUN_00450e10(int y, int registry, int x);
+ * src/unnamed/HitTestMobilesAndJewels.c. */
+char HitTestMobilesAndJewels(int y, int registry, int x);
 void FUN_00458920(int *outA, int *outB, int a, int b, int c, int slope, int accum, int f, int g, int steps);
 void FUN_00458a00(int *outA, int *outB, int a, int b, int c, int slope, int accum, int f, int g, int steps);
 void QueueBroadcastEvent(unsigned int event, int replayCtx);
@@ -1177,7 +1177,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 if (DAT_0079352a != '\0') { uVar11 = 0xf002; goto LAB_0045723e; }
                 goto LAB_00457294;
             }
-            cVar8 = FUN_00450e10(local_15b4, (int)(&DAT_006a7f88 + g_clientContext), local_15a4);
+            cVar8 = HitTestMobilesAndJewels(local_15b4, (int)(&DAT_006a7f88 + g_clientContext), local_15a4);
             if (cVar8 == '\0') {
                 local_158c = local_158c + stepDelta;
                 local_15a4 = iVar13 + local_1578;
@@ -1388,7 +1388,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                     }
                     break;
                 }
-                cVar8 = FUN_00450e10(local_15a4, (int)(&DAT_006a7f88 + g_clientContext), local_15b8);
+                cVar8 = HitTestMobilesAndJewels(local_15a4, (int)(&DAT_006a7f88 + g_clientContext), local_15b8);
                 if (cVar8 != '\0') {
                     FUN_00458a00(&local_15b8, &local_15b4, iVar12, local_158c, local_1590, local_1588, local_1594, 0, 1, stepDelta);
                     EnterCriticalSection(&g_valueGuardLock);

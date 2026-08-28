@@ -19,7 +19,7 @@
  * idiom - see src/network/AllocCipherSchedule.c).
  *
  * The sole call site is the CCommP2P owner's constructor at 0x4fd0f0
- * (ported as FUN_004fd0f0), which sets up EDI immediately before the
+ * (ported as ConstructCommP2POwner), which sets up EDI immediately before the
  * call:
  *   0x4fd107  mov ebp, dword ptr [esp + 0x18]   ; = param_1, the owner
  *   0x4fd11c  lea edi, [ebp + 0x2c]             ; the CCommP2P sub-object

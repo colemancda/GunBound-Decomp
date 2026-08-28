@@ -21,7 +21,7 @@
  *   0x4fdf1c  lea esi,[edi+0x210]   after `mov byte [edi+0x20c],bl`
  *             = `*(undefined1 *)(unaff_EDI + 0x83) = 0`
  *
- * FUN_004fd0f0's EBP is its param_1 (`mov ebp,[esp+0x18]` at 0x4fd107
+ * ConstructCommP2POwner's (was FUN_004fd0f0) EBP is its param_1 (`mov ebp,[esp+0x18]` at 0x4fd107
  * with the SEH triple plus ebx and ebp pushed, i.e. entry+4).
  *
  * NAMED (2026-08-28): this seeds a TT800 generator, and the evidence is

@@ -32,7 +32,7 @@
  * CAtlMap::PickSize, scanning atlcoll.h's own s_anPrimes table at
  * 0x557850. Against that field map the body is the member verbatim:
  *
- *   pNode->~CNode()                           thunk_FUN_00415890
+ *   pNode->~CNode()                           CStringPair_DestroyThunk
  *   pNode->m_pNext = m_pFree                  +8 takes [map+0x2c]
  *   m_pFree = pNode                           [map+0x2c] = node
  *   m_nElements--                             [map+4]
@@ -72,7 +72,7 @@ void StringMap_FreeNode_CString(int regEax,int regEdi)
   
   /* DROPPED-REG FIX 2026-08-28: the node's {CStringA,CStringA} pair is
      at its +0; ESI already holds the node (`mov esi,eax` at 0x4156d1). */
-  thunk_FUN_00415890(in_EAX);
+  CStringPair_DestroyThunk(in_EAX);
   *(undefined4 *)(in_EAX + 8) = *(undefined4 *)(unaff_EDI + 0x2c);
   uVar3 = *(int *)(unaff_EDI + 4) - 1;
   *(int *)(unaff_EDI + 0x2c) = in_EAX;

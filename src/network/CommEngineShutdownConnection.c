@@ -1,8 +1,16 @@
-/* FUN_004fdda0 - 0x004fdda0 in the original binary.
+/* CommEngineShutdownConnection - 0x004fdda0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-08-28): the graceful close - shutdown(sock, SD_BOTH) on
+ * the node's socket at +8, and only when the shutdown call itself
+ * fails outright does it fall back to the hard
+ * CommEngineCloseConnection (was FUN_004fe6a0). Named for the winsock
+ * call it wraps, in contrast to the closesocket-based Close. Two
+ * callers: CommEngineRecv's peer-closed path and FUN_00501770.
+ *
  *
  * DROPPED-REG FIX (2026-08-28): shuts down the node's socket and, when
  * the shutdown fails outright, erases the node. ESI is the NODE (its
@@ -18,7 +26,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004fdda0(int *param_1,int regEsi)
+undefined4 CommEngineShutdownConnection(int *param_1,int regEsi)
 
 {
   int iVar1;
@@ -28,7 +36,7 @@ undefined4 FUN_004fdda0(int *param_1,int regEsi)
      (iVar1 = shutdown(*(SOCKET *)(unaff_ESI + 8),2), iVar1 != -1)) {
     return 1;
   }
-  FUN_004fe6a0(0,param_1,(int *)unaff_ESI);
+  CommEngineCloseConnection(0,param_1,(int *)unaff_ESI);
   return 1;
 }
 

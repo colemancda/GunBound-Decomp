@@ -46,7 +46,7 @@ int ConnectToHostPort(undefined4 param_1,u_short param_2,int regEbx)
       /* DROPPED-REG FIX 2026-08-28: orig 0x4fe682 `lea eax,[ebx+4]` - the
          raw list at manager+4 - with the node (the ConfigureAsyncSocket
          result) still in EDI from 0x4fe64b. */
-      FUN_004ff720((int *)(unaff_EBX + 4),(int *)iVar1);
+      CommConnectionList_Erase((int *)(unaff_EBX + 4),(int *)iVar1);
       return 0;
     }
   }

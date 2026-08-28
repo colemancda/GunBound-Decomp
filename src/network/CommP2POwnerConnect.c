@@ -1,14 +1,27 @@
-/* FUN_004fd470 - 0x004fd470 in the original binary.
+/* CommP2POwnerConnect - 0x004fd470 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-08-28, verb LIKELY): the owner's connect entry point -
+ * virtual slot 3 of the main vtable 0x5575c8 (the pointer sits at
+ * .data 0x5575d4, per find_vtable_refs; it has no direct binary
+ * caller, which is why callsite_regs finds zero sites). It keys the
+ * two 0x284-byte cipher schedules at +0x1b20/+0x1da4 from the two
+ * string arguments via FUN_005051e0, creates the bound socket, and -
+ * unless the +0x1a70 flag routes the pre-bound arm through
+ * FUN_005024a0 instead - resolves and connects to (param_2 = hostname,
+ * param_3 = port) via ResolveHostAddress -> ConnectToHostPort, storing
+ * the connection node at +0x1a74, the same field DestroyCommP2POwner
+ * later shuts down. "Connect" describes the dominant arm; the
+ * +0x1a70 != 0 arm skips the outbound connect.
  */
 #include "ghidra_types.h"
 
 
 undefined4 __thiscall
-FUN_004fd470(int param_1,undefined4 param_2,undefined4 param_3,char *param_4,char *param_5)
+CommP2POwnerConnect(int param_1,undefined4 param_2,undefined4 param_3,char *param_4,char *param_5)
 
 {
   char cVar1;

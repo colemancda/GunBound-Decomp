@@ -152,7 +152,7 @@ undefined4 FUN_00439e40(int param_1)
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }
     cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x67e3cc));
-    if ((cVar2 != '\0') && (iVar4 = FUN_004f2f90(0,100001,(int)(&DAT_006a7f88 + g_clientContext)), iVar4 != 0)) {
+    if ((cVar2 != '\0') && (iVar4 = FindActiveObjectLayer(0,100001,(int)(&DAT_006a7f88 + g_clientContext)), iVar4 != 0)) {
       for (iVar3 = *(int *)(iVar4 + 0x10); iVar3 != iVar4; iVar3 = *(int *)(iVar3 + 0x10)) {
         if (*(char *)(g_clientContext + 0x45127) == '\x03') {
           uVar5 = 5;

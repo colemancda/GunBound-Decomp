@@ -24,7 +24,7 @@ void __thiscall CommEngineRecv(int *param_1,int param_2,undefined4 *regEdi)
   if (param_2 == 0) {
     iVar1 = recv(param_1[2],local_1770,6000,0);
     if (iVar1 == 0) {
-      FUN_004fe6a0(0,(int *)unaff_EDI,param_1);
+      CommEngineCloseConnection(0,(int *)unaff_EDI,param_1);
       return;
     }
     if (iVar1 != -1) {
@@ -46,7 +46,7 @@ void __thiscall CommEngineRecv(int *param_1,int param_2,undefined4 *regEdi)
           return;
         }
       }
-      FUN_004fdda0((int *)unaff_EDI,(int)param_1);
+      CommEngineShutdownConnection((int *)unaff_EDI,(int)param_1);
     }
   }
   return;

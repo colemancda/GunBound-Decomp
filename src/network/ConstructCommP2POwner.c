@@ -1,13 +1,29 @@
-/* FUN_004fd0f0 - 0x004fd0f0 in the original binary.
+/* ConstructCommP2POwner - 0x004fd0f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-08-28): the constructor of the 0x2028-byte comm owner
+ * object - "the CCommP2P owner", the term InitCommP2PNotifyWindow.c's
+ * header already uses for exactly this function. Its lone caller is
+ * the operator_new(0x2028) factory FUN_004fd090. It stamps the
+ * abstract-interface vtable 0x557610 (all sixteen slots are _purecall
+ * 0x525acd) and then the four concrete vtables its destructor
+ * re-installs in the same four slots - 0x5575c8 at +0, 0x5575b8 at +4
+ * (the connection-list engine CommEngineCloseConnection and friends
+ * receive), 0x5575ac at +0x2c (the CCommP2P sub-object, per the
+ * "CCommP2P<> Notify Window" class string its base ctor registers),
+ * 0x5575a8 at +0x2f4 - creates both notify windows, seeds two TT800
+ * PRNG states and builds two CAtlMaps. The composite's original class
+ * name is unknown; "CommP2POwner" is the tree's working handle for it.
+ * Destructor: DestroyCommP2POwner (0x4fd230); deleting wrapper with
+ * the +0x1a6c refcount: FUN_004fd3c0, vtable 0x5575c8 slot 1.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_004fd0f0(undefined4 *param_1,undefined4 param_2)
+undefined4 * ConstructCommP2POwner(undefined4 *param_1,undefined4 param_2)
 
 {
   undefined4 local_c;

@@ -1,13 +1,24 @@
-/* FUN_00503f30 - 0x00503f30 in the original binary.
+/* Vector_FillN_8 - 0x00503f30 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-08-28): the fill member of the 8-byte {CStringA,
+ * CStringA} pair vector - assign the value pair at *param_3 into every
+ * element of [param_1, param_2), stepping 8 (`param_1 + 2` on int*),
+ * with the copy-on-write CString assignment (refcount at -4, header
+ * compare, AssignStringBuffer fallback) applied to both members. Fills
+ * the same slot in Vector_InsertN_8's append-overlap and shift arms
+ * that Vector_FillN_34 fills in Vector_InsertN_34's; unlike the
+ * memcpy-shaped _34/_1e fills it is 209 bytes because the element's
+ * members are refcounted handles, not raw bytes. Both binary callers
+ * sit inside Vector_InsertN_8 (0x503323, 0x503378).
  */
 #include "ghidra_types.h"
 
 
-void FUN_00503f30(int *param_1,int *param_2,int *param_3)
+void Vector_FillN_8(int *param_1,int *param_2,int *param_3)
 
 {
   int *piVar1;

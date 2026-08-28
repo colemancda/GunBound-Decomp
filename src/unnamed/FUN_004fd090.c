@@ -24,7 +24,7 @@ undefined4 FUN_004fd090(undefined4 param_1)
   pvVar1 = operator_new(0x2028);
   local_4 = 0;
   if (pvVar1 != (void *)0x0) {
-    uVar2 = FUN_004fd0f0(pvVar1,param_1);
+    uVar2 = ConstructCommP2POwner(pvVar1,param_1);
     *unaff_FS_OFFSET = local_c;
     return uVar2;
   }

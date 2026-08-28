@@ -1,9 +1,19 @@
-/* FUN_004f2f90 - 0x004f2f90 in the original binary.
+/* FindActiveObjectLayer - 0x004f2f90 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-08-28): the class-id lookup on the active-object layer
+ * registry - walk the key-ascending layer ring and return the layer
+ * node for the CLASS ID, or 0 once the keys pass it. The container
+ * shape is the one src/cxx/ActiveObjects.h pins and the registry memo
+ * documents; the sibling walks are already named CreateActiveObjectLayer
+ * (0x4f2f00, immediately preceding this in the binary - the insert
+ * half) and FindActiveObjectByIndex (0x401c10, the ordinal enumeration
+ * across all layers). Callers ask it for 100001 (the player mobiles)
+ * and 0x186a6 = 100006 (the jewels) - see HitTestMobilesAndJewels and
+ * FUN_00439e40.
  *
  * DROPPED-REG FIX (2026-08-28): EAX is the active-object layer REGISTRY
  * (the sentinel-list container at &DAT_006a7f88 + g_clientContext whose
@@ -19,7 +29,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_004f2f90(undefined4 param_1,uint param_2,int regEax)
+int __fastcall FindActiveObjectLayer(undefined4 param_1,uint param_2,int regEax)
 
 {
   int iVar1;

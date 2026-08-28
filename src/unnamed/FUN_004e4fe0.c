@@ -56,7 +56,7 @@ FUN_004e4fe0(int param_1,int param_2,int *param_3,int *param_4,int param_5,char 
                 (*(char *)(*(int *)(&g_nCameraBoundX + iVar5) * in_EAX +
                            *(int *)(&DAT_006a773c + iVar5) + param_1) != '\0')))) ||
            ((param_7 != '\0' &&
-            (cVar2 = FUN_00450e10(in_EAX,(int)(&DAT_006a7f88 + g_clientContext),param_1),
+            (cVar2 = HitTestMobilesAndJewels(in_EAX,(int)(&DAT_006a7f88 + g_clientContext),param_1),
             iVar5 = g_clientContext, cVar2 != '\0'))
            )) {
 LAB_004e51d2:
@@ -82,7 +82,7 @@ LAB_004e51d2:
               (*(char *)(*(int *)(&g_nCameraBoundX + iVar8) * in_EAX + *(int *)(&DAT_006a773c + iVar8)
                         + param_1) != '\0')))))) ||
            ((param_7 != '\0' &&
-            (cVar2 = FUN_00450e10(in_EAX,(int)(&DAT_006a7f88 + g_clientContext),param_1),
+            (cVar2 = HitTestMobilesAndJewels(in_EAX,(int)(&DAT_006a7f88 + g_clientContext),param_1),
             iVar8 = g_clientContext, cVar2 != '\0'))
            )) goto LAB_004e51d2;
         iVar7 = iVar7 + iVar6;

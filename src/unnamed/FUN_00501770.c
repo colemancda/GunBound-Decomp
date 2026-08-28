@@ -242,8 +242,8 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
                    `lea edi,[esp+0x18]` then `lea edx,[esp+0x228]` /
                    `lea edi,[esp+0x1c]`, all four resolved through this
                    function's established frame key. */
-                FUN_004055b0(0,(char *)auStack_4868,(int)&local_4978);
-                FUN_004055b0(0,(char *)abStack_4768,(int)&iStack_4974);
+                AssignStringFromText(0,(char *)auStack_4868,(int)&local_4978);
+                AssignStringFromText(0,(char *)abStack_4768,(int)&iStack_4974);
                 FUN_00502890((undefined4)&local_4978,(int)local_4958);
                 local_4984 = local_4984 - 1;
               } while (local_4984 != 0);
@@ -270,13 +270,13 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
           if (iVar7 == 1 || iVar7 + -1 < 0) {
             (**(code **)(**(int **)(local_4978 - 0x10) + 4))((undefined4 *)(local_4978 - 0x10));
           }
-          FUN_00502a90((int)local_4958);
+          Vector_Tidy_8((int)local_4958);
         }
       }
       else if ((uVar6 == 0x1fff) && (param_3 == 2)) {
         /* DROPPED-REG FIX 2026-08-28: the node, `mov esi,[edi+0x1780]` at
            0x501d0d with edi = param_1. */
-        FUN_004fdda0((int *)(param_1 + -0x2f0),*(int *)(param_1 + 0x1780));
+        CommEngineShutdownConnection((int *)(param_1 + -0x2f0),*(int *)(param_1 + 0x1780));
         (**(code **)(**(int **)(param_1 + 0x17bc) + 8))(*puVar1);
       }
       goto LAB_00502483;
