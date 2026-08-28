@@ -507,7 +507,7 @@ LAB_004606d5:
     sVar13 = PeekChecksumStateUnderLock(piVar19);
     *(short *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = sVar12 * sVar13;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-    cVar9 = FUN_0045ec30();
+    cVar9 = FUN_0045ec30((int)param_1);
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = cVar9 != '\0';
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     cVar9 = PacketChecksumEquals(piVar20,0);
@@ -665,7 +665,7 @@ LAB_004606d5:
         uVar11 = PeekChecksumStateUnderLock(piVar19);
         *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-        cVar9 = FUN_0045ec30();
+        cVar9 = FUN_0045ec30((int)param_1);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = cVar9 != '\0';
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         cVar9 = PacketChecksumEquals(piVar20,0);

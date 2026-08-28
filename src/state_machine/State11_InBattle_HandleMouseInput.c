@@ -833,7 +833,7 @@ LAB_004bafd2:
   uVar7 = PeekChecksumStateUnderLock(*(int *)(iVar13 + 0x621e0) + 0x7864);
   *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-  cVar4 = FUN_0045ec30();
+  cVar4 = FUN_0045ec30(*(int *)(g_clientContext + 0x621e0));
   iVar13 = g_clientContext;
   (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = cVar4 != '\0';
   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;

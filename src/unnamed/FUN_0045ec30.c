@@ -10,15 +10,35 @@
  * goto-free zip).  All four hang off the live-in EAX object, which the
  * decompile already models as in_EAX and whose +0x4948/+0x292c cells
  * the existing CompareChecksumAtMost calls use.
+ *
+ * DROPPED-REG FIX (2026-08-28): that live-in EAX is now a real
+ * parameter. It is the local player's MOBILE: every guard cell in the
+ * function is an offset from it (+0x292c / +0x2708 / +0x2d74 / +0x2b50
+ * and the +0x3604 / +0x33e0 / +0x3a4c / +0x3828 twin set, all compared
+ * against +0x4948), the same object layout ComputeTurnDelay's EAX walks.
+ *
+ * Three binary sites, five source sites - the two extra are the C++ twin
+ * CMobile::HandleFireInput in src/cxx/Mobile.cpp, which duplicates
+ * State11_InBattle_HandleFireInput statement for statement and carries
+ * its own file-local extern. In the binary the twins are one function,
+ * which is why callsite_regs.py reports three.
+ *
+ * Both HandleFireInput sites pass EBP, and EBP is that function's
+ * `this`: `mov ebp,ecx` at 0x45f93e is its only write to EBP anywhere in
+ * 0x45f910..0x460fc4, and the function is __fastcall with param_1 in
+ * ECX. State11_InBattle_HandleMouseInput passes
+ * *(int *)(g_clientContext + 0x621e0) - `mov edx,[0x5b3484] / mov
+ * eax,[edx+0x621e0]` at 0x4bb0ec - the same local-player mobile reached
+ * another way.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_0045ec30(void)
+undefined4 FUN_0045ec30(int regEax)
 
 {
   char cVar1;
-  int in_EAX;
+  int in_EAX = regEax;
   int iVar2;
   int iVar3;
   

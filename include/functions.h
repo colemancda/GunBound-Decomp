@@ -743,7 +743,7 @@ int CommitTurnDelay(int param_1,int regEax);
 uint FUN_0045d640();
 int FUN_0045d692();
 void FUN_0045ea40();
-undefined4 FUN_0045ec30();
+undefined4 FUN_0045ec30(int regEax);
 void __fastcall UpdateMobileEmotionState();
 int FUN_0045f300();
 undefined4 __fastcall FUN_0045f5d0();
