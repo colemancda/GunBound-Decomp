@@ -68,6 +68,7 @@ void BeginNewTurn(int *param_1,undefined2 *param_2)
   undefined4 uVar6;
   int iVar7;
   int iVar8;
+  int local_90 [4];
   char local_80 [128];
   
   param_1[0x428] = in_EAX & 0xff;
@@ -79,10 +80,18 @@ void BeginNewTurn(int *param_1,undefined2 *param_2)
   iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar4 == 0) {
+    /* dropped-register recovery: MSVC materialises this 4-entry table in
+       the frame at 0x004d0aa8-0x004d0ac0 and indexes it with the peek
+       result at 0x004d0ae5 (`mov esi,[esp+esi*4+0x18]`); Ghidra dropped
+       both the table and the peek's return value. */
+    local_90[0] = 1;
+    local_90[1] = 3;
+    local_90[2] = 2;
+    local_90[3] = 4;
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
+    iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00438360();
+    FUN_00438360(local_90[iVar5]);
   }
   if (*(char *)(g_clientContext + 0x45127) != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

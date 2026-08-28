@@ -566,7 +566,7 @@ void __fastcall FUN_00437ae0();
 void SpawnLaserIon();
 void SpawnKnightIon();
 void FUN_004382d0();
-void FUN_00438360();
+void FUN_00438360(int regEsi);
 void SpawnJewel();
 void SpawnShot_Type13();
 uint SpawnCraterDebris();

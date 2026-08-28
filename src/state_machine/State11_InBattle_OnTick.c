@@ -1532,7 +1532,7 @@ LAB_004c08c8:
             pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,0x273);
             _sprintf(acStack_3b3c,pcVar9,iVar6,uVar7);
             (**(code **)(*unaff_EBX + 0x28))(acStack_3b3c,4,3);
-            FUN_00438360();
+            FUN_00438360(6);
             pcVar16 = (code *)EnterCriticalSection;
           }
         }
