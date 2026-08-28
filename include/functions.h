@@ -1281,7 +1281,7 @@ void __fastcall QueueTextureRowSpan();
 undefined4 __fastcall QueueTextureRegionSpans();
 void BuildSpriteQuad(int param_1,int param_2,int regEax);
 void __thiscall FUN_004ec120(int param_1,int param_2,int param_3,int param_4,int regEax);
-void __thiscall FUN_004ec430();
+void __thiscall FUN_004ec430(int param_1,int param_2,int param_3,int param_4,uint param_5,int regEax);
 void __thiscall FUN_004ec610();
 void __fastcall FUN_004ec840(int param_1,int param_2,int param_3,int param_4,int param_5,int regEax);
 void __thiscall BuildScaledSpriteQuad(int param_1,int param_2,int param_3,char param_4,byte param_5,uint param_6,int regEax);
