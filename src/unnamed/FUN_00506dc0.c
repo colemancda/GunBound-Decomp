@@ -27,7 +27,13 @@ void __fastcall FUN_00506dc0(int param_1)
 
 {
   Widget_DrawSelf(param_1);
-  DrawFontString(*(int *)(param_1 + 0x2c) + 0x10,0);
+  /* RE-SLOT + dropped EAX (objdump @0x506dc9-0x506de0): x/ECX =
+   * `mov ecx,[esi+0x28] / add ecx,0x18`, y = `mov eax,[esi+0x2c] / add
+   * eax,0x10` (pushed), colour = 0, string = EAX = edi = param_1 + 0x90
+   * (`lea edi,[esi+0x90]`) - exactly the values this file's own header
+   * already traced for the BlitRLESprite on the next line. */
+  DrawFontString(*(int *)(param_1 + 0x28) + 0x18,*(int *)(param_1 + 0x2c) + 0x10,0,
+                 (char *)(param_1 + 0x90));
   BlitRLESprite(*(int *)(param_1 + 0x28) + 0x18,*(int *)(param_1 + 0x2c) + 0x10,0xffff,
                 (byte *)(param_1 + 0x90));
   return;

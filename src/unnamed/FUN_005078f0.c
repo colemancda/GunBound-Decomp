@@ -191,7 +191,10 @@ LAB_00507af6:
    * Both draw at the bare cursor (no advance yet). DrawFontString's own EAX
    * (the same pcVar6 string) stays dropped - the port's 3-arg __thiscall
    * signature has no such parameter, and it is a deliberate no-op today. */
-  DrawFontString(xCursor,iVar8,local_c);
+  /* Dropped EAX (objdump @0x507b12): `mov eax,ebp` with ebp = pcVar6 -
+   * the same string the BlitRLESprite on the next line blits.  The three
+   * declared args were already recovered by this file's 2026-07-27 pass. */
+  DrawFontString(xCursor,iVar8,local_c,pcVar6);
   BlitRLESprite(xCursor,iVar8,iVar10,(byte *)pcVar6);
   pcStart = pcVar6;
   do {
@@ -240,7 +243,11 @@ LAB_00507af6:
      * push ebx / add ecx,ebp` -> the glyph pass at the same x with color
      * local_14. rleData = pcVar6 via the spill `mov [esp+0x20],eax` at
      * 0x507b67, reloaded as `mov eax,[esp+0x24]` at 0x507b79. */
-    DrawFontString(xCursor + xAdvance,iVar8,iVar10);
+    /* Dropped EAX (objdump @0x507b5f-0x507b6b): EAX = pcVar6, spilled to
+     * [esp+0x20] at 0x507b67 and reloaded as [esp+0x24] at 0x507b79 for
+     * the BlitRLESprite below - so both take the same unadvanced string.
+     * The spill does not clobber EAX, which still holds it at the call. */
+    DrawFontString(xCursor + xAdvance,iVar8,iVar10,pcVar6);
     BlitRLESprite(xCursor + xAdvance,iVar8,local_14,(byte *)pcVar6);
     pcStart = pcVar6;
     do {
@@ -253,7 +260,13 @@ LAB_00507af6:
      * push edi / push ebx / mov ecx,ebp` -> x = xCursor + xAdvance. (EAX here
      * is the same per-row field the merge call below draws - dropped, since
      * DrawFontString's port has no string parameter.) */
-    DrawFontString(xCursor + xAdvance,iVar8,iVar10);
+    /* Dropped EAX (objdump @0x507baa-0x507bbd): `shl esi,7 / lea
+     * esi,[esi+ecx+0x3c53c] / mov eax,esi` - the per-row 128-byte-strided
+     * field, the same pointer the merge BlitRLESprite below draws (this
+     * file's own note already says EAX here IS that field).  `shl esi,7`
+     * is why the row index has to come from iVar9RowIndex. */
+    DrawFontString(xCursor + xAdvance,iVar8,iVar10,
+                   (char *)(g_clientContext + 0x3c53c + (iVar9RowIndex << 7)));
     iVar9 = local_14;
   }
   /* Merge point, orig 0x507c37: `mov ecx,ebp / mov eax,esi / push ebx` with the

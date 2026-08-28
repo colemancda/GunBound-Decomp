@@ -194,7 +194,12 @@ code_r0x00442607:
     cVar3 = *pcVar7;
     pcVar7 = pcVar7 + 1;
   } while (cVar3 != '\0');
-  DrawFontString(0x27,0);
+  /* RE-SLOT + dropped EAX (objdump @0x442607-0x442631): x/ECX =
+   * `mov ecx,0x2fc / sub ecx,edx` with edx = strlen(name)*6 - the same
+   * right-justified cursor the BlitRLESprite below rebuilds; y = 0x27;
+   * colour = edi = 0; string = EAX = esi = iStack_a4 + 8. */
+  DrawFontString(0x2fc - ((int)pcVar7 - (int)(iStack_a4 + 8) - 1) * 6,0x27,0,
+                 (char *)(iStack_a4 + 8));
   do {
     cVar3 = *pcVar8;
     pcVar8 = pcVar8 + 1;
@@ -487,9 +492,18 @@ LAB_00442790:
     cVar3 = *pcVar8;
     pcVar8 = pcVar8 + 1;
   } while (cVar3 != '\0');
-  DrawFontString(*piVar17 + 5,
-               -(uint)(*(char *)(g_clientContext + 0x4590c + iStack_b0) !=
-                      *(char *)(g_clientContext + 0x3b6c0)) & 0xfae8);
+  /* RE-SLOT + dropped EAX (objdump @0x4427b3-0x4427e9): x/ECX = esi =
+   * `mov esi,[ebx-0x20] / sub esi,eax / add esi,0x1a` = piVar17[-8] -
+   * strlen(name)*3 + 0x1a, held in ESI across this call and the
+   * BlitRLESprite below (which the C already spells out); y = eax =
+   * *piVar17 + 5; colour = edx, the 0xfae8 mask; string = EAX = ebp, the
+   * name pointer the loop just above walked. */
+  DrawFontString(piVar17[-8] -
+                   ((int)pcVar8 - (int)(iStack_ac + 0x457f1 + g_clientContext) - 1) * 3 + 0x1a,
+                 *piVar17 + 5,
+                 -(uint)(*(char *)(g_clientContext + 0x4590c + iStack_b0) !=
+                        *(char *)(g_clientContext + 0x3b6c0)) & 0xfae8,
+                 (char *)(iStack_ac + 0x457f1 + g_clientContext));
   /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the raw
    * port - objdump at this call site (0x4427fd) shows EAX = the same
    * (iStack_ac+0x457f1+g_clientContext) name string re-walked just above,

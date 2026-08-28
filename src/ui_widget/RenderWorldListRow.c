@@ -98,7 +98,14 @@ void __fastcall RenderWorldListRow(int param_1, uint in_EAX)
     cVar3 = *pcVar7;
     pcVar7 = pcVar7 + 1;
   } while (cVar3 != '\0');
-  DrawFontString(iVar2 + 9,0);
+  /* RE-SLOT + dropped EAX (objdump @0x50dd9f-0x50ddc3): x/ECX =
+   * `lea ecx,[ebp+eax*8+0x11]` = iVar1 + strlen(local_80)*8 + 0x11, the
+   * same cursor the BlitRLESprite below rebuilds; y = ebx = [esp+0x14]+9
+   * = iVar2 + 9; colour = 0; string = EAX = esi = `shl ecx,7 / lea
+   * esi,[ecx+edx+0x3f84a]` = the per-row world NAME field that call also
+   * blits - NOT local_80, which only sizes the cursor advance. */
+  DrawFontString(iVar1 + ((int)pcVar7 - (int)(local_80 + 1)) * 8 + 0x11,iVar2 + 9,0,
+                 (char *)(g_clientContext + 0x3f84a + in_EAX * 0x80));
   pcVar7 = local_80;
   do {
     cVar3 = *pcVar7;

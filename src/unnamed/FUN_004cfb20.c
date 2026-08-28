@@ -24,7 +24,13 @@ void FUN_004cfb20(int regEsi)
   if (*(int *)(regEsi + 0x10cc) != -1) {
     iVar4 = 0x183;
   }
-  DrawFontString(iVar4,0);
+  /* RE-SLOT + dropped EAX (objdump @0x4cfb3c-0x4cfb5b): x/ECX = 0x21d,
+   * y = edi = iVar4, colour = 0, string = EAX =
+   * `imul eax,[esi+0x10c4],0xd / lea eax,[eax+ebx+0x457f1]` with ebx the
+   * g_clientContext snapshot loaded at 0x4cfb46 - i.e. the pointer the C
+   * assigns to pcVar2 two lines below.  The `push edi`/`push ebx` at
+   * 0x4cfb2f/0x4cfb45 are register saves, not arguments. */
+  DrawFontString(0x21d,iVar4,0,(char *)(*(int *)(regEsi + 0x10c4) * 0xd + 0x457f1 + iVar6));
   /* BlitRLESprite's dropped args (0x4cfb7b): objdump shows ECX=0x21d
    * (param_1) and EAX loaded right before the call with the same
    * pointer expression the C computes below into pcVar2

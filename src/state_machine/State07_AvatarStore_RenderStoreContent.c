@@ -497,7 +497,11 @@ LAB_00448b87:
       }
     }
 LAB_00448c0f:
-    DrawFontString(0x104,0xec,0);
+    /* Dropped EAX (objdump @0x448c0f-0x448c1c): `lea esi,[edi+0x32c5c] /
+     * mov eax,esi` - the same string the BlitRLESprite on the next line
+     * already carries as rleData.  The three declared args were already
+     * correct here (ECX=0x104 was an immediate Ghidra could resolve). */
+    DrawFontString(0x104,0xec,0,(char *)(param_1 + 0x32c5c));
     BlitRLESprite(0x104,0xec,0xffff,(byte *)(param_1 + 0x32c5c));
     uVar9 = *(uint *)(param_1 + 0x32cdc);
     if (g_screenSurface != 0) {
@@ -577,7 +581,11 @@ LAB_00448e23:
       }
     }
 LAB_00448ea7:
-    DrawFontString(0x104,0xec,0);
+    /* Dropped EAX (objdump @0x448ea7-0x448eb4): `lea esi,[edi+0x32e6c] /
+     * mov eax,esi` - the same string the BlitRLESprite on the next line
+     * already carries as rleData.  The three declared args were already
+     * correct here. */
+    DrawFontString(0x104,0xec,0,(char *)(param_1 + 0x32e6c));
     BlitRLESprite(0x104,0xec,0xffff,(byte *)(param_1 + 0x32e6c));
     BlitRLESprite(0x129,0x104,0xffff,(byte *)(param_1 + 0x32ef0));
     uVar9 = *(uint *)(param_1 + 0x32eec);

@@ -132,9 +132,18 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
           cVar6 = *pcVar5;
           pcVar5 = pcVar5 + 1;
         } while (cVar6 != '\0');
-        DrawFontString(*piVar8 + 5,
-                     -(uint)(*(char *)(g_clientContext + 0x4590c + iStack_8c) !=
-                            *(char *)(g_clientContext + 0x3b6c0)) & 0xfae8);
+        /* RE-SLOT + dropped EAX (objdump @0x4d9e7b-0x4d9eb2): x/ECX = esi
+         * = `mov esi,[ebx-0x20] / sub esi,eax / add esi,0x1a` = piVar8[-8]
+         * - strlen(name)*3 + 0x1a (eax holds strlen*3 after the `sar
+         * eax,1` at 0x4d9e8c); y = ecx = *piVar8 + 5; colour = eax, the
+         * 0xfae8 mask; string = EAX = ebp = iStack_88 + 0x457f1 +
+         * g_clientContext.  Identical shape to the twin in
+         * State10_Loading_Render.c at 0x4427e9. */
+        DrawFontString(iVar7 - ((int)pcVar5 - (int)(iStack_88 + 0x457f1 + g_clientContext) - 1) * 3
+                       + 0x1a,*piVar8 + 5,
+                       -(uint)(*(char *)(g_clientContext + 0x4590c + iStack_8c) !=
+                              *(char *)(g_clientContext + 0x3b6c0)) & 0xfae8,
+                       (char *)(iStack_88 + 0x457f1 + g_clientContext));
         /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the
          * raw port - objdump at this call site (0x4d9ec6/0x4d9ec2) shows
          * ECX = iVar7 + 0x1a (the same x-cursor value just used for

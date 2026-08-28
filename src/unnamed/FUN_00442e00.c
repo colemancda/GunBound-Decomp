@@ -73,7 +73,12 @@ void FUN_00442e00(uint regEax)
       BlitSpriteClipped(uVar3);
     }
   }
-  DrawFontString(iVar7 + 1,0x1f);
+  /* RE-SLOT + dropped EAX (objdump @0x442ffa-0x443011): x/ECX = 0x2a1,
+   * y = ebx = iVar7 + 1, colour = 0x1f, string = EAX = esi =
+   * `lea edx,[ebx+edi*8] / lea esi,[edi+edx+0x5012e]` =
+   * g_clientContext + unaff_EDI*9 + 0x5012e - the same ECX/EBX/ESI trio
+   * the BlitRLESprite five instructions later reuses unchanged. */
+  DrawFontString(0x2a1,iVar7 + 1,0x1f,(char *)(g_clientContext + 0x5012e + unaff_EDI * 9));
   /* BlitRLESprite's 4th arg (rleData) was dropped as `regEax` in the raw
    * port - objdump at this call site (0x44301c) shows ECX=0x2a1 (this)
    * and EAX = g_clientContext + unaff_EDI*9 + 0x5012e, the same per-slot

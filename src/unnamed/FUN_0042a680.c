@@ -243,14 +243,19 @@ void FUN_0042a680(int param_1)
        *          -> param_1+0x1b8+13*iVar7 (feeds BlitRLESprite @0x42ab5d).
        * The previous note calling this second cursor unresolvable was wrong -
        * the stride is a flat 0xd, not the previous iteration's iVar4+0x1c.
-       * DrawFontString's own dropped EAX (the same param_1+0x220 string as the
-       * BlitRLESprite below it) stays dropped: the port's 3-arg __thiscall
-       * signature has no rleData parameter yet - see src/rendering/
-       * DrawFontString.c, which is currently a deliberate no-op anyway. Only
-       * its ECX `this` (the x) is recovered here. */
+       * DrawFontString's own dropped EAX is the same param_1+0x220 string as
+       * the BlitRLESprite below it. It was left dropped when this note was
+       * written because the port's 3-arg __thiscall signature had nowhere to
+       * put it; DrawFontString has since grown a trailing regEax parameter,
+       * and the line below now passes it. */
       iVar4 = (iVar7 / 2) * 0x1f + 0x3d + iVar6 + 0x3a;
       iVar5 = (iVar7 % 2) * 0x6a + iVar9 + 0x21;
-      DrawFontString(iVar5,iVar4 + -1,0x1f);
+      /* Dropped EAX (objdump @0x42ab31): `mov eax,ebx` - the
+       * param_1+0x220+9*iVar7 cursor the note above already identifies as
+       * feeding both this call and the BlitRLESprite on the next line.
+       * The three declared args were already correctly slotted here
+       * (ECX=edi was resolved by the 2026-07-21 pass). */
+      DrawFontString(iVar5,iVar4 + -1,0x1f,(char *)(param_1 + 0x220 + iVar7 * 9));
       BlitRLESprite(iVar5,iVar4 + -1,0xffff,(byte *)(param_1 + 0x220 + iVar7 * 9));
       BlitRLESprite(iVar5,iVar4 + 0xf,0xffff,(byte *)(param_1 + 0x1b8 + iVar7 * 0xd));
       iVar7 = iVar7 + 1;

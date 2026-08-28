@@ -1265,7 +1265,7 @@ void FUN_004eaeb0(int param_1,int param_2,byte *param_3,int regEax);
 void __thiscall BlitFontGlyphClipped();
 void __thiscall DrawWideGlyph();
 void DrawNarrowGlyph(int param_1,int param_2,int param_3,byte *regEax);
-void __thiscall DrawFontString();
+void __thiscall DrawFontString(int param_1,undefined4 param_2,undefined4 param_3,char *regEax);
 void __fastcall DrawHLine();
 void __fastcall DrawBlendedHLine(undefined4 param_1,int param_2,int param_3,int regEax,int regEdi);
 void __fastcall DrawVLine();

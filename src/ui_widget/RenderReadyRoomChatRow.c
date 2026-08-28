@@ -131,7 +131,11 @@ LAB_0050d3e9:
         local_1c = 0xffff;
       }
       pcVar6 = (char *)(iVar10 * 9 + 0x3b984 + g_clientContext);
-      DrawFontString(iVar7,local_14);
+      /* RE-SLOT + dropped EAX (objdump @0x50d3f1-0x50d407): x/ECX =
+       * [esp+0x14] = iVar11, the same slot the BlitRLESprite below
+       * reloads for its own this; y = ebx = iVar7; colour = edx =
+       * [esp+0x18] = local_14; string = EAX = esi = pcVar6. */
+      DrawFontString(iVar11,iVar7,local_14,pcVar6);
       /* BlitRLESprite's dropped args (confirmed via objdump at this call
        * site, 0x50d414): ECX (this) = iVar11 (the icon-derived x-cursor
        * recovered above); EAX (rleData) = pcVar6, the sender-name buffer
@@ -181,7 +185,12 @@ LAB_0050d3e9:
       }
       else {
         pcVar6 = (char *)(g_clientContext + (iVar10 * 5 + 0xef42) * 4);
-        DrawFontString(iVar7,iVar8);
+        /* RE-SLOT + dropped EAX (objdump @0x50d445-0x50d45c): x/ECX =
+         * `lea ecx,[esi+edx]` = iVar11 + name-width*6, the same value the
+         * BlitRLESprite below builds as `add ecx,esi`; y = ebx = iVar7;
+         * colour = ebp = iVar8; string = EAX = pcVar6, spilled to
+         * [esp+0x20] at 0x50d458 so that same call can reload it. */
+        DrawFontString(iVar11 + ((int)pcVar14 - (int)(pcVar12 + 1)) * 6,iVar7,iVar8,pcVar6);
         /* BlitRLESprite's dropped args (0x50d471): ECX (this) =
          * iVar11 + name-strlen*6 (same x-cursor formula as the if-branch
          * above, no +1 here); EAX (rleData) = pcVar6, the message-color
@@ -192,7 +201,23 @@ LAB_0050d3e9:
           cVar1 = *pcVar6;
           pcVar6 = pcVar6 + 1;
         } while (cVar1 != '\0');
-        DrawFontString(iVar7,iVar8);
+        /* RE-SLOT + dropped EAX (objdump @0x50d489-0x50d4ac): x/ECX = edi,
+         * and it is the RUNNING advance, not this field's width alone.
+         * ESI still holds the NAME's pixel width (strlen(name)*6, built
+         * `lea esi,[eax+eax*2]` @0x50d42a / `shl esi,1` @0x50d439 and
+         * never rewritten in this branch), so `lea edx,[eax+eax*2]` /
+         * `lea eax,[esi+edx*2]` (0x50d48f/0x50d492) adds this colour
+         * field's own strlen*6 ON TOP of it, and `lea edi,[eax+edx]`
+         * (0x50d4a3, edx = [esp+0x14] = iVar11) adds the row cursor:
+         * x = iVar11 + name*6 + field*6.  y = ebx = iVar7; colour = ebp =
+         * iVar8; string = EAX = esi' = `shl edi,7 / lea esi,[edi+ecx+
+         * 0x3c53c]` (0x50d499/0x50d49c) = the per-row message text field.
+         * The shared BlitRLESprite at 0x50d52a takes ECX from this same,
+         * unmodified edi, but its committed expression drops the name
+         * term - a pre-existing defect in that line, not copied here. */
+        DrawFontString(iVar11 + ((int)pcVar14 - (int)(iVar13 * 9 + 0x3b984 + g_clientContext) - 1) *
+                       6 + ((int)pcVar6 - (int)(pcVar12 + 1)) * 6,iVar7,iVar8,
+                       (char *)(g_clientContext + iVar13 * 0x80 + 0x3c53c));
         iVar10 = local_1c;
       }
       /* BlitRLESprite's dropped args (0x50d52a, shared by both branches

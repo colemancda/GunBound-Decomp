@@ -111,18 +111,31 @@ LAB_0044a1b2:
     }
   }
   local_104 = param_2 * 0x17e4 + param_1;
-  DrawFontString();
+  /* ALL FOUR ARGS RECOVERED (objdump @0x44a1be-0x44a1f0): x/ECX = ebx =
+   * ebp + 0x18.  EBP is Ghidra's iVar4 PLUS the 0x15 it dropped from
+   * `imul edx,edx,0xa3 / add edx,0x15 / mov ebp,edx` (0x44a026-0x44a034);
+   * every other ebp use surfaces in this C 0x15 higher (`lea r,[ebp+0x68]`
+   * is the C's iVar4 + 0x7d), so ebp+0x18 is iVar4 + 0x2d.  y = edi =
+   * [esp+0x18] + 5 = local_108 + 5 (local_108 is written at 0x44a036 via
+   * `mov [esp+0x1c],edi` with esp = entry-0x124; the frame is pinned by
+   * [esp+0x124]=param_1 and [esp+0x128]=param_2 at 0x44a1c5/0x44a1be).
+   * colour = 0.  string = EAX = esi = local_104 + 0x67c. */
+  DrawFontString(iVar4 + 0x2d,local_108 + 5,0,(char *)(local_104 + 0x67c));
   /* BlitRLESprite's args were dropped entirely (Ghidra emitted a bare
-   * BlitRLESprite() here) - objdump at this call site (0x44a1ff) shows
-   * ECX = ebp+0x18 (this file's own iVar4, tracked via the ebp register
-   * throughout - see its other uses at iVar4+0x7d etc.), EAX = esi =
-   * local_104+0x67c (the pointer computed for the DrawFontString call
-   * immediately above, which shares the same ECX/EAX with this call),
-   * and the color stack arg = 0xffff. The 2nd stack arg (x) reads
-   * [esp+0x18], a local stack slot this function never writes -
-   * genuinely uninitialized/leftover caller-stack data with no
-   * corresponding named local, so it's left as a placeholder. */
-  BlitRLESprite(iVar4 + 0x18,0,0xffff,(byte *)(local_104 + 0x67c));
+   * BlitRLESprite() here) - objdump at 0x44a1ff shows ECX = ebx = ebp +
+   * 0x18 and EAX = esi = local_104 + 0x67c, the same pair the
+   * DrawFontString above it carries, with `push 0xffff` / `push edi` as
+   * its colour and y.
+   *
+   * CORRECTED 2026-08-28 on both counts. The x was written iVar4 + 0x18,
+   * but EBP is not iVar4: `imul edx,edx,0xa3 / add edx,0x15 / mov ebp,edx`
+   * at 0x44a026-0x44a034 puts iVar4 + 0x15 in EBP, and Ghidra dropped the
+   * 0x15 from the C. Every other EBP use surfaces here 0x15 higher - the
+   * `lea r,[ebp+0x68]` sites are this file's own iVar4 + 0x7d - so
+   * ebp + 0x18 is iVar4 + 0x2d. The y was written 0, but the pushes are
+   * `push 0xffff` (colour, higher address) then `push edi` (y), and EDI
+   * is [esp+0x18] + 5 = local_108 + 5. */
+  BlitRLESprite(iVar4 + 0x2d,local_108 + 5,0xffff,(byte *)(local_104 + 0x67c));
   if ((*(int *)(param_1 + 0x34790) < 0x15) || (*(int *)(param_1 + 0x3478c) != param_2)) {
     if ((g_screenSurface != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
       if (*(char *)(iVar1 + 0x18) == '\x01') {

@@ -53,7 +53,12 @@ void FUN_004b3e60(undefined2 *param_1)
         BlitSpriteClipped(uVar1,iVar3 + 0x13,0x18c,0x64);
       }
     }
-    DrawFontString(0x18b,0x1f);
+    /* RE-SLOT + dropped EAX (objdump @0x4b3f16-0x4b3f27): x/ECX = esi =
+     * iVar3 + 0x24 (`lea esi,[ebx+0x24]` at 0x4b3f19) and string = EAX =
+     * edi = (char *)param_1 + 2 (`lea edi,[ebp+2]` at 0x4b3f16), both
+     * reused unchanged by the BlitRLESprite on the next line; y = 0x18b,
+     * colour = 0x1f. */
+    DrawFontString(iVar3 + 0x24,0x18b,0x1f,(char *)param_1 + 2);
     /* objdump @ 0x4b3f2c-0x4b3f3a: ecx (this) = iVar3+0x24 (esi, loaded at
      * 0x4b3f19 `lea esi,[ebx+0x24]` and unchanged since); eax (rleData) =
      * (byte *)param_1+2 (edi, loaded at 0x4b3f16 `lea edi,[ebp+0x2]` and

@@ -32,7 +32,12 @@ void FUN_004cfd20(int regEax)
   char local_80 [128];
   
   iVar3 = g_clientContext;
-  DrawFontString(0x1ba,0);
+  /* RE-SLOT + dropped EAX (objdump @0x4cfd29-0x4cfd4c): x/ECX = 0x21d,
+   * y = 0x1ba, colour = 0, string = EAX =
+   * `imul eax,[esi+0x10cc],0xd / lea eax,[eax+edi+0x457f1]` with edi the
+   * g_clientContext snapshot loaded at 0x4cfd33 - the very pointer the
+   * BlitRLESprite on the next line passes as rleData. */
+  DrawFontString(0x21d,0x1ba,0,(char *)(*(int *)(regEax + 0x10cc) * 0xd + 0x457f1 + iVar3));
   /* BlitRLESprite's dropped args (0x4cfd70): objdump shows ECX=0x21d
    * (param_1) and EAX loaded right before the call with the same pointer
    * expression the C computes below into pcVar2 ((regEax+0x10cc)*0xd +

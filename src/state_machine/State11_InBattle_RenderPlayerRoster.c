@@ -730,7 +730,12 @@ LAB_004094da:
   }
 LAB_00409561:
   iVar2 = local_1018[0] + 3;
-  DrawFontString(iVar2,0);
+  /* RE-SLOT + dropped EAX (objdump @0x409561-0x40957e): x/ECX = 0x2f,
+   * y = edi = [esp+0x24] + 3 = iVar2, colour = 0, string = EAX = esi =
+   * `imul eax,ebx,0xd / lea esi,[eax+ebp+0x457f1]` = g_clientContext +
+   * iVar13*0xd + 0x457f1 - the same 0x2f/esi pair the BlitRLESprite below
+   * already carries (esi is not written in between). */
+  DrawFontString(0x2f,iVar2,0,(char *)(g_clientContext + iVar13 * 0xd + 0x457f1));
   /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the raw
    * port - objdump at this call site (0x40959b/0x409589-0x409577) shows
    * ECX=0x2f (constant x-cursor, same as the just-preceding, also-
