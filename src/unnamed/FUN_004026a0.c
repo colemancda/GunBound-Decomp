@@ -11,7 +11,7 @@
  *   EAX  the message string this strcpy's into the record.
  *   EBX  an object holding the record's sequence counter at +0x1be0, which
  *        the body reads and post-increments, and whose +0x1be4 is the tree
- *        FUN_004049a0 inserts into.
+ *        RBTree_Insert inserts into.
  *   ECX  a boolean, and its use was missing from the port entirely.  `test
  *        cl,cl` at 0x4026ac is the first instruction after the prologue, and
  *        0x4026ae-0x4026b9 (`sete cl / dec cl / and cl,5 / add cl,0x69 /
@@ -112,7 +112,7 @@ void FUN_004026a0(undefined4 param_1,undefined4 *param_2,uint param_3,char *regE
   }
   /* RECOVERED 2026-08-28, orig 0x402703-0x40270d: EAX is the char+string
      record at the aligned frame base, EDI the tree at regEbx + 0x1be4. */
-  FUN_004049a0(&local_108,local_128,(int *)(unaff_EBX + 0x1be4));
+  RBTree_Insert(&local_108,local_128,(int *)(unaff_EBX + 0x1be4));
   return;
 }
 

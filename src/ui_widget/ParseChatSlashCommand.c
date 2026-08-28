@@ -230,7 +230,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
                             (acStack_1ad + 1,2,0);
                   acStack_1ad[1] = 0;
                 }
-                puVar7 = (undefined4 *)FUN_00415450((int *)(&DAT_0067ec60 + param_1),uVar10);
+                puVar7 = (undefined4 *)AtlArray_GetAt((int *)(&DAT_0067ec60 + param_1),uVar10);
                 _sprintf(acStack_12c,s___15s_00553590,*puVar7);
                 pcVar2 = acStack_12c;
                 do {

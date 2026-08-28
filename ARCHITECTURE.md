@@ -1904,11 +1904,15 @@ avatar/character effect textures applies across render functions, not just
 the one investigated originally.
 
 It also uses a **second, sibling vertex-quad builder, `BuildScaledSpriteQuad`**,
-distinct from `BuildRotatedSpriteQuad` (`FUN_004ec430`): same rotated-quad
+distinct from `BuildRotatedSpriteQuad128` (`0x4ec430`): same rotated-quad
 math and the same `g_sineTable360` lookup and scratch-vertex staging area
 (`0x00ea0e28`), but with **independent X/Y scale constants**
 (`_DAT_00557ff0`/`_DAT_0055800c`/`_DAT_00558008`/`_DAT_00558004`, 4 distinct
-globals) where `BuildRotatedSpriteQuad` uses only 2 (uniform scale). Likely
+globals) where `BuildRotatedSpriteQuad128` uses only 2
+(`_DAT_00558010` = -64.0 and `_DAT_00557fc4` = 63.0, i.e. a fixed 128x128
+square). Note this paragraph and the table below said
+`BuildRotatedSpriteQuad` for `0x4ec430` before that function was named on
+2026-08-28; the real `BuildRotatedSpriteQuad` is `0x4ebbc0`. Likely
 exists to support the Ready Room preview's zoomed/non-1:1 avatar display,
 whereas in-battle sprites are always drawn at native scale.
 
@@ -1921,7 +1925,9 @@ scratch area (`0x00ea0e28`) and append two triangles to `g_spriteVertexBuffer`
 differ only in the transform they apply:
 | Emitter | Sig (partial) | Distinction |
 |---|---|---|
-| `BuildRotatedSpriteQuad` (`0x4ec430`) | `(x, y, angle, flip, color)` | rotated, uniform scale — the standard in-battle sprite |
+| `BuildRotatedSpriteQuad` (`0x4ebbc0`) | `(x, y, flip)` + angle in EAX | rotated, fixed extent, colour hardcoded opaque white — the standard in-battle sprite |
+| `BuildRotatedSpriteQuad128` (`0x4ec430`) | `(x, y, alpha, rgb)` + angle in EAX | rotated, fixed **128×128** extent, caller-supplied ARGB — the FlameTexture decoration layers |
+| `BuildSquareSpriteQuad` (`0x4ec840`) | `(x, y, alpha)` + angle in EDX, side in EAX | rotated to a **runtime square side** — the "CrashTexture" fade-out effects (no ported callers) |
 | `BuildScaledSpriteQuad` | `(x, y, angle, flip, scale, color)` | rotated, **independent X/Y scale** (Ready Room zoomed preview) |
 | `BuildSizedSpriteQuad` | `(x, y, flip, w, h, color)` | rotated to an explicit w×h |
 | `FUN_004ed300` / `FUN_004ed0c0` | larger | rotated variants with extra params (offset/pivot) |

@@ -121,7 +121,7 @@ void FUN_00404410(int param_1)
             /* DROPPED-REG FIX 2026-08-28: EAX is the type-char-plus-string
                record starting at local_120 (0x69 = 'i', set four lines
                above), EDI the tree at param_1 + 0x1be4. */
-            FUN_004049a0(&local_100,&local_120,(int *)(param_1 + 0x1be4));
+            RBTree_Insert(&local_100,&local_120,(int *)(param_1 + 0x1be4));
           }
           else {
             iVar8 = FUN_00426780(local_164,&local_16c,local_168);

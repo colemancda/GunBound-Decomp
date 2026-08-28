@@ -5,7 +5,7 @@
  * verbatim ports" section for status.
  *
  * ESI RECOVERED (2026-08-25): the map at +0x20 of the same 0x90-byte object
- * FUN_00500790 clears at +0x50 -- `add esi,0x20` at 0x4ff22e and
+ * IntMap_RemoveAll_1768 clears at +0x50 -- `add esi,0x20` at 0x4ff22e and
  * `lea esi,[esp+0x4c]` (frame -0x7c = -0x9c + 0x20) at 0x4fe988.
  */
 #include "ghidra_types.h"

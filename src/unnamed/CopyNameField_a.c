@@ -1,8 +1,8 @@
-/* FUN_005037f0 - 0x005037f0 in the original binary.
+/* CopyNameField_a - 0x005037f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED REGISTERS RECOVERED (2026-08-28).  ESI is the DESTINATION and EDI
  * the SOURCE: 0x5037f5 `mov dl,[ecx+edi]` reads EDI before anything writes it,
@@ -17,11 +17,20 @@
  * the buddy-record loop (orig 0x5019c4) -- and two take stack fields the
  * caller has already built, &local_4924 on the 0x3001 path and
  * &local_4944 + 0x12 on the 0x4001 path.
+ *
+ * NAMED (2026-08-28): the 0xa = 10-byte member of the fixed-width name
+ * field trio - up to 8 characters, a NUL at dest+len and the length byte
+ * at dest+9. See CopyNameField_12 for what the suffix means, for the
+ * outside corroboration of the record layout, and for the caution that
+ * the suffix is the byte count and not the character count.
+ *
+ * The 10-byte width also shows up as the third field of the record
+ * Vector_CopyElement_34 copies, at +0x28 with its length at +0x31.
  */
 #include "ghidra_types.h"
 
 
-void FUN_005037f0(int regEsi,int regEdi)
+void CopyNameField_a(int regEsi,int regEdi)
 
 {
   byte bVar1;

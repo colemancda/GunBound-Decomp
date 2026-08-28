@@ -6,7 +6,8 @@
  *
  * DROPPED-REG FIX (2026-08-28): the whole function is
  * `mov eax,0x794e14 / jmp 0x4154b0`, i.e. it exists only to hand
- * DAT_00794e14 to FUN_00415560 through thunk_FUN_00415560. Registered
+ * DAT_00794e14 to StringMap_RemoveAll_CString through
+ * thunk_FUN_00415560. Registered
  * with _atexit by FUN_00540f00, so it stays a no-argument function
  * itself - only the value it forwards was missing.
  */

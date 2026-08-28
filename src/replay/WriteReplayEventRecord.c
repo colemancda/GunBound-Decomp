@@ -256,7 +256,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
           if ((*(int *)(&DAT_006a76f8 + g_clientContext) != 0) &&
              (local_d78 = 0, *(int *)(&DAT_006a76f8 + g_clientContext) != 0)) {
             do {
-              piVar14 = (int *)FUN_00415450((int *)(g_clientContext + 0x6a76f4),local_d78);
+              piVar14 = (int *)AtlArray_GetAt((int *)(g_clientContext + 0x6a76f4),local_d78);
               iVar19 = *piVar14;
               cVar4 = FUN_0041c190(0,iVar19,g_clientContext);
               if (cVar4 != '\0') {

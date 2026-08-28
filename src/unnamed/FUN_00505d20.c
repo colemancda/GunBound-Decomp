@@ -26,7 +26,7 @@ void __thiscall FUN_00505d20(int param_1,int param_2,int param_3,undefined4 para
         /* DROPPED-REG FIX 2026-08-28: the ordinal is EDI, loaded at
            0x505d6f as *(param_1 + 0x90) - the same field the guard above
            tests against -1. */
-        iVar1 = FUN_00401c10((int)&DAT_00e53e88,*(int *)(param_1 + 0x90));
+        iVar1 = FindActiveObjectByIndex((int)&DAT_00e53e88,*(int *)(param_1 + 0x90));
         if (iVar1 != 0) {
           FUN_00508ea0(&g_uiPanelManager,(uchar *)(iVar1 + 0x21));
           Widget_OnCommandDefault(0,2,param_4);

@@ -8,9 +8,9 @@
  * RE-SLOTTED AND EAX RECOVERED (2026-08-24).  Entry: `mov ebp,[esp+0xc]`
  * (the key string, param_2), `mov ebx,ecx` (this, param_1), then
  * FUN_00405360(param_2, EAX) -- so EAX is the record.  Sole call site
- * 0x004049aa in FUN_004049a0: ECX = its unaff_EDI (the tree), push = its own
+ * 0x004049aa in RBTree_Insert: ECX = its unaff_EDI (the tree), push = its own
  * incoming EAX (the key), EAX = [esp+0x14] = its first stack parameter --
- * which FUN_004049a0 did not declare, although both of ITS callers pass one
+ * which RBTree_Insert did not declare, although both of ITS callers pass one
  * (&local_108, &local_100).  That parameter is now declared as param_1.
  */
 #include "ghidra_types.h"

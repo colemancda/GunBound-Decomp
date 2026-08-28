@@ -41,11 +41,11 @@ undefined4 * FUN_004fd0f0(undefined4 *param_1,undefined4 param_2)
   HashMap_Construct(0xa,0x3f400000,0x3e800000,0x40100000,0x11,param_1 + 0x6b0);
   HashMap_Construct(0xa,0x3f400000,0x3e800000,0x40100000,0x11,param_1 + 0x6bc);
   *(undefined1 *)(param_1 + 0x74a) = 0;
-  FUN_00504c10(param_1 + 0x74b);
+  SeedTT800State(param_1 + 0x74b);
   param_1[0x767] = 0;
   param_1[0x768] = 0;
   *(undefined1 *)(param_1 + 0x7eb) = 0;
-  FUN_00504c10(param_1 + 0x7ec);
+  SeedTT800State(param_1 + 0x7ec);
   param_1[0x808] = 0;
   param_1[0x809] = 0;
   return param_1;

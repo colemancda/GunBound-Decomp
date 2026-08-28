@@ -43,8 +43,8 @@ void FUN_00418dc0(int param_1)
      `lea eax,[edi+0x6aa41c]` at 0x418e81 - ADDRESSES of two arena-offset
      maps, with edi = param_1. Written numerically because 0x6aa41c has
      only a #define in globals.h, not an extern to take the address of. */
-  FUN_00415560((int *)(param_1 + 0x6aa44c));
-  FUN_00415560((int *)(param_1 + 0x6aa41c));
+  StringMap_RemoveAll_CString((int *)(param_1 + 0x6aa44c));
+  StringMap_RemoveAll_CString((int *)(param_1 + 0x6aa41c));
   SUBFIELD(local_4,0,undefined1) = 0x5a;
   if (*(int *)(&DAT_006aa1f8 + param_1) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(&DAT_006aa1f8 + param_1),&g_valueGuardKeyTable);

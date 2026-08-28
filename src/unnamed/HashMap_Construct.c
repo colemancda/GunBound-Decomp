@@ -95,8 +95,9 @@
  *
  * The other named members read the same offsets: StringMap_Find_1c
  * divides the key hash by [map+8], and the RemoveAll bodies
- * FUN_00404b90 / FUN_00415560 / FUN_00415600 (named as such in
- * AtlArray_RemoveAll_450's header) walk m_ppBins over m_nBins, bracket
+ * FUN_00404b90 / StringMap_RemoveAll_CString (FUN_00415560 when
+ * AtlArray_RemoveAll_450's header was written) / FUN_00415600 walk
+ * m_ppBins over m_nBins, bracket
  * with m_nLockCount at +0x20, and free the plex chain from +0x28/+0x2c
  * before calling HashMap_InitHashTable(this, PickSize(0), 0).
  *

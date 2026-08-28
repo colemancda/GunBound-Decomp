@@ -1,18 +1,35 @@
-/* FUN_00500790 - 0x00500790 in the original binary.
+/* IntMap_RemoveAll_1768 - 0x00500790 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * EAX RECOVERED (2026-08-25): the map at +0x50 of the enclosing 0x90-byte
  * object -- `lea eax,[esi+0x50]` at 0x4ff226 and `lea eax,[esp+0x7c]`
  * (frame -0x4c = -0x9c + 0x50) at 0x4fe97f.  The two sites agree on the
  * offset from two different directions, which is what fixes the layout.
+ *
+ * NAMED (2026-08-28): ATL7's CAtlMap<K,V>::RemoveAll out of VC7.1's
+ * atlcoll.h, for the 0x1768-node instantiation. The class is settled
+ * from outside - HashMap_Construct (0x4fe420) is the CAtlMap constructor
+ * over this object and pins its members, FUN_00500e30 is
+ * CAtlMap::PickSize with atlcoll.h's s_anPrimes table at 0x557850 - and
+ * the body is the member verbatim: raise m_nLockCount at +0x20, sweep
+ * every bin of the +0 array over the +8 bin count handing each node to
+ * IntMap_FreeNode_1768, delete[] the bin array, zero m_nElements at +4,
+ * InitHashTable(PickSize(0), false), free the +0x28 plex chain with
+ * +0x2c nulled, then drop m_nLockCount again. See
+ * StringMap_RemoveAll_CString for the line-by-line correspondence.
+ *
+ * The instantiation is the one IntMap_Find_1768 and IntMap_Insert_1768
+ * serve: the node this sweep steps through by +0x1760 is the node
+ * IntMap_FreeNode_1768 retires, and FUN_00500710 ties that node to
+ * IntMap_Find_1768 directly.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00500790(int *regEax)
+void IntMap_RemoveAll_1768(int *regEax)
 
 {
   int iVar1;
@@ -33,7 +50,7 @@ void FUN_00500790(int *regEax)
            the retired node is the one BEFORE the step. */
         iNode = iVar1;
         iVar1 = *(int *)(iVar1 + 0x1760);
-        FUN_005011c0(iNode,(int)regEax);
+        IntMap_FreeNode_1768(iNode,(int)regEax);
       }
       uVar4 = uVar4 + 1;
     } while (uVar4 < (uint)regEax[2]);

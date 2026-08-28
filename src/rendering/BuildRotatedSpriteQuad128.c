@@ -1,9 +1,8 @@
-/* FUN_004ec430 - 0x004ec430 in the original binary.
+/* BuildRotatedSpriteQuad128 - 0x004ec430 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * Recovered arguments. The original is __usercall: ECX carries the object
  * (Ghidra already models it as param_1 of a __thiscall), four dwords arrive
@@ -51,13 +50,40 @@
  * been rendered as stores to stack locals above an argless call; those
  * fabrications, including the return-address stores 0x4c545d, 0x4c5629,
  * 0x4c57c9 and 0x4c5969, are folded back into real arguments.
+ *
+ * NAMED (2026-08-28): the fixed 128x128 member of the quad-emitter
+ * family - BuildRotatedSpriteQuad's shape (same __thiscall texture
+ * record in ECX, same X/Y, same angle in EAX, same 0xea0e28 staging
+ * block and the same two-triangle append into g_spriteVertexBuffer) with
+ * a 128-pixel square extent and a caller-supplied ARGB in place of that
+ * one's hardcoded 0xffffffff and its horizontal-flip flag.
+ *
+ * THE 128 IS NOT READ OFF THIS BODY ALONE. The two float constants the
+ * corners are built from are -64.0 at 0x558010 and 63.0 at 0x557fc4, so
+ * the quad spans -64..63 on both axes; and each of the four call sites
+ * independently brackets the same centre with a 0x80-wide box before it
+ * calls, testing `x + 0x1d0` and `x + 0x150` against the clip rect while
+ * passing `x + 0x190` as the quad's X, and `y + 0x16a` and `y + 0xea`
+ * while passing `y + 0x12a` as its Y. Both are the centre plus or minus
+ * 0x40. The caller says 128x128 in its own arithmetic.
+ *
+ * The suffix rather than a word like "Tinted": a colour argument does
+ * NOT distinguish this function - BuildScaledSpriteQuad already takes
+ * the identical `alpha << 0x18 | rgb` pair and BuildSizedSpriteQuad
+ * takes a packed colour too, and all four ported call sites here pass
+ * plain opaque white (0xff, 0xffffff). What does distinguish it is where
+ * the extent comes from, which is the axis the rest of the family is
+ * already named on: BuildSpriteQuad and BuildRotatedSpriteQuad are
+ * fixed, BuildScaledSpriteQuad has independent X and Y scale constants,
+ * BuildSizedSpriteQuad takes a runtime width and height, and
+ * BuildSquareSpriteQuad takes a single runtime side.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __thiscall FUN_004ec430(int param_1,int param_2,int param_3,int param_4,uint param_5,int regEax)
+void __thiscall BuildRotatedSpriteQuad128(int param_1,int param_2,int param_3,int param_4,uint param_5,int regEax)
 
 {
   float fVar1;

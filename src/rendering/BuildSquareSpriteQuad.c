@@ -1,8 +1,8 @@
-/* FUN_004ec840 - 0x004ec840 in the original binary.
+/* BuildSquareSpriteQuad - 0x004ec840 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-REG FIX (2026-08-28): the original takes the quad's pixel size in
  * EAX. `mov esi,eax` at 0x004ec844 is the second instruction of the
@@ -66,13 +66,33 @@
  * 0xeb1bd8), stamp the scale floats into the record, then pass size in EAX,
  * [this+0x44] as the angle in EDX, and X, Y, 0xff-minus-a-fade-ramp on the
  * stack. The per-site sizes are recorded in the recovery notes.
+ *
+ * NAMED (2026-08-28): the single-side member of the quad-emitter family.
+ * The half-extents are -(size/2) and size/2-1 and BOTH axes use that one
+ * pair, so the quad is a square of side `size`, with `size` arriving at
+ * run time in EAX rather than coming from the fixed float constants
+ * BuildRotatedSpriteQuad and BuildRotatedSpriteQuad128 use.
+ *
+ * That is the axis the family is already named on - BuildSpriteQuad and
+ * BuildRotatedSpriteQuad are fixed-extent, BuildScaledSpriteQuad has
+ * independent X and Y scale constants, BuildSizedSpriteQuad takes a
+ * runtime WIDTH and HEIGHT - so BuildSquareSpriteQuad is the one that
+ * takes a runtime side. It is deliberately not named for its alpha: a
+ * colour argument does not separate it from the family either, since
+ * BuildScaledSpriteQuad and BuildSizedSpriteQuad both carry one.
+ *
+ * The size argument is corroborated on the caller side even though none
+ * of the six call sites is ported: each is a small fade-out effect draw
+ * that looks up the same "CrashTexture" cache record, stamps its scale
+ * floats, and then passes a per-site literal size in EAX with the
+ * object's own [this+0x44] as the angle in EDX - see the analysis above.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __fastcall FUN_004ec840(int param_1,int param_2,int param_3,int param_4,int param_5,int regEax)
+void __fastcall BuildSquareSpriteQuad(int param_1,int param_2,int param_3,int param_4,int param_5,int regEax)
 
 {
   float fVar1;

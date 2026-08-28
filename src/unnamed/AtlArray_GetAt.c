@@ -1,9 +1,8 @@
-/* FUN_00415450 - 0x00415450 in the original binary.
+/* AtlArray_GetAt - 0x00415450 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * EAX RECOVERED (2026-08-28): this is a bounds-checked element-address
  * accessor for the same two-field container that the next function,
@@ -45,11 +44,36 @@
  * 0x47a8e0 by param_1[0x791], the count that guards the very if/else the two
  * calls sit inside, with the index being the rand() remainder computed once
  * at 0x47a8b9 and held in ESI across both calls.
+ *
+ * NAMED (2026-08-28): ATL7's CAtlArray<E>::GetAt / operator[] out of
+ * VC7.1's atlcoll.h, whose whole body is
+ * `if (iElement >= m_nElements) AtlThrow(E_INVALIDARG); return
+ * m_pData[iElement];` - the seven instructions here, with the 0x80070057
+ * this pushes being that E_INVALIDARG. Both members share one body and
+ * the linker folds them, so which of the two names the source wrote
+ * cannot be recovered; GetAt is the spellable one.
+ *
+ * ATL and not MFC, decided by the documented test rather than by feel:
+ * out of range this THROWS E_INVALIDARG through ThrowCxxException, where
+ * MFC's CArray asserts. The same call is what makes AtlArray_RemoveAt
+ * (0x415470), which mutates this identical two-field object, an
+ * AtlArray_ and not a CArray_, and the array's growth half is already
+ * AtlArray_GrowBuffer - naming the accessor CArray_* would split a
+ * matched set across two prefixes.
+ *
+ * No stride suffix, matching its neighbour AtlArray_RemoveAt: the
+ * element is a 4-byte dword and the instantiation is shared. All four
+ * call sites dereference the returned pointer immediately - *puVar7 into
+ * sprintf's "%15s" in ParseChatSlashCommand, *piVar14 into a
+ * FUN_0041c190 lookup in WriteReplayEventRecord, and both TickJewelFrame
+ * sites reading it as a char* they strlen and hand to
+ * AppendBroadcastString - which is what fixes the return value as `E&`,
+ * the address of the element, rather than the element or a count.
  */
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_00415450(int *param_1,uint regEax)
+int __fastcall AtlArray_GetAt(int *param_1,uint regEax)
 
 {
   uint in_EAX = regEax;

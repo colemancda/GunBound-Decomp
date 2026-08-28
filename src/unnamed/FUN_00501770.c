@@ -63,14 +63,14 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
   undefined1 local_4902;
   /* RECOVERED (2026-08-28): the 14-byte scratch name field at esp_base+0x90,
    * in the 0x8f..0x9f gap Ghidra left undeclared because its only writers were
-   * the argless FUN_00503e10 calls.  Every FUN_00503e30 call but the 0x2010
+   * the argless CopyNameField_e calls.  Every StringMap_SetAt_28 call but the 0x2010
    * one reads it back as the map value record. */
   undefined1 local_4900 [14];
   undefined1 local_48f0 [18];
   undefined1 local_48de;
   undefined1 local_48c9;
   /* RECOVERED (2026-08-28): the record's 8-char field at esp_base+0xc8, in the
-   * 0xc8..0xd1 gap; written only by the two argless FUN_005037f0 calls, which
+   * 0xc8..0xd1 gap; written only by the two argless CopyNameField_a calls, which
    * store 8 characters plus a length byte at +9. */
   undefined1 local_48c8 [10];
   undefined2 local_48be;
@@ -160,7 +160,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
             /* RECOVERED (2026-08-28), orig 0x501f8d-0x501faf: ESI is the
              * 14-byte value record the inline 12-byte copy above just built at
              * &local_4924, EDI the string map local_4980 = param_1 + 0x17cc. */
-            FUN_00503e30((undefined4)local_48ba,&local_4924,(int *)local_4980);
+            StringMap_SetAt_28((undefined4)local_48ba,&local_4924,(int *)local_4980);
             uVar6 = *(ushort *)((int)puVar15 + 0x26);
             /* RECOVERED (2026-08-19): the two register arguments, dropped
              * because DispatchP2PMessage (0x504970) had no declaration and
@@ -375,7 +375,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
          * orig 0x5018af `add ebx,4` reaches the 12-byte owner nick at
          * param_2+0xa; ESI is the 14-byte scratch record at param_1+0x179c
          * that the line above just put in local_4980. */
-        FUN_00503e10((int)local_4980,(int)(pcVar12 + 4));
+        CopyNameField_e((int)local_4980,(int)(pcVar12 + 4));
         FUN_004fcd80(local_4914,0x11,param_1 + 0x182c);
         /* RECOVERED (2026-08-28), orig 0x5018d9/0x5018dd: `lea esi,[esp+0x7c]`
          * is local_4914 (0x4990-0x7c) and `lea eax,[esp+0x116]` is
@@ -386,11 +386,11 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
          * 0x5018bd/0x5018f4 `mov edi,[esp+0x14]` / `add edi,0x17cc`: ESI is
          * that same 14-byte record, EDI the string map at param_1+0x17cc, and
          * the pushed argument is the key. */
-        FUN_00503e30((undefined4)(local_48ba + 0x40),(undefined4 *)local_4980,
+        StringMap_SetAt_28((undefined4)(local_48ba + 0x40),(undefined4 *)local_4980,
                      (int *)(local_497c + 0x17cc));
         /* RECOVERED (2026-08-28), orig 0x5018d1 `add ebx,0xc`: the 8-byte field
          * at param_2+0x16, i.e. pcVar12 + 0x10. */
-        FUN_005037f0((int)&local_4924,(int)(pcVar12 + 0x10));
+        CopyNameField_a((int)&local_4924,(int)(pcVar12 + 0x10));
         local_4978 = CONCAT22(SUBFIELD(local_4978,2,undefined2),*(undefined2 *)(pcVar12 + 0x18));
         uVar6 = *(ushort *)(pcVar12 + 0x1a);
         pcVar12 = pcVar12 + 0x1c;
@@ -406,9 +406,9 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
              * 0x501978 `add ebx,0xc`).  The record is [16-byte id][12-byte
              * nick][flag or 20-byte note][8-byte field][ushort status], and the
              * nick is upserted into the param_1+0x17cc map under the id. */
-            FUN_004fe5d0((int)local_48f0,(int)pcVar12);
-            FUN_00503e10((int)local_4900,(int)(pcVar12 + 0x10));
-            FUN_00503e30((undefined4)local_48f0,(undefined4 *)local_4900,
+            CopyNameField_12((int)local_48f0,(int)pcVar12);
+            CopyNameField_e((int)local_4900,(int)(pcVar12 + 0x10));
+            StringMap_SetAt_28((undefined4)local_48f0,(undefined4 *)local_4900,
                          (int *)(local_497c + 0x17cc));
             if (pcVar12[0x1c] == '\0') {
               pcVar12 = pcVar12 + 0x1d;
@@ -427,10 +427,10 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
              * cursor as the two branches above left it, which is exactly the
              * current pcVar12 - witnessed by 0x5019d2 `mov cx,[ebx+8]` being
              * the `*(pcVar12 + 8)` read two lines below. */
-            FUN_005037f0((int)local_48c8,(int)pcVar12);
+            CopyNameField_a((int)local_48c8,(int)pcVar12);
             local_48be = *(undefined2 *)(pcVar12 + 8);
             pcVar12 = pcVar12 + 10;
-            FUN_00502800((int)local_4958,(undefined4)local_48f0);
+            Vector_PushBack_34((int)local_4958,(undefined4)local_48f0);
             FUN_00502750(local_497c + 0x17ac,(int)local_48f0);
             FUN_00503a10((int)local_48f0,(int)local_4970);
             local_4980 = local_4980 + -1;
@@ -510,10 +510,10 @@ LAB_00501b17:
          * is named rather than reached by offset.  EBX is not a packet cursor
          * on this path: it carries puVar1 into FUN_004f72b0 at 0x50216c and
          * local_497c - 0x2f4 into DispatchP2PMessage at 0x5021e3. */
-        FUN_004fe5d0((int)local_4958,(int)&local_4668);
-        FUN_00503e10((int)local_4900,(int)&local_4658);
+        CopyNameField_12((int)local_4958,(int)&local_4668);
+        CopyNameField_e((int)local_4900,(int)&local_4658);
         iVar7 = local_497c;
-        FUN_00503e30((undefined4)local_4958,(undefined4 *)local_4900,
+        StringMap_SetAt_28((undefined4)local_4958,(undefined4 *)local_4900,
                      (int *)(iVar7 + 0x17cc));
         _Var11 = FID_conflict___time32((__time32_t *)0x0);
         /* RECOVERED (2026-08-19), same dropped register pair; orig
@@ -540,11 +540,11 @@ LAB_00501b17:
        * assignments above copied into local_496c.  The cursor is a literal
        * param_2 offset on this path, as the *(param_2 + 0x22/0x26/0x2a) reads
        * below already show. */
-      FUN_00503e10((int)local_4900,param_2 + 0x16);
+      CopyNameField_e((int)local_4900,param_2 + 0x16);
       /* RECOVERED (2026-08-28), orig 0x50208c/0x502090: `lea esi,[esp+0x24]`
        * is &local_496c and `lea eax,[esp+0x104]` is local_48ba + 0x2e. */
       FUN_004fdc50((int)(local_48ba + 0x2e),(int)&local_496c);
-      FUN_00503e30((undefined4)(local_48ba + 0x2e),(undefined4 *)local_4900,
+      StringMap_SetAt_28((undefined4)(local_48ba + 0x2e),(undefined4 *)local_4900,
                    (int *)(local_497c + 0x17cc));
       local_4924 = *(undefined4 *)(param_2 + 0x22);
       local_4920 = *(undefined4 *)(param_2 + 0x26);
@@ -558,8 +558,8 @@ LAB_00501b17:
        * `lea edi,[esp+0x6c]`: both sources are stack fields this branch just
        * built - the 16-byte id in local_496c and the 8-byte field in
        * local_4924 - not packet bytes. */
-      FUN_004fe5d0((int)local_48f0,(int)&local_496c);
-      FUN_005037f0((int)local_48c8,(int)&local_4924);
+      CopyNameField_12((int)local_48f0,(int)&local_496c);
+      CopyNameField_a((int)local_48c8,(int)&local_4924);
       local_48be = (undefined2)local_4978;
       local_48c9 = 0;
       local_48de = 0;
@@ -635,13 +635,13 @@ LAB_00501b17:
            * - as the FUN_00502920(&local_4944,...) call below shows; 0x502326
            * `lea esi,[esp+0x5e]` is that base + 0x12 and cannot get a local of
            * its own because it starts inside uStack_4934.  The nick goes to
-           * the separate scratch buffer local_4900, which FUN_00503e30 then
+           * the separate scratch buffer local_4900, which StringMap_SetAt_28 then
            * copies into the param_1 + 0x17cc map under the id. */
-          FUN_004fe5d0((int)&local_4944,iVar7);
-          FUN_00503e10((int)local_4900,iVar7 + 0x10);
-          FUN_00503e30((undefined4)&local_4944,(undefined4 *)local_4900,
+          CopyNameField_12((int)&local_4944,iVar7);
+          CopyNameField_e((int)local_4900,iVar7 + 0x10);
+          StringMap_SetAt_28((undefined4)&local_4944,(undefined4 *)local_4900,
                        (int *)local_4980);
-          FUN_005037f0((int)((char *)&local_4944 + 0x12),iVar7 + 0x1c);
+          CopyNameField_a((int)((char *)&local_4944 + 0x12),iVar7 + 0x1c);
           local_4928 = *(undefined2 *)(iVar7 + 0x24);
           iVar7 = iVar7 + 0x26;
           FUN_00502920(&local_4944,(int)&local_4954);

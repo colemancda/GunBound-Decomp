@@ -68,7 +68,7 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
     if (*(void **)(local_9c + 0x80) != (void *)0x0) {
       _free(*(void **)(local_9c + 0x80));
     }
-    FUN_00500790((int *)(local_9c + 0x50));
+    IntMap_RemoveAll_1768((int *)(local_9c + 0x50));
     FUN_00500a20((int *)(local_9c + 0x20));
     piVar8 = (int *)(iVar5 + 0x14);
   }

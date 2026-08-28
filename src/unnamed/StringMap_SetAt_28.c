@@ -1,8 +1,8 @@
-/* FUN_00503e30 - 0x00503e30 in the original binary.
+/* StringMap_SetAt_28 - 0x00503e30 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * THE HASH SLOT (2026-08-25).  The original passes the find `&param_1` for
  * its hash out-parameter -- reusing the incoming parameter slot, whose value
@@ -21,7 +21,7 @@
  * `lea esi,[edi+0x179c]` is the source's own
  * `local_4980 = (char *)(param_1 + 0x179c)`; `lea ecx,[esp+0x80]` with ONE
  * push pending (the 0x11) is FUN_004fcd80's `local_4914`; `[esp+0xa0]` is
- * FUN_00503e30's `local_48f0`; and `[esp+0x338]` is `local_4658`.  The
+ * StringMap_SetAt_28's `local_48f0`; and `[esp+0x338]` is `local_4658`.  The
  * pending-push term is what makes the first two agree -- without it they
  * disagree by exactly 4.
  *
@@ -29,9 +29,10 @@
  * of them corrected.
  *
  * ESI is NOT a destination and this is not a name-field copy - that
- * paragraph was copy-pasted from FUN_00503e10 and does not describe this
- * function. FUN_00503e30 is a string-map upsert. The pushed stack argument
- * is the KEY: it goes straight into StringMap_Find_28 and, on a miss,
+ * paragraph was copy-pasted from CopyNameField_e and does not describe this
+ * function. StringMap_SetAt_28 is a string-map upsert. The pushed stack
+ * argument is the KEY: it goes straight into StringMap_Find_28 and, on a
+ * miss,
  * StringMap_Insert_28. EDI is the MAP OBJECT - 0x503e48 mov eax,edi feeds
  * the find, 0x503e53 cmp dword ptr [edi],0 tests the empty-table case and
  * 0x503e5e push edi builds it. ESI is a 14-byte VALUE RECORD that the
@@ -42,9 +43,10 @@
  *
  * All six call sites are in FUN_00501770 and every one of them passes the
  * map at param_1+0x17cc for EDI. Five of the six pass for ESI the exact
- * buffer that the immediately preceding FUN_00503e10 call just filled - that
- * helper writes up to 12 characters, a NUL at dest+len and a length byte at
- * dest+0xd, which is the 14 bytes this function copies out, so the pairing
+ * buffer that the immediately preceding CopyNameField_e call just filled
+ * - that helper writes up to 12 characters, a NUL at dest+len and a
+ * length byte at dest+0xd, which is the 14 bytes this function copies
+ * out, so the pairing
  * is self-witnessing rather than positional. The sixth site, at 0x501faf on
  * the 0x2010 path, passes esp_base+0x6c, filled by the same
  * 12-characters-plus-length-at-+0xd loop written out inline at
@@ -79,11 +81,30 @@
  * 20-byte note, an 8-byte field and a ushort status. Each record's nick is
  * upserted into the param_1+0x17cc map under its id. The 0x4001 path walks
  * the same shape without the note field, 0x26 bytes per record.
+ *
+ * NAMED (2026-08-28): ATL7's CAtlMap<K,V>::SetAt out of VC7.1's
+ * atlcoll.h - `find the node for key; if there is none, create one;
+ * assign the value into it` - for the 0x28-node instantiation. Every
+ * piece of that is already a named neighbour rather than something read
+ * off this control flow: the find is StringMap_Find_28, the create is
+ * StringMap_Insert_28, the lazy `if (m_ppBins == NULL) InitHashTable(
+ * m_nBins, true)` guard is HashMap_InitHashTable with the E_OUTOFMEMORY
+ * 0x8007000e that atlcoll.h throws when it fails, and the class itself
+ * is settled by HashMap_Construct's identification of the container as
+ * CAtlMap.
+ *
+ * The suffix is the node stride, matching StringMap_Find_28 and
+ * StringMap_Insert_28, which are the two members this one calls; the
+ * node is payload below +0x20, m_pNext at +0x20, m_nHash at +0x24.
+ * Inside that payload the layout falls out of the arguments: the KEY is
+ * the pushed 18-byte name record occupying +0 to +0x11, and the VALUE
+ * is the 14-byte name record this copies to +0x12 - which is exactly the
+ * pair of record widths CopyNameField_12 and CopyNameField_e write.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00503e30(undefined4 param_1,undefined4 *regEsi,int *regEdi)
+void StringMap_SetAt_28(undefined4 param_1,undefined4 *regEsi,int *regEdi)
 
 {
   char cVar1;

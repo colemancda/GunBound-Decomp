@@ -465,13 +465,13 @@ LAB_0047a634:
       uVar4 = GetLocalizedString(&g_localizedStringTable,iVar5);
     }
     else {
-      puVar13 = (undefined4 *)FUN_00415450(param_1 + 0x790,iVar6 % iVar5);
+      puVar13 = (undefined4 *)AtlArray_GetAt(param_1 + 0x790,iVar6 % iVar5);
       pcVar14 = (char *)*puVar13;
       do {
         cVar3 = *pcVar14;
         pcVar14 = pcVar14 + 1;
       } while (cVar3 != '\0');
-      puVar13 = (undefined4 *)FUN_00415450(param_1 + 0x790,iVar6 % iVar5);
+      puVar13 = (undefined4 *)AtlArray_GetAt(param_1 + 0x790,iVar6 % iVar5);
       uVar4 = *puVar13;
     }
     AppendBroadcastString(0,(int)pcVar14 - (int)uVar4 - 1,(undefined4 *)uVar4,

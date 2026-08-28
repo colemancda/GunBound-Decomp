@@ -948,7 +948,7 @@ void State11_InBattle_Render(void)
           *(float *)(iVar6 + 0x80) = (float)(uVar16 & 1) * _DAT_00557fb8;
           *(undefined4 *)(iVar6 + 0x88) = 0x3f000000;
           *(float *)(iVar6 + 0x84) = (float)(uVar16 >> 1) * _DAT_00557fb8;
-          FUN_004ec430(iVar6,iVar19 + 400,(*piVar8 - *piVar14) + 0x12a,0xff,0xffffff,piVar8[1]);
+          BuildRotatedSpriteQuad128(iVar6,iVar19 + 400,(*piVar8 - *piVar14) + 0x12a,0xff,0xffffff,piVar8[1]);
           iVar5 = g_clientContext;
         }
       }
@@ -992,7 +992,7 @@ void State11_InBattle_Render(void)
           *(float *)(iVar6 + 0x80) = (float)(uStack_9e4 & 1) * _DAT_00557fb8;
           *(undefined4 *)(iVar6 + 0x88) = 0x3f000000;
           *(float *)(iVar6 + 0x84) = (float)(uStack_9e4 >> 1) * _DAT_00557fb8;
-          FUN_004ec430(iVar6,iVar5 + 400,iVar19 + 0x12a,0xff,0xffffff,piVar8[1]);
+          BuildRotatedSpriteQuad128(iVar6,iVar5 + 400,iVar19 + 0x12a,0xff,0xffffff,piVar8[1]);
         }
       }
       uStack_9e4 = uStack_9e4 + 1;
@@ -1038,7 +1038,7 @@ void State11_InBattle_Render(void)
           *(float *)(iVar6 + 0x80) = (float)(uStack_9f0 & 1) * _DAT_00557fb8;
           *(undefined4 *)(iVar6 + 0x88) = 0x3f000000;
           *(float *)(iVar6 + 0x84) = (float)(uStack_9f0 >> 1) * _DAT_00557fb8;
-          FUN_004ec430(iVar6,iVar5 + 400,iVar19 + 0x12a,0xff,0xffffff,piVar8[1]);
+          BuildRotatedSpriteQuad128(iVar6,iVar5 + 400,iVar19 + 0x12a,0xff,0xffffff,piVar8[1]);
         }
       }
       uStack_9f0 = uStack_9f0 + 1;
@@ -1085,7 +1085,7 @@ void State11_InBattle_Render(void)
           *(float *)(iVar6 + 0x80) = (float)(uVar16 & 1) * _DAT_00557fb8;
           *(undefined4 *)(iVar6 + 0x88) = 0x3f000000;
           *(float *)(iVar6 + 0x84) = (float)uStack_a08 * _DAT_00557fb8;
-          FUN_004ec430(iVar6,iVar5 + 400,iVar19 + 0x12a,0xff,0xffffff,piVar8[1]);
+          BuildRotatedSpriteQuad128(iVar6,iVar5 + 400,iVar19 + 0x12a,0xff,0xffffff,piVar8[1]);
         }
       }
       uVar16 = uVar16 + 1;

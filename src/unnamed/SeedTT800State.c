@@ -1,9 +1,8 @@
-/* FUN_00504c10 - 0x00504c10 in the original binary.
+/* SeedTT800State - 0x00504c10 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-REG FIX (2026-08-28): ESI is the state block being seeded -
  * `mov [esi],0` is the first instruction, and every word the function
@@ -24,11 +23,36 @@
  *
  * FUN_004fd0f0's EBP is its param_1 (`mov ebp,[esp+0x18]` at 0x4fd107
  * with the SEH triple plus ebx and ebp pushed, i.e. entry+4).
+ *
+ * NAMED (2026-08-28): this seeds a TT800 generator, and the evidence is
+ * the CONSUMER of the block rather than this body. FUN_00504d80, the
+ * next function in the image, is TT800's genrand over the very same
+ * layout:
+ *
+ *   `if (*state == 0x19)` - N = 25, the point at which TT800 refills
+ *   `x = x >> 1 ^ mag01[x & 1] ^ x[+7]` - M = 7, the twist, with mag01
+ *      indexed as state[(x & 1) + 0x1a], i.e. the two words this
+ *      function writes last
+ *   `y ^= (y & 0x56b64a) << 7` - 0x56b64a << 7 is 0x2b5b2500, TT800's
+ *      first tempering mask
+ *   `y ^= (y & 0xffffb716) << 15` - the second
+ *
+ * and the constant this function stores into state[0x1b] is 0x8ebfd028,
+ * which is TT800's published mag01[1] verbatim. So the block is
+ * state[0] = the index k, state[1..0x19] = the 25 state words, and
+ * state[0x1a..0x1b] = mag01[2] = { 0, 0x8ebfd028 } - exactly the
+ * assignments below, including the zeroed index and the zeroed mag01[0].
+ *
+ * What this function does with the 25 words is fill them with
+ * process-local entropy: GetTickCount, GetCurrentThreadId,
+ * GetCurrentProcessId, time(), clock() and GetVersion, each mixed with a
+ * distinct constant and then re-mixed across the remaining words. It is
+ * the seeding routine, not the generator.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00504c10(undefined4 *regEsi)
+void SeedTT800State(undefined4 *regEsi)
 
 {
   uint uVar1;

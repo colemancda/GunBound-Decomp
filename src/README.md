@@ -390,7 +390,7 @@ Concretely, that means:
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`
   - `unnamed/FUN_0041b8c0.c`, `FUN_00401880.c` (the ATL call), `FUN_00449540.c`,
-    `FUN_004cb280.c`, `FUN_004ccd10.c`, `FUN_00504c10.c`, `FUN_00525c42.c`,
+    `FUN_004cb280.c`, `FUN_004ccd10.c`, `SeedTT800State.c`, `FUN_00525c42.c`,
     `FUN_0053753c.c` (the last two are CRT-internal thread/FPU-state
     helpers, not game logic - likely not worth porting at all rather
     than fixing), `InitLightningHazard.c`, `InitFirewallHazard.c`, `InitTornadoHazard.c`

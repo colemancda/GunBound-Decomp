@@ -27,11 +27,11 @@ undefined4 FUN_00500710(int *regEbx,uint regEdi)
   if (local_c[0] == 0) {
     *(undefined4 *)(*regEbx + (*(uint *)(iVar1 + 0x1764) % (uint)regEbx[2]) * 4) =
          *(undefined4 *)(iVar1 + 0x1760);
-    FUN_005011c0(iVar1,(int)regEbx);
+    IntMap_FreeNode_1768(iVar1,(int)regEbx);
     return 1;
   }
   *(undefined4 *)(local_c[0] + 0x1760) = *(undefined4 *)(iVar1 + 0x1760);
-  FUN_005011c0(iVar1,(int)regEbx);
+  IntMap_FreeNode_1768(iVar1,(int)regEbx);
   return 1;
 }
 

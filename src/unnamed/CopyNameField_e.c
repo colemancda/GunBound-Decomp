@@ -1,8 +1,8 @@
-/* FUN_00503e10 - 0x00503e10 in the original binary.
+/* CopyNameField_e - 0x00503e10 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED REGISTERS RECOVERED (2026-08-28).
  * ESI is the DESTINATION and EDI the SOURCE (the body copies
@@ -13,8 +13,8 @@
  *
  * Every call site is in FUN_00501770, and the pairing is settled: VA order
  * matches source order and each site is separated by its own neighbouring
- * call (FUN_004fe5d0 before, FUN_00503e30 or FUN_004fcd80 after, with
- * distinct arguments).
+ * call (CopyNameField_12 before, StringMap_SetAt_28 or FUN_004fcd80
+ * after, with distinct arguments).
  *
  * THE FRAME KEY for FUN_00501770, which cost the most to derive and is worth
  * keeping.  Despite the `and esp,0xfffffff8` alignment, Ghidra's names map
@@ -26,7 +26,7 @@
  * `lea esi,[edi+0x179c]` is the source's own
  * `local_4980 = (char *)(param_1 + 0x179c)`; `lea ecx,[esp+0x80]` with ONE
  * push pending (the 0x11) is FUN_004fcd80's `local_4914`; `[esp+0xa0]` is
- * FUN_00503e30's `local_48f0`; and `[esp+0x338]` is `local_4658`.  The
+ * StringMap_SetAt_28's `local_48f0`; and `[esp+0x338]` is `local_4658`.  The
  * pending-push term is what makes the first two agree -- without it they
  * disagree by exactly 4.
  *
@@ -51,11 +51,22 @@
  * 0x501853 stores it to local_4970 and 0x501857 consumes it as FUN_00503bb0's
  * regEbx, and EBX is reloaded from local_4980 at 0x50188b before the first
  * helper call.
+ *
+ * NAMED (2026-08-28): the 0xe = 14-byte member of the fixed-width name
+ * field trio - up to 12 characters, a NUL at dest+len and the length
+ * byte at dest+0xd. See CopyNameField_12 for what the suffix means, for
+ * the outside corroboration of the record layout, and for the caution
+ * that the suffix is the byte count and not the character count.
+ *
+ * The 14-byte width is confirmed by a consumer rather than by this loop:
+ * StringMap_SetAt_28 copies exactly 14 bytes - three dwords and a word -
+ * out of the buffer that the immediately preceding CopyNameField_e call
+ * has just filled, into the map entry at +0x12.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00503e10(int regEsi,int regEdi)
+void CopyNameField_e(int regEsi,int regEdi)
 
 {
   byte bVar1;

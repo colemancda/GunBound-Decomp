@@ -98,10 +98,10 @@
  * DIFFERENT instantiation of this same template, the 4-byte-element
  * widget-child array, and the same-element sibling already carries the
  * suffix (AtlArray_SetCount_450). That is the whole point of the
- * CArray_Grow_1750/_4004/_206 convention. (The unnamed CAtlMap::RemoveAll
- * instantiations FUN_00404b90 / FUN_00415560 / FUN_00415600 are a different
- * container and would take a map prefix, so they are not the collision risk
- * here.)
+ * CArray_Grow_1750/_4004/_206 convention. (The CAtlMap::RemoveAll
+ * instantiations FUN_00404b90 / FUN_00415600 and the since-named
+ * StringMap_RemoveAll_CString are a different container and would take a
+ * map prefix, so they are not the collision risk here.)
  *
  * Not renamed to an owner-flavoured name (AvatarCatalogArray_Clear and the
  * like, on the InventoryItemArray_Reserve precedent): that would split one

@@ -1,8 +1,8 @@
-/* FUN_0047be80 - 0x0047be80 in the original binary.
+/* BlitSpriteFrameTo32x32Buffer - 0x0047be80 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * EAX is a dropped register argument and is the inner lookup key. At
  * 0x0047be84, the third instruction of the function, mov esi,eax reads EAX
@@ -55,11 +55,35 @@
  * and no jumps, and the raw dword 0x0047be80 appears nowhere in the image,
  * so the function is never taken as a function pointer either. The four
  * sites are exhaustive and none is portable today.
+ *
+ * NAMED (2026-08-28): the identity is a byte-for-byte twin that is
+ * ALREADY NAMED. BlitAvatarFrameToPreviewTexture (0x44b5d0) is this same
+ * routine statement for statement - the same two-level walk of the
+ * sprite registry at DAT_00ea0e1c (outer key by +0x1c, inner key by
+ * +0x10), the same frame fields (+0x20 source stride, +0x24/+0x28/+0x2c
+ * extents, +0x34 pixel base), the same 16bpp row copy into a destination
+ * pointer plus byte pitch, and the same argument convention with the
+ * outer key in EDX, the frame key in EAX and dest/pitch on the stack.
+ *
+ * The ONLY difference is the destination size, and it appears in exactly
+ * three constants:
+ *
+ *      0x44b5d0 (128x128)          here (32x32)
+ *      +0x28 and +0x2c biased      biased by 0x10 - centre (16,16)
+ *        by 0x40 - centre (64,64)
+ *      guards `< 0x80`             guards `< 0x20`
+ *      clamps to `0x7f -`          clamps to `0x1f -`
+ *
+ * so the frame is centred in, and clipped against, a 32-row by
+ * 32-column destination instead of a 128x128 one. The name says
+ * "Buffer" and not a surface or texture because, unlike the twin, this
+ * one has no identifiable destination: it takes a bare pointer and a
+ * pitch, and neither of its two binary callers is carved.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0047be80(undefined4 param_1,uint param_2,int param_3,int param_4,uint regEax)
+void __fastcall BlitSpriteFrameTo32x32Buffer(undefined4 param_1,uint param_2,int param_3,int param_4,uint regEax)
 
 {
   int iVar1;
