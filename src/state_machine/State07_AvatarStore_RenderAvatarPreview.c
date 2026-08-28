@@ -65,7 +65,7 @@ void __fastcall State07_AvatarStore_RenderAvatarPreview(int param_1)
     *(undefined4 *)(iVar1 + 0x80) = 0;
     *(undefined4 *)(iVar1 + 0x84) = 0;
     *(undefined4 *)(iVar1 + 0x88) = 0x3f000000;
-    BuildSizedSpriteQuad(599,0x53,0,0x80,0x80,0xffffffff);
+    BuildSizedSpriteQuad(599,0x53,0,0x80,0x80,0xffffffff,0,iVar1);
     (*(D3DDevSetTextureFn *)(*g_pD3DDevice7 + 0x8c))
               (g_pD3DDevice7,0,*(void **)(*(int *)(iVar1 + 0x94) + 0x110));
   }
@@ -88,7 +88,7 @@ void __fastcall State07_AvatarStore_RenderAvatarPreview(int param_1)
     *(undefined4 *)(iVar1 + 0x80) = 0x3f000000;
     *(undefined4 *)(iVar1 + 0x84) = 0;
     *(undefined4 *)(iVar1 + 0x88) = 0x3f000000;
-    BuildSizedSpriteQuad(599,0x53,0,0x80,0x80,0xffffffff);
+    BuildSizedSpriteQuad(599,0x53,0,0x80,0x80,0xffffffff,0,iVar1);
     (*(D3DDevSetTextureFn *)(*g_pD3DDevice7 + 0x8c))
               (g_pD3DDevice7,0,*(void **)(*(int *)(iVar1 + 0x94) + 0x110));
   }

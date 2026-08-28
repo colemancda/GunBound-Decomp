@@ -47,9 +47,9 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       *(undefined4 *)(iVar1 + 0x80) = 0x3f4147ae;
       *(undefined4 *)(iVar1 + 0x84) = 0x3ba3d70a;
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
+      iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      BuildSizedSpriteQuad(400,0x47,0,0x40,0x40,0xffffffff);
+      BuildSizedSpriteQuad(400,0x47,0,0x40,0x40,0xffffffff,iVar2,iVar1);
       FlushSpriteBatch();
     }
   }

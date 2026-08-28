@@ -1285,7 +1285,7 @@ void __thiscall FUN_004ec430();
 void __thiscall FUN_004ec610();
 void __fastcall FUN_004ec840();
 void __thiscall BuildScaledSpriteQuad(int param_1,int param_2,int param_3,char param_4,byte param_5,uint param_6,int regEax);
-void BuildSizedSpriteQuad();
+void BuildSizedSpriteQuad(int param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6,int regEax,int regEbx);
 void __thiscall FUN_004ecee0(int param_1,int param_2,int param_3,int regEax);
 undefined4 __thiscall QueueSpriteFrameSpans();
 void __thiscall BlitSpriteText();

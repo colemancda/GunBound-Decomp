@@ -68,6 +68,12 @@ void State11_InBattle_Render(void)
   int iPlayerRec; /* DROPPED-REG FIX 2026-08-27: GetPlayerRecordBySlot's result (orig EAX);
                      frees iVar7/iVar19 to keep holding the quad X, which the original
                      spills to [esp+0x14]/[esp+0x30]/[esp+0x24] across that call */
+  int iThorQuadY; /* DROPPED-REG FIX 2026-08-27: the Thor quad's Y, orig [esp+0x1c]
+                     (stored at 0x4c4b0c); Ghidra merged it into iVar6, which
+                     FindTextureCacheEntryByName then overwrites at 0x4c4b8d/0x4c4c77 */
+  int iPeekAngle; /* DROPPED-REG FIX 2026-08-27: PeekPacketChecksumState's discarded
+                     result - the sprite angle; orig moves EAX->EBX at 0x4c6e02/
+                     0x4c6ed2/0x4c7f45 and back into EAX right before the call */
   uint uStack_a38;
   char *pcStack_a34;
   int *piStack_a30;
@@ -166,7 +172,9 @@ void State11_InBattle_Render(void)
           *(undefined4 *)(iVar5 + 0x88) = 0x3ea80000;
           *(float *)(iVar5 + 0x80) = (float)(uStack_93c % 3) * _DAT_00558064;
           *(float *)(iVar5 + 0x84) = (float)(uStack_93c / 3) * _DAT_00558064;
-          BuildSizedSpriteQuad();
+          BuildSizedSpriteQuad((piVar8[-1] - *(int *)(&g_nCameraX + iVar6)) + 400,
+                       (*piVar8 - *(int *)(&g_nCameraY + iVar6)) + 0x12a,piVar8[1] != 0,0x54,0x54,
+                       0xffffffff,0,iVar5);
           iVar6 = g_clientContext;
         }
       }
@@ -228,7 +236,8 @@ void State11_InBattle_Render(void)
               }
             }
             else {
-              BuildSizedSpriteQuad();
+              BuildSizedSpriteQuad(iVar7,iVar12,*(int *)(iStack_938 + 0x20b1c + iVar5) != 0,0x80,0x80,
+                           0xffffffff,0,iVar6);
             }
           }
           iStack_938 = iStack_938 + 0x10;
@@ -286,7 +295,8 @@ void State11_InBattle_Render(void)
               }
             }
             else {
-              BuildSizedSpriteQuad();
+              BuildSizedSpriteQuad(iVar19,iVar7,*(int *)(iStack_95c + 0x20b5c + iVar5) != 0,0x80,0x80,
+                           0xffffffff,0,iVar6);
             }
           }
           iStack_95c = iStack_95c + 0x10;
@@ -465,7 +475,8 @@ void State11_InBattle_Render(void)
               }
             }
             else {
-              BuildSizedSpriteQuad();
+              BuildSizedSpriteQuad(iVar19,iVar7,*(int *)(iStack_968 + 0x20b1c + iVar5) != 0,0x80,0x80,
+                           0xffffffff,0,iVar6);
             }
           }
         }
@@ -526,7 +537,8 @@ void State11_InBattle_Render(void)
               }
             }
             else {
-              BuildSizedSpriteQuad();
+              BuildSizedSpriteQuad(iVar19,iVar7,*(int *)(iStack_988 + 0x20b5c + iVar5) != 0,0x80,0x80,
+                           0xffffffff,0,iVar6);
             }
           }
         }
@@ -720,9 +732,9 @@ void State11_InBattle_Render(void)
   }
   if (*(char *)(g_clientContext + 0x23244) == '\x01') {
     iVar5 = *(int *)(g_clientContext + 0x23248) - *(int *)(&g_nCameraX + g_clientContext);
-    iVar6 = *(int *)(g_clientContext + 0x2324c) - *(int *)(&g_nCameraY + g_clientContext);
+    iThorQuadY = *(int *)(g_clientContext + 0x2324c) - *(int *)(&g_nCameraY + g_clientContext);
     if ((((g_clipMinX <= iVar5 + 0x210) && (iVar5 + 0x110 <= g_clipMaxX)) &&
-        (g_clipMinY <= iVar6 + 0x1aa)) && (iVar6 + 0xaa <= g_clipMaxY)) {
+        (g_clipMinY <= iThorQuadY + 0x1aa)) && (iThorQuadY + 0xaa <= g_clipMaxY)) {
       if (g_currentBlendMode != 1) {
         g_currentBlendMode = 1;
         _DAT_00792194 = 1;
@@ -734,7 +746,8 @@ void State11_InBattle_Render(void)
         *(undefined4 *)(iVar6 + 0x80) = 0;
         *(undefined4 *)(iVar6 + 0x84) = 0;
         *(undefined4 *)(iVar6 + 0x88) = 0x3f800000;
-        BuildSizedSpriteQuad();
+        BuildSizedSpriteQuad(iVar5 + 400,iThorQuadY + 0x12a,0,0x100,0x100,0xffffffff,
+                     *(int *)(g_clientContext + 0x23250),iVar6);
         (**(code **)(*g_pD3DDevice7 + 0x8c))();
         if (g_spriteVertexCount != 0) {
           g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
@@ -753,7 +766,8 @@ void State11_InBattle_Render(void)
         *(undefined4 *)(iVar6 + 0x80) = 0;
         *(undefined4 *)(iVar6 + 0x84) = 0;
         *(undefined4 *)(iVar6 + 0x88) = 0x3f800000;
-        BuildSizedSpriteQuad();
+        BuildSizedSpriteQuad(iVar5 + 400,iThorQuadY + 0x12a,0,0x100,0x100,0xffffffff,
+                     *(int *)(g_clientContext + 0x23250),iVar6);
         (**(code **)(*g_pD3DDevice7 + 0x8c))();
         if (g_spriteVertexCount != 0) {
           g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
@@ -890,14 +904,11 @@ void State11_InBattle_Render(void)
                 *(int *)(&g_nCameraY + g_clientContext);
         if (((g_clipMinX <= iVar19 + 0x210) && (iVar19 + 0x110 <= g_clipMaxX)) &&
            ((g_clipMinY <= iVar7 + 0x1aa && (iVar7 + 0xaa <= g_clipMaxY)))) {
-          pcStack_a04 = (char *)0x0;
           *(undefined4 *)(iVar5 + 0x80) = 0;
           *(undefined4 *)(iVar5 + 0x84) = 0;
           *(undefined4 *)(iVar5 + 0x88) = 0x3f800000;
-          pcStack_a10 = (char *)0x4c52f4;
-          piStack_a0c = (int *)(iVar19 + 400);
-          uStack_a08 = iVar7 + 0x12a;
-          BuildSizedSpriteQuad();
+          BuildSizedSpriteQuad(iVar19 + 400,iVar7 + 0x12a,0,0x100,0x100,0xffffffff,
+                       *(int *)(iStack_9e0 + 0x21720 + g_clientContext),iVar5);
           pcStack_a04 = (char *)0x4c5314;
           (**(code **)(*g_pD3DDevice7 + 0x8c))();
           iVar6 = g_clientContext;
@@ -1160,12 +1171,9 @@ void State11_InBattle_Render(void)
         }
         else if (((iVar5 <= iVar19 + 0x1a0) && (iVar19 + 0x180 <= g_clipMaxX)) &&
                 ((g_clipMinY <= iVar7 + 0x13a && (iVar7 + 0x11a <= g_clipMaxY)))) {
-          pcStack_a28 = (char *)0xffffffff;
-          pcStack_a34 = (char *)CONCAT31((int3)((uint)piVar8[2] >> 8),piVar8[2] != 0);
-          piStack_a2c = (int *)0x20;
-          piStack_a30 = (int *)0x20;
-          uStack_a38 = iVar7 + 0x12aU;
-          BuildSizedSpriteQuad(iVar19 + 400);
+          BuildSizedSpriteQuad(iVar19 + 400,iVar7 + 0x12aU,
+                       CONCAT31((int3)((uint)piVar8[2] >> 8),piVar8[2] != 0),0x20,0x20,0xffffffff,
+                       piVar8[1],iVar6);
         }
       }
       piStack_a0c = (int *)((int)piStack_a0c + 1);
@@ -1223,10 +1231,9 @@ void State11_InBattle_Render(void)
         }
         else if ((((iVar6 <= iVar5 + 0x1a0) && (iVar5 + 0x180 <= g_clipMaxX)) &&
                  (g_clipMinY <= iVar19 + 0x13a)) && (iVar19 + 0x11a <= g_clipMaxY)) {
-          pcStack_a34 = (char *)0xffffffff;
-          uStack_a38 = 0x20;
           BuildSizedSpriteQuad(iVar5 + 400,iVar19 + 0x12aU,
-                       CONCAT31((int3)((uint)piVar8[2] >> 8),piVar8[2] != 0),0x20);
+                       CONCAT31((int3)((uint)piVar8[2] >> 8),piVar8[2] != 0),0x20,0x20,0xffffffff,
+                       piVar8[1],(int)uStack_a08);
         }
       }
       piStack_a18 = (int *)((int)piStack_a18 + 1);
@@ -1639,12 +1646,14 @@ LAB_004c6daa:
           iGuardCell = EncodeChecksumNegate(iVar5 + 0x62f8,auStack_774);
           uStack_100 = 5;
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-          PeekPacketChecksumState((void *)iGuardCell);
+          iPeekAngle = PeekPacketChecksumState((void *)iGuardCell);
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar5 = g_clientContext;
-          BuildSizedSpriteQuad(iVar6,pcStack_a28,uStack_a38,*(undefined4 *)(g_clientContext + 0x227bc),
+          BuildSizedSpriteQuad(iVar6,(int)pcStack_a28,uStack_a38,
                        *(undefined4 *)(g_clientContext + 0x227bc),
-                       *(int *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe4) << 0x18 | 0xffffff);
+                       *(undefined4 *)(g_clientContext + 0x227bc),
+                       *(int *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe4) << 0x18 | 0xffffff,
+                       iPeekAngle,(int)piStack_a2c);
           uStack_100 = 0xffffffff;
           if (iStack_760 != 0) {
             iVar5 = iStack_760 << 4;
@@ -1665,11 +1674,12 @@ LAB_004c6f6d:
           iGuardCell = EncodeChecksumNegate(iVar5 + 0x62f8,&piStack_a18);
           uStack_100 = 6;
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-          PeekPacketChecksumState((void *)iGuardCell);
+          iPeekAngle = PeekPacketChecksumState((void *)iGuardCell);
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar5 = g_clientContext;
-          BuildSizedSpriteQuad(iVar6,pcStack_a28,uStack_a38,0xc0,0xc0,
-                       *(int *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe4) << 0x18 | 0xffffff);
+          BuildSizedSpriteQuad(iVar6,(int)pcStack_a28,uStack_a38,0xc0,0xc0,
+                       *(int *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe4) << 0x18 | 0xffffff,
+                       iPeekAngle,(int)piStack_a2c);
           uStack_100 = 0xffffffff;
           if (pcStack_a04 != (char *)0x0) {
             iVar5 = (int)pcStack_a04 << 4;
@@ -2084,11 +2094,13 @@ LAB_004c7ef8:
     iGuardCell = EncodeChecksumNegate(*(int *)(g_clientContext + 0x621e4) + 0x62f8,auStack_32c);
     uStack_100 = 0xc;
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    PeekPacketChecksumState((void *)iGuardCell);
+    iPeekAngle = PeekPacketChecksumState((void *)iGuardCell);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = g_clientContext;
-    BuildSizedSpriteQuad(iVar19,pcStack_a28,uStack_a38,*(undefined4 *)(g_clientContext + 0x227bc),
-                 *(undefined4 *)(g_clientContext + 0x227bc),0xffffffff);
+    BuildSizedSpriteQuad(iVar19,(int)pcStack_a28,uStack_a38,
+                 *(undefined4 *)(g_clientContext + 0x227bc),
+                 *(undefined4 *)(g_clientContext + 0x227bc),0xffffffff,
+                 iPeekAngle,(int)piStack_a2c);
     uStack_100 = 0xffffffff;
     if (iStack_318 != 0) {
       iVar6 = iStack_318 << 4;
