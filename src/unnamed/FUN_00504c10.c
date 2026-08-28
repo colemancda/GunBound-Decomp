@@ -4,11 +4,31 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-REG FIX (2026-08-28): ESI is the state block being seeded -
+ * `mov [esi],0` is the first instruction, and every word the function
+ * writes is an index off it. Nothing writes ESI in the body, so it is a
+ * read-before-write live-in.
+ *
+ * All three call sites load it with `lea`, not `mov` - an ADDRESS, which
+ * callsite_regs.py renders identically to a load - and each is pinned by
+ * the byte store immediately before the call, whose offset the source
+ * already spells out one line above:
+ *
+ *   0x4fd1eb  lea esi,[ebp+0x1d2c]  after `mov byte [ebp+0x1d28],bl`
+ *             = the source's `*(undefined1 *)(param_1 + 0x74a) = 0`
+ *   0x4fd208  lea esi,[ebp+0x1fb0]  after `mov byte [ebp+0x1fac],bl`
+ *             = `*(undefined1 *)(param_1 + 0x7eb) = 0`
+ *   0x4fdf1c  lea esi,[edi+0x210]   after `mov byte [edi+0x20c],bl`
+ *             = `*(undefined1 *)(unaff_EDI + 0x83) = 0`
+ *
+ * FUN_004fd0f0's EBP is its param_1 (`mov ebp,[esp+0x18]` at 0x4fd107
+ * with the SEH triple plus ebx and ebp pushed, i.e. entry+4).
  */
 #include "ghidra_types.h"
 
 
-void FUN_00504c10(void)
+void FUN_00504c10(undefined4 *regEsi)
 
 {
   uint uVar1;
@@ -17,7 +37,7 @@ void FUN_00504c10(void)
   DWORD DVar4;
   DWORD DVar5;
   uint uVar6;
-  undefined4 *unaff_ESI;
+  undefined4 *unaff_ESI = regEsi;
   uint uVar7;
   
   *unaff_ESI = 0;

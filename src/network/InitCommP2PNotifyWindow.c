@@ -42,7 +42,7 @@ void InitCommP2PNotifyWindow(undefined4 *self)
   unaff_EDI = self;
   *unaff_EDI = &PTR_LAB_00557654;
   *(undefined1 *)(unaff_EDI + 0x83) = 0;
-  FUN_00504c10();
+  FUN_00504c10(unaff_EDI + 0x84);
   unaff_EDI[0xa0] = 0;
   unaff_EDI[0xa1] = 0;
   unaff_EDI[0xa2] = 0xffffffff;

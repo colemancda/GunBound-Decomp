@@ -3,19 +3,35 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-REG FIX (2026-08-28): the same free-list push as
+ * FUN_004156d0, for a map whose node link sits at +0xa4. EAX is the node
+ * being retired and ESI the map that owns it; both are read before
+ * written. The node's +0xa4 link takes the map's current free head from
+ * +0x2c, the node becomes the new head, the live count at +4 drops, and
+ * the map is shrunk when that count falls below the threshold at +0x1c
+ * with the lock byte at +0x20 clear.
+ *
+ * Its bucket-sweep caller FUN_00500140 carried the same defect the
+ * FUN_004156d0 sweep did: the original captures the node in EAX and only
+ * then advances the cursor, while the port advanced first and called
+ * with nothing, so writing the call in terms of the advanced value would
+ * have retired the wrong node. The captured value gets a local there.
+ * FUN_00504050's two sites are straightforward - `mov eax,ecx` for
+ * the node the lookup found, with the map already in ESI.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00500e80(void)
+void FUN_00500e80(int regEax,int regEsi)
 
 {
   int *piVar1;
-  int in_EAX;
+  int in_EAX = regEax;
   undefined4 uVar2;
   int *_Memory;
   uint uVar3;
-  int unaff_ESI;
+  int unaff_ESI = regEsi;
   
   thunk_FUN_00500f80();
   *(undefined4 *)(in_EAX + 0xa4) = *(undefined4 *)(unaff_ESI + 0x2c);

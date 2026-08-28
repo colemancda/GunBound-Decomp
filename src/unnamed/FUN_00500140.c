@@ -11,6 +11,7 @@ void FUN_00500140(int *regEax)
 
 {
   int iVar1;
+  int iNode;
   int *piVar2;
   undefined4 uVar3;
   int *_Memory;
@@ -22,8 +23,12 @@ void FUN_00500140(int *regEax)
     do {
       iVar1 = *(int *)(*regEax + uVar4 * 4);
       while (iVar1 != 0) {
+        /* DROPPED-REG FIX 2026-08-28: the original captures the node in
+           EAX before advancing (`mov eax,edi / mov edi,[edi+0xa4]`), so
+           the retired node is the one BEFORE the step. */
+        iNode = iVar1;
         iVar1 = *(int *)(iVar1 + 0xa4);
-        FUN_00500e80();
+        FUN_00500e80(iNode,(int)regEax);
       }
       uVar4 = uVar4 + 1;
     } while (uVar4 < (uint)regEax[2]);
