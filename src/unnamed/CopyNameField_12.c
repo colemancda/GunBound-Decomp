@@ -33,7 +33,7 @@
  * takes 12 characters.
  *
  * The record shape is corroborated from outside these three functions.
- * CopyNameKey (0x503770) already carries the same `char text[N]; byte
+ * Vector_CopyElement_1e (0x503770) already carries the same `char text[N]; byte
  * len at the end` layout for a 0x11-byte key, and StringMap_SetAt_28
  * (0x503e30) upserts entries whose KEY is an 18-byte record of this
  * exact shape and whose VALUE is a 14-byte one - the value being, at

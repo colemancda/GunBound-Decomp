@@ -1486,12 +1486,12 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00502800,125,Vector_PushBack_34,false,1,2,RAW-src
 00502890,83,FUN_00502890,false,1,2,RAW-src
 005028f0,38,FUN_005028f0,false,2,1,RAW-src
-00502920,137,FUN_00502920,false,1,2,RAW-src
+00502920,137,Vector_PushBack_1e,false,1,2,RAW-src
 005029b0,104,FUN_005029b0,false,1,1,RAW-src
 00502a20,104,Vector_Insert_34,false,1,1,RAW-src
 00502a90,64,FUN_00502a90,false,1,2,RAW-src
 00502ad0,33,FUN_00502ad0,false,1,0,RAW-src
-00502b00,108,FUN_00502b00,false,1,1,RAW-src
+00502b00,108,Vector_Insert_1e,false,1,1,RAW-src
 00502b70,653,FUN_00502b70,false,1,8,RAW-src
 00502e20,615,Vector_InsertN_34,false,1,9,RAW-src
 005030a0,105,FUN_005030a0,false,4,3,RAW-src
@@ -1500,7 +1500,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005033e0,647,Vector_InsertN_1e,false,1,9,RAW-src
 00503680,134,Vector_CopyElement_34,false,3,0,RAW-src
 00503710,86,FUN_00503710,false,1,1,RAW-src
-00503770,93,CopyNameKey,false,1,0,RAW-src
+00503770,93,Vector_CopyElement_1e,false,1,0,RAW-src
 005037d0,32,FUN_005037d0,false,1,0,RAW-src
 005037f0,32,CopyNameField_a,false,4,0,RAW-src
 00503810,35,FUN_00503810,false,1,0,RAW-src
@@ -1525,7 +1525,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00504110,72,FUN_00504110,false,3,0,RAW-src
 00504160,38,Vector_UninitFillN_34,false,3,1,RAW-src
 00504190,135,FUN_00504190,false,3,1,RAW-src
-00504270,117,FUN_00504270,false,3,0,RAW-src
+00504270,117,Vector_UninitFillN_1e,false,3,0,RAW-src
 005042f0,55,FUN_005042f0,false,1,0,RAW-src
 00504330,229,FUN_00504330,false,1,2,RAW-src
 00504420,89,FUN_00504420,false,1,1,RAW-src
@@ -1533,7 +1533,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00504550,72,FUN_00504550,false,4,0,RAW-src
 005045a0,44,Vector_UninitCopy_34,false,4,1,RAW-src
 005045d0,137,FUN_005045d0,false,4,1,RAW-src
-005046b0,116,FUN_005046b0,false,4,0,RAW-src
+005046b0,116,Vector_UninitCopy_1e,false,4,0,RAW-src
 00504730,91,FUN_00504730,false,1,2,RAW-src
 00504790,98,FUN_00504790,false,1,1,RAW-src
 00504880,79,FUN_00504880,false,0,3,RAW-src

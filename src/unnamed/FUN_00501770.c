@@ -632,7 +632,7 @@ LAB_00501b17:
            * - which is what the *(iVar7 + 0x24) read below already encodes.
            * TWO of the three stack destinations are one contiguous record
            * based at &local_4944 - the id at +0 and the 8-byte field at +0x12
-           * - as the FUN_00502920(&local_4944,...) call below shows; 0x502326
+           * - as the Vector_PushBack_1e(&local_4944,...) call below shows; 0x502326
            * `lea esi,[esp+0x5e]` is that base + 0x12 and cannot get a local of
            * its own because it starts inside uStack_4934.  The nick goes to
            * the separate scratch buffer local_4900, which StringMap_SetAt_28 then
@@ -644,7 +644,7 @@ LAB_00501b17:
           CopyNameField_a((int)((char *)&local_4944 + 0x12),iVar7 + 0x1c);
           local_4928 = *(undefined2 *)(iVar7 + 0x24);
           iVar7 = iVar7 + 0x26;
-          FUN_00502920(&local_4944,(int)&local_4954);
+          Vector_PushBack_1e(&local_4944,(int)&local_4954);
           local_4984 = local_4984 - 1;
         } while (local_4984 != 0);
         local_4984 = 0;

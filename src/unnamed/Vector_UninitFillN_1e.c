@@ -1,17 +1,37 @@
-/* FUN_00504270 - 0x00504270 in the original binary.
+/* Vector_UninitFillN_1e - 0x00504270 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above (2026-08-28, from its Vector_*_34 twin), but still a
+ * raw/near-verbatim port of Ghidra's decompiler output, not
+ * hand-verified. See src/README.md's "Raw/verbatim ports" section for
+ * status.
+ *
+ * DROPPED-REG FIX (2026-08-28): the 0x1e twin of Vector_UninitFillN_34 -
+ * VC7.1's _Uninit_fill_n, constructing param_1 copies of one element
+ * into raw storage via the element copy.
+ *
+ * ECX -> param_1  the COUNT: `push ecx / test ecx / jbe exit` is the
+ *                 function's opening, and the loop decrements it.
+ * EDX -> param_2  the source element.
+ * [esp+4]
+ *     -> param_3  the never-read allocator word of the STL shape: every
+ *                 caller pushes it and clears it with `add esp,4`, and
+ *                 no instruction in the body reads above the frame.
+ * EAX -> regEax   the destination cursor, advanced 0x1e per element;
+ *                 read at 0x504280 (`test eax,eax`) before any write.
+ *
+ * Both Vector_InsertN_1e sites and the Vector_PushBack_1e push_back fast path
+ * were mis-slotted - each passed one value that landed in ECX where the
+ * count belongs.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00504270(int param_1,undefined4 *param_2)
+void __fastcall Vector_UninitFillN_1e(int param_1,undefined4 *param_2,undefined4 param_3,
+                             undefined4 *regEax)
 
 {
   byte bVar1;
-  undefined4 *in_EAX;
+  undefined4 *in_EAX = regEax;
   uint uVar2;
   undefined4 *puVar3;
   undefined4 *puVar4;
