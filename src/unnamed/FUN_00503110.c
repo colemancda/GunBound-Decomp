@@ -14,7 +14,7 @@ void FUN_00503110(void)
   int unaff_EDI;
   
   for (; in_EAX != unaff_EDI; in_EAX = in_EAX + 8) {
-    FUN_00415890();
+    FUN_00415890(in_EAX);
   }
   return;
 }

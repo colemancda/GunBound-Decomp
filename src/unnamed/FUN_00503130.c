@@ -95,7 +95,10 @@ void FUN_00503130(int param_1,int param_2,uint param_3)
         iVar6 = *(int *)(param_1 + 8) - iVar3 >> 3;
       }
       if (iVar3 != 0) {
-        FUN_00503110();
+        /* DROPPED-REG FIX 2026-08-28: destroy the old elements before the
+           free - EAX = iVar3 (the old begin, the very guard above), EDI =
+           `mov edi,[esi+8]` at 0x50326c, the old end. */
+        FUN_00503110(iVar3,*(int *)(param_1 + 8));
         _free(*(void **)(param_1 + 4));
       }
       *(uint *)(param_1 + 0xc) = local_18 + (int)pvVar4;

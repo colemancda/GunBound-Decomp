@@ -21,7 +21,8 @@ void FUN_00502a90(int regEbx)
   if (iVar2 != 0) {
     iVar1 = *(int *)(regEbx + 8);
     for (; iVar2 != iVar1; iVar2 = iVar2 + 8) {
-      FUN_00415890();
+      /* DROPPED-REG FIX 2026-08-28: the sweep cursor, already in ESI. */
+      FUN_00415890(iVar2);
     }
     _free(*(void **)(regEbx + 4));
   }
