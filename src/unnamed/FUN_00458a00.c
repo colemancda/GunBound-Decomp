@@ -49,7 +49,8 @@ void FUN_00458a00(int *param_1,int *param_2,int param_3,int param_4,int param_5,
           return;
         }
         if ((param_9 != '\0') &&
-           (cVar1 = FUN_00450e10(param_3), iVar2 = g_clientContext, cVar1 != '\0')) break;
+           (cVar1 = FUN_00450e10(param_3,(int)(&DAT_006a7f88 + g_clientContext),iVar3), iVar2 = g_clientContext,
+           cVar1 != '\0')) break;
         iVar4 = iVar4 + 1;
         param_3 = param_3 + param_5;
         if (param_4 <= iVar4) {

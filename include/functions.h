@@ -710,7 +710,7 @@ void FUN_00450b80(int regEbx);
 void FUN_00450bd0(int regEbx);
 void FUN_00450c20();
 void FUN_00450dd0(int regEbx);
-undefined4 FUN_00450e10();
+undefined4 FUN_00450e10(int param_1,int regEax,int regEbx);
 int FUN_00451030(int param_1, int regEax);
 int FUN_004510f0(int param_1,int regEax);
 int FUN_004511b0(int param_1, int regEax);
@@ -1396,7 +1396,7 @@ void __fastcall FUN_004f2ee0();
  * (LoadAvatarSprites.c/ComposeAvatarSprites.c) still use the old 1-arg form
  * and need their own per-site fix. See CreateActiveObjectLayer.c. */
 undefined4 * CreateActiveObjectLayer();
-int __fastcall FUN_004f2f90();
+int __fastcall FUN_004f2f90(undefined4 param_1,uint param_2,int regEax);
 void SweepActiveObjectRegistry(int);
 void FUN_004f3060();
 int FindSpriteFrame(); /* real args (container, outerKey, innerKey); K&R-empty

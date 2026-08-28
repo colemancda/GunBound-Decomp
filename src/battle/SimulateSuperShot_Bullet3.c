@@ -315,7 +315,7 @@ LAB_0048bc2e:
         if (cVar1 != '\0') {
           FUN_00436ec0(local_15b8,local_15bc);
         }
-        cVar1 = FUN_00450e10(local_15bc);
+        cVar1 = FUN_00450e10(local_15bc,(int)(&DAT_006a7f88 + g_clientContext),local_15b8);
         iVar3 = local_15b4;
         if (cVar1 != '\0') {
           FUN_00458920(&local_15c4,&local_15bc,local_159c,local_15a4,local_1590,local_1578,
@@ -622,7 +622,7 @@ LAB_0048c664:
         if (cVar1 != '\0') {
           FUN_00436ec0(local_15c4,local_15b8);
         }
-        cVar1 = FUN_00450e10(local_15b8);
+        cVar1 = FUN_00450e10(local_15b8,(int)(&DAT_006a7f88 + g_clientContext),local_15c4);
         iVar3 = local_15b4;
         if (cVar1 != '\0') {
           FUN_00458a00(&local_15c4,&local_15bc,local_159c,local_15a4,local_1590,local_1578,

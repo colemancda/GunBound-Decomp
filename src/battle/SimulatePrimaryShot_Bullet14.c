@@ -383,7 +383,7 @@ LAB_004711aa:
           }
           break;
         }
-        cVar8 = FUN_00450e10(local_15b4);
+        cVar8 = FUN_00450e10(local_15b4,(int)(&DAT_006a7f88 + g_clientContext),local_15b0);
         if (cVar8 != '\0') {
           FUN_00458920(&local_15bc,&local_15b4,local_1588,local_1598,local_1590,local_158c,
                        local_1594,0,1,param_2);
@@ -646,7 +646,7 @@ LAB_0047090c:
           }
           break;
         }
-        cVar8 = FUN_00450e10(local_15b0);
+        cVar8 = FUN_00450e10(local_15b0,(int)(&DAT_006a7f88 + g_clientContext),local_15bc);
         if (cVar8 != '\0') {
           FUN_00458a00(&local_15bc,&local_15b4,local_1584,local_1598,local_1590,local_158c,
                        local_1594,0,1,param_2);

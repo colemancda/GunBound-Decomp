@@ -352,7 +352,7 @@ LAB_004560f2:
         }
         goto LAB_00457294;
       }
-      cVar8 = FUN_00450e10(local_15b4);
+      cVar8 = FUN_00450e10(local_15b4,(int)(&DAT_006a7f88 + g_clientContext),local_15a4);
       if (cVar8 == '\0') {
         local_158c = local_158c + param_2;
         local_15a4 = iVar16 + local_1578;
@@ -626,7 +626,7 @@ LAB_00456a3c:
           }
           break;
         }
-        cVar8 = FUN_00450e10(local_15a4);
+        cVar8 = FUN_00450e10(local_15a4,(int)(&DAT_006a7f88 + g_clientContext),local_15b8);
         if (cVar8 != '\0') {
           FUN_00458a00(&local_15b8,&local_15b4,iVar12,local_158c,local_1590,local_1588,local_1594,0,
                        1,param_2);

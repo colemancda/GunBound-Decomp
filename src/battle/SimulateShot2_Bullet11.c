@@ -312,7 +312,7 @@ LAB_004735e2:
          || ((*(int *)(&g_nCameraBoundY + g_clientContext) <= local_15b8 ||
              (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * local_15b8 +
                         *(int *)(&DAT_006a773c + g_clientContext) + iVar12) == '\0')))) {
-        cVar8 = FUN_00450e10(local_15b8);
+        cVar8 = FUN_00450e10(local_15b8,(int)(&DAT_006a7f88 + g_clientContext),local_15a8);
         if (cVar8 != '\0') {
           FUN_00458920(&local_15bc,&local_15b8,local_1588,local_1598,local_1594,local_158c,
                        local_159c,0,1,param_2);
@@ -602,7 +602,7 @@ LAB_00473e6c:
           bVar15 = ~bVar9 & (byte)local_15b4[0];
           goto LAB_00474465;
         }
-        cVar8 = FUN_00450e10(local_15a8);
+        cVar8 = FUN_00450e10(local_15a8,(int)(&DAT_006a7f88 + g_clientContext),local_15bc);
         if (cVar8 != '\0') {
           FUN_00458a00(&local_15bc,&local_15b8,iVar12,local_1598,local_1594,local_158c,local_159c,0,
                        1,param_2);
