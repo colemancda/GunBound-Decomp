@@ -34,6 +34,11 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
   bool bVar9;
   int iStack_8c;
   int iStack_88;
+  int iSelStart; /* DROPPED-REG FIX 2026-08-28: the caret box's start column,
+                    iStack_88 or the strlen the original computes when it is -1
+                    (`sub eax,edx` at 0x4da367); Ghidra discarded the strlen */
+  int iSelEnd;   /* DROPPED-REG FIX 2026-08-28: the end column, iStack_8c or the
+                    strlen at 0x4da387, discarded the same way */
   CHAR aCStack_80 [128];
   
   if (*(int *)(param_1 + 0x4d4) != -1) {
@@ -379,24 +384,49 @@ LAB_004da2f4:
        (iVar3 = GetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),aCStack_80,0x80), iVar3 == 0)) {
       aCStack_80[0] = '\0';
     }
+    /* DROPPED-REG FIX (2026-08-28): Ghidra kept both strlen walks below
+     * and discarded both results (`sub eax,edx` at 0x4da367 and 0x4da387),
+     * and with them the x and width every edge of the caret box is built
+     * from. The two selection columns are recovered into named locals
+     * rather than written back over iStack_88/iStack_8c, which are the
+     * out-parameters TextEntry_FetchSelectionAndPlaceImeCaret filled just
+     * above. Frame model: with esp = entry - 0xa0, `mov eax,[esp+0x18]` at
+     * 0x4da349 reads iStack_88 and `mov eax,[esp+0x14]` at 0x4da36c reads
+     * iStack_8c - the same two slots whose addresses that call received in
+     * ESI and EAX at 0x4da313/0x4da317.
+     *
+     * The compiler inlined FUN_004eb7a0 here; the sibling
+     * State11_InBattle_RenderPlayerRoster still calls it out of line as
+     * FUN_004eb7a0(iVar3 * 6 + 0xca, local_1018[0] * 6 + iVar3 * -6 + 2,
+     * 0xc), which is the same rectangle with the same shape of arguments. */
+    iSelStart = iStack_88;
     if (iStack_88 == -1) {
       pcVar5 = aCStack_80;
       do {
         cVar6 = *pcVar5;
         pcVar5 = pcVar5 + 1;
       } while (cVar6 != '\0');
+      iSelStart = (int)pcVar5 - (int)(aCStack_80 + 1);
     }
+    iSelEnd = iStack_8c;
     if (iStack_8c == -1) {
       pcVar5 = aCStack_80;
       do {
         cVar6 = *pcVar5;
         pcVar5 = pcVar5 + 1;
       } while (cVar6 != '\0');
+      iSelEnd = (int)pcVar5 - (int)(aCStack_80 + 1);
     }
-    DrawHLine(0xf800);
-    DrawHLine(0xf800);
-    DrawVLine();
-    DrawVLine();
+    /* The four edges, from 0x4da395-0x4da3e2: esi = iSelStart * 6 + 0x51
+     * is the x, ebp = (iSelEnd - iSelStart) * 6 + 2 the width, and the
+     * pushed 0xf800 is the COLOUR - which is why it belongs in param_3
+     * and not in the phantom ECX slot it used to occupy. The rows are
+     * 0x16f and 0x17a, i.e. y and y + h - 1 for the h = 0xc the DrawVLine
+     * pair carries as its run length. */
+    DrawHLine(0,(iSelEnd * 6 - iSelStart * 6) + 2,0xf800,iSelStart * 6 + 0x51,0x16f);
+    DrawHLine(0,(iSelEnd * 6 - iSelStart * 6) + 2,0xf800,iSelStart * 6 + 0x51,0x17a);
+    DrawVLine(0xc,0x16f,0xf800,iSelStart * 6 + 0x51);
+    DrawVLine(0xc,0x16f,0xf800,((iSelStart * 6 + 0x51) + (iSelEnd * 6 - iSelStart * 6) + 2) + -1);
     /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the raw
      * port - objdump at this call site (0x4da3f7/0x4da3f2-0x4da3ee) shows
      * ECX=0x52 (constant x-cursor) and EAX=&aCStack_80 (the edit-box text

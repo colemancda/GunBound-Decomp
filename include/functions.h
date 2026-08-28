@@ -1266,11 +1266,11 @@ void __thiscall BlitFontGlyphClipped();
 void __thiscall DrawWideGlyph();
 void DrawNarrowGlyph(int param_1,int param_2,int param_3,byte *regEax);
 void __thiscall DrawFontString(int param_1,undefined4 param_2,undefined4 param_3,char *regEax);
-void __fastcall DrawHLine();
+void __fastcall DrawHLine(undefined4 param_1,int param_2,int param_3,int regEax,int regEdi);
 void __fastcall DrawBlendedHLine(undefined4 param_1,int param_2,int param_3,int regEax,int regEdi);
-void __fastcall DrawVLine();
+void __fastcall DrawVLine(int param_1,int regEax,int regEbx,int regEdi);
 void __fastcall DrawBlendedVLine(int param_1,int param_2,int param_3,int regEax);
-void FUN_004eb7a0();
+void FUN_004eb7a0(int param_1,int param_2,int param_3);
 void __fastcall FillScreenRect(int param_1,int param_2,int param_3,int param_4,int regEax);
 void DrawSprite(); /* K&R-empty deliberately (like FindSpriteFrame): real args
                      * are (param_1,y,x,outerKey,innerKey); only GameTick.c's

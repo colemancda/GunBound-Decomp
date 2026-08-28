@@ -481,8 +481,13 @@ LAB_00408b80:
         FillPixels16(g_screenSurface + (g_screenPitch * 0x24f + iVar13) * 2,0xffff,iVar3);
       }
     }
-    DrawVLine();
-    DrawVLine();
+    /* DROPPED-REG FIX (2026-08-28): all four arguments, read straight off
+     * the setup at 0x408cdf-0x408d07 - `mov ebx,0xffff` once for the pair
+     * (it stays live across both calls), then ecx = 7, eax = 0x249 and
+     * edi = 0x2d4 / 0x315, the two vertical sides of the same box whose
+     * horizontals the FillPixels16 call above draws. */
+    DrawVLine(7,0x249,0xffff,0x2d4);
+    DrawVLine(7,0x249,0xffff,0x315);
     FillScreenRect(0x24a,0x2d5,0x40,0x2965,5);
     iVar3 = uVar7 + 0x6db0;
     iVar13 = uVar7 + 0x6744;
