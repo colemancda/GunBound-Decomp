@@ -309,3 +309,22 @@ unsigned char DAT_007a7644[0x1c];
 unsigned char DAT_00eb1a78[0x160];
 unsigned char DAT_00eb1698[0x3e0];
 unsigned char DAT_00f22518[0x138];
+
+/* ---- Two 0x30-byte container-policy objects -------------------------
+ * FUN_004fe420 is that object's constructor and writes twelve fields
+ * spanning +0x00..+0x2c through the base it receives in ESI.  The two
+ * static-initialiser thunks FUN_00540f00 and FUN_00540f20 hand it these
+ * globals (`mov eax,0x794e14` / `mov eax,0xe9bea8`, then call the
+ * FUN_0040d180 wrapper), so each needs the full 0x30 bytes rather than
+ * the 1- and 4-byte cells globals.c gave them.
+ *
+ * Both spans are clear, checked before resizing: nothing is declared
+ * inside 0x794e14..0x794e44 (the next symbol, DAT_00794e48, is +0x34
+ * away) and nothing inside 0xe9bea8..0xe9bed8 (DAT_00e9bea0/a4 are
+ * BELOW it, and the next above, DAT_00e9bed8, sits at exactly +0x30 --
+ * an exact fit, the same criterion used for the objects above).
+ *
+ * The externs in globals.h stay `uint8_t`, so every existing
+ * `&DAT_00794e14` / `&DAT_00e9bea8` call site keeps its type. */
+unsigned char DAT_00794e14[0x30];
+unsigned char DAT_00e9bea8[0x30];

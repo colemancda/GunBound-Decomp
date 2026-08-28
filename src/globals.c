@@ -616,7 +616,8 @@ uint32_t g_gameEventRingReadIndex;
 uint8_t g_gameEventTypeRing;
 uint8_t g_gameEventDataRing;
 /* DAT_00794bf0: moved to globals_sized.c (0x224 CValueGuard cell). */
-uint8_t DAT_00794e14;
+/* DAT_00794e14: moved to globals_sized.c (0x30-byte container-policy object
+ * that FUN_004fe420 constructs through it). */
 /* The input-event ring buffer (write/read cursors + 3 field arrays) is now
  * ONE contiguous object g_inputEventRing in globals_sized.c, reached through
  * the offset-macros in globals.h - see the comment there. The five fields
@@ -795,7 +796,8 @@ uint8_t DAT_00e9be98;
 uint8_t DAT_00e9be9c;
 uint8_t DAT_00e9bea0;
 uint8_t DAT_00e9bea4;
-uint32_t DAT_00e9bea8;
+/* DAT_00e9bea8: moved to globals_sized.c (0x30-byte container-policy object
+ * that FUN_004fe420 constructs through it). */
 /* DAT_00e9bed8: moved to globals_sized.c (0x224 CValueGuard cell). */
 uint8_t g_activeObjectRegistry2[0x20];
 uint32_t DAT_00e9c104;

@@ -10,7 +10,7 @@
 void FUN_00540f20(void)
 
 {
-  FUN_0040d180();
+  FUN_0040d180((undefined4 *)&DAT_00e9bea8);
   _atexit(FUN_00543300);
   return;
 }

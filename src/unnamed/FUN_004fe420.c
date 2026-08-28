@@ -22,17 +22,28 @@
  * ESI is a second dropped register here and remains open; unlike the rest it
  * is genuinely per-site (nine distinct values across nine sites), so it needs
  * a witness rather than this treatment.
+ *
+ * DROPPED REGISTER RECOVERED (2026-08-27): unaff_ESI is the real `this`.  It
+ * is never written in the callee, it is the base of every field store, and
+ * `mov eax,esi` returns it -- while the ECX value Ghidra called param_1 is
+ * just another field, stored at +0x24.  The object is 0x30 bytes.
+ *
+ * Every site is a construction of a sub-object at a fixed offset of the
+ * caller's own: param_1 + 0x6ff, param_1 + 0x6aa41c, param_1 + 0x6b0,
+ * unaff_EDI + 0xa4, regEdi + 0x20 -- and the two static-initialiser thunks
+ * reach it through FUN_0040d180 with two globals whose real extent had to be
+ * restored first (see that file and globals_sized.c).
  */
 #include "ghidra_types.h"
 
 
 void __thiscall
-FUN_004fe420(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 regEax)
+FUN_004fe420(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 regEax,undefined4 *regEsi)
 
 {
   undefined4 uVar1;
   uint uVar2;
-  undefined4 *unaff_ESI;
+  undefined4 *unaff_ESI = regEsi;
   
   unaff_ESI[9] = param_1;
   unaff_ESI[3] = param_2;
