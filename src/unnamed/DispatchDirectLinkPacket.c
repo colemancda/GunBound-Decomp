@@ -29,6 +29,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
   byte bVar5;
   char *pcVar6;
   int iVar7;
+  undefined1 local_12c [9];
   undefined4 local_118;
   undefined4 local_114;
   undefined4 local_110;
@@ -137,6 +138,13 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
         return;
       }
       if (uVar2 == 0x1003) {
+        *(undefined4 *)local_12c = *(undefined4 *)(param_1 + 8);
+        *(undefined4 *)(local_12c + 4) = *(undefined4 *)(param_1 + 0xc);
+        local_12c[8] = 0;
+        if (((int)*(uint *)(local_12c + 4) < 0) &&
+           (-1 < (char)(*(uint *)(local_12c + 4) >> 0x10))) {
+          local_12c[7] = 0;
+        }
         local_118 = 0xffffffff;
         local_114 = 0xffffffff;
         local_110 = 0xffffffff;
@@ -152,7 +160,8 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
         local_10c[9] = -1;
         local_10c[10] = -1;
         local_10c[0xb] = -1;
-        FUN_00401d50(param_2,1,0,*(undefined2 *)(param_1 + 0x10),&local_118,param_3);
+        FUN_00401d50((char *)local_12c,param_2,1,0,*(undefined2 *)(param_1 + 0x10),&local_118,
+                     (char *)param_3,(char *)regEax);
         return;
       }
     }

@@ -141,7 +141,8 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
               }
               puVar4 = param_1 + 9;
               param_1 = (uint *)((int)param_1 + 0x26);
-              FUN_00401d50(&DAT_00e53e88,1,local_128,(short)*puVar4,local_108,&local_13c);
+              FUN_00401d50((char *)&local_148,(int)&DAT_00e53e88,1,local_128,(short)*puVar4,
+                           (undefined4 *)local_108,(char *)&local_13c,(char *)&local_158);
               iVar7 = g_clientContext;
             }
             local_128 = local_128 + 1;
@@ -236,7 +237,8 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
     puVar4 = &local_13c;
     puVar9 = local_108;
     uVar6 = FUN_00401ce0((int)&DAT_00e53e88,&local_120);
-    FUN_00401d50(&DAT_00e53e88,1,uVar6,uVar5,puVar9,puVar4);
+    FUN_00401d50((char *)&local_148,(int)&DAT_00e53e88,1,uVar6,(short)uVar5,
+                 (undefined4 *)puVar9,(char *)puVar4,(char *)&local_158);
     FUN_00401fa0();
   }
   else {
