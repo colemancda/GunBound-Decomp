@@ -25,8 +25,12 @@ undefined4 * InitSuperShot_Bullet6(undefined4 *regEsi)
 {
   InitProjectile(regEsi,0x186a2);
   *regEsi = &PTR_FUN_00555bf0;
-  InitGuardedBool();
-  InitGuardedBool();
+  /* Binary 0x452c8b/0x452c9c: lea ecx,[esi+0x3fa0] / [esi+0x3fa3] before
+   * each call - the two guarded bool cells this ctor initialises. The
+   * other ~100 argless InitGuardedBool sites tree-wide are the same
+   * site-level debt, unswept. */
+  InitGuardedBool((byte *)regEsi + 0x3fa0);
+  InitGuardedBool((byte *)regEsi + 0x3fa3);
   regEsi[0xfe7] = 0;
   regEsi[0xfeb] = 0xffffffff;
   return regEsi;
