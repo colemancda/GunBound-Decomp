@@ -66,19 +66,20 @@ LAB_004e3af8:
       }
       else {
         /* Corrected 2026-08-28 alongside the QueueSpriteFrameSpans twin
-         * above: the three arguments below are right, but the role names
-         * in the earlier note were not. ECX=1 (index, set once at
-         * 0x4e3aa6) and EDX=0xea60 (group, the same constant as the
-         * uVar1<0xea61/60000 tree searches) are the two __fastcall
-         * register slots; the neg'd division is the value PUSHED at
-         * 0x4e3b9b, i.e. the x, not in_EAX. EAX at the call is EDI
-         * (`mov eax,edi` at 0x4e3ba1) = the OTHER division, -102 minus
-         * the +0x24/+0xc/+0x1c quotient - the y, and it is still dropped
-         * here because QueueTextureRegionSpans has not been recovered.
-         * The twin above spells that value out. */
+         * above, completed 2026-08-31 when QueueTextureRegionSpans was
+         * recovered: ECX=1 (index, set once at 0x4e3aa6) and EDX=0xea60
+         * (group, the same constant as the uVar1<0xea61/60000 tree
+         * searches) are the two __fastcall register slots; the neg'd
+         * division is the value PUSHED at 0x4e3b9b, i.e. the x. EAX at
+         * the call is EDI (`mov eax,edi` at 0x4e3ba1) = the OTHER
+         * division, -102 minus the +0x24/+0xc/+0x1c quotient - the y,
+         * now passed as regEax exactly as the twin above spells it. */
         QueueTextureRegionSpans(1,0xea60,
                       -(((*(int *)(iVar3 + 0x20) + -800) * (*(int *)(param_1 + 8) + -400)) /
-                      (*(int *)(param_1 + 0x18) + -800)));
+                      (*(int *)(param_1 + 0x18) + -800)),
+                      -102 - (((*(int *)(iVar3 + 0x24) + -800) *
+                               (*(int *)(param_1 + 0xc) + -260)) /
+                              (*(int *)(param_1 + 0x1c) + -800)));
       }
     }
   }

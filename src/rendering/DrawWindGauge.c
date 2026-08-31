@@ -116,7 +116,7 @@ LAB_004069e1:
         QueueSpriteFrameSpans(0,0,0,0x1b58);
       }
       else {
-        QueueTextureRegionSpans(0);
+        QueueTextureRegionSpans(0,0x1b58,0,0);
       }
       break;
     }
@@ -584,7 +584,7 @@ LAB_00406a43:
         QueueSpriteFrameSpans(1,0,0x22c,0x1b58);
       }
       else {
-        QueueTextureRegionSpans(0);
+        QueueTextureRegionSpans(1,0x1b58,0,0x22c);
       }
       break;
     }
@@ -600,7 +600,7 @@ LAB_00406d0a:
         QueueSpriteFrameSpans(2,0xf4,0x239,0x1b58);
       }
       else {
-        QueueTextureRegionSpans(0xf4);
+        QueueTextureRegionSpans(2,0x1b58,0xf4,0x239);
       }
       break;
     }
@@ -616,7 +616,7 @@ LAB_00406e61:
         QueueSpriteFrameSpans(4,(int)uVar9,0x239,0x1b58);
       }
       else {
-        QueueTextureRegionSpans(uVar9);
+        QueueTextureRegionSpans(4,0x1b58,(int)uVar9,0x239);
       }
       break;
     }
@@ -632,7 +632,7 @@ LAB_004073ee:
         QueueSpriteFrameSpans(0x9c,0x2f7,0x51,0x1f4);
       }
       else {
-        QueueTextureRegionSpans(0x2f7);
+        QueueTextureRegionSpans(0x9c,0x1f4,0x2f7,0x51);
       }
       break;
     }
@@ -648,7 +648,7 @@ LAB_004075f6:
         QueueSpriteFrameSpans(0xb1,0x187,0x4f,0x1f4);
       }
       else {
-        QueueTextureRegionSpans(0x187);
+        QueueTextureRegionSpans(0xb1,0x1f4,0x187,0x4f);
       }
       break;
     }
@@ -664,7 +664,7 @@ LAB_00407694:
         QueueSpriteFrameSpans(0xb2,0x8a,0x245,0x1f4);
       }
       else {
-        QueueTextureRegionSpans(0x8a);
+        QueueTextureRegionSpans(0xb2,0x1f4,0x8a,0x245);
       }
       break;
     }
@@ -681,7 +681,7 @@ LAB_00407742:
           QueueSpriteFrameSpans((int)uVar11,0x91,0x245,0x1f4);
         }
         else {
-          QueueTextureRegionSpans(0x91);
+          QueueTextureRegionSpans((int)uVar11,0x1f4,0x91,0x245);
         }
       }
       break;
@@ -699,7 +699,7 @@ LAB_004077ad:
           QueueSpriteFrameSpans((int)uVar11,0x99,0x245,0x1f4);
         }
         else {
-          QueueTextureRegionSpans(0x99);
+          QueueTextureRegionSpans((int)uVar11,0x1f4,0x99,0x245);
         }
       }
       break;
@@ -716,7 +716,7 @@ LAB_00407823:
         QueueSpriteFrameSpans((int)uVar8,0xab,0x230,0x1b58);
       }
       else {
-        QueueTextureRegionSpans(0xab);
+        QueueTextureRegionSpans((int)uVar8,0x1b58,0xab,0x230);
       }
       break;
     }
@@ -769,7 +769,7 @@ LAB_004079ff:
       }
       else {
 LAB_00407b8f:
-        QueueTextureRegionSpans(0x141);
+        QueueTextureRegionSpans((int)uVar11,0x1b58,0x141,0);
       }
       break;
     }
@@ -837,7 +837,7 @@ LAB_00407c03:
       }
       else {
 LAB_00407c95:
-        QueueTextureRegionSpans(iVar2);
+        QueueTextureRegionSpans((int)uVar11,0x1f4,iVar2,6);
       }
       break;
     }
@@ -882,7 +882,7 @@ LAB_00407d6b:
           QueueSpriteFrameSpans((int)uVar11,0x53,4,0x1b58);
         }
         else {
-          QueueTextureRegionSpans(0x53);
+          QueueTextureRegionSpans((int)uVar11,0x1b58,0x53,4);
         }
       }
       break;
@@ -995,7 +995,7 @@ LAB_0040809a:
           QueueSpriteFrameSpans((int)uVar8,iVar2,6,0x1b58);
         }
         else {
-          QueueTextureRegionSpans(iVar2);
+          QueueTextureRegionSpans((int)uVar8,0x1b58,iVar2,6);
         }
       }
       break;

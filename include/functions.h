@@ -1277,8 +1277,8 @@ void DrawSprite(); /* K&R-empty deliberately (like FindSpriteFrame): real args
                      * call site is fully recovered - see DrawSprite.c's header */
 void __thiscall QueueSpriteSpansByContentId(uint param_1,uint param_2,int regEax,int regEbx);
 void __fastcall FUN_004eb940(int width,undefined4 *param_2,int param_3,int x);
-void __fastcall QueueTextureRowSpan();
-undefined4 __fastcall QueueTextureRegionSpans();
+void __fastcall QueueTextureRowSpan(int param_1,int param_2,int param_3,int regEax);
+undefined4 __fastcall QueueTextureRegionSpans(uint param_1,uint param_2,int param_3,int regEax);
 void BuildSpriteQuad(int param_1,int param_2,int regEax);
 void __thiscall FUN_004ec120(int param_1,int param_2,int param_3,int param_4,int regEax);
 void __thiscall BuildRotatedSpriteQuad128(int param_1,int param_2,int param_3,int param_4,uint param_5,int regEax);

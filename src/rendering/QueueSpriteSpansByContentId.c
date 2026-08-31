@@ -72,11 +72,12 @@ void __thiscall QueueSpriteSpansByContentId(uint param_1,uint param_2,int regEax
      * OVERWRITTEN with EBX, so EBX becomes the callee's x; ECX (param_1),
      * EDX (loaded from param_2 at 0x4eb8e0) and EAX pass through
      * untouched. The same shape repeats at 0x4eb933 into
-     * QueueTextureRegionSpans, which is not yet recovered. */
+     * QueueTextureRegionSpans, whose declared order keeps the group in
+     * its EDX slot, so the same four values map as (index,group,x,y). */
     QueueSpriteFrameSpans((int)param_1,regEbx,regEax,(int)param_2);
     return;
   }
-  QueueTextureRegionSpans();
+  QueueTextureRegionSpans(param_1,param_2,regEbx,regEax);
   return;
 }
 

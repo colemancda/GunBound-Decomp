@@ -1,28 +1,33 @@
 /* QueueTextureRegionSpans - 0x004ebaf0 in the original binary.
  *
  * Two-level tree lookup (param_2 selects a "registry group" node, then
- * param_1 selects a region/index node within it), matching the same
- * dropped-register bug class as DrawHLine/BlitSpriteDirect/FindGround
- * HeightAtColumn: `y` (the row-window offset added at `iVar5 = in_EAX +
- * ...`) was dropped as `in_EAX` - confirmed via direct disassembly of
- * this function's own body at 0x4ebaf0 (ECX=param_1, EDX=param_2,
- * EAX=y). Promoted to an explicit 3rd param.
+ * param_1 selects a region/index node within it), followed by a
+ * row-by-row span emit through QueueTextureRowSpan (0x4eba80). Exact
+ * twin of QueueSpriteFrameSpans (0x4ed870): every call site is one
+ * basic block that builds ONE argument list and then picks a twin with
+ * `cmp byte [node+0x18],1`.
  *
- * Every known call site currently passes a single argument that, on
- * inspection, is really the (previously entirely absent) `y` value -
- * param_1/param_2 are usually small/fixed constants specific to each
- * caller's "registry group" (e.g. DrawStageDecorationBase/Parallax both
- * use group 0xea60, just different region indices 0/1) and were
- * entirely missing, not just mispositioned. See DrawStageDecorationBase
- * .c/DrawStageDecorationParallax.c for 2 confirmed, fixed examples.
- * DrawWindGauge.c's 14 call sites and QueueSpriteSpansByContentId.c's 1
- * remain unfixed - the former because several of its call sites turned
- * out to be Ghidra merging 2+ distinct machine call instructions (with
- * different constants) into a single C source line, a control-flow-
- * level reconstruction beyond simple argument-filling; the latter
- * because its `y` value is forwarded via a tail-jump from a register
- * (`unaff_EBX`) that function's own callers would need to resolve
- * first (a second dropped-register level, not attempted here).
+ * FULL RECOVERY (2026-08-31): the original carries FOUR inputs -
+ * ECX=param_1 (region index), EDX=param_2 (group), the pushed stack
+ * slot is param_3 (x: read at 0x4ebb3a as [esp+0x10] under three saves,
+ * biased by [node+0x28] and written back to its own slot at 0x4ebb4d),
+ * and EAX is regEax (y: `mov edi,eax` at 0x4ebaf2, biased by
+ * [node+0x2c]). An earlier pass had promoted EAX but placed it in the
+ * stack slot as a 3rd parameter named `y`, leaving x dropped entirely;
+ * both are now in their real positions. The interior loop was also
+ * missing everything but the width: the binary passes ECX=x',
+ * EDX=row pointer ([node+0x34] + clippedTopRows*width*2, stepped by
+ * width*2 per row at 0x4ebbae), EAX=current row, and pushes the width
+ * [node+0x20] (reloaded every iteration at 0x4ebba6).
+ *
+ * All 17 call sites recovered with it: DrawWindGauge's 14 (each
+ * mirrors its QueueSpriteFrameSpans twin in the same block - the twin's
+ * (index,x,y,group) maps to (index,group,x,y) here; the shared else at
+ * 0x407b8f is reached from four blocks that each set ECX to the key the
+ * C already spells uVar11, and 0x407c95 likewise from two),
+ * DrawStageDecorationBase/Parallax's 2 (y appends spelled out by their
+ * own corrected comments), and QueueSpriteSpansByContentId's tail
+ * forward `mov [esp+4],ebx / jmp 0x4ebaf0` at 0x4eb933.
  * Raw/near-verbatim port of Ghidra's decompiler output otherwise, not
  * hand-verified. See src/README.md's "Raw/verbatim ports" section for
  * status.
@@ -30,14 +35,16 @@
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall QueueTextureRegionSpans(uint param_1,uint param_2,int y)
+undefined4 __fastcall QueueTextureRegionSpans(uint param_1,uint param_2,int param_3,int regEax)
 
 {
   uint uVar1;
   int iVar2;
   int iVar3;
-  undefined4 uVar4;
+  uint uVar4;
   int iVar5;
+  int iVar6;
+  int iVar7;
   
   iVar2 = *(int *)(DAT_00ea0e1c + 0x1c);
   uVar1 = *(uint *)(iVar2 + 4);
@@ -67,9 +74,12 @@ undefined4 __fastcall QueueTextureRegionSpans(uint param_1,uint param_2,int y)
           return 0;
         }
       }
-      uVar4 = *(undefined4 *)(iVar2 + 0x20);
-      iVar5 = y + *(int *)(iVar2 + 0x2c);
-      iVar3 = *(int *)(iVar2 + 0x24) - ((g_clipMinY - iVar5 < 0) - 1 & g_clipMinY - iVar5);
+      uVar4 = *(uint *)(iVar2 + 0x20);
+      iVar5 = regEax + *(int *)(iVar2 + 0x2c);
+      iVar6 = (g_clipMinY - iVar5 < 0) - 1 & g_clipMinY - iVar5;
+      iVar7 = *(int *)(iVar2 + 0x34) + (int)uVar4 * iVar6 * 2;
+      iVar3 = *(int *)(iVar2 + 0x24) - iVar6;
+      param_3 = param_3 + *(int *)(iVar2 + 0x28);
       if (iVar5 < g_clipMinY) {
         iVar5 = g_clipMinY;
       }
@@ -78,8 +88,10 @@ undefined4 __fastcall QueueTextureRegionSpans(uint param_1,uint param_2,int y)
       }
       if (0 < iVar3) {
         do {
-          QueueTextureRowSpan(uVar4);
-          uVar4 = *(undefined4 *)(iVar2 + 0x20);
+          QueueTextureRowSpan(param_3,iVar7,(int)uVar4,iVar5);
+          uVar4 = *(uint *)(iVar2 + 0x20);
+          iVar7 = iVar7 + (int)uVar4 * 2;
+          iVar5 = iVar5 + 1;
           iVar3 = iVar3 + -1;
         } while (iVar3 != 0);
       }
@@ -91,4 +103,3 @@ undefined4 __fastcall QueueTextureRegionSpans(uint param_1,uint param_2,int y)
    * return 0 to satisfy both toolchains without inventing a value. */
   return 0;
 }
-
