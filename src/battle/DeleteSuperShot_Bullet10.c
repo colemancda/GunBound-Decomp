@@ -15,7 +15,7 @@
 void * __thiscall DeleteSuperShot_Bullet10(void *param_1,int param_2)
 
 {
-  DestroySuperShot_Bullet10();
+  DestroySuperShot_Bullet10((undefined4 *)param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

@@ -8,19 +8,20 @@
  * slots shared between projectile vtables carry no information.  See the
  * commit that named the 33 projectile constructors for the method.
  *
+ * DROPPED-REG FIX (2026-08-31): this arrives in EAX (the wrapper does
+ * mov eax,esi right before the call), promoted to the regEax parameter.
+ *
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void DestroyShot1_Bullet12(void)
+void DestroyShot1_Bullet12(undefined4 *regEax)
 
 {
-  undefined4 *in_EAX;
-  
-  *in_EAX = &PTR_FUN_00556680;
-  DestroyProjectile(in_EAX);
+  *regEax = &PTR_FUN_00556680;
+  DestroyProjectile(regEax);
   return;
 }
 

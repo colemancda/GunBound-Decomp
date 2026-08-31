@@ -15,7 +15,7 @@
 void * __thiscall DeleteItemShot(void *param_1,int param_2)
 
 {
-  DestroyItemShot();
+  DestroyItemShot((undefined4 *)param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

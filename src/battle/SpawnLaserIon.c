@@ -35,7 +35,7 @@ void SpawnLaserIon(undefined4 param_1,int param_2,int param_3,uint param_4,undef
   piVar4 = (int *)0x0;
   local_4 = 0;
   if (pvVar1 != (void *)0x0) {
-    piVar4 = (int *)InitLaserIon();
+    piVar4 = (int *)InitLaserIon((undefined4 *)pvVar1);
   }
   local_4 = 0xffffffff;
   piVar4[6] = 0x17ce;

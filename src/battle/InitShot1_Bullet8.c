@@ -12,21 +12,19 @@
  *
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
+ *
+ * DROPPED-REG FIX (2026-08-31): `this` arrives in ESI (Ghidra's regEsi),
+ * promoted to the regEsi parameter; the binary tail `mov eax,esi` makes the
+ * return value the object itself, replacing the fabricated return-0.
  */
 #include "ghidra_types.h"
 
 
-undefined4 InitShot1_Bullet8(void)
+undefined4 * InitShot1_Bullet8(undefined4 *regEsi)
 
 {
-  undefined4 *unaff_ESI;
-  
-  InitProjectile(unaff_ESI,0x186a2);
-  *unaff_ESI = &PTR_FUN_005561a8;
-  /* Ghidra emitted a bare `return;` in a value-returning function;
-   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
-   * (-Wreturn-mismatch). This path's result is unused by callers -
-   * return 0 to satisfy both toolchains without inventing a value. */
-  return 0;
+  InitProjectile(regEsi,0x186a2);
+  *regEsi = &PTR_FUN_005561a8;
+  return regEsi;
 }
 

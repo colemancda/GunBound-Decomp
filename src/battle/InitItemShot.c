@@ -12,33 +12,33 @@
  * the identification is just as firm.
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
+ *
+ * DROPPED-REG FIX (2026-08-31): this arrives in ESI (SpawnItemProjectile's
+ * `mov esi,eax` from operator_new right before the call), promoted to
+ * regEsi; the ctor returns it (`mov eax,esi / pop ebx / ret` at 0x47659a),
+ * so the fabricated `return 0` becomes `return regEsi`.
  */
 #include "ghidra_types.h"
 
 
-undefined4 InitItemShot(void)
+undefined4 * InitItemShot(undefined4 *regEsi)
 
 {
   int iVar1;
   byte bVar2;
-  undefined4 *unaff_ESI;
-  
-  InitProjectile(unaff_ESI,0x186a2);
-  *unaff_ESI = &PTR_FUN_00555f9c;
+
+  InitProjectile(regEsi,0x186a2);
+  *regEsi = &PTR_FUN_00555f9c;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
-  *(char *)((int)unaff_ESI + 0xf45) = (char)iVar1;
+  *(char *)((int)regEsi + 0xf45) = (char)iVar1;
   iVar1 = _rand();
-  *(byte *)((int)unaff_ESI + 0xf46) = (byte)iVar1;
-  bVar2 = *(byte *)((int)unaff_ESI + 0xf45) & 7;
+  *(byte *)((int)regEsi + 0xf46) = (byte)iVar1;
+  bVar2 = *(byte *)((int)regEsi + 0xf45) & 7;
   bVar2 = ~('\x01' << bVar2) & (byte)iVar1 | '\0' << bVar2;
-  *(byte *)((int)unaff_ESI + 0xf46) = bVar2;
-  *(byte *)((int)unaff_ESI + 0xf47) = bVar2 + *(byte *)((int)unaff_ESI + 0xf45) + -0x34;
+  *(byte *)((int)regEsi + 0xf46) = bVar2;
+  *(byte *)((int)regEsi + 0xf47) = bVar2 + *(byte *)((int)regEsi + 0xf45) + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  /* Ghidra emitted a bare `return;` in a value-returning function;
-   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
-   * (-Wreturn-mismatch). This path's result is unused by callers -
-   * return 0 to satisfy both toolchains without inventing a value. */
-  return 0;
+  return regEsi;
 }
 

@@ -9,17 +9,18 @@
  * MainAction, which is what ties the destructor to the type.
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
+ *
+ * DROPPED-REG FIX (2026-08-31): this arrives in EAX (the wrapper's
+ * `mov eax,esi`), promoted to regEax.
  */
 #include "ghidra_types.h"
 
 
-void Mobile13_Destructor(void)
+void Mobile13_Destructor(undefined4 *regEax)
 
 {
-  undefined4 *in_EAX;
-  
-  *in_EAX = &PTR_FUN_00555e54;
-  CMobile_BaseDestructor(in_EAX);
+  *regEax = &PTR_FUN_00555e54;
+  CMobile_BaseDestructor(regEax);
   return;
 }
 

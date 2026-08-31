@@ -10,7 +10,7 @@
 void * __thiscall FUN_0044e8f0(void *param_1,int param_2)
 
 {
-  Mobile00_Destructor();
+  Mobile00_Destructor((undefined4 *)param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

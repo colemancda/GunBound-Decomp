@@ -75,7 +75,7 @@ void SpawnItemProjectile(byte param_1,undefined4 param_2,int param_3,int param_4
   piVar6 = (int *)0x0;
   local_4 = 0;
   if (pvVar1 != (void *)0x0) {
-    piVar6 = (int *)InitItemShot();
+    piVar6 = (int *)InitItemShot((undefined4 *)pvVar1);
   }
   local_4 = 0xffffffff;
   ComputeShotViewBounds((int)(&DAT_006a7708 + g_clientContext),param_3);

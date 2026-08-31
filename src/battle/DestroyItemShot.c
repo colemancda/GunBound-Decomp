@@ -6,19 +6,20 @@
  *     DestroyProjectile(this);
  * 0x555f9c is InitItemShot's vtable, whose slot 6 (DetonateItemShot) is unique
  * to it.
+ * DROPPED-REG FIX (2026-08-31): this arrives in EAX (the wrapper does
+ * mov eax,esi right before the call), promoted to the regEax parameter.
+ *
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void DestroyItemShot(void)
+void DestroyItemShot(undefined4 *regEax)
 
 {
-  undefined4 *in_EAX;
-  
-  *in_EAX = &PTR_FUN_00555f9c;
-  DestroyProjectile(in_EAX);
+  *regEax = &PTR_FUN_00555f9c;
+  DestroyProjectile(regEax);
   return;
 }
 
