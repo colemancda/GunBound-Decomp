@@ -56,6 +56,10 @@ int lzhuf_decode_position(lzhuf_state *s);
 extern const uint8_t lzhuf_d_code[256];
 extern const uint8_t lzhuf_d_len[256];
 
+/* Encode-side position tables (0x56dcb0/0x56dcf0) - see lzhuf_tables.c. */
+extern const uint8_t lzhuf_p_len[64];
+extern const uint8_t lzhuf_p_code[64];
+
 /* DecodeLZHUFBlock - 0x4eaba0. */
 void lzhuf_decode_block(lzhuf_state *s, uint8_t *out, size_t outsize);
 

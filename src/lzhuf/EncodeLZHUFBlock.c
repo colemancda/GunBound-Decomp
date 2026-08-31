@@ -10,6 +10,7 @@
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
+#include "lzhuf_internal.h"
 
 
 uint EncodeLZHUFBlock(uint *param_1,uint param_2,uint param_3,uint param_4)
@@ -136,10 +137,10 @@ LAB_004ea936:
         uVar7 = puVar2[uVar7 + 0x378c];
         uVar8 = uVar8 + 1;
       } while (uVar7 != 0x272);
-      LZHUFPutCode();
+      LZHUFPutCode(uVar5,(int)uVar8,(int)puVar2);
       puVar2[0x3516] = uVar5;
       puVar2[0x3517] = uVar8;
-      LZHUFUpdate(uVar4);
+      LZHUFUpdate(uVar4,(int)puVar2);
     }
     else {
       uVar4 = puVar2[uVar7 + 0x3afc];
@@ -152,12 +153,19 @@ LAB_004ea936:
         uVar4 = puVar2[uVar4 + 0x378c];
         uVar8 = uVar8 + 1;
       } while (uVar4 != 0x272);
-      LZHUFPutCode();
+      LZHUFPutCode(uVar5,(int)uVar8,(int)puVar2);
       puVar2[0x3516] = uVar5;
       puVar2[0x3517] = uVar8;
-      LZHUFUpdate(uVar7 + 0xfd);
-      LZHUFPutCode();
-      LZHUFPutCode();
+      LZHUFUpdate(uVar7 + 0xfd,(int)puVar2);
+      /* The two position codes. Ghidra dead-coded their argument setup
+       * once the calls took no parameters; reintroduced from the binary
+       * (0x4eaa2c..0x4eaa5a): q = the match position at ctx dword 0x411
+       * ([ebp+0x1044]), first PutCode(p_code[q>>6]<<8, p_len[q>>6]),
+       * then PutCode((q&0x3f)<<10, 6) - the reference LZHUF.C
+       * EncodePosition split, tables verified against orig .data. */
+      LZHUFPutCode((uint)lzhuf_p_code[puVar2[0x411] >> 6] << 8,
+                   (int)(uint)lzhuf_p_len[puVar2[0x411] >> 6],(int)puVar2);
+      LZHUFPutCode((puVar2[0x411] & 0x3f) << 10,6,(int)puVar2);
     }
     uVar7 = puVar2[0x412];
     iVar3 = 0;

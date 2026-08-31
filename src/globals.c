@@ -292,8 +292,9 @@ uint8_t g_eventKeyBlock[0x20] = {
     0x00, 0x00, 0x63, 0x6f, 0x6d, 0x73, 0x69, 0x6b,
     0x00, 0x00, 0xd2, 0x22, 0xea, 0xfa, 0xee, 0x3a,
 };
-uint8_t DAT_0056dd30;
-uint8_t DAT_0056de30;
+/* DAT_0056dd30/DAT_0056de30 (the 256-byte LZHUF d_code/d_len tables)
+ * live as lzhuf_d_code/lzhuf_d_len in src/lzhuf/lzhuf_tables.c now -
+ * FUN_004ea6e0, their only user, indexes those directly. */
 uint32_t g_clipMaxX;
 uint32_t g_clipMaxY;
 uint16_t DAT_00588f38;

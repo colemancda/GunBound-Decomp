@@ -411,8 +411,9 @@ extern uint8_t g_eventKeyBlock[0x20];
 #define DAT_0056dca8 (*(uint8_t*)(g_eventKeyBlock+0x18))
 #define _DAT_0056dca8 (*(uint16_t*)(g_eventKeyBlock+0x18))
 #define DAT_0056dcaa (*(uint8_t*)(g_eventKeyBlock+0x1a))
-extern uint8_t DAT_0056dd30;
-extern uint8_t DAT_0056de30;
+/* DAT_0056dd30/DAT_0056de30 -> lzhuf_d_code/lzhuf_d_len in
+ * src/lzhuf/lzhuf_tables.c (256-byte tables; the scalars here were
+ * indexed 256 deep). */
 /* The active clip rectangle, in screen pixels.  BlitFontGlyphClipped states
  * the pairing outright: "x in [g_clipMinX, g_clipMaxX], y in [g_clipMinY,
  * g_clipMaxY]", and DrawHLine/DrawVLine and their blended twins bound their
