@@ -48,7 +48,8 @@ extern "C" {
 extern char *g_gameStateVTableArray[16];
 extern unsigned int g_clientContext;
 extern unsigned char g_valueGuardLock;
-int FUN_0050cdb0();
+/* Row-at-point helper; x/y recovered 2026-08-28 - see FUN_0050cdb0.c. */
+int FUN_0050cdb0(int widget, int x, int y);
 int FUN_00428550(void *buf);
 void AtlArray_CopyElement_450(int dstRecord, int srcRecord);
 void FUN_0044c6a0(unsigned int ctx, int regEdi);
@@ -83,7 +84,9 @@ extern "C" int FUN_0050a320(CWidget *this_, int x, int y)
   uVar7 = *(unsigned int *)(self + 0x94);
   if (uVar7 != 0xffffffff) {
     uVar1 = *(unsigned int *)(g_gameStateVTableArray[7] + 0x454);
-    iVar4 = FUN_0050cdb0();
+    /* DROPPED-REG FIX 2026-08-28: probes at widget-left + 0x14 and the
+       incoming y (orig 0x50a360/0x50a369). */
+    iVar4 = FUN_0050cdb0((int)this_, *(int *)(self + 0x28) + 0x14, y);
     local_468 = iVar4 + uVar1;
     if (local_468 == 0xffffffff &&
         ((*(int *)(self + 0x2c) + 0x68 <= y || (local_468 = uVar1, uVar1 == 0xffffffff)) &&

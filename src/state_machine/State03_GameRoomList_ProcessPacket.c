@@ -877,8 +877,14 @@ switchD_00428058_default:
           if ((short)(sVar4 + 4) == -1) {
             *(undefined2 *)(iVar10 + 0x4592c + uVar20 * 2) = 0x17;
           }
-          FUN_004e74c0(*(undefined4 *)(iVar10 + 0x4587c + uVar20 * 4),
-                       *(undefined2 *)(iVar10 + 0x458ac + uVar20 * 2),iVar24 + 0x457f1 + iVar10);
+          /* DROPPED-REG FIX 2026-08-28: same re-slot as the
+             WriteReplayEventRecord site; EAX = uVar20 (`mov eax,esi` at
+             0x427db8). */
+          FUN_004e74c0((int)*(short *)(iVar10 + 0x4589c + uVar20 * 2),(int)&g_replayContext,
+                       *(int *)(iVar10 + 0x4587c + uVar20 * 4),
+                       (int)*(short *)(iVar10 + 0x458ac + uVar20 * 2),
+                       (char *)(iVar24 + 0x457f1 + iVar10),uVar20,
+                       *(int *)(iVar10 + 0x4585c + uVar20 * 4));
           local_69c = local_69c + 1;
         } while (local_69c < (int)(uint)*(byte *)(g_clientContext + 0x45125));
       }

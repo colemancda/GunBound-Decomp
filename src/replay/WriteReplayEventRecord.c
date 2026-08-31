@@ -235,9 +235,16 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
         *(char *)(iVar19 + 0x45125) = *(char *)(iVar19 + 0x45125) + '\x01';
         iVar12 = (int)local_d70 * 2;
         iVar20 = (int)local_d70 * 4;
+        /* DROPPED-REG FIX 2026-08-28: re-slot - the three args passed were
+           param_3/4/5. ECX = the +0x4589c word, EDX = &g_replayContext,
+           EAX = the slot index (still the OLD local_d70; its reassignment
+           to puVar26 moves below the call to match the binary's order),
+           EDI = the +0x4585c dword. */
+        FUN_004e74c0((int)*(short *)(iVar19 + 0x4589c + iVar12),(int)&g_replayContext,
+                     *(int *)(iVar19 + 0x4587c + iVar20),
+                     (int)*(short *)(iVar19 + 0x458ac + iVar12),(char *)local_d60,
+                     (uint)local_d70,*(int *)(iVar19 + 0x4585c + iVar20));
         local_d70 = puVar26;
-        FUN_004e74c0(*(undefined4 *)(iVar19 + 0x4587c + iVar20),
-                     *(undefined2 *)(iVar19 + 0x458ac + iVar12),local_d60);
         pbVar22 = param_3;
       }
       else if (uVar6 == 0x3020) {

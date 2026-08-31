@@ -168,10 +168,14 @@ LAB_004ea936:
         bVar1 = *(byte *)(uVar5 + puVar2[0x3dae]);
         puVar2[0x3db1] = uVar5 + 1;
         if (bVar1 == 0xffffffff) break;
-        LZHUFDeleteNode();
-        *(byte *)(extraout_EDX + 8 + (int)puVar2) = bVar1;
-        if (extraout_EDX < 0x3b) {
-          *(byte *)(extraout_EDX + 0x1008 + (int)puVar2) = bVar1;
+        /* DROPPED-REG FIX 2026-08-28: the node is param_3 (the ring
+           cursor s, living in its own reused arg slot [esp+0x18]) and
+           the state EBP = param_1; the callee preserves EDX, which is
+           why Ghidra's extraout_EDX below was just param_3 again. */
+        LZHUFDeleteNode(0,param_3,(int)puVar2);
+        *(byte *)(param_3 + 8 + (int)puVar2) = bVar1;
+        if (param_3 < 0x3b) {
+          *(byte *)(param_3 + 0x1008 + (int)puVar2) = bVar1;
         }
         param_3 = param_3 + 1 & 0xfff;
         FUN_004e9e90();
@@ -182,7 +186,7 @@ LAB_004ea936:
     if (iVar3 < (int)uVar7) {
       iVar3 = uVar7 - iVar3;
       do {
-        LZHUFDeleteNode();
+        LZHUFDeleteNode(0,param_3,(int)puVar2);
         param_3 = param_3 + 1 & 0xfff;
         param_1 = (uint *)((int)param_1 - 1);
         if (param_1 != (uint *)0x0) {

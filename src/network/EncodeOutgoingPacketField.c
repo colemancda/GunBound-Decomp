@@ -96,7 +96,11 @@ void EncodeOutgoingPacketField(void *self, uint param_1)
   *(int *)(unaff_EDI + 0x14) = iVar4;
   if (iVar4 != 0) {
     param_1 = iVar4;
-    FUN_0040b8c0();
+    /* DROPPED-REG FIX 2026-08-28: the key is the param_1 slot the line
+       above just reused (`lea ebx,[esp+0x18]` at 0x40a3e3 = entry+8),
+       the out-iterator lands in the dead scratch at entry-4 - the top
+       half of local_8, the same scratch TreeLowerBound gets above. */
+    FUN_0040b8c0((int)&g_valueGuardMap,(undefined4 **)(local_8 + 4),(int *)&param_1);
   }
   puVar5 = (uint *)(iVar4 * 0x10 + g_valueGuardKeyTable);
   *(uint *)(unaff_EDI + 4) = *puVar5 ^ uVar2;

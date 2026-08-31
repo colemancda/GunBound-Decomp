@@ -32,7 +32,10 @@ int  g_valueGuardMap;                  /* key-table registry root */
 void ScrambleChecksumGuardBytes(int slot, int *guardTable);            /* registry re-key step */
 void TreeLowerBound(void *scratch, void *guardMap);
 void FUN_0040b600(void *root, void *field, int tableObj);
-int *FUN_0040b8c0(void);            /* returns the live table object (see note below) */
+/* The guard map's FIND (lower_bound + exact check); real ABI recovered
+ * 2026-08-28 - map in ECX, out-iterator through the second argument,
+ * address of the key in the third. See src/unnamed/FUN_0040b8c0.c. */
+void __fastcall FUN_0040b8c0(int guardMap, int **outNode, int *key);
 }
 
 /* 0x40a2e0. Decode the cell's protected value: XOR each of the four
@@ -47,7 +50,9 @@ u32 CValueGuard::Peek()
     if (handle != 0) {
         /* integrity check: the live table object's anchor word must
          * still equal DAT_00793774's - a swap means tampering */
-        int *live = FUN_0040b8c0();
+        int *live;
+        int keySlot = (int)handle;
+        FUN_0040b8c0((int)&g_valueGuardMap, &live, &keySlot);
         if (live != 0 && *live != (int)DAT_00793774) {
             g_valueGuardTamperFlag = 1;
         }
@@ -90,7 +95,8 @@ void CValueGuard::EncodeOutgoingPacketField(u32 value)
     }
     tableHandle = (u32)newHandle;
     if (newHandle != 0) {
-        int *live = FUN_0040b8c0();
+        int *live;
+        FUN_0040b8c0((int)&g_valueGuardMap, &live, &newHandle);
         if (live != DAT_00793774) {
             g_valueGuardTamperFlag = 1;
         }

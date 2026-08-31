@@ -4,17 +4,26 @@
  * match tree (arrays at state+0x104c/+0x5050/+0x9454, NIL sentinel
  * 0x1000). NAMED (2026-07-18).
  *
- * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
- */
+ * Raw/near-verbatim port of Ghidra's decompiler output, not
+ * hand-verified. See src/README.md's "Raw/verbatim ports" section for
+ * status.
+ *
+ * DROPPED-REG FIX (2026-08-28): EAX is the LZHUF state - every lson /
+ * rson / dad access indexes off it - and param_1 is a PHANTOM (ECX is
+ * never read in 0x4ea010..; Ghidra declared it only because it typed
+ * the function __fastcall). Both call sites are EncodeLZHUFBlock's ring
+ * advance, where the node index is the C's own param_3: MSVC reuses the
+ * incoming argument slot [esp+0x18] = entry+0xc as the ring cursor s,
+ * which is also why the sites' post-call `extraout_EDX` reads were
+ * really param_3 - the callee never writes EDX. */
 #include "ghidra_types.h"
 
 
-void __fastcall LZHUFDeleteNode(undefined4 param_1,int param_2)
+void __fastcall LZHUFDeleteNode(undefined4 param_1,int param_2,int regEax)
 
 {
   int iVar1;
-  int in_EAX;
+  int in_EAX = regEax;
   int iVar2;
   int iVar3;
   
