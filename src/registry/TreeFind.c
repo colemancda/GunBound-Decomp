@@ -41,7 +41,6 @@
 void __fastcall TreeFind(int param_1,undefined4 **regEax,int *regEbx)
 
 {
-  undefined4 **in_EAX = regEax;
   undefined4 *puVar1;
   undefined4 *puVar2;
   undefined4 *puVar3;
@@ -62,10 +61,10 @@ void __fastcall TreeFind(int param_1,undefined4 **regEax,int *regEbx)
     } while (*(char *)((int)puVar2 + 0x11) == '\0');
   }
   if ((puVar3 != *(undefined4 **)(param_1 + 4)) && ((int)puVar3[3] <= *unaff_EBX)) {
-    *in_EAX = (undefined4 *)puVar3;
+    *regEax = (undefined4 *)puVar3;
     return;
   }
-  *in_EAX = *(undefined4 **)(param_1 + 4);
+  *regEax = *(undefined4 **)(param_1 + 4);
   return;
 }
 

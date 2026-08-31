@@ -1,5 +1,10 @@
 /* Mobile15_Destructor - 0x00466fc0 in the original binary.
  *
+ * DROPPED-REG FIX (2026-08-31): this arrives in EAX (the wrapper at
+ * 0x466fa0 does mov esi,ecx / mov eax,esi before the call), promoted
+ * to regEax - the same stereotype as the fifteen Mobile00-14 siblings
+ * swept in dd65a54e; this one was missed in that batch's roster.
+ *
  * NAMED 2026-08-19 (was a FUN_ name).  The mobile-type 15 destructor.  Its
  * whole body is the MSVC derived-destructor pattern - install this type's own
  * vtable, then chain to the base:
@@ -13,13 +18,12 @@
 #include "ghidra_types.h"
 
 
-void Mobile15_Destructor(void)
+void Mobile15_Destructor(undefined4 *regEax)
 
 {
-  undefined4 *in_EAX;
   
-  *in_EAX = &PTR_FUN_00555d54;
-  CMobile_BaseDestructor(in_EAX);
+  *regEax = &PTR_FUN_00555d54;
+  CMobile_BaseDestructor(regEax);
   return;
 }
 
