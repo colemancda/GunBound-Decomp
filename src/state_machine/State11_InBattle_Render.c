@@ -1908,7 +1908,8 @@ LAB_004c7566:
            * which is the result of the peek on the line above that the
            * decompile discarded.  orig 0x4c781e `mov eax,[esp+0x10]` reads
            * back the 0x4c77fe store.  See src/rendering/BuildRotatedBeamQuad.c. */
-          BuildRotatedBeamQuad(0,(int)piStack_a2c,iVar6,pcStack_a28,0,0x40,0x40,iBeamAngle);
+          BuildRotatedBeamQuad(0,(int)piStack_a2c,iVar6,pcStack_a28,0,0x40,0x40,iBeamAngle,
+                        *(int *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe4) << 0x18 | 0xffffff);
         }
       }
     }
@@ -2253,7 +2254,7 @@ LAB_004c8498:
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       /* same trio; here the angle reaches EAX via `mov edi,eax` at 0x4c8615
        * and EDX is esi = piStack_a2c. */
-      BuildRotatedBeamQuad(0,(int)piStack_a2c,iVar19,pcStack_a28,0,0x40,0x40,iBeamAngle);
+      BuildRotatedBeamQuad(0,(int)piStack_a2c,iVar19,pcStack_a28,0,0x40,0x40,iBeamAngle,0xffffffff);
     }
   }
   (**(code **)(*g_pD3DDevice7 + 0x8c))

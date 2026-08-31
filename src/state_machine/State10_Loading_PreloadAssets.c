@@ -38,7 +38,9 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
   *(int *)(param_1 + 4) = iVar4 + 1;
   switch(iVar4) {
   case 0xc:
-    LoadStageDecorationSet(&DAT_006a7708 + g_clientContext,&DAT_00551cb1);
+    LoadStageDecorationSet(&DAT_006a7708 + g_clientContext,&DAT_00551cb1,
+                           (char *)((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 +
+                                    0x1a1ec8 + g_clientContext));
     FUN_004430c0(param_1);
     _sprintf(acStack_80,(char *)&PTR_DAT_00555500,
              (uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1ec8 + g_clientContext);

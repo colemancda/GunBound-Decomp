@@ -535,7 +535,7 @@ uint __fastcall HitTestMine();
 /* Same generator gap.  __fastcall with a PHANTOM param_1 (ECX); param_2 is
  * EDX and the original's EAX argument (the angle) is param_8 in the port -
  * see src/rendering/BuildRotatedBeamQuad.c. */
-void __fastcall BuildRotatedBeamQuad();
+void __fastcall BuildRotatedBeamQuad(undefined4 param_1,int param_2,int param_3,int param_4,char param_5,int param_6,int param_7,int param_8,undefined4 regEbx);
 void __fastcall SpawnSuperFlameEffect();
 uint __fastcall BlitSpriteAttached();
 undefined4 * __fastcall InitTextBoxWidget();
@@ -627,7 +627,7 @@ void __fastcall FUN_00443540(int);
 void RenderScreenBackdrop();
 void FUN_004435b0();
 void FUN_004435e0();
-void FUN_00443610();
+void FUN_00443610(int regEsi);
 void FUN_00443640();
 undefined4 * FUN_00443680(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
 undefined4 * FUN_00443700(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
@@ -1153,7 +1153,7 @@ void FUN_004e39b0(int *regEsi);
 void DrawStageDecorationParallax();
 int __fastcall DrawStageDecorationBase();
 void FUN_004e3c50(int param_1, char *name);
-void LoadStageDecorationSet();
+void LoadStageDecorationSet(int param_1,char *param_2,char *regEax);
 void PreloadBattleTextures();
 void FUN_004e4220();
 int __fastcall FindGroundHeightAtColumn();

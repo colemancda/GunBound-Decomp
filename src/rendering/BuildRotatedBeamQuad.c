@@ -40,6 +40,14 @@
  * +0x80/+0x84 on immediately before the call, and the one this function then
  * reads at +0x80/+0x84/+0x88 for the texture rect.
  *
+ * EBX RECOVERED (2026-08-31): the last live-in. It is the per-vertex
+ * DIFFUSE COLOR, stored into the +0x10 slot of all four staged vertices
+ * (0xea0e38/5c/80/a4). Site 0x4c8630 builds it as `or ebx,0xffffffff`
+ * (opaque white); site 0x4c7837 as `mov ebx,[mobile+0xbfe4] / shl
+ * ebx,0x18 / or ebx,0xffffff` - the local mobile's alpha over white,
+ * the same expression its own block already spells for FUN_004ed300's
+ * color argument (with a different RGB). Appended as trailing regEbx.
+ *
  * FIXED: param_1 is passed 0, param_2 is passed the record, and `in_EAX` has
  * been promoted to a real trailing parameter (param_8) since MSVC cannot
  * express EAX - the rebuild becomes ret 0x18 and is self-consistent, at the
@@ -54,7 +62,7 @@
 
 void __fastcall
 BuildRotatedBeamQuad(undefined4 param_1,int param_2,int param_3,int param_4,char param_5,int param_6,
-            int param_7,int param_8)
+            int param_7,int param_8,undefined4 regEbx)
 
 {
   float fVar1;
@@ -65,7 +73,6 @@ BuildRotatedBeamQuad(undefined4 param_1,int param_2,int param_3,int param_4,char
   float fVar6;
   int iVar7;
   int iVar8;
-  undefined4 unaff_EBX;
   undefined4 *puVar9;
   undefined4 *puVar10;
   
@@ -109,13 +116,13 @@ BuildRotatedBeamQuad(undefined4 param_1,int param_2,int param_3,int param_4,char
   puVar9 = &DAT_00ea0e28;
   puVar10 = &g_spriteVertexBuffer + g_spriteVertexCount * 0x1b;
   g_spriteVertexCount = g_spriteVertexCount + 2;
-  _DAT_00ea0e38 = unaff_EBX;
+  _DAT_00ea0e38 = regEbx;
   _DAT_00ea0e3c = DAT_00ea0ea8;
-  _DAT_00ea0e5c = unaff_EBX;
+  _DAT_00ea0e5c = regEbx;
   _DAT_00ea0e60 = _DAT_00ea0e84;
   DAT_00ea0e64 = _DAT_00ea0e40;
-  _DAT_00ea0e80 = unaff_EBX;
-  _DAT_00ea0ea4 = unaff_EBX;
+  _DAT_00ea0e80 = regEbx;
+  _DAT_00ea0ea4 = regEbx;
   _DAT_00ea0eac = _DAT_00ea0e88;
   for (iVar7 = 0x1b; iVar7 != 0; iVar7 = iVar7 + -1) {
     *puVar10 = *puVar9;

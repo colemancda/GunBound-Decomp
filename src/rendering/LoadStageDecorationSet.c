@@ -1,5 +1,16 @@
 /* LoadStageDecorationSet - 0x004e3d60 in the original binary.
  *
+ * DROPPED-REG FIX (2026-08-31): a third input arrives in EAX - a name
+ * string copied into the first stack buffer and suffixed exactly like
+ * param_2 - promoted to the trailing regEax parameter. At the
+ * State10_Loading_PreloadAssets site (0x43f12e) it is the current
+ * stage's record, ctx + [ctx+0x475c4]*0x7d28 + 0x1a1ec8 (setup
+ * 0x43f108..0x43f12d); at the ProcessBattleFrame site (0x4dcceb) it is
+ * the record of stage ([ctx+0x475c4] + the peeked delta), movzx at
+ * 0x4dcc61 plus the 0x40a2e0 result at 0x4dcc53, imul 0x7d28 at
+ * 0x4dcccf - while param_2 there is the CURRENT stage's record (movzx
+ * at 0x4dccaf).
+ *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -8,7 +19,7 @@
 #include "ghidra_types.h"
 
 
-void LoadStageDecorationSet(int param_1,char *param_2)
+void LoadStageDecorationSet(int param_1,char *param_2,char *regEax)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -18,7 +29,6 @@ void LoadStageDecorationSet(int param_1,char *param_2)
   uint uVar2;
   uint uVar3;
   undefined4 *puVar4;
-  char *in_EAX;
   char *pcVar5;
   int iVar6;
   void *pvVar7;
@@ -32,11 +42,11 @@ void LoadStageDecorationSet(int param_1,char *param_2)
   undefined4 uStack_81;
   undefined1 local_7c [124];
   
-  iVar11 = -(int)in_EAX;
+  iVar11 = -(int)regEax;
   do {
-    cVar1 = *in_EAX;
-    in_EAX[(int)(local_100 + iVar11)] = cVar1;
-    in_EAX = in_EAX + 1;
+    cVar1 = *regEax;
+    regEax[(int)(local_100 + iVar11)] = cVar1;
+    regEax = regEax + 1;
   } while (cVar1 != '\0');
   puVar9 = (undefined4 *)&stack0xfffffeff;
   do {
