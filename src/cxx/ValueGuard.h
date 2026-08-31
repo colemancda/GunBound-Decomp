@@ -43,7 +43,7 @@ struct CValueGuard {
     u32 tableHandle;/* +0x14: rotating key-table index (0 = uninitialized); the
                      * EncodeChecksumDelta and EncodeChecksumPair encoders reset it to 0 */
     /* +0x18..0x21f: the guard's own integrity-tracking state - a pointer at
-     * +0x18 is checked against DAT_00793774 on read (via FUN_0040b8c0); the
+     * +0x18 is checked against DAT_00793774 on read (via TreeFind); the
      * rest is value copies / registry linkage, left opaque until reconstructed. */
     u8  _opaque18[0x220 - 0x18];
     u8  activeFlag;  /* +0x220: live/dirty byte flag, cleared by the encoders on

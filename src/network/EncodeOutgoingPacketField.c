@@ -59,6 +59,8 @@
  * reconstruction, file by file, verifying each via disassembly before
  * editing.
  *
+ * In the note below, FUN_0040b8c0 is TreeFind (renamed 2026-08-31).
+ *
  * FIXED (2026-07-15): the `if ((int *)*puVar3 != DAT_00793774)` guard
  * after FUN_0040b8c0() dereferenced `puVar3`, a local NEVER assigned
  * anywhere in this function - a genuine uninitialized-pointer read that
@@ -100,7 +102,7 @@ void EncodeOutgoingPacketField(void *self, uint param_1)
        above just reused (`lea ebx,[esp+0x18]` at 0x40a3e3 = entry+8),
        the out-iterator lands in the dead scratch at entry-4 - the top
        half of local_8, the same scratch TreeLowerBound gets above. */
-    FUN_0040b8c0((int)&g_valueGuardMap,(undefined4 **)(local_8 + 4),(int *)&param_1);
+    TreeFind((int)&g_valueGuardMap,(undefined4 **)(local_8 + 4),(int *)&param_1);
   }
   puVar5 = (uint *)(iVar4 * 0x10 + g_valueGuardKeyTable);
   *(uint *)(unaff_EDI + 4) = *puVar5 ^ uVar2;

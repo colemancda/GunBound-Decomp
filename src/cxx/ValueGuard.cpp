@@ -34,16 +34,17 @@ void TreeLowerBound(void *scratch, void *guardMap);
 void FUN_0040b600(void *root, void *field, int tableObj);
 /* The guard map's FIND (lower_bound + exact check); real ABI recovered
  * 2026-08-28 - map in ECX, out-iterator through the second argument,
- * address of the key in the third. See src/unnamed/FUN_0040b8c0.c. */
-void __fastcall FUN_0040b8c0(int guardMap, int **outNode, int *key);
+ * address of the key in the third. See src/registry/TreeFind.c. */
+void __fastcall TreeFind(int guardMap, int **outNode, int *key);
 }
 
 /* 0x40a2e0. Decode the cell's protected value: XOR each of the four
  * stored copies with its key-table word; if all four agree, that's the
  * value (also re-appended to the outgoing packet). Any disagreement, or
  * a swapped key-table pointer, raises the tamper flag and returns 0.
- * (Ghidra models FUN_0040b8c0 as value-returning at this site - it is
- * actually void; the integrity read it guards is kept as documented.) */
+ * (Ghidra models TreeFind (was FUN_0040b8c0) as value-returning at this
+ * site - it is actually void; the integrity read it guards is kept as
+ * documented.) */
 u32 CValueGuard::Peek()
 {
     u32 handle = tableHandle;
@@ -52,7 +53,7 @@ u32 CValueGuard::Peek()
          * still equal DAT_00793774's - a swap means tampering */
         int *live;
         int keySlot = (int)handle;
-        FUN_0040b8c0((int)&g_valueGuardMap, &live, &keySlot);
+        TreeFind((int)&g_valueGuardMap, &live, &keySlot);
         if (live != 0 && *live != (int)DAT_00793774) {
             g_valueGuardTamperFlag = 1;
         }
@@ -96,7 +97,7 @@ void CValueGuard::EncodeOutgoingPacketField(u32 value)
     tableHandle = (u32)newHandle;
     if (newHandle != 0) {
         int *live;
-        FUN_0040b8c0((int)&g_valueGuardMap, &live, &newHandle);
+        TreeFind((int)&g_valueGuardMap, &live, &newHandle);
         if (live != DAT_00793774) {
             g_valueGuardTamperFlag = 1;
         }

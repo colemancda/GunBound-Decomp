@@ -1,9 +1,22 @@
-/* FUN_0040b8c0 - 0x0040b8c0 in the original binary.
+/* TreeFind - 0x0040b8c0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The VC7 STL _Tree::find of the CValueGuard guard-cell map: a
+ * lower_bound descent (node key at +0xc, _Isnil at +0x11, head node at
+ * map+4) followed by the check that turns lower_bound into find -
+ * return the node only when `found != end && found->key <= key` (the
+ * descent already guarantees found->key >= key), else return end (the
+ * head node) through the out-iterator.  Library-shaped, so it takes the
+ * library's member name, prefixed like its sibling TreeLowerBound
+ * (0x40b540) in src/registry/ - the same map, the same node layout.
+ *
+ * The map identity is external: both binary call sites (0x40a300 in
+ * PeekPacketChecksumState, 0x40a3f4 in EncodeOutgoingPacketField) load
+ * ECX with the immediate 0x793770 = &g_valueGuardMap, the same object
+ * 1179 of TreeLowerBound's 1180 sites pass in EAX.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-REG FIX (2026-08-28): the guard map's FIND - a lower_bound
  * descent over the same red-black tree as the (deliberately neutered)
@@ -25,7 +38,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0040b8c0(int param_1,undefined4 **regEax,int *regEbx)
+void __fastcall TreeFind(int param_1,undefined4 **regEax,int *regEbx)
 
 {
   undefined4 **in_EAX = regEax;

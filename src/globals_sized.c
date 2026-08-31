@@ -332,8 +332,11 @@ unsigned char DAT_00e9bea8[0x30];
 /* ---- The scene-transform scratch cluster at 0x5a9130..0x5a94c0 --------
  * Five 4x4 float matrices (0x40 each) and two quaternion scratches (0x10
  * each) that MultiplyMatrix4x4ToScratch/InPlace (0x4f1f50/0x4f2240),
- * FUN_004f3440/FUN_004f3a60/FUN_004f3ba0/FUN_004f3c70 and FUN_004e9cc0's
- * projection builder read and write as whole objects.  globals.c had only
+ * SceneNode_BuildLocalTransform (0x4f3440), MultiplyQuaternionsToScratch
+ * (0x4f3a60), QuaternionToRotationMatrix (0x4f3ba0),
+ * SlerpQuaternionsToScratch (0x4f3c70) and the projection builder in
+ * SceneNode_UpdateTransformAndCamera (0x4e9cc0) read and write as whole
+ * objects.  globals.c had only
  * six interior dwords of these declared (DAT_005a9290/9350/94b0 + the
  * split fields beside them); DAT_005a9130, DAT_005a9250 and DAT_005a93f0
  * were not declared at all, which is what kept the matrix-multiply

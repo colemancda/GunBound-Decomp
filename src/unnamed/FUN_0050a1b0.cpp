@@ -41,8 +41,9 @@ extern unsigned char g_valueGuardLock;
 extern unsigned int g_stateChangeInProgress;
 unsigned int PeekPacketChecksumState(void *self);
 char PeekPacketChecksumBool();
-/* Row-at-point helper; x/y recovered 2026-08-28 - see FUN_0050cdb0.c. */
-int FUN_0050cdb0(int widget, int x, int y);
+/* Row-at-point helper; x/y recovered 2026-08-28 - see
+ * AvatarListRowHitTest.c (was FUN_0050cdb0.c). */
+int AvatarListRowHitTest(int widget, int x, int y);
 unsigned int QueueOutgoingPacketField(unsigned int field);
 void RefreshConnectionStatusLabel(void *this_);
 void RadioGroup_RefreshEnableStates(void *this_);
@@ -69,7 +70,7 @@ extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y)
     if ((char)uVar5 != '\x01') {
       uVar5 = (unsigned char)PeekPacketChecksumBool();
       if ((char)uVar5 != '\x01' && (uVar5 = g_stateChangeInProgress, g_stateChangeInProgress == 0)) {
-        iVar4 = FUN_0050cdb0((int)this_, x, y);
+        iVar4 = AvatarListRowHitTest((int)this_, x, y);
         if (iVar4 != -1 &&
             (unsigned int)(*(int *)(puVar1 + 0x454) + iVar4) < *(unsigned int *)(g_clientContext + 0x44e24)) {
           QueueOutgoingPacketField(iVar4);

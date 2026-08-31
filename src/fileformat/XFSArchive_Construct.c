@@ -1,4 +1,4 @@
-/* FUN_004f09d0 - 0x004f09d0 in the original binary.
+/* XFSArchive_Construct - 0x004f09d0 in the original binary.
  *
  * The XFSArchive constructor: installs the vtable at +0x10714
  * (&PTR_FUN_005572dc), initialises the CRITICAL_SECTION at +0x10718,
@@ -15,14 +15,15 @@
  * g_graphicsArchive - so they have no C source counterpart. The port
  * runs it from the .CRT$XCU hook in crt_shims_msvc.c instead, which
  * previously replicated only the handle = -1 store.
- * Raw/near-verbatim port of Ghidra's decompiler output otherwise, not
- * hand-verified. See src/README.md's "Raw/verbatim ports" section for
- * status.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004f09d0(int regEsi)
+void XFSArchive_Construct(int regEsi)
 
 {
   int iVar1;

@@ -123,7 +123,7 @@ extern unsigned char g_replayContext;
  * bring-up build sets it here so OpenXFSArchive will open them instead
  * of early-returning "already open". Offset 0x1040 = XFS_OFF_HFILE. */
 extern unsigned char g_graphicsArchive[], g_xfsScratch[];
-void FUN_004f09d0(int regEsi);   /* the XFSArchive constructor - see its file */
+void XFSArchive_Construct(int regEsi);   /* 0x4f09d0 - see src/fileformat/XFSArchive_Construct.c */
 /* Flat-ButtonWidget registry roots (src/globals.c) - each is its own
  * embedded circular-list sentinel node. Every reader (FindActiveObjectAt's
  * mouse-hit-test family, SweepActiveObjectRegistry, DrawActiveObjectRegistry, FUN_004f2fb0's
@@ -380,13 +380,13 @@ static void gb_startup_init(void)
     InitializeCriticalSection((LPCRITICAL_SECTION)DAT_005a9084);
     InitializeCriticalSection((LPCRITICAL_SECTION)(&g_replayContext + 0x45264));
     gb_init_atl_string_mgr();
-    /* The real XFSArchive constructor (0x4f09d0): vtable, critsec, zeroed
-     * entry table, handle = XFS_CLOSED, ready flag. In the original it runs
-     * as a CRT static initializer for each archive (thunks 0x540ec0/
-     * 0x5428a0/0x542930); before 2026-08-31 this hook replicated only the
-     * handle = -1 store. */
-    FUN_004f09d0((int)g_graphicsArchive);
-    FUN_004f09d0((int)g_xfsScratch);
+    /* The real XFSArchive constructor (XFSArchive_Construct, 0x4f09d0):
+     * vtable, critsec, zeroed entry table, handle = XFS_CLOSED, ready
+     * flag. In the original it runs as a CRT static initializer for each
+     * archive (thunks 0x540ec0/0x5428a0/0x542930); before 2026-08-31 this
+     * hook replicated only the handle = -1 store. */
+    XFSArchive_Construct((int)g_graphicsArchive);
+    XFSArchive_Construct((int)g_xfsScratch);
     gb_init_widget_registry(g_activeObjectRegistry, gb_registrySentinel[0]);
     gb_init_widget_registry(g_activeObjectRegistry2, gb_registrySentinel[1]);
     gb_init_widget_registry(g_spriteRegistry, gb_registrySentinel[2]);   /* global sprite registry */

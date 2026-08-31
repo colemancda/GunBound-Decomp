@@ -3,6 +3,12 @@
  * Multiplies two 4x4 float matrices and leaves the product in one shared
  * static scratch matrix, DAT_005a9350, which it also returns.
  *
+ * The notes below predate the 2026-08-31 scene-node renames and keep the
+ * old Ghidra symbols: FUN_004e9cc0 is SceneNode_UpdateTransformAndCamera,
+ * FUN_004f37b0 is SceneNode_UpdateTransform, FUN_004f38a0 is
+ * SceneNode_UpdateWorldViewProjection and FUN_004f3440 is
+ * SceneNode_BuildLocalTransform.
+ *
  * NAMED 2026-08-27, together with its in-place twin MultiplyMatrix4x4InPlace
  * (0x004f2240).  The arithmetic here is an algebraic identity rather than a
  * restatement of control flow -- out[r*4+c] = sum over k of lhs[r*4+k] *

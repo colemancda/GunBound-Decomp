@@ -3,6 +3,12 @@
  * Multiplies two 4x4 float matrices and writes the product back over the
  * left operand.
  *
+ * The notes below predate the 2026-08-31 scene-node renames and keep the
+ * old Ghidra symbols: FUN_004e9cc0 is SceneNode_UpdateTransformAndCamera,
+ * FUN_004f37b0 is SceneNode_UpdateTransform, FUN_004f38a0 is
+ * SceneNode_UpdateWorldViewProjection and FUN_004f3440 is
+ * SceneNode_BuildLocalTransform.
+ *
  * NAMED 2026-08-27, together with MultiplyMatrix4x4ToScratch (0x004f1f50).
  * The two bodies are the same multiply term for term -- out[r*4+c] = sum
  * over k of lhs[r*4+k] * rhs[k*4+c], the row-major 4x4 concatenation, and

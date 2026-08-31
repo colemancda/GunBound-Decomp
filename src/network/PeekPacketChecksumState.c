@@ -15,6 +15,9 @@
  * peek internally take theirs as parameters, and functions.h declares the
  * parameter - so any straggler is a compile error, not a garbage read.
  *
+ * (In the walkthrough below, FUN_0040b8c0 is TreeFind - renamed
+ * 2026-08-31.)
+ *
  * Original 0x40a2e0, instruction for instruction:
  *   mov edi,eax                          ; self
  *   mov esi,[edi+0x14]                   ; tableHandle

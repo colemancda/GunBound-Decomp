@@ -125,7 +125,7 @@ LAB_004e9784:
     else {
       pfVar5 = (float *)(*(int *)(regEbx + 0x118) + iVar6 * 4);
       puVar4 = (undefined4 *)
-               FUN_004f3c70((float *)(iVar6 * 0x10 + *(int *)(regEbx + 0x11c)),(param_1 - *(float *)(*(int *)(regEbx + 0x118) + -4 + iVar6 * 4)) / (*pfVar5 - pfVar5[-1]),(float *)(iVar6 * 0x10 + -0x10 + *(int *)(regEbx + 0x11c)));
+               SlerpQuaternionsToScratch((float *)(iVar6 * 0x10 + *(int *)(regEbx + 0x11c)),(param_1 - *(float *)(*(int *)(regEbx + 0x118) + -4 + iVar6 * 4)) / (*pfVar5 - pfVar5[-1]),(float *)(iVar6 * 0x10 + -0x10 + *(int *)(regEbx + 0x11c)));
       _DAT_005a90e0 = *puVar4;
       _DAT_005a90e4 = puVar4[1];
       _DAT_005a90e8 = puVar4[2];
@@ -197,7 +197,7 @@ LAB_004e98f4:
       DAT_00793670 = 0.0;
     }
   }
-  FUN_004f3ba0(pfVar3,(float *)&DAT_005a90e0);
+  QuaternionToRotationMatrix(pfVar3,(float *)&DAT_005a90e0);
   fVar2 = (float)param_2 - _DAT_00557fb0;
   pfVar3[0xc] = DAT_00793668;
   pfVar3[0xd] = DAT_0079366c;

@@ -374,7 +374,7 @@ Concretely, that means:
     with no portable equivalent - plus sub-byte-field access and its
     own SEH frame plumbing not stripped yet)
   - `unnamed/FUN_00519ef0.c`, `unnamed/FUN_0051a120.c`,
-    `unnamed/FUN_004e9cc0.c`, `unnamed/FUN_0051a230.c`,
+    `unnamed/SceneNode_UpdateTransformAndCamera.c`, `unnamed/FUN_0051a230.c`,
     `unnamed/FUN_004f3af0.c` (`float10` - x87 extended-precision
     locals with no portable equivalent, same class as
     `unnamed/FUN_0047c3f0.c` above)
