@@ -738,7 +738,7 @@ void __fastcall BlitSpriteDirect(undefined4 param_1,uint param_2,int param_3,int
 void AlignMobileToTerrain();
 int __fastcall ComputeMobileGroundY();
 void __fastcall FUN_0045cb50();
-int ComputeTurnDelay();
+int ComputeTurnDelay(int regEax);
 int CommitTurnDelay(int param_1,int regEax);
 uint FUN_0045d640();
 int FUN_0045d692();
@@ -1341,7 +1341,7 @@ uint FUN_004f0650();
 undefined4 __fastcall FUN_004f08a0(undefined4 param_1, int param_2, int stream);
 void __fastcall FUN_004f0960();
 int CompareXFSEntryName();
-void FUN_004f09d0();
+void FUN_004f09d0(int regEsi);
 void FUN_004f0a20();
 undefined4 FUN_004f0d70();
 int __fastcall FUN_004f1020();

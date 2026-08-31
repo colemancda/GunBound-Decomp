@@ -90,7 +90,7 @@ void SortTurnOrderByDelay(int param_1)
   local_14 = 0;
   if (((*(int *)(param_1 + 0x621e0) != 0) && (cVar1 = PeekPacketChecksumBool((byte *)(*(int *)(param_1 + 0x621e0) + 0x8bbd)), cVar1 != '\0')) &&
      (cVar1 = PeekPacketChecksumBool((byte *)(*(int *)(param_1 + 0x621e0) + 0x8ba8)), cVar1 != '\0')) {
-    local_14 = ComputeTurnDelay();
+    local_14 = ComputeTurnDelay(*(int *)(param_1 + 0x621e0));
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x3b49c));

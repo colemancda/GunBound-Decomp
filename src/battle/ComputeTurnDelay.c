@@ -2,7 +2,9 @@
  *
  * RENAMED (2026-08-13, from FUN_0045d150). Computes a player's turn
  * delay from the mobile's guarded stats and its item loadout.  The
- * mobile object arrives in EAX (modelled here as `in_EAX`).
+ * mobile object arrives in EAX (the regEax parameter since 2026-08-31;
+ * all three callers pass *(int *)(ctx + 0x621e0), the local-player
+ * mobile, confirmed by disasm at 0x4203ef/0x409697/0x4096f3).
  *
  * The COMMIT half is CommitTurnDelay (0x45d360, immediately after this
  * one): same arithmetic, plus it caches the result on the mobile at
@@ -26,7 +28,7 @@
  *     *(int *)(g_clientContext + 0x621e0) -- Mobile.cpp passes `this`.)
  *
  * The item term is what makes it a loadout-sensitive value: it calls
- * GetItemQuantityByIcon with the icon id at in_EAX+0xbfbc and folds the
+ * GetItemQuantityByIcon with the icon id at regEax+0xbfbc and folds the
  * count against a cell drawn from the per-slot BLOCK at
  * g_clientContext + 0x50cf4 + slot*0x1120 (0x1120 == 8*0x224, eight
  * guard cells per slot).
@@ -40,14 +42,14 @@
  * 0x45d150-0x45d37b.
  *
  * The object arrives in EAX (`mov esi,eax` at 0x45d162), which this
- * decompile already models as `in_EAX` and dereferences elsewhere
- * (`*(undefined2 *)(in_EAX + 0xbfbc)`), so six cells are in_EAX+N and
+ * decompile already modelled as `in_EAX` (now the regEax parameter) and
+ * dereferences elsewhere, so six cells are regEax+N and
  * two are globals.
  *
  * The remaining two (0x45d29f, 0x45d2fe) index a per-slot BLOCK, not a
  * single cell: `and eax,7 / imul eax,0x1120 / lea [eax + ctx +
  * 0x50cf4]` at 0x45d27e and 0x45d2df.  0x1120 is 8*0x224, i.e. eight
- * guard cells per slot, and the index is *(int *)(in_EAX + 8) & 7 -
+ * guard cells per slot, and the index is *(int *)(regEax + 8) & 7 -
  * recomputed identically at both sites, so it is written inline rather
  * than captured.
  *
@@ -64,11 +66,10 @@
 #include "ghidra_types.h"
 
 
-int ComputeTurnDelay(void)
+int ComputeTurnDelay(int regEax)
 
 {
   char cVar1;
-  int in_EAX;
   int iVar2;
   int iVar3;
   int iVar4;
@@ -77,53 +78,53 @@ int ComputeTurnDelay(void)
   void *pvVar7;
   
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  iVar2 = PeekPacketChecksumState((void *)(in_EAX + 0x8de8));
+  iVar2 = PeekPacketChecksumState((void *)(regEax + 0x8de8));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  iVar3 = PeekPacketChecksumState((void *)(in_EAX + 0x8bc4));
+  iVar3 = PeekPacketChecksumState((void *)(regEax + 0x8bc4));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)&DAT_00e55ab8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  iVar5 = PeekPacketChecksumState((void *)(in_EAX + 0x900c));
+  iVar5 = PeekPacketChecksumState((void *)(regEax + 0x900c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  cVar1 = PeekPacketChecksumBool((byte *)(in_EAX + 0x8bba));
+  cVar1 = PeekPacketChecksumBool((byte *)(regEax + 0x8bba));
   if (cVar1 == '\0') {
-    cVar1 = PeekPacketChecksumBool((byte *)(in_EAX + 0x8bb7));
+    cVar1 = PeekPacketChecksumBool((byte *)(regEax + 0x8bb7));
     if (cVar1 == '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      pvVar7 = (void *)(in_EAX + 0x9230);
+      pvVar7 = (void *)(regEax + 0x9230);
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      pvVar7 = (void *)(in_EAX + 0x9454);
+      pvVar7 = (void *)(regEax + 0x9454);
     }
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    pvVar7 = (void *)(in_EAX + 0x9678);
+    pvVar7 = (void *)(regEax + 0x9678);
   }
   iVar6 = PeekPacketChecksumState(pvVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar6 = ((400 - iVar3) / iVar4) * iVar5 + iVar6;
-  cVar1 = PeekPacketChecksumBool((byte *)(in_EAX + 0x8bb4));
+  cVar1 = PeekPacketChecksumBool((byte *)(regEax + 0x8bb4));
   if (cVar1 == '\x01') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar3 = PeekPacketChecksumState((void *)(in_EAX + 0x989c));
+    iVar3 = PeekPacketChecksumState((void *)(regEax + 0x989c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x50cf4 + (*(int *)(in_EAX + 8) & 7U) * 0x1120));
+    iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x50cf4 + (*(int *)(regEax + 8) & 7U) * 0x1120));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar5 = GetItemQuantityByIcon(g_clientContext,*(undefined2 *)(in_EAX + 0xbfbc));
+    iVar5 = GetItemQuantityByIcon(g_clientContext,*(undefined2 *)(regEax + 0xbfbc));
     if (iVar5 + iVar4 * -3 < 0) {
       iVar5 = 0;
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x50cf4 + (*(int *)(in_EAX + 8) & 7U) * 0x1120));
+      iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x50cf4 + (*(int *)(regEax + 8) & 7U) * 0x1120));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      iVar5 = GetItemQuantityByIcon(g_clientContext,*(undefined2 *)(in_EAX + 0xbfbc));
+      iVar5 = GetItemQuantityByIcon(g_clientContext,*(undefined2 *)(regEax + 0xbfbc));
       iVar5 = iVar5 + iVar4 * -3;
     }
     iVar6 = iVar6 + iVar3 + iVar5;
