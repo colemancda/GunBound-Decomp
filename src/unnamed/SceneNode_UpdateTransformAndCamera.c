@@ -22,8 +22,8 @@
  * DAT_005a9250 as the inverse of the node's own world matrix (the
  * FUN_004f2530 call - binary preloads ECX = this+0xe0 via EBP and EDX =
  * 0x5a9250 at 0x4e9d7f; that callee computes 1/det of the 3x3 and takes
- * a transpose fast path when det == 1; NOTE the port still calls it
- * argless, the dropped ECX/EDX not yet recovered), and rebuild the
+ * a transpose fast path when det == 1; both arguments recovered
+ * 2026-08-31 - see the note at the call), and rebuild the
  * PROJECTION matrix DAT_005a9290 as a D3D-style left-handed perspective
  * from the node's own fov/near/far/aspect fields at +0x2f8..+0x304:
  * m00 = cot(fov)*aspect, m11 = cot(fov), m22 = zf/(zf-zn), m23 = 1,
@@ -95,7 +95,11 @@ void __thiscall SceneNode_UpdateTransformAndCamera(int *param_1,undefined4 param
     fVar2 = (float)((fVar8 / fVar9) * (float10)(float)param_1[0xc1]);
     fVar4 = (float)param_1[0xc0] / ((float)param_1[0xc0] - (float)param_1[0xbf]);
     _DAT_0079361c = param_1;
-    FUN_004f2530();
+    /* Binary 0x4e9d7f/0x4e9d86: EDX=0x5a9250, ECX=EBP=param_1+0xe0 - the
+     * view matrix is the affine inverse of this camera node's world
+     * matrix. Before 2026-08-31 this call was argless and the view
+     * rebuild a no-op. */
+    FUN_004f2530((float *)(param_1 + 0x38),(float *)DAT_005a9250);
     puVar7 = (undefined4 *)DAT_005a9290;
     for (iVar5 = 0x10; iVar5 != 0; iVar5 = iVar5 + -1) {
       *puVar7 = 0;
