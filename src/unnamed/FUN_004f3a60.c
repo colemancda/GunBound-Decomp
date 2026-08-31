@@ -25,6 +25,6 @@ undefined * __fastcall FUN_004f3a60(float *param_1,float *regEax)
   _DAT_005a94bc =
        ((param_1[3] * regEax[3] - *regEax * *param_1) - regEax[1] * param_1[1]) -
        param_1[2] * regEax[2];
-  return &DAT_005a94b0;
+  return (undefined *)DAT_005a94b0;
 }
 

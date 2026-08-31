@@ -1850,9 +1850,9 @@ uint32_t DAT_0056d468;
 uint32_t DAT_00598e7e;
 /* Real values read from the binary at 0x5a9050 (see globals.h). */
 const uint32_t g_fullnessGaugeThresholds[5] = { 1, 10, 30, 60, 100 };
-uint32_t DAT_005a9290;
-uint32_t DAT_005a9350;
-uint32_t DAT_005a94b0;
+/* DAT_005a9290, DAT_005a9350 (4x4 float matrices, 0x40) and DAT_005a94b0
+ * (quaternion scratch, 0x10) moved to globals_sized.c - real extents for
+ * the scene-transform cluster. */
 uint32_t DAT_005a9550;
 uint32_t DAT_005a960c;
 uint32_t DAT_005a9624;
@@ -2244,17 +2244,10 @@ uint32_t DAT_005a90e0;
 uint32_t DAT_005a90e4;
 uint32_t DAT_005a90e8;
 uint32_t DAT_005a90ec;
-uint32_t DAT_005a92a4;
-uint32_t DAT_005a92b8;
-uint32_t DAT_005a92bc;
-uint32_t DAT_005a92c8;
-uint32_t DAT_005a93e0;
-uint32_t DAT_005a93e4;
-uint32_t DAT_005a93e8;
-uint32_t DAT_005a93ec;
-uint32_t DAT_005a94b4;
-uint32_t DAT_005a94b8;
-uint32_t DAT_005a94bc;
+/* DAT_005a92a4/b8/bc/c8 are fields inside DAT_005a9290 (+0x14/+0x28/+0x2c/
+ * +0x38), DAT_005a93e0..ec and DAT_005a94b4..bc fields inside the sized
+ * DAT_005a93e0/DAT_005a94b0 quaternions - all offset macros in globals.h
+ * over the storage in globals_sized.c now. */
 uint32_t DAT_005a9554;
 uint32_t DAT_005a9558;
 uint32_t DAT_005a955c;

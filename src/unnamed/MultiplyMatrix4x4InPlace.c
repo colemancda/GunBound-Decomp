@@ -31,7 +31,12 @@
  * symbols: FUN_004f1f50 is MultiplyMatrix4x4ToScratch and FUN_004f2240 is
  * MultiplyMatrix4x4InPlace.  It is reproduced unchanged.
  *
- * DROPPED REGISTERS RESOLVED BUT DELIBERATELY NOT APPLIED (2026-08-27).
+ * DROPPED REGISTERS RESOLVED 2026-08-27 and APPLIED 2026-08-31, once the
+ * five matrix globals were given real 0x40 extents in globals_sized.c -
+ * the split-struct blocker the note below describes no longer holds.
+ * The operand analysis it records was applied verbatim: EBX and EAX are
+ * the regEbx/regEax parameters (dest, then source), and every caller
+ * passes MultiplyMatrix4x4ToScratch's return for regEax.
  * This and its twin FUN_004f1f50 are the same 4x4 matrix multiply: one
  * operand in ECX (FUN_004f1f50) or EBX (this), the other in EAX, sixteen
  * floats each.  Every operand is settled --
@@ -55,25 +60,20 @@
  * DAT_005a92c8, which sit at +0x14, +0x28, +0x2c and +0x38 inside it.
  * DAT_005a9130, DAT_005a93f0 and DAT_005a9250 are not declared at all.
  *
- * So passing the operands would turn "reads an uninitialised matrix" into
- * "reads and writes 0x3c bytes past four-byte globals", which is the harder
- * failure to find, not the easier one.  The write side already overruns
- * DAT_005a9350 today, unconditionally and independently of these arguments.
- * Coalescing the matrix globals is the prerequisite; it is the same
- * split-struct job FUN_004ee120 is waiting on.
+ * (Historical: passing the operands before the sizing would have turned
+ * "reads an uninitialised matrix" into "reads and writes 0x3c bytes past
+ * four-byte globals". The sizing landed first, in the same change.)
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void MultiplyMatrix4x4InPlace(void)
+void MultiplyMatrix4x4InPlace(float *regEbx,float *regEax)
 
 {
   char cVar1;
-  float *in_EAX;
   int iVar2;
-  float *unaff_EBX;
   float *pfVar3;
   float local_40 [4];
   float local_30;
@@ -89,64 +89,64 @@ void MultiplyMatrix4x4InPlace(void)
   float local_8;
   float local_4;
   
-  local_40[0] = unaff_EBX[3] * in_EAX[0xc] +
-                *in_EAX * *unaff_EBX + in_EAX[4] * unaff_EBX[1] + in_EAX[8] * unaff_EBX[2];
-  local_40[1] = in_EAX[1] * *unaff_EBX +
-                in_EAX[9] * unaff_EBX[2] + in_EAX[5] * unaff_EBX[1] + in_EAX[0xd] * unaff_EBX[3];
-  local_40[2] = in_EAX[10] * unaff_EBX[2] +
-                in_EAX[6] * unaff_EBX[1] + unaff_EBX[3] * in_EAX[0xe] + in_EAX[2] * *unaff_EBX;
-  local_30 = in_EAX[8] * unaff_EBX[6] +
-             unaff_EBX[7] * in_EAX[0xc] + unaff_EBX[4] * *in_EAX + in_EAX[4] * unaff_EBX[5];
-  local_2c = in_EAX[1] * unaff_EBX[4] +
-             unaff_EBX[6] * in_EAX[9] + unaff_EBX[7] * in_EAX[0xd] + in_EAX[5] * unaff_EBX[5];
-  local_28 = in_EAX[2] * unaff_EBX[4] +
-             in_EAX[6] * unaff_EBX[5] + unaff_EBX[6] * in_EAX[10] + unaff_EBX[7] * in_EAX[0xe];
-  local_20 = unaff_EBX[8] * *in_EAX +
-             in_EAX[0xc] * unaff_EBX[0xb] + in_EAX[4] * unaff_EBX[9] + in_EAX[8] * unaff_EBX[10];
-  local_1c = in_EAX[5] * unaff_EBX[9] +
-             in_EAX[9] * unaff_EBX[10] + in_EAX[0xd] * unaff_EBX[0xb] + in_EAX[1] * unaff_EBX[8];
-  local_18 = in_EAX[10] * unaff_EBX[10] +
-             in_EAX[0xe] * unaff_EBX[0xb] + unaff_EBX[8] * in_EAX[2] + in_EAX[6] * unaff_EBX[9];
-  local_10 = unaff_EBX[0xc] * *in_EAX +
-             unaff_EBX[0xf] * in_EAX[0xc] + in_EAX[8] * unaff_EBX[0xe] + in_EAX[4] * unaff_EBX[0xd];
-  local_c = unaff_EBX[0xc] * in_EAX[1] +
-            unaff_EBX[0xd] * in_EAX[5] + unaff_EBX[0xe] * in_EAX[9] + in_EAX[0xd] * unaff_EBX[0xf];
-  local_8 = unaff_EBX[0xd] * in_EAX[6] +
-            unaff_EBX[0xe] * in_EAX[10] + unaff_EBX[0xf] * in_EAX[0xe] + unaff_EBX[0xc] * in_EAX[2];
-  if (ABS(in_EAX[0xb]) < _DAT_0054c870) {
-    if (ABS(in_EAX[0xf] - _DAT_00557fb0) < _DAT_0054c870) {
-      if (ABS(in_EAX[3]) < _DAT_0054c870) {
-        cVar1 = FUN_004e9490(in_EAX[7]);
+  local_40[0] = regEbx[3] * regEax[0xc] +
+                *regEax * *regEbx + regEax[4] * regEbx[1] + regEax[8] * regEbx[2];
+  local_40[1] = regEax[1] * *regEbx +
+                regEax[9] * regEbx[2] + regEax[5] * regEbx[1] + regEax[0xd] * regEbx[3];
+  local_40[2] = regEax[10] * regEbx[2] +
+                regEax[6] * regEbx[1] + regEbx[3] * regEax[0xe] + regEax[2] * *regEbx;
+  local_30 = regEax[8] * regEbx[6] +
+             regEbx[7] * regEax[0xc] + regEbx[4] * *regEax + regEax[4] * regEbx[5];
+  local_2c = regEax[1] * regEbx[4] +
+             regEbx[6] * regEax[9] + regEbx[7] * regEax[0xd] + regEax[5] * regEbx[5];
+  local_28 = regEax[2] * regEbx[4] +
+             regEax[6] * regEbx[5] + regEbx[6] * regEax[10] + regEbx[7] * regEax[0xe];
+  local_20 = regEbx[8] * *regEax +
+             regEax[0xc] * regEbx[0xb] + regEax[4] * regEbx[9] + regEax[8] * regEbx[10];
+  local_1c = regEax[5] * regEbx[9] +
+             regEax[9] * regEbx[10] + regEax[0xd] * regEbx[0xb] + regEax[1] * regEbx[8];
+  local_18 = regEax[10] * regEbx[10] +
+             regEax[0xe] * regEbx[0xb] + regEbx[8] * regEax[2] + regEax[6] * regEbx[9];
+  local_10 = regEbx[0xc] * *regEax +
+             regEbx[0xf] * regEax[0xc] + regEax[8] * regEbx[0xe] + regEax[4] * regEbx[0xd];
+  local_c = regEbx[0xc] * regEax[1] +
+            regEbx[0xd] * regEax[5] + regEbx[0xe] * regEax[9] + regEax[0xd] * regEbx[0xf];
+  local_8 = regEbx[0xd] * regEax[6] +
+            regEbx[0xe] * regEax[10] + regEbx[0xf] * regEax[0xe] + regEbx[0xc] * regEax[2];
+  if (ABS(regEax[0xb]) < _DAT_0054c870) {
+    if (ABS(regEax[0xf] - _DAT_00557fb0) < _DAT_0054c870) {
+      if (ABS(regEax[3]) < _DAT_0054c870) {
+        cVar1 = FUN_004e9490(regEax[7]);
         if (cVar1 != '\0') {
-          local_40[3] = unaff_EBX[3];
-          local_24 = unaff_EBX[7];
-          local_4 = unaff_EBX[0xf];
-          local_14 = unaff_EBX[0xb];
+          local_40[3] = regEbx[3];
+          local_24 = regEbx[7];
+          local_4 = regEbx[0xf];
+          local_14 = regEbx[0xb];
           pfVar3 = local_40;
           for (iVar2 = 0x10; iVar2 != 0; iVar2 = iVar2 + -1) {
-            *unaff_EBX = *pfVar3;
+            *regEbx = *pfVar3;
             pfVar3 = pfVar3 + 1;
-            unaff_EBX = unaff_EBX + 1;
+            regEbx = regEbx + 1;
           }
           return;
         }
       }
     }
   }
-  local_40[3] = in_EAX[3] * *unaff_EBX +
-                in_EAX[7] * unaff_EBX[1] + unaff_EBX[3] * in_EAX[0xf] + in_EAX[0xb] * unaff_EBX[2];
-  local_24 = in_EAX[3] * unaff_EBX[4] +
-             in_EAX[7] * unaff_EBX[5] + unaff_EBX[6] * in_EAX[0xb] + unaff_EBX[7] * in_EAX[0xf];
-  local_14 = in_EAX[0xf] * unaff_EBX[0xb] +
-             in_EAX[0xb] * unaff_EBX[10] + in_EAX[3] * unaff_EBX[8] + in_EAX[7] * unaff_EBX[9];
-  local_4 = unaff_EBX[0xd] * in_EAX[7] +
-            in_EAX[0xb] * unaff_EBX[0xe] + unaff_EBX[0xc] * in_EAX[3] + unaff_EBX[0xf] * in_EAX[0xf]
+  local_40[3] = regEax[3] * *regEbx +
+                regEax[7] * regEbx[1] + regEbx[3] * regEax[0xf] + regEax[0xb] * regEbx[2];
+  local_24 = regEax[3] * regEbx[4] +
+             regEax[7] * regEbx[5] + regEbx[6] * regEax[0xb] + regEbx[7] * regEax[0xf];
+  local_14 = regEax[0xf] * regEbx[0xb] +
+             regEax[0xb] * regEbx[10] + regEax[3] * regEbx[8] + regEax[7] * regEbx[9];
+  local_4 = regEbx[0xd] * regEax[7] +
+            regEax[0xb] * regEbx[0xe] + regEbx[0xc] * regEax[3] + regEbx[0xf] * regEax[0xf]
   ;
   pfVar3 = local_40;
   for (iVar2 = 0x10; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *unaff_EBX = *pfVar3;
+    *regEbx = *pfVar3;
     pfVar3 = pfVar3 + 1;
-    unaff_EBX = unaff_EBX + 1;
+    regEbx = regEbx + 1;
   }
   return;
 }

@@ -46,6 +46,6 @@ undefined * __thiscall FUN_004f3c70(float *param_1,double param_2,float *regEsi)
   _DAT_005a94b4 = local_8 * regEsi[1] + _DAT_005a94b4 * param_2;
   _DAT_005a94b8 = local_8 * regEsi[2] + _DAT_005a94b8 * param_2;
   _DAT_005a94bc = _DAT_005a94bc * param_2 + local_8 * regEsi[3];
-  return &DAT_005a94b0;
+  return (undefined *)DAT_005a94b0;
 }
 

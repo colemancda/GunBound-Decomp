@@ -2065,9 +2065,15 @@ extern uint32_t DAT_00598e7e;
  * lobby's per-room dial. Ghidra typed it as a scalar; it's really a 5-int
  * array (RenderWorldListRow indexes [0..4]). */
 extern const uint32_t g_fullnessGaugeThresholds[5];
-extern uint32_t DAT_005a9290;
-extern uint32_t DAT_005a9350;
-extern uint32_t DAT_005a94b0;
+/* Scene-transform cluster: sized storage in globals_sized.c (see the
+ * comment there). The interior split fields are float offset macros
+ * below, beside their old extern positions. */
+extern uint8_t DAT_005a9130[0x40];
+extern uint8_t DAT_005a9250[0x40];
+extern uint8_t DAT_005a9290[0x40];
+extern uint8_t DAT_005a9350[0x40];
+extern uint8_t DAT_005a93f0[0x40];
+extern uint8_t DAT_005a94b0[0x10];
 extern uint32_t DAT_005a9550;
 extern uint32_t DAT_005a960c;
 extern uint32_t DAT_005a9624;
@@ -2515,29 +2521,23 @@ extern uint32_t DAT_005a90e8;
 #define _DAT_005a90e8 DAT_005a90e8
 extern uint32_t DAT_005a90ec;
 #define _DAT_005a90ec DAT_005a90ec
-extern uint32_t DAT_005a92a4;
-#define _DAT_005a92a4 DAT_005a92a4
-extern uint32_t DAT_005a92b8;
-#define _DAT_005a92b8 DAT_005a92b8
-extern uint32_t DAT_005a92bc;
-#define _DAT_005a92bc DAT_005a92bc
-extern uint32_t DAT_005a92c8;
-#define _DAT_005a92c8 DAT_005a92c8
-extern uint32_t DAT_005a93e0;
-#define _DAT_005a93e0 DAT_005a93e0
-extern uint32_t DAT_005a93e4;
-#define _DAT_005a93e4 DAT_005a93e4
-extern uint32_t DAT_005a93e8;
-#define _DAT_005a93e8 DAT_005a93e8
-extern uint32_t DAT_005a93ec;
-#define _DAT_005a93ec DAT_005a93ec
-#define _DAT_005a94b0 DAT_005a94b0
-extern uint32_t DAT_005a94b4;
-#define _DAT_005a94b4 DAT_005a94b4
-extern uint32_t DAT_005a94b8;
-#define _DAT_005a94b8 DAT_005a94b8
-extern uint32_t DAT_005a94bc;
-#define _DAT_005a94bc DAT_005a94bc
+/* Fields inside the sized DAT_005a9290 projection matrix (m11 diag,
+ * m22, m23, m32), the DAT_005a93e0 and DAT_005a94b0 quaternions. Typed
+ * float: every original store is an fstp (the old uint32_t scalars made
+ * `_DAT_005a92c8 = -(fVar4 * ...)` TRUNCATE the float to an integer). */
+#define _DAT_005a92a4 (*(float *)(DAT_005a9290 + 0x14))
+#define _DAT_005a92b8 (*(float *)(DAT_005a9290 + 0x28))
+#define _DAT_005a92bc (*(float *)(DAT_005a9290 + 0x2c))
+#define _DAT_005a92c8 (*(float *)(DAT_005a9290 + 0x38))
+extern uint8_t DAT_005a93e0[0x10];
+#define _DAT_005a93e0 (*(float *)(DAT_005a93e0))
+#define _DAT_005a93e4 (*(float *)(DAT_005a93e0 + 4))
+#define _DAT_005a93e8 (*(float *)(DAT_005a93e0 + 8))
+#define _DAT_005a93ec (*(float *)(DAT_005a93e0 + 0xc))
+#define _DAT_005a94b0 (*(float *)(DAT_005a94b0))
+#define _DAT_005a94b4 (*(float *)(DAT_005a94b0 + 4))
+#define _DAT_005a94b8 (*(float *)(DAT_005a94b0 + 8))
+#define _DAT_005a94bc (*(float *)(DAT_005a94b0 + 0xc))
 #define _DAT_005a9550 DAT_005a9550
 extern uint32_t DAT_005a9554;
 #define _DAT_005a9554 DAT_005a9554

@@ -328,3 +328,24 @@ unsigned char DAT_00f22518[0x138];
  * `&DAT_00794e14` / `&DAT_00e9bea8` call site keeps its type. */
 unsigned char DAT_00794e14[0x30];
 unsigned char DAT_00e9bea8[0x30];
+
+/* ---- The scene-transform scratch cluster at 0x5a9130..0x5a94c0 --------
+ * Five 4x4 float matrices (0x40 each) and two quaternion scratches (0x10
+ * each) that MultiplyMatrix4x4ToScratch/InPlace (0x4f1f50/0x4f2240),
+ * FUN_004f3440/FUN_004f3a60/FUN_004f3ba0/FUN_004f3c70 and FUN_004e9cc0's
+ * projection builder read and write as whole objects.  globals.c had only
+ * six interior dwords of these declared (DAT_005a9290/9350/94b0 + the
+ * split fields beside them); DAT_005a9130, DAT_005a9250 and DAT_005a93f0
+ * were not declared at all, which is what kept the matrix-multiply
+ * operand registers deliberately unapplied (see the note in
+ * MultiplyMatrix4x4ToScratch.c).  The interior split fields (92a4/92b8/
+ * 92bc/92c8 inside 9290; 93e4/93e8/93ec inside 93e0; 94b4/94b8/94bc
+ * inside 94b0) are float offset macros in globals.h now.  No other
+ * declared global falls inside any of these extents. */
+unsigned char DAT_005a9130[0x40];
+unsigned char DAT_005a9250[0x40];
+unsigned char DAT_005a9290[0x40];
+unsigned char DAT_005a9350[0x40];
+unsigned char DAT_005a93e0[0x10];
+unsigned char DAT_005a93f0[0x40];
+unsigned char DAT_005a94b0[0x10];

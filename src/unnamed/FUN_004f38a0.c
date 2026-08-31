@@ -16,14 +16,17 @@ void __fastcall FUN_004f38a0(int param_1)
   undefined4 *puVar4;
   
   if (*(char *)(param_1 + 0xdc) == '\x01') {
-    puVar2 = (undefined4 *)MultiplyMatrix4x4ToScratch();
+    /* Binary 0x4f38ae/0x4f38b4: ECX = param_1 + 0xe0, EAX = 0x5a9250. */
+    puVar2 = MultiplyMatrix4x4ToScratch((float *)(param_1 + 0xe0),(float *)DAT_005a9250);
     puVar4 = (undefined4 *)(param_1 + 0x120);
     for (iVar3 = 0x10; iVar3 != 0; iVar3 = iVar3 + -1) {
       *puVar4 = *puVar2;
       puVar2 = puVar2 + 1;
       puVar4 = puVar4 + 1;
     }
-    puVar2 = (undefined4 *)MultiplyMatrix4x4ToScratch();
+    /* Binary 0x4f38cf/0x4f38d6: ECX = the +0x120 slot just filled (EDX
+     * kept from the lea at 0x4f38be), EAX = 0x5a9290 - the projection. */
+    puVar2 = MultiplyMatrix4x4ToScratch((float *)(param_1 + 0x120),(float *)DAT_005a9290);
     puVar4 = (undefined4 *)(param_1 + 0x160);
     for (iVar3 = 0x10; iVar3 != 0; iVar3 = iVar3 + -1) {
       *puVar4 = *puVar2;
