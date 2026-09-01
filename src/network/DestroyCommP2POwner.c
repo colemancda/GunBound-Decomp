@@ -78,7 +78,11 @@ LAB_004fd2b5:
   param_1[0x6a9] = 0;
   param_1[0x6aa] = 0;
   param_1[0x6ab] = 0;
-  DestroyCommEngine();
+  /* DROPPED-REG FIX: orig 0x4fd34c `mov esi,[esp+0x18]` - the slot
+   * 0x4fd262 loaded with `lea eax,[edi+0x2c]` (EDI = param_1): the
+   * engine sub-object at +0x2c, the same one CommP2POwnerConnect keys
+   * and CreateBoundSocket binds ([esi+0x288]/[esi+0x28c]). */
+  DestroyCommEngine(param_1 + 0xb);
   param_1[1] = &PTR_LAB_00557598;
   if ((HWND)param_1[9] != (HWND)0x0) {
     DestroyWindow((HWND)param_1[9]);

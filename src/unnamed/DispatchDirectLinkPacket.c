@@ -133,7 +133,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
     }
     else {
       if (uVar2 == 0x1001) {
-        FUN_00401fa0();
+        FUN_00401fa0(param_2,(char *)regEax,(undefined1 *)(param_1 + 8));
         return;
       }
       if (uVar2 == 0x1002) {

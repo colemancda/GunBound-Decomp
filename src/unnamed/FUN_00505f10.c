@@ -7,21 +7,20 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00505f10(int param_1,int param_2)
+void __thiscall FUN_00505f10(int param_1,int param_2,int regEax)
 
 {
   int iVar1;
   undefined2 uVar2;
   ushort uVar3;
   int iVar4;
-  int in_EAX;
   int iVar5;
   undefined4 uVar6;
   char local_80 [128];
   
-  iVar4 = *(int *)(in_EAX + 0x28);
-  iVar1 = param_1 * 0x1e + 0x2f + *(int *)(in_EAX + 0x2c);
-  if (((*(int *)(in_EAX + 0x90) == DAT_00e54da8 + param_1) && (g_screenSurface != 0)) &&
+  iVar4 = *(int *)(regEax + 0x28);
+  iVar1 = param_1 * 0x1e + 0x2f + *(int *)(regEax + 0x2c);
+  if (((*(int *)(regEax + 0x90) == DAT_00e54da8 + param_1) && (g_screenSurface != 0)) &&
      (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar4 + 0xe,iVar1 + -2);

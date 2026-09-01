@@ -8,19 +8,18 @@
 #include "ghidra_types.h"
 
 
-uint FUN_004048e0(int *regEax)
+uint FUN_004048e0(int *regEax,int regEbx)
 
 {
   int iVar1;
   int iVar2;
   int iVar3;
-  int unaff_EBX;
   
-  if (unaff_EBX != 0) {
+  if (regEbx != 0) {
     iVar1 = regEax[5];
-    iVar2 = unaff_EBX;
-    if ((*(int *)(unaff_EBX + 0x108) != iVar1) && (*(int *)(unaff_EBX + 0x10c) != iVar1)) {
-      iVar2 = FUN_004050a0(regEax,unaff_EBX);
+    iVar2 = regEbx;
+    if ((*(int *)(regEbx + 0x108) != iVar1) && (*(int *)(regEbx + 0x10c) != iVar1)) {
+      iVar2 = FUN_004050a0(regEax,regEbx);
     }
     iVar3 = *(int *)(iVar2 + 0x108);
     if (iVar3 == iVar1) {
@@ -40,17 +39,17 @@ uint FUN_004048e0(int *regEax)
     if (*(int *)(iVar2 + 0x104) == 1) {
       FUN_00404e60();
     }
-    if (iVar2 != unaff_EBX) {
-      TreeReplaceNode((int)unaff_EBX,regEax,iVar2);
+    if (iVar2 != regEbx) {
+      TreeReplaceNode((int)regEbx,regEax,iVar2);
     }
     if (*regEax != 0) {
       *(int *)(*regEax + 0x110) = regEax[5];
     }
     thunk_FUN_00405320();
     iVar1 = regEax[2];
-    *(int *)(unaff_EBX + 0x108) = iVar1;
+    *(int *)(regEbx + 0x108) = iVar1;
     regEax[1] = regEax[1] + -1;
-    regEax[2] = unaff_EBX;
+    regEax[2] = regEbx;
     return CONCAT31((int3)((uint)iVar1 >> 8),1);
   }
   return (uint)regEax & 0xffffff00;

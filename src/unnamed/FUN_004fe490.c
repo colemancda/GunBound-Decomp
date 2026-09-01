@@ -7,31 +7,29 @@
 #include "ghidra_types.h"
 
 
-void FUN_004fe490(int param_1)
+void FUN_004fe490(int param_1,undefined4 regEdi,int *regEsi)
 
 {
   char cVar1;
   int iVar2;
-  int *unaff_ESI;
-  undefined4 unaff_EDI;
   undefined4 local_c;
   undefined4 local_8;
   undefined1 local_4 [4];
   
-  iVar2 = StringMap_Find_1c((char *)unaff_EDI,(uint *)&local_c,(undefined4 *)local_4,unaff_ESI,
+  iVar2 = StringMap_Find_1c((char *)regEdi,(uint *)&local_c,(undefined4 *)local_4,regEsi,
                        (uint *)&local_8);
   if (iVar2 != 0) {
     *(undefined1 *)(iVar2 + 0x12) = param_1;
     return;
   }
-  if (*unaff_ESI == 0) {
-    cVar1 = HashMap_InitHashTable(unaff_ESI,unaff_ESI[2],1);
+  if (*regEsi == 0) {
+    cVar1 = HashMap_InitHashTable(regEsi,regEsi[2],1);
     if (cVar1 == '\0') {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x8007000e);
     }
   }
-  iVar2 = StringMap_Insert_1c(local_8,local_c,(undefined4 *)unaff_EDI,unaff_ESI);
+  iVar2 = StringMap_Insert_1c(local_8,local_c,(undefined4 *)regEdi,regEsi);
   *(undefined1 *)(iVar2 + 0x12) = param_1;
   return;
 }

@@ -25,7 +25,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0050ae40(int param_1)
+void __fastcall FUN_0050ae40(int param_1,int regEax)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -33,7 +33,6 @@ void __fastcall FUN_0050ae40(int param_1)
   undefined stack0xffffff64;
   undefined *puVar1;
   char extraout_AH;
-  int in_EAX;
   int iVar2;
   undefined *puVar3;
   int unaff_EBX;
@@ -53,8 +52,8 @@ void __fastcall FUN_0050ae40(int param_1)
   undefined *local_84;
   char local_80 [128];
   
-  local_94 = (undefined *)(*(int *)(in_EAX + 0x2c) + 0x68 + param_1 * 0x11);
-  iVar4 = *(int *)(in_EAX + 0x28) + 0x13;
+  local_94 = (undefined *)(*(int *)(regEax + 0x2c) + 0x68 + param_1 * 0x11);
+  iVar4 = *(int *)(regEax + 0x28) + 0x13;
   local_84 = g_gameStateVTableArray[7];
   local_88 = iVar4;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

@@ -7,11 +7,10 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00497980(undefined4 param_1,uint param_2,int param_3,int param_4)
+void __fastcall FUN_00497980(undefined4 param_1,uint param_2,int param_3,int param_4,uint regEax)
 
 {
   int iVar1;
-  uint in_EAX;
   int iVar2;
   undefined4 *puVar3;
   uint uVar4;
@@ -35,11 +34,11 @@ void __fastcall FUN_00497980(undefined4 param_1,uint param_2,int param_3,int par
     }
     iVar2 = *(int *)(iVar2 + 0x10);
     uVar8 = *(uint *)(iVar2 + 8);
-    if (uVar8 <= in_EAX) {
-      while (uVar8 != in_EAX) {
+    if (uVar8 <= regEax) {
+      while (uVar8 != regEax) {
         iVar2 = *(int *)(iVar2 + 0x10);
         uVar8 = *(uint *)(iVar2 + 8);
-        if (in_EAX < uVar8) {
+        if (regEax < uVar8) {
           return;
         }
       }

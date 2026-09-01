@@ -239,7 +239,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
     uVar6 = FUN_00401ce0((int)&DAT_00e53e88,&local_120);
     FUN_00401d50((char *)&local_148,(int)&DAT_00e53e88,1,uVar6,(short)uVar5,
                  (undefined4 *)puVar9,(char *)puVar4,(char *)&local_158);
-    FUN_00401fa0();
+    FUN_00401fa0((int)&DAT_00e53e88,(char *)&local_13c,(undefined1 *)((int)param_1 + 0x38));
   }
   else {
     if (in_AX == 0xa2f1) {
@@ -265,7 +265,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
       local_150 = param_1[6];
       local_12c = 0;
       local_14c = 0;
-      FUN_00401fa0();
+      FUN_00401fa0((int)&DAT_00e53e88,(char *)&local_158,(undefined1 *)((int)param_1 + 0x1c));
       return;
     }
   }

@@ -1,5 +1,12 @@
 /* FUN_0050be20 - 0x0050be20 in the original binary.
  *
+ * NOT A LIVE-IN (2026-09-01 workflow triage): the backlog's unaff_EDI
+ * row is a PHANTOM - the first EDI touch at 0x50be41 is a write that
+ * dominates the function, and every later EDI read consumes an
+ * in-function value (a cell pointer, or the [esp+0x10] counter Ghidra
+ * mis-rendered as unaff_EDI). No signature change is correct here; the
+ * fix class is rewriting the mis-rendered expressions, not promotion.
+ *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.

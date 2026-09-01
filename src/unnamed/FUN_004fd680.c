@@ -52,8 +52,13 @@ FUN_004fd680(int param_1,undefined4 param_2,undefined4 param_3,undefined4 *param
         param_5 = param_5 + 1;
         pcVar2 = pcVar2 + 1;
       }
-      FUN_004fcf70(param_2,0xc051,&local_1778,
-                   local_1760 + CONCAT22((short)(uVar3 >> 0x10),(short)uVar3 - (short)&local_1778));
+      /* DROPPED-REG FIX: orig 0x4fd711 `mov ebx,[ebp+0xc]` = param_3 (the
+         entry array - unused anywhere else in this port, the witness) and
+         0x4fd702 `mov edi,[esp+0xc]`, the ECX this saved at 0x4fd69b =
+         param_1. */
+      FUN_004fcf70(param_2,0xc051,(undefined4)&local_1778,
+                   (undefined4)(local_1760 + CONCAT22((short)(uVar3 >> 0x10),(short)uVar3 - (short)&local_1778)),
+                   (int)param_3,(int *)param_1);
     }
   }
   return;

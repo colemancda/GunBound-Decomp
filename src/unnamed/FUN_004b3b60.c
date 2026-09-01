@@ -7,11 +7,10 @@
 #include "ghidra_types.h"
 
 
-uint FUN_004b3b60(int param_1,int param_2)
+uint FUN_004b3b60(int param_1,int param_2,uint regEax)
 
 {
   int iVar1;
-  uint in_EAX;
   uint uVar2;
   undefined4 *puVar3;
   uint uVar4;
@@ -35,8 +34,8 @@ uint FUN_004b3b60(int param_1,int param_2)
     }
     iVar1 = *(int *)(uVar4 + 0x10);
     uVar4 = *(uint *)(iVar1 + 8);
-    while (uVar4 <= in_EAX) {
-      if (uVar4 == in_EAX) {
+    while (uVar4 <= regEax) {
+      if (uVar4 == regEax) {
         uVar5 = *(uint *)(iVar1 + 0x20);
         iVar6 = *(int *)(iVar1 + 0x28) + 0x80;
         uVar4 = uVar5 + iVar6;

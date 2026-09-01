@@ -34,7 +34,10 @@ undefined4 * ConstructCommP2POwner(undefined4 *param_1,undefined4 param_2)
    * (LAB_00537bc6) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
   *param_1 = &PTR_LAB_00557610;
-  CreateCommEngineNotifyWindow();
+  /* DROPPED-REG FIX: orig 0x4fd10d `lea esi,[ebp+4]` (EBP = param_1) -
+   * the engine notify sub-object at +4, whose vtable slot line 42 below
+   * re-stamps with the derived 0x5575b8. */
+  CreateCommEngineNotifyWindow(param_1 + 1);
   /* orig 0x4fd11c `lea edi, [ebp + 0x2c]` (EBP = param_1) -
    * InitCommP2PNotifyWindow's recovered EDI `self` argument. */
   InitCommP2PNotifyWindow(param_1 + 0xb);

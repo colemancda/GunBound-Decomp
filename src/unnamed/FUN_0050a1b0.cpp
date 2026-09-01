@@ -47,7 +47,7 @@ int AvatarListRowHitTest(int widget, int x, int y);
 unsigned int QueueOutgoingPacketField(unsigned int field);
 void RefreshConnectionStatusLabel(void *this_);
 void RadioGroup_RefreshEnableStates(void *this_);
-unsigned char FUN_005052b0();
+unsigned char __fastcall FUN_005052b0(int param_1, int regEsi, int regEdi);
 }
 
 extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y)
@@ -78,7 +78,7 @@ extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y)
           RefreshConnectionStatusLabel(this_);
           RadioGroup_RefreshEnableStates(this_);
         }
-        cVar2 = (char)FUN_005052b0();
+        cVar2 = (char)FUN_005052b0((int)this_, x, y);
         cVar3 = this_->OnMouseDown(x, y);
         if (cVar2 == '\0' && cVar3 == '\0') {
           QueueOutgoingPacketField(0xffffffff);

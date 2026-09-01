@@ -40,7 +40,7 @@ void FUN_00401a70(undefined4 *param_1)
     (**(code **)(*(int *)param_1[0x6f7] + 4))();
   }
   param_1[0x6f7] = 0;
-  FUN_00404b90();
+  FUN_00404b90((int *)(param_1 + 0x6ff));
   local_4 = local_4 & 0xffffff00;
   piVar2 = (int *)param_1[0x6f9];
   if (piVar2 != (int *)param_1[0x6fe]) {

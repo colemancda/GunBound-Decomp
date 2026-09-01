@@ -1,5 +1,15 @@
 /* FUN_004ee120 - 0x004ee120 in the original binary.
  *
+ * TRIAGE RECHECK (2026-09-01, after the 86e96f30 matrix sizing): the
+ * blocker HOLDS - the prerequisite is the split-struct coalesce of the
+ * 0xe53698 input/cursor object (0x5a8 bytes; highest ctor write +0x5a4),
+ * not the 0x5a9xxx sizing, which is only the pattern to copy. Plan:
+ * exact-fit object in globals_sized.c, SUBFIELD macros for the split
+ * neighbours (+0x04, cursor deltas, +0x4c/+0x54, the FUN_004ee540 timer
+ * fields +0x68..+0x84, +0x58c..+0x5a4; verify g_cursorFreeMode==0xe53c3c
+ * against Ghidra before folding and retire its hand-set =1), then
+ * promote this ctor's regEax.
+ *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.

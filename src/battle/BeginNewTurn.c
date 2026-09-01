@@ -55,13 +55,12 @@
 #include "ghidra_types.h"
 
 
-void BeginNewTurn(int *param_1,undefined2 *param_2)
+void BeginNewTurn(int *param_1,undefined2 *param_2,uint regEax)
 
 {
   undefined1 uVar1;
   undefined2 uVar2;
   short sVar3;
-  uint in_EAX;
   int iVar4;
   int iVar5;
   char *_Format;
@@ -71,7 +70,7 @@ void BeginNewTurn(int *param_1,undefined2 *param_2)
   int local_90 [4];
   char local_80 [128];
   
-  param_1[0x428] = in_EAX & 0xff;
+  param_1[0x428] = regEax & 0xff;
   uVar2 = *param_2;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((void *)(g_clientContext + 0xeba98), uVar2);

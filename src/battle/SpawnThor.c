@@ -12,13 +12,12 @@
 #include "ghidra_types.h"
 
 
-void SpawnThor(undefined4 param_1,int param_2)
+void SpawnThor(undefined4 param_1,int param_2,int regEsi)
 
 {
   char cVar1;
   void *pvVar2;
   int iVar3;
-  int unaff_ESI;
   int *piVar4;
   undefined4 local_c;
   undefined1 *puStack_8;
@@ -37,8 +36,8 @@ void SpawnThor(undefined4 param_1,int param_2)
     }
     local_4 = 0xffffffff;
     piVar4[0xe] = param_2;
-    piVar4[0xf] = unaff_ESI;
-    piVar4[0x10] = unaff_ESI;
+    piVar4[0xf] = regEsi;
+    piVar4[0x10] = regEsi;
     iVar3 = FindPreloadedTextureByName(&DAT_00553b88);
     piVar4[7] = iVar3;
     (**(code **)(*piVar4 + 4))(s_normal_00552230);

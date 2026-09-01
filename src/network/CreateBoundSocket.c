@@ -12,40 +12,38 @@
 #include "ghidra_types.h"
 
 
-undefined4 CreateBoundSocket(void)
+undefined4 CreateBoundSocket(char *regEax,int regEsi)
 
 {
   char cVar1;
-  char *in_EAX;
   SOCKET SVar2;
   int iVar3;
-  int unaff_ESI;
   sockaddr local_10;
   
   {
-    char *startStr = in_EAX;
+    char *startStr = regEax;
     do {
-      cVar1 = *in_EAX;
-      in_EAX = in_EAX + 1;
+      cVar1 = *regEax;
+      regEax = regEax + 1;
     } while (cVar1 != '\0');
     /* RECOVERED (2026-07-19), orig 0x4fe077-0x4fe07c: `sub ecx,edi` (ECX =
      * the strlen), `lea edx,[esi+4]` (EDX = the crypto context), EAX = the
      * string base. All three were dropped. */
-    FUN_005051e0((int)(in_EAX - startStr) - 1,unaff_ESI + 4,startStr);
+    FUN_005051e0((int)(regEax - startStr) - 1,regEsi + 4,startStr);
   }
-  if (*(int *)(unaff_ESI + 0x288) != -1) {
+  if (*(int *)(regEsi + 0x288) != -1) {
     return 1;
   }
   SVar2 = socket(2,2,0);
-  *(SOCKET *)(unaff_ESI + 0x288) = SVar2;
+  *(SOCKET *)(regEsi + 0x288) = SVar2;
   if (SVar2 != 0xffffffff) {
     local_10.sa_family = 2;
     local_10.sa_data[0] = '\0';
     local_10.sa_data[1] = '\0';
     SUBFIELD(local_10.sa_data,2,undefined4) = htonl(0);
-    iVar3 = bind(*(SOCKET *)(unaff_ESI + 0x288),&local_10,0x10);
+    iVar3 = bind(*(SOCKET *)(regEsi + 0x288),&local_10,0x10);
     if ((iVar3 != -1) &&
-       (iVar3 = WSAAsyncSelect(*(SOCKET *)(unaff_ESI + 0x288),*(HWND *)(unaff_ESI + 0x28c),0x54d,3),
+       (iVar3 = WSAAsyncSelect(*(SOCKET *)(regEsi + 0x288),*(HWND *)(regEsi + 0x28c),0x54d,3),
        iVar3 != -1)) {
       return 1;
     }

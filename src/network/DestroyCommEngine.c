@@ -12,29 +12,28 @@
 #include "ghidra_types.h"
 
 
-void DestroyCommEngine(void)
+void DestroyCommEngine(undefined4 *regEsi)
 
 {
-  undefined4 *unaff_ESI;
   
-  *unaff_ESI = &PTR_LAB_00557654;
-  if (unaff_ESI[0xb0] != 0) {
-    KillTimer((HWND)unaff_ESI[0xa3],unaff_ESI[0xb0]);
+  *regEsi = &PTR_LAB_00557654;
+  if (regEsi[0xb0] != 0) {
+    KillTimer((HWND)regEsi[0xa3],regEsi[0xb0]);
   }
-  if (unaff_ESI[0xb1] != 0) {
-    KillTimer((HWND)unaff_ESI[0xa3],unaff_ESI[0xb1]);
+  if (regEsi[0xb1] != 0) {
+    KillTimer((HWND)regEsi[0xa3],regEsi[0xb1]);
   }
-  if (unaff_ESI[0xa2] != 0xffffffff) {
-    closesocket(unaff_ESI[0xa2]);
+  if (regEsi[0xa2] != 0xffffffff) {
+    closesocket(regEsi[0xa2]);
   }
-  if ((HWND)unaff_ESI[0xa3] != (HWND)0x0) {
-    DestroyWindow((HWND)unaff_ESI[0xa3]);
+  if ((HWND)regEsi[0xa3] != (HWND)0x0) {
+    DestroyWindow((HWND)regEsi[0xa3]);
   }
   WSACleanup();
-  StringMap_RemoveAll_ac((int *)(unaff_ESI + 0xa4));
-  if ((void *)unaff_ESI[0xa0] != (void *)0x0) {
-    _free((void *)unaff_ESI[0xa0]);
-    unaff_ESI[0xa0] = 0;
+  StringMap_RemoveAll_ac((int *)(regEsi + 0xa4));
+  if ((void *)regEsi[0xa0] != (void *)0x0) {
+    _free((void *)regEsi[0xa0]);
+    regEsi[0xa0] = 0;
   }
   return;
 }

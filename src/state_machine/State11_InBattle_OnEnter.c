@@ -309,7 +309,8 @@ LAB_004bbe6b:
       }
       uVar7 = DAT_005b3480 * 0xda003 + 0x5703b11;
       DAT_005b3480 = DAT_005b3480 + (uVar7 * 0x61 + 0x61) % 0xf4241;
-      SpawnThor(&DAT_006a7f70 + iVar6,*(int *)(&g_nCameraBoundX + iVar6) / 2 + -500 + uVar7 % 1000);
+      SpawnThor(&DAT_006a7f70 + iVar6,*(int *)(&g_nCameraBoundX + iVar6) / 2 + -500 + uVar7 % 1000,
+                500);
       CreateButtonWidget(&g_activeObjectRegistry,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26,1
                          ,0);
       iVar6 = g_clientContext;

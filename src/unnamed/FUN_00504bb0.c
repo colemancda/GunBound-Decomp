@@ -10,17 +10,23 @@
  * `sub esp,0x1c`) is that argument, and the object whose map lives at +0x290.
  * Its one call site, 0x504811, is inside a function that has not been carved,
  * so no source caller needs updating.
+ *
+ * ESI PROMOTED to regEsi (2026-08-31): the 0x10-char name-string pointer the
+ * copy loop reads.  At 0x504811 the caller (0x504800, __thiscall, ret 0x18)
+ * sets ESI at 0x50480c via `mov esi,[esp+0x10]` with edi+esi saved, i.e.
+ * entry [esp+8] = its SECOND stack argument; param_1 is its raw ECX this
+ * (pushed at 0x504810, BEFORE the `add edi,-0x2c` at 0x504816).  When
+ * 0x504800 is carved it must pass its second stack argument here.
  */
 #include "ghidra_types.h"
 
 
-bool FUN_00504bb0(int param_1)
+bool FUN_00504bb0(int param_1,int regEsi)
 
 {
   byte bVar1;
   uint uVar2;
   int iVar3;
-  int unaff_ESI;
   undefined1 local_1c [10];
   char local_12 [17];
   byte local_1;
@@ -28,9 +34,9 @@ bool FUN_00504bb0(int param_1)
   uVar2 = 0;
   do {
     bVar1 = (byte)uVar2;
-    if (*(char *)(uVar2 + unaff_ESI) == '\0') break;
+    if (*(char *)(uVar2 + regEsi) == '\0') break;
     bVar1 = bVar1 + 1;
-    local_12[uVar2] = *(char *)(uVar2 + unaff_ESI);
+    local_12[uVar2] = *(char *)(uVar2 + regEsi);
     uVar2 = (uint)bVar1;
   } while (bVar1 < 0x10);
   local_1 = bVar1;

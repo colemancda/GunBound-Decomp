@@ -7,15 +7,13 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00500fa0(undefined4 param_1,undefined4 param_2)
+undefined4 FUN_00500fa0(undefined4 param_1,undefined4 param_2,int regEax,undefined4 *regEdi)
 
 {
   undefined4 *puVar1;
-  int in_EAX;
-  undefined4 *unaff_EDI;
   
-  FUN_00501510(in_EAX);
-  puVar1 = *(undefined4 **)(in_EAX + 0x10);
+  FUN_00501510(regEax);
+  puVar1 = *(undefined4 **)(regEax + 0x10);
   if (puVar1 != (undefined4 *)0x0) {
     puVar1[8] = 0;
     puVar1[9] = 0;
@@ -23,17 +21,17 @@ undefined4 FUN_00500fa0(undefined4 param_1,undefined4 param_2)
     puVar1[0xb] = 0;
     puVar1[0xc] = 0;
     puVar1[0xd] = 10;
-    puVar1[2] = *unaff_EDI;
-    puVar1[3] = unaff_EDI[1];
-    puVar1[4] = unaff_EDI[2];
-    puVar1[5] = unaff_EDI[3];
-    puVar1[6] = unaff_EDI[4];
-    puVar1[7] = unaff_EDI[5];
+    puVar1[2] = *regEdi;
+    puVar1[3] = regEdi[1];
+    puVar1[4] = regEdi[2];
+    puVar1[5] = regEdi[3];
+    puVar1[6] = regEdi[4];
+    puVar1[7] = regEdi[5];
   }
-  *(undefined4 *)(in_EAX + 0x10) = *puVar1;
+  *(undefined4 *)(regEax + 0x10) = *puVar1;
   puVar1[1] = param_1;
   *puVar1 = param_2;
-  *(int *)(in_EAX + 8) = *(int *)(in_EAX + 8) + 1;
+  *(int *)(regEax + 8) = *(int *)(regEax + 8) + 1;
   /* Ghidra emitted a bare `return;` in a value-returning function;
    * MSVC falls through with whatever's in EAX, gcc 14 rejects it
    * (-Wreturn-mismatch). This path's result is unused by callers -

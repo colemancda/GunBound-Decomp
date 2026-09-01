@@ -64,7 +64,7 @@ void __thiscall FUN_00403d20(int param_1,char *param_2,undefined4 param_3,undefi
   
   cVar3 = FUN_00426090(local_20);
   if (cVar3 == '\x01') {
-    FUN_00401fa0();
+    FUN_00401fa0(param_1 + -8,(char *)local_20,(undefined1 *)param_3);
     return;
   }
   local_38 = 0x69;

@@ -318,7 +318,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
                                  *(undefined4 *)puVar1,&local_2ef8,
                                  (char *)local_4914,(char *)&local_4944), cVar4 != '\0')) {
           local_4978 = 0x10;
-          cVar4 = FUN_00503930(&local_4984,&local_497c);
+          cVar4 = FUN_00503930(*(undefined4 **)(param_1 + 0x1780),(char *)&local_4984,(char *)&local_497c,param_1 + -0x2f0);
           if ((cVar4 != '\0') &&
              (iVar7 = getsockname(*(SOCKET *)(param_1 + -0x40),&local_496c,(int *)&local_4978),
              iVar7 == 0)) {
@@ -594,7 +594,8 @@ LAB_00501b17:
             local_4980 = (char *)((int)puVar15 + 0x1d);
             FUN_005039a0(*(undefined4 *)pcVar12,*(undefined2 *)((int)puVar15 + 0x15),
                          *(undefined4 *)((int)puVar15 + 0x17),
-                         (undefined4)(local_496c.sa_data + 10),(undefined4)local_497c);
+                         (undefined4)&local_496c,(undefined4)local_4970,
+                         (undefined4)*(ushort *)((int)puVar15 + 0x1b));
             pcVar12 = local_4980;
             param_1 = local_497c;
           }

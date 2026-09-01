@@ -1,5 +1,13 @@
 /* FUN_0044fd00 - 0x0044fd00 in the original binary.
  *
+ * STILL-OPEN regEax (2026-09-01 workflow triage): the caller-side
+ * value is FUN_004382d0's ECX live-in, which is fully dead-coded in
+ * that port (8 argless C sites; ECX varies per site - a per-object
+ * slot/id stored at +8 of the new 0x46c object; e.g. 0x4b56e5
+ * ecx=edi=[esp+0x20], 0x4b5975 ecx=*(byte*)(wire+0x21)+8).
+ * Prerequisite: promote FUN_004382d0 (ECX + its documented dropped
+ * EAX=ctx+0x6a7f70 and unaff_EBX) across all 8 sites first.
+ *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/

@@ -7,16 +7,15 @@
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_00503930(undefined4 *param_1,char *param_2,char *param_3)
+undefined4 __thiscall FUN_00503930(undefined4 *param_1,char *param_2,char *param_3,int regEax)
 
 {
   undefined4 *puVar1;
-  int in_EAX;
   int iVar2;
   int local_14;
   sockaddr local_10;
   
-  puVar1 = *(undefined4 **)(in_EAX + 4);
+  puVar1 = *(undefined4 **)(regEax + 4);
   while( true ) {
     if (puVar1 == (undefined4 *)0x0) {
       return 0;

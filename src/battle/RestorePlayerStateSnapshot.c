@@ -21,7 +21,7 @@
  * The function is a pure copy loop: each Peek reads a cell high in the
  * object (+0xc2b0 / +0xc4d4 / +0xc6f8 / +0xc944 / +0xcb68 / +0xcd8c /
  * +0xcfb0, plus +0x90c and +0xb30) and the Encode on the next line
- * writes it to a low one.  All of them share the base unaff_ESI, which
+ * writes it to a low one.  All of them share the base regEsi, which
  * the 2026-07-15 Encode sweep already established for the write side -
  * so every Peek here sits directly beside an Encode whose base was
  * derived independently.
@@ -29,68 +29,67 @@
 #include "ghidra_types.h"
 
 
-void RestorePlayerStateSnapshot(void)
+void RestorePlayerStateSnapshot(int regEsi)
 
 {
   undefined4 uVar1;
-  int unaff_ESI;
   
   /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at 0x463e72/
    * 0x463e99/0x463ebe/0x463edf/0x463f04/0x463fd5/0x464000/0x464025/
    * 0x46404a (edi loaded from esi+0x90c/esi+0x15e4/esi+0xb30/esi+0x1808/
    * esi+0x1c54/esi+0x6fd4/esi+0x4d90/esi+0x51d8/esi+0x4948 respectively).
-   * esi is this file's own `unaff_ESI` (the base already used for the
-   * byte copies below, e.g. `unaff_ESI + 0x24`); `unaff_ESI` is plain
-   * `int`, so `unaff_ESI + N` is already byte-precise. See
+   * esi is this file's own `regEsi` (the base already used for the
+   * byte copies below, e.g. `regEsi + 0x24`); `regEsi` is plain
+   * `int`, so `regEsi + N` is already byte-precise. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xc2b0));
-  EncodeOutgoingPacketField(unaff_ESI + 0x90c, uVar1);
+  uVar1 = PeekPacketChecksumState((void *)(regEsi + 0xc2b0));
+  EncodeOutgoingPacketField(regEsi + 0x90c, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0x90c));
-  EncodeOutgoingPacketField(unaff_ESI + 0x15e4, uVar1);
+  uVar1 = PeekPacketChecksumState((void *)(regEsi + 0x90c));
+  EncodeOutgoingPacketField(regEsi + 0x15e4, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xc4d4));
-  EncodeOutgoingPacketField(unaff_ESI + 0xb30, uVar1);
+  uVar1 = PeekPacketChecksumState((void *)(regEsi + 0xc4d4));
+  EncodeOutgoingPacketField(regEsi + 0xb30, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xb30));
-  EncodeOutgoingPacketField(unaff_ESI + 0x1808, uVar1);
+  uVar1 = PeekPacketChecksumState((void *)(regEsi + 0xb30));
+  EncodeOutgoingPacketField(regEsi + 0x1808, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xc6f8));
-  EncodeOutgoingPacketField(unaff_ESI + 0x1c54, uVar1);
+  uVar1 = PeekPacketChecksumState((void *)(regEsi + 0xc6f8));
+  EncodeOutgoingPacketField(regEsi + 0x1c54, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  *(undefined4 *)(unaff_ESI + 0x24) = *(undefined4 *)(unaff_ESI + 0xc91c);
-  *(undefined4 *)(unaff_ESI + 0x28) = *(undefined4 *)(unaff_ESI + 0xc920);
-  *(undefined4 *)(unaff_ESI + 0x30) = *(undefined4 *)(unaff_ESI + 0xc928);
-  *(undefined4 *)(unaff_ESI + 0x2c) = *(undefined4 *)(unaff_ESI + 0xc924);
-  CopyGuardedBool((byte *)(unaff_ESI + 0xbfbe),(byte *)(unaff_ESI + 0xc92c));
-  CopyGuardedBool((byte *)(unaff_ESI + 0xbfc1),(byte *)(unaff_ESI + 0xc92f));
-  CopyGuardedBool((byte *)(unaff_ESI + 0xbfc4),(byte *)(unaff_ESI + 0xc932));
-  CopyGuardedBool((byte *)(unaff_ESI + 0xbfc7),(byte *)(unaff_ESI + 0xc935));
-  CopyGuardedBool((byte *)(unaff_ESI + 0xbfca),(byte *)(unaff_ESI + 0xc938));
-  CopyGuardedBool((byte *)(unaff_ESI + 0xbfcd),(byte *)(unaff_ESI + 0xc93b));
-  CopyGuardedBool((byte *)(unaff_ESI + 0xbfd0),(byte *)(unaff_ESI + 0xc93e));
-  CopyGuardedBool((byte *)(unaff_ESI + 0x8bb7),(byte *)(unaff_ESI + 0xc941));
+  *(undefined4 *)(regEsi + 0x24) = *(undefined4 *)(regEsi + 0xc91c);
+  *(undefined4 *)(regEsi + 0x28) = *(undefined4 *)(regEsi + 0xc920);
+  *(undefined4 *)(regEsi + 0x30) = *(undefined4 *)(regEsi + 0xc928);
+  *(undefined4 *)(regEsi + 0x2c) = *(undefined4 *)(regEsi + 0xc924);
+  CopyGuardedBool((byte *)(regEsi + 0xbfbe),(byte *)(regEsi + 0xc92c));
+  CopyGuardedBool((byte *)(regEsi + 0xbfc1),(byte *)(regEsi + 0xc92f));
+  CopyGuardedBool((byte *)(regEsi + 0xbfc4),(byte *)(regEsi + 0xc932));
+  CopyGuardedBool((byte *)(regEsi + 0xbfc7),(byte *)(regEsi + 0xc935));
+  CopyGuardedBool((byte *)(regEsi + 0xbfca),(byte *)(regEsi + 0xc938));
+  CopyGuardedBool((byte *)(regEsi + 0xbfcd),(byte *)(regEsi + 0xc93b));
+  CopyGuardedBool((byte *)(regEsi + 0xbfd0),(byte *)(regEsi + 0xc93e));
+  CopyGuardedBool((byte *)(regEsi + 0x8bb7),(byte *)(regEsi + 0xc941));
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xc944));
-  EncodeOutgoingPacketField(unaff_ESI + 0x6fd4, uVar1);
+  uVar1 = PeekPacketChecksumState((void *)(regEsi + 0xc944));
+  EncodeOutgoingPacketField(regEsi + 0x6fd4, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  AlignMobileToTerrain(unaff_ESI);
+  AlignMobileToTerrain(regEsi);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xcb68));
-  EncodeOutgoingPacketField(unaff_ESI + 0x4d90, uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xcd8c));
-  EncodeOutgoingPacketField(unaff_ESI + 0x51d8, uVar1);
+  uVar1 = PeekPacketChecksumState((void *)(regEsi + 0xcb68));
+  EncodeOutgoingPacketField(regEsi + 0x4d90, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xcfb0));
-  EncodeOutgoingPacketField(unaff_ESI + 0x4948, uVar1);
+  uVar1 = PeekPacketChecksumState((void *)(regEsi + 0xcd8c));
+  EncodeOutgoingPacketField(regEsi + 0x51d8, uVar1);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  uVar1 = PeekPacketChecksumState((void *)(regEsi + 0xcfb0));
+  EncodeOutgoingPacketField(regEsi + 0x4948, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return;
 }

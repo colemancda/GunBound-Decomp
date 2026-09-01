@@ -7,35 +7,33 @@
 #include "ghidra_types.h"
 
 
-void FUN_00405290(void)
+void FUN_00405290(int regEax,int regEsi)
 
 {
   int *piVar1;
-  int in_EAX;
   undefined4 uVar2;
   int *_Memory;
   uint uVar3;
-  int unaff_ESI;
   
   thunk_FUN_00405320();
-  *(undefined4 *)(in_EAX + 0x24) = *(undefined4 *)(unaff_ESI + 0x2c);
-  uVar3 = *(int *)(unaff_ESI + 4) - 1;
-  *(int *)(unaff_ESI + 0x2c) = in_EAX;
-  *(uint *)(unaff_ESI + 4) = uVar3;
-  if ((uVar3 < *(uint *)(unaff_ESI + 0x1c)) && (*(int *)(unaff_ESI + 0x20) == 0)) {
+  *(undefined4 *)(regEax + 0x24) = *(undefined4 *)(regEsi + 0x2c);
+  uVar3 = *(int *)(regEsi + 4) - 1;
+  *(int *)(regEsi + 0x2c) = regEax;
+  *(uint *)(regEsi + 4) = uVar3;
+  if ((uVar3 < *(uint *)(regEsi + 0x1c)) && (*(int *)(regEsi + 0x20) == 0)) {
     uVar2 = FUN_00500e30();
-    FUN_00405150(unaff_ESI,uVar2);
+    FUN_00405150(regEsi,uVar2);
   }
-  if (*(int *)(unaff_ESI + 4) == 0) {
-    _Memory = *(int **)(unaff_ESI + 0x28);
-    *(undefined4 *)(unaff_ESI + 0x2c) = 0;
+  if (*(int *)(regEsi + 4) == 0) {
+    _Memory = *(int **)(regEsi + 0x28);
+    *(undefined4 *)(regEsi + 0x2c) = 0;
     if (_Memory != (int *)0x0) {
       do {
         piVar1 = (int *)*_Memory;
         _free(_Memory);
         _Memory = piVar1;
       } while (piVar1 != (int *)0x0);
-      *(undefined4 *)(unaff_ESI + 0x28) = 0;
+      *(undefined4 *)(regEsi + 0x28) = 0;
     }
   }
   return;

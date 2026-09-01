@@ -28,8 +28,8 @@ CommP2POwnerConnect(int param_1,undefined4 param_2,undefined4 param_3,char *para
   int iVar2;
   
   if (*(char *)(param_1 + 0x1a71) == '\0') {
+    char *start4 = param_4;
     {
-      char *start4 = param_4;
       do {
         cVar1 = *param_4;
         param_4 = param_4 + 1;
@@ -50,7 +50,11 @@ CommP2POwnerConnect(int param_1,undefined4 param_2,undefined4 param_3,char *para
        * `lea edx,[edi+0x1da4]` as the context. */
       FUN_005051e0((int)(param_5 - start5) - 1,param_1 + 0x1da4,start5);
     }
-    CreateBoundSocket();
+    /* DROPPED-REG FIX: orig 0x4fd4c4 `lea esi,[edi+0x2c]` (EDI = this)
+       and 0x4fd4c7 `mov eax,ebx` (EBX = param_4's original base, hoisted
+       above as start4; both survive the two FUN_005051e0 calls, whose
+       epilogue 0x505299-0x50529c restores ebx/edi). */
+    CreateBoundSocket(start4,param_1 + 0x2c);
     if (*(char *)(param_1 + 0x1a70) == '\0') {
       /* DROPPED-REG FIX 2026-08-28: the hostname is this function's
          param_2 - `mov eax,[esp+0x10]` at 0x4fd4f1, ONE push deep (the

@@ -7,47 +7,48 @@
 #include "ghidra_types.h"
 
 
-void FUN_00404b90(void)
+void FUN_00404b90(int *regEax)
 
 {
   int iVar1;
   int *piVar2;
-  int *in_EAX;
+  int iVar5;
   undefined4 uVar3;
   int *_Memory;
   uint uVar4;
   undefined4 uVar5;
   
-  in_EAX[8] = in_EAX[8] + 1;
-  if ((*in_EAX != 0) && (uVar4 = 0, in_EAX[2] != 0)) {
+  regEax[8] = regEax[8] + 1;
+  if ((*regEax != 0) && (uVar4 = 0, regEax[2] != 0)) {
     do {
-      iVar1 = *(int *)(*in_EAX + uVar4 * 4);
+      iVar1 = *(int *)(*regEax + uVar4 * 4);
       while (iVar1 != 0) {
+        iVar5 = iVar1;
         iVar1 = *(int *)(iVar1 + 0x24);
-        FUN_00405290();
+        FUN_00405290(iVar5,(int)regEax);
       }
       uVar4 = uVar4 + 1;
-    } while (uVar4 < (uint)in_EAX[2]);
+    } while (uVar4 < (uint)regEax[2]);
   }
-  _free((void *)*in_EAX);
-  *in_EAX = 0;
-  in_EAX[1] = 0;
-  if (in_EAX[8] == 0) {
+  _free((void *)*regEax);
+  *regEax = 0;
+  regEax[1] = 0;
+  if (regEax[8] == 0) {
     uVar5 = 0;
     uVar3 = FUN_00500e30(0);
-    HashMap_InitHashTable(in_EAX,uVar3,uVar5);
+    HashMap_InitHashTable(regEax,uVar3,uVar5);
   }
-  in_EAX[0xb] = 0;
-  _Memory = (int *)in_EAX[10];
-  if ((int *)in_EAX[10] != (int *)0x0) {
+  regEax[0xb] = 0;
+  _Memory = (int *)regEax[10];
+  if ((int *)regEax[10] != (int *)0x0) {
     do {
       piVar2 = (int *)*_Memory;
       _free(_Memory);
       _Memory = piVar2;
     } while (piVar2 != (int *)0x0);
-    in_EAX[10] = 0;
+    regEax[10] = 0;
   }
-  in_EAX[8] = in_EAX[8] + -1;
+  regEax[8] = regEax[8] + -1;
   return;
 }
 
