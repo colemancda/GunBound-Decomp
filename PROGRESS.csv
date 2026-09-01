@@ -351,8 +351,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00425ac0,450,HitTestLocalMobile,false,5,7,RAW-src
 00425c90,463,HitTestJewel,false,3,6,RAW-src
 00425e60,460,HitTestMine,false,3,6,RAW-src
-00426030,84,FUN_00426030,false,6,2,RAW-src
-00426090,84,FUN_00426090,false,8,2,RAW-src
+00426030,84,FindUserIdByNickname,false,6,2,RAW-src
+00426090,84,FindNicknameByUserId,false,8,2,RAW-src
 004260f0,35,FUN_004260f0,false,2,1,RAW-src
 00426120,161,FUN_00426120,false,3,0,RAW-src
 004261d0,63,FUN_004261d0,false,1,3,RAW-src
@@ -364,7 +364,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00426460,105,FUN_00426460,false,16,3,RAW-src
 004264d0,136,AtlArray_RemoveAt_CString,false,1,3,RAW-src
 00426570,26,FUN_00426570,false,30,1,RAW-src
-004265c0,87,FUN_004265c0,false,2,4,RAW-src
+004265c0,87,StringMap_FindOrInsert_10,false,2,4,RAW-src
 00426620,200,FUN_00426620,false,13,5,RAW-src
 00426700,34,FUN_00426700,false,1,1,RAW-src
 00426780,139,FUN_00426780,false,9,1,RAW-src
@@ -441,7 +441,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00437d90,478,SpawnSuperCrystalShot,false,1,13,RAW-src
 00437f70,399,SpawnLaserIon,false,2,10,RAW-src
 00438100,449,SpawnKnightIon,false,2,11,RAW-src
-004382d0,131,FUN_004382d0,false,8,6,RAW-src
+004382d0,131,SpawnSpeechBalloon,false,8,6,RAW-src
 00438360,175,SpawnBattleAnnouncement,false,7,4,RAW-src
 00438410,1211,SpawnJewel,false,2,13,RAW-src
 004388e0,3351,SpawnShot_Type13,false,1,22,RAW-src
@@ -572,10 +572,10 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0044fb40,334,FUN_0044fb40,false,3,3,RAW-src
 0044fc90,31,FUN_0044fc90,false,1,2,RAW-src
 0044fcb0,79,FUN_0044fcb0,false,1,2,RAW-src
-0044fd00,98,FUN_0044fd00,false,1,0,RAW-src
+0044fd00,98,InitSpeechBalloon,false,1,0,RAW-src
 0044fd70,636,FUN_0044fd70,false,1,9,RAW-src
 0044fff0,1528,FUN_0044fff0,false,1,4,RAW-src
-00450600,75,FUN_00450600,false,1,1,RAW-src
+00450600,75,SetSpeechBalloonText,false,1,1,RAW-src
 00450650,176,FUN_00450650,false,1,0,RAW-src
 00450700,48,FUN_00450700,false,1,0,RAW-src
 00450730,159,AdvanceSpriteAnimation,false,32,0,RAW-src
@@ -1535,8 +1535,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005045d0,137,Vector_UninitCopy_8,false,4,1,RAW-src
 005046b0,116,Vector_UninitCopy_1e,false,4,0,RAW-src
 00504730,91,FUN_00504730,false,1,2,RAW-src
-00504790,98,FUN_00504790,false,1,1,RAW-src
-00504880,79,FUN_00504880,false,0,3,RAW-src
+00504790,98,HasP2PSessionPeer,false,1,1,RAW-src
+00504880,79,RequestP2PPeerByName,false,0,3,RAW-src
 00504970,463,DispatchP2PMessage,false,2,3,RAW-src
 00504bb0,83,HasP2PPeerRecord,false,1,1,RAW-src
 00504c10,361,SeedTT800State,false,3,6,RAW-src

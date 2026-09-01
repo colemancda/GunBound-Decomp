@@ -5,6 +5,9 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (2026-09-01: the note below predates a rename - FUN_00426090 is now
+ * FindNicknameByUserId.)
+ *
  * DROPPED REGISTER RECOVERED (2026-08-24): EAX is a NAME string -- the key
  * FUN_00401c50(param_1, char *) searches the list for.  Seven call sites,
  * five different sources, each pinned individually:

@@ -4,6 +4,9 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (2026-09-01: the note below predates a rename - FUN_00426090 is now
+ * FindNicknameByUserId.)
+ *
  * CONVENTION CONFIRMED, AND RE-SLOTTED (2026-08-28).  This is __thiscall on
  * a pointer 8 bytes into the owner object, exactly like the twins
  * FUN_00403ae0 and FUN_00404330 that Ghidra typed correctly: `mov ebp,ecx`
@@ -62,7 +65,7 @@ void __thiscall FUN_00403d20(int param_1,char *param_2,undefined4 param_3,undefi
   char local_37 [23];
   undefined1 local_20 [32];
   
-  cVar3 = FUN_00426090((char *)local_20,param_2,(int)g_clientContext);
+  cVar3 = FindNicknameByUserId((char *)local_20,param_2,(int)g_clientContext);
   if (cVar3 == '\x01') {
     UpdateBuddyStatus(param_1 + -8,(char *)local_20,(undefined1 *)param_3);
     return;

@@ -19,7 +19,7 @@ void __thiscall FUN_00404330(int param_1,char *param_2)
   char local_37 [23];
   undefined1 local_20 [32];
   
-  cVar3 = FUN_00426090((char *)local_20,param_2,(int)g_clientContext);
+  cVar3 = FindNicknameByUserId((char *)local_20,param_2,(int)g_clientContext);
   if (cVar3 == '\x01') {
     FUN_00401ee0(param_1 + -8,(char *)local_20);
     return;

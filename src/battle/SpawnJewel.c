@@ -218,7 +218,7 @@ LAB_00438814:
       uVar12 = DAT_005b3480 * 0xda003 + 0x5703b11;
       DAT_005b3480 = DAT_005b3480 + (uVar12 * 0x61 + 0x61) % 0xf4241;
       pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,uVar12 % 10 + 0x803);
-      FUN_004382d0((int)uVar1,g_clientContext + 0x6a7f70,pcVar9);
+      SpawnSpeechBalloon((int)uVar1,g_clientContext + 0x6a7f70,pcVar9);
     }
   }
   RegisterActiveObject(0, 0, (undefined4 *)0);

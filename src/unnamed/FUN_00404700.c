@@ -5,6 +5,9 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (2026-09-01: the note below predates two renames - FUN_00426030 is now
+ * FindUserIdByNickname and FUN_00426090 is FindNicknameByUserId.)
+ *
  * DROPPED REGISTER RECOVERED (2026-08-28): EDI is the 0x10-byte name record
  * this function sends and logs. It is read before it is ever written - in
  * fact the function contains no write to EDI at all - at 0x4047a0 (mov
@@ -90,7 +93,7 @@ void FUN_00404700(int param_1,undefined4 *regEdi)
              + (ushort)(byte)((byte)((ushort)local_46 >> 8) ^ 0x73) +
              (ushort)((byte)local_46 ^ 0x6d) + (ushort)(byte)((byte)((ushort)local_48 >> 8) ^ 0x6f)
              + (ushort)((byte)local_48 ^ 99);
-  cVar2 = FUN_00426030(local_20,(char *)regEdi,(int)g_clientContext);
+  cVar2 = FindUserIdByNickname(local_20,(char *)regEdi,(int)g_clientContext);
   if (cVar2 == '\x01') {
     if (*(int **)(param_1 + 0x1bdc) != (int *)0x0) {
       (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x18))(local_20,local_50,&DAT_00551cb1);

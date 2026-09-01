@@ -37,7 +37,7 @@ void FUN_00402cf0(int param_1,char *regEdi)
   undefined4 local_18;
   undefined4 local_14;
   
-  cVar2 = FUN_00426030((char *)&local_20,regEdi,(int)g_clientContext);
+  cVar2 = FindUserIdByNickname((char *)&local_20,regEdi,(int)g_clientContext);
   puVar1 = g_directLinkConnection;
   if (cVar2 != '\x01') {
     local_38 = 0x6e;

@@ -646,7 +646,7 @@ LAB_004be4b1:
         }
       }
       pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,iVar5);
-      FUN_004382d0((int)(local_3d54 + 8),g_clientContext + 0x6a7f70,pcVar9);
+      SpawnSpeechBalloon((int)(local_3d54 + 8),g_clientContext + 0x6a7f70,pcVar9);
       break;
     }
   }
