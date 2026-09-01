@@ -11,7 +11,7 @@
  * uncarved).
  *
  * Same per-node transform refresh as the derived twin: world at +0xe0
- * from the keyframe-track evaluator FUN_004e95c0 (track at +0xc8) or a
+ * from the keyframe-track evaluator EvaluateKeyframeTrack (track at +0xc8) or a
  * 4x4 identity, then world x= (+0x1a0 x parent frame) via
  * MultiplyMatrix4x4ToScratch/InPlace, the parent frame being the +0xd0
  * node's +0xe0 world matrix or, when unparented, the placement matrix
@@ -51,7 +51,7 @@ void __fastcall SceneNode_UpdateTransform(int *param_1)
     *piVar1 = 0x3f800000;
   }
   else {
-    FUN_004e95c0(param_1[0x33],piVar1,param_1[0x32]);
+    EvaluateKeyframeTrack(param_1[0x33],piVar1,param_1[0x32]);
   }
   if (param_1[0x34] == 0) {
     /* Binary 0x4f3838: `mov edx,0x5a93f0` feeds BOTH calls - EDX for

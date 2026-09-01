@@ -31,8 +31,8 @@
  *
  * Cross-checked against every call site in the binary (35 call sites in
  * 9 files: RenderRoomCard.c @0x42a5a3, FUN_0042a680.c @0x42aa05,
- * FUN_0044a000.c @0x44a459.., FUN_0050ae40.c/FUN_0050be20.c
- * @0x50aa7a.., FUN_00505f10.c @0x505e3c/0x505e6d, RenderWorldListRow.c
+ * FUN_0044a000.c @0x44a459.., RenderAvatarListRow.c/RenderAvatarListDragRow.c
+ * @0x50aa7a.., RenderBuddyRow.c @0x505e3c/0x505e6d, RenderWorldListRow.c
  * @0x50dd89, State09_ReadyRoom_RenderRosterAndItems.c @0x4d7e6f/
  * 0x4d8660). Every single one sets up ECX/EBX/ESI immediately before
  * `call 0x4ed9f0`, e.g. (RenderRoomCard.c @0x42a598-0x42a5a3):

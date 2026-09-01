@@ -25,12 +25,12 @@
  * string.  `mov esi,[esp+0x4c]` (0x403d42, depth 0x44) and
  * `mov eax,[esp+0x50]` (0x403de5, depth 0x48 -- the `push ebx` save at
  * 0x403d72 is still pending) are the SAME slot, entry+8 = param_3, the
- * message pointer: FUN_00401fa0's ESI on one path, FUN_004026a0's second
+ * message pointer: UpdateBuddyStatus's ESI on one path, FUN_004026a0's second
  * argument on the other.  param_4 at entry+0xc is demanded by `ret 0xc` but
  * no instruction in the body reads it; it is declared to keep the list
  * honest and is deliberately unused.
  *
- * FUN_00401fa0 takes all three of its arguments in registers here -- EAX =
+ * UpdateBuddyStatus takes all three of its arguments in registers here -- EAX =
  * param_1 - 8 (the owner base, `lea eax,[ebp-8]` 0x403d46), ECX = local_20
  * (`lea ecx,[esp+0x24]` 0x403d49) and ESI = param_3 -- and is still declared
  * with no parameters, so that call stays argless.  The sibling dispatcher
@@ -64,7 +64,7 @@ void __thiscall FUN_00403d20(int param_1,char *param_2,undefined4 param_3,undefi
   
   cVar3 = FUN_00426090(local_20);
   if (cVar3 == '\x01') {
-    FUN_00401fa0(param_1 + -8,(char *)local_20,(undefined1 *)param_3);
+    UpdateBuddyStatus(param_1 + -8,(char *)local_20,(undefined1 *)param_3);
     return;
   }
   local_38 = 0x69;

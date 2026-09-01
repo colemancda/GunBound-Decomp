@@ -14,7 +14,7 @@
  *     DAT_005a93f0), whose rows 0xc-0xe then receive the node translation
  *     and whose 3x3 block gets the uniform scale - and which then feeds
  *     MultiplyMatrix4x4ToScratch as a matrix operand.
- *   - 0x4e99f5 in FUN_004e95c0, the keyframe-track evaluator: the source
+ *   - 0x4e99f5 in EvaluateKeyframeTrack, the keyframe-track evaluator: the source
  *     quaternion there is DAT_005a90e0, the output of the quaternion
  *     keyframe interpolation (SlerpQuaternionsToScratch's product), and
  *     the target is the node matrix slot the evaluator fills.

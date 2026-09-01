@@ -1,13 +1,29 @@
-/* FUN_00505f10 - 0x00505f10 in the original binary.
+/* RenderBuddyRow - 0x00505f10 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Draws one row of the buddy-list panel - the name src/cxx/Panel.cpp's
+ * CBuddyPanel::Update header already uses for this address.  The one
+ * binary call site, 0x505ea3, is the 7-row loop of CBuddyPanel::Update
+ * (0x505df0, vtable slot 9 of the 0x557be4 buddy panel - the deferred
+ * "FindBuddyNode 0x401c10 -> RenderBuddyRow 0x505f10" loop documented
+ * there), so: param_1 is the row index (row y = panel m_y + row*0x1e +
+ * 0x2f), regEax the panel itself (m_x/m_y read at the CWidget +0x28/
+ * +0x2c offsets, and +0x90 - the CBuddyPanel selection slot its ctor
+ * inits to -1 - compared against DAT_00e54da8 + row for the
+ * selection-highlight blit), and param_2 the buddy node that
+ * FindActiveObjectByIndex(&DAT_00e53e88, ...) returned: its +0x18 and
+ * +0x21 name strings become the two BlitRLESprite text runs, and its
+ * +0x30 status byte picks the state icon - 0x12 with valid +0x31/+0x33
+ * shorts renders the "%3d" room numbers, exactly the fields
+ * UpdateBuddyStatus (0x401fa0) writes into the node.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00505f10(int param_1,int param_2,int regEax)
+void __thiscall RenderBuddyRow(int param_1,int param_2,int regEax)
 
 {
   int iVar1;

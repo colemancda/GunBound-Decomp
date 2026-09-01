@@ -51,7 +51,7 @@
  * call sites in the ported tree (FUN_00403d20 has none in the binary
  * either; its lone PROGRESS.csv xref is a data reference), so widening
  * them cannot break a caller:
- * FUN_00403270 - `ret 4` at 0x4032b8 against a declared list holding
+ * HasPendingDirectLinkRecord - `ret 4` at 0x4032b8 against a declared list holding
  * only the ECX parameter, so one stack argument was dropped; it is
  * read at 0x40329a as `mov ebx,[esp+0x20]`, which with frame 0x1c
  * (sub esp,0x18 + push ebx) is entry_esp+4.  Added as param_2.  Under

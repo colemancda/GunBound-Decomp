@@ -113,7 +113,7 @@
  * BlitSpriteClipped's is.
  *
  * Applied in round 1 to the two files where the witness agreed on every
- * site: FUN_0050ae40.c and FUN_0050be20.c, 17 of 17 each, zero mismatches.
+ * site: RenderAvatarListRow.c and RenderAvatarListDragRow.c, 17 of 17 each, zero mismatches.
  *
  * ROUND 2 replaced position-matching with a CALL-SEQUENCE FINGERPRINT: from
  * each call site, the next three call targets in the binary (resolved to

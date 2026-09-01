@@ -4,12 +4,12 @@
  * parent's child slot (+0x108 / +0x10c, parent at +0x110), both children's
  * parent links, copies the colour (+0x104), and repoints the root slot
  * *param_2 if it held param_1.  Called from the delete fixup in
- * FUN_004048e0 with the deleted node and its in-order successor.  The same
+ * RBTree_RemoveNode with the deleted node and its in-order successor.  The same
  * node layout TreeLowerBound walks.
  *
  * RE-SLOTTED AND EAX RECOVERED (2026-08-24).  Tree-node "replace node ECX by
  * node EAX" (parent +0x110, children +0x108/+0x10c, colour +0x104, and the
- * root slot *EDX if it held ECX).  Sole call site 0x00404969 in FUN_004048e0,
+ * root slot *EDX if it held ECX).  Sole call site 0x00404969 in RBTree_RemoveNode,
  * the delete-fixup: ECX = the deleted node (its unaff_EBX, still open there),
  * EDX = its root-slot pointer (its regEax), EAX = the successor iVar2.  The
  * port passed nothing at all.

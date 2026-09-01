@@ -14,7 +14,7 @@
  * is only the standard small-angle fallback.
  *
  * What settles the operand shapes from outside: the single binary call
- * site, 0x4e97e5 in FUN_004e95c0 (the keyframe-track evaluator), passes
+ * site, 0x4e97e5 in EvaluateKeyframeTrack (the keyframe-track evaluator), passes
  * two ADJACENT elements of a 0x10-byte-stride key array (track+0x11c,
  * elements i and i-1) with t = (time - times[i-1]) / (times[i] -
  * times[i-1]) from the parallel time array at track+0x118, and copies the

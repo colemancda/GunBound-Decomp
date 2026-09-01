@@ -1,13 +1,32 @@
-/* FUN_004b3b60 - 0x004b3b60 in the original binary.
+/* BlitAnnouncementFrameToYesooriTexture - 0x004b3b60 in the original
+ * binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Copies frame regEax of sprite set 0x1bbc - loaded as "yesoori.img",
+ * the battle announcement banner art (READY / SOLO START! / GREAT!!!
+ * etc.) - into the 16bpp surface param_1 with pitch param_2, re-centring
+ * the frame's hotspot by +0x80 and clamping to the 256x256 canvas.
+ *
+ * Everything here was already established from outside by
+ * src/battle/SpawnBattleAnnouncement.c's naming evidence, which walks
+ * through this exact address: the one caller, 0x4b3d8d, is the
+ * announcement object's uncarved Draw at 0x4b3d50 (slot 3 of vtable
+ * 0x5566c0, the class-id-0x2e635 object SpawnBattleAnnouncement builds
+ * via the FUN_004b3b10 ctor), which passes the surface pointer and pitch the
+ * once-per-frame State11_InBattle_ClearEffectTextures lock stores at
+ * g_clientContext+0x23254/+0x23258 - the cells of the texture the
+ * original itself names "YesooriTexture" (s_YesooriTexture_005567d0) -
+ * and State11_InBattle_RenderModeIcons then draws that texture as the
+ * screen-centre quad while the +0x2325c flag is up.  This function is
+ * the only code that reads sprite set 0x1bbc.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-uint FUN_004b3b60(int param_1,int param_2,uint regEax)
+uint BlitAnnouncementFrameToYesooriTexture(int param_1,int param_2,uint regEax)
 
 {
   int iVar1;

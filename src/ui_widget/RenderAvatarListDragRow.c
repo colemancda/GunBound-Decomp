@@ -1,4 +1,17 @@
-/* FUN_0050be20 - 0x0050be20 in the original binary.
+/* RenderAvatarListDragRow - 0x0050be20 in the original binary.
+ *
+ * The drag-ghost twin of RenderAvatarListRow (0x50ae40): the one binary
+ * call site, 0x50ad3c in the store panel's uncarved slot-9 Update at
+ * 0x50aa10, runs right after the 14-row loop and ONLY while the panel's
+ * +0x94 slot is not -1 - the catalog index of the row being dragged,
+ * which the mouse-up handler FUN_0050a320 consumes as the source of its
+ * catalog-record reorder and resets to -1.  Call shape at
+ * 0x50ad25-0x50ad3c: RenderAvatarListDragRow(panel, panel->m_x + 0x13,
+ * [0x56d110]) - and 0x56d110 is g_cursorAnchorY, the live cursor Y.  So
+ * this draws the dragged item's row contents (same equipped marker,
+ * part code and category cells as the row renderer, on the record at
+ * *(panel+0x94)*0x450) at the cursor's height while a drag is in
+ * flight.
  *
  * NOT A LIVE-IN (2026-09-01 workflow triage): the backlog's unaff_EDI
  * row is a PHANTOM - the first EDI touch at 0x50be41 is a write that
@@ -7,13 +20,13 @@
  * mis-rendered as unaff_EDI). No signature change is correct here; the
  * fix class is rewriting the mis-rendered expressions, not promotion.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 36 argless PeekPacketChecksumState() calls (worklist 36:36).
- * Twin of FUN_0050ae40 with the state object's own slot arrays: frame
+ * Twin of RenderAvatarListRow with the state object's own slot arrays: frame
  * [esp+0x18] = local_84 = g_gameStateVTableArray[7] (written at 0x50be34,
  * `mov [esp+0x10],eax` two pushes deep - the older BlitRLESprite note
  * below that says the slot is never written missed the push depth; its
@@ -29,7 +42,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0050be20(int param_1,int param_2,int param_3)
+void RenderAvatarListDragRow(int param_1,int param_2,int param_3)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not

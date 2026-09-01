@@ -22,7 +22,7 @@
  * Call-site recovery: of the 16 calls in the original binary, this pass
  * fixed the ones with an unambiguous single EAX value recoverable
  * directly from the call site's own disassembly (GameTick.c;
- * FUN_00505f10.c both sites; RenderPlayerNameplate.c's first 3 of 4).
+ * RenderBuddyRow.c both sites; RenderPlayerNameplate.c's first 3 of 4).
  * The remaining sites were left unfixed (still call DrawSprite()
  * argless) because recovering their value correctly requires first
  * fixing an unrelated, pre-existing bug in that *caller*, not just

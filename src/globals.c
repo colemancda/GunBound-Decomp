@@ -745,7 +745,7 @@ uint32_t DAT_00e53c48;
  * DAT_00e53e88 - see the note on it below. */
 /* Resized 0xf28 -> 0x1bf0 (2026-08-24).  Wiring FUN_00402300's `this` to this
  * object made its writes at +0xf28.., +0x15a8 and +0x1bb0 reachable, and
- * FUN_00402cf0 / FUN_00401ee0 / FUN_004048e0 already read +0x15b0, +0x1bdc
+ * FUN_00402cf0 / FUN_00401ee0 / RBTree_RemoveNode already read +0x15b0, +0x1bdc
  * and +0x1be4.  Nine globals that Ghidra had declared separately lie INSIDE
  * that extent -- one of them (DAT_00e54da8, +0xf20) inside even the old size
  * -- and are now offset-macros into this storage (see globals.h), so a write

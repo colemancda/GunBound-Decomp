@@ -49,7 +49,7 @@ void FUN_00403170(int param_1,uchar *param_2,undefined4 param_3)
         puVar1 = puVar2;
       } while (puVar2 != (uint *)0x0);
       DispatchDirectLinkPacket((int)local_208,param_1,(undefined4)(param_2 + 1),(undefined4 *)param_3);
-      FUN_004048e0((int *)(param_1 + 0x1be4),(int)bestNode);
+      RBTree_RemoveNode((int *)(param_1 + 0x1be4),(int)bestNode);
       local_208[0] = 0xffffffff;
       puVar1 = (uint *)FUN_00404b00(param_2,(int *)(param_1 + 0x1be4));
     } while (puVar1 != (uint *)0x0);

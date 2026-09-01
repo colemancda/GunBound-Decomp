@@ -98,7 +98,7 @@
  * into the IF-branch and reports `mov eax,esi` (the frame), when the real
  * incoming EAX is whatever the value was at the branch point - the Y computed
  * before the test.  It looks authoritative and it is wrong at 16 of the 19
- * sites in FUN_0050ae40.c alone.  ECX, EDX and the pushed frame ARE reliable,
+ * sites in RenderAvatarListRow.c alone.  ECX, EDX and the pushed frame ARE reliable,
  * because they are set inside the else-branch itself.  This is the same
  * inherited-across-a-branch-target hazard already recorded for
  * HandleTurnTimeoutSlot.
@@ -163,7 +163,7 @@
  * dominates both, so frame, x and outerKey are all pinned without needing a
  * FindSpriteFrame call to compare against.
  *
- * FIRST INSTALMENT: 34 sites in FUN_0050ae40.c and FUN_0050be20.c, 17 each.
+ * FIRST INSTALMENT: 34 sites in RenderAvatarListRow.c and RenderAvatarListDragRow.c, 17 each.
  * X and Y lifted from the sibling BlitSprite16bpp; FRAME and OUTERKEY from
  * the disassembly.  Every one is cross-checked: the OUTERKEY recovered here
  * must equal the outerKey of the FindSpriteFrame call in the SAME block,

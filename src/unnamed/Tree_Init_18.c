@@ -3,7 +3,7 @@
  * VC7 STL red-black tree (std::map's _Tree) _Init, for the 0x18-byte-node
  * instantiation - hence the _18 node-stride suffix, per the container
  * naming convention.  The behaviour is the library member verbatim:
- * allocate the sentinel head node via FUN_00443b60 (the _Buynode half -
+ * allocate the sentinel head node via Tree_Buynode_18 (the _Buynode half -
  * operator_new(0x18), links zeroed, _Color black at +0x14), mark it nil
  * (+0x15 = 1), self-link its parent/left/right to itself, store it at
  * this+4 (_Myhead) and zero the size at this+8 (_Mysize).
@@ -34,7 +34,7 @@ void Tree_Init_18(int regEsi)
 {
   int iVar1;
   
-  iVar1 = FUN_00443b60();
+  iVar1 = Tree_Buynode_18();
   *(int *)(regEsi + 4) = iVar1;
   *(undefined1 *)(iVar1 + 0x15) = 1;
   *(int *)(*(int *)(regEsi + 4) + 4) = *(int *)(regEsi + 4);

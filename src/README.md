@@ -383,7 +383,7 @@ Concretely, that means:
     deliberately opaque placeholder, see include/ghidra_types.h's own
     comment on it - would need the real MSVC CRT exception-class
     layout to fix properly)
-  - `unnamed/FUN_004e95c0.c` (`cannot convert to a pointer type` /
+  - `unnamed/EvaluateKeyframeTrack.c` (`cannot convert to a pointer type` /
     `pointer value used where a floating-point was expected` - a
     genuine type-confusion in Ghidra's decompile, not investigated
     further this pass)

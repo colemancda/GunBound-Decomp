@@ -22,7 +22,7 @@ void FUN_0040a1c0(undefined4 *param_1)
   local_4 = 0;
   _free((void *)*param_1);
   local_4 = 0xffffffff;
-  FUN_0040be20((undefined4 *)&param_1,(int *)*(undefined4 *)puVar1[2],(int *)puVar1[2],(int)(puVar1 + 1));
+  TreeEraseRange((undefined4 *)&param_1,(int *)*(undefined4 *)puVar1[2],(int *)puVar1[2],(int)(puVar1 + 1));
   _free((void *)puVar1[2]);
   puVar1[2] = 0;
   puVar1[3] = 0;

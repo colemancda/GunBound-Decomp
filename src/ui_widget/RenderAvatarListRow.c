@@ -1,8 +1,22 @@
-/* FUN_0050ae40 - 0x0050ae40 in the original binary.
+/* RenderAvatarListRow - 0x0050ae40 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Draws one row of the Avatar Store's 14-row item list - the same list
+ * AvatarListRowHitTest (0x50cdb0) maps points into, and the name
+ * follows that sibling and the RenderWorldListRow / RenderBuddyRow
+ * pattern.  The one binary call site, 0x50ad16, is the `for (row = 0;
+ * row < 0xe; row++)` loop at 0x50ad10-0x50ad1f inside the store
+ * panel's uncarved slot-9 Update at 0x50aa10 (m_hidden check, then
+ * Widget_DrawSelf, then this loop), with ECX = the row and EAX = the
+ * panel; the row's y is panel m_y + 0x68 + row*0x11, the same 0x11
+ * stride the hit-test uses.  Per row: the selection highlight (sprite
+ * set 0x2712) when row == the guarded selected index at state+0x228,
+ * the equipped marker (0x2713) for equipped-array matches, and the
+ * 0x450-stride catalog record at pageBase(+0x454)+row - all the same
+ * State07 fields AvatarListRowHitTest's header documents.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 37 argless PeekPacketChecksumState() calls (worklist 37:37).
@@ -25,7 +39,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0050ae40(int param_1,int regEax)
+void __fastcall RenderAvatarListRow(int param_1,int regEax)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not

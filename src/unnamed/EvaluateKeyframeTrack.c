@@ -1,8 +1,28 @@
-/* FUN_004e95c0 - 0x004e95c0 in the original binary.
+/* EvaluateKeyframeTrack - 0x004e95c0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The keyframe TRS-track evaluator of the scene-node cluster - both of
+ * its named callers, SceneNode_UpdateTransform (0x4f37b0) and
+ * SceneNode_UpdateTransformAndCamera (0x4e9cc0), already describe it as
+ * exactly that in their own headers: called as (time, dest 4x4 matrix =
+ * the node's world matrix at +0xe0, track object = the node's +0xc8
+ * field) whenever the node carries a track, with an identity matrix
+ * substituted when it does not.
+ *
+ * The track object holds three keyframe channels, each a count + time
+ * array + value array: scale at +0x120/+0x124/+0x128 (scalar values),
+ * rotation at +0x114/+0x118/+0x11c (0x10-stride quaternions), and
+ * translation at +0x108/+0x10c/+0x110 (0xc-stride vec3).  Each channel
+ * does the same unrolled forward scan for the key interval containing
+ * `time`, then interpolates: rotation through the already-named
+ * SlerpQuaternionsToScratch -> QuaternionToRotationMatrix pair (via the
+ * DAT_005a90e0 quaternion scratch), translation by lerp into
+ * DAT_00793668..70, scale by lerp.  The result is composed into the
+ * dest matrix: rotation in the 3x3, translation into rows 12-14, and a
+ * uniform scale multiply of the 3x3 when the scale differs from 1.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
@@ -11,7 +31,7 @@
 
 /* param_2 is a register slot Ghidra typed float * but reuses as a
  * float value carrier; undefined4 keeps every site legal C. */
-void FUN_004e95c0(double param_1,undefined4 param_2,int regEbx)
+void EvaluateKeyframeTrack(double param_1,undefined4 param_2,int regEbx)
 
 {
   int iVar1;

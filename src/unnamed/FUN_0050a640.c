@@ -6,7 +6,7 @@
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 5 argless PeekPacketChecksumState() calls.  Same store-screen
- * shape as FUN_0050ae40/FUN_0050be20: the selected-index cell
+ * shape as RenderAvatarListRow/RenderAvatarListDragRow: the selected-index cell
  * puVar1+0x228 (0x50a6cf), the equipped array g_clientContext + iVar3 +
  * 0x5f4ab8 (0x50a713, iVar3 being the 0x224-stride cursor the C already
  * carries), and three reads of the catalog record's part-code cell

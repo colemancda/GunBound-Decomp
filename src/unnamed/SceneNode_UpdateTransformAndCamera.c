@@ -11,7 +11,7 @@
  * twin relation, observable from outside either body.
  *
  * Per node: refresh the world matrix at +0xe0 - the keyframe-track
- * evaluator FUN_004e95c0 (time = param_2, TRS track at +0xc8) or a 4x4
+ * evaluator EvaluateKeyframeTrack (time = param_2, TRS track at +0xc8) or a 4x4
  * identity when there is no track - then fold in +0x1a0 x parent frame
  * via MultiplyMatrix4x4ToScratch/InPlace, where the parent frame is the
  * +0xd0 node's world matrix, or the node's own placement matrix from
@@ -67,7 +67,7 @@ void __thiscall SceneNode_UpdateTransformAndCamera(int *param_1,undefined4 param
     *piVar3 = 0x3f800000;
   }
   else {
-    FUN_004e95c0(param_2,piVar3,param_1[0x32]);
+    EvaluateKeyframeTrack(param_2,piVar3,param_1[0x32]);
   }
   if (param_1[0x34] == 0) {
     /* Binary 0x4e9d4d: `mov edx,0x5a9130` feeds BOTH calls - EDX for

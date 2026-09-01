@@ -1,15 +1,42 @@
-/* FUN_004ec610 - 0x004ec610 in the original binary.
+/* BuildStretchedSpriteQuad - 0x004ec610 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Another member of the 0x4eb-0x4ed quad-builder family, sitting
+ * physically between its named siblings BuildRotatedSpriteQuad128
+ * (0x4ec430) and BuildSquareSpriteQuad (0x4ec840) and sharing their
+ * whole skeleton: the (angle+0x5a)%0x168 / angle%0x168 g_sineTable360
+ * sin/cos pair, UVs from the record's +0x80/+0x84/+0x88, alpha<<24 |
+ * 0xffffff vertex colour, staging at 0xea0e28 and the two-quad append
+ * to g_spriteVertexBuffer with g_spriteVertexCount += 2.
+ *
+ * What discriminates it (a body-level diff against BuildSquareSpriteQuad
+ * leaves exactly this): the quad is NOT square.  One axis spans
+ * -(size/2)..size/2-1 as in the square sibling, but the perpendicular
+ * axis spans -(8192/size)..8192/size-1 - the three constants involved
+ * are 1.0f (0x557fb0), 8192.0f (0x558014) and -8192.0f (0x558018),
+ * read from the binary's .data - so the rectangle is size x
+ * (16384/size): constant area, one axis scaling with `size` and the
+ * other inversely, i.e. the quad stretches longer and thinner as size
+ * grows.  Signature: (record, x, y, size, alpha) on ECX+stack with the
+ * angle in EAX.
+ *
+ * The one binary call site, 0x464308, is the crash effect's uncarved
+ * Draw at 0x464280 (slot 3 of vtable 0x555ccc - the class
+ * src/battle/SpawnCrashEffect.c documents): it looks up "CrashTexture",
+ * writes the frame UVs, and passes size = the object's +0x48 and alpha
+ * from +0x4c - the two fields that class's decay Tick (0x464250)
+ * advances and shrinks each frame, which is what makes the stretch
+ * visible at all.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __thiscall FUN_004ec610(int param_1,int param_2,int param_3,int param_4,int param_5,int regEax)
+void __thiscall BuildStretchedSpriteQuad(int param_1,int param_2,int param_3,int param_4,int param_5,int regEax)
 
 {
   float fVar1;
