@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00426090(char *param_1)
+undefined4 FUN_00426090(char *param_1,char *regEax,int regEcx)
 
 {
   char cVar1;
@@ -18,9 +18,9 @@ undefined4 FUN_00426090(char *param_1)
   undefined1 local_8 [4];
   undefined1 local_4 [4];
   
-  iVar2 = FUN_00426780(local_4,local_8,local_c);
+  iVar2 = FUN_00426780(local_4,local_8,local_c,(int *)(regEcx + 0x6aa44c),(uchar *)regEax);
   if (iVar2 != 0) {
-    puVar3 = (undefined4 *)FUN_004265c0();
+    puVar3 = (undefined4 *)FUN_004265c0(regEax,(int *)(regEcx + 0x6aa44c));
     pcVar4 = (char *)*puVar3;
     do {
       cVar1 = *pcVar4;

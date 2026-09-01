@@ -7,13 +7,13 @@
 #include "ghidra_types.h"
 
 
-uint FUN_00504880(char *param_1)
+uint FUN_00504880(char *param_1,int regEcx)
 
 {
   uint uVar1;
   char local_10 [16];
   
-  uVar1 = FUN_00504790(param_1);
+  uVar1 = FUN_00504790(param_1,regEcx - 0x2c);
   if ((char)uVar1 != '\0') {
     return uVar1 & 0xffffff00;
   }

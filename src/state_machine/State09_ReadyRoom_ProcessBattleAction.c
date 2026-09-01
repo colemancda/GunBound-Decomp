@@ -100,7 +100,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
               pbVar10 = pbVar10 + 1;
               pbVar11 = pbVar11 + 1;
             }
-            FUN_004382d0();
+            FUN_004382d0((uint)bVar1,g_clientContext + 0x6a7f70,(char *)&local_408);
             *(undefined1 *)(*(int *)((int)this + (uint)bVar1 * 8 + 0x700) + 0x8c8) = 1;
             return;
           }

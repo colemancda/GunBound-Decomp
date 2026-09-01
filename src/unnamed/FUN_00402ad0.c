@@ -39,7 +39,7 @@ void FUN_00402ad0(int param_1,char *param_2,char *regEax)
   undefined4 local_94;
   char acStack_8c [140];
   
-  cVar2 = FUN_00426030(&local_a0);
+  cVar2 = FUN_00426030((char *)&local_a0,regEax,(int)g_clientContext);
   puVar1 = g_directLinkConnection;
   if (cVar2 == '\x01') {
     if (g_directLinkConnection != (undefined2 *)0x0) {

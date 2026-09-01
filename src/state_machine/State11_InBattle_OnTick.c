@@ -624,26 +624,29 @@ LAB_004be4b1:
       local_3d68 = (int *)PeekPacketChecksumState(&DAT_007949c8);
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if (iVar6 < (int)local_3d68) {
-        DAT_005b3480 = DAT_005b3480 +
-                       ((DAT_005b3480 * 0xda003 + 0x5703b11) * 0x61 + 0x61U) % 0xf4241;
+        uVar11 = DAT_005b3480 * 0xda003 + 0x5703b11;
+        DAT_005b3480 = DAT_005b3480 + (uVar11 * 0x61 + 0x61) % 0xf4241;
+        iVar5 = uVar11 % 10 + 0x7db;
       }
       else {
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         local_3d68 = (int *)PeekPacketChecksumState(&DAT_00e9b818);
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         if (iVar6 < (int)local_3d68) {
-          FUN_00415c60();
+          uVar11 = FUN_00415c60();
+          iVar5 = uVar11 % 10 + 0x7e5;
         }
         else {
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar5 = PeekPacketChecksumState(&DAT_00796aa0);
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           if (iVar5 <= iVar6) break;
-          FUN_00415c60();
+          uVar11 = FUN_00415c60();
+          iVar5 = uVar11 % 10 + 0x7ef;
         }
       }
-      GetLocalizedString();
-      FUN_004382d0();
+      pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,iVar5);
+      FUN_004382d0((int)(local_3d54 + 8),g_clientContext + 0x6a7f70,pcVar9);
       break;
     }
   }

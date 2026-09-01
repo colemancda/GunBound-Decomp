@@ -21,7 +21,7 @@ void __thiscall FUN_00403ae0(int param_1,char *param_2)
   char local_37 [23];
   undefined1 local_20 [32];
   
-  cVar2 = FUN_00426090(local_20);
+  cVar2 = FUN_00426090((char *)local_20,param_2,(int)g_clientContext);
   if (cVar2 == '\x01') {
     iVar3 = FUN_00401bb0(param_1 + -8);
     if ((iVar3 != 0) &&

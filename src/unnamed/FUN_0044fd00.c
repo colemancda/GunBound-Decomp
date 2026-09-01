@@ -1,12 +1,8 @@
 /* FUN_0044fd00 - 0x0044fd00 in the original binary.
  *
- * STILL-OPEN regEax (2026-09-01 workflow triage): the caller-side
- * value is FUN_004382d0's ECX live-in, which is fully dead-coded in
- * that port (8 argless C sites; ECX varies per site - a per-object
- * slot/id stored at +8 of the new 0x46c object; e.g. 0x4b56e5
- * ecx=edi=[esp+0x20], 0x4b5975 ecx=*(byte*)(wire+0x21)+8).
- * Prerequisite: promote FUN_004382d0 (ECX + its documented dropped
- * EAX=ctx+0x6a7f70 and unaff_EBX) across all 8 sites first.
+ * RECOVERED (2026-09-01): the prerequisite caller promotions landed in
+ * the same batch as this note - the regEax parameter below is live and
+ * every site passes the verified value; see the commit for the chain.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -16,14 +12,13 @@
 #include "ghidra_types.h"
 
 
-undefined4 * __fastcall FUN_0044fd00(undefined4 param_1,undefined4 *param_2)
+undefined4 * __fastcall FUN_0044fd00(undefined4 param_1,undefined4 *param_2,undefined4 regEax)
 
 {
-  undefined4 in_EAX;
   int iVar1;
   undefined4 *puVar2;
   
-  param_2[2] = in_EAX;
+  param_2[2] = regEax;
   param_2[6] = 0xffffffff;
   param_2[9] = 0xffffffff;
   param_2[3] = 0;

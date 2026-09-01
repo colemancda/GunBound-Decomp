@@ -183,7 +183,8 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
               pbVar17 = pbVar17 + 1;
             }
             (&stack0xffffd806)[param_3] = 0;
-            FUN_004382d0();
+            FUN_004382d0(*(byte *)(param_2 + 0x21) + 8,g_clientContext + 0x6a7f70,
+                         (char *)local_27d8);
             *unaff_FS_OFFSET = local_14;
             return;
           }
@@ -238,7 +239,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
                   pbVar14 = pbVar14 + 1;
                 }
                 (&stack0xffffd807)[param_3] = 0;
-                FUN_004382d0();
+                FUN_004382d0((int)local_27e0,g_clientContext + 0x6a7f70,(char *)local_27d8);
                 iVar4 = GetPlayerRecordBySlot(g_clientContext);
                 iVar10 = g_clientContext + 0x45354;
                 *(undefined1 *)(iVar4 + 0x900) = 1;
@@ -333,7 +334,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
               pbVar14 = pbVar14 + 1;
             }
             (&stack0xffffd807)[param_3] = 0;
-            FUN_004382d0();
+            FUN_004382d0((int)local_27e0,g_clientContext + 0x6a7f70,(char *)local_27d8);
             iVar4 = GetPlayerRecordBySlot(g_clientContext);
             *(undefined1 *)(iVar4 + 0x900) = 1;
             *unaff_FS_OFFSET = local_14;

@@ -140,8 +140,8 @@ LAB_00479d44:
         uVar7 = FUN_00415c60();
         if ((uVar7 & 1) != 0) {
           uVar7 = FUN_00415c60();
-          GetLocalizedString(&g_localizedStringTable,uVar7 % 10 + 0x80d);
-          FUN_004382d0();
+          pcVar14 = (char *)GetLocalizedString(&g_localizedStringTable,uVar7 % 10 + 0x80d);
+          FUN_004382d0(param_1[2] + 8,g_clientContext + 0x6a7f70,pcVar14);
         }
 LAB_00479e75:
         uVar4 = PeekChecksumStateUnderLock(&DAT_00e55ab8);
@@ -440,8 +440,8 @@ LAB_0047a634:
       uVar12 = PeekChecksumStateUnderLock(param_1 + 0x97);
       SpawnFlameEffect(iVar5 - (uVar7 & 3),uVar12,uVar4,iVar6,pcVar14);
       uVar7 = FUN_00415c60();
-      GetLocalizedString(&g_localizedStringTable,uVar7 % 10 + 0x7f9);
-      FUN_004382d0();
+      pcVar14 = (char *)GetLocalizedString(&g_localizedStringTable,uVar7 % 10 + 0x7f9);
+      FUN_004382d0(param_1[2] + 8,g_clientContext + 0x6a7f70,pcVar14);
     }
     *(undefined1 *)(param_1 + 5) = 1;
   }

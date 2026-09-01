@@ -8,20 +8,21 @@
 #include "ghidra_types.h"
 
 
-void FUN_004382d0(void)
+void FUN_004382d0(int regEcx,int regEax,char *regEbx)
 
 {
   char cVar1;
   undefined4 *puVar2;
   void *pvVar3;
-  int unaff_EBX;
   
-  /* guard-cell: proven.  This helper receives the effects-guard block
-   * ctx+0x6a7f70 in EAX (a register arg Ghidra dropped); every call
-   * site in the binary was audited 2026-08-17 and passes exactly that
-   * value, so the +4 peek is the global flag, not a per-object cell. */
-  cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
-  if ((cVar1 == '\0') && (unaff_EBX != 0)) {
+  /* guard-cell: proven.  regEax is the effects-guard block ctx+0x6a7f70
+   * (register arg promoted 2026-09-01, all 8 sites re-verified); every
+   * caller passes exactly that value, so the +4 peek is the global flag.
+   * regEcx is the per-object slot/id this balloon is keyed by (forwarded
+   * to FUN_0044fd00's EAX -> obj+8 once that promotion lands; see its
+   * file header).  regEbx is the balloon text. */
+  cVar1 = PeekPacketChecksumBool((byte *)(regEax + 4));
+  if ((cVar1 == '\0') && (regEbx != (char *)0x0)) {
     puVar2 = (undefined4 *)FindSpriteFrame();
     if (puVar2 != (undefined4 *)0x0) {
       *(undefined4 *)(puVar2[3] + 0x10) = puVar2[4];
@@ -30,9 +31,9 @@ void FUN_004382d0(void)
     }
     pvVar3 = operator_new(0x46c);
     if (pvVar3 != (void *)0x0) {
-      FUN_0044fd00();
+      FUN_0044fd00(0,(undefined4 *)pvVar3,regEcx);
     }
-    FUN_00450600((int)pvVar3,(char *)unaff_EBX);
+    FUN_00450600((int)pvVar3,regEbx);
     RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   return;

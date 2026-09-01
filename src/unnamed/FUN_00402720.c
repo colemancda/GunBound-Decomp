@@ -36,7 +36,7 @@ void FUN_00402720(int param_1,char *param_2,char *param_3)
   undefined4 local_18;
   undefined4 local_14;
   
-  cVar2 = FUN_00426030(&local_20);
+  cVar2 = FUN_00426030((char *)&local_20,param_2,(int)g_clientContext);
   puVar1 = g_directLinkConnection;
   if (cVar2 == '\x01') {
     if (g_directLinkConnection != (undefined2 *)0x0) {
