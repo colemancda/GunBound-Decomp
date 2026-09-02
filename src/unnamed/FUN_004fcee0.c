@@ -13,15 +13,22 @@
 #include "ghidra_types.h"
 
 
-void FUN_004fcee0(char *regEax)
+void FUN_004fcee0(char *regEax,int regEbx)
 
 {
-  char local_24 [16];
-  undefined1 local_14;
-  
+  /* One contiguous 0x24-byte frame payload (the callee copies 0x24 bytes from
+   * EDX): a 0x10-char name, a NUL terminator at +0x10, rest scratch.  The raw
+   * port split it into local_24[16]+local_14, not guaranteed adjacent -
+   * merged.  EBX (the session) is dropped by this port; its two callers load
+   * it (FUN_004fd7c0 param_1, DispatchP2PMessage param_3) - forwarded as
+   * regEbx. */
+  char local_24 [0x24];
+
   _strncpy(local_24,regEax,0x10);
-  local_14 = 0;
-  FUN_00502500(0x3000);
+  local_24[0x10] = 0;
+  /* opcode -> stack param, ECX=0x24 len, EDX=&local_24 buf, EBX=session;
+   * orig 0x4fcef3-0x4fcf06. */
+  FUN_00502500(0x24,(undefined4 *)local_24,0x3000,regEbx);
   return;
 }
 

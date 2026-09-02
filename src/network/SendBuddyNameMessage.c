@@ -107,14 +107,19 @@
 #include "ghidra_types.h"
 
 
-void SendBuddyNameMessage(undefined4 param_1,char *regEax)
+void SendBuddyNameMessage(undefined4 param_1,char *regEax,int regEbx)
 
 {
   char *in_EAX = regEax;
   char local_10 [16];
-  
+
   _strncpy(local_10,in_EAX,0x10);
-  FUN_00502500(param_1);
+  /* param_1 IS the opcode (message type) -> stack param; ECX=0x10 len,
+   * EDX=&local_10 (the 0x10-byte peer name), EBX=session.  The session
+   * arrives in EBX and is dropped by this port; the sole caller
+   * (DispatchP2PMessage's 0xc043 arm, `mov ebx,[ebp+8]` at 0x504ad5) supplies
+   * its param_3 - forwarded as regEbx.  orig 0x4fcec7-0x4fced1. */
+  FUN_00502500(0x10,(undefined4 *)local_10,(ushort)param_1,regEbx);
   return;
 }
 

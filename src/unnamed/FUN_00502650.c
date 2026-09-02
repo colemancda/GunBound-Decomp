@@ -66,7 +66,14 @@ uint FUN_00502650(int param_1,int param_2,int param_3,undefined4 *param_4,uint p
                            (byte *)&local_2ee3 - 5,
                            (((int)(_Dest - ((char *)&local_2ee3 - 5)) + 0xb) / 0xc) * 0xc);
     if ((char)param_5 != '\0') {
-      uVar1 = FUN_00502500(0x2020);
+      /* opcode -> stack param; EDX=local_1778 (the ciphertext just written),
+       * EBX=param_1 (the session, reloaded `mov ebx,[ebp+8]` at 0x5026da),
+       * and ECX = the ENCODED length = blockcount*0x10 where blockcount =
+       * ((_Dest - framebase) + 0xb)/0xc - the same plaintext span the encode
+       * rounded to *0xc above, re-expanded 12->16 per cipher block.
+       * orig 0x50272b-0x50273c: mov ecx,esi / shl ecx,4 / push 0x2020. */
+      uVar1 = FUN_00502500((((int)(_Dest - ((char *)&local_2ee3 - 5)) + 0xb) / 0xc) * 0x10,
+                           (undefined4 *)local_1778,0x2020,param_1);
       return uVar1;
     }
   }

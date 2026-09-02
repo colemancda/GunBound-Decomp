@@ -103,13 +103,13 @@ DispatchP2PMessage(uint param_1,char *param_2,int param_3,undefined4 param_4,und
       acStack_178c[param_1 - 1] = '\0';
       (**(code **)(**(int **)(param_3 + 0x1ab0) + 0x28))(param_4,cVar2 != '\0');
       if (cVar7 != '\0') {
-        FUN_004fcee0((char *)param_4);
+        FUN_004fcee0((char *)param_4,param_3);
         return;
       }
       break;
     case 0xc043:
       (**(code **)(**(int **)(param_3 + 0x1ab0) + 0x30))(param_4);
-      SendBuddyNameMessage(0x3002,(char *)param_4);
+      SendBuddyNameMessage(0x3002,(char *)param_4,param_3);
       return;
     case 0xc051:
       uVar4 = (short)param_1 - 0x18;

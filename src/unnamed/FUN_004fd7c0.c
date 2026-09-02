@@ -20,7 +20,7 @@ undefined1 __thiscall FUN_004fd7c0(int param_1,undefined4 param_2,int param_3)
     return 0;
   }
   if (param_3 != '\0') {
-    FUN_004fcee0((char *)param_2);
+    FUN_004fcee0((char *)param_2,param_1);
   }
   return 1;
 }

@@ -14,21 +14,24 @@ FUN_004fd9c0(int param_1,char *param_2,char *param_3,undefined2 param_4,undefine
 
 {
   undefined4 uVar1;
-  char local_1770 [12];
-  char local_1764 [8];
-  undefined2 local_175c;
-  undefined2 local_175a;
+  /* One contiguous 0x18-byte frame payload: 0xc + 8 + 2 + 2.  The raw port
+   * split it into four separate locals; the callee copies 0x18 bytes from
+   * EDX so they must be adjacent (not guaranteed for separate MSVC locals) -
+   * merged. */
+  char frame [0x18];
   undefined4 uStack_4;
-  
+
   uStack_4 = 0x4fd9ca;
   if (*(char *)(param_1 + 0x1a70) == '\0') {
     return 0x1700;
   }
-  _strncpy(local_1770,param_2,0xc);
-  _strncpy(local_1764,param_3,8);
-  local_175c = param_4;
-  local_175a = param_5;
-  uVar1 = FUN_00502500(0x4000);
+  _strncpy(frame,param_2,0xc);
+  _strncpy(frame + 0xc,param_3,8);
+  *(undefined2 *)(frame + 0x14) = param_4;
+  *(undefined2 *)(frame + 0x16) = param_5;
+  /* opcode -> stack param, ECX=0x18 len, EDX=&frame buf, EBX=this;
+   * orig 0x4fda28-0x4fda36. */
+  uVar1 = FUN_00502500(0x18,(undefined4 *)frame,0x4000,param_1);
   return uVar1;
 }
 
