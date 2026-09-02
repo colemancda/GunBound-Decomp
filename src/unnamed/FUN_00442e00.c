@@ -9,6 +9,18 @@
  * +0x3b6c4 cell, and one entry of the 0x448-stride table at +0x477ec
  * (the same table FUN_004cfd20 indexes), here indexed by the live-in
  * EDI the decompile already models as unaff_EDI.
+ *
+ * RENDER-CHAIN ARG FIX (2026-09-02): recovered container/KEY/FRAME/x/y
+ * at the 4 argless FindSpriteFrame() blocks and their sibling blits from
+ * per-site disasm (EBP = iVar7 y-base throughout; the stale 2-arg
+ * BlitSprite16bpp forms were the block's real x/y).  0x442e81: key
+ * 0x2710, frame = bVar1 + 1 (movzx of [gctx+0x3b6c0], inc), x 0x267,
+ * y iVar7 - 2.  0x442f73: key 0x2710, frame = iVar5 + 7 (the +0x477ec
+ * peek + 7, already the C's sign-guard/clip value), x 0x272, y iVar7.
+ * 0x442fc9: key 0x64 (`mov edx,0x64` - not a 0x27xx registry page),
+ * frame = uVar3 (movzx word [gctx+edi*2+0x50116], re-typed ushort),
+ * x 0x290, y iVar7.  0x44307d: key 0x2710, frame = (cVar2 != 0) + 4
+ * (setne dl / add edx,4), x 0x24d, y iVar7 + 6 (`add ebp,6`).
  */
 #include "ghidra_types.h"
 
@@ -34,12 +46,12 @@ void FUN_00442e00(uint regEax)
   iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (((unaff_EDI == iVar5) && (bVar1 = *(byte *)(g_clientContext + 0x3b6c0), g_screenSurface != 0)) &&
-     (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
+     (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,bVar1 + 1), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
-      BlitSprite16bpp(0x267,iVar7 + -2);
+      BlitSprite16bpp(bVar1 + 1,0x267,iVar7 + -2,0x2710);
     }
     else {
-      BlitSpriteClipped(bVar1 + 1);
+      BlitSpriteClipped(bVar1 + 1,0x267,iVar7 + -2,0x2710);
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -56,21 +68,23 @@ void FUN_00442e00(uint regEax)
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x477ec + unaff_EDI * 0x448));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  if (((g_screenSurface != 0) && (-1 < iVar5 + 7)) && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
+  if (((g_screenSurface != 0) && (-1 < iVar5 + 7)) &&
+     (iVar6 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,iVar5 + 7), iVar6 != 0)) {
     if (*(char *)(iVar6 + 0x18) == '\x01') {
-      BlitSprite16bpp(0x272,iVar7);
+      BlitSprite16bpp(iVar5 + 7,0x272,iVar7,0x2710);
     }
     else {
-      BlitSpriteClipped(iVar5 + 7);
+      BlitSpriteClipped(iVar5 + 7,0x272,iVar7,0x2710);
     }
   }
-  uVar3 = *(undefined2 *)(g_clientContext + 0x50116 + unaff_EDI * 2);
-  if ((g_screenSurface != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
+  uVar3 = *(ushort *)(g_clientContext + 0x50116 + unaff_EDI * 2);
+  if ((g_screenSurface != 0) &&
+     (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x64,uVar3), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
-      BlitSprite16bpp(0x290,iVar7);
+      BlitSprite16bpp(uVar3,0x290,iVar7,0x64);
     }
     else {
-      BlitSpriteClipped(uVar3);
+      BlitSpriteClipped(uVar3,0x290,iVar7,0x64);
     }
   }
   /* RE-SLOT + dropped EAX (objdump @0x442ffa-0x443011): x/ECX = 0x2a1,
@@ -96,12 +110,13 @@ void FUN_00442e00(uint regEax)
    * ProcessBattleAction.c / State09_ReadyRoom_ProcessPacket.c. */
   BlitRLESprite(0x2a1,iVar7 + 0xe,0xffff,(byte *)(g_clientContext + 0x50196 + unaff_EDI * 0xd));
   cVar2 = *(char *)(iVar5 + 0x449ba + unaff_EDI);
-  if ((g_screenSurface != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
+  if ((g_screenSurface != 0) &&
+     (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,(cVar2 != '\0') + 4), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
-      BlitSprite16bpp(0x24d,iVar7 + 6);
+      BlitSprite16bpp((cVar2 != '\0') + 4,0x24d,iVar7 + 6,0x2710);
       return;
     }
-    BlitSpriteClipped((cVar2 != '\0') + '\x04');
+    BlitSpriteClipped((cVar2 != '\0') + 4,0x24d,iVar7 + 6,0x2710);
   }
   return;
 }

@@ -13,6 +13,21 @@
  * calling `FUN_0040d020(&g_activeObjectRegistry2)` with only the stack arg (which
  * itself landed in the wrong parameter slot). Added `message` as an
  * explicit trailing parameter and fixed the call site to pass all three.
+ *
+ * RENDER-CHAIN ARG FIX (2026-09-02): recovered the 2 argless
+ * FindSpriteFrame() calls from per-site disasm.  The container is NOT
+ * g_spriteRegistry here: both load EAX = EBP = param_2 (the widget
+ * registry itself, the angr-scan's "caller's own param_2/EBP" pair),
+ * with EDX = *(*(param_2+8) + 4) (the focused widget's key, reloaded
+ * from [ebp+8] right before the call) and ESI the tab-target key.
+ * 0x40d0ac (Tab): ESI = *(iVar2 + 8) - the sibling walked at 0x40d058-
+ * 0x40d07c; the -1/self cases route through the EnqueueInputEvent
+ * branch which zeroes *(param_2+8), so the line-49 guard already
+ * excludes them.  0x40d105 (Enter): ESI = (ecx == focused) ? -1 :
+ * *(ecx + 8) with ecx = *(focused + 0x10) (0x40d0e7-0x40d101),
+ * materialized in iVar2; the binary's second [ecx+0x15] recheck at
+ * 0x40d0ea is dead (the 0x40d0dc test already proved it zero) and
+ * Ghidra folded it out - left out here too.
  */
 #include "ghidra_types.h"
 
@@ -46,7 +61,9 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
         CommitActiveTextInput();
         *(undefined4 *)(param_2 + 8) = 0;
       }
-      if ((*(int *)(param_2 + 8) != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
+      if ((*(int *)(param_2 + 8) != 0) &&
+         (iVar3 = FindSpriteFrame(param_2,*(int *)(*(int *)(param_2 + 8) + 4),
+                                  *(int *)(iVar2 + 8)), iVar3 != 0)) {
         CommitActiveTextInput();
         *(int *)(param_2 + 8) = iVar3;
         FUN_0040cc50();
@@ -56,7 +73,14 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
     else {
       if (param_1 == 0xd) {
         if (*(char *)(*(int *)(*(int *)(param_2 + 8) + 0x10) + 0x15) == '\0') {
-          iVar3 = FindSpriteFrame();
+          iVar2 = *(int *)(*(int *)(param_2 + 8) + 0x10);
+          if (iVar2 == *(int *)(param_2 + 8)) {
+            iVar2 = -1;
+          }
+          else {
+            iVar2 = *(int *)(iVar2 + 8);
+          }
+          iVar3 = FindSpriteFrame(param_2,*(int *)(*(int *)(param_2 + 8) + 4),iVar2);
           if (iVar3 == 0) {
             return;
           }

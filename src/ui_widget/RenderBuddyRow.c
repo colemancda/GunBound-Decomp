@@ -19,6 +19,21 @@
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
+ *
+ * DROPPED-ARG FIX (2026-09-02, render-chain sweep): recovered the
+ * register args at all 5 argless FindSpriteFrame() calls and their
+ * sibling blits (EAX=&g_spriteRegistry at every site):
+ *  - 0x505f57 selection highlight: EDX = *(panel+0x44) (the panel's own
+ *    sprite-set key, from `mov edx,[eax+0x44]` with eax=this), frame 1;
+ *    blits B16 0x505f6d / CLP 0x505f7e at (iVar4+0xe, iVar1-2).
+ *  - 0x505fa8 status icon strip: EDX=0x64, frame = the node's +0x2e
+ *    word (uVar2, already the CLP arg); B16 0x505fbb / CLP 0x505fca at
+ *    (iVar4+0x14, iVar1).
+ *  - 0x506021 / 0x506194 / 0x50614d state badge: EDX=0x2bc, frame
+ *    4 / 6 / 5 (offline / room-full / online per the +0x30 status
+ *    byte); all three share x=iVar4+0x77, y=iVar1 and the single CLP
+ *    at 0x5061c2 (LAB_005061be) whose frame the C already routes as
+ *    uVar6.
  */
 #include "ghidra_types.h"
 
@@ -37,21 +52,22 @@ void __thiscall RenderBuddyRow(int param_1,int param_2,int regEax)
   iVar4 = *(int *)(regEax + 0x28);
   iVar1 = param_1 * 0x1e + 0x2f + *(int *)(regEax + 0x2c);
   if (((*(int *)(regEax + 0x90) == DAT_00e54da8 + param_1) && (g_screenSurface != 0)) &&
-     (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
+     (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,*(int *)(regEax + 0x44),1), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
-      BlitSprite16bpp(iVar4 + 0xe,iVar1 + -2);
+      BlitSprite16bpp(1,iVar4 + 0xe,iVar1 + -2,*(int *)(regEax + 0x44));
     }
     else {
-      BlitSpriteClipped(1);
+      BlitSpriteClipped(1,iVar4 + 0xe,iVar1 + -2,*(int *)(regEax + 0x44));
     }
   }
   uVar2 = *(undefined2 *)(param_2 + 0x2e);
-  if ((g_screenSurface != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
+  if ((g_screenSurface != 0) &&
+     (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x64,(ushort)uVar2), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
-      BlitSprite16bpp(iVar4 + 0x14,iVar1);
+      BlitSprite16bpp((ushort)uVar2,iVar4 + 0x14,iVar1,0x64);
     }
     else {
-      BlitSpriteClipped(uVar2);
+      BlitSpriteClipped((ushort)uVar2,iVar4 + 0x14,iVar1,0x64);
     }
   }
   /* BlitRLESprite's 1st arg (this/x-cursor) and 4th arg (rleData) were
@@ -71,12 +87,12 @@ void __thiscall RenderBuddyRow(int param_1,int param_2,int regEax)
     if (g_screenSurface == 0) {
       return;
     }
-    iVar5 = FindSpriteFrame();
+    iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2bc,4);
     if (iVar5 == 0) {
       return;
     }
     if (*(char *)(iVar5 + 0x18) == '\x01') {
-      BlitSprite16bpp(iVar4 + 0x77,iVar1);
+      BlitSprite16bpp(4,iVar4 + 0x77,iVar1,0x2bc);
       return;
     }
     uVar6 = 4;
@@ -106,12 +122,12 @@ void __thiscall RenderBuddyRow(int param_1,int param_2,int regEax)
         if (g_screenSurface == 0) {
           return;
         }
-        iVar5 = FindSpriteFrame();
+        iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2bc,6);
         if (iVar5 == 0) {
           return;
         }
         if (*(char *)(iVar5 + 0x18) == '\x01') {
-          BlitSprite16bpp(iVar4 + 0x77,iVar1);
+          BlitSprite16bpp(6,iVar4 + 0x77,iVar1,0x2bc);
           return;
         }
         uVar6 = 6;
@@ -121,18 +137,18 @@ void __thiscall RenderBuddyRow(int param_1,int param_2,int regEax)
     if (g_screenSurface == 0) {
       return;
     }
-    iVar5 = FindSpriteFrame();
+    iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2bc,5);
     if (iVar5 == 0) {
       return;
     }
     if (*(char *)(iVar5 + 0x18) == '\x01') {
-      BlitSprite16bpp(iVar4 + 0x77,iVar1);
+      BlitSprite16bpp(5,iVar4 + 0x77,iVar1,0x2bc);
       return;
     }
     uVar6 = 5;
   }
 LAB_005061be:
-  BlitSpriteClipped(uVar6);
+  BlitSpriteClipped(uVar6,iVar4 + 0x77,iVar1,0x2bc);
   return;
 }
 

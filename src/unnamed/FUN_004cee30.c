@@ -11,6 +11,17 @@
  * address order (0x4cee55..0x4cf004, no reordering): the turn-counter pair
  * +0xeba98 / +0xebcbc that BeginNewTurn seeds and bumps, plus one read of
  * the turn-limit cell +0x473a0.
+ *
+ * RENDER-CHAIN ARG FIX (2026-09-02): recovered the 2 argless
+ * FindSpriteFrame() calls (0x4cef69 / 0x4cef98) from per-site disasm -
+ * these are the 2 sites the 2026-07-13 angr scan left as "add
+ * eax,0x6a7f88 off an unresolved base": the base is g_clientContext
+ * (`mov eax,[0x5b3484]` at 0x4cef58), so the container is the
+ * active-object layer registry g_clientContext + 0x6a7f88, NOT
+ * g_spriteRegistry.  Both sites share one setup: EDX = 0x186aa
+ * (class id 100010), ESI = 0 (`xor esi,esi`).  No sibling blits - the
+ * result is an object whose +0x3c gauge is bumped and whose vtable
+ * slot 1 is invoked with the "active"/"normal" state name.
  */
 #include "ghidra_types.h"
 
@@ -54,7 +65,7 @@ void FUN_004cee30(int param_1)
   iVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0xebcbc));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar1 == 4) {
-    piVar3 = (int *)FindSpriteFrame();
+    piVar3 = (int *)FindSpriteFrame(g_clientContext + 0x6a7f88,0x186aa,0);
     if ((piVar3 != (int *)0x0) &&
        (iVar1 = piVar3[0xf], piVar3[0xf] = iVar1 + 0x28, 1000 < iVar1 + 0x28)) {
       piVar3[0xf] = 1000;
@@ -64,7 +75,7 @@ LAB_004cefa6:
     (**(code **)(*piVar3 + 4))(pcVar4);
   }
   else {
-    piVar3 = (int *)FindSpriteFrame();
+    piVar3 = (int *)FindSpriteFrame(g_clientContext + 0x6a7f88,0x186aa,0);
     if (piVar3 != (int *)0x0) {
       pcVar4 = s_normal_00552230;
       goto LAB_004cefa6;

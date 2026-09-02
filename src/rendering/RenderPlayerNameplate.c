@@ -7,6 +7,15 @@
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at the file's one argless PeekPacketChecksumState() call
  * ((void *)(g_clientContext + 0x3b6c4)), from tools/guard_cell_resolve.py.
+ *
+ * DROPPED-ARG FIX (2026-09-02, render-chain sweep): recovered the
+ * register args at both argless FindSpriteFrame() calls and completed
+ * the sibling blits (the CLP x/y pairs were already recovered on
+ * 2026-08-13; this pass adds the frame/outerKey).  Both sites load
+ * EAX=&g_spriteRegistry, EDX=0x2710; ESI/frame is 7 at 0x4dbbdd
+ * (blits B16 0x4dbbf0 / CLP 0x4dbc00, x=iVar2+0x63, y=iVar5+0x20)
+ * and 6 at 0x4dbce8 (blits B16 0x4dbcfb / CLP 0x4dbd16, x=iVar2+0x69,
+ * y=iVar5-0x1e).
  */
 #include "ghidra_types.h"
 
@@ -73,9 +82,10 @@ LAB_004dbb40:
     iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (param_1 == iVar4) {
-      if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
+      if ((g_screenSurface != 0) &&
+         (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,7), iVar4 != 0)) {
         if (*(char *)(iVar4 + 0x18) == '\x01') {
-          BlitSprite16bpp(iVar2 + 99,iVar5 + 0x20);
+          BlitSprite16bpp(7,iVar2 + 99,iVar5 + 0x20,0x2710);
         }
         else {
           /* BlitSpriteClipped's x/y args were dropped (ECX/EAX) - this
@@ -83,7 +93,7 @@ LAB_004dbb40:
            * passed to the BlitSprite16bpp() sibling call just above:
            * ECX=iVar2+99, EAX=iVar5+0x20. See BlitSpriteClipped.c's
            * header comment for the full recovery. */
-          BlitSpriteClipped(7,iVar2 + 99,iVar5 + 0x20);
+          BlitSpriteClipped(7,iVar2 + 99,iVar5 + 0x20,0x2710);
         }
       }
     }
@@ -116,17 +126,18 @@ LAB_004dbb40:
     BlitRLESprite(iVar2 + 0x16,iVar5 + 0x21,0,
                   (byte *)(g_clientContext + param_1 * 0xd + 0x457f1));
     if ((g_bBattleSessionActive == '\0') && (*(char *)(iVar4 + 0x45914 + param_1) == '\x04')) {
-      if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
+      if ((g_screenSurface != 0) &&
+         (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,6), iVar4 != 0)) {
         if (*(char *)(iVar4 + 0x18) != '\x01') {
           /* BlitSpriteClipped's x/y args were dropped (ECX/EAX) - this
            * site's own disassembly (0x4dbd10) shows ECX=iVar2+0x69,
            * EAX=iVar5-0x1e, the same pair passed to the BlitSprite16bpp()
            * sibling call a few lines below. See BlitSpriteClipped.c's
            * header comment for the full recovery. */
-          BlitSpriteClipped(6,iVar2 + 0x69,iVar5 + -0x1e);
+          BlitSpriteClipped(6,iVar2 + 0x69,iVar5 + -0x1e,0x2710);
           return;
         }
-        BlitSprite16bpp(iVar2 + 0x69,iVar5 + -0x1e);
+        BlitSprite16bpp(6,iVar2 + 0x69,iVar5 + -0x1e,0x2710);
         return;
       }
     }

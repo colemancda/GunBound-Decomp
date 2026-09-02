@@ -53,6 +53,24 @@
  * was DISCARDED by Ghidra (a bare call statement) but 0x409606 scales it by
  * 0x224 for C719's cell, so it is captured here into a new local
  * iRosterSel.
+ *
+ * DROPPED-ARG FIX (2026-09-02, render-chain sweep): recovered the
+ * register args at the 4 remaining argless FindSpriteFrame() calls and
+ * their sibling blits (the 0x40825a block was fixed earlier).  All four
+ * load EAX=&g_spriteRegistry, EDX=0x1f4.  Pinned by the loop-cursor
+ * start/bound and the B16 x immediate, in C order:
+ *  - the 0x2b4..0x2dc digit loop = 0x4088ef, frame = char+0x8d (iVar2);
+ *    B16 0x408906 / CLP 0x408918 at (iVar13, 0x239);
+ *  - its cap check = 0x408991, frame 0xc7; B16 0x4089ac / CLP 0x4089c5
+ *    at (0x2ac, 0x239);
+ *  - the 0x2ed..0x315 digit loop = 0x40860b, frame = iVar2; B16
+ *    0x408622 / CLP 0x408634 at (iVar13, 0x239);
+ *  - its cap check = 0x4086ad, frame 0xc7; B16 0x4086c8 / CLP 0x4086e1
+ *    at (0x2e6, 0x239).
+ * The tree-walk twins of these blocks (LAB_00408730/LAB_00408a62 and
+ * the two 0x2ac/0x2e6 walk caps at 0x408790/0x408874, plus the later
+ * 0x1b56/0x1b57-family walks) blit through a manually-walked node, not
+ * an argless FindSpriteFrame, and keep their existing shape.
  */
 #include "ghidra_types.h"
 
@@ -225,12 +243,12 @@ LAB_0040855d:
       do {
         if (((((&local_1008)[iVar3] != ' ') &&
              (iVar2 = (&local_1008)[iVar3] + 0x8d, g_screenSurface != 0)) && (-1 < iVar2)) &&
-           (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
+           (iVar6 = FindSpriteFrame((int)&g_spriteRegistry,0x1f4,iVar2), iVar6 != 0)) {
           if (*(char *)(iVar6 + 0x18) == '\x01') {
-            BlitSprite16bpp(iVar13,0x239);
+            BlitSprite16bpp(iVar2,iVar13,0x239,0x1f4);
           }
           else {
-            BlitSpriteClipped(iVar2);
+            BlitSpriteClipped(iVar2,iVar13,0x239,0x1f4);
           }
         }
         iVar13 = iVar13 + 0x14;
@@ -242,12 +260,13 @@ LAB_0040855d:
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar13 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      if (((iVar13 <= iVar3) && (g_screenSurface != 0)) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
+      if (((iVar13 <= iVar3) && (g_screenSurface != 0)) &&
+         (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x1f4,199), iVar3 != 0)) {
         if (*(char *)(iVar3 + 0x18) == '\x01') {
-          BlitSprite16bpp(0x2ac,0x239);
+          BlitSprite16bpp(199,0x2ac,0x239,0x1f4);
         }
         else {
-          BlitSpriteClipped(199);
+          BlitSpriteClipped(199,0x2ac,0x239,0x1f4);
         }
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -281,12 +300,12 @@ LAB_00408a10:
     do {
       if (((((&local_1008)[iVar3] != ' ') &&
            (iVar2 = (&local_1008)[iVar3] + 0x8d, g_screenSurface != 0)) && (-1 < iVar2)) &&
-         (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
+         (iVar6 = FindSpriteFrame((int)&g_spriteRegistry,0x1f4,iVar2), iVar6 != 0)) {
         if (*(char *)(iVar6 + 0x18) == '\x01') {
-          BlitSprite16bpp(iVar13,0x239);
+          BlitSprite16bpp(iVar2,iVar13,0x239,0x1f4);
         }
         else {
-          BlitSpriteClipped(iVar2);
+          BlitSpriteClipped(iVar2,iVar13,0x239,0x1f4);
         }
       }
       iVar13 = iVar13 + 0x14;
@@ -298,12 +317,13 @@ LAB_00408a10:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar13 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    if (((iVar13 <= iVar3) && (g_screenSurface != 0)) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
+    if (((iVar13 <= iVar3) && (g_screenSurface != 0)) &&
+       (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x1f4,199), iVar3 != 0)) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x2e6,0x239);
+        BlitSprite16bpp(199,0x2e6,0x239,0x1f4);
       }
       else {
-        BlitSpriteClipped(199);
+        BlitSpriteClipped(199,0x2e6,0x239,0x1f4);
       }
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

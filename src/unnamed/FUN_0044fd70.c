@@ -3,6 +3,16 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * RENDER-CHAIN ARG FIX (2026-09-02): recovered the 2 argless
+ * FindSpriteFrame() calls from per-site disasm.  These are NOT
+ * g_spriteRegistry lookups: both load EAX = g_clientContext + 0x6a7f88
+ * (the active-object layer registry) with a CLASS ID in EDX.
+ * 0x44fe7c (the `slot < 8` path): key 0x186a7 (100007), inner key
+ * ESI = *(param_1+8) (`mov esi,[ebp+8]`, ebp = param_1).  0x44fdfb
+ * (the else path): key 0x186a6 (100006), inner key = *(param_1+8) - 8
+ * (`add esi,-8` at 0x44fdee).  No sibling blits - the results are read
+ * as object records (+0x38/+0x3c).
  */
 #include "ghidra_types.h"
 
@@ -54,7 +64,7 @@ void __fastcall FUN_0044fd70(int param_1)
     return;
   }
   if (*(uint *)(param_1 + 8) < 8) {
-    iVar4 = FindSpriteFrame();
+    iVar4 = FindSpriteFrame(g_clientContext + 0x6a7f88,0x186a7,*(uint *)(param_1 + 8));
     if (iVar4 != 0) {
       *(undefined4 *)(param_1 + 0x38) = *(undefined4 *)(iVar4 + 0x38);
       *(int *)(param_1 + 0x3c) = *(int *)(iVar4 + 0x3c) + -0x1e;
@@ -101,7 +111,7 @@ void __fastcall FUN_0044fd70(int param_1)
     }
   }
   else {
-    iVar6 = FindSpriteFrame();
+    iVar6 = FindSpriteFrame(g_clientContext + 0x6a7f88,0x186a6,*(uint *)(param_1 + 8) - 8);
     if (iVar6 == 0) {
       *(undefined1 *)(param_1 + 0x14) = 1;
       goto LAB_0044fe4c;

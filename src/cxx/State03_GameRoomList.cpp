@@ -5,10 +5,28 @@
  * docs/screens/03_game_room_list.md. See src/cxx/README.md.
  *
  * This is the first handler to read entirely through ClientContext.h's
- * room-grid accessors - the payoff of the arena reconstruction. The
- * sprite/blit helpers take their arguments in registers (Ghidra shows
- * them arg-less), so those calls stay in the raw external-call shape;
- * this is a renderer, so the value is readability, not byte-matching.
+ * room-grid accessors - the payoff of the arena reconstruction. This is
+ * a renderer, so the value is readability, not byte-matching.
+ *
+ * DROPPED-ARG FIX (2026-09-02, render-chain sweep): recovered the
+ * register args at all 10 argless FindSpriteFrame() calls and their
+ * sibling blits, and gave the file-local extern declarations the real
+ * prototypes (EAX=&g_spriteRegistry at every site; the blits share the
+ * frame/outerKey with their FindSpriteFrame and the x/y the C already
+ * carried).  RenderRoomCard, in order: 0x42a28a card background
+ * (key 0x2710, frame bankBase; B16 0x42a29d/CLP 0x42a2ac), 0x42a2df
+ * presence icon (0x2710, 0xe; 0x42a2f8/0x42a30c), 0x42a351 flagA
+ * (0x1f4, flagA+10; 0x42a36a/0x42a37d), 0x42a3be flagB (0x1f4,
+ * flagB+10; 0x42a3d7/0x42a3ea), 0x42a437 map thumbnail (0x2716,
+ * (infoB2&3)*0xb+mapId; 0x42a44d/0x42a45d), 0x42a4b6 badge (0x2710,
+ * badge; 0x42a4cc/0x42a4dc), 0x42a52e lock (0x2710, 0xf;
+ * 0x42a54a/0x42a561 - lockX is computed before the lookup and shared by
+ * both paths, so it is hoisted), 0x42a62f fullness bar (0x2710,
+ * ((info>>0x12)&3)+10; 0x42a646/0x42a65e).  RenderOverlay: 0x429835
+ * background (0x2710, 0; blits at (0,0)) and 0x429881 layer 2 (0x64,
+ * bgFrame; blits at (0xac,9)).  EDX survives the FindSpriteFrame call
+ * in the original (every CLP path relies on it), so re-passing the key
+ * expression is exact.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): RenderRoomLabel's six
  * value-guarded reads each load a DIFFERENT guard cell into EAX before the
@@ -37,9 +55,10 @@ extern void *PTR_DAT_00551ecc;            /* the "%d" room-number format string 
 extern const char s__s__3d__3d__005536b8[]; /* "%s[%3d/%3d]" scoreboard/banner format */
 extern unsigned char g_localizedStringTable; /* localized-string table base */
 extern CRITICAL_SECTION g_valueGuardLock;     /* the value-guard lock */
-int  FindSpriteFrame(void);               /* resolves the current frame (args in regs) */
-void BlitSprite16bpp(int x, int y);       /* hardware blit (frame in regs) */
-void BlitSpriteClipped(int frame);        /* software blit */
+extern unsigned char g_spriteRegistry[0x20]; /* was DAT_00ea0e18 - the sprite container */
+int  FindSpriteFrame(int container, int outerKey, int innerKey); /* frame lookup */
+void BlitSprite16bpp(int frame, int x, int y, int outerKey);  /* hardware blit */
+void BlitSpriteClipped(int frame, int x, int y, int outerKey); /* software blit */
 void BlitRLESprite(int x, int color);
 int  _sprintf(char *buf, const char *fmt, ...);
 void BlitSpriteText(int x, const char *text, int a, int b); /* text prep */
@@ -86,52 +105,57 @@ void CState03GameRoomList::RenderRoomCard(int slot)
         bankBase += 1;
     }
     int frame;
-    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 &&
+        (frame = FindSpriteFrame((int)&g_spriteRegistry, 0x2710, bankBase)) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
-            BlitSprite16bpp(xBand, yBand + 0x3a);
+            BlitSprite16bpp(bankBase, xBand, yBand + 0x3a, 0x2710);
         } else {
-            BlitSpriteClipped(bankBase);
+            BlitSpriteClipped(bankBase, xBand, yBand + 0x3a, 0x2710);
         }
     }
 
     /* presence/avatar icon (+0x449b4) */
     if (Ctx_roomPresence(ctx)[slot] != 0 && g_screenSurface != 0 &&
-        (frame = FindSpriteFrame()) != 0) {
+        (frame = FindSpriteFrame((int)&g_spriteRegistry, 0x2710, 0xe)) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
-            BlitSprite16bpp(xBand + 0xb1, yBand + 0x42);
+            BlitSprite16bpp(0xe, xBand + 0xb1, yBand + 0x42, 0x2710);
         } else {
-            BlitSpriteClipped(0xe);
+            BlitSpriteClipped(0xe, xBand + 0xb1, yBand + 0x42, 0x2710);
         }
     }
 
     /* flagA counter (+0x4499c) */
     u8 flagA = Ctx_roomFlagA(ctx)[slot];
-    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 &&
+        (frame = FindSpriteFrame((int)&g_spriteRegistry, 0x1f4, flagA + 10)) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
-            BlitSprite16bpp(xBand + 0xc3, yBand + 0x46);
+            BlitSprite16bpp(flagA + 10, xBand + 0xc3, yBand + 0x46, 0x1f4);
         } else {
-            BlitSpriteClipped(flagA + 10);
+            BlitSpriteClipped(flagA + 10, xBand + 0xc3, yBand + 0x46, 0x1f4);
         }
     }
 
     /* flagB counter (+0x449a2) */
     u8 flagB = Ctx_roomFlagB(ctx)[slot];
-    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 &&
+        (frame = FindSpriteFrame((int)&g_spriteRegistry, 0x1f4, flagB + 10)) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
-            BlitSprite16bpp(xBand + 0xd2, yBand + 0x46);
+            BlitSprite16bpp(flagB + 10, xBand + 0xd2, yBand + 0x46, 0x1f4);
         } else {
-            BlitSpriteClipped(flagB + 10);
+            BlitSpriteClipped(flagB + 10, xBand + 0xd2, yBand + 0x46, 0x1f4);
         }
     }
 
     /* map thumbnail: map + (info.byte2 & 3)*11 (+0x4497c / +0x44986) */
     u8 infoB2 = Ctx_roomInfoByte2(ctx)[slot * 4];
     u8 mapId = Ctx_roomMap(ctx)[slot];
-    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 &&
+        (frame = FindSpriteFrame((int)&g_spriteRegistry, 0x2716,
+                                 (infoB2 & 3) * 0xb + mapId)) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
-            BlitSprite16bpp(xBand + 0x6a, yBand + 0x5b);
+            BlitSprite16bpp((infoB2 & 3) * 0xb + mapId, xBand + 0x6a, yBand + 0x5b, 0x2716);
         } else {
-            BlitSpriteClipped((infoB2 & 3) * 0xb + mapId);
+            BlitSpriteClipped((infoB2 & 3) * 0xb + mapId, xBand + 0x6a, yBand + 0x5b, 0x2716);
         }
     }
 
@@ -145,22 +169,25 @@ void CState03GameRoomList::RenderRoomCard(int slot)
     } else {
         badge = 7;
     }
-    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 &&
+        (frame = FindSpriteFrame((int)&g_spriteRegistry, 0x2710, badge)) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
-            BlitSprite16bpp(xBand + 0x13, yBand + 0x55);
+            BlitSprite16bpp(badge, xBand + 0x13, yBand + 0x55, 0x2710);
         } else {
-            BlitSpriteClipped(badge);
+            BlitSpriteClipped(badge, xBand + 0x13, yBand + 0x55, 0x2710);
         }
     }
 
-    /* lock icon (+0x449ae) */
+    /* lock icon (+0x449ae); its x is computed before the frame lookup
+     * (0x42a4fb..0x42a50f) and both blit paths share it */
     if (Ctx_roomLock(ctx)[slot] != 0) {
-        if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
+        int lockX = (slot / 3 != 0 ? 0xea - 0xfa : 0xea) + xBand;
+        if (g_screenSurface != 0 &&
+            (frame = FindSpriteFrame((int)&g_spriteRegistry, 0x2710, 0xf)) != 0) {
             if (*(char *)(frame + 0x18) == 1) {
-                int lockX = (slot / 3 != 0 ? 0xea - 0xfa : 0xea) + xBand;
-                BlitSprite16bpp(lockX, yBand + 0x52);
+                BlitSprite16bpp(0xf, lockX, yBand + 0x52, 0x2710);
             } else {
-                BlitSpriteClipped(0xf);
+                BlitSpriteClipped(0xf, lockX, yBand + 0x52, 0x2710);
             }
         }
     }
@@ -182,12 +209,14 @@ void CState03GameRoomList::RenderRoomCard(int slot)
 
     /* fullness bar: info bits 18-19 (+0x44984) */
     u32 info = Ctx_roomInfo(ctx)[slot];
-    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 &&
+        (frame = FindSpriteFrame((int)&g_spriteRegistry, 0x2710,
+                                 ((info >> 0x12) & 3) + 10)) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
-            BlitSprite16bpp(xBand + 0xb1, yBand + 0x5b);
+            BlitSprite16bpp(((info >> 0x12) & 3) + 10, xBand + 0xb1, yBand + 0x5b, 0x2710);
             return;
         }
-        BlitSpriteClipped(((info >> 0x12) & 3) + 10);
+        BlitSpriteClipped(((info >> 0x12) & 3) + 10, xBand + 0xb1, yBand + 0x5b, 0x2710);
     }
 }
 
@@ -216,15 +245,17 @@ void CState03GameRoomList::RenderOverlay()   /* slot 15; nee RenderRoomLabel */
     int frame;
 
     /* background layer 1 */
-    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
-        if (*(char *)(frame + 0x18) == 1) BlitSprite16bpp(0, 0); /* y in reg */
-        else BlitSpriteClipped(0);
+    if (g_screenSurface != 0 &&
+        (frame = FindSpriteFrame((int)&g_spriteRegistry, 0x2710, 0)) != 0) {
+        if (*(char *)(frame + 0x18) == 1) BlitSprite16bpp(0, 0, 0, 0x2710);
+        else BlitSpriteClipped(0, 0, 0, 0x2710);
     }
     /* background layer 2 (frame index at ctx+0x23344) */
     u16 bgFrame = *(u16 *)(ctx + 0x23344);
-    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
-        if (*(char *)(frame + 0x18) == 1) BlitSprite16bpp(0xac, 9);
-        else BlitSpriteClipped(bgFrame);
+    if (g_screenSurface != 0 &&
+        (frame = FindSpriteFrame((int)&g_spriteRegistry, 0x64, bgFrame)) != 0) {
+        if (*(char *)(frame + 0x18) == 1) BlitSprite16bpp(bgFrame, 0xac, 9, 0x64);
+        else BlitSpriteClipped(bgFrame, 0xac, 9, 0x64);
     }
 
     /* channel banner, only when a channel name is set (ctx+0x23313). Both
