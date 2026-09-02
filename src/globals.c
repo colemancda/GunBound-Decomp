@@ -657,11 +657,9 @@ uint8_t DAT_00e5285c;
 uint8_t DAT_00e52864;
 uint8_t DAT_00e52868;
 uint8_t DAT_00e52e68;
-int *DAT_00e5369c;
-uint32_t g_cursorDeltaX;
-uint32_t g_cursorDeltaY;
-uint8_t DAT_00e536e4;
-uint8_t DAT_00e536ec;
+/* DAT_00e5369c, g_cursorDeltaX/Y, DAT_00e536e4, DAT_00e536ec are fields
+ * inside the coalesced g_mouseDeviceTimerBlock (offset macros in
+ * globals.h; storage in globals_sized.c since 2026-09-01). */
 /* Zeroed backing for the three per-tick input/cursor timer blocks GameTick
  * updates every elapsed tick. In the original these are static singletons at
  * fixed addresses - the mouse DirectInput device (0xe53698), the keyboard
@@ -679,13 +677,15 @@ uint8_t DAT_00e536ec;
  * scattered separate globals around here (DAT_00e5369c, g_cursorDeltaX, the
  * g_cursor* set, etc.); those do NOT alias into these arrays. Harmless while
  * no real input device is acquired. */
-uint8_t g_mouseDeviceTimerBlock[0x88];
+/* g_mouseDeviceTimerBlock moved to globals_sized.c, expanded 0x88 ->
+ * 0x5a8: the full DirectInput mouse/cursor singleton, coalescing the
+ * split fields around it; its constructor FUN_004ee120 now runs from
+ * the startup hook. The KNOWN DIVERGENCE above is resolved for the
+ * mouse object (keyboard/cursor-anim blocks unchanged). */
 uint8_t g_keyboardDeviceTimerBlock[0x658];
 uint8_t g_softwareCursorAnimBlock[0x38];
-uint8_t DAT_00e53c24;
-uint8_t DAT_00e53c28;
-uint8_t DAT_00e53c2c;
-uint8_t DAT_00e53c30;
+/* DAT_00e53c24/28/2c/30 are the cursor-bound dwords at
+ * g_mouseDeviceTimerBlock+0x58c..+0x598 - offset macros in globals.h. */
 /* Cursor mode flag: 1 = free/absolute (the software cursor's anchor tracks
  * the mouse), 0 = locked/relative (WndProc WM_MOUSEMOVE re-centers via
  * SetCursorPos and holds the anchor - battle aim mode). Only State11 (battle)
@@ -693,7 +693,10 @@ uint8_t DAT_00e53c30;
  * that nothing in the reconstruction initializes for the menus, so it
  * defaulted to 0 and the menu cursor was locked at (0,0). Default it to the
  * menu/free value 1 so the cursor tracks outside battle. (2026-07-18) */
-uint8_t g_cursorFreeMode = 1;
+/* g_cursorFreeMode is the byte at g_mouseDeviceTimerBlock+0x5a4 (macro
+ * in globals.h). Its old hand-set `= 1` is retired: FUN_004ee120 - the
+ * original's own constructor, now run from the startup hook - writes
+ * exactly that byte to 1. */
 /* g_uiPanelManager was a 1-byte placeholder, but the code dereferences it as
  * a container object: PanelManager_DispatchMouseMove/f1b0/f1f0/f150/f230 (WndProc's mouse/key
  * handlers) read its list head at +4, and PanelManager_* touch +4/+5/+8. With

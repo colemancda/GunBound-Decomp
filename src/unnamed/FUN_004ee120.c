@@ -1,21 +1,20 @@
 /* FUN_004ee120 - 0x004ee120 in the original binary.
  *
- * TRIAGE RECHECK (2026-09-01, after the 86e96f30 matrix sizing): the
- * blocker HOLDS - the prerequisite is the split-struct coalesce of the
- * 0xe53698 input/cursor object (0x5a8 bytes; highest ctor write +0x5a4),
- * not the 0x5a9xxx sizing, which is only the pattern to copy. Plan:
- * exact-fit object in globals_sized.c, SUBFIELD macros for the split
- * neighbours (+0x04, cursor deltas, +0x4c/+0x54, the FUN_004ee540 timer
- * fields +0x68..+0x84, +0x58c..+0x5a4; verify g_cursorFreeMode==0xe53c3c
- * against Ghidra before folding and retire its hand-set =1), then
- * promote this ctor's regEax.
+ * RECOVERED (2026-09-01): the 0xe53698 coalesce landed - one 0x5a8
+ * g_mouseDeviceTimerBlock in globals_sized.c with the split fields as
+ * offset macros - so regEax is now passed. The sole binary caller is
+ * the CRT static-init thunk FUN_00540e00 (mov eax,0xe53698 at
+ * 0x540e00, call at 0x540e05, then atexit); the port runs this ctor
+ * from crt_shims_msvc.c's startup hook, which also supplies the
+ * g_cursorFreeMode = 1 default the hand initializer used to fake and
+ * the 0..799/0..599 cursor bounds with the 400/300 anchor.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
  * DROPPED REGISTER RESOLVED BUT DELIBERATELY NOT APPLIED (2026-08-27).
- * in_EAX is 0xe53698 -- uniform, and there is only one call site: the static
+ * regEax is 0xe53698 -- uniform, and there is only one call site: the static
  * initialiser thunk FUN_00540e00 (`mov eax,0xe53698; call; atexit`).  That
  * address is g_mouseDeviceTimerBlock, so the argument itself is settled.
  *
@@ -42,39 +41,38 @@
 #include "ghidra_types.h"
 
 
-void FUN_004ee120(void)
+void FUN_004ee120(undefined4 *regEax)
 
 {
-  undefined4 *in_EAX;
   
-  in_EAX[2] = DAT_00557328;
-  in_EAX[3] = DAT_0055732c;
-  in_EAX[4] = DAT_00557330;
-  in_EAX[5] = DAT_00557334;
-  in_EAX[1] = 0;
-  *(undefined1 *)((int)in_EAX + 0x4b) = 0;
-  *(undefined1 *)((int)in_EAX + 0x4a) = 0;
-  *(undefined1 *)((int)in_EAX + 0x49) = 0;
-  *(undefined1 *)(in_EAX + 0x12) = 0;
-  in_EAX[0x13] = 0;
-  in_EAX[0x14] = 10;
-  *(undefined1 *)(in_EAX + 0x15) = 0;
-  *in_EAX = &PTR_FUN_00557484;
-  in_EAX[0x165] = 0;
-  in_EAX[0x163] = 0;
-  in_EAX[0x164] = 799;
-  in_EAX[0x166] = 599;
-  in_EAX[0x167] = 400;
-  in_EAX[0x168] = 300;
-  *(undefined1 *)(in_EAX + 0x169) = 1;
-  in_EAX[0x1a] = 0;
-  in_EAX[0x1b] = 0;
-  in_EAX[0x1c] = 0;
-  in_EAX[0x1d] = 0;
-  in_EAX[0x1e] = 0;
-  in_EAX[0x1f] = 0;
-  in_EAX[0x20] = 0;
-  in_EAX[0x21] = 0;
+  regEax[2] = DAT_00557328;
+  regEax[3] = DAT_0055732c;
+  regEax[4] = DAT_00557330;
+  regEax[5] = DAT_00557334;
+  regEax[1] = 0;
+  *(undefined1 *)((int)regEax + 0x4b) = 0;
+  *(undefined1 *)((int)regEax + 0x4a) = 0;
+  *(undefined1 *)((int)regEax + 0x49) = 0;
+  *(undefined1 *)(regEax + 0x12) = 0;
+  regEax[0x13] = 0;
+  regEax[0x14] = 10;
+  *(undefined1 *)(regEax + 0x15) = 0;
+  *regEax = &PTR_FUN_00557484;
+  regEax[0x165] = 0;
+  regEax[0x163] = 0;
+  regEax[0x164] = 799;
+  regEax[0x166] = 599;
+  regEax[0x167] = 400;
+  regEax[0x168] = 300;
+  *(undefined1 *)(regEax + 0x169) = 1;
+  regEax[0x1a] = 0;
+  regEax[0x1b] = 0;
+  regEax[0x1c] = 0;
+  regEax[0x1d] = 0;
+  regEax[0x1e] = 0;
+  regEax[0x1f] = 0;
+  regEax[0x20] = 0;
+  regEax[0x21] = 0;
   return;
 }
 

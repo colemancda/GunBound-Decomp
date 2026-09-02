@@ -352,3 +352,13 @@ unsigned char DAT_005a9350[0x40];
 unsigned char DAT_005a93e0[0x10];
 unsigned char DAT_005a93f0[0x40];
 unsigned char DAT_005a94b0[0x10];
+
+/* The DirectInput mouse/cursor singleton at 0xe53698 (was the 0x88-byte
+ * g_mouseDeviceTimerBlock in globals.c, sized only to its GameTick timer
+ * consumers). 0x5a8 is exact-fit: the constructor FUN_004ee120's highest
+ * write is the byte at +0x5a4 and the next object (g_uiPanelManager,
+ * 0xe53c40) sits 0x5a8 above the base. The formerly split-out fields
+ * (DAT_00e5369c at +4, the cursor deltas at +0x28/+0x2c, +0x4c/+0x54,
+ * the clamp-bound dwords at +0x58c..+0x598, g_cursorFreeMode at +0x5a4)
+ * are offset macros in globals.h now. */
+unsigned char g_mouseDeviceTimerBlock[0x5a8];

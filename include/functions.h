@@ -1296,7 +1296,7 @@ undefined4 * __fastcall FUN_004edd10();
 undefined4 __fastcall FUN_004edd70();
 void __fastcall FUN_004ede20();
 void __fastcall FUN_004ee0d0(int param_1);
-void FUN_004ee120();
+void FUN_004ee120(undefined4 *regEax);
 void * __thiscall CInputDevice_ScalarDeletingDestructor();
 void __fastcall CInputDevice_BaseDestructor();
 void __fastcall ClampCursorToRect();

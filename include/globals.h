@@ -903,27 +903,33 @@ extern uint8_t DAT_00e5285c;
 extern uint8_t DAT_00e52864;
 extern uint8_t DAT_00e52868;
 extern uint8_t DAT_00e52e68;
-extern int *DAT_00e5369c; /* used dereferenced as a vtable-bearing ptr at call sites */
-extern uint32_t g_cursorDeltaX;      /* was DAT_00e536c0 - accumulated mouse dX (battle camera scroll) */
-extern uint32_t g_cursorDeltaY;      /* was DAT_00e536c4 - accumulated mouse dY */
-extern uint8_t DAT_00e536e4;
-#define _DAT_00e536e4 DAT_00e536e4
-extern uint8_t DAT_00e536ec;
-/* Zeroed backing for GameTick's per-tick input/cursor timer blocks (mouse
- * 0xe53698, keyboard 0xe52810, cursor-anim 0x7a7644) - the DirectInput device
- * singletons are bring-up-stubbed and never constructed; see globals.c. */
-extern uint8_t g_mouseDeviceTimerBlock[0x88];
+/* The DirectInput mouse/cursor singleton at 0xe53698, COALESCED
+ * (2026-09-01): one 0x5a8-byte object in globals_sized.c; the split-out
+ * fields below are offset macros into it, so the constructor
+ * FUN_004ee120 (now run from the startup hook) and every field access
+ * observe the same memory. The _DAT_ spellings are the 4-byte-wide
+ * accesses Ghidra emitted - typing them uint32_t also FIXES the old
+ * truncation where dialog clamp bounds like 0x229 were stored through a
+ * one-byte global. g_cursorFreeMode's old hand-set `= 1` initializer is
+ * retired: the ctor writes that exact byte (+0x5a4 = 1). */
+extern uint8_t g_mouseDeviceTimerBlock[0x5a8];
+#define DAT_00e5369c (*(int **)(g_mouseDeviceTimerBlock + 0x04))
+#define g_cursorDeltaX (*(uint32_t *)(g_mouseDeviceTimerBlock + 0x28))
+#define g_cursorDeltaY (*(uint32_t *)(g_mouseDeviceTimerBlock + 0x2c))
+#define DAT_00e536e4 (*(uint8_t *)(g_mouseDeviceTimerBlock + 0x4c))
+#define _DAT_00e536e4 (*(uint32_t *)(g_mouseDeviceTimerBlock + 0x4c))
+#define DAT_00e536ec (*(uint8_t *)(g_mouseDeviceTimerBlock + 0x54))
 extern uint8_t g_keyboardDeviceTimerBlock[0x658];
 extern uint8_t g_softwareCursorAnimBlock[0x38];
-extern uint8_t DAT_00e53c24;
-#define _DAT_00e53c24 DAT_00e53c24
-extern uint8_t DAT_00e53c28;
-#define _DAT_00e53c28 DAT_00e53c28
-extern uint8_t DAT_00e53c2c;
-#define _DAT_00e53c2c DAT_00e53c2c
-extern uint8_t DAT_00e53c30;
-#define _DAT_00e53c30 DAT_00e53c30
-extern uint8_t g_cursorFreeMode;     /* was DAT_00e53c3c - 1=cursor tracks mouse (menu), 0=locked/aim (battle) */
+#define DAT_00e53c24 (*(uint8_t *)(g_mouseDeviceTimerBlock + 0x58c))
+#define _DAT_00e53c24 (*(uint32_t *)(g_mouseDeviceTimerBlock + 0x58c))
+#define DAT_00e53c28 (*(uint8_t *)(g_mouseDeviceTimerBlock + 0x590))
+#define _DAT_00e53c28 (*(uint32_t *)(g_mouseDeviceTimerBlock + 0x590))
+#define DAT_00e53c2c (*(uint8_t *)(g_mouseDeviceTimerBlock + 0x594))
+#define _DAT_00e53c2c (*(uint32_t *)(g_mouseDeviceTimerBlock + 0x594))
+#define DAT_00e53c30 (*(uint8_t *)(g_mouseDeviceTimerBlock + 0x598))
+#define _DAT_00e53c30 (*(uint32_t *)(g_mouseDeviceTimerBlock + 0x598))
+#define g_cursorFreeMode (*(uint8_t *)(g_mouseDeviceTimerBlock + 0x5a4))
 /* g_uiPanelManager (was DAT_00e53c40) - the global UI panel/dialog container
  * that screens attach dynamic panels to. Passed by address to the panel
  * builders/closers (BuildWorldListPanel, the lobby buddy panel BuildBuddyPanel,
