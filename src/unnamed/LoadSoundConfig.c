@@ -131,7 +131,7 @@ LAB_004e3667:
         else {
           acStack_11350[iVar7] = '\0';
           if (bVar2) {
-            FUN_00426620(param_1,acStack_11350);
+            FUN_00426620(acStack_10f50,param_1,acStack_11350);
           }
           iVar7 = 0;
           bVar2 = false;

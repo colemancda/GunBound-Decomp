@@ -30,8 +30,8 @@ void FUN_004260f0(int regEax,undefined4 regEsi,undefined4 regEdi)
 
 {
   
-  FUN_00426620(&DAT_006aa41c + regEax,regEsi);
-  FUN_00426620(&DAT_006aa44c + regEax,regEdi);
+  FUN_00426620(regEdi,&DAT_006aa41c + regEax,regEsi);
+  FUN_00426620(regEsi,&DAT_006aa44c + regEax,regEdi);
   return;
 }
 

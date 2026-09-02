@@ -77,7 +77,7 @@ void FUN_00404410(int param_1)
         if (*(char *)(iVar5 + 0x30) != '\0') {
           pcVar12 = (char *)(iVar5 + 0x21);
           piVar11 = (int *)(&DAT_006aa41c + iVar9);
-          iVar8 = FUN_00426780(local_15c,local_160,local_168);
+          iVar8 = FUN_00426780(local_15c,local_160,local_168,piVar11,(uchar *)pcVar12);
           if (iVar8 == 0) {
             local_138 = 0x69;
             iVar9 = 0;
@@ -124,7 +124,7 @@ void FUN_00404410(int param_1)
             RBTree_Insert(&local_100,&local_120,(int *)(param_1 + 0x1be4));
           }
           else {
-            iVar8 = FUN_00426780(local_164,&local_16c,local_168);
+            iVar8 = FUN_00426780(local_164,&local_16c,local_168,piVar11,(uchar *)pcVar12);
             if (iVar8 == 0) {
               if ((*piVar11 == 0) &&
                  (cVar7 = HashMap_InitHashTable(piVar11,*(undefined4 *)(&DAT_006aa424 + iVar9),1),
@@ -132,7 +132,7 @@ void FUN_00404410(int param_1)
                     /* WARNING: Subroutine does not return */
                 ThrowCxxException(0x8007000e);
               }
-              iVar8 = FUN_00426960(piVar11,pcVar12,local_16c);
+              iVar8 = FUN_00426960(*(int *)local_164,piVar11,pcVar12,local_16c);
             }
             pcVar10 = *(char **)(iVar8 + 4);
             pcVar12 = (char *)&local_158;

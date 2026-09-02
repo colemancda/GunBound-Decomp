@@ -4,6 +4,12 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-09-01): interior call sites recovered their register args -
+ * FUN_00426780 gains the promoted table/key trailing args (0x426652 mov
+ * eax,esi=param_2; 0x426648 mov ebx,ecx=param_1), and FUN_00426960 was one
+ * slot left of its 4-param list (0x42667e ECX=[ebp-0x18]=local_1c bucket
+ * index that FUN_00426780 wrote).
  */
 #include "ghidra_types.h"
 
@@ -32,13 +38,13 @@ int __thiscall FUN_00426620(undefined4 param_1,int *param_2,char *param_3)
   local_10 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_10;
   local_14 = &stack0xffffffd4;
-  iVar2 = FUN_00426780(&local_1c,&local_18,local_20);
+  iVar2 = FUN_00426780(&local_1c,&local_18,local_20,param_2,(uchar *)param_1);
   if (iVar2 == 0) {
     if ((*param_2 == 0) && (cVar1 = HashMap_InitHashTable(param_2,param_2[2],1), cVar1 == '\0')) {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x8007000e);
     }
-    iVar2 = FUN_00426960(param_2,param_1,local_18);
+    iVar2 = FUN_00426960(local_1c,param_2,param_1,local_18);
     local_8 = 0;
     iVar4 = iVar2 + 4;
     pcVar3 = param_3;

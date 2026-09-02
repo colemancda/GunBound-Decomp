@@ -512,7 +512,8 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
             }
             if (((g_currentGameState == 9) && (g_bBattleSessionActive == '\0')) && (iVar3 == 1)) {
               cVar1 = CompareChecksumMatch(param_1 + 0x3b6c4,param_1 + 0x3b49c);
-              if ((cVar1 != '\0') && (iVar4 = FUN_00409c70(&DAT_00e9bea8), iVar4 != -1)) {
+              if ((cVar1 != '\0') &&
+                 (iVar4 = FUN_00409c70((int *)&DAT_00e9bea8,(uchar *)local_220), iVar4 != -1)) {
                 uVar10 = PeekChecksumStateUnderLock(g_gameStateVTableArray[9] + 0x26c);
                 QueueOutgoingPacketField(uVar10 & 0xfffff | iVar4 << 0x18);
                 iVar3 = g_connectionContextA;

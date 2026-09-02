@@ -116,7 +116,9 @@ void ApplyBattleActionToContext(int param_1,int param_2,int param_3)
           puVar17 = (ushort *)((int)puVar17 + 1);
           pbVar19 = pbVar19 + 1;
         }
-        FUN_004e3740(&DAT_00794e14);
+        /* orig 0x42339f also pushes an extra 0 the ret-4 callee never reads
+         * (dead stack slot) - deliberately not reproduced. */
+        FUN_004e3740((int *)&DAT_00794e14,&local_408);
         AcquireSoundChannel(uVar6);
         AppendChatLogEntry(param_1,0,(uint)bVar1 * 9 + 0x457a9 + param_1,iVar8,puVar12,0,1,
                            param_3 - 0x21U);
@@ -209,8 +211,8 @@ LAB_0042326c:
       local_414 = *(undefined4 *)(param_2 + 0x3b);
       local_420 = 0;
       local_410 = 0;
-      FUN_00426620(&DAT_006aa41c + param_1,&local_430);
-      FUN_00426620(&DAT_006aa44c + param_1,&local_41c);
+      FUN_00426620(&local_41c,&DAT_006aa41c + param_1,&local_430);
+      FUN_00426620(&local_430,&DAT_006aa44c + param_1,&local_41c);
       iVar8 = g_clientContext;
       uVar10 = (uint)bVar1;
       *(uint *)(g_clientContext + 0x4599c + uVar10 * 4) = (uint)*(ushort *)(param_2 + 0x3f);

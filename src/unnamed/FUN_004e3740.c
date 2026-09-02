@@ -4,11 +4,17 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * PROMOTED (2026-09-01): was `(void)` but the original is `ret 4` with one
+ * stack param (the hash table - EAX=[esp+0x2c]=entry+4 at 0x4e3784 feeds
+ * FUN_00426780's table register) plus EBX live-in (the key string, likewise
+ * fed straight through). The interior FUN_00426780 call gains both as its
+ * promoted trailing args.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_004e3740(void)
+undefined4 * FUN_004e3740(int *param_1,uchar *regEbx)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -35,7 +41,7 @@ undefined4 * FUN_004e3740(void)
    * it.  The store was folded away by Ghidra - same as GetLocalizedString. */
   local_18 = (int)(puVar2 + 4);
   uStack_4 = 0;
-  iVar3 = FUN_00426780(auStack_10,auStack_14,&stack0x00000004);
+  iVar3 = FUN_00426780(auStack_10,auStack_14,&stack0x00000004,param_1,regEbx);
   if (iVar3 != 0) {
     FUN_0043ddb0((int *)(iVar3 + 4),&local_18);
     uStack_4 = 0xffffffff;

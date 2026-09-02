@@ -221,7 +221,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
                   puVar13 = (ushort *)((int)puVar13 + 1);
                   pbVar14 = pbVar14 + 1;
                 }
-                FUN_004e3740(&DAT_00794e14);
+                FUN_004e3740((int *)&DAT_00794e14,&local_2658);
                 AcquireSoundChannel(uVar21);
                 FUN_0041ef90(g_clientContext,0,local_27e4,puVar12,uVar11,local_27ec[3] + 300,0);
                 AppendChatLogEntry(g_clientContext,0,(int)local_27e0 * 9 + 0x5012e + g_clientContext,
@@ -316,7 +316,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
               puVar13 = (ushort *)((int)puVar13 + 1);
               pbVar14 = pbVar14 + 1;
             }
-            FUN_004e3740(&DAT_00794e14);
+            FUN_004e3740((int *)&DAT_00794e14,&local_2658);
             AcquireSoundChannel(uVar21);
             FUN_0041ef90(g_clientContext,7,local_27e4,puVar12,uVar11,local_27ec[3] + 300,0);
             AppendChatLogEntry(g_clientContext,7,(int)local_27e0 * 9 + 0x5012e + g_clientContext,
