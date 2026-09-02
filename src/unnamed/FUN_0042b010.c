@@ -3,6 +3,10 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-09-01): recovered the dropped guard-cell arg at the one
+ * argless InitGuardedBool site (ECX arg; 0x42b018 ecx=edi+4, edi =
+ * regEdi). Witnessed by the rand-guard triple at regEdi+4..+6 below.
  */
 #include "ghidra_types.h"
 
@@ -14,7 +18,7 @@ void FUN_0042b010(int regEdi)
   int iVar2;
   byte bVar3;
   
-  InitGuardedBool();
+  InitGuardedBool((byte *)(regEdi + 4));
   *(undefined4 *)(regEdi + 8) = 0;
   *(undefined4 *)(regEdi + 0xc) = 0;
   *(undefined4 *)(regEdi + 0x10) = 0;

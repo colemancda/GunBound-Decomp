@@ -3,6 +3,10 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * GUARD-CELL FIX (2026-09-01): recovered the guard-cell arg at the 3
+ * argless InitGuardedBool() calls (+0x68c/+0x68f/+0x692) from the lea ecx
+ * sequence at 0x4188b6-0x4188d7, SEH state 2.
  */
 #include "ghidra_types.h"
 
@@ -36,9 +40,9 @@ int __fastcall InitItemRecord(int param_1)
   *(undefined4 *)(param_1 + 0x47c) = 0;
   EncodeOutgoingPacketField(param_1 + 0x468, 0);
   local_4 = 2;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)(param_1 + 0x68c));
+  InitGuardedBool((byte *)(param_1 + 0x68f));
+  InitGuardedBool((byte *)(param_1 + 0x692));
   *(undefined1 *)(param_1 + 0x8b8) = 0;
   *(undefined4 *)(param_1 + 0x6ac) = 0;
   EncodeOutgoingPacketField(param_1 + 0x698, 0);

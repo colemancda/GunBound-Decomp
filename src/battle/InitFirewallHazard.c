@@ -12,6 +12,10 @@
  * because this ctor calls an extra InitGuardedBool: position +0x3c,
  * width +0x260, frame counter +0x484, lifetime +0x488. Render = vtable
  * slot 3 (+0xc) = 0x471550; animation stride frame*0x6c (flame cycling).
+ *
+ * GUARD-CELL FIX (2026-09-01): recovered the guard-cell arg at the one
+ * argless InitGuardedBool() call: param_1+0x38 (lea ebp,[esi+0x38]; mov
+ * ecx,ebp at 0x471371).
  */
 #include "ghidra_types.h"
 
@@ -44,7 +48,7 @@ undefined4 * InitFirewallHazard(undefined4 *param_1)
   param_1[9] = 0xffffffff;
   local_4 = 0;
   *param_1 = &PTR_FUN_00555edc;
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1 + 0x38);
   *(undefined1 *)(param_1 + 0x97) = 0;
   param_1[0x14] = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x47138b

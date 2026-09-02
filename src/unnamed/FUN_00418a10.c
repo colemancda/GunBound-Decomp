@@ -3,6 +3,13 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-09-01): recovered the dropped guard-cell arg at the 6
+ * argless InitGuardedBool sites (ECX arg; `lea ecx,[esi+OFF]`,
+ * esi = param_1, calls 0x418a9a..0x418ad1, all under the SUBFIELD=3
+ * marker matching `mov byte [esp+0x18],3`). 3-byte cells at 0x890,
+ * 0x893, 0x896, 0x899, 0x89c, 0x89f - directly below the
+ * EncodeOutgoingPacketField cell at +0x8a4.
  */
 #include "ghidra_types.h"
 
@@ -43,12 +50,12 @@ int __fastcall FUN_00418a10(int param_1)
   *(undefined4 *)(param_1 + 0x680) = 0;
   EncodeOutgoingPacketField(param_1 + 0x66c, 0);
   SUBFIELD(local_4,0,undefined1) = 3;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)(param_1 + 0x890));
+  InitGuardedBool((byte *)(param_1 + 0x893));
+  InitGuardedBool((byte *)(param_1 + 0x896));
+  InitGuardedBool((byte *)(param_1 + 0x899));
+  InitGuardedBool((byte *)(param_1 + 0x89c));
+  InitGuardedBool((byte *)(param_1 + 0x89f));
   *(undefined1 *)(param_1 + 0xac4) = 0;
   *(undefined4 *)(param_1 + 0x8b8) = 0;
   EncodeOutgoingPacketField(param_1 + 0x8a4, 0);

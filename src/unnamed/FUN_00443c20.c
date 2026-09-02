@@ -16,7 +16,13 @@
  * fs:[0],esp` is a standard MSVC exception frame; per the
  * entry/InitGame.c idiom (and WidgetChildArray_Destroy's), we don't
  * reproduce __try/__except frames for a bring-up port - stripped along
- * with the (write-only, SEH-unwind-only) `local_4` state marker. */
+ * with the (write-only, SEH-unwind-only) `local_4` state marker. *
+ * FIXED (2026-09-01): recovered the dropped guard-cell arg at the 3
+ * argless InitGuardedBool sites (ECX arg; `lea ecx,[esi+OFF]`,
+ * esi = param_1, calls 0x443d5e/0x443d69/0x443d74). Byte offsets
+ * 0x32c54, 0x32ce0, 0x32e63. The trailing FUN_00425350() also takes
+ * ECX (esi+0x32fa0 at 0x443d7f) but is out of this sweep's scope.
+ */
 #include "ghidra_types.h"
 
 
@@ -70,9 +76,9 @@ undefined4 * FUN_00443c20(undefined4 *param_1)
    * activeFlag=*(undefined1*)(param_1+0xc9f4), matching above. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)param_1 + 0x325b0, 0);
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1 + 0x32c54);
+  InitGuardedBool((byte *)param_1 + 0x32ce0);
+  InitGuardedBool((byte *)param_1 + 0x32e63);
   FUN_00425350();
   return param_1;
 }

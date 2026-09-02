@@ -12,6 +12,10 @@
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at the file's one argless PeekPacketChecksumState() call: param_1+0x480, the cell the Encode immediately above zeroes (its 2026-07-15 note names the base), re-read into the +0x25c Encode.
+ *
+ * GUARD-CELL FIX (2026-09-01): recovered the guard-cell arg at the 3
+ * argless InitGuardedBool() calls (0xf38/0xf3b/0x1c18) from the lea ecx
+ * sequence, SEH states 7 and 0xd.
  */
 #include "ghidra_types.h"
 
@@ -107,8 +111,8 @@ undefined4 * InitJewel(undefined4 *param_1,undefined4 param_2)
    * this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0xd14),0);
   local_4 = 7;
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1 + 0xf38);
+  InitGuardedBool((byte *)param_1 + 0xf3b);
   *(undefined1 *)(param_1 + 0x458) = 0;
   param_1[0x3d5] = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477ce2
@@ -163,7 +167,7 @@ undefined4 * InitJewel(undefined4 *param_1,undefined4 param_2)
    * above this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x19f4),0);
   local_4 = 0xd;
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1 + 0x1c18);
   *(undefined1 *)(param_1 + 0x78f) = 0;
   param_1[0x70c] = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477d89

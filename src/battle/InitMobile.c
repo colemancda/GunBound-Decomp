@@ -30,6 +30,11 @@
  * PROLOGUE, so it reports every cell as `[esp+0x1c] !!PRE-SETTLE` and
  * refuses to normalise the slot.  Its offsets are still good - only the
  * base needed the file's own Encode idiom to name.
+ *
+ * GUARD-CELL FIX (2026-09-01): recovered the guard-cell arg at all 38
+ * argless InitGuardedBool() calls from the lea ecx sequence (0x458bec..
+ * 0x459647); groups witness-matched by SEH state byte (1/0xa/0x3e/0x46/
+ * 0x4f/0x53/0x57).
  */
 #include "ghidra_types.h"
 
@@ -65,7 +70,7 @@ undefined4 * InitMobile(undefined4 *param_1,undefined4 param_2)
   *param_1 = &PTR_FUN_00555c68;
   FUN_0044fb40(param_1 + 0xe);
   local_4 = 1;
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1 + 0x908);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x458c01
    * (`0x458bf1: lea edi,[esi + 0x90c]`) through the ~89 sites below (up to
    * call_addr 0x4594dc), the cell is `param_1 + N` (undefined4* pointer
@@ -114,7 +119,7 @@ undefined4 * InitMobile(undefined4 *param_1,undefined4 param_2)
   param_1[0x690] = 0;
   EncodeOutgoingPacketField(param_1 + 0x68b, 0);
   local_4 = 10;
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1 + 0x1c50);
   *(undefined1 *)(param_1 + 0x79d) = 0;
   param_1[0x71a] = 0;
   EncodeOutgoingPacketField(param_1 + 0x715, 0);
@@ -323,15 +328,15 @@ undefined4 * InitMobile(undefined4 *param_1,undefined4 param_2)
   param_1[0x2266] = 0;
   EncodeOutgoingPacketField(param_1 + 0x2261, 0);
   local_4 = 0x3e;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1 + 0x8ba8);
+  InitGuardedBool((byte *)param_1 + 0x8bab);
+  InitGuardedBool((byte *)param_1 + 0x8bae);
+  InitGuardedBool((byte *)param_1 + 0x8bb1);
+  InitGuardedBool((byte *)param_1 + 0x8bb4);
+  InitGuardedBool((byte *)param_1 + 0x8bb7);
+  InitGuardedBool((byte *)param_1 + 0x8bba);
+  InitGuardedBool((byte *)param_1 + 0x8bbd);
+  InitGuardedBool((byte *)param_1 + 0x8bc0);
   *(undefined1 *)(param_1 + 0x2379) = 0;
   param_1[0x22f6] = 0;
   EncodeOutgoingPacketField(param_1 + 0x22f1, 0);
@@ -364,10 +369,10 @@ undefined4 * InitMobile(undefined4 *param_1,undefined4 param_2)
   param_1[0x26b5] = 0;
   EncodeOutgoingPacketField(param_1 + 0x26b0, 0);
   local_4 = 0x46;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1 + 0x9ce4);
+  InitGuardedBool((byte *)param_1 + 0x9ce7);
+  InitGuardedBool((byte *)param_1 + 0x9cea);
+  InitGuardedBool((byte *)param_1 + 0x9ced);
   *(undefined1 *)(param_1 + 0x27c4) = 0;
   param_1[0x2741] = 0;
   EncodeOutgoingPacketField(param_1 + 0x273c, 0);
@@ -404,9 +409,9 @@ undefined4 * InitMobile(undefined4 *param_1,undefined4 param_2)
   param_1[0x2ba0] = 0;
   EncodeOutgoingPacketField(param_1 + 0x2b9b, 0);
   local_4 = 0x4f;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1 + 0xb090);
+  InitGuardedBool((byte *)param_1 + 0xb0b5);
+  InitGuardedBool((byte *)param_1 + 0xb0b8);
   *(undefined1 *)(param_1 + 0x2cb7) = 0;
   param_1[0x2c34] = 0;
   EncodeOutgoingPacketField(param_1 + 0x2c2f, 0);
@@ -421,18 +426,18 @@ undefined4 * InitMobile(undefined4 *param_1,undefined4 param_2)
   local_4 = 0x52;
   _eh_vector_constructor_iterator_(param_1 + 0x2dca,0x224,4,InitGuardSlot,ScrubChecksumGuard);
   local_4 = 0x53;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1 + 0xbfbe);
+  InitGuardedBool((byte *)param_1 + 0xbfc1);
+  InitGuardedBool((byte *)param_1 + 0xbfc4);
+  InitGuardedBool((byte *)param_1 + 0xbfc7);
+  InitGuardedBool((byte *)param_1 + 0xbfca);
+  InitGuardedBool((byte *)param_1 + 0xbfcd);
+  InitGuardedBool((byte *)param_1 + 0xbfd0);
+  InitGuardedBool((byte *)param_1 + 0xbfd3);
+  InitGuardedBool((byte *)param_1 + 0xbfd6);
+  InitGuardedBool((byte *)param_1 + 0xbff4);
+  InitGuardedBool((byte *)param_1 + 0xbff7);
+  InitGuardedBool((byte *)param_1 + 0xc07a);
   *(undefined1 *)(param_1 + 0x30a8) = 0;
   param_1[0x3025] = 0;
   EncodeOutgoingPacketField(param_1 + 0x3020, 0);
@@ -449,14 +454,14 @@ undefined4 * InitMobile(undefined4 *param_1,undefined4 param_2)
   param_1[0x31c3] = 0;
   EncodeOutgoingPacketField(param_1 + 0x31be, 0);
   local_4 = 0x57;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1 + 0xc92c);
+  InitGuardedBool((byte *)param_1 + 0xc92f);
+  InitGuardedBool((byte *)param_1 + 0xc932);
+  InitGuardedBool((byte *)param_1 + 0xc935);
+  InitGuardedBool((byte *)param_1 + 0xc938);
+  InitGuardedBool((byte *)param_1 + 0xc93b);
+  InitGuardedBool((byte *)param_1 + 0xc93e);
+  InitGuardedBool((byte *)param_1 + 0xc941);
   *(undefined1 *)(param_1 + 0x32d9) = 0;
   param_1[0x3256] = 0;
   EncodeOutgoingPacketField(param_1 + 0x3251, 0);

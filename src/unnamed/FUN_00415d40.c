@@ -3,7 +3,18 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
- */
+ *
+ * FIXED (2026-09-01): recovered the dropped guard-cell arg at all 22
+ * argless InitGuardedBool sites (cell address arrives in ECX,
+ * `lea ecx,[ebp+OFF]` with ebp = param_1). Binary calls at
+ * 0x415dc4..0x4169f2 paired 1:1 in order with the C sites; the
+ * SUBFIELD(local_4) state markers (1,0x15,0x17,0x2f,0x36,0x45,0x49,
+ * 0x54,0x57,0x5d,0x5e) match the `mov byte [esp+0x1c],N` at each
+ * binary site, and the rand-guard triples at param_1+0x23310 and
+ * &DAT_006aa678+param_1 witness sites 2 and 22. Offsets: 0x22d30,
+ * 0x23310, 0x3b498, 0x3b968, 0x5b818, 0x62140/43/46/49/4c/4f/52,
+ * 0x5f3770, 0x67e3cc, 0x6a7f90, 0x6a9b6c/6f/72, 0x6aa625/28/2b,
+ * 0x6aa678. */
 #include "ghidra_types.h"
 
 
@@ -38,8 +49,8 @@ int FUN_00415d40(int param_1)
   *(undefined1 *)(param_1 + 0x1072d) = 1;
   *(undefined4 *)(param_1 + 0xf6f0) = 0;
   SUBFIELD(local_4,0,undefined1) = 1;
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)(param_1 + 0x22d30));
+  InitGuardedBool((byte *)(param_1 + 0x23310));
   *(undefined1 *)(param_1 + 0x23568) = 0;
   *(undefined4 *)(param_1 + 0x2335c) = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x415de4
@@ -148,7 +159,7 @@ int FUN_00415d40(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x14;
   _eh_vector_constructor_iterator_((void *)(param_1 + 0x3ac08),0x224,4,InitGuardSlot,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x15;
-  InitGuardedBool();
+  InitGuardedBool((byte *)(param_1 + 0x3b498));
   *(undefined1 *)(param_1 + 0x3b6bc) = 0;
   *(undefined4 *)(param_1 + 0x3b4b0) = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x416047
@@ -165,7 +176,7 @@ int FUN_00415d40(int param_1)
    * See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField(param_1 + 0x3b6c4, 0);
   SUBFIELD(local_4,0,undefined1) = 0x17;
-  InitGuardedBool();
+  InitGuardedBool((byte *)(param_1 + 0x3b968));
   *(undefined1 *)(param_1 + 0x4133c) = 0;
   *(undefined4 *)(param_1 + 0x41130) = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x416086
@@ -326,7 +337,7 @@ int FUN_00415d40(int param_1)
    * See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField(param_1 + 0x5b5f4, 0);
   SUBFIELD(local_4,0,undefined1) = 0x2f;
-  InitGuardedBool();
+  InitGuardedBool((byte *)(param_1 + 0x5b818));
   *(undefined1 *)(param_1 + 0x5ba7c) = 0;
   *(undefined4 *)(param_1 + 0x5b870) = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x416369
@@ -347,13 +358,13 @@ int FUN_00415d40(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x35;
   _eh_vector_constructor_iterator_((void *)(param_1 + 0x61020),0x224,8,InitGuardSlot,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x36;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)(param_1 + 0x62140));
+  InitGuardedBool((byte *)(param_1 + 0x62143));
+  InitGuardedBool((byte *)(param_1 + 0x62146));
+  InitGuardedBool((byte *)(param_1 + 0x62149));
+  InitGuardedBool((byte *)(param_1 + 0x6214c));
+  InitGuardedBool((byte *)(param_1 + 0x6214f));
+  InitGuardedBool((byte *)(param_1 + 0x62152));
   *(undefined1 *)(param_1 + 0x62408) = 0;
   *(undefined4 *)(param_1 + 0x621fc) = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x41649c
@@ -424,7 +435,7 @@ int FUN_00415d40(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x44;
   _eh_vector_constructor_iterator_(&DAT_005c7fb8 + param_1,0x157c,0x20,FUN_00418a10,FUN_00418b90);
   SUBFIELD(local_4,0,undefined1) = 0x45;
-  InitGuardedBool();
+  InitGuardedBool((byte *)&DAT_005f3770 + param_1);
   _eh_vector_constructor_iterator_(&DAT_005f3774 + param_1,0x224,8,InitGuardSlot,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x46;
   (&DAT_005f4ab4)[param_1] = 0;
@@ -441,7 +452,7 @@ int FUN_00415d40(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x48;
   _eh_vector_constructor_iterator_(&DAT_005f5348 + param_1,0x224,0x400,InitGuardSlot,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x49;
-  InitGuardedBool();
+  InitGuardedBool((byte *)&DAT_0067e3cc + param_1);
   (&DAT_0067e5f0)[param_1] = 0;
   *(undefined4 *)(&DAT_0067e3e4 + param_1) = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x416709
@@ -518,7 +529,7 @@ int FUN_00415d40(int param_1)
   ActiveObjectRegistry_BaseConstructor((undefined4 *)(param_1 + 0x6a7f88));
   *(undefined ***)(&DAT_006a7f88 + param_1) = &PTR_FUN_00555b7c;
   SUBFIELD(local_4,0,undefined1) = 0x54;
-  InitGuardedBool();
+  InitGuardedBool((byte *)&DAT_006a7f90 + param_1);
   (&DAT_006a81b4)[param_1] = 0;
   *(undefined4 *)(&DAT_006a7fa8 + param_1) = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x41688b
@@ -532,9 +543,9 @@ int FUN_00415d40(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x56;
   _eh_vector_constructor_iterator_(&DAT_006a8e90 + param_1,0x224,6,InitGuardSlot,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x57;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)&DAT_006a9b6c + param_1);
+  InitGuardedBool((byte *)&DAT_006a9b6f + param_1);
+  InitGuardedBool((byte *)&DAT_006a9b72 + param_1);
   (&DAT_006a9d98)[param_1] = 0;
   *(undefined4 *)(&DAT_006a9b8c + param_1) = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x41690a
@@ -573,12 +584,12 @@ int FUN_00415d40(int param_1)
   HashMap_Construct(0xa,0x3f400000,0x3e800000,0x40100000,0x11,(undefined4 *)(param_1 + 0x6aa41c));
   HashMap_Construct(0xa,0x3f400000,0x3e800000,0x40100000,0x11,(undefined4 *)(param_1 + 0x6aa44c));
   SUBFIELD(local_4,0,undefined1) = 0x5d;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)&DAT_006aa625 + param_1);
+  InitGuardedBool((byte *)&DAT_006aa628 + param_1);
+  InitGuardedBool((byte *)&DAT_006aa62b + param_1);
   _eh_vector_constructor_iterator_(&DAT_006aa630 + param_1,4,10,FUN_00426410,FUN_00405320);
   SUBFIELD(local_4,0,undefined1) = 0x5e;
-  InitGuardedBool();
+  InitGuardedBool((byte *)&DAT_006aa678 + param_1);
   (&DAT_006aa89c)[param_1] = 0;
   *(undefined4 *)(&DAT_006aa690 + param_1) = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x416a07

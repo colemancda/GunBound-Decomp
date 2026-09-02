@@ -4,6 +4,10 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * GUARD-CELL FIX (2026-09-01): recovered the guard-cell arg at all 13
+ * argless InitGuardedBool() calls from the lea ecx sequence (0x454ecd..
+ * 0x45518d), witness-matched by SEH state byte (7/0x18/0x1a/0x1d).
  */
 #include "ghidra_types.h"
 
@@ -105,11 +109,11 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
    * See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_2 + 0xd18),0);
   SUBFIELD(local_4,0,undefined1) = 7;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_2 + 0xf3c);
+  InitGuardedBool((byte *)param_2 + 0xf3f);
+  InitGuardedBool((byte *)param_2 + 0xf42);
+  InitGuardedBool((byte *)param_2 + 0xf45);
+  InitGuardedBool((byte *)param_2 + 0xf4c);
   *(undefined1 *)(param_2 + 0x45d) = 0;
   param_2[0x3da] = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x454f0e
@@ -280,10 +284,10 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
    * this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_2 + 0x3198),0);
   SUBFIELD(local_4,0,undefined1) = 0x18;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_2 + 0x33bc);
+  InitGuardedBool((byte *)param_2 + 0x33bf);
+  InitGuardedBool((byte *)param_2 + 0x33c2);
+  InitGuardedBool((byte *)param_2 + 0x33c5);
   *(undefined1 *)(param_2 + 0xd7a) = 0;
   param_2[0xcf7] = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4550f4
@@ -304,9 +308,9 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
    * this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_2 + 0x35ec),0);
   SUBFIELD(local_4,0,undefined1) = 0x1a;
-  InitGuardedBool();
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_2 + 0x3810);
+  InitGuardedBool((byte *)param_2 + 0x3918);
+  InitGuardedBool((byte *)param_2 + 0x391b);
   *(undefined1 *)(param_2 + 0xed0) = 0;
   param_2[0xe4d] = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x455149
@@ -337,7 +341,7 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
    * this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_2 + 0x3d6c),0);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x1d);
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_2 + 0x3f98);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
   *(char *)((int)param_2 + 0xf45) = (char)iVar1;

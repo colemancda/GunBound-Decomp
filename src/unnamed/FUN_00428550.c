@@ -4,6 +4,10 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-09-01): recovered the dropped guard-cell arg at the one
+ * argless InitGuardedBool site (ECX arg; 0x42856e ecx=esi, esi =
+ * param_1) - the cell is param_1 itself, the object base.
  */
 #include "ghidra_types.h"
 
@@ -20,7 +24,7 @@ int FUN_00428550(int param_1)
   local_4 = 0xffffffff;
   puStack_8 = &LAB_005380ab;
   *unaff_FS_OFFSET = &local_c;
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1);
   *(undefined1 *)(param_1 + 0x228) = 0;
   *(undefined4 *)(param_1 + 0x1c) = 0;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x428582

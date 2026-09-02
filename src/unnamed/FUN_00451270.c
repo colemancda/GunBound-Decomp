@@ -3,6 +3,11 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-09-01): recovered the dropped guard-cell arg at both
+ * argless InitGuardedBool sites (ECX arg; 0x451292 ecx=ebp+0x3f9c,
+ * 0x45129f ecx=ebp+0x3f9f, ebp = param_1). Witnessed by the two
+ * rand-guard triples right below at 0x3f9c-0x3f9e and 0x3f9f-0x3fa1.
  */
 #include "ghidra_types.h"
 
@@ -16,8 +21,8 @@ undefined4 * FUN_00451270(undefined4 *param_1)
   
   InitProjectile(param_1,0x186a2);
   *param_1 = &PTR_FUN_00555bd0;
-  InitGuardedBool();
-  InitGuardedBool();
+  InitGuardedBool((byte *)param_1 + 0x3f9c);
+  InitGuardedBool((byte *)param_1 + 0x3f9f);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = _rand();
   *(byte *)(param_1 + 0xfe7) = (byte)iVar2;
