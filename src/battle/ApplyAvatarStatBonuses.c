@@ -96,7 +96,12 @@ void ApplyAvatarStatBonuses(undefined4 param_1,undefined4 param_2,undefined4 par
    * included in this function's own decompile. Same rationale as
    * entry/InitGame.c - see src/README.md. */
   uStack_10 = 0x424adf;
-  FUN_00425350();
+  /* DROPPED-REG FIX (2026-09-20): ECX = entry_esp-0x17f0 at 0x424ae3
+   * (lea ecx,[esp+0x3c], esp there = entry_esp-0x182c after the chkstk
+   * alloc + 4 saved-reg pushes) - exactly partWorkspace, cross-checked
+   * against the FUN_00423e20 call two lines below whose regEsi arg is
+   * the algebraically identical esp+0x44 one push shallower. */
+  FUN_00425350((int)partWorkspace);
   local_4 = 0;
   FUN_00423e20(param_1,0,*(ushort *)((int)param_2 + 0),(int)partWorkspace);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x424b37..

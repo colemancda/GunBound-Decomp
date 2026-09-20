@@ -447,7 +447,7 @@ uint FUN_00423e20(undefined4 param_1, int param_2, uint regEax, int regEsi);
 uint FUN_004240c0(undefined4 param_1, int param_2, int param_3, int param_4, int outRecord);
 void FUN_00424400(int regEsi);
 void ApplyAvatarStatBonuses();
-int __fastcall FUN_00425350();
+int __fastcall FUN_00425350(int param_1);
 void __fastcall FUN_004254a0();
 void FUN_00425700(int regEsi);
 void FUN_00425770(int clientContext);

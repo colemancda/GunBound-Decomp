@@ -56,7 +56,11 @@ void RenderInventoryItemDetail(int param_1)
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
   uStack_10 = 0x44b91f;
-  FUN_00425350();
+  /* DROPPED-REG FIX (2026-09-20): ECX = entry_esp-0x17f0 at 0x44b92a
+   * (lea ecx,[esp+0x130], esp there = entry_esp-0x1920 after the chkstk
+   * alloc + 4 saved-reg pushes) - exactly partWorkspace (local_15cc-0x224
+   * per this file's own header note = entry_esp-0x15cc-0x224). */
+  FUN_00425350((int)partWorkspace);
   local_4 = 0;
   cVar3 = PeekPacketChecksumBool();
   pcVar11 = (code *)LeaveCriticalSection;

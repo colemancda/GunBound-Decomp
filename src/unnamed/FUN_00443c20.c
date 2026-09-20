@@ -20,8 +20,10 @@
  * FIXED (2026-09-01): recovered the dropped guard-cell arg at the 3
  * argless InitGuardedBool sites (ECX arg; `lea ecx,[esi+OFF]`,
  * esi = param_1, calls 0x443d5e/0x443d69/0x443d74). Byte offsets
- * 0x32c54, 0x32ce0, 0x32e63. The trailing FUN_00425350() also takes
- * ECX (esi+0x32fa0 at 0x443d7f) but is out of this sweep's scope.
+ * 0x32c54, 0x32ce0, 0x32e63. The trailing call also takes ECX
+ * (param_1+0x32fa0 at 0x443d79/0x443d7f) - fixed 2026-09-20 alongside
+ * this function's two sibling callers (ApplyAvatarStatBonuses.c,
+ * RenderInventoryItemDetail.c), which were also passing it argless.
  */
 #include "ghidra_types.h"
 
@@ -79,7 +81,7 @@ undefined4 * FUN_00443c20(undefined4 *param_1)
   InitGuardedBool((byte *)param_1 + 0x32c54);
   InitGuardedBool((byte *)param_1 + 0x32ce0);
   InitGuardedBool((byte *)param_1 + 0x32e63);
-  FUN_00425350();
+  FUN_00425350((int)param_1 + 0x32fa0);
   return param_1;
 }
 
