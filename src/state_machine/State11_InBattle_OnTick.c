@@ -3,6 +3,28 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * TRIAGE NOTE on unaff_EBX/unaff_EDI (2026-09-20): NOT a dropped-
+ * register pair - tools/dropped_reg_backlog.py doesn't flag this
+ * function at all. Their `= (int *)CONCAT13(cond,(int3)unaff_REG)`
+ * assignments (e.g. line ~840, matching `setg byte ptr [esp+0x1b]` at
+ * 0x4beddb) are Ghidra's rendering of a STACK BYTE write with an
+ * undefined upper 3 bytes - "unaff_EBX"/"unaff_EDI" there name a
+ * decompiler merge artifact, not a live register read. Separately,
+ * TreeLowerBound (0x40b540) provably never writes EBX (verified: EBX
+ * is only pushed as an argument, never assigned, across its whole
+ * body), so the `piVar15 = unaff_EBX;` reads right after its calls
+ * (~872/878/930/943) really do read EBX's value from BEFORE those
+ * calls - but tracing that value's true producer runs into a long,
+ * label-free block (0x4bedf0+) with no `mov ebx`/`lea ebx` visible in
+ * the disassembly window checked. Left unfixed rather than guessed:
+ * this feeds a vtable dispatch that selects which battle-notification
+ * object receives a turn/damage text (cosmetic, not a crash), and a
+ * wrong guess here can't be live-verified per the project's standing
+ * "don't live-verify yet" constraint. Whoever resumes this: disassemble
+ * 0x4bedb3 forward past 0x4bee80 watching for the first `mov ebx,*` or
+ * `lea ebx,*`, then re-check whether it dominates all four piVar15=
+ * unaff_EBX sites.
  */
 #include "ghidra_types.h"
 
