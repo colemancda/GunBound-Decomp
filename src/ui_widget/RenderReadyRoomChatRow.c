@@ -3,6 +3,11 @@
  * Row renderer (vtable slot 9) for the Ready Room chat-log panel: draws each message with a per-row icon (+0x3f73c) and a message-type byte (+0x3c4d8) that selects one of several RGB565 text colors (white/gray/yellow/red/...) - the same color-coded-chat idiom as the in-battle chat renderer. Indexed via +0x3b97c off g_clientContext. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * 2026-09-02: the per-row icon block's FindSpriteFrame/BlitSprite16bpp/
+ * BlitSpriteClipped register args recovered from orig 0x50d27f-0x50d2da -
+ * see the site comment (note the coordinate-derived outer key, faithful to
+ * the binary).
  */
 #include "ghidra_types.h"
 
@@ -51,12 +56,29 @@ void __fastcall RenderReadyRoomChatRow(int param_1)
         iVar4 = *(int *)(param_1 + 0x28);
         iVar11 = iVar4 + 0x19;
         iVar9 = uVar3 - 1;
-        if (((g_screenSurface != 0) && (-1 < iVar9)) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
+        /* RECOVERED (2026-09-02), orig 0x50d27f-0x50d2da - the per-row icon.
+         * FindSpriteFrame @0x50d2ad: EAX = 0xea0e18 (&g_spriteRegistry, set
+         * at 0x50d2a8), ESI = movzx(icon word)-1 = iVar9 (frame, 0x50d28c/
+         * 0x50d29b), and EDX at the call is `lea edx,[eax+0xb]` @0x50d293
+         * with eax = *(param_1+0x28) - i.e. the outer key really is the
+         * COORDINATE-DERIVED m_x+0xb (the no-icon x-cursor value), not an
+         * immediate like the sibling RenderChannelUserRow's 0x12c.  The
+         * block is straight-line from 0x50d27f with no other EDX write, so
+         * this is what the original binary passes (a probable original-code
+         * defect - the lookup can only hit if m_x+0xb happens to match a
+         * registry group key); ported faithfully.  EDX is preserved through
+         * FindSpriteFrame, so both blits below inherit the same key.
+         * BlitSprite16bpp @0x50d2c4: EAX=iVar9 (frame), push eax=[esp+0x20]
+         * = iVar4+0x1a (x, spilled @0x50d28f), push ebx=iVar7 (y).
+         * BlitSpriteClipped @0x50d2d5: push esi=iVar9 (frame),
+         * ECX=[esp+0x20]=iVar4+0x1a (x), EAX=ebx=iVar7 (y). */
+        if (((g_screenSurface != 0) && (-1 < iVar9)) &&
+           (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,iVar4 + 0xb,iVar9), iVar5 != 0)) {
           if (*(char *)(iVar5 + 0x18) == '\x01') {
-            BlitSprite16bpp(iVar4 + 0x1a,iVar7);
+            BlitSprite16bpp(iVar9,iVar4 + 0x1a,iVar7,iVar4 + 0xb);
           }
           else {
-            BlitSpriteClipped(iVar9);
+            BlitSpriteClipped(iVar9,iVar4 + 0x1a,iVar7,iVar4 + 0xb);
           }
         }
       }

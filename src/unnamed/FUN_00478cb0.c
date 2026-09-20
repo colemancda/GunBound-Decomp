@@ -4,6 +4,9 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * 2026-09-02: FindSpriteFrame's register args recovered from orig
+ * 0x4798b8-0x4798c9 - see the site comment.
+ *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 11 argless PeekPacketChecksumState() calls.  Cells: the
  * delta helpers' arg2 scratch buffers - local_2028 (0x478d16),
@@ -348,7 +351,13 @@ LAB_00479655:
     ScrubChecksumGuard();
     (**(code **)(*param_1 + 4))(s_damage_00555cc0);
     cVar1 = PeekPacketChecksumBool();
-    if ((cVar1 == '\x01') && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+    /* RECOVERED (2026-09-02), orig 0x4798b8-0x4798c9: EAX =
+     * [0x5b3484]+0x6a7f88 = g_clientContext + 0x6a7f88 (the active-object
+     * layer registry), EDX = 0x186aa (class id), ESI = 0 (frame,
+     * `xor esi,esi` @0x4798c2).  Cached scan: tools/
+     * findspriteframe_sites.json call_addr 0x4798c9. */
+    if ((cVar1 == '\x01') &&
+       (iVar2 = FindSpriteFrame(g_clientContext + 0x6a7f88,0x186aa,0), iVar2 != 0)) {
       AddToPacketChecksum((void *)(iVar2 + 0x270), local_2d0c);
     }
     QueueOutgoingPacketField(*(undefined1 *)(regEdi + 0x3c));

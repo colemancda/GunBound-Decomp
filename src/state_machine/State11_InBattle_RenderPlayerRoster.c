@@ -71,6 +71,33 @@
  * the two 0x2ac/0x2e6 walk caps at 0x408790/0x408874, plus the later
  * 0x1b56/0x1b57-family walks) blit through a manually-walked node, not
  * an argless FindSpriteFrame, and keep their existing shape.
+ *
+ * RENDER-CHAIN ARG RECOVERY (2026-09-02): completed the walk-twin
+ * blocks the note above had left short.  All are inlined registry
+ * walks; frame = the walk's sought key (EAX preserved through the
+ * walk), key = the EDX immediate re-set before each blit:
+ *  - LAB_00408782 (= 0x408790, the 0x2b4 digit-loop twin) and
+ *    LAB_00408a62 (= 0x408a70, the 0x2ed one): frame uVar7, at
+ *    (iVar3=ESI, 0x239), key 0x1f4; B16 0x4087a1/CLP 0x4087b3 and
+ *    B16 0x408a81/CLP 0x408a93.
+ *  - the 0x2ac/0x2e6 walk caps 0x408874 (LAB_0040885f) / 0x408b45
+ *    (LAB_00408b33): frame 0xc7(=199), y 0x239, key 0x1f4; B16
+ *    0x40888e / 0x408b5f.  Their else branches were an MSVC SHARED
+ *    CLP TAIL at 0x408b6e (`push 0xc7` once, ECX=0x2ac loaded at
+ *    0x40889b vs 0x2e6 at 0x408b69) - de-shared here into per-branch
+ *    BlitSpriteClipped(199,0x2ac|0x2e6,0x239,0x1f4) calls and the
+ *    LAB_00408b6e label retired.
+ *  - LAB_00409499 (0x4094a7): frame uVar7, at (6, local_1018[0] =
+ *    [esp+0x24]), key 0x1f4; B16 0x4094b9 / CLP 0x4094d2.
+ *  - LAB_00409520 (0x40952e): frame uVar7 (the +0x50116 ushort), at
+ *    (0x13, local_1018[0]), key 0x65 (`mov edx,0x65`); B16 0x409540 /
+ *    CLP 0x409559.
+ *  - LAB_0040984b: a THREE-predecessor shared blit tail (walks
+ *    0x4097ba/0x40983a/0x4098b8, all outer key 0x1f4) whose C already
+ *    parameterizes frame as uVar7; x=EDI=iVar6, y=ESI=iVar13+0x18,
+ *    key 0x1f4 re-set at 0x40984f; B16 0x409858 / CLP 0x4098cb -
+ *    registers identical from every predecessor, so the single shared
+ *    C block stands.
  */
 #include "ghidra_types.h"
 
@@ -358,10 +385,10 @@ LAB_00408730:
 LAB_00408a62:
     if (uVar11 == uVar7) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        BlitSprite16bpp(iVar3,0x239);
+        BlitSprite16bpp(uVar7,iVar3,0x239,0x1f4);
       }
       else {
-        BlitSpriteClipped(uVar7);
+        BlitSpriteClipped(uVar7,iVar3,0x239,0x1f4);
       }
       break;
     }
@@ -399,8 +426,13 @@ code_r0x00408aab:
     if (199 < uVar7) break;
 LAB_00408b33:
     if (uVar7 == 199) {
-      if (*(char *)(iVar3 + 0x18) != '\x01') goto LAB_00408b6e;
-      BlitSprite16bpp(0x2e6,0x239);
+      if (*(char *)(iVar3 + 0x18) != '\x01') {
+        /* de-shared from the 0x408b6e shared CLP tail: this predecessor
+         * arrives with ECX=0x2e6 (0x408b69) */
+        BlitSpriteClipped(199,0x2e6,0x239,0x1f4);
+        break;
+      }
+      BlitSprite16bpp(199,0x2e6,0x239,0x1f4);
       break;
     }
   }
@@ -412,10 +444,10 @@ LAB_00408b33:
 LAB_00408782:
     if (uVar11 == uVar7) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        BlitSprite16bpp(iVar3,0x239);
+        BlitSprite16bpp(uVar7,iVar3,0x239,0x1f4);
       }
       else {
-        BlitSpriteClipped(uVar7);
+        BlitSpriteClipped(uVar7,iVar3,0x239,0x1f4);
       }
       break;
     }
@@ -454,11 +486,12 @@ code_r0x004087cb:
 LAB_0040885f:
     if (uVar7 == 199) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x2ac,0x239);
+        BlitSprite16bpp(199,0x2ac,0x239,0x1f4);
       }
       else {
-LAB_00408b6e:
-        BlitSpriteClipped(199);
+        /* de-shared from the 0x408b6e shared CLP tail: this predecessor
+         * arrives with ECX=0x2ac (0x40889b) */
+        BlitSpriteClipped(199,0x2ac,0x239,0x1f4);
       }
       break;
     }
@@ -729,10 +762,10 @@ LAB_00409310:
 LAB_00409499:
     if (uVar11 == uVar7) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        BlitSprite16bpp(6,local_1018[0]);
+        BlitSprite16bpp(uVar7,6,local_1018[0],0x1f4);
       }
       else {
-        BlitSpriteClipped(uVar7);
+        BlitSpriteClipped(uVar7,6,local_1018[0],0x1f4);
       }
       break;
     }
@@ -878,10 +911,10 @@ LAB_004098e3:
 LAB_00409520:
     if (uVar11 == uVar7) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x13,local_1018[0]);
+        BlitSprite16bpp(uVar7,0x13,local_1018[0],0x65);
       }
       else {
-        BlitSpriteClipped(uVar7);
+        BlitSpriteClipped(uVar7,0x13,local_1018[0],0x65);
       }
       break;
     }
@@ -917,10 +950,10 @@ LAB_004098d3:
   goto LAB_00409741;
 LAB_0040984b:
   if (*(char *)(iVar9 + 0x18) == '\x01') {
-    BlitSprite16bpp(iVar6,iVar13 + 0x18);
+    BlitSprite16bpp(uVar7,iVar6,iVar13 + 0x18,0x1f4);
   }
   else {
-    BlitSpriteClipped(uVar7);
+    BlitSpriteClipped(uVar7,iVar6,iVar13 + 0x18,0x1f4);
   }
   goto LAB_004098d3;
 code_r0x004098ed:

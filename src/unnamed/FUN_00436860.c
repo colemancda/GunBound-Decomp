@@ -4,6 +4,9 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * 2026-09-02: FindSpriteFrame's register args recovered from orig
+ * 0x436877-0x436886 - see the site comment.
  */
 #include "ghidra_types.h"
 
@@ -22,7 +25,13 @@ void __fastcall FUN_00436860(int param_1,int param_2,undefined4 param_3,undefine
   cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar1 == '\0') {
     if (param_1 != -1) {
-      iVar2 = FindSpriteFrame();
+      /* RECOVERED (2026-09-02), orig 0x436877-0x436886: EAX =
+       * [0x5b3484]+0x6a7f88 = g_clientContext + 0x6a7f88 (the active-object
+       * layer registry), EDX = 0x30d54 (class id), ESI = ecx = param_1
+       * (frame; `mov esi,ecx` @0x436865, the same value guarded by the
+       * `param_1 != -1` test @0x436872).  Cached scan: tools/
+       * findspriteframe_sites.json call_addr 0x436886. */
+      iVar2 = FindSpriteFrame(g_clientContext + 0x6a7f88,0x30d54,param_1);
       if (iVar2 != 0) {
         *(undefined4 *)(iVar2 + 0x40) = 0;
         *(int *)(iVar2 + 0x48) = *(int *)(iVar2 + 0x48) + param_2;

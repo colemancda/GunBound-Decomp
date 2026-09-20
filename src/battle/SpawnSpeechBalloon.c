@@ -52,7 +52,11 @@ void SpawnSpeechBalloon(int regEcx,int regEax,char *regEbx)
    * is the balloon text. */
   cVar1 = PeekPacketChecksumBool((byte *)(regEax + 4));
   if ((cVar1 == '\0') && (regEbx != (char *)0x0)) {
-    puVar2 = (undefined4 *)FindSpriteFrame();
+    /* Binary 0x4382e3-0x4382f2: EAX = ctx+0x6a7f88 (the active-object
+     * layer registry), EDX = 0x7a120 = 500000 (the balloon class id),
+     * ESI = regEcx, the slot/id - evicting any existing balloon keyed
+     * by this slot before spawning the new one. */
+    puVar2 = (undefined4 *)FindSpriteFrame(g_clientContext + 0x6a7f88,0x7a120,regEcx);
     if (puVar2 != (undefined4 *)0x0) {
       *(undefined4 *)(puVar2[3] + 0x10) = puVar2[4];
       *(undefined4 *)(puVar2[4] + 0xc) = puVar2[3];

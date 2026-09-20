@@ -29,11 +29,25 @@
  * EDI is 0x1f4 at both -- which is how this function reached the uniform-value
  * batch in the first place -- while EAX differs per site and had to be read
  * individually.
+ *
+ * 2026-09-02 render-chain recovery: the FindSpriteFrame call is now complete
+ * (see the site comment), but the earlier signature recovery above MISSED A
+ * THIRD REGISTER ARGUMENT: EBX is also incoming and live - it is the blit y
+ * coordinate.  The function never writes EBX (no save/restore either; first
+ * use is `push ebx` @0x44c4cb), and both call sites in FUN_0044a000 set it
+ * up deliberately right before the call (`add ebx,0x7e` @0x44aebc /
+ * `add ebx,0x6e` @0x44afdd on top of the caller's own row-y EBX).  All four
+ * blit calls below (BlitSprite16bpp @0x44c4cf/0x44c557, BlitSpriteClipped
+ * @0x44c4de/0x44c566) take y from this EBX, so their full forms are
+ * (frame, param_1, EBX-y, regEdi).  COMPLETED (2026-09-02): regEbx is the
+ * ninth parameter now, the four blits below carry their full forms, and
+ * both FUN_0044a000.c sites pass local_108 + 0x7e / + 0x6e (the add ebx
+ * instructions cited above, on the caller's row-y base).
  */
 #include "ghidra_types.h"
 
 
-void FUN_0044c460(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,int regEax,uint regEdi)
+void FUN_0044c460(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,int regEax,uint regEdi,int regEbx)
 
 {
   uint uVar1;
@@ -51,13 +65,19 @@ void FUN_0044c460(int param_1,int param_2,int param_3,int param_4,int param_5,in
   local_4 = param_4;
 LAB_0044c490:
   if (local_4 % 3 == 0) {
-    if ((((bVar3) && (g_screenSurface != 0)) && (-1 < regEax)) && (iVar4 = FindSpriteFrame(), iVar4 != 0))
+    /* RECOVERED (2026-09-02), orig 0x44c4b5-0x44c4bc: EAX = 0xea0e18
+     * (&g_spriteRegistry), EDX = edi = regEdi (outer key, `mov edx,edi`
+     * @0x44c4b5), ESI = esi = regEax (frame; `mov esi,eax` at entry, the
+     * same value guarded by `-1 < regEax`).  The blits carry regEbx as
+     * their y (see the header note). */
+    if ((((bVar3) && (g_screenSurface != 0)) && (-1 < regEax)) &&
+       (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,regEdi,regEax), iVar4 != 0))
     {
       if (*(char *)(iVar4 + 0x18) == '\x01') {
-        BlitSprite16bpp(param_1);
+        BlitSprite16bpp(regEax,param_1,regEbx,(int)regEdi);
       }
       else {
-        BlitSpriteClipped();
+        BlitSpriteClipped(regEax,param_1,regEbx,(int)regEdi);
       }
     }
     param_1 = param_1 + param_6;
@@ -88,10 +108,10 @@ LAB_0044c490:
 LAB_0044c53f:
     if (uVar2 == uVar1) {
       if (*(char *)(iVar4 + 0x18) == '\x01') {
-        BlitSprite16bpp(param_1);
+        BlitSprite16bpp(uVar1,param_1,regEbx,(int)regEdi);
       }
       else {
-        BlitSpriteClipped(uVar1);
+        BlitSpriteClipped(uVar1,param_1,regEbx,(int)regEdi);
       }
       break;
     }

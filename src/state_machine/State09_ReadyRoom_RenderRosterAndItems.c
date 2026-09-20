@@ -61,6 +61,26 @@
  *    from every predecessor, matching the binary's shared EDI/EBX.
  * The later item-grid/turn-label tree-walk blocks (keys 0x2711/0x2712/
  * 0x2715) walk their nodes manually and keep their existing shape.
+ *
+ * RENDER-CHAIN ARG RECOVERY (2026-09-02): completed the 5 manually
+ * walked item-grid/turn-label blocks the note above had left short.
+ * All are inlined registry walks whose frame = the sought key uVar12
+ * (EAX/ESI preserved through the walk) and whose key is the EDX
+ * immediate re-set before each blit:
+ *  - LAB_004d84db (avatar-mobile label, key 0x2711, `mov edx,0x2711`
+ *    at 0x4d84ed): B16 0x4d84fb / CLP 0x4d8510 at (0x14c,0x33).
+ *  - LAB_004d85fe (item-grid icon): the ONE dynamic key - EDX is set
+ *    at 0x4d85c9 `add edx,0x2713` from ((uVar1 & 0xff00) != 0) and
+ *    survives the walk (the walk compares via ECX); frame = ESI =
+ *    uVar12, x/y = EDI/EBX = the local_a4c %3//3 grid expressions the
+ *    C already carried; B16 0x4d8616 / CLP 0x4d8625.  (uVar4 held the
+ *    key in C but is clobbered mid-walk, so the key expression is
+ *    re-spelled at the calls.)
+ *  - LAB_004d892f (key 0x2715, 0x4d8941) B16 0x4d8950 / CLP 0x4d8962
+ *    and LAB_004d8794 (key 0x2716, 0x4d87a6) B16 0x4d87b5 / CLP
+ *    0x4d87c7: twin item-slot overlays at (local_a4c=EDI, 0x16c).
+ *  - LAB_004d8ac2 (turn label, key 0x2712, 0x4d8ad4): B16 0x4d8ae5 /
+ *    CLP 0x4d8afa at (0x17a,0x186).
  */
 #include "ghidra_types.h"
 
@@ -358,10 +378,10 @@ LAB_004d8460:
 LAB_004d84db:
     if (uVar4 == uVar12) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x14c,0x33);
+        BlitSprite16bpp(uVar12,0x14c,0x33,0x2711);
       }
       else {
-        BlitSpriteClipped(uVar12);
+        BlitSpriteClipped(uVar12,0x14c,0x33,0x2711);
       }
       break;
     }
@@ -408,10 +428,12 @@ LAB_004d8540:
 LAB_004d85fe:
     if (uVar4 == uVar12) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        BlitSprite16bpp(((int)local_a4c % 3) * 0x46 + 0x210,((int)local_a4c / 3) * 0x2d + 0x193);
+        BlitSprite16bpp(uVar12,((int)local_a4c % 3) * 0x46 + 0x210,
+                        ((int)local_a4c / 3) * 0x2d + 0x193,((uVar1 & 0xff00) != 0) + 0x2713);
       }
       else {
-        BlitSpriteClipped(uVar12);
+        BlitSpriteClipped(uVar12,((int)local_a4c % 3) * 0x46 + 0x210,
+                          ((int)local_a4c / 3) * 0x2d + 0x193,((uVar1 & 0xff00) != 0) + 0x2713);
       }
       break;
     }
@@ -489,10 +511,10 @@ LAB_004d8685:
 LAB_004d892f:
     if (uVar4 == uVar12) {
       if (*(char *)(iVar13 + 0x18) == '\x01') {
-        BlitSprite16bpp(local_a4c,0x16c);
+        BlitSprite16bpp(uVar12,local_a4c,0x16c,0x2715);
       }
       else {
-        BlitSpriteClipped(uVar12);
+        BlitSpriteClipped(uVar12,local_a4c,0x16c,0x2715);
       }
       break;
     }
@@ -530,10 +552,10 @@ LAB_004d896a:
 LAB_004d8794:
     if (uVar4 == uVar12) {
       if (*(char *)(iVar13 + 0x18) == '\x01') {
-        BlitSprite16bpp(local_a4c,0x16c);
+        BlitSprite16bpp(uVar12,local_a4c,0x16c,0x2716);
       }
       else {
-        BlitSpriteClipped(uVar12);
+        BlitSpriteClipped(uVar12,local_a4c,0x16c,0x2716);
       }
       break;
     }
@@ -606,10 +628,10 @@ code_r0x004d8a39:
 LAB_004d8ac2:
     if (uVar4 == uVar12) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x17a,0x186);
+        BlitSprite16bpp(uVar12,0x17a,0x186,0x2712);
       }
       else {
-        BlitSpriteClipped(uVar12);
+        BlitSpriteClipped(uVar12,0x17a,0x186,0x2712);
       }
       break;
     }

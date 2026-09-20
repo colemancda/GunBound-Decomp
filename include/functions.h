@@ -75,8 +75,8 @@ undefined4 GetDisplayConfigFromRegistry();
 undefined4 __fastcall ReadRegistryDword(); /* returns the _atol result (EAX) */
 void __fastcall WriteRegistryDword();
 undefined4 __thiscall BlitRLESprite(int param_1,undefined4 param_2,undefined4 param_3,byte *rleData);
-undefined4 BlitSprite16bpp();
-undefined4 BlitSpriteClipped();
+undefined4 BlitSprite16bpp(int frame,int param_1,int param_2,int outerKey);
+undefined4 BlitSpriteClipped(int frame,int x,int y,int outerKey);
 void __thiscall BuildRotatedSpriteQuad(int param_1,int param_2,int param_3,int param_4,int regEax);
 /* __stdcall D3D enum callback - full signature so &EnumTextureFormatsCallback
  * decorates to _EnumTextureFormatsCallback@8 (see the .c). */
@@ -670,7 +670,7 @@ void FUN_0044bf00();
 int FUN_0044c310();
 void FUN_0044c370(int regEbx);
 int FUN_0044c3d0();
-void FUN_0044c460(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,int regEax,uint regEdi);
+void FUN_0044c460(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,int regEax,uint regEdi,int regEbx);
 void RemoveInventoryItems(int regEbx,int regEax,int *regEdi);
 void AtlArray_RemoveAll_450(int *regEdi);
 undefined4 __fastcall FUN_0044c630(int param_1,int regEax);
@@ -1399,9 +1399,7 @@ undefined4 * CreateActiveObjectLayer();
 int __fastcall FindActiveObjectLayer(undefined4 param_1,uint param_2,int regEax);
 void SweepActiveObjectRegistry(int);
 void FUN_004f3060();
-int FindSpriteFrame(); /* real args (container, outerKey, innerKey); K&R-empty
-                        * so the ~175 not-yet-recovered argless call sites still
-                        * compile - see FindSpriteFrame.c's header */
+int FindSpriteFrame(int container,uint outerKey,uint innerKey); /* real prototype since 2026-09-02 - all 188 sites pass args */
 void FUN_004f3100(int regEbx);
 undefined4 * __fastcall FUN_004f3150(undefined4 param_1,undefined4 *param_2,undefined4 regEax);
 void * __thiscall FUN_004f3390();

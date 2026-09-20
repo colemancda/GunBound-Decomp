@@ -4,6 +4,10 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * 2026-09-02: the fourth render block's FindSpriteFrame/BlitSprite16bpp/
+ * BlitSpriteClipped register args recovered from orig 0x4e3448-0x4e34d6 -
+ * see the site comment (the first three blocks were already complete).
+ *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 13 argless PeekPacketChecksumState() calls (peek status
  * "clean", 13 C : 13 orig).  Cells from tools/guard_cell_resolve.py over
@@ -279,13 +283,27 @@ void __fastcall FUN_004e2b20(int param_1)
         TreeLowerBound(local_8a8,&g_valueGuardMap);
       }
     }
-    if (((g_screenSurface != 0) && (-1 < iVar1)) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+    /* RECOVERED (2026-09-02), orig 0x4e3448-0x4e34d6 - fourth and last
+     * block of this function, same shape as the three above.
+     * FindSpriteFrame @0x4e3490: EAX = 0xea0e18 (&g_spriteRegistry),
+     * EDX = 0x2328 (outer key, immediate @0x4e3486), ESI = iVar1 on both
+     * inbound paths (`add esi,0x11` @0x4e3448 on the local_8a9 branch =
+     * the C's iVar1 = ...+0x11, and `mov esi,[esp+0x24]` @0x4e3474 on the
+     * else path = the C's iVar1 = local_8a0) - the same value guarded by
+     * `-1 < iVar1`.  Cached scan: tools/findspriteframe_sites.json
+     * call_addr 0x4e3490.
+     * BlitSprite16bpp @0x4e34ab: EAX=esi=iVar1 (frame), push 0x145 (x),
+     * push 0x1f4 (y=500), EDX=0x2328 inherited through FindSpriteFrame.
+     * BlitSpriteClipped @0x4e34d6: push esi=iVar1 (frame), ECX=0x145 (x),
+     * EAX=0x1f4 (y=500), EDX=0x2328. */
+    if (((g_screenSurface != 0) && (-1 < iVar1)) &&
+       (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2328,iVar1), iVar2 != 0)) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x145,500);
+        BlitSprite16bpp(iVar1,0x145,500,0x2328);
         *unaff_FS_OFFSET = local_c;
         return;
       }
-      BlitSpriteClipped(iVar1);
+      BlitSpriteClipped(iVar1,0x145,500,0x2328);
     }
   }
   *unaff_FS_OFFSET = local_c;

@@ -16,6 +16,14 @@
  * indexed by the ALREADY-SCALED counter this C spells local_27dc - assigned
  * `uVar11 * 0x224` a dozen lines above four of the six, and stepped from 0 by
  * 0x224 in the loop at C1184/C1261 that contains the sixth.
+ *
+ * RENDER-CHAIN ARG RECOVERY (2026-09-02): the one argless
+ * FindSpriteFrame() call (0x4b573f, in the 8-slot taunt-proximity loop)
+ * recovered from disasm: EAX = g_clientContext + 0x6a7f88 - the
+ * ACTIVE-OBJECT registry, not &g_spriteRegistry - EDX = 0x186a6 (the
+ * mobile class id), ESI = the loop counter local_27f0 (ESI is clobbered
+ * by the Peek helpers mid-body and reloaded from [esp+0x10] at
+ * 0x4b5782 before each next iteration).
  */
 #include "ghidra_types.h"
 #include "opcodes.h"
@@ -247,7 +255,11 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
                 if (cVar2 != '\0') {
                   local_27f0 = (undefined *)0x0;
                   do {
-                    iVar10 = FindSpriteFrame();
+                    /* 0x4b5730-0x4b573f: EAX = ctx+0x6a7f88 (the active-object
+                     * registry, not the sprite registry), EDX = 0x186a6 (the
+                     * mobile class id), ESI = the loop counter reloaded from
+                     * [esp+0x10] (= local_27f0) each iteration. */
+                    iVar10 = FindSpriteFrame(g_clientContext + 0x6a7f88,0x186a6,(int)local_27f0);
                     if (iVar10 != 0) {
                       iVar6 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
                       iVar10 = PeekChecksumStateUnderLock(iVar10 + 0x25c);

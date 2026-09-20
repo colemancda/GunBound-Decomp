@@ -27,6 +27,34 @@
  * above spells `iVar9` (`*(char *)(iVar9 + 0x45914 + iStack_b0)`); the
  * peek overwrites iVar9, but C evaluates the argument first, so
  * `iVar9 + 0x3b49c` is the value it had going in.
+ *
+ * RENDER-CHAIN ARG RECOVERY (2026-09-02): completed the one argless
+ * FindSpriteFrame and all 12 short blit calls against the binary
+ * (tools/disasm_capstone.py at 0x442280..0x442d48), under the confirmed
+ * conventions FindSpriteFrame(EAX=container,EDX=outerKey,ESI=frame) /
+ * BlitSprite16bpp(EAX=frame,stack x,stack y,EDX=key) /
+ * BlitSpriteClipped(stack frame,ECX=x,EAX=y,EDX=key):
+ *  - 0x44229a block: frame 0, x/y 0/0, key 0x2710 (B16 0x4422bb /
+ *    CLP 0x4422c7 - EAX zeroed, both pushes are EBX=0, EDX survives
+ *    from the FSF setup, same shape as RenderScreenBackdrop).
+ *  - 0x4423e3 block: the argless FSF - ESI = (byte)[ctx+0x475c4] << 1
+ *    (= (uint)bVar2*2), EDX = 0x2711; B16 0x442402 / CLP 0x442417 at
+ *    (0x1a,0x12), key 0x2711.
+ *  - the 0x1f3.. ready-row walks (inlined registry walks, outer key
+ *    0x32, `mov edx,0x32` re-set before each blit): B16 0x4425ba frame
+ *    0x10c const, B16 0x44254a frame = uVar6 (= peek + 0x10c, EAX held
+ *    across the walk), shared CLP tail 0x4425d2 frame = uVar6 (the C
+ *    already de-shares it by assigning uVar6 = 0x10c on the goto path);
+ *    all at (iStack_b0, 0xe).
+ *  - 0x44276e block (name-row icon walk, key 0x2710): frame = uVar6
+ *    (EBP), x = piVar17[-8]+0x1a (ECX), y = *piVar17+2 (EAX); B16
+ *    0x44277d / CLP 0x442788.
+ *  - 0x4428c0 block (result-digit walk, key 0x32): frame = uVar18
+ *    (movsx char + 0xd2, EAX preserved through the walk), x = iVar9
+ *    (ESI, 0x29 += 8), y = 0x117; B16 0x4428d1 / CLP 0x4428e3.
+ *  - 0x442d08 tail block (key 0x2712, `mov edx,0x2712` at 0x442d0c):
+ *    frame 0 (`xor eax,eax` / `push 0`), x/y 0x1a/0x12; B16 0x442d19 /
+ *    CLP 0x442d37.
  */
 #include "ghidra_types.h"
 
@@ -66,10 +94,10 @@ int __fastcall State10_Loading_Render(int param_1)
   iStack_a4 = param_1;
   if ((g_screenSurface != 0) && (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,0), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
-      BlitSprite16bpp(0);
+      BlitSprite16bpp(0,0,0,0x2710);
     }
     else {
-      BlitSpriteClipped(0);
+      BlitSpriteClipped(0,0,0,0x2710);
     }
   }
   if (DAT_00e55a34 == -1) {
@@ -94,12 +122,13 @@ int __fastcall State10_Loading_Render(int param_1)
   }
   SetClipRect(0, 0x31f, 0x257, 0);
   bVar2 = *(byte *)(g_clientContext + 0x475c4);
-  if ((g_screenSurface != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
+  if ((g_screenSurface != 0) &&
+     (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2711,(uint)bVar2 * 2), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
-      BlitSprite16bpp(0x1a,0x12);
+      BlitSprite16bpp((uint)bVar2 * 2,0x1a,0x12,0x2711);
     }
     else {
-      BlitSpriteClipped((uint)bVar2 * 2);
+      BlitSpriteClipped((uint)bVar2 * 2,0x1a,0x12,0x2711);
     }
   }
   iStack_a0 = 0;
@@ -159,7 +188,7 @@ LAB_00442591:
         uVar6 = 0x10c;
         goto LAB_004425cd;
       }
-      BlitSprite16bpp(iStack_b0,0xe);
+      BlitSprite16bpp(0x10c,iStack_b0,0xe,0x32);
       break;
     }
   }
@@ -171,11 +200,11 @@ LAB_00442591:
 LAB_00442525:
     if (uVar18 == uVar6) {
       if (*(char *)(iVar5 + 0x18) == '\x01') {
-        BlitSprite16bpp(iStack_b0,0xe);
+        BlitSprite16bpp(uVar6,iStack_b0,0xe,0x32);
       }
       else {
 LAB_004425cd:
-        BlitSpriteClipped(uVar6);
+        BlitSpriteClipped(uVar6,iStack_b0,0xe,0x32);
       }
       break;
     }
@@ -442,10 +471,10 @@ LAB_00442907:
             }
           }
           if (*(char *)(iVar12 + 0x18) == '\x01') {
-            iVar5 = BlitSprite16bpp(0x1a,0x12);
+            iVar5 = BlitSprite16bpp(0,0x1a,0x12,0x2712);
             return iVar5;
           }
-          iVar12 = BlitSpriteClipped(0);
+          iVar12 = BlitSpriteClipped(0,0x1a,0x12,0x2712);
         }
       }
     }
@@ -477,10 +506,10 @@ LAB_00442870:
 LAB_00442760:
     if (uVar18 == uVar6) {
       if (*(char *)(iVar5 + 0x18) == '\x01') {
-        BlitSprite16bpp(piVar17[-8] + 0x1a,*piVar17 + 2);
+        BlitSprite16bpp(uVar6,piVar17[-8] + 0x1a,*piVar17 + 2,0x2710);
       }
       else {
-        BlitSpriteClipped(uVar6);
+        BlitSpriteClipped(uVar6,piVar17[-8] + 0x1a,*piVar17 + 2,0x2710);
       }
       break;
     }
@@ -529,10 +558,10 @@ LAB_00442805:
 LAB_004428b2:
     if (uVar4 == uVar18) {
       if (*(char *)(iVar12 + 0x18) == '\x01') {
-        BlitSprite16bpp(iVar9,0x117);
+        BlitSprite16bpp(uVar18,iVar9,0x117,0x32);
       }
       else {
-        BlitSpriteClipped(uVar18);
+        BlitSpriteClipped(uVar18,iVar9,0x117,0x32);
       }
       break;
     }

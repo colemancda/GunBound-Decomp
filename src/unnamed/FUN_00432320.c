@@ -3,6 +3,9 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * 2026-09-02: FindSpriteFrame's register args recovered from orig
+ * 0x43254a-0x43255b - see the site comment.
  */
 #include "ghidra_types.h"
 
@@ -84,7 +87,12 @@ FUN_00432320(int param_1,byte param_2,int param_3,byte param_4,int param_5,undef
       *pcVar7 = cVar1;
       pcVar7 = pcVar7 + 1;
     } while (cVar1 != '\0');
-    iVar4 = FindSpriteFrame();
+    /* RECOVERED (2026-09-02), orig 0x43254a-0x43255b: EAX =
+     * [0x5b3484]+0x6a7f88 = g_clientContext + 0x6a7f88 (the active-object
+     * layer registry, class-id keyed), EDX = 0x186aa (class id), ESI = 0
+     * (frame, `xor esi,esi` @0x432554).  Cached scan: tools/
+     * findspriteframe_sites.json call_addr 0x43255b. */
+    iVar4 = FindSpriteFrame(g_clientContext + 0x6a7f88,0x186aa,0);
     if (iVar4 != 0) {
       uVar3 = FUN_004ac260();
       QueueOutgoingPacketField(uVar3);

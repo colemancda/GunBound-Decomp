@@ -16,6 +16,27 @@
  * FIXED (2026-07-15): all 3 SetClipRect calls dropped their 4 corner
  * args - real literal values recovered via angr at
  * 0x4d9c02/0x4d9c8a/0x4d9cee.
+ *
+ * RENDER-CHAIN ARG RECOVERY (2026-09-02): completed the 7 remaining
+ * short blit calls against the binary (disasm 0x4d9ae0..0x4da450),
+ * conventions B16(EAX=frame,stack x,stack y,EDX=key) / CLP(stack
+ * frame,ECX=x,EAX=y,EDX=key):
+ *  - the per-row icon block at 0x4d9e28 (FSF 0x4d9e32 / B16 0x4d9e45 /
+ *    CLP 0x4d9e54): frame is ESI = cVar6 (`setne cl; add ecx,2; mov
+ *    esi,ecx` at 0x4d9da8-0x4d9db9, conditionally `mov esi,4` at
+ *    0x4d9e0b = the C's cVar6='\x04' branch), NOT the literal 4 the
+ *    port had hard-coded into the FSF/B16 pair - all three calls now
+ *    pass (int)cVar6; x = EBP = piVar8[-8]+0x1a (iVar7+0x1a), y = EDI
+ *    = *piVar8+2 (iVar3+2), key 0x2717 (EDX survives from the FSF
+ *    setup).
+ *  - the six inlined registry walks (outer key 0x2717, `mov edx,0x2717`
+ *    re-set before each blit; frame = the walk's sought key uVar2, EAX
+ *    preserved through the walk): LAB_004d9f58 (0x13d,0xe1) B16
+ *    0x4d9f7b/CLP 0x4d9f90; LAB_004d9fe8 (0x193,0xe1) 0x4da00b/
+ *    0x4da020; LAB_004da070 (0x13d,0x11d) 0x4da093/0x4da0a8;
+ *    LAB_004da0f8 (0x193,0xff) 0x4da11b/0x4da130; LAB_004da1a2
+ *    (0x193,0x11d) 0x4da1c5/0x4da1da; LAB_004da246 (0x13d,0xff)
+ *    0x4da269/0x4da27e.
  */
 #include "ghidra_types.h"
 
@@ -123,12 +144,13 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
         }
         iVar3 = *piVar8;
         iVar7 = piVar8[-8];
-        if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2717,4), iVar4 != 0)) {
+        if ((g_screenSurface != 0) &&
+           (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2717,(int)cVar6), iVar4 != 0)) {
           if (*(char *)(iVar4 + 0x18) == '\x01') {
-            BlitSprite16bpp(4,iVar7 + 0x1a,iVar3 + 2,0x2717);
+            BlitSprite16bpp((int)cVar6,iVar7 + 0x1a,iVar3 + 2,0x2717);
           }
           else {
-            BlitSpriteClipped(cVar6);
+            BlitSpriteClipped((int)cVar6,iVar7 + 0x1a,iVar3 + 2,0x2717);
           }
         }
         iVar3 = g_clientContext;
@@ -192,10 +214,10 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
 LAB_004d9fe8:
     if (uVar1 == uVar2) {
       if (*(char *)(iVar7 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x193,0xe1);
+        BlitSprite16bpp(uVar2,0x193,0xe1,0x2717);
       }
       else {
-        BlitSpriteClipped(uVar2);
+        BlitSpriteClipped(uVar2,0x193,0xe1,0x2717);
       }
       break;
     }
@@ -208,10 +230,10 @@ LAB_004d9fe8:
 LAB_004da070:
     if (uVar1 == uVar2) {
       if (*(char *)(iVar7 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x13d,0x11d);
+        BlitSprite16bpp(uVar2,0x13d,0x11d,0x2717);
       }
       else {
-        BlitSpriteClipped(uVar2);
+        BlitSpriteClipped(uVar2,0x13d,0x11d,0x2717);
       }
       break;
     }
@@ -224,10 +246,10 @@ LAB_004da070:
 LAB_004da0f8:
     if (uVar1 == uVar2) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x193,0xff);
+        BlitSprite16bpp(uVar2,0x193,0xff,0x2717);
       }
       else {
-        BlitSpriteClipped(uVar2);
+        BlitSpriteClipped(uVar2,0x193,0xff,0x2717);
       }
       break;
     }
@@ -240,10 +262,10 @@ LAB_004da0f8:
 LAB_004da1a2:
     if (uVar1 == uVar2) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x193,0x11d);
+        BlitSprite16bpp(uVar2,0x193,0x11d,0x2717);
       }
       else {
-        BlitSpriteClipped(uVar2);
+        BlitSpriteClipped(uVar2,0x193,0x11d,0x2717);
       }
       break;
     }
@@ -256,10 +278,10 @@ LAB_004da1a2:
 LAB_004da246:
     if (uVar1 == uVar2) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x13d,0xff);
+        BlitSprite16bpp(uVar2,0x13d,0xff,0x2717);
       }
       else {
-        BlitSpriteClipped(uVar2);
+        BlitSpriteClipped(uVar2,0x13d,0xff,0x2717);
       }
       break;
     }
@@ -272,10 +294,10 @@ LAB_004da246:
 LAB_004d9f58:
     if (uVar1 == uVar2) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x13d,0xe1);
+        BlitSprite16bpp(uVar2,0x13d,0xe1,0x2717);
       }
       else {
-        BlitSpriteClipped(uVar2);
+        BlitSpriteClipped(uVar2,0x13d,0xe1,0x2717);
       }
       break;
     }

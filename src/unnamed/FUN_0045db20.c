@@ -4,6 +4,9 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * 2026-09-02: FindSpriteFrame's register args recovered from orig
+ * 0x45e9f6-0x45ea07 - see the site comment.
+ *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): both
  * AddToPacketChecksum calls dropped their EAX cell.  0x45e924 is
  * `lea eax,[ebp + 0x6968]` with EBP = the first stack argument (loaded at
@@ -468,7 +471,13 @@ LAB_0045e442:
           }
         }
         cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0x3f98);
-        if ((cVar3 == '\x01') && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
+        /* RECOVERED (2026-09-02), orig 0x45e9f6-0x45ea07: EAX =
+         * [0x5b3484]+0x6a7f88 = g_clientContext + 0x6a7f88 (the
+         * active-object layer registry), EDX = 0x186aa (class id), ESI = 0
+         * (frame, `xor esi,esi` @0x45ea00).  Cached scan: tools/
+         * findspriteframe_sites.json call_addr 0x45ea07. */
+        if ((cVar3 == '\x01') &&
+           (iVar6 = FindSpriteFrame(g_clientContext + 0x6a7f88,0x186aa,0), iVar6 != 0)) {
           AddToPacketChecksum((void *)(iVar6 + 0x270), iVar7);
         }
       }

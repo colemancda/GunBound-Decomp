@@ -564,7 +564,7 @@ LAB_0044a1b2:
     PeekPacketChecksumState((void *)(local_104 + 0x694));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     _sprintf(acStack_88,(char *)&PTR_DAT_00555650);
-    FUN_0044c460(iVar4 + 0x23,0x3c,acStack_88,8,0xa,4,0x118,0x1f4);
+    FUN_0044c460(iVar4 + 0x23,0x3c,acStack_88,8,0xa,4,0x118,0x1f4,local_108 + 0x7e);
     iVar2 = 5;
     iVar3 = iVar4 + 0x83;
     if ((g_screenSurface == 0) ||
@@ -600,7 +600,7 @@ LAB_0044af5f:
     PeekPacketChecksumState((void *)(local_104 + 0x8b8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     _sprintf(acStack_88,(char *)&PTR_DAT_00555650);
-    FUN_0044c460(iVar4 + 0x23,0x32,acStack_88,8,0xa,4,0x117,0x1f4);
+    FUN_0044c460(iVar4 + 0x23,0x32,acStack_88,8,0xa,4,0x117,0x1f4,local_108 + 0x6e);
     if (g_screenSurface == 0) {
       return;
     }

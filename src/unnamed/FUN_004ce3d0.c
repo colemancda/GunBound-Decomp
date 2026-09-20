@@ -5,6 +5,9 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * 2026-09-02: FindSpriteFrame's register args recovered from orig
+ * 0x4ce4fb-0x4ce50d - see the site comment.
+ *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at the file's one argless PeekPacketChecksumState() call
  * ((void *)(g_clientContext + 0xeba98)), from tools/guard_cell_resolve.py.
@@ -57,7 +60,17 @@ void FUN_004ce3d0(int param_1)
           EncodeChecksumState(uVar4);
           uVar4 = QueueOutgoingPacketField(0);
           EncodeChecksumState(uVar4);
-          iVar2 = FindSpriteFrame();
+          /* RECOVERED (2026-09-02), orig 0x4ce4fb-0x4ce50d: EAX =
+           * [0x5b3484]+0x6a7f88 = g_clientContext + 0x6a7f88 (the
+           * active-object layer registry), EDX = 0x186a7 (class id), ESI =
+           * [edi+8] where EDI = piVar3 (the player record: the very next
+           * uses of EDI are `lea ecx,[edi+0x1a2c]` @0x4ce51a = the C's
+           * PeekChecksumStateUnderLock(piVar3 + 0x68b), 0x68b*4 == 0x1a2c,
+           * and `push edi` @0x4ce52c = FUN_0041c360(g_clientContext,
+           * piVar3)), so the frame is piVar3[2] - the same +8 slot/0x186a7
+           * pairing as FUN_0044fd70.c's FindSpriteFrame.  Cached scan:
+           * tools/findspriteframe_sites.json call_addr 0x4ce50d. */
+          iVar2 = FindSpriteFrame(g_clientContext + 0x6a7f88,0x186a7,piVar3[2]);
           if (iVar2 != 0) {
             *(undefined1 *)(iVar2 + 0x14) = 1;
           }
