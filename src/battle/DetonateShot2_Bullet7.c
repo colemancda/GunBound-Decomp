@@ -60,6 +60,7 @@
 void __fastcall DetonateShot2_Bullet7(int *param_1)
 
 {
+  int iVarBlastY;
   int iCraterX;
   int iCraterY;
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -635,7 +636,7 @@ LAB_0049676b:
         uVar22 = 100;
         uVar21 = 0;
         PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-        FUN_00432320((char)param_1[0xf],1,1,uVar6,uVar21,uVar22,uVar23,iVar4,uVar10);
+        FUN_00432320((int)PeekPacketChecksumState((void *)(param_1 + 0x45e)), (char)param_1[0xf],1,1,uVar6,uVar21,uVar22,uVar23,iVar4,uVar10);
         uStack_3c = CONCAT31(SUBFIELD(uStack_3c,1,undefined3),7);
         ScrubChecksumGuard();
 LAB_00496a28:
@@ -663,10 +664,10 @@ LAB_00496a28:
           uVar23 = 0xff;
           uVar22 = 100;
           uVar21 = 0;
-          PeekChecksumStateUnderLock(auStack_af8);
+          iVarBlastY = (int)PeekChecksumStateUnderLock(auStack_af8);
           uVar6 = PeekChecksumStateUnderLock(&stack0xfffff2e4);
           PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-          FUN_00432320((char)param_1[0xf],1,1,uVar6,uVar21,uVar22,uVar23,iVar4,uVar10);
+          FUN_00432320(iVarBlastY, (char)param_1[0xf],1,1,uVar6,uVar21,uVar22,uVar23,iVar4,uVar10);
           uStack_3c = CONCAT31(SUBFIELD(uStack_3c,1,undefined3),5);
           ScrubChecksumGuard();
           goto LAB_00496a28;
@@ -740,7 +741,7 @@ LAB_00496abf:
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar6 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00450eb0(uVar6,uVar5,param_1,1,0,0);
+  FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),uVar6,uVar5,param_1,1,0,0);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(param_1 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

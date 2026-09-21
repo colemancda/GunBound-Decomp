@@ -54,6 +54,17 @@
  * and it is why `&stack0x00000004` is really the address of the param_2
  * slot that 0x4fcf42 has just overwritten with EBX.  Left alone: an
  * EBX/param question, not an EDI one.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20): the FUN_004fe110 call at 0x4fcf36
+ * was also missing its leading __thiscall arg (see FUN_004fe110.c's
+ * header) and, per the `ret 4` frame correction above, its 4th argument
+ * was the wrong value (`unaff_retaddr`, an uninitialised placeholder)
+ * where the disassembly (`mov edx,[esp+0xc]` at 0x4fcf24, read AFTER the
+ * `ret 4` frame correction) shows the real operand is this function's
+ * own `param_1`.  The `this` value (`lea ecx,[esi+0x1a90]` at 0x4fcf2b,
+ * esi being this function's `in_EAX`) and the remaining 3 args
+ * (`in_EAX + 0xb`/push5=esi+0x2c, `unaff_EBX`/push4, `unaff_EDI`/push3,
+ * `param_2`/push1=ebp) were already correctly positioned.
  */
 #include "ghidra_types.h"
 
@@ -72,7 +83,8 @@ undefined4 FUN_004fcf10(undefined4 param_1,undefined4 param_2,undefined4 regEdi)
   
   cVar1 = (**(code **)(*in_EAX + 0x3c))();
   if (cVar1 != '\0') {
-    FUN_004fe110(in_EAX + 0xb,unaff_EBX,unaff_EDI,unaff_retaddr,param_2);
+    FUN_004fe110((undefined4 *)((int)in_EAX + 0x1a90),in_EAX + 0xb,unaff_EBX,unaff_EDI,
+                 (undefined4 *)param_1,param_2);
     /* Ghidra emitted a bare `return;` in a value-returning function;
      * MSVC falls through with whatever's in EAX, gcc 14 rejects it
      * (-Wreturn-mismatch). This path's result is unused by callers -

@@ -122,7 +122,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_adc[0] = (int *)PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00450eb0(local_adc[0],uVar8,piVar7,1,0,0);
+    FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),local_adc[0],uVar8,piVar7,1,0,0);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)(param_1 + 0x45e));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

@@ -4,6 +4,21 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20, no-prototype sweep). The EAX-first
+ * `imgName` promotion (below) was already correct: `ret 0x10` at the
+ * epilogue (orig 0x4f1bf4) confirms 4 STACK arguments, and imgName rides
+ * in EAX - 4+1 = 5, matching what's declared. The bug was purely at both
+ * call sites in RegisterTankSprite.c, which had NO prototype in
+ * include/functions.h (the header's generator skips this split-line
+ * `int` definition, per fastcall-decls-missing-from-functions-h), so a
+ * 4-argument call compiled silently instead of erroring, dropping the
+ * EAX arg entirely. Confirmed at orig 0x4dc7d9 (`lea eax,[esp+0xa0]`,
+ * right before the first `call 0x4f1a50`) and 0x4dc7fd (`lea
+ * eax,[esp+0x120]`, before the second) - both addresses are the two
+ * locally-built ".xes"-suffixed sprite-set name buffers the source
+ * already constructs (uStack_101 and uStack_81 respectively) but never
+ * passed on. All 4 stack args were already correct at both sites.
  */
 #include "xfs.h"
 #include "ghidra_types.h"

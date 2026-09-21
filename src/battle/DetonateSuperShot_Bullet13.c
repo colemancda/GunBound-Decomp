@@ -38,6 +38,7 @@
 void __fastcall DetonateSuperShot_Bullet13(int *param_1)
 
 {
+  int iVarBlastY;
   char cVar1;
   int peekRow;                       /* ScanTerrainLeft/UpForSolid EAX: the row guard, captured instead of discarded */
   int peekCol;                       /* ScanTerrainLeftForSolid ECX / ScanTerrainUpForSolid EDI: the column guard */
@@ -615,7 +616,7 @@ LAB_00487a8c:
         SUBFIELD(puStack_8,0,undefined1) = 0x10;
         SyncOutgoingChecksumField(auStack_8a0, iStack_ad8 + 0x10,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        PeekPacketChecksumState((void *)auStack_ac4);
+        iVarBlastY = (int)PeekPacketChecksumState((void *)auStack_ac4);
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         uVar5 = PeekPacketChecksumState((void *)auStack_8a0);
@@ -626,7 +627,7 @@ LAB_00487a8c:
         uVar19 = 100;
         uVar6 = 0;
         PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-        FUN_00432320((char)param_1[0xf],1,1,uVar5,uVar6,uVar19,uVar21,iVar8,uVar22);
+        FUN_00432320(iVarBlastY, (char)param_1[0xf],1,1,uVar5,uVar6,uVar19,uVar21,iVar8,uVar22);
         puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xf);
         ScrubChecksumGuard();
 LAB_00487d3f:
@@ -652,10 +653,10 @@ LAB_00487d3f:
           uVar21 = 0xff;
           uVar19 = 100;
           uVar6 = 0;
-          PeekChecksumStateUnderLock(auStack_8a0);
+          iVarBlastY = (int)PeekChecksumStateUnderLock(auStack_8a0);
           uVar5 = PeekChecksumStateUnderLock(auStack_ac4);
           PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-          FUN_00432320((char)param_1[0xf],1,1,uVar5,uVar6,uVar19,uVar21,iVar8,uVar22);
+          FUN_00432320(iVarBlastY, (char)param_1[0xf],1,1,uVar5,uVar6,uVar19,uVar21,iVar8,uVar22);
           puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xd);
           ScrubChecksumGuard();
           goto LAB_00487d3f;

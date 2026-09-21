@@ -32,6 +32,7 @@
 void __fastcall FUN_004513b0(int *param_1)
 
 {
+  int iVarBlastY;
   int iCraterX;
   byte bVar1;
   char cVar2;
@@ -737,7 +738,7 @@ LAB_00451a3a:
         uVar8 = 0;
         iVar5 = (int)uStack_b58;
         PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-        FUN_00432320((char)param_1[0xf],1,1,iVar5,uVar8,uVar9,uVar10,iVar4,uVar27);
+        FUN_00432320((int)ppuStack_b38, (char)param_1[0xf],1,1,iVar5,uVar8,uVar9,uVar10,iVar4,uVar27);
         uStack_70 = 3;
         ScrubChecksumGuard();
 LAB_00451d02:
@@ -762,10 +763,10 @@ LAB_00451d02:
           uVar27 = 0xff;
           uVar10 = 100;
           uVar9 = 0;
-          PeekChecksumStateUnderLock(auStack_908);
+          iVarBlastY = (int)PeekChecksumStateUnderLock(auStack_908);
           uVar8 = PeekChecksumStateUnderLock(&puStack_b2c);
           PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-          FUN_00432320((char)param_1[0xf],1,1,uVar8,uVar9,uVar10,uVar27,iVar4,uVar29);
+          FUN_00432320(iVarBlastY, (char)param_1[0xf],1,1,uVar8,uVar9,uVar10,uVar27,iVar4,uVar29);
           uStack_70 = 1;
           ScrubChecksumGuard();
           goto LAB_00451d02;
@@ -958,7 +959,7 @@ LAB_00451f7a:
   (*pcVar17)(&g_valueGuardLock);
   uVar8 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00450eb0(uVar8,puVar21,param_1,1,0,0);
+  FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),uVar8,puVar21,param_1,1,0,0);
   (*pcVar17)(&g_valueGuardLock);
   uVar8 = PeekPacketChecksumState((void *)(param_1 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

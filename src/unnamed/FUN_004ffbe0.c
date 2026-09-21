@@ -3,6 +3,16 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20): the 2 FUN_004feb00() calls here
+ * (orig 0x4ffdec/0x4ffe24) were each missing the callee's leading
+ * __thiscall arg. Both sites do `mov ecx,ebp` immediately before the
+ * call - EBP is not used as a frame pointer in this function (see the
+ * `push ebx/push ebp/push esi/push edi` prologue after `sub esp,0x2c`);
+ * it is a GPR holding the same struct pointer the source calls `iVar6`
+ * (read at `+0x14/+0x18/+0x1c/+0x20/+0x24/+0x28` around both call sites,
+ * matching `iVar6`'s field accesses in this file). See FUN_004feb00.c's
+ * header for the callee-side evidence.
  */
 #include "ghidra_types.h"
 
@@ -124,7 +134,7 @@ joined_r0x004ffcb0:
               uStack_e = *(undefined2 *)(iVar6 + 0x20);
               uStack_c = (undefined2)iVar2;
               uStack_a = (undefined2)((uint)iVar2 >> 0x10);
-              FUN_004feb00(param_1,puVar8,&uStack_10,uVar1);
+              FUN_004feb00((char *)iVar6,(int)param_1,(int)puVar8,(sockaddr *)&uStack_10,uVar1);
             }
             iVar2 = *(int *)(iVar6 + 0x24);
             if (iVar2 != 0) {
@@ -139,7 +149,7 @@ joined_r0x004ffcb0:
             uStack_a = (undefined2)((uint)iVar2 >> 0x10);
             uStack_e = *(undefined2 *)(iVar6 + 0x18);
 LAB_004ffe20:
-            FUN_004feb00(param_1,puVar8,&uStack_10,uVar1);
+            FUN_004feb00((char *)iVar6,(int)param_1,(int)puVar8,(sockaddr *)&uStack_10,uVar1);
           }
           puVar3[0x5d6] = puVar3[0x5d6] + 1;
 LAB_004ffe2f:

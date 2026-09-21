@@ -3,6 +3,22 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20). include/functions.h had no prototype
+ * for this function, so every caller compiled it without argument-count
+ * checking. The definition's own shape is CORRECT as declared - it is
+ * genuinely __thiscall with param_1=ECX ("this"/key string) plus 4 stack
+ * dwords (`ret 0x10` at the epilogue = 0x10/4 = 4), matching all 5
+ * existing formal parameters 1:1. Every one of the 3 callers (all in
+ * FUN_004fe110.c) was dropping the ECX argument entirely - passing only
+ * the 4 stack args - because with no prototype in scope, C's default
+ * (no-prototype) call convention never set up ECX at all. Fixed by
+ * adding a real functions.h prototype and, at each call site, passing
+ * the caller's own `param_3` (the thiscall "this"/key string operand,
+ * confirmed at all 3 static call sites 0x4fe28b/0x4fe2ba/0x4fe2f0 via
+ * `mov ecx,[ebp+0xc]` immediately before each `call 0x4feb00`) as the
+ * new leading argument. The other 4 (already-present) arguments were
+ * already correctly positioned - see FUN_004fe110.c's header.
  */
 #include "ghidra_types.h"
 

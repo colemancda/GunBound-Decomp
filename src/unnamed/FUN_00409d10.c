@@ -4,6 +4,14 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20): __thiscall with 4 real params
+ * (ECX=`this` + ret 0xc = 3 stack dwords, disasm 0x409d10-0x409deb); the
+ * declared shape was already correct. The sole caller
+ * (fileformat/ParseChooseEventLine.c) dropped `this` entirely (wrote only
+ * the 3 stack args). See that file's own header for the call-site
+ * reconstruction: `this` = the hash-bucket index FUN_00426780 wrote into
+ * its caller's `local_8` out-param.
  */
 #include "ghidra_types.h"
 

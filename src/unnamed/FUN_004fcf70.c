@@ -3,6 +3,13 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20): the FUN_004fe110() call (orig
+ * 0x4fcfd5) was missing its leading __thiscall arg. Disasm shows
+ * `lea ecx,[edi+0x1a90]` immediately before the call - the same
+ * `regEdi + 0x1a90` "this" object used by the other FUN_004fe110 call
+ * sites (see FUN_004fcf10.c / FUN_004fe110.c). The 5 already-present
+ * arguments were already correctly positioned.
  */
 #include "ghidra_types.h"
 
@@ -28,8 +35,8 @@ void FUN_004fcf70(int param_1,undefined4 param_2,undefined4 param_3,undefined4 p
         iVar2 = iVar2 + 1;
       }
       else {
-        FUN_004fe110(regEdi + 0xb,*(undefined4 *)(regEbx + iVar3 * 4),param_2,param_3,param_4)
-        ;
+        FUN_004fe110((undefined4 *)((char *)regEdi + 0x1a90),regEdi + 0xb,
+                     *(undefined4 *)(regEbx + iVar3 * 4),param_2,param_3,param_4);
       }
       iVar3 = iVar3 + 1;
     } while (iVar3 < param_1);

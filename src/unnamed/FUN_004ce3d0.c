@@ -74,8 +74,14 @@ void FUN_004ce3d0(int param_1)
           if (iVar2 != 0) {
             *(undefined1 *)(iVar2 + 0x14) = 1;
           }
-          PeekChecksumStateUnderLock(piVar3 + 0x68b);
-          FUN_0041c360(g_clientContext,piVar3);
+          /* FIXED (2026-09-20): dropped __thiscall ECX arg - at orig
+           * 0x4ce526-0x4ce530, `mov ecx,eax` sets `this` from THIS Peek's
+           * own return value (eax), right after the two stack pushes
+           * (edi=piVar3, then edx=g_clientContext). The raw port had
+           * discarded the result entirely. See FUN_0041c360.c's header
+           * for the argument-order rationale. */
+          uVar4 = PeekChecksumStateUnderLock(piVar3 + 0x68b);
+          FUN_0041c360(uVar4,g_clientContext,piVar3);
           SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           *(undefined1 *)(piVar3 + 0x2b85) = 0;
           SetGuardedBool(0,GB_GUARD_UNRECOVERED);

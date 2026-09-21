@@ -37,6 +37,7 @@
 void __fastcall DetonateShot2_Bullet8(int *param_1)
 
 {
+  int iVarBlastY;
   byte bVar1;
   bool bVar2;
   bool bVar3;
@@ -994,7 +995,7 @@ LAB_004a9552:
     puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),0x10);
     SyncOutgoingChecksumField(auStack_adc, apiStack_ae4[0] + 4,auStack_8b4);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    PeekPacketChecksumState((void *)auStack_8b4);
+    iVarBlastY = (int)PeekPacketChecksumState((void *)auStack_8b4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     apbStack_b04[0] = (byte *)PeekPacketChecksumState((void *)auStack_adc);
@@ -1006,7 +1007,7 @@ LAB_004a9552:
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00432320((char)param_1[0xf],1,1,apbStack_b04[0],0,100,0xff,param_1[0xfe5],0);
+    FUN_00432320(iVarBlastY, (char)param_1[0xf],1,1,apbStack_b04[0],0,100,0xff,param_1[0xfe5],0);
     pbVar9 = pbStack_8a0;
     puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),0xf);
     if (pbStack_8a0 != (byte *)0x0) {
@@ -1055,7 +1056,7 @@ LAB_004a9552:
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       SyncOutgoingChecksumField(auStack_8b4, apiStack_ae4[0] + 4,auStack_adc);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      PeekPacketChecksumState((void *)auStack_adc);
+      iVarBlastY = (int)PeekPacketChecksumState((void *)auStack_adc);
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       apbStack_b04[0] = (byte *)PeekPacketChecksumState((void *)auStack_8b4);
@@ -1067,7 +1068,7 @@ LAB_004a9552:
       uVar8 = 0;
       pbVar9 = apbStack_b04[0];
       PeekPacketChecksumBool(apbStack_b04[0],0,100,0xff,iVar7,0);
-      FUN_00432320((char)param_1[0xf],1,1,pbVar9,uVar8,uVar19,uVar20,iVar7,uVar21);
+      FUN_00432320(iVarBlastY, (char)param_1[0xf],1,1,pbVar9,uVar8,uVar19,uVar20,iVar7,uVar21);
       pbVar9 = pbStack_ac8;
       puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),0xd);
       if (pbStack_ac8 != (byte *)0x0) {

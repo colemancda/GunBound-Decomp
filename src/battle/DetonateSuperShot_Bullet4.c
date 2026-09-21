@@ -33,6 +33,7 @@
 void __fastcall DetonateSuperShot_Bullet4(int *param_1)
 
 {
+  int iVarBlastY;
   char cVar1;
   int iVar2;
   int iVar3;
@@ -417,7 +418,7 @@ LAB_004ad793:
         SUBFIELD(puStack_8,0,undefined1) = 4;
         SyncOutgoingChecksumField(auStack_8a0, piStack_ad0 + 4,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        PeekPacketChecksumState((void *)(auStack_ac4));
+        iVarBlastY = (int)PeekPacketChecksumState((void *)(auStack_ac4));
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         uVar5 = PeekPacketChecksumState((void *)(auStack_8a0));
@@ -428,7 +429,7 @@ LAB_004ad793:
         uVar15 = 100;
         uVar14 = 0;
         PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-        FUN_00432320((char)param_1[0xf],1,1,uVar5,uVar14,uVar15,uVar16,iVar9,uVar17);
+        FUN_00432320(iVarBlastY, (char)param_1[0xf],1,1,uVar5,uVar14,uVar15,uVar16,iVar9,uVar17);
         puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),3);
         ScrubChecksumGuard();
 LAB_004ada51:
@@ -454,10 +455,10 @@ LAB_004ada51:
           uVar16 = 0xff;
           uVar15 = 100;
           uVar14 = 0;
-          PeekChecksumStateUnderLock(auStack_8a0);
+          iVarBlastY = (int)PeekChecksumStateUnderLock(auStack_8a0);
           uVar5 = PeekChecksumStateUnderLock(auStack_ac4);
           PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-          FUN_00432320((char)param_1[0xf],1,1,uVar5,uVar14,uVar15,uVar16,iVar9,uVar17);
+          FUN_00432320(iVarBlastY, (char)param_1[0xf],1,1,uVar5,uVar14,uVar15,uVar16,iVar9,uVar17);
           puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
           ScrubChecksumGuard();
           goto LAB_004ada51;

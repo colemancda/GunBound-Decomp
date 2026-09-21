@@ -6,11 +6,28 @@
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at both argless PeekPacketChecksumState() calls: both &DAT_00e9ba40 (the FUN_00436bd0 emitter family).
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20): the sole call site (battle/
+ * DetonateItemShot.c) only passed 3 of the 4 declared params, and the
+ * `__thiscall` qualifier was wrong to begin with. Orig entry (0x436980-
+ * 0x436984): `push ecx; add eax,4; call 0x4065a0` (PeekPacketChecksumBool)
+ * - param_1 arrives in EAX, not ECX; the `push ecx` is a bare stack-local
+ * reserve (its slot is immediately clobbered with the iVar6=0 loop counter
+ * at 0x4369a4, ECX is never read again). The sole caller (orig
+ * 0x476f1a-0x476f30) confirms: EAX is loaded from `[0x5b3484]+0x6a7f70`
+ * (g_clientContext+0x6a7f70) and is untouched through the 3 pushes up to
+ * the call, so param_1 = g_clientContext+0x6a7f74 (the +4 the callee adds
+ * before its PeekPacketChecksumBool call - the same guard-cell family as
+ * FUN_0045db20's own `PeekPacketChecksumBool(g_clientContext+0x6a7f74)`).
+ * Declaring it plain (no calling-convention qualifier) lets the value
+ * travel as an ordinary 4th... 1st stack argument instead, which is
+ * semantically equivalent since nothing else in this TU depends on the
+ * original register-passing trick.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00436980(undefined4 param_1,int param_2,int param_3,int param_4)
+void FUN_00436980(undefined4 param_1,int param_2,int param_3,int param_4)
 
 {
   char cVar1;

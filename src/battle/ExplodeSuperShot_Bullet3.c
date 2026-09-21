@@ -96,7 +96,7 @@ void __fastcall ExplodeSuperShot_Bullet3(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00450eb0(uVar4,uVar3,param_1,1,0,0);
+  FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),uVar4,uVar3,param_1,1,0,0);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x1178));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

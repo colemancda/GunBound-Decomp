@@ -23,6 +23,33 @@
  * (*(int *)(param_3+8) & 7)*0x1120 + 0x508ac/0x50ad0/0x50240
  * (original reads the untouched arg slot [esp+0x8c8]; preserved via
  * new local iVar7). Two peeks read the global cell &DAT_00e9ba40.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20, no-prototype sweep). This is a
+ * genuine __thiscall: `ret 8` at the real epilogue (orig 0x41da7c -
+ * PROGRESS.csv's 5919-byte size runs a little past it into the next
+ * function's SEH prologue at 0x41da80, so look for the `ret` a few
+ * instructions earlier) confirms 2 STACK arguments (param_2/param_3),
+ * plus ECX (param_1, `this`) = 3 total - the declaration's shape was
+ * already correct, matching every existing peek/encode cell already
+ * recovered above. The bug was purely at both call sites, which had NO
+ * prototype in include/functions.h (the header's generator skips this
+ * split-line `void __thiscall` definition, per
+ * fastcall-decls-missing-from-functions-h), so a 2-argument call compiled
+ * silently instead of erroring, dropping the ECX/`this` argument and
+ * leaving the two stack values in param_1/param_2 instead of param_2/
+ * param_3:
+ *   - CreateMobile.c (orig 0x42b869-0x42b88f): ECX comes from `mov
+ *     ecx,esi` at 0x42b88d, overwriting an earlier `mov ecx,ebp` - esi is
+ *     CreateMobile's own param_2 (the mobile-type index, loaded at
+ *     0x42b82a). Stack pushes are unchanged: g_clientContext (param_2),
+ *     then piVar3 (param_3). Fixed to
+ *     `FUN_0041c360(param_2,g_clientContext,piVar3)`.
+ *   - FUN_004ce3d0.c (orig 0x4ce526-0x4ce530): ECX comes from `mov
+ *     ecx,eax` where eax is the return value of the PeekChecksumState
+ *     UnderLock(piVar3+0x68b) call immediately above it - the raw port
+ *     discarded that result entirely. Stack pushes unchanged:
+ *     g_clientContext (param_2), piVar3 (param_3). Fixed to capture the
+ *     Peek's result and pass it first.
  */
 #include "ghidra_types.h"
 

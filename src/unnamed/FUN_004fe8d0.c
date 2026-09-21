@@ -14,6 +14,19 @@
  * that object's +0x80 -- the pointer FUN_004ff1a0 zeroes and FUN_004ff210
  * frees.  The free below is the same field, now spelled as part of the object
  * it belongs to.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20): the FUN_004fe110() call (orig
+ * 0x4fea37) was missing its leading __thiscall arg AND had its 2nd/3rd
+ * arguments wrong. Disasm: `mov ecx,esi` right before the call, where esi
+ * was freshly reloaded at 0x4fea10 to `iVar5` (this function's own
+ * `iVar5`, not the `param_1`/`param_2` the prior raw port used there) -
+ * that is the real `this`. The pushed args are (deepest to shallowest)
+ * `*(ushort*)(iVar5+0xe)`, `iVar5+0x10`, `*(ushort*)(iVar5+0xc)` (all
+ * already correctly ported), then EDX = a fresh `[esp+0xcc]` reread that
+ * lands on this function's own `param_2` (not `param_1`), then EBX =
+ * `mov ebx,ecx` at function entry (0x4fe8fa, before `esi` gets
+ * repurposed) = this function's own `param_1`. So the true call is
+ * `(this=iVar5, param_1, param_2, ...)`, not `(param_1, param_2, ...)`.
  */
 #include "ghidra_types.h"
 
@@ -94,7 +107,8 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
         ThrowCxxException(0x80070057);
       }
       iVar5 = piVar8[0x20] + (int)local_b8;
-      cVar1 = FUN_004fe110(param_1,param_2,*(undefined2 *)(iVar5 + 0xc),iVar5 + 0x10,
+      cVar1 = FUN_004fe110((undefined4 *)iVar5,(int *)param_1,param_2,
+                           *(undefined2 *)(iVar5 + 0xc),(undefined4 *)(iVar5 + 0x10),
                            *(undefined2 *)(iVar5 + 0xe));
       if (cVar1 == '\0') {
         (**(code **)*param_1)

@@ -14,6 +14,15 @@
  * return value of the `mov edx,0x186aa; call 0x4f30c0` sprite lookup that
  * the C already captures as iVar6 on the line above (FindSpriteFrame), so the
  * cell is the sprite record's own guard at + 0x270.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20): the sole caller (FUN_00450eb0, inside
+ * its `while (cVar1 == '\0')` loop) was missing this function's own
+ * leading `this` (ECX) stack arg entirely - epilogue `ret 0x14` (orig
+ * 0x45ea33) confirms exactly 5 real stack dwords (param_2..param_6) on
+ * top of ECX=param_1, matching the declared 6-param shape as-is; this was
+ * a pure caller-undercount, not a definition-shape bug. See
+ * FUN_00450eb0.c's own header for the call-site reconstruction (`this` =
+ * FUN_00450eb0's own param_4, constant across the loop).
  */
 #include "ghidra_types.h"
 

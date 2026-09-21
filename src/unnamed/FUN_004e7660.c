@@ -4,6 +4,23 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20, no-prototype sweep). __fastcall's two
+ * register slots (ECX=param_1, EDX=param_2) plus `ret 8` (2 stack args:
+ * param_3/param_4) already account for all 4 declared parameters - no
+ * register/decl mismatch. `in_EAX` is read at entry (`uVar2 = in_EAX &
+ * 0xffffff00`) but is NOT a formal parameter: it's simply whatever EAX
+ * held from the caller's immediately-preceding `lea eax,[esp+0xc]` (the
+ * address later pushed as param_4) - the sole caller only ever inspects
+ * AL (the bool result), so the high 3 bytes this seeds are never
+ * observed. ECX/param_1 is likewise never read by the body. The bug was
+ * purely at the sole call site, which had NO prototype in
+ * include/functions.h (the header's generator skips this split-line
+ * `uint __fastcall` definition, per
+ * fastcall-decls-missing-from-functions-h), so a 2-argument call compiled
+ * silently instead of erroring, dropping EDX (this function's own
+ * param_1 - confirmed via `mov edx,ebp` at orig 0x4e7823, immediately
+ * before the call) while leaving param_1(ECX, unused) unset entirely.
  */
 #include "ghidra_types.h"
 

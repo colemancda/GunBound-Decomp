@@ -3,6 +3,28 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20): the 3 FUN_004feb00() calls here
+ * (lines ~132/142/148, orig 0x4fe28b/0x4fe2ba/0x4fe2f0) were each missing
+ * the callee's leading __thiscall arg. Disassembly of all 3 sites shows
+ * `mov ecx,[ebp+0xc]` (= this function's own `param_3`) immediately
+ * before every `call 0x4feb00`; the 4 already-present stack arguments
+ * (param_2, &local_2eb8, &uStack_2ec8, local_2ecc[6]) were already
+ * correctly positioned. See FUN_004feb00.c's header for the callee-side
+ * evidence.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20, THIS function's own callers).
+ * include/functions.h had no prototype for FUN_004fe110 itself either,
+ * so its own callers compiled without argument-count checking. Its own
+ * declared shape is CORRECT: genuinely __thiscall with param_1=ECX
+ * ("this") plus 5 stack dwords (`ret 0x14` at the epilogue 0x4fe405 =
+ * 0x14/4 = 5), matching all 6 existing formal parameters 1:1. All 3
+ * callers (FUN_004fcf10.c, FUN_004fcf70.c, FUN_004fe8d0.c) were dropping
+ * the ECX argument entirely - and two of the three also had one
+ * already-present stack argument wrong, a separate pre-existing bug
+ * (see each caller's own header for its call-site evidence). Fixed by
+ * adding a real functions.h prototype and, at each call site, passing
+ * the correct `this` value.
  */
 #include "ghidra_types.h"
 
@@ -129,7 +151,8 @@ FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 para
         uStack_2ec4 = (undefined2)iVar1;
         uStack_2ec2 = (undefined2)((uint)iVar1 >> 0x10);
         uStack_2ec6 = (undefined2)local_2ecc[3];
-        cVar2 = FUN_004feb00(param_2,&local_2eb8,&uStack_2ec8,local_2ecc[6]);
+        cVar2 = FUN_004feb00((char *)param_3,(int)param_2,(int)&local_2eb8,(sockaddr *)&uStack_2ec8,
+                             local_2ecc[6]);
         if (cVar2 == '\0') {
           return 0;
         }
@@ -139,13 +162,15 @@ FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 para
       uStack_2ec4 = (undefined2)iVar1;
       uStack_2ec2 = (undefined2)((uint)iVar1 >> 0x10);
       uStack_2ec6 = (undefined2)local_2ecc[5];
-      cVar2 = FUN_004feb00(param_2,&local_2eb8,&uStack_2ec8,local_2ecc[6]);
+      cVar2 = FUN_004feb00((char *)param_3,(int)param_2,(int)&local_2eb8,(sockaddr *)&uStack_2ec8,
+                             local_2ecc[6]);
     }
     else {
       uStack_2ec4 = (undefined2)iVar1;
       uStack_2ec2 = (undefined2)((uint)iVar1 >> 0x10);
       uStack_2ec6 = (undefined2)local_2ecc[1];
-      cVar2 = FUN_004feb00(param_2,&local_2eb8,&uStack_2ec8,local_2ecc[6]);
+      cVar2 = FUN_004feb00((char *)param_3,(int)param_2,(int)&local_2eb8,(sockaddr *)&uStack_2ec8,
+                             local_2ecc[6]);
     }
     if (cVar2 != '\0') {
 LAB_004fe2fc:

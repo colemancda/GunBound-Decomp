@@ -191,8 +191,11 @@ char FUN_004e4fe0(int param_1, int param_2, int *param_3, int *param_4, int para
 int CalculateAngleFromDelta_2(int dx, int dy);
 int FloatToInt64_0(void);
 void *RegisterActiveObject_4(void *a, void *b, void *c, void *d);
-void FUN_00432320(unsigned char a, int b, int c, unsigned int d, unsigned int e, unsigned int f,
-                   unsigned int g, unsigned int h, unsigned int i);
+/* 10 args: the first is the REGISTER-passed y (terrain row, __thiscall
+ * ECX) the whole tree used to drop; the rest are the 9 stack args.  See
+ * src/unnamed/FUN_00432320.c's header. */
+void FUN_00432320(int y, unsigned char a, int b, int c, unsigned int d, unsigned int e,
+                   unsigned int f, unsigned int g, unsigned int h, unsigned int i);
 unsigned int FUN_004ac4d0(void);
 int FUN_004ac400(void);
 char PeekChecksumStateUnderLock(void *out);
@@ -200,7 +203,7 @@ void ApplyCraterExcavation(unsigned int a, void *b, unsigned int c, unsigned int
                             void *f, unsigned int g, unsigned int h,
                             int terrainCtx, int impactX, int impactY);
 void RebuildTerrainColumnCache(void *base);
-void FUN_00450eb0(void *a, unsigned int b, void *c, int d, int e, int f);
+void FUN_00450eb0(int self, void *a, unsigned int b, void *c, int d, int e, int f);
 void SpawnCrashEffect(unsigned int a, unsigned int b, int regEbx);
 void SpawnFlameEffect(int a, void *b, unsigned int c, unsigned int d, void *e);
 void FUN_00437150(unsigned int a, unsigned int b, int c, unsigned int d);
@@ -411,6 +414,7 @@ void CProjectile::AnimateProjectileTick()
  *    reconciling functions.h globally is out of scope here. */
 void CProjectile::DetonateProjectile()
 {
+    int iVarBlastY;
     int iCraterX;
     void *capturedEdi, *capturedEsi, *capturedEbp;
     __asm {
@@ -722,7 +726,7 @@ void CProjectile::DetonateProjectile()
                 EncodeOutgoingPacketField((void *)(&auStack_ac4), 0);
                 SyncOutgoingChecksumField(&auStack_8a0, (int)pCStack_ac8->m_pad0c + 4, &auStack_ac4);
                 EnterCriticalSection(&g_valueGuardLock);
-                PeekPacketChecksumState((void *)(&auStack_ac4));
+                iVarBlastY = (int)PeekPacketChecksumState((void *)(&auStack_ac4));
                 LeaveCriticalSection(&g_valueGuardLock);
                 EnterCriticalSection(&g_valueGuardLock);
                 uVar8 = PeekPacketChecksumState((void *)(&auStack_8a0));
@@ -733,7 +737,7 @@ void CProjectile::DetonateProjectile()
                 uVar23 = 100;
                 uVar24 = 0;
                 PeekPacketChecksumBool((unsigned char *)this + 0xf3c);
-                FUN_00432320(self->m_flags, 1, 1, uVar8, uVar21, uVar23, uVar22, iVar5, uVar24);
+                FUN_00432320(iVarBlastY, self->m_flags, 1, 1, uVar8, uVar21, uVar23, uVar22, iVar5, uVar24);
                 ScrubChecksumGuard(&auStack_ac4);
                 puVar15 = &auStack_8a0;
                 goto LAB_0045793d;
@@ -755,10 +759,10 @@ void CProjectile::DetonateProjectile()
                     uVar22 = 0xff;
                     uVar23 = 100;
                     uVar24 = 0;
-                    PeekChecksumStateUnderLock(&auStack_8a0);
+                    iVarBlastY = (int)PeekChecksumStateUnderLock(&auStack_8a0);
                     uVar8 = PeekChecksumStateUnderLock(&auStack_ac4);
                     PeekPacketChecksumBool((unsigned char *)this + 0xf3c);
-                    FUN_00432320(self->m_flags, 1, 1, uVar8, uVar21, uVar23, uVar22, iVar5, uVar24);
+                    FUN_00432320(iVarBlastY, self->m_flags, 1, 1, uVar8, uVar21, uVar23, uVar22, iVar5, uVar24);
                     ScrubChecksumGuard(&auStack_8a0);
                     puVar15 = &auStack_ac4;
                 LAB_0045793d:
@@ -828,7 +832,7 @@ LAB_004579de:
     EnterCriticalSection(&g_valueGuardLock);
     apuStack_ad0[0] = reinterpret_cast<unsigned int *>(PeekPacketChecksumState((void *)(pCStack_ad8->m_pad3d + 0xf17)));
     LeaveCriticalSection(&g_valueGuardLock);
-    FUN_00450eb0(apuStack_ad0[0], uVar8, pCVar9, 1, 0, 0);
+    FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext), apuStack_ad0[0], uVar8, pCVar9, 1, 0, 0);
     EnterCriticalSection(&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)(pCStack_ad8->m_pad3d + 0x113b));
     LeaveCriticalSection(&g_valueGuardLock);

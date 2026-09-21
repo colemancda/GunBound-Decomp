@@ -162,7 +162,7 @@ void AlignMobileToTerrain(CMobile *self);
  * explicitly on a free-function declaration (unlike __thiscall, no
  * C4234 restriction). */
 void __fastcall UpdateMobileEmotionState(int *param_1);
-void FUN_00436cd0(unsigned int a, unsigned int b);
+void FUN_00436cd0(unsigned int ecxThis, unsigned int a, unsigned int b);
 unsigned short CommitTurnDelay(int a, int regEax);
 void FUN_0041f200(int a, int regEax);
 char ChecksumPairDiffers(void *a, void *b);
@@ -699,6 +699,7 @@ void CMobile::v2_SimulateFrame()
     int iVar11;
     const char *pcVar13;
     unsigned int uVar14;
+    unsigned int uVar15;
     unsigned char auStack_454[0x224];
     unsigned char auStack_230[0x224];
 
@@ -979,9 +980,12 @@ LAB_004622cf:
     }
     if (bVar3) {
         uVar14 = 0x28;
-        PeekChecksumStateUnderLock(this->m_pad908 + 0x228);
+        /* FIXED (2026-09-20): dropped __thiscall ECX arg - see
+         * SimulateMobileFrame.c (the C twin) for the binary evidence at
+         * orig 0x462766-0x462786. */
+        uVar15 = PeekChecksumStateUnderLock(this->m_pad908 + 0x228);
         uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 4);
-        FUN_00436cd0(uVar9, uVar14);
+        FUN_00436cd0(uVar15, uVar9, uVar14);
     }
     uVar9 = EncodeChecksumPairDiff(this->m_pad908 + 0x6284, auStack_454, reinterpret_cast<unsigned int>(this->m_pad908 + 0x6060));
     iVar11 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar9));

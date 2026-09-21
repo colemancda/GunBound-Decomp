@@ -42,6 +42,7 @@
 void __fastcall DetonateShot2_Bullet13(int *param_1)
 
 {
+  int iVarBlastY;
   char cVar1;
   int peekRow;                       /* ScanTerrainLeft/UpForSolid EAX: the row guard, captured instead of discarded */
   int peekCol;                       /* ScanTerrainLeftForSolid ECX / ScanTerrainUpForSolid EDI: the column guard */
@@ -591,7 +592,7 @@ LAB_004a0ccf:
         SUBFIELD(puStack_8,0,undefined1) = 0x10;
         SyncOutgoingChecksumField(auStack_8a0, local_acc + 4,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        PeekPacketChecksumState((void *)auStack_ac4);
+        iVarBlastY = (int)PeekPacketChecksumState((void *)auStack_ac4);
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         puStack_aec = (undefined *)PeekPacketChecksumState((void *)auStack_8a0);
@@ -603,7 +604,7 @@ LAB_004a0ccf:
         uVar5 = 0;
         puVar18 = puStack_aec;
         PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-        FUN_00432320((char)param_1[0xf],1,1,puVar18,uVar5,uVar6,uVar19,iVar4,uVar20);
+        FUN_00432320(iVarBlastY, (char)param_1[0xf],1,1,puVar18,uVar5,uVar6,uVar19,iVar4,uVar20);
         puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xf);
         ScrubChecksumGuard();
 LAB_004a0f88:
@@ -629,10 +630,10 @@ LAB_004a0f88:
           uVar20 = 0xff;
           uVar19 = 100;
           uVar6 = 0;
-          PeekChecksumStateUnderLock(auStack_8a0);
+          iVarBlastY = (int)PeekChecksumStateUnderLock(auStack_8a0);
           uVar5 = PeekChecksumStateUnderLock(auStack_ac4);
           PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-          FUN_00432320((char)param_1[0xf],1,1,uVar5,uVar6,uVar19,uVar20,iVar4,uVar21);
+          FUN_00432320(iVarBlastY, (char)param_1[0xf],1,1,uVar5,uVar6,uVar19,uVar20,iVar4,uVar21);
           puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xd);
           ScrubChecksumGuard();
           goto LAB_004a0f88;
@@ -707,7 +708,7 @@ LAB_004a101f:
   puStack_aec = (undefined *)PeekPacketChecksumState((void *)piStack_af0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = iStack_ad0;
-  FUN_00450eb0(puStack_aec,uVar5,iStack_ad0,1,0,0);
+  FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),puStack_aec,uVar5,iStack_ad0,1,0,0);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)piStack_ae0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

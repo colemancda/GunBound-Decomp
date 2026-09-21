@@ -57,10 +57,16 @@ void RegisterTankSprite(int param_1)
     *(undefined2 *)((int)puVar7 + 5) = DAT_00556ae4;
     iVar6 = iVar3 + **(int **)(iVar5 + 0xc) * 4;
     SortIntRange(iVar3,iVar6,iVar6 - iVar3 >> 2);
+    /* FIXED (2026-09-20): dropped EAX `imgName` arg - at orig 0x4dc7d9
+     * `lea eax,[esp+0xa0]` (this buffer, uStack_101) sits right before
+     * the call. See FUN_004f1a50.c's header. */
     FUN_004f1a50(&g_spriteRegistry,param_1 + 5000,**(undefined4 **)(iVar5 + 0x10),
-                 **(undefined4 **)(iVar5 + 0xc));
+                 **(undefined4 **)(iVar5 + 0xc),(char *)&uStack_101);
+    /* FIXED (2026-09-20): dropped EAX `imgName` arg - at orig 0x4dc7fd
+     * `lea eax,[esp+0x120]` (this buffer, uStack_81) sits right before
+     * the call. See FUN_004f1a50.c's header. */
     FUN_004f1a50(&g_spriteRegistry,param_1 + 0x13ec,**(undefined4 **)(iVar5 + 0x10),
-                 **(undefined4 **)(iVar5 + 0xc));
+                 **(undefined4 **)(iVar5 + 0xc),(char *)&uStack_81);
   }
   return;
 }

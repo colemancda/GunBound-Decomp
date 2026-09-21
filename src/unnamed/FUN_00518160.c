@@ -3,6 +3,19 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20): plain __cdecl with 5 real stack
+ * params (no register args - epilogue is bare `ret`, disasm 0x518160-
+ * 0x5182ea; the entry reads use every one of [esp+0x1c/0x20/0x24/0x28/
+ * 0x2c] at various push depths, matching param_1..param_5 as declared).
+ * The sole call site (FUN_00515420.c) only pushed 4 args, matching its
+ * sibling call to FUN_005182f0 3 lines above minus that sibling's extra
+ * 4th (`&DAT_005ae7b0`) buffer arg AND its trailing flag arg. Orig
+ * 0x515809-0x515860: `mov eax,[0x5ae348]` / `push eax` happens once,
+ * BEFORE the `test ecx,ecx; je ...` branch that selects between
+ * FUN_005182f0 and this function - i.e. DAT_005ae348 is pushed FIRST
+ * (deepest = LAST/5th param) on both branches, and is simply the missing
+ * trailing arg here. Fix: append `DAT_005ae348` at the call site.
  */
 #include "ghidra_types.h"
 

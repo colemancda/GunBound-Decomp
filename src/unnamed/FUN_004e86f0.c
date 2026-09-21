@@ -49,7 +49,12 @@ undefined4 * FUN_004e86f0(undefined4 *param_1,int param_2,ushort *param_3)
   }
   if (bVar3) {
     if (param_1 == (undefined4 *)**(int **)(param_2 + 4)) {
-      puVar2 = (undefined4 *)FUN_004e8b10(&param_1,1,param_3);
+      /* FIXED (2026-09-20): dropped ECX(this)/EDI(tree-set) register args
+       * - see FUN_004e8b10.c's header for the binary evidence at orig
+       * 0x4e8747-0x4e8749: ECX=param_1(the traversal node this local now
+       * holds), EDI is never reloaded so it's still this function's own
+       * param_2 (the set) from entry. */
+      puVar2 = (undefined4 *)FUN_004e8b10(param_1,param_2,&param_1,1,param_3);
       *puVar1 = *puVar2;
       *(undefined1 *)(puVar1 + 1) = 1;
       return puVar1;
@@ -57,7 +62,10 @@ undefined4 * FUN_004e86f0(undefined4 *param_1,int param_2,ushort *param_3)
     FUN_004e8eb0();
   }
   if (*(ushort *)(param_1 + 3) < *param_3) {
-    puVar2 = (undefined4 *)FUN_004e8b10(&param_1,bVar3,param_3);
+    /* FIXED (2026-09-20): dropped ECX(this)/EDI(tree-set) register args -
+     * see FUN_004e8b10.c's header for the binary evidence at orig
+     * 0x4e8781-0x4e8783 (same shape as the call above). */
+    puVar2 = (undefined4 *)FUN_004e8b10(param_1,param_2,&param_1,bVar3,param_3);
     *puVar1 = *puVar2;
     *(undefined1 *)(puVar1 + 1) = 1;
     return puVar1;

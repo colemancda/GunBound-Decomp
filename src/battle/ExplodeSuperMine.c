@@ -160,7 +160,7 @@ void __fastcall ExplodeSuperMine(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x40));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00450eb0(uVar3,uVar2,param_1,1,0,0);
+    FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),uVar3,uVar2,param_1,1,0,0);
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);

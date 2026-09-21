@@ -71,6 +71,7 @@
 void __fastcall DetonatePrimaryShot_Bullet4(int *param_1)
 
 {
+  int iVarBlastY;
   int iCraterX;
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
@@ -642,7 +643,7 @@ LAB_004a3601:
         uVar25 = 100;
         uVar24 = 0;
         PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-        FUN_00432320((char)param_1[0xf],1,1,uVar5,uVar24,uVar25,uVar27,iVar16,uVar9);
+        FUN_00432320((int)PeekPacketChecksumState((void *)(param_1 + 0x45e)), (char)param_1[0xf],1,1,uVar5,uVar24,uVar25,uVar27,iVar16,uVar9);
         uStack_44 = CONCAT31(SUBFIELD(uStack_44,1,undefined3),7);
         ScrubChecksumGuard();
 LAB_004a38be:
@@ -668,10 +669,10 @@ LAB_004a38be:
           uVar27 = 0xff;
           uVar25 = 100;
           uVar24 = 0;
-          PeekChecksumStateUnderLock(auStack_b00);
+          iVarBlastY = (int)PeekChecksumStateUnderLock(auStack_b00);
           uVar5 = PeekChecksumStateUnderLock(&stack0xfffff2dc);
           PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-          FUN_00432320((char)param_1[0xf],1,1,uVar5,uVar24,uVar25,uVar27,iVar16,uVar9);
+          FUN_00432320(iVarBlastY, (char)param_1[0xf],1,1,uVar5,uVar24,uVar25,uVar27,iVar16,uVar9);
           uStack_44 = CONCAT31(SUBFIELD(uStack_44,1,undefined3),5);
           ScrubChecksumGuard();
           goto LAB_004a38be;
@@ -747,7 +748,7 @@ LAB_004a3955:
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar24 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00450eb0(uVar24,uVar5,param_1,1,0,0);
+  FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),uVar24,uVar5,param_1,1,0,0);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(param_1 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

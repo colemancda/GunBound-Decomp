@@ -4,6 +4,20 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20, no-prototype sweep). A std::string-
+ * style erase(pos,count): `ret 8` at the epilogue (orig 0x40be12)
+ * confirms 2 STACK arguments (param_2/param_3) plus ECX (param_1, `this`)
+ * = 3 total, matching the declaration already in place - no register/
+ * decl mismatch. The bug was purely at both call sites (both in
+ * FUN_0040b9f0.c), which had NO prototype in include/functions.h (the
+ * header's generator skips this split-line `int __thiscall` definition,
+ * per fastcall-decls-missing-from-functions-h), so a 2-argument call
+ * compiled silently instead of erroring, dropping the ECX/`this`
+ * argument. Confirmed at orig 0x40ba1b-0x40ba2c (`mov ecx,ebx` precedes
+ * each call; ebx is FUN_0040b9f0's own param_1/this, unchanged from the
+ * caller). Fixed both calls to pass that `this` pointer as the new first
+ * argument.
  */
 #include "ghidra_types.h"
 

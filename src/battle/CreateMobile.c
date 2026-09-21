@@ -304,7 +304,15 @@ LAB_0042b60a:
   else {
     (**(code **)(*piVar3 + 4))(s_normal_00552230);
   }
-  FUN_0041c360(g_clientContext,piVar3);
+  /* FIXED (2026-09-20): dropped __thiscall ECX arg - at orig 0x42b869
+   * `mov ecx,ebp` sets up `this` for the switch-branch's constructor call,
+   * but 0x42b88d (`mov ecx,esi`) overwrites it right before THIS call:
+   * esi is this function's own param_2 (loaded at 0x42b82a from
+   * [esp+0x4f8], the mobile-type index used two lines later to build the
+   * "tank%d" sprite name). The two stack pushes (0x42b88b/0x42b88c) are
+   * unchanged: g_clientContext then piVar3. See FUN_0041c360.c's header
+   * for the argument-order rationale. */
+  FUN_0041c360(param_2,g_clientContext,piVar3);
   if ((char)param_12 == '\0') {
     EncodeChecksumDeltaDiv(piVar3 + 0x19d1,auStack_454,2);
     local_4 = 0x11;

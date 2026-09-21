@@ -374,7 +374,7 @@ LAB_00476d03:
   (*pcVar17)(&g_valueGuardLock);
   uVar11 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00436980(uVar11,uVar10,(short)param_1[0xfe9]);
+  FUN_00436980(g_clientContext + 0x6a7f74,uVar11,uVar10,(short)param_1[0xfe9]);
 LAB_00476f35:
   return;
 }

@@ -3,6 +3,28 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20): the 4 FUN_00504550() calls here were
+ * missing its dest argument (see FUN_00504550.c's header) and, in two
+ * cases, were passing the wrong begin/end operand entirely because the
+ * `iVar3` local is recycled across this function for several unrelated
+ * SSA values - the first call's true begin operand is a fresh
+ * `*(param_2 + 4)` reread, not the (by-then-stale) `iVar3` C variable.
+ * Reconstructed per-site from a capstone disassembly of 0x502b70..0x502e10
+ * against the original binary; see FUN_00504550.c for the ABI evidence.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20, own callers): __thiscall with 4 real
+ * params (ECX=`this` + ret 0xc = 3 stack dwords, disasm 0x502b70-
+ * 0x502e0f); the declared shape was already correct. The sole call site
+ * (FUN_005029b0.c) dropped `this` entirely, writing only the 3 stack args
+ * (which already land correctly in param_2/param_3/param_4). Orig
+ * 0x5029f7-0x502a04: `mov ecx,[esp+0x18]; push 1; push ebx; push edi;
+ * call 0x502b70` - the real ECX/`this` value is FUN_005029b0's OWN 3rd
+ * stack argument, which is not a declared parameter of FUN_005029b0 at
+ * all (that function's own signature has a separate, out-of-scope bug -
+ * it declares only 2 params plus the already-flagged `unaff_EDI`, and is
+ * not one of this batch's 6 functions). Left as a TODO at the call site;
+ * resolving it requires fixing FUN_005029b0's own parameter list.
  */
 #include "ghidra_types.h"
 
@@ -22,6 +44,7 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
   uint uVar6;
   uint extraout_ECX;
   undefined4 *puVar7;
+  undefined4 *puVar8;
   undefined4 *unaff_FS_OFFSET;
   undefined4 local_2c [4];
   byte local_1b;
@@ -94,9 +117,12 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
       local_18 = local_18 * 0x12;
       pvVar4 = operator_new(local_18);
       local_8 = 0;
-      FUN_00504550(param_3,param_3);
+      puVar8 = (undefined4 *)
+               FUN_00504550(0,*(undefined4 **)(param_2 + 4),(undefined4 *)param_3,
+                             (undefined4 *)pvVar4);
       FUN_00504110(param_3);
-      FUN_00504550(*(undefined4 *)(param_2 + 8),param_3);
+      FUN_00504550(0,(undefined4 *)param_3,*(undefined4 **)(param_2 + 8),
+                    (undefined4 *)((int)puVar8 + param_4 * 0x12));
       _Memory = *(void **)(param_2 + 4);
       if (_Memory == (void *)0x0) {
         iVar3 = 0;
@@ -115,14 +141,15 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
     }
     iVar3 = *(int *)(param_2 + 8);
     if ((uint)((iVar3 - param_3) / 0x12) < param_4) {
-      FUN_00504550(iVar3,param_3);
+      FUN_00504550(0,(undefined4 *)param_3,(undefined4 *)iVar3,
+                    (undefined4 *)(param_3 + param_4 * 0x12));
       local_8 = 2;
       FUN_00504110(param_3);
       *(uint *)(param_2 + 8) = *(int *)(param_2 + 8) + param_4 * 0x12;
     }
     else {
       iVar2 = iVar3 + param_4 * -0x12;
-      uVar5 = FUN_00504550(iVar3,iVar2);
+      uVar5 = FUN_00504550(0,(undefined4 *)iVar2,(undefined4 *)iVar3,(undefined4 *)iVar3);
       *(undefined4 *)(param_2 + 8) = uVar5;
       FUN_005042f0((undefined4 *)iVar2,(undefined4 *)param_3,(undefined4 *)iVar3);
     }

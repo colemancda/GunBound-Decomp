@@ -32,6 +32,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
   undefined4 *unaff_FS_OFFSET;
   char *pcVar14;
   undefined4 uVar15;
+  undefined4 uVar16;
   undefined1 auStack_454 [548];
   undefined1 auStack_230 [548];
   undefined4 uStack_c;
@@ -352,9 +353,14 @@ LAB_00462742:
   }
   if (bVar4) {
     uVar15 = 0x28;
-    PeekChecksumStateUnderLock(param_1 + 0x2cc);
+    /* FIXED (2026-09-20): dropped __thiscall ECX arg - at orig 0x462766
+     * this PeekChecksumStateUnderLock(param_1+0x2cc) call's result is
+     * kept in ESI and moved into ECX right before the 0x436cd0 call
+     * (`mov ecx,esi` at 0x462784), i.e. it IS this function's `this`
+     * argument, not a discarded value. */
+    uVar16 = PeekChecksumStateUnderLock(param_1 + 0x2cc);
     uVar9 = PeekChecksumStateUnderLock(param_1 + 0x243);
-    FUN_00436cd0(uVar9,uVar15);
+    FUN_00436cd0(uVar16,uVar9,uVar15);
   }
   uVar9 = EncodeChecksumPairDiff(param_1 + 0x1ae3,auStack_454,param_1 + 0x1a5a);
   uStack_4 = 0xd;

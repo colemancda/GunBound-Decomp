@@ -4,6 +4,16 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20): __thiscall with 3 real params
+ * (ECX=`this` + ret 8 = 2 stack dwords, disasm 0x40bfd0-0x40c0d8); the
+ * declared shape was already correct. Both of the 2 call sites
+ * (FUN_0040b9f0.c, FUN_0040bee0.c) wrote only the 2 stack args and
+ * dropped `this` entirely - confirmed at both (orig 0x40ba46-0x40ba54 and
+ * 0x40bf42-0x40bf50): `mov ecx,ebx; call 0x40bfd0` with ebx = that
+ * caller's own `this`/param_1, pushed alongside the same 2 values the C
+ * already had (`*(param_1+0x14)`, the new-capacity local). Fix: prepend
+ * the caller's own param_1 at both sites.
  */
 #include "ghidra_types.h"
 

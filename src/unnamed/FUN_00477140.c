@@ -141,7 +141,7 @@ void FUN_00477140(int regEsi)
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   PeekPacketChecksumState((void *)(regEsi + 0x40));
   (*pcVar6)(&g_valueGuardLock);
-  FUN_00450eb0(unaff_EBP,uVar3,regEsi,1,0,0);
+  FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),unaff_EBP,uVar3,regEsi,1,0,0);
   local_c = 0xffffffff;
   if (iStack_448 != 0) {
     ScrambleChecksumGuardBytes(iStack_448,&g_valueGuardKeyTable);
