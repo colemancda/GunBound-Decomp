@@ -1,9 +1,21 @@
-/* FUN_0040b9f0 - 0x0040b9f0 in the original binary.
+/* basic_string_AssignSubstr - 0x0040b9f0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED (2026-09-21). Library identity: the classic MSVC7/Dinkumware
+ * std::basic_string<char> in-object layout (+4 the 16-byte SSO buffer
+ * or heap pointer, +0x14 length, +0x18 capacity - the same layout its
+ * documented sibling FUN_0040bee0 already identifies as "a VC7
+ * std::string::assign(const char*,size_t)-shaped helper"), with the
+ * two length-error throw helpers it calls (FUN_00520251/FUN_00520291)
+ * both classified EXCLUDED-msvc-crt-atl in PROGRESS.csv, confirming
+ * this whole cluster is genuine CRT/STL string code rather than
+ * application logic. This is the `assign(const basic_string& _Right,
+ * size_type _Roff, size_type _Count)` overload: copies (or, when
+ * `this == _Right`, in-place compacts via FUN_0040bda0) a substring of
+ * another string object into `this`.
  *
  * DROPPED-ARG FIX (2026-09-21): __thiscall, ECX=param_1(`this`) + `ret
  * 0xc` = 3 stack dwords (disasm 0x40b9f0-0x40ba37) - the declaration's
@@ -22,7 +34,7 @@
 #include "ghidra_types.h"
 
 
-int __thiscall FUN_0040b9f0(int param_1,int param_2,uint param_3,uint param_4)
+int __thiscall basic_string_AssignSubstr(int param_1,int param_2,uint param_3,uint param_4)
 
 {
   int *piVar1;

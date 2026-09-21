@@ -300,7 +300,7 @@ void FUN_0040b600();
 void __fastcall TreeFind(int param_1,undefined4 **regEax,int *regEbx);
 exception * __thiscall FUN_0040b940();
 int __thiscall FUN_0040b9b0();
-int __thiscall FUN_0040b9f0(int param_1,int param_2,uint param_3,uint param_4);
+int __thiscall basic_string_AssignSubstr(int param_1,int param_2,uint param_3,uint param_4);
 void __thiscall FUN_0040bc80();
 void FUN_0040bce0(int regEax);
 void FUN_0040bd00(int *regEax);

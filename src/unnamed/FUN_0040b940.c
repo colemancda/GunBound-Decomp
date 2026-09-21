@@ -33,7 +33,7 @@ exception * __thiscall FUN_0040b940(exception *param_1,exception *param_2)
      (the source exception's message field, pos 0, count npos) were
      already the correct trailing 3 args, just missing their leading
      `this`. */
-  FUN_0040b9f0((int)param_1 + 0xc,(int)(param_2 + 0xc),0,0xffffffff);
+  basic_string_AssignSubstr((int)param_1 + 0xc,(int)(param_2 + 0xc),0,0xffffffff);
   *unaff_FS_OFFSET = local_c;
   return param_1;
 }

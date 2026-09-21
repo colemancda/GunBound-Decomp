@@ -32,7 +32,7 @@ undefined4 * __thiscall FUN_00409fd0(undefined4 *param_1,undefined4 param_2)
      param_1+0xc, not `param_2`. `param_2`/0/0xffffffff (the incoming
      message string, pos 0, count npos) were already the correct
      trailing 3 args, just missing their leading `this`. */
-  FUN_0040b9f0((int)param_1 + 0xc,param_2,0,0xffffffff);
+  basic_string_AssignSubstr((int)param_1 + 0xc,param_2,0,0xffffffff);
   return param_1;
 }
 

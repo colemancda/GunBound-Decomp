@@ -180,7 +180,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040b8c0,91,TreeFind,false,2,0,RAW-src
 0040b940,101,FUN_0040b940,false,0,2,RAW-src
 0040b9b0,57,FUN_0040b9b0,false,2,1,RAW-src
-0040b9f0,227,FUN_0040b9f0,false,3,4,RAW-src
+0040b9f0,227,basic_string_AssignSubstr,false,3,4,RAW-src
 0040bae0,414,FUN_0040bae0,false,2,6,RAW-src
 0040bc80,81,FUN_0040bc80,false,5,0,RAW-src
 0040bce0,29,FUN_0040bce0,false,1,0,RAW-src
