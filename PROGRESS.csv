@@ -1106,7 +1106,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e6b50,52,FUN_004e6b50,false,1,2,RAW-src
 004e6b90,245,FUN_004e6b90,false,1,4,RAW-src
 004e6c90,122,QueueBroadcastEvent,false,110,1,RAW-src
-004e6d10,151,FUN_004e6d10,false,2,0,RAW-src
+004e6d10,151,EncodeUdpProbeHeader,false,2,0,RAW-src
 004e6db0,64,AppendBroadcastString,false,6,0,RAW-src
 004e6df0,292,EncryptEventBroadcast,false,2,2,RAW-src
 004e6f20,153,FUN_004e6f20,false,2,2,RAW-src

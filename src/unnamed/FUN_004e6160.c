@@ -174,7 +174,7 @@ undefined4 FUN_004e6160(int param_1)
       piVar9 = piVar9 + 1;
     } while (bVar11);
     if (bVar11) {
-      FUN_004e6d10(param_1,(undefined4 *)local_48,uVar1,local_241,local_243);
+      EncodeUdpProbeHeader(param_1,(undefined4 *)local_48,uVar1,local_241,local_243);
       EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x17c));
       SendUdpDatagram(*(int *)(param_1 + 0x18 + (uint)local_243 * 4),
                       (int)*(short *)(param_1 + 0x58 + (uint)local_243 * 2),(char *)local_48,0x24,
@@ -218,7 +218,7 @@ LAB_004e64e4:
       LeaveCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x45264));
       if ((sVar7 != 0) && (*(char *)(param_1 + 0x454f8) == '\0')) {
         EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x17c));
-        FUN_004e6d10(param_1,(undefined4 *)local_48,uVar1,local_241,local_243);
+        EncodeUdpProbeHeader(param_1,(undefined4 *)local_48,uVar1,local_241,local_243);
         SendUdpDatagram(*(int *)(param_1 + 0x18 + (uint)local_243 * 4),
                         (int)*(short *)(param_1 + 0x58 + (uint)local_243 * 2),(char *)local_48,
                         0x24,param_1);

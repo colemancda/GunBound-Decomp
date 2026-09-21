@@ -1202,7 +1202,7 @@ undefined4 FUN_004e6160();
 void __fastcall FUN_004e6770();
 void FUN_004e6b50();
 void FUN_004e6b90();
-void __fastcall FUN_004e6d10(int param_1,undefined4 *param_2,int param_3,int param_4,int param_5);
+void __fastcall EncodeUdpProbeHeader(int param_1,undefined4 *param_2,int param_3,int param_4,int param_5);
 void EncryptEventBroadcast(int ctx);
 void FUN_004e6f20(undefined4 *param_1, uint param_2, int ctx);
 void FUN_004e7140(uint param_1, int regEax);

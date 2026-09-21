@@ -1,8 +1,18 @@
-/* FUN_004e6d10 - 0x004e6d10 in the original binary.
+/* EncodeUdpProbeHeader - 0x004e6d10 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED (2026-09-21), LIKELY. Zeroes a fixed 0x40-byte buffer (`param_2`),
+ * writes a fixed length field `0x24` at its head, then fills it with a
+ * per-connection sequence counter (`param_1+0x45204`, post-incremented)
+ * and three fields copied straight from the connection context. Both
+ * callers (FUN_004e6160.c, part of the same UDP subsystem as the named
+ * BeginUdpSessionProbe.c / QueueBroadcastEvent.c) pass the freshly-built
+ * buffer straight into SendUdpDatagram - i.e. this builds the header of
+ * an outgoing UDP session-probe datagram. The exact bit-level meaning of
+ * each field is not confirmed, hence LIKELY rather than CERTAIN.
  *
  * DROPPED-ARG / EAX-FIRST FIX (2026-09-21). Disasm 0x4e6d10-0x4e6d20 and
  * epilogue 0x4e6da4: ECX=param_1 (a context pointer, dereferenced at
@@ -19,7 +29,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004e6d10(int param_1,undefined4 *param_2,int param_3,int param_4,int param_5)
+void __fastcall EncodeUdpProbeHeader(int param_1,undefined4 *param_2,int param_3,int param_4,int param_5)
 
 {
   undefined1 uVar1;
