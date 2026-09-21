@@ -71,7 +71,7 @@ void FUN_00505ad0(int param_1)
      * empty-string global &DAT_00551cb1 (see src/globals.c and its
      * other callers), i.e. an empty sender-name prefix for this
      * system-style message. */
-    FUN_00505900(param_1,&DAT_00551cb1,uVar8,iVar4);
+    AppendChatLogPanelLine(param_1,&DAT_00551cb1,uVar8,iVar4);
   }
 LAB_00505bbe:
   if (uVar2 < *(uint *)(param_1 + 0x10)) {

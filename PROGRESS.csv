@@ -1554,7 +1554,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00505760,122,Panel_BaseConstructor,false,18,1,RAW-src
 005057f0,151,FUN_005057f0,false,1,2,RAW-src
 00505890,95,FUN_00505890,false,1,2,RAW-src
-00505900,450,FUN_00505900,false,3,5,RAW-src
+00505900,450,AppendChatLogPanelLine,false,3,5,RAW-src
 00505ad0,312,FUN_00505ad0,false,2,9,RAW-src
 00505d20,194,FUN_00505d20,false,1,4,RAW-src
 00505ec0,72,FUN_00505ec0,false,2,0,RAW-src

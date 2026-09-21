@@ -120,7 +120,7 @@ void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax)
    * edx,0x23330` = g_clientContext+0x23330, the same fixed source
    * buffer this function copies its own message prefix from at the
    * very top (`pcVar4 = (char *)(g_clientContext + 0x23330);`). */
-  FUN_00505900(iVar6,(char *)(g_clientContext + 0x23330),param_2,iVar3);
+  AppendChatLogPanelLine(iVar6,(char *)(g_clientContext + 0x23330),param_2,iVar3);
   return;
 }
 

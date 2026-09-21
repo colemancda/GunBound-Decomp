@@ -1649,7 +1649,7 @@ void __thiscall FUN_00505700();
 undefined4 * Panel_BaseConstructor();
 void __thiscall FUN_005057f0();
 void __fastcall FUN_00505890();
-void __fastcall FUN_00505900(int param_1,char *param_2,char *param_3,uint param_4);
+void __fastcall AppendChatLogPanelLine(int param_1,char *param_2,char *param_3,uint param_4);
 void FUN_00505ad0();
 void __thiscall FUN_00505d20();
 int __fastcall FUN_00505ec0();

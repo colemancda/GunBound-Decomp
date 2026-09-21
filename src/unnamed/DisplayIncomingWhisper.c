@@ -103,7 +103,7 @@ void DisplayIncomingWhisper(undefined4 param_1,char *param_2,uint param_3,char *
      * `mov edx,ebx` where ebx is this function's own sender name
      * (in_EAX, read-only since entry - see this file's own header
      * note). */
-    FUN_00505900(iVar3,in_EAX,param_2,param_3);
+    AppendChatLogPanelLine(iVar3,in_EAX,param_2,param_3);
   }
   return;
 }

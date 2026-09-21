@@ -1,9 +1,25 @@
-/* FUN_00505900 - 0x00505900 in the original binary.
+/* AppendChatLogPanelLine - 0x00505900 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED (2026-09-21). `param_1` (ECX) is a CChatLogPanel*
+ * (src/cxx/Widget.h, sizeof 0x1050, builder BuildChatLogPanel): this
+ * writes into `m_history` (+0xa8, the class's own 4000-byte field,
+ * matching this function's ~4000-byte staging buffer copied there) and
+ * the two per-panel counters `m_unk1048`/`m_unk104c` (+0x1048/+0x104c)
+ * used here exactly as a scrolling-history write cursor and a 100-line
+ * cap with ring-buffer eviction. `param_2` (EDX) is the sender/label
+ * text (DisplayIncomingWhisper.c's own header already identifies its
+ * caller as routing "into the sender's CChatLogPanel"); it is
+ * formatted as "<label>] " via RenderWrappedText and followed by the
+ * message text (param_3/len param_4), then the wrapped line is
+ * appended and the panel's child/scroll range updated
+ * (Widget_SetChildRange). All 3 callers (DisplayIncomingWhisper.c,
+ * FUN_00505ad0.c - a localized-string label via GetLocalizedString,
+ * FUN_004024f0.c) reach this only after a successful
+ * PanelManager_FindByName lookup for that panel.
  *
  * DROPPED-ARGUMENT FIX (2026-09-21): the declaration below was already
  * correct (4 real params: ECX=param_1, EDX=param_2 - both confirmed
@@ -22,7 +38,7 @@
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 /* WARNING: Type propagation algorithm not settling */
 
-void __fastcall FUN_00505900(int param_1,char *param_2,char *param_3,uint param_4)
+void __fastcall AppendChatLogPanelLine(int param_1,char *param_2,char *param_3,uint param_4)
 
 {
   char cVar1;
