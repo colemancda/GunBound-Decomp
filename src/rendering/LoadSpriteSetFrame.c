@@ -1,9 +1,23 @@
-/* FUN_004f18c0 - 0x004f18c0 in the original binary.
+/* LoadSpriteSetFrame - 0x004f18c0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED (2026-09-21). Near-identical XFS-archive loader to LoadSpriteSet
+ * (same imgName-in-EAX idiom, same g_spriteRegistry/g_graphicsArchive
+ * machinery, same per-entry 0x50-byte object) - confirmed by its own
+ * callers' imgNames ("loadstage.img" in State10_Loading_OnEnter.c,
+ * "event<N>1800.img" in LoadStageDecorationSet.c, both ordinary sprite-
+ * set archives). The difference from LoadSpriteSet is the `if (iVar1 ==
+ * param_3)` gate: only the ONE archive entry whose index matches
+ * `param_3` is decoded and RegisterActiveObject'd - every other entry
+ * in the set is skipped (FUN_004f16c0 + scalar-deleting-destructor
+ * call) rather than registered. All 5 call sites pass an explicit
+ * index/variant selector as `param_3` (0/1 for a stage-decoration
+ * variant, or a byte-derived index for the two loadstage.img calls),
+ * i.e. this loads and registers a single selected frame out of a
+ * multi-frame set, not the whole set.
  */
 #include "xfs.h"
 #include "ghidra_types.h"
@@ -25,7 +39,7 @@
  * project's established convention (see LoadSpriteSet.c) of modelling
  * this original-EAX value as a normal trailing C parameter rather than
  * a real register arg, since callee and caller are rebuilt together. */
-int FUN_004f18c0(undefined4 param_1,undefined4 param_2,int param_3,char *imgName)
+int LoadSpriteSetFrame(undefined4 param_1,undefined4 param_2,int param_3,char *imgName)
 
 {
   int iVar1;

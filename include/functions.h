@@ -1376,7 +1376,7 @@ void FUN_004f16c0(int stream);
 void FUN_004f1750(undefined4 *regEax);
 /* Base destructor of the PTR_FUN_00557534 sentinel-list container: this = the  * dropped ESI (orig 0x4f1771 `mov [esi],0x557534`; the entry `push esi` is the  * argument for FUN_004f3060, not a save - there is no pop). Recovered  * 2026-08-28. */ void FUN_004f1770(undefined4 *regEsi);
 int LoadSpriteSet();
-int FUN_004f18c0(undefined4 param_1,undefined4 param_2,int param_3,char *imgName);
+int LoadSpriteSetFrame(undefined4 param_1,undefined4 param_2,int param_3,char *imgName);
 int FUN_004f1a50(undefined4 param_1,undefined4 param_2,int param_3,int param_4,char *imgName);
 void __fastcall FUN_004f1c00(uint param_1,int regEax);
 undefined4 * __fastcall FUN_004f1c40();
