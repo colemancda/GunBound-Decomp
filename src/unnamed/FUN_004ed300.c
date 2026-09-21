@@ -4,6 +4,36 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARG / EAX-FIRST FIX (2026-09-21). Disasm 0x4ed300-0x4ed322:
+ * ECX and EAX are BOTH genuine incoming angle arguments feeding the
+ * `(iVar6 + param_7 + 1) / 2` midpoint math (ECX=param_1, EAX=Ghidra's
+ * `in_EAX`, never assigned before use). `ret` at 0x4ed591 is bare (no
+ * operand) despite ECX carrying real data, matching this tree's
+ * __thiscall-erased-to-plain-C convention exactly (caller cleans the 5
+ * stack dwords, `add esp,0x14` at every call site) - so EAX is promoted
+ * to a real trailing parameter (`param_7`), same idiom as
+ * InitTextBoxWidget/BlitSpriteAttached (6e574c4a).
+ *
+ * All 4 call sites (State11_InBattle_Render.c) pass a min/max ANGLE pair
+ * into ECX/EAX, computed from two just-clamped angle locals right before
+ * the call (orig 0x4c73c8-0x4c7401 / 0x4c7788-0x4c7796 /
+ * 0x4c82ca-0x4c82ec / 0x4c85b0-0x4c85d2: `cmp/mov/jg/mov/jl` computing
+ * eax=max, ecx=min of the pair, both flags off ONE `cmp`). The buggy
+ * 5-argument calls never computed this pair at all - instead they fed a
+ * stale, unrelated local (a running screen-space Y accumulator: "iVar6"
+ * at the first two sites, "iVar19" at the last two - both last assigned
+ * several statements earlier as `<base> + <accumulator>`, then spilled
+ * to a stack slot and reloaded at the real param_3 push, orig
+ * 0x4c73f4/0x4c7796.."mov edx,[esp+0x30]"-style reload) into the ECX/
+ * this slot. That stale value is exactly what param_3 (`DAT_00ea0e74 =
+ * (float)param_3`, the Y coordinate) needs - it was simply plugged into
+ * the wrong argument slot. Fixed at every site: param_1/param_7 are now
+ * the freshly-computed min/max of the two clamped angle locals in scope
+ * at each call, and the old first argument moved to param_3 (with
+ * param_4/param_5/param_6 shifted out to their real positions - orig
+ * push order confirms param_4=the +0x80/+0x84/+0x88 float-record
+ * pointer, param_5=the 0x40 constant, param_6=the color/flag word).
  */
 #include "ghidra_types.h"
 
@@ -11,12 +41,12 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void __thiscall
-FUN_004ed300(int param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6)
+FUN_004ed300(int param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6,
+            int param_7)
 
 {
   float fVar1;
   float fVar2;
-  int in_EAX;
   int iVar3;
   int iVar4;
   int iVar5;
@@ -26,7 +56,7 @@ FUN_004ed300(int param_1,int param_2,int param_3,int param_4,int param_5,undefin
   float local_8;
   
   iVar6 = param_1 + 1;
-  iVar4 = (iVar6 + in_EAX + 1) / 2;
+  iVar4 = (iVar6 + param_7 + 1) / 2;
   iVar5 = (iVar4 - iVar6) % 0x168;
   iVar3 = iVar5;
   if (iVar5 < 0) {
@@ -64,12 +94,12 @@ FUN_004ed300(int param_1,int param_2,int param_3,int param_4,int param_5,undefin
     iVar6 = iVar6 + 0x168;
   }
   _DAT_00ea0e4c = fVar2 * *(float *)(&g_sineTable360 + iVar3 * 4) + DAT_00ea0e70;
-  iVar3 = (in_EAX + 0x5b) % 0x168;
+  iVar3 = (param_7 + 0x5b) % 0x168;
   _DAT_00ea0e50 = DAT_00ea0e74 - fVar2 * *(float *)(&g_sineTable360 + iVar6 * 4);
   if (iVar3 < 0) {
     iVar3 = iVar3 + 0x168;
   }
-  iVar4 = (in_EAX + 1) % 0x168;
+  iVar4 = (param_7 + 1) % 0x168;
   if (iVar4 < 0) {
     iVar4 = iVar4 + 0x168;
   }

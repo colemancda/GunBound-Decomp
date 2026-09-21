@@ -25,7 +25,14 @@ undefined4 * __thiscall FUN_00409fd0(undefined4 *param_1,undefined4 param_2)
   param_1[8] = 0;
   param_1[9] = 0xf;
   *(undefined1 *)(param_1 + 4) = 0;
-  FUN_0040b9f0(param_2,0,0xffffffff);
+  /* DROPPED-ARG FIX (2026-09-21): FUN_0040b9f0 needs a `this` (ECX) arg
+     that this call dropped entirely - orig 0x409ff8 `lea ecx,[esi+0xc]`
+     (esi=this function's own param_1; ecx stays live, unclobbered,
+     through to the 0x40a016 call), i.e. the embedded string field at
+     param_1+0xc, not `param_2`. `param_2`/0/0xffffffff (the incoming
+     message string, pos 0, count npos) were already the correct
+     trailing 3 args, just missing their leading `this`. */
+  FUN_0040b9f0((int)param_1 + 0xc,param_2,0,0xffffffff);
   return param_1;
 }
 

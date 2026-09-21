@@ -7,6 +7,25 @@
  *
  * 2026-09-02: FindSpriteFrame's register args recovered from orig
  * 0x436877-0x436886 - see the site comment.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-21): the declaration below was already
+ * correct (4 real params: ECX=param_1, EDX=param_2, `ret 8` at
+ * 0x4368e2/0x4368a0 confirming 2 real stack dwords beyond the 2
+ * registers, read at 0x4368bc `mov edx,[esp+0x10]` / `mov ecx,[esp+0xc]`
+ * and stored into the new/found object's +0x3c/+0x38 fields) - but had
+ * no functions.h prototype, so all 6 call sites in the tree (every one
+ * of them) silently compiled passing only param_3/param_4 on the stack
+ * and dropped param_1/param_2 (the two registers) entirely. Each site's
+ * ECX/EDX reconstructed independently from its own disasm - see each
+ * call site's own comment (src/unnamed/FUN_00478cb0.c,
+ * src/unnamed/FUN_0045db20.c, src/unnamed/FUN_0045ea40.c (x1),
+ * src/unnamed/FUN_0048f300.c (x2), src/battle/ExplodeSuperShot_Bullet2.c).
+ * Pattern: ECX is always `*(int *)(obj + 8)` (sometimes `+ 0x32` on top),
+ * where `obj` is that call site's own object/this pointer; EDX is
+ * usually `-` the count last passed to the *first* EncodeChecksumDeltaSub
+ * in the same block (negated at the call site) - except
+ * ExplodeSuperShot_Bullet2's site, which passes that value un-negated
+ * (no `neg` instruction on that path).
  */
 #include "ghidra_types.h"
 

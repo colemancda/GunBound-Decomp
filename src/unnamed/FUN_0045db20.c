@@ -463,7 +463,15 @@ LAB_0045e442:
         local_4 = 0x24;
         uVar4 = PeekChecksumStateUnderLock(uVar4);
         uVar5 = PeekChecksumStateUnderLock(param_2 + 0x243);
-        FUN_00436860(uVar5,uVar4);
+        /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_00436860 is __fastcall
+         * with 2 register args (ECX,EDX) ahead of these 2 stack args -
+         * this call only ever passed the stack pair.  Orig 0x45e961/
+         * 0x45e96f: `mov ecx,[ebp+8]` where ebp=param_2 (`param_2[2]`,
+         * the same expression already used at this file's line 472);
+         * `mov edx,edi` where edi = `neg`'d iVar7 (0x45e93f/0x45e94d,
+         * the same iVar7 already passed to EncodeChecksumDeltaSub just
+         * above, still unclobbered here - only iVar6 got zeroed). */
+        FUN_00436860(param_2[2],-iVar7,uVar5,uVar4);
         local_4 = 0xffffffff;
         ScrubChecksumGuard();
         *(undefined1 *)(param_2 + 0x2c2b) = *(undefined1 *)(param_1 + 0x3c);

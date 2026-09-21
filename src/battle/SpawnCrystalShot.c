@@ -113,7 +113,12 @@ void SpawnCrystalShot(undefined4 param_1,undefined4 param_2,undefined4 param_3,u
     *pcVar6 = cVar1;
     pcVar6 = pcVar6 + 1;
   } while (cVar1 != '\0');
-  FUN_0041da80(g_clientContext,piVar7,1,1,0);
+  /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_0041da80 is __thiscall with
+   * ECX=param_1 (erased to a plain leading stack arg here per
+   * ghidra_types.h) ahead of these 5 stack args, which is all this call
+   * ever passed. Orig 0x437d3d: `mov ecx,8` right before the call
+   * (literal, this spawner's own class-id-like constant). */
+  FUN_0041da80(8,g_clientContext,piVar7,1,1,0);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)((int)piVar7 + 0x35ec));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

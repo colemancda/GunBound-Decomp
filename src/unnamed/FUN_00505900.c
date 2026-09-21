@@ -4,6 +4,17 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-21): the declaration below was already
+ * correct (4 real params: ECX=param_1, EDX=param_2 - both confirmed
+ * still holding their entry-time values at 0x505915/0x505931, `ret 8`
+ * at 0x505abf/0x4368a0 confirming 2 real stack dwords beyond the 2
+ * registers) - but had no functions.h prototype, so all 3 call sites in
+ * the tree silently compiled passing only param_3/param_4 on the stack
+ * and dropped param_1/param_2 (the two registers) entirely. Each site's
+ * ECX/EDX reconstructed independently from its own disasm - see each
+ * call site's own comment (src/unnamed/FUN_00505ad0.c,
+ * src/unnamed/DisplayIncomingWhisper.c, src/unnamed/FUN_004024f0.c).
  */
 #include "ghidra_types.h"
 

@@ -346,7 +346,14 @@ LAB_00479655:
     local_4 = 0x1e;
     uVar3 = PeekChecksumStateUnderLock(uVar3);
     uVar4 = PeekChecksumStateUnderLock(param_1 + 0x97);
-    FUN_00436860(uVar4,uVar3);
+    /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_00436860 is __fastcall with 2
+     * register args (ECX,EDX) ahead of these 2 stack args - this call
+     * only ever passed the stack pair.  Orig 0x47987d/0x47987f:
+     * `mov ecx,ebp` where ebp = `*(int*)(ebx+8)+0x32` (ebx=this
+     * function's own param_1, 0x479857-0x47985b); `mov edx,esi` where
+     * esi = `neg`'d iVar5 (0x47985e, the same iVar5 just used for the
+     * AddToPacketChecksum call above, still unclobbered here). */
+    FUN_00436860(*(int *)(param_1 + 2) + 0x32,-iVar5,uVar4,uVar3);
     local_4 = 0xffffffff;
     ScrubChecksumGuard();
     (**(code **)(*param_1 + 4))(s_damage_00555cc0);

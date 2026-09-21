@@ -271,6 +271,7 @@ extern uint8_t DAT_00553f90;
 extern uint8_t DAT_00554060;
 extern uint32_t DAT_005554f8;
 extern uint8_t DAT_005554fc;
+extern const char s_loadstage_img_00555504[];
 extern uint16_t DAT_00555a14;
 extern uint8_t DAT_00555a16;
 extern uint16_t DAT_00555a18;

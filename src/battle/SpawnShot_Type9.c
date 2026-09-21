@@ -495,7 +495,16 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
     BroadcastQueuedEvent((int)&g_replayContext);
   }
-  FUN_0041da80(g_clientContext,piVar3,uStack_6c,uStack_4c);
+  /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_0041da80 is __thiscall with
+   * ECX=param_1 (erased to a plain leading stack arg here per
+   * ghidra_types.h) ahead of a 5-stack-arg tail - this call was missing
+   * BOTH the register arg and its own 6th (last) stack arg.  Orig
+   * 0x42fdab: `mov ecx,9` right before the call (literal, this
+   * spawner's own class-id-like constant); the 5th push at 0x42fda1 is
+   * `mov eax,[esp+0x8f0]`, which per this file's own documented "param_N
+   * at [esp+0x8c4+4*(N-1)]" frame layout resolves to this function's
+   * own param_12. */
+  FUN_0041da80(9,g_clientContext,piVar3,uStack_6c,uStack_4c,param_12);
   iVar4 = GetPlayerRecordBySlot();
   if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool((byte *)(iVar4 + 0xbfca)), cVar2 != '\0')) {
     EncodeChecksumDeltaDiv(piVar3 + 0x930,&puStack_914,4);

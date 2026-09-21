@@ -95,7 +95,15 @@ void DisplayIncomingWhisper(undefined4 param_1,char *param_2,uint param_3,char *
         return;
       }
     }
-    FUN_00505900(param_2,param_3);
+    /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_00505900 is __fastcall with
+     * 2 register args (ECX,EDX) ahead of these 2 stack args, which is
+     * all this call ever passed. Orig 0x4024d0/0x4024d2: `mov ecx,eax`
+     * where eax is the just-returned PanelManager_FindByName result
+     * (this function's own iVar3, re-checked non-zero right above);
+     * `mov edx,ebx` where ebx is this function's own sender name
+     * (in_EAX, read-only since entry - see this file's own header
+     * note). */
+    FUN_00505900(iVar3,in_EAX,param_2,param_3);
   }
   return;
 }

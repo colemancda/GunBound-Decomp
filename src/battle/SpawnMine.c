@@ -127,7 +127,12 @@ LAB_00437779:
     *pcVar9 = cVar1;
     pcVar9 = pcVar9 + 1;
   } while (cVar1 != '\0');
-  FUN_0041da80(g_clientContext,piVar7,1,2,0);
+  /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_0041da80 is __thiscall with
+   * ECX=param_1 (erased to a plain leading stack arg here per
+   * ghidra_types.h) ahead of these 5 stack args, which is all this call
+   * ever passed. Orig 0x43780f: `mov ecx,6` right before the call
+   * (literal, this spawner's own class-id-like constant). */
+  FUN_0041da80(6,g_clientContext,piVar7,1,2,0);
   (*pcVar6)(&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)((int)piVar7 + 0x35ec));
   (*pcVar8)(&g_valueGuardLock);

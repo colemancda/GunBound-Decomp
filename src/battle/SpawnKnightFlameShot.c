@@ -395,7 +395,18 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
     BroadcastQueuedEvent((int)&g_replayContext);
   }
-  FUN_0041da80();
+  /* DROPPED-ARGUMENT FIX (2026-09-21): Ghidra dropped this call's args
+   * entirely (decompiled as a bare `FUN_0041da80()`). Reconstructed from
+   * orig 0x430f7e-0x430f9d: `mov ecx,0xe` right before the call is
+   * FUN_0041da80's own ECX param_1 (__thiscall, erased to a plain
+   * leading stack arg per ghidra_types.h); the 5 stack pushes are (in
+   * push order, deepest first) `eax=[esp+0x8f8]`, `ecx=[esp+0x8f4]`,
+   * `edx=[esp+0x8d0]`, `ebp` (this function's own object, piVar3), and
+   * `eax=[0x5b3484]` (g_clientContext). Per this file's own documented
+   * "param N at [esp+0x8c4+4*N]" frame layout, [esp+0x8d0]/[esp+0x8f4]/
+   * [esp+0x8f8] resolve to this function's own param_3/param_12/
+   * param_13 respectively. */
+  FUN_0041da80(0xe,g_clientContext,piVar3,param_3,param_12,param_13);
   iVar4 = GetPlayerRecordBySlot();
   if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool((byte *)(iVar4 + 0xbfca)), cVar2 != '\0')) {
     EncodeChecksumDeltaDiv(piVar3 + 0x930,auStackEmitScratch,4);

@@ -33,6 +33,7 @@ void __fastcall ExplodeSuperShot_Bullet2(int param_1)
   char cVar2;
   undefined4 uVar3;
   undefined4 uVar4;
+  undefined4 uVar4Saved;
   undefined4 uVar5;
   int *piVar6;
   int iVar7;
@@ -69,6 +70,14 @@ void __fastcall ExplodeSuperShot_Bullet2(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar4 = PeekPacketChecksumState((void *)(param_1 + 0x1178));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      /* SAVED (2026-09-21): this uVar4 (the projectile's own +0x1178
+       * cell) gets reassigned to a completely different cell at line
+       * ~93 below before FUN_00436860's call, but orig 0x48d9df/EDI-
+       * equivalent register tracking shows the ORIGINAL value here
+       * survives unclobbered (no other write to its stack slot) all the
+       * way to the FUN_00436860 call - captured here before the
+       * HitTestLocalMobile args (uVar3/uVar4/uVar5) reuse the names. */
+      uVar4Saved = uVar4;
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar5 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -91,7 +100,15 @@ void __fastcall ExplodeSuperShot_Bullet2(int param_1)
                 PeekChecksumStateUnderLock(piVar6 + 0x1bf5);
                 uVar3 = PeekChecksumStateUnderLock(uVar3);
                 uVar4 = PeekChecksumStateUnderLock(piVar6 + 0x243);
-                FUN_00436860(uVar4,uVar3);
+                /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_00436860 is
+                 * __fastcall with 2 register args (ECX,EDX) ahead of
+                 * these 2 stack args - this call only ever passed the
+                 * stack pair.  Orig 0x48dada/0x48dadd: `mov ecx,[esi+8]`
+                 * (piVar6[2]); `mov edx,[esp+0x20]` = uVar4Saved
+                 * unmodified (see the SAVED comment above) - no `neg`
+                 * on this path, unlike the sibling sites in
+                 * FUN_00478cb0/FUN_0045db20/FUN_0045ea40/FUN_0048f300. */
+                FUN_00436860(piVar6[2],uVar4Saved,uVar4,uVar3);
                 local_4 = 0xffffffff;
                 ScrubChecksumGuard();
                 if (*(byte *)(param_1 + 0x3c) < 8) {

@@ -74,6 +74,11 @@ void State11_InBattle_Render(void)
   int iPeekAngle; /* DROPPED-REG FIX 2026-08-27: PeekPacketChecksumState's discarded
                      result - the sprite angle; orig moves EAX->EBX at 0x4c6e02/
                      0x4c6ed2/0x4c7f45 and back into EAX right before the call */
+  uint uBattleFadeAlpha; /* DROPPED-ARGUMENT FIX 2026-09-21: FUN_004edb50's
+                     EAX argument. Ghidra treated the computation feeding it
+                     as dead code (its only consumer was this dropped
+                     argument) and omitted it from the decompile entirely -
+                     reconstructed from orig 0x4c30be-0x4c311c. */
   uint uStack_a38;
   char *pcStack_a34;
   int *piStack_a30;
@@ -146,7 +151,27 @@ void State11_InBattle_Render(void)
       (**(code **)(*g_pD3DDevice7 + 0x50))();
     }
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
-    FUN_004edb50();
+    /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_004edb50 dropped its whole
+     * argument list (decompiled as a bare `FUN_004edb50()`). Orig
+     * 0x4c30be-0x4c312b, straight-line reconstruction:
+     *   - EAX (uBattleFadeAlpha below) is a per-state fade value: state
+     *     1 uses DAT_005f376c directly, state 6 uses (10-DAT_005f376c),
+     *     scaled by 192/10 or 192/5 respectively (magic-number /10 and
+     *     /5 idioms, both operands non-negative so plain C division is
+     *     exact) then shifted into the top byte; any other state keeps
+     *     the fixed 0xc0000000 default.
+     *   - EDX (register) = the literal 0x31f.
+     *   - the 3 stack args are, in order, 0 (esi), 0 (esi), 0x257. */
+    if (*(int *)(&DAT_005f3768 + g_clientContext) == 1) {
+      uBattleFadeAlpha = (192 * *(byte *)(&DAT_005f376c + g_clientContext) / 10) << 0x18;
+    }
+    else if (*(int *)(&DAT_005f3768 + g_clientContext) == 6) {
+      uBattleFadeAlpha = (192 * (10 - *(byte *)(&DAT_005f376c + g_clientContext)) / 5) << 0x18;
+    }
+    else {
+      uBattleFadeAlpha = 0xc0000000;
+    }
+    FUN_004edb50(uBattleFadeAlpha,0x31f,0,0,0x257);
   }
   iVar6 = g_clientContext;
   iVar5 = FindTextureCacheEntryByName();
@@ -1796,8 +1821,14 @@ LAB_004c71a8:
             PeekPacketChecksumState((void *)&DAT_00e9bed8);
             LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           }
-          FUN_004ed300(iVar6,pcStack_a28,piStack_a2c,0x40,
-                       *(int *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe4) << 0x18 | 0xea16);
+          /* DROPPED-ARG FIX 2026-09-21: FUN_004ed300 needs 7 arguments
+             (ECX=min(iVar5,iVar19), 5 stack, trailing EAX=max(iVar5,iVar19)
+             - see its own file). The pre-existing call fed the stale
+             screen-Y accumulator `iVar6` into the ECX slot; it belongs at
+             the real param_3 (Y) position instead. */
+          FUN_004ed300((iVar5 < iVar19) ? iVar5 : iVar19,pcStack_a28,iVar6,piStack_a2c,0x40,
+                       *(int *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe4) << 0x18 | 0xea16,
+                       (iVar5 < iVar19) ? iVar19 : iVar5);
           cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba));
           if (cVar4 == '\0') {
             cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb7));
@@ -1894,8 +1925,12 @@ LAB_004c7566:
             LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           }
           piVar8 = piStack_a2c;
-          FUN_004ed300(iVar6,pcStack_a28,piStack_a2c,0x40,
-                       *(int *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe4) << 0x18 | 0xea16);
+          /* DROPPED-ARG FIX 2026-09-21: see the 0x4c73c8/0x4c7401 site
+             above - same shape (iVar5/iVar19 min/max, stale iVar6 moved
+             to param_3). */
+          FUN_004ed300((iVar5 < iVar19) ? iVar5 : iVar19,pcStack_a28,iVar6,piStack_a2c,0x40,
+                       *(int *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe4) << 0x18 | 0xea16,
+                       (iVar5 < iVar19) ? iVar19 : iVar5);
           *(undefined4 *)((int)piVar8 + 0x80) = 0x3f0147ae;
           *(undefined4 *)((int)piVar8 + 0x84) = 0x3f4147ae;
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -2173,7 +2208,15 @@ LAB_004c81b3:
         PeekPacketChecksumState((void *)&DAT_00e9bed8);
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       }
-      FUN_004ed300(iVar19,pcStack_a28,piStack_a2c,0x40,piStack_a30);
+      /* DROPPED-ARG FIX 2026-09-21: FUN_004ed300 needs 7 arguments
+         (ECX=min(iVar6,iVar5), 5 stack, trailing EAX=max(iVar6,iVar5) -
+         see its own file, orig 0x4c82ca-0x4c82ec). The pre-existing call
+         fed the stale screen-Y accumulator `iVar19` into the ECX slot;
+         it belongs at the real param_3 (Y) position instead - `piStack_a30`
+         (a color/flag word here, not a coordinate) was already correctly
+         the last/param_6 argument. */
+      FUN_004ed300((iVar6 < iVar5) ? iVar6 : iVar5,pcStack_a28,iVar19,piStack_a2c,0x40,
+                   (int)piStack_a30,(iVar6 < iVar5) ? iVar5 : iVar6);
       cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e4) + 0x8bb7));
       if (cVar4 == '\0') {
         iGuardCell = *(int *)(g_clientContext + 0x621e4) + 0x292c;
@@ -2246,7 +2289,11 @@ LAB_004c8498:
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       }
       piVar8 = piStack_a2c;
-      FUN_004ed300(iVar19,pcStack_a28,piStack_a2c,0x40,piStack_a30);
+      /* DROPPED-ARG FIX 2026-09-21: see the 0x4c82ca/0x4c82ec site above -
+         same shape (iVar6/iVar5 min/max, stale iVar19 moved to param_3),
+         orig 0x4c85b0-0x4c85d2. */
+      FUN_004ed300((iVar6 < iVar5) ? iVar6 : iVar5,pcStack_a28,iVar19,piStack_a2c,0x40,
+                   (int)piStack_a30,(iVar6 < iVar5) ? iVar5 : iVar6);
       *(undefined4 *)((int)piVar8 + 0x80) = 0x3f0147ae;
       *(undefined4 *)((int)piVar8 + 0x84) = 0x3f4147ae;
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

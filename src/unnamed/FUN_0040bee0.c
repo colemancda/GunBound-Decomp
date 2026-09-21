@@ -48,7 +48,13 @@ int __thiscall FUN_0040bee0(int param_1,undefined4 *param_2,uint param_3)
       if (0xf < uVar4) {
         puVar1 = (undefined4 *)*puVar1;
       }
-      iVar2 = FUN_0040b9f0(param_1,(int)param_2 - (int)puVar1,param_3);
+      /* DROPPED-ARG FIX (2026-09-21): FUN_0040b9f0 is a 4-arg __thiscall
+         (this,srcObj,srcPos,count) - confirmed self-substring-assign at
+         orig 0x40bf1f-0x40bf26 (`push ecx(len); push esi(offset); push
+         ebx(this); mov ecx,ebx; call`), i.e. srcObj=this itself (the
+         self-overlapping-assign safe path). The ported call dropped the
+         srcObj argument entirely, shifting offset/len one slot left. */
+      iVar2 = FUN_0040b9f0(param_1,param_1,(int)param_2 - (int)puVar1,param_3);
       return iVar2;
     }
   }

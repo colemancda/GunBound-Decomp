@@ -3,6 +3,28 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARG FIX (2026-09-21), both FUN_004e6d10 call sites. Orig
+ * 0x4e6422-0x4e6431 / 0x4e6666-0x4e6680: FUN_004e6d10 takes 5 real
+ * arguments - ECX=the context pointer (this function's own `param_1`),
+ * EDX=the output buffer (`lea edx,[esp+0x250]`, the same buffer
+ * `local_48` both SendUdpDatagram calls send right afterward), 2 stack
+ * dwords at [esp+0x4a]/[esp+0x4f] (`uVar1`/`local_241` - confirmed by
+ * offset at both call sites), and a trailing EAX register arg
+ * (`movzx eax/esi,[esp+0x4d]` = `local_243`, the slot index, retained
+ * across the call unclobbered). The ported call passed only 2 arguments
+ * - `local_243`/`local_244`/`sStack_246`/`local_241` bit-packed into two
+ * CONCAT values sitting in param_1/param_2's slots - so the callee's
+ * real param_1/param_2 (context+buffer pointers, dereferenced inside it)
+ * were entirely missing and it wrote through garbage. Fixed by inserting
+ * the real param_1/param_2 ahead of the two (correctly-sized, just
+ * mis-positioned) existing values and appending local_243 as the new
+ * trailing param_5. This also explains the `extraout_EDX` at the second
+ * site's first SendUdpDatagram call just below (line ~204 originally) -
+ * Ghidra could not attribute EDX after a call it didn't understand;
+ * EDX is `local_48` there, same as every other SendUdpDatagram in this
+ * function - replaced accordingly, and the now-fully-unused
+ * `extraout_EDX` local removed.
  */
 #include "ghidra_types.h"
 
@@ -16,7 +38,6 @@ undefined4 FUN_004e6160(int param_1)
   uint uVar4;
   DWORD DVar5;
   int iVar6;
-  undefined4 extraout_EDX;
   short sVar7;
   ushort *puVar8;
   int *piVar9;
@@ -153,8 +174,7 @@ undefined4 FUN_004e6160(int param_1)
       piVar9 = piVar9 + 1;
     } while (bVar11);
     if (bVar11) {
-      FUN_004e6d10(CONCAT13(local_243,CONCAT12(local_244,sStack_246)),
-                   CONCAT22(uStack_23f,CONCAT11(cStack_240,local_241)));
+      FUN_004e6d10(param_1,(undefined4 *)local_48,uVar1,local_241,local_243);
       EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x17c));
       SendUdpDatagram(*(int *)(param_1 + 0x18 + (uint)local_243 * 4),
                       (int)*(short *)(param_1 + 0x58 + (uint)local_243 * 2),(char *)local_48,0x24,
@@ -198,10 +218,9 @@ LAB_004e64e4:
       LeaveCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x45264));
       if ((sVar7 != 0) && (*(char *)(param_1 + 0x454f8) == '\0')) {
         EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x17c));
-        FUN_004e6d10(CONCAT13(local_243,CONCAT12(local_244,sStack_246)),
-                     CONCAT22(uStack_23f,CONCAT11(cStack_240,local_241)));
+        FUN_004e6d10(param_1,(undefined4 *)local_48,uVar1,local_241,local_243);
         SendUdpDatagram(*(int *)(param_1 + 0x18 + (uint)local_243 * 4),
-                        (int)*(short *)(param_1 + 0x58 + (uint)local_243 * 2),(char *)extraout_EDX,
+                        (int)*(short *)(param_1 + 0x58 + (uint)local_243 * 2),(char *)local_48,
                         0x24,param_1);
         if (*(int *)(param_1 + 0x38 + (uint)local_243 * 4) != -1) {
           SendUdpDatagram(*(int *)(param_1 + 0x38 + (uint)local_243 * 4),

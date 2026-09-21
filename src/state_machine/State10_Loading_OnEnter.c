@@ -410,8 +410,12 @@ LAB_0043ed58:
 LAB_0043eec8:
   iVar12 = g_clientContext;
   *(undefined4 *)(param_1 + 0x108) = 0xffffffff;
-  FUN_004f18c0(&g_spriteRegistry,0x2711,(uint)*(byte *)(iVar12 + 0x475c4) << 1);
-  FUN_004f18c0(&g_spriteRegistry,0x2711,(uint)*(byte *)(g_clientContext + 0x475c4) * 2 + 1);
+  /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_004f18c0 takes a trailing
+   * `imgName`. Orig 0x43eeef/0x43ef14: `mov eax,0x555504` right before
+   * BOTH of these calls - the literal string "loadstage.img"
+   * (s_loadstage_img_00555504). */
+  FUN_004f18c0(&g_spriteRegistry,0x2711,(uint)*(byte *)(iVar12 + 0x475c4) << 1,s_loadstage_img_00555504);
+  FUN_004f18c0(&g_spriteRegistry,0x2711,(uint)*(byte *)(g_clientContext + 0x475c4) * 2 + 1,s_loadstage_img_00555504);
   *(undefined1 *)(param_1 + 0x14c) = 0;
   iVar12 = g_clientContext;
   puVar14 = (undefined4 *)(&DAT_006a76f4 + g_clientContext);

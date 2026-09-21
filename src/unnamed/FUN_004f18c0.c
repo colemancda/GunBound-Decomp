@@ -13,7 +13,18 @@
 
 /* Promoted like LoadSpriteSet: `imgName` was in EAX; the read cursor is
  * pvVar2 (operator_new 0x1024); handle/LZHUF state live in
- * g_graphicsArchive at +0x1040 / +0x1048. */
+ * g_graphicsArchive at +0x1040 / +0x1048.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-21): `imgName` was already a real,
+ * correctly-typed trailing parameter here, but functions.h had no
+ * prototype for this function (K&R-empty), so all 5 call sites in the
+ * tree silently compiled passing only param_1/param_2/param_3 and
+ * dropped imgName entirely. Each site's string reconstructed from its
+ * own disasm - see src/rendering/LoadStageDecorationSet.c (x3) and
+ * src/state_machine/State10_Loading_OnEnter.c (x2). Matches the
+ * project's established convention (see LoadSpriteSet.c) of modelling
+ * this original-EAX value as a normal trailing C parameter rather than
+ * a real register arg, since callee and caller are rebuilt together. */
 int FUN_004f18c0(undefined4 param_1,undefined4 param_2,int param_3,char *imgName)
 
 {

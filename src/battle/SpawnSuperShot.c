@@ -720,7 +720,14 @@ LAB_0042f012:
     (*pcVar13)(&g_valueGuardLock);
   }
 LAB_0042f0e2:
-  FUN_0041da80(g_clientContext,piVar5,1,param_11,1);
+  /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_0041da80 is __thiscall with
+   * ECX=param_1 (erased to a plain leading stack arg here per
+   * ghidra_types.h) ahead of these 5 stack args, which is all this call
+   * ever passed. Orig 0x42f0d4: `mov ecx,[esp+0x8d0]`, which (per this
+   * function's own 4-push prologue depth) is this function's own
+   * param_2 - the same frame slot `edx=[esp+0x8f4]` resolves to
+   * param_11 a few lines above at this same call site. */
+  FUN_0041da80(param_2,g_clientContext,piVar5,1,param_11,1);
   cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x5b818));
   if (cVar4 == '\x01') {
     local_8ac = (int *)EncodeChecksumDeltaMul(piVar5 + 0x930,auStack_8a0,3);

@@ -83,9 +83,18 @@ LAB_004e3de1:
     puVar9[4] = puVar9;
   }
 LAB_004e3e15:
-  FUN_004f18c0(&g_spriteRegistry,60000,0);
+  /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_004f18c0 takes a trailing
+   * `imgName` (its own file's header note - the same EAX-register
+   * pattern as this file's own regEax and LoadSpriteSet's imgName).
+   * Orig 0x4e3e21: `lea eax,[esp+0x18]` right before this call is the
+   * address of local_100, the regEax-derived name buffer built just
+   * above. */
+  FUN_004f18c0(&g_spriteRegistry,60000,0,local_100);
   if (*(char *)(g_clientContext + 0x45578) == '\0') {
-    FUN_004f18c0(&g_spriteRegistry,60000,1);
+    /* Orig 0x4e3e45: `lea eax,[esp+0x98]` here is a DIFFERENT buffer
+     * than the site above - the param_2-derived name buffer anchored
+     * at uStack_81, built by the copy loop right after local_100's. */
+    FUN_004f18c0(&g_spriteRegistry,60000,1,(char *)&uStack_81);
   }
   iVar8 = g_clientContext;
   iVar11 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -128,7 +137,9 @@ LAB_004e3e95:
   *(int *)(param_1 + 0x14) = iVar6;
   if (*(byte *)(iVar8 + 0x45578) != 0) {
     _sprintf(local_100,s_event_d1800_img_00557248,(uint)*(byte *)(iVar8 + 0x45578));
-    FUN_004f18c0(&g_spriteRegistry,60000,1);
+    /* Orig 0x4e3ef5: `lea eax,[esp+0x18]` - same local_100 buffer as
+     * the first call above, now holding the sprintf'd variant name. */
+    FUN_004f18c0(&g_spriteRegistry,60000,1,local_100);
   }
   pvVar7 = operator_new(*(int *)(iVar11 + 0x3c) << 1);
   iVar11 = g_clientContext;

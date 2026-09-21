@@ -34,6 +34,7 @@ void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax)
   char cVar1;
   undefined2 *puVar2;
   int iVar3;
+  int iVar6;
   char *pcVar4;
   uint uVar5;
   char *pcVar6;
@@ -84,6 +85,13 @@ void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax)
     if (iVar3 == 0) {
       return;
     }
+    /* SAVED (2026-09-21): this iVar3 (the panel handle) is what
+     * FUN_00505900's ECX argument below needs, but the very next
+     * statement clobbers iVar3 with the message length - captured here
+     * before that happens. Orig 0x4025a4/0x4025c2: EAX (this
+     * PanelManager_FindByName's return) survives unclobbered all the
+     * way to `mov ecx,eax` right before the FUN_00505900 call. */
+    iVar6 = iVar3;
     pcVar4 = param_2;
     do {
       cVar1 = *pcVar4;
@@ -92,6 +100,12 @@ void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax)
     iVar3 = (int)pcVar4 - (int)(param_2 + 1);
   }
   else {
+    /* SAVED (2026-09-21): same as the SAVED comment in the `if` arm
+     * above - this branch's own PanelManager_FindByName result (the
+     * first call, a few lines up) is what survives to `mov ecx,eax`
+     * (orig 0x402577-0x4025c2, no intervening call touches EAX on this
+     * path either). */
+    iVar6 = iVar3;
     pcVar4 = param_2;
     do {
       cVar1 = *pcVar4;
@@ -99,7 +113,14 @@ void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax)
     } while (cVar1 != '\0');
     iVar3 = (int)pcVar4 - (int)(param_2 + 1);
   }
-  FUN_00505900(param_2,iVar3);
+  /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_00505900 is __fastcall with
+   * 2 register args (ECX,EDX) ahead of these 2 stack args, which is all
+   * this call ever passed. Orig 0x4025c2/0x4025bc: `mov ecx,eax` = the
+   * panel handle captured above as iVar6; `mov edx,[0x5b3484]; add
+   * edx,0x23330` = g_clientContext+0x23330, the same fixed source
+   * buffer this function copies its own message prefix from at the
+   * very top (`pcVar4 = (char *)(g_clientContext + 0x23330);`). */
+  FUN_00505900(iVar6,(char *)(g_clientContext + 0x23330),param_2,iVar3);
   return;
 }
 

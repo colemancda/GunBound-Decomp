@@ -22,6 +22,7 @@ void FUN_0045ea40(void)
   undefined4 uVar2;
   int iVar3;
   int iVar4;
+  int iVar13;
   undefined4 uVar5;
   int *unaff_ESI;
   undefined4 *unaff_FS_OFFSET;
@@ -58,6 +59,16 @@ void FUN_0045ea40(void)
             iVar4 = PeekChecksumStateUnderLock(&DAT_00796aa0);
             iVar3 = iVar3 + (iVar3 * 8) / iVar4;
           }
+          /* SAVED (2026-09-21): iVar3 here is the count FUN_00436860's
+           * EDX needs below (negated) - the very next line clobbers
+           * iVar3 with the peek result, and the if/else after that
+           * clobbers it again (to 0 or unchanged), so a copy must be
+           * taken before either happens.  Orig 0x45eb51/0x45ebcf: EDI
+           * holds this exact pre-EncodeChecksumDeltaSub value across
+           * the WHOLE second delta chain (nothing re-writes EDI in
+           * between), then gets negated right before the
+           * FUN_00436860 call. */
+          iVar13 = iVar3;
           uVar2 = EncodeChecksumDeltaSub(unaff_ESI + 0x1bf5,auStack_454,iVar3);
           uStack_4 = 1;
           iVar3 = PeekChecksumStateUnderLock(uVar2);
@@ -75,7 +86,13 @@ void FUN_0045ea40(void)
           uStack_4 = 2;
           uVar2 = PeekChecksumStateUnderLock(uVar2);
           uVar5 = PeekChecksumStateUnderLock(unaff_ESI + 0x243);
-          FUN_00436860(uVar5,uVar2);
+          /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_00436860 is
+           * __fastcall with 2 register args (ECX,EDX) ahead of these 2
+           * stack args - this call only ever passed the stack pair.
+           * Orig 0x45ebe3/0x45ebf1: `mov ecx,[esi+8]` (unaff_ESI[2]);
+           * `mov edx,edi` where edi = -iVar13 (see the SAVED comment
+           * above). */
+          FUN_00436860(unaff_ESI[2],-iVar13,uVar5,uVar2);
           uStack_4 = 0xffffffff;
           ScrubChecksumGuard();
         }

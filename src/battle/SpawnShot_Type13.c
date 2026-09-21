@@ -286,9 +286,25 @@ void SpawnShot_Type13(undefined4 param_1,undefined4 param_2,undefined4 param_3,
     *pcVar7 = cVar1;
     pcVar7 = pcVar7 + 1;
   } while (cVar1 != '\0');
+  /* piStack_8d0/puStack_8d4 below are Ghidra SEH-scope-table artifacts
+   * (puStack_8d4's value is literally the return address right after
+   * the FUN_0041da80 call, 0x438df2+5), not real arguments - left as
+   * dead stores, matching the file's own established "raw stack
+   * reference" artifact convention above. */
   piStack_8d0 = (int *)g_clientContext;
   puStack_8d4 = (undefined1 *)0x438df7;
-  FUN_0041da80();
+  /* DROPPED-ARGUMENT FIX (2026-09-21): Ghidra dropped this call's real
+   * args entirely (decompiled as a bare `FUN_0041da80()`, confusing the
+   * SEH plumbing above for its arguments). Reconstructed from orig
+   * 0x438dc6-0x438ded: `mov ecx,0xd` right before the call is
+   * FUN_0041da80's own ECX param_1 (__thiscall, erased to a plain
+   * leading stack arg per ghidra_types.h); the 5 stack pushes are (in
+   * push order, deepest first) literal 1, `edx=[esp+0x8d0]` (this
+   * file's own documented alias for this function's param_6, see the
+   * comment a few lines above at piStack_8d0/puStack_8d4's real
+   * counterpart), literal 1, `ebp` (this function's own object, piVar2),
+   * and `eax=[0x5b3484]` (g_clientContext). */
+  FUN_0041da80(0xd,g_clientContext,piVar2,1,param_6,1);
   iVar3 = GetPlayerRecordBySlot();
   if ((iVar3 != 0) && (cVar1 = PeekPacketChecksumBool((byte *)(iVar3 + 0xbfca)), cVar1 != '\0')) {
     EncodeChecksumDeltaDiv(piVar2 + 0x930,auStackEmitScratch,4);

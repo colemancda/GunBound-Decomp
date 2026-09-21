@@ -45,6 +45,7 @@ undefined1 FUN_0048f300(int param_1)
   int iVar10;
   int iVar11;
   int iVar12;
+  int iVar14;
   undefined4 *unaff_FS_OFFSET;
   int local_249c;
   int local_2498;
@@ -235,7 +236,17 @@ LAB_0048f583:
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           uVar9 = PeekPacketChecksumState((void *)(piVar5 + 0x243));
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-          FUN_00436860(uVar9,uVar8);
+          /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_00436860 is
+           * __fastcall with 2 register args (ECX,EDX) ahead of these 2
+           * stack args - this call only ever passed the stack pair.
+           * Orig 0x48f8d5/0x48f8df: `mov ecx,[edi+8]` (piVar5[2]);
+           * `mov edx,[esp+0x14]` = iVar6 (esp-tracked back to the
+           * PeekPacketChecksumState(uVar8) result at line ~197 above -
+           * that stack slot is never rewritten between there and here,
+           * so iVar6 as it stood right before its own reassignment at
+           * line 213's EncodeChecksumDeltaSub count is exactly what
+           * survives; negated at 0x48f8df). */
+          FUN_00436860(*(int *)(piVar5 + 2),-iVar6,uVar9,uVar8);
           local_4 = 0xffffffff;
           ScrubChecksumGuard();
           *(undefined1 *)(piVar5 + 0x2c2b) = *(undefined1 *)(param_1 + 0x3c);
@@ -535,7 +546,13 @@ LAB_00490184:
     iVar10 = EncodeChecksumDeltaSub(iVar7 + 0x480,local_1e04,iVar10 * 0xf);
     local_4 = 0x16;
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    PeekPacketChecksumState((void *)(g_clientContext + 0x15406c));
+    /* CAPTURED (2026-09-21): this repeat of the g_clientContext+0x15406c
+     * peek looked like a discard (its result was never consumed by any
+     * of this decompile's named locals), but orig 0x490404 stores it
+     * right back to the same stable stack slot that 0x49043f reloads
+     * into EDX for the FUN_00436860 call below (negated at 0x49044a) -
+     * esp-tracked: no other write touches that slot in between. */
+    iVar14 = PeekPacketChecksumState((void *)(g_clientContext + 0x15406c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)iVar10);
@@ -543,7 +560,14 @@ LAB_00490184:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_2480[0] = PeekPacketChecksumState((void *)(iVar7 + 0x25c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00436860(local_2480[0],uVar8);
+    /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_00436860 is __fastcall with
+     * 2 register args (ECX,EDX) ahead of these 2 stack args - this call
+     * only ever passed the stack pair.  Orig 0x49043c/0x49043f/
+     * 0x490447: `mov ecx,[ebx+8]` then `add ecx,0x32` (ebx=iVar7, this
+     * function's own object local, matching FUN_00478cb0's identical
+     * *(int*)(this+8)+0x32 pattern); `mov edx,[esp+0x10]` = iVar14
+     * (see the CAPTURED comment above), negated at 0x49044a. */
+    FUN_00436860(*(int *)(iVar7 + 2) + 0x32,-iVar14,local_2480[0],uVar8);
     local_4 = 0xffffffff;
     if (iStack_1df0 != 0) {
       iVar10 = iStack_1df0 << 4;

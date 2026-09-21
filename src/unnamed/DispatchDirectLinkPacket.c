@@ -81,7 +81,14 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
           cVar1 = *pcVar6;
           pcVar6 = pcVar6 + 1;
         } while (cVar1 != '\0');
-        FUN_004059e0((char *)(param_1 + 8));
+        /* DROPPED-ARG FIX 2026-09-21: recovered from orig 0x403484-0x4034dc
+           (case 0x1000). EAX = iVar4 (loaded at the top of this function
+           and never reassigned before the call); EDX = strlen(param_1+8)
+           WITHOUT the terminator (`pcVar6 - (param_1 + 8) - 1`, since the
+           scan loop leaves pcVar6 one past the NUL); ECX (dummy) is dead
+           inside the callee. */
+        FUN_004059e0(0,(uint)((pcVar6 - (char *)(param_1 + 8)) - 1),(undefined4 *)(param_1 + 8),
+                     iVar4);
         FUN_00405a20();
         FUN_004024f0(param_2,param_1 + 8,param_3);
         return;
@@ -127,7 +134,10 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
           cVar1 = *pcVar6;
           pcVar6 = pcVar6 + 1;
         } while (cVar1 != '\0');
-        FUN_004059e0((char *)(param_1 + 8));
+        /* DROPPED-ARG FIX 2026-09-21: recovered from orig 0x403309-0x40335e
+           (case 2, 0xa112) - same shape as the 0x1000 case above. */
+        FUN_004059e0(0,(uint)((pcVar6 - (char *)(param_1 + 8)) - 1),(undefined4 *)(param_1 + 8),
+                     iVar4);
         FUN_00405a20();
       }
     }

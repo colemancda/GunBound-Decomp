@@ -305,7 +305,12 @@ void FUN_00432850(int param_1,int param_2)
         *pcVar7 = cVar1;
         pcVar7 = pcVar7 + 1;
       } while (cVar1 != '\0');
-      FUN_0041da80(g_clientContext,piVar3,1,1,1);
+      /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_0041da80 is __thiscall
+       * with ECX=param_1 (erased to a plain leading stack arg here per
+       * ghidra_types.h) ahead of these 5 stack args, which is all this
+       * call ever passed. Orig 0x433077: `mov ecx,0xb` right before the
+       * call (literal, this spawner's own class-id-like constant). */
+      FUN_0041da80(0xb,g_clientContext,piVar3,1,1,1);
       uVar8 = InitGuardedChecksumSlot(piVar3 + 0x795,auStack_17b4,piVar3 + 0xcf2);
       uStack_20 = 7;
       uVar12 = EncodeChecksumDeltaDiv(uVar8,auStack_19d8,100);

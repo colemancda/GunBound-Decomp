@@ -965,7 +965,15 @@ LAB_0042d5ba:
     (*pcVar15)(&g_valueGuardLock);
   }
 LAB_0042d667:
-  FUN_0041da80(g_clientContext,local_8bc,param_3,param_12,0);
+  /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_0041da80 is __thiscall with
+   * ECX=param_1 (erased to a plain leading stack arg here per
+   * ghidra_types.h) ahead of these 5 stack args, which is all this call
+   * ever passed. Orig 0x42d681: `mov ecx,[esp+0x8e0]`, adjacent (4
+   * bytes over) to `edx=[esp+0x8dc]` which resolves to this function's
+   * own param_3 a few lines below, and to `[esp+0x900]` (pushed at
+   * 0x42d680, this function's own param_12) - consecutive param slots
+   * pin [esp+0x8e0] to this function's own param_4. */
+  FUN_0041da80(param_4,g_clientContext,local_8bc,param_3,param_12,0);
   iVar6 = GetPlayerRecordBySlot(g_clientContext);
   if ((iVar6 != 0) && (cVar5 = PeekPacketChecksumBool((byte *)(iVar6 + 0xbfca)), cVar5 != '\0')) {
     uVar8 = EncodeChecksumDeltaDiv(local_8bc + 0x930,auStack_8a0,4);

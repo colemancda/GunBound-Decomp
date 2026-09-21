@@ -25,7 +25,15 @@ exception * __thiscall FUN_0040b940(exception *param_1,exception *param_2)
   *(undefined4 *)(param_1 + 0x24) = 0xf;
   *(undefined4 *)(param_1 + 0x20) = 0;
   param_1[0x10] = (exception)0x0;
-  FUN_0040b9f0(param_2 + 0xc,0,0xffffffff);
+  /* DROPPED-ARG FIX (2026-09-21): same shape as FUN_00409fd0's call -
+     FUN_0040b9f0 needs a `this` (ECX) arg this call dropped entirely -
+     orig 0x40b970 `lea ecx,[esi+0xc]` (esi=this function's own
+     param_1; unclobbered through to the 0x40b98b call), i.e. the
+     embedded string field at param_1+0xc. `param_2+0xc`/0/0xffffffff
+     (the source exception's message field, pos 0, count npos) were
+     already the correct trailing 3 args, just missing their leading
+     `this`. */
+  FUN_0040b9f0((int)param_1 + 0xc,(int)(param_2 + 0xc),0,0xffffffff);
   *unaff_FS_OFFSET = local_c;
   return param_1;
 }

@@ -100,7 +100,12 @@ void SpawnSuperCrystalShot(undefined4 param_1,undefined4 param_2,undefined4 para
       *pcVar6 = cVar1;
       pcVar6 = pcVar6 + 1;
     } while (cVar1 != '\0');
-    FUN_0041da80(g_clientContext,piVar7,1,1,1);
+    /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_0041da80 is __thiscall with
+     * ECX=param_1 (erased to a plain leading stack arg here per
+     * ghidra_types.h) ahead of these 5 stack args, which is all this
+     * call ever passed. Orig 0x437f3c: `mov ecx,8` right before the
+     * call (literal, same constant as the non-super SpawnCrystalShot). */
+    FUN_0041da80(8,g_clientContext,piVar7,1,1,1);
     RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   *unaff_FS_OFFSET = local_c;

@@ -4,6 +4,20 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARG FIX (2026-09-21): __thiscall, ECX=param_1(`this`) + `ret
+ * 0xc` = 3 stack dwords (disasm 0x40b9f0-0x40ba37) - the declaration's
+ * own shape (param_1..param_4) was already correct; all 3 callers just
+ * undercounted by one. This is a std::string-shaped "assign a substring
+ * of another/the same string object" helper: `this`=param_1, the SOURCE
+ * string object=param_2 (its own +0x14 length / +0x18 capacity /+4
+ * buffer fields are read, confirmed at 0x40b9fc `cmp [edi+0x14],esi`),
+ * srcPos=param_3, count=param_4. When param_1==param_2 (self-assign) it
+ * takes the safe in-place substring-compact path via two FUN_0040bda0
+ * calls instead of copying. All 3 sites (FUN_0040bee0.c, FUN_0040b940.c,
+ * FUN_00409fd0.c) had the SOURCE-OBJECT argument (param_2) missing
+ * entirely, shifting srcPos/count one slot left into param_2/param_3 -
+ * see each caller's own header/inline note for its disasm evidence.
  */
 #include "ghidra_types.h"
 

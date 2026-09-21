@@ -132,7 +132,14 @@ SpawnBlastEffect(int param_1,int param_2,byte param_3,int param_4,uint param_5,u
       *pcVar7 = cVar1;
       pcVar7 = pcVar7 + 1;
     } while (cVar1 != '\0');
-    FUN_0041da80(g_clientContext,piVar8,param_5,param_10,1);
+    /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_0041da80 is __thiscall
+     * with ECX=param_1 (erased to a plain leading stack arg here per
+     * ghidra_types.h) ahead of these 5 stack args, which is all this
+     * call ever passed. Orig 0x431faf: `mov ecx,edi`, where edi was
+     * reloaded from this function's own param_4 at 0x431f5d (`mov
+     * edi,[esp+0x8b8]`, the same reload the sprite-set index/sprintf
+     * calls just above already use as param_4). */
+    FUN_0041da80(param_4,g_clientContext,piVar8,param_5,param_10,1);
     cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x5b818));
     if (cVar1 == '\x01') {
       uVar4 = EncodeChecksumDeltaMul(piVar8 + 0x930,local_89c,3);

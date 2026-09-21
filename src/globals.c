@@ -153,6 +153,7 @@ uint8_t DAT_00554060;
 uint32_t DAT_005554f8;
 uint8_t DAT_005554fc;
 /* 0x00555500: real storage is PTR_DAT_00555500 below - see globals.h. */
+const char s_loadstage_img_00555504[] = "loadstage.img";
 uint16_t DAT_00555a14;
 uint8_t DAT_00555a16;
 uint16_t DAT_00555a18;

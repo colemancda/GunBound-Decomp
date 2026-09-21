@@ -127,7 +127,12 @@ LAB_004379f7:
     *pcVar9 = cVar1;
     pcVar9 = pcVar9 + 1;
   } while (cVar1 != '\0');
-  FUN_0041da80(g_clientContext,piVar7,1,1,1);
+  /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_0041da80 is __thiscall with
+   * ECX=param_1 (erased to a plain leading stack arg here per
+   * ghidra_types.h) ahead of these 5 stack args, which is all this call
+   * ever passed. Orig 0x437a8d: `mov ecx,6` right before the call
+   * (literal, same constant as the non-super SpawnMine). */
+  FUN_0041da80(6,g_clientContext,piVar7,1,1,1);
   (*pcVar6)(&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)((int)piVar7 + 0x35ec));
   (*pcVar8)(&g_valueGuardLock);

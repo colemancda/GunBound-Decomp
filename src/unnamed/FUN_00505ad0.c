@@ -63,7 +63,15 @@ void FUN_00505ad0(int param_1)
       uVar8 = 0x205;
     }
     uVar8 = GetLocalizedString(&g_localizedStringTable,uVar8);
-    FUN_00505900(uVar8,iVar4);
+    /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_00505900 is __fastcall with
+     * 2 register args (ECX,EDX) ahead of these 2 stack args, which is
+     * all this call ever passed. Orig 0x505b71/0x505b6c: `mov ecx,ebp`
+     * where ebp = this function's own param_1 (set at entry, 0x505ad2);
+     * `mov edx,0x551cb1` - the literal address of the pre-existing
+     * empty-string global &DAT_00551cb1 (see src/globals.c and its
+     * other callers), i.e. an empty sender-name prefix for this
+     * system-style message. */
+    FUN_00505900(param_1,&DAT_00551cb1,uVar8,iVar4);
   }
 LAB_00505bbe:
   if (uVar2 < *(uint *)(param_1 + 0x10)) {
