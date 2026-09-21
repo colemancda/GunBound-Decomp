@@ -1,9 +1,19 @@
-/* FUN_004edb50 - 0x004edb50 in the original binary.
+/* DrawBattleFadeOverlay - 0x004edb50 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED (2026-09-21). Its sole caller (State11_InBattle_Render.c)
+ * builds param_1 (`uBattleFadeAlpha`) from a per-battle-state fade
+ * value - state 1 ramps DAT_005f376c up, state 6 ramps it down, any
+ * other state uses the fixed default 0xc0000000 - packed into the top
+ * byte of an ARGB colour, and passes it here alongside a fixed 0x31f x
+ * 0x257 rectangle. This writes a 4-vertex D3DFVF quad (XYZRHW +
+ * diffuse) at DAT_00ea0e28.. and issues
+ * `IDirect3DDevice7::DrawPrimitive` (vtable slot 100,
+ * D3DPT_TRIANGLEFAN) over it - i.e. it draws the full-screen alpha
+ * overlay used for the battle-state fade in/out.
  *
  * SIGNATURE FIX (2026-09-21, no-prototype sweep). Ghidra's
  * `__fastcall FUN_004edb50(undefined4 param_1,int param_2,...)` was
@@ -30,7 +40,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004edb50(int param_1,int param_2,int param_3,int param_4,int param_5)
+void DrawBattleFadeOverlay(int param_1,int param_2,int param_3,int param_4,int param_5)
 
 {
   DAT_00ea0e28 = (float)param_3 * _DAT_00557fc0 * _DAT_00588f50;

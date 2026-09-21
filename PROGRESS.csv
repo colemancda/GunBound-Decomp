@@ -1213,7 +1213,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ed870,376,QueueSpriteFrameSpans,false,21,2,RAW-src
 004ed9f0,163,BlitSpriteText,false,36,2,RAW-src
 004edaa0,175,FUN_004edaa0,false,2,0,RAW-src
-004edb50,184,FUN_004edb50,false,1,0,RAW-src
+004edb50,184,DrawBattleFadeOverlay,false,1,0,RAW-src
 004edc50,91,InitDirectInput,false,1,2,RAW-src
 004edce0,30,UpdateDeviceAcquisition,false,2,0,RAW-src
 004edd10,94,FUN_004edd10,false,1,0,RAW-src

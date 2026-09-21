@@ -1301,7 +1301,7 @@ undefined4 __thiscall QueueSpriteFrameSpans(int param_1,int param_2,int regEax,i
 void __thiscall BlitSpriteText();
 void __thiscall FUN_004ed300(int param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6,int param_7);
 void FUN_004edaa0(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,undefined4 color);
-void FUN_004edb50(int param_1,int param_2,int param_3,int param_4,int param_5);
+void DrawBattleFadeOverlay(int param_1,int param_2,int param_3,int param_4,int param_5);
 void UpdateDeviceAcquisition(int deviceObj, char wasActive);
 undefined4 * __fastcall FUN_004edd10();
 undefined4 __fastcall FUN_004edd70();

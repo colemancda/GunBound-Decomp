@@ -151,6 +151,7 @@ void State11_InBattle_Render(void)
       (**(code **)(*g_pD3DDevice7 + 0x50))();
     }
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
+    /* FUN_004edb50 is now DrawBattleFadeOverlay - see that file's header. */
     /* DROPPED-ARGUMENT FIX (2026-09-21): FUN_004edb50 dropped its whole
      * argument list (decompiled as a bare `FUN_004edb50()`). Orig
      * 0x4c30be-0x4c312b, straight-line reconstruction:
@@ -171,7 +172,7 @@ void State11_InBattle_Render(void)
     else {
       uBattleFadeAlpha = 0xc0000000;
     }
-    FUN_004edb50(uBattleFadeAlpha,0x31f,0,0,0x257);
+    DrawBattleFadeOverlay(uBattleFadeAlpha,0x31f,0,0,0x257);
   }
   iVar6 = g_clientContext;
   iVar5 = FindTextureCacheEntryByName();
