@@ -92,7 +92,7 @@ void FUN_0045ea40(void)
            * Orig 0x45ebe3/0x45ebf1: `mov ecx,[esi+8]` (unaff_ESI[2]);
            * `mov edx,edi` where edi = -iVar13 (see the SAVED comment
            * above). */
-          FUN_00436860(unaff_ESI[2],-iVar13,uVar5,uVar2);
+          SpawnDamagePopup(unaff_ESI[2],-iVar13,uVar5,uVar2);
           uStack_4 = 0xffffffff;
           ScrubChecksumGuard();
         }

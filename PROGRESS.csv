@@ -419,7 +419,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00436070,215,FUN_00436070,false,34,7,RAW-src
 00436150,207,SpawnProjectileLightningHazard,false,4,7,RAW-src
 00436220,1594,SpawnItemCase,false,1,11,RAW-src
-00436860,133,FUN_00436860,false,6,5,RAW-src
+00436860,133,SpawnDamagePopup,false,6,5,RAW-src
 004368f0,132,FUN_004368f0,false,15,3,RAW-src
 00436980,318,FUN_00436980,false,1,7,RAW-src
 00436ac0,131,SpawnCrashEffect,false,23,8,RAW-src

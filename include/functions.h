@@ -557,7 +557,7 @@ void SpawnLightningHazard();
 void FUN_00436070();
 void SpawnProjectileLightningHazard();
 void SpawnItemCase();
-void __fastcall FUN_00436860(int param_1,int param_2,undefined4 param_3,undefined4 param_4);
+void __fastcall SpawnDamagePopup(int param_1,int param_2,undefined4 param_3,undefined4 param_4);
 void FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined *param_5,char param_6);
 void FUN_004368f0();
 void FUN_00436980(undefined4 param_1,int param_2,int param_3,int param_4);

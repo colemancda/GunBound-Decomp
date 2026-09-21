@@ -1,9 +1,28 @@
-/* FUN_00436860 - 0x00436860 in the original binary.
+/* SpawnDamagePopup - 0x00436860 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED (2026-09-21). Finds or creates a per-frame class-id-0x30d54
+ * "hit total" widget (frame index = param_1; the class-id-0x30d54
+ * constructor is FUN_00468620) and accumulates param_2 into its +0x48
+ * field, resetting its +0x40 age counter - the merge/create idiom of a
+ * floating damage number that keeps rising while more hits land in the
+ * same frame. Confirmed by the class's own vtable-slot-2 Tick
+ * (0x468660, UNCARVED in docs/vtable_census.txt): every tick it
+ * increments +0x40/+0x44, decrements +0x3c (the screen Y offset) by 3
+ * once +0x44 passes 10 (the number floats upward), marks itself dead
+ * (+0x14=1) after 30 ticks, and eases +0x4c one quarter of the way
+ * toward the +0x48 target each tick (a display-value catch-up curve).
+ * Slot 3 (0x4686b0) confirms the payload is TEXT: it sprintfs the
+ * eased +0x4c value (format string 0x551ed4), measures the resulting
+ * digit string, and walks it character by character with a leading
+ * '-'-sign check before drawing at (+0x38,+0x3c). All 5 real callers
+ * feed param_2 from the return of an `EncodeChecksumDeltaSub(...,
+ * 0xf)` or `EncodeChecksumDeltaSub(..., N*0xf)` call on the same
+ * object's health-delta cell immediately above (a fixed 15-per-hit
+ * chain-damage idiom), so param_2 is the damage just dealt.
  *
  * 2026-09-02: FindSpriteFrame's register args recovered from orig
  * 0x436877-0x436886 - see the site comment.
@@ -30,7 +49,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00436860(int param_1,int param_2,undefined4 param_3,undefined4 param_4)
+void __fastcall SpawnDamagePopup(int param_1,int param_2,undefined4 param_3,undefined4 param_4)
 
 {
   char cVar1;

@@ -353,7 +353,7 @@ LAB_00479655:
      * function's own param_1, 0x479857-0x47985b); `mov edx,esi` where
      * esi = `neg`'d iVar5 (0x47985e, the same iVar5 just used for the
      * AddToPacketChecksum call above, still unclobbered here). */
-    FUN_00436860(*(int *)(param_1 + 2) + 0x32,-iVar5,uVar4,uVar3);
+    SpawnDamagePopup(*(int *)(param_1 + 2) + 0x32,-iVar5,uVar4,uVar3);
     local_4 = 0xffffffff;
     ScrubChecksumGuard();
     (**(code **)(*param_1 + 4))(s_damage_00555cc0);

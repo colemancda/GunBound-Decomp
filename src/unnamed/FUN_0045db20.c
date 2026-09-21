@@ -471,7 +471,7 @@ LAB_0045e442:
          * `mov edx,edi` where edi = `neg`'d iVar7 (0x45e93f/0x45e94d,
          * the same iVar7 already passed to EncodeChecksumDeltaSub just
          * above, still unclobbered here - only iVar6 got zeroed). */
-        FUN_00436860(param_2[2],-iVar7,uVar5,uVar4);
+        SpawnDamagePopup(param_2[2],-iVar7,uVar5,uVar4);
         local_4 = 0xffffffff;
         ScrubChecksumGuard();
         *(undefined1 *)(param_2 + 0x2c2b) = *(undefined1 *)(param_1 + 0x3c);

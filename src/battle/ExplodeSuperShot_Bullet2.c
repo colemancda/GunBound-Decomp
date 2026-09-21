@@ -108,7 +108,7 @@ void __fastcall ExplodeSuperShot_Bullet2(int param_1)
                  * unmodified (see the SAVED comment above) - no `neg`
                  * on this path, unlike the sibling sites in
                  * FUN_00478cb0/FUN_0045db20/FUN_0045ea40/FUN_0048f300. */
-                FUN_00436860(piVar6[2],uVar4Saved,uVar4,uVar3);
+                SpawnDamagePopup(piVar6[2],uVar4Saved,uVar4,uVar3);
                 local_4 = 0xffffffff;
                 ScrubChecksumGuard();
                 if (*(byte *)(param_1 + 0x3c) < 8) {

@@ -246,7 +246,7 @@ LAB_0048f583:
            * so iVar6 as it stood right before its own reassignment at
            * line 213's EncodeChecksumDeltaSub count is exactly what
            * survives; negated at 0x48f8df). */
-          FUN_00436860(*(int *)(piVar5 + 2),-iVar6,uVar9,uVar8);
+          SpawnDamagePopup(*(int *)(piVar5 + 2),-iVar6,uVar9,uVar8);
           local_4 = 0xffffffff;
           ScrubChecksumGuard();
           *(undefined1 *)(piVar5 + 0x2c2b) = *(undefined1 *)(param_1 + 0x3c);
@@ -567,7 +567,7 @@ LAB_00490184:
      * function's own object local, matching FUN_00478cb0's identical
      * *(int*)(this+8)+0x32 pattern); `mov edx,[esp+0x10]` = iVar14
      * (see the CAPTURED comment above), negated at 0x49044a. */
-    FUN_00436860(*(int *)(iVar7 + 2) + 0x32,-iVar14,local_2480[0],uVar8);
+    SpawnDamagePopup(*(int *)(iVar7 + 2) + 0x32,-iVar14,local_2480[0],uVar8);
     local_4 = 0xffffffff;
     if (iStack_1df0 != 0) {
       iVar10 = iStack_1df0 << 4;
