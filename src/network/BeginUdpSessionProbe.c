@@ -7,7 +7,7 @@
  * that address under the context's +0x17c critical section.  The UDP worker
  * thread (FUN_004e6770) re-sends the identical datagram every 2 s while the
  * counter is positive and posts failure event 4 if all 7 attempts go
- * unanswered; the receive path (FUN_004e6160) cancels it -- counter := -1,
+ * unanswered; the receive path (ProcessUdpProbeDatagram) cancels it -- counter := -1,
  * success event 3 -- when the server echoes those same 4 bytes back.
  *
  * NAME EVIDENCE.  The sole call site (0x4e0371) is the

@@ -270,6 +270,8 @@ uint16_t g_awItemIconTable[40] = {
 /* g_eventKeyBlock (was DAT_0056dc90..DAT_0056dcaa): the two 16-byte AES keys
  * for the UDP battle/replay event channel, at 0x56dc90 and 0x56dca0.
  *
+ * (FUN_004e6160 below is ProcessUdpProbeDatagram's old symbol.)
+ *
  * COALESCED + INITIALISED (2026-07-19). Ghidra split these two blocks into ten
  * separate one-byte DAT_ globals - only the bytes any function happens to poke
  * individually - which broke them TWICE:

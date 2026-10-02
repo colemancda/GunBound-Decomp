@@ -1,10 +1,31 @@
-/* FUN_004e6160 - 0x004e6160 in the original binary.
+/* ProcessUdpProbeDatagram - 0x004e6160 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
- * DROPPED-ARG FIX (2026-09-21), both FUN_004e6d10 call sites. Orig
+ * NAMED (2026-10-02), LIKELY. This is the UDP-probe RECEIVE path that
+ * BeginUdpSessionProbe.c's own header already names and describes by
+ * this exact old address: "the receive path (FUN_004e6160) cancels it --
+ * counter := -1, success event 3 -- when the server echoes those same 4
+ * bytes back." Confirmed independently: its sole caller, the UDP worker
+ * thread FUN_004e6770, invokes it only when `WSAEnumNetworkEvents`
+ * reports the socket readable (FD_READ), and this function's own body
+ * opens by calling `recvfrom` to pull that one datagram off the socket,
+ * then validates a checksum/magic header, matches it against the
+ * 4-byte login-probe echo (cancelling the probe counter and firing
+ * success event 3 on a match, exactly as BeginUdpSessionProbe's header
+ * says), or otherwise treats it as a peer P2P probe/punch-through
+ * datagram: it updates per-slot peer address/port tables, calls
+ * EncodeUdpProbeHeader + SendUdpDatagram to echo/relay a probe reply,
+ * and tracks round-trip timing via timeGetTime. "Process", not "Send"
+ * or "Dispatch": the function's own first action is the recvfrom, not a
+ * send - SendUdpDatagram is the already-named raw sender it calls
+ * internally, and QueueBroadcastEvent/EncodeUdpProbeHeader are its
+ * already-named siblings in this same UDP subsystem.
+ *
+ * DROPPED-ARG FIX (2026-09-21), both EncodeUdpProbeHeader call sites (the
+ * old name FUN_004e6d10 below is that function's former symbol). Orig
  * 0x4e6422-0x4e6431 / 0x4e6666-0x4e6680: FUN_004e6d10 takes 5 real
  * arguments - ECX=the context pointer (this function's own `param_1`),
  * EDX=the output buffer (`lea edx,[esp+0x250]`, the same buffer
@@ -29,7 +50,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004e6160(int param_1)
+undefined4 ProcessUdpProbeDatagram(int param_1)
 
 {
   uint3 uVar1;

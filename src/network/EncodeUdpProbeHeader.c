@@ -4,6 +4,9 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_004e6160.c in the notes below is now
+ * src/network/ProcessUdpProbeDatagram.c.)
+ *
  * NAMED (2026-09-21), LIKELY. Zeroes a fixed 0x40-byte buffer (`param_2`),
  * writes a fixed length field `0x24` at its head, then fills it with a
  * per-connection sequence counter (`param_1+0x45204`, post-incremented)

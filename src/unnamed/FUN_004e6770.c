@@ -53,7 +53,7 @@ void __fastcall FUN_004e6770(int param_1)
               ShowErrorDialog(1);
               goto LAB_004e6b2c;
             }
-            cVar2 = FUN_004e6160(param_1);
+            cVar2 = ProcessUdpProbeDatagram(param_1);
             if (cVar2 == '\0') {
               ShowErrorDialog(1);
               goto LAB_004e6b2c;

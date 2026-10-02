@@ -1101,7 +1101,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e5e00,549,FUN_004e5e00,false,1,5,RAW-src
 004e6030,31,FUN_004e6030,false,1,2,RAW-src
 004e6050,258,FUN_004e6050,false,2,7,RAW-src
-004e6160,1541,FUN_004e6160,false,1,16,RAW-src
+004e6160,1541,ProcessUdpProbeDatagram,false,1,16,RAW-src
 004e6770,986,FUN_004e6770,false,1,21,RAW-src
 004e6b50,52,FUN_004e6b50,false,1,2,RAW-src
 004e6b90,245,FUN_004e6b90,false,1,4,RAW-src

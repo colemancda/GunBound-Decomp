@@ -1198,7 +1198,7 @@ void FUN_004e5dc0();
 undefined4 * FUN_004e5e00();
 void * __thiscall FUN_004e6030();
 void FUN_004e6050();
-undefined4 FUN_004e6160();
+undefined4 ProcessUdpProbeDatagram(int param_1);
 void __fastcall FUN_004e6770();
 void FUN_004e6b50();
 void FUN_004e6b90();

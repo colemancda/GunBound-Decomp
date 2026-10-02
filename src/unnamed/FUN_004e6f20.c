@@ -1,5 +1,8 @@
 /* FUN_004e6f20 - 0x004e6f20 in the original binary.
  *
+ * (FUN_004e6160 in the notes below is ProcessUdpProbeDatagram's old
+ * symbol.)
+ *
  * The decrypt counterpart of EncryptEventBroadcast: expands the SECOND event
  * key (0x56dca0, mode 2) into the same schedule slot at ctx+0x44ff8, then
  * decrypts param_1's body in place, 16 bytes at a time, via a 0x400 scratch.

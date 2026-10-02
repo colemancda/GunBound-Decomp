@@ -8,6 +8,9 @@
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
  *
+ * (FUN_004e6160 in the note below is ProcessUdpProbeDatagram's old
+ * symbol.)
+ *
  * DROPPED REGISTER ARGUMENT RECOVERED (2026-08-20).  Everything this function
  * touches hangs off a base that arrived in ESI and that Ghidra modelled as an
  * uninitialised local - the critical section at +0x198, the 0x200-byte event
