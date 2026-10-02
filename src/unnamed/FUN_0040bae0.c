@@ -35,7 +35,7 @@ FUN_0040bae0(undefined4 *param_1,undefined4 *param_2,char param_3,undefined4 par
     local_38 = 0xf;
     local_3c = 0;
     local_4c = 0;
-    FUN_0040bee0((int)local_50,s_map_set_T_too_long_00551fec,0x13);
+    basic_string_AssignCStr((int)local_50,s_map_set_T_too_long_00551fec,0x13);
     local_4 = 0;
     FUN_00409fd0(local_50);
     local_34[0] = &PTR_FUN_00544b68;

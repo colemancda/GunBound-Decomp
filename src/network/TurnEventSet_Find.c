@@ -4,6 +4,9 @@
  * output rather than a hand-verified reconstruction.  See src/README.md's
  * "Raw/verbatim ports" section for what that status means.
  *
+ * (FUN_0040bee0 in the notes below is basic_string_AssignCStr's old
+ * symbol.)
+ *
  * WHAT IT IS.  A red-black tree lookup keyed on a ushort: node _Left/_Parent/
  * _Right at +0/+4/+8, the key at +0xc and the _Isnil flag at +0xf, with the
  * header node at map+4.  The descent keeps the last node it turned left at,

@@ -307,7 +307,7 @@ void FUN_0040bd00(int *regEax);
 void __thiscall FUN_0040bd20();
 int __thiscall FUN_0040bda0(int param_1,uint param_2,uint param_3);
 undefined4 * TreeEraseRange(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
-int __thiscall FUN_0040bee0();
+int __thiscall basic_string_AssignCStr(int param_1,undefined4 *param_2,uint param_3);
 void __thiscall FUN_0040bfd0(int param_1,uint param_2,uint param_3);
 undefined4 FUN_0040c110();
 void __fastcall FUN_0040c150();

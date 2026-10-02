@@ -5,6 +5,9 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_0040bee0 in the note below is basic_string_AssignCStr's old
+ * symbol; FUN_0040b9f0 is basic_string_AssignSubstr's.)
+ *
  * DROPPED-ARGUMENT FIX (2026-09-20): __thiscall with 3 real params
  * (ECX=`this` + ret 8 = 2 stack dwords, disasm 0x40bfd0-0x40c0d8); the
  * declared shape was already correct. Both of the 2 call sites

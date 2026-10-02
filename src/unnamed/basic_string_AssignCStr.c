@@ -1,9 +1,20 @@
-/* FUN_0040bee0 - 0x0040bee0 in the original binary.
+/* basic_string_AssignCStr - 0x0040bee0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-02). Same VC7 std::basic_string<char> in-object layout
+ * as its sibling basic_string_AssignSubstr (+4 buffer/heap pointer,
+ * +0x14 length, +0x18 capacity). This is the `assign(const char*,
+ * size_type)` overload: it takes a raw char pointer/length pair rather
+ * than a source string object, delegates to basic_string_AssignSubstr
+ * for the self-overlapping-substring case, and otherwise bytewise-copies
+ * `param_3` bytes from `param_2` into `this`, matching every one of its
+ * 8 call sites, each of which passes a string-literal pointer plus a
+ * literal length (e.g. `s_invalid_bitset_N_position_00552c4c, 0x1a`).
+ *
+ * (FUN_00409fd0 in the note below is LogicError_ctor's old symbol.)
  *
  * DROPPED-ARG FIX (2026-09-20): __thiscall with 3 real params (ECX=`this`
  * + ret 8 = 2 stack dwords, disasm 0x40bee0-0x40bf8b) - a VC7
@@ -23,7 +34,7 @@
 #include "ghidra_types.h"
 
 
-int __thiscall FUN_0040bee0(int param_1,undefined4 *param_2,uint param_3)
+int __thiscall basic_string_AssignCStr(int param_1,undefined4 *param_2,uint param_3)
 
 {
   undefined4 *puVar1;

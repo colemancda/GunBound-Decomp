@@ -45,7 +45,7 @@ void FUN_004e87b0(int param_1,undefined4 *param_2,int *param_3)
     local_38 = 0xf;
     local_3c = 0;
     local_4c = 0;
-    FUN_0040bee0((int)local_50,s_invalid_map_set_T_iterator_00552000,0x1b);
+    basic_string_AssignCStr((int)local_50,s_invalid_map_set_T_iterator_00552000,0x1b);
     local_4 = 0;
     FUN_00409fd0(local_50);
     local_34[0] = &PTR_FUN_00544b74;

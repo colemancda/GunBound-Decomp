@@ -22,7 +22,7 @@ int __thiscall FUN_0040b9b0(int param_1,char *param_2)
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
-  FUN_0040bee0(param_1,param_2,(int)pcVar2 - (int)(param_2 + 1));
+  basic_string_AssignCStr(param_1,param_2,(int)pcVar2 - (int)(param_2 + 1));
   return param_1;
 }
 
