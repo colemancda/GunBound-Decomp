@@ -20,13 +20,13 @@ LAB_0050584f:
     if (param_2 == 0) {
       if (param_3 == 0) goto LAB_0050584f;
       if (param_3 == 3) {
-        FUN_00505ad0(param_1);
+        CChatLogPanel_SubmitWhisper(param_1);
         Widget_OnCommandDefault(0,3,param_4);
         return;
       }
     }
     else if (param_2 == 0x1000) {
-      FUN_00505ad0(param_1);
+      CChatLogPanel_SubmitWhisper(param_1);
       Widget_OnCommandDefault(0x1000,param_3,param_4);
       return;
     }

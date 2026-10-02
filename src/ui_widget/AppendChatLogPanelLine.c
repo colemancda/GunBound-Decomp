@@ -4,6 +4,9 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_00505ad0.c in the notes below is now
+ * src/ui_widget/CChatLogPanel_SubmitWhisper.c.)
+ *
  * NAMED (2026-09-21). `param_1` (ECX) is a CChatLogPanel*
  * (src/cxx/Widget.h, sizeof 0x1050, builder BuildChatLogPanel): this
  * writes into `m_history` (+0xa8, the class's own 4000-byte field,

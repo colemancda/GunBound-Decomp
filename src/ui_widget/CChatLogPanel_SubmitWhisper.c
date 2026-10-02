@@ -1,13 +1,41 @@
-/* FUN_00505ad0 - 0x00505ad0 in the original binary.
+/* CChatLogPanel_SubmitWhisper - 0x00505ad0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-02), LIKELY. `param_1` is a CChatLogPanel* (src/cxx/
+ * Widget.h, same class/offsets as the sibling AppendChatLogPanelLine,
+ * which this function also calls with its own `param_1` as `this`).
+ * CChatLogPanel's own header already documents `m_partnerName` at +0x90
+ * as "copied from the partner record" - i.e. this panel is a 1:1 whisper
+ * panel bound to a single partner, not the general broadcast chat log.
+ *
+ * This reads the pending input line out of the panel's currently-active
+ * child row (via Widget_FindChildIndex + the row's +0x38 text field),
+ * stashes it in the panel's own ATL CString slot (`+0x50`,
+ * `char *m_strings[16]` in CPanel), and if non-empty runs it through
+ * CheckChatWordFilter: a filter hit appends a localized "message
+ * blocked" notice (string table id 0x202) into the panel's own history
+ * via AppendChatLogPanelLine with an empty sender prefix; otherwise (and
+ * after one more gate, FUN_00415230) it forwards `(partner=+0x90,
+ * text=+0x50)` to FUN_00402720, which resolves the partner by nickname
+ * (FindUserIdByNickname) and sends the message as a direct-link, in-room
+ * relay, or server-mediated whisper - a private send, not a channel
+ * broadcast. Either way it then clears the input row's text buffer and
+ * the shared text-entry control. Its sole callers (FUN_005057f0, this
+ * panel's OnCommand) invoke it on the "Enter pressed" (evt 0, id 3) and
+ * evt 0x1000 command codes - the same OnCommand-triggered shape as the
+ * already-named CreateRoomDialog_SubmitCreateRoom /
+ * EnterRoomNumberDialog_SubmitRoomNumber, hence the same `_Submit<Noun>`
+ * naming. LIKELY rather than CERTAIN: FUN_00415230's own gate and the
+ * exact wire shape of FUN_00402720's send are not independently
+ * confirmed here.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00505ad0(int param_1)
+void CChatLogPanel_SubmitWhisper(int param_1)
 
 {
   char cVar1;
