@@ -128,7 +128,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00409d10,232,FUN_00409d10,false,1,5,RAW-src
 00409e20,304,FUN_00409e20,false,4,6,RAW-src
 00409f60,102,HashTable_OnNodeRemoved,false,1,4,RAW-src
-00409fd0,95,FUN_00409fd0,false,9,2,RAW-src
+00409fd0,95,LogicError_ctor,false,9,2,RAW-src
 0040a040,50,FUN_0040a040,false,1,2,RAW-src
 0040a080,30,FUN_0040a080,false,3,2,RAW-src
 0040a0a0,227,FUN_0040a0a0,false,1,6,RAW-src
@@ -178,7 +178,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040b540,183,TreeLowerBound,false,1179,2,RAW-src
 0040b600,692,FUN_0040b600,false,2,9,RAW-src
 0040b8c0,91,TreeFind,false,2,0,RAW-src
-0040b940,101,FUN_0040b940,false,0,2,RAW-src
+0040b940,101,LogicError_CopyCtor,false,0,2,RAW-src
 0040b9b0,57,FUN_0040b9b0,false,2,1,RAW-src
 0040b9f0,227,basic_string_AssignSubstr,false,3,4,RAW-src
 0040bae0,414,FUN_0040bae0,false,2,6,RAW-src

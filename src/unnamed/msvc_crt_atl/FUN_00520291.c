@@ -16,7 +16,7 @@ void FUN_00520291(void)
   FUN_00528bc0();
   FUN_0040b9b0(s_string_too_long_00544b94);
   *(undefined4 *)(unaff_EBP + -4) = 0;
-  FUN_00409fd0(unaff_EBP + -0x28);
+  LogicError_ctor(unaff_EBP + -0x28);
   *(undefined ***)(unaff_EBP + -0x50) = &PTR_FUN_00544b68;
                     /* WARNING: Subroutine does not return */
   __CxxThrowException_8(unaff_EBP + -0x50,&DAT_0055841c);

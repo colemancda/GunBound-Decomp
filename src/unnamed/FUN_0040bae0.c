@@ -37,7 +37,13 @@ FUN_0040bae0(undefined4 *param_1,undefined4 *param_2,char param_3,undefined4 par
     local_4c = 0;
     basic_string_AssignCStr((int)local_50,s_map_set_T_too_long_00551fec,0x13);
     local_4 = 0;
-    FUN_00409fd0(local_50);
+    /* DROPPED-ARG FIX (2026-10-02): LogicError_ctor is __thiscall(this,
+       msgObj) - disasm confirms ECX=&local_34 (the exception object
+       whose vtable is stamped right below, the standard base-ctor-then-
+       derived-vtable-stamp sequence) and the stack arg=&local_50 (the
+       message string just built above), matching what the C already
+       had; only the leading `this` was missing. */
+    LogicError_ctor((undefined4 *)local_34,(undefined4)local_50);
     local_34[0] = &PTR_FUN_00544b68;
                     /* WARNING: Subroutine does not return */
     __CxxThrowException_8(local_34,&DAT_0055841c);

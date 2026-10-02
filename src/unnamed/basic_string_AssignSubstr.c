@@ -4,6 +4,10 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (Old symbols used throughout the notes below, now renamed: FUN_0040bee0
+ * is basic_string_AssignCStr, FUN_0040b940 is LogicError_CopyCtor, and
+ * FUN_00409fd0 is LogicError_ctor.)
+ *
  * NAMED (2026-09-21). Library identity: the classic MSVC7/Dinkumware
  * std::basic_string<char> in-object layout (+4 the 16-byte SSO buffer
  * or heap pointer, +0x14 length, +0x18 capacity - the same layout its
