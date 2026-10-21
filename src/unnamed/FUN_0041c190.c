@@ -19,7 +19,7 @@ uint __fastcall FUN_0041c190(undefined4 param_1,int param_2,int regEsi)
   while( true ) {
     if (!bVar2) {
                     /* WARNING: Subroutine does not return */
-      FUN_00426460();
+      Bitset_ThrowInvalidPosition();
     }
     if ((((&DAT_00e55e20)[uVar1 >> 5] & 1 << ((byte)uVar1 & 0x1f)) != 0) &&
        ((&DAT_006a7670)[regEsi + param_2 * 8 + uVar1] == '\0')) break;

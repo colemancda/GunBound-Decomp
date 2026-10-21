@@ -15,7 +15,7 @@ undefined4 __fastcall FUN_00426430(int *param_1)
   uVar1 = param_1[1];
   if (7 < uVar1) {
                     /* WARNING: Subroutine does not return */
-    FUN_00426460();
+    Bitset_ThrowInvalidPosition();
   }
   return CONCAT31((uint3)(uVar1 >> 0xd),
                   (*(uint *)(*param_1 + (uVar1 >> 5) * 4) & 1 << ((byte)uVar1 & 0x1f)) != 0);

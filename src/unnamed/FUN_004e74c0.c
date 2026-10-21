@@ -47,7 +47,7 @@ void __fastcall FUN_004e74c0(int param_1,int param_2,int param_3,int param_4,cha
   if ((int)in_EAX < 8) {
     if (7 < in_EAX) {
                     /* WARNING: Subroutine does not return */
-      FUN_00426460();
+      Bitset_ThrowInvalidPosition();
     }
     uVar4 = 1 << ((byte)in_EAX & 0x1f);
     iVar3 = (in_EAX >> 5) * 4;

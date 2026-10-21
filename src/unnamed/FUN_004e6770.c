@@ -117,7 +117,7 @@ void __fastcall FUN_004e6770(int param_1)
             if (!bVar9) {
 LAB_004e6b17:
                     /* WARNING: Subroutine does not return */
-              FUN_00426460();
+              Bitset_ThrowInvalidPosition();
             }
             bVar1 = (byte)uVar8;
             uVar7 = 1 << (bVar1 & 0x1f);

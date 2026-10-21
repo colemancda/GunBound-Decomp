@@ -134,7 +134,7 @@ void FUN_004e77e0(int param_1,int regEax)
     if (7 < local_210) {
 LAB_004e79e6:
                     /* WARNING: Subroutine does not return */
-      FUN_00426460();
+      Bitset_ThrowInvalidPosition();
     }
     bVar3 = (byte)local_210;
     uVar9 = 1 << (bVar3 & 0x1f);

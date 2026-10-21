@@ -55,7 +55,7 @@ void FUN_004e7140(uint param_1,int regEax)
     if (param_1 != 0xffffffff) {
       if (7 < param_1) {
                     /* WARNING: Subroutine does not return */
-        FUN_00426460();
+        Bitset_ThrowInvalidPosition();
       }
       if ((*(uint *)(in_EAX + 0x140 + (param_1 >> 5) * 4) & 1 << (bVar4 & 0x1f)) == 0)
       goto LAB_004e717d;
@@ -91,7 +91,7 @@ void FUN_004e7140(uint param_1,int regEax)
         FUN_004e8040(param_1);
         if (7 < param_1) {
                     /* WARNING: Subroutine does not return */
-          FUN_00426460();
+          Bitset_ThrowInvalidPosition();
         }
         *(uint *)(in_EAX + 0x13c + (param_1 >> 5) * 4) =
              *(uint *)(in_EAX + 0x13c + (param_1 >> 5) * 4) | 1 << (bVar4 & 0x1f);

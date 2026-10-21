@@ -87,7 +87,7 @@ undefined4 BroadcastQueuedEvent(int replayCtx)
     do {
       if (!bVar7) {
                     /* WARNING: Subroutine does not return */
-        FUN_00426460();
+        Bitset_ThrowInvalidPosition();
       }
       uVar5 = 1 << ((byte)uVar4 & 0x1f);
       iVar6 = (uVar4 >> 5) * 4;

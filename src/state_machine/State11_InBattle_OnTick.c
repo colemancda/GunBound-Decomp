@@ -258,7 +258,7 @@ LAB_004bdd21:
             if (!bVar18) {
 LAB_004bdd1c:
                     /* WARNING: Subroutine does not return */
-              FUN_00426460();
+              Bitset_ThrowInvalidPosition();
             }
             bVar13 = (byte)local_3d4c;
             if ((((&DAT_00e55e20)[local_3d4c >> 5] & 1 << (bVar13 & 0x1f)) != 0) &&

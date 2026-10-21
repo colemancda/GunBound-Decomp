@@ -28,7 +28,7 @@ void __fastcall FUN_004e7560(undefined4 param_1,int param_2,uint regEsi)
   if ((int)regEsi < 8) {
     if (7 < regEsi) {
                     /* WARNING: Subroutine does not return */
-      FUN_00426460();
+      Bitset_ThrowInvalidPosition();
     }
     iVar2 = (regEsi >> 5) * 4;
     uVar4 = ~(1 << ((byte)regEsi & 0x1f));

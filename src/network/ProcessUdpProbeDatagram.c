@@ -310,7 +310,7 @@ LAB_004e64e4:
       }
 LAB_004e6760:
                     /* WARNING: Subroutine does not return */
-      FUN_00426460();
+      Bitset_ThrowInvalidPosition();
     }
   }
   return 1;

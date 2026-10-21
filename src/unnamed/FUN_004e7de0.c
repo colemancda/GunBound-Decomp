@@ -26,12 +26,12 @@ void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3,uint regEbx)
   
   if (7 < param_2) {
                     /* WARNING: Subroutine does not return */
-    FUN_00426460();
+    Bitset_ThrowInvalidPosition();
   }
   uVar6 = (uint)param_2;
   if (7 < uVar6) {
                     /* WARNING: Subroutine does not return */
-    FUN_00426460();
+    Bitset_ThrowInvalidPosition();
   }
   puVar1 = (uint *)(param_1 + 0x148 + (uint)(param_2 >> 5) * 4);
   *puVar1 = *puVar1 | 1 << (param_2 & 0x1f);

@@ -27,7 +27,7 @@ undefined4 FUN_004e7740(int regEsi)
   while( true ) {
     if (!bVar4) {
                     /* WARNING: Subroutine does not return */
-      FUN_00426460();
+      Bitset_ThrowInvalidPosition();
     }
     uVar2 = 1 << ((byte)uVar3 & 0x1f);
     iVar1 = (uVar3 >> 5) * 4;

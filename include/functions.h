@@ -468,7 +468,7 @@ void FUN_00426230(int ctx);
 void SyncOutgoingChecksumField(void *self,int param_1,undefined4 param_2);
 int * __fastcall FUN_00426410();
 undefined4 __fastcall FUN_00426430();
-void FUN_00426460();
+void Bitset_ThrowInvalidPosition();
 void __fastcall AtlArray_RemoveAt_CString(int param_1,int *regEbx,int regEsi);
 int __fastcall FUN_00426570();
 int StringMap_FindOrInsert_10(char *regEax,int *regEsi);

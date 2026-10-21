@@ -43,7 +43,7 @@ void __fastcall FUN_004e7340(undefined4 param_1,uint param_2,int regEax)
     *(uint *)(regEax + 0x14c) = param_2;
     if (7 < param_2) {
                     /* WARNING: Subroutine does not return */
-      FUN_00426460();
+      Bitset_ThrowInvalidPosition();
     }
     puVar1 = (uint *)(regEax + 0x140 + (param_2 >> 5) * 4);
     *puVar1 = *puVar1 | 1 << ((byte)param_2 & 0x1f);

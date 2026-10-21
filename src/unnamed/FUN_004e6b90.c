@@ -30,7 +30,7 @@ void FUN_004e6b90(void)
   do {
     if (!bVar8) {
                     /* WARNING: Subroutine does not return */
-      FUN_00426460();
+      Bitset_ThrowInvalidPosition();
     }
     uVar4 = 1 << ((byte)uVar6 & 0x1f);
     iVar3 = (uVar6 >> 5) * 4;

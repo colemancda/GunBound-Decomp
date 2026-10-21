@@ -361,7 +361,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004262d0,307,SyncOutgoingChecksumField,false,79,8,RAW-src
 00426410,25,FUN_00426410,false,2,0,RAW-src
 00426430,39,FUN_00426430,false,2,1,RAW-src
-00426460,105,FUN_00426460,false,16,3,RAW-src
+00426460,105,Bitset_ThrowInvalidPosition,false,16,3,RAW-src
 004264d0,136,AtlArray_RemoveAt_CString,false,1,3,RAW-src
 00426570,26,FUN_00426570,false,30,1,RAW-src
 004265c0,87,StringMap_FindOrInsert_10,false,2,4,RAW-src
