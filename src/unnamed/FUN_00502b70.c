@@ -88,7 +88,7 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
       iVar2 = (*(int *)(param_2 + 8) - iVar3) / 0x12;
     }
     if (0xe38e38eU - iVar2 < param_4) {
-      FUN_005030a0();
+      Vector_ThrowTooLong();
       local_18 = extraout_ECX;
     }
     if (iVar3 == 0) {

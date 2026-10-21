@@ -72,7 +72,7 @@ void __thiscall Vector_InsertN_34(uint param_1,int param_2,int param_3,undefined
       iVar1 = (*(int *)(param_2 + 8) - iVar2) / 0x34;
     }
     if (0x4ec4ec4U - iVar1 < param_1) {
-      FUN_005030a0();
+      Vector_ThrowTooLong();
       uVar5 = extraout_ECX;
     }
     if (iVar2 == 0) {

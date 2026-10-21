@@ -1592,7 +1592,7 @@ int __fastcall FUN_00502ad0();
 int * Vector_Insert_1e(int *param_1,int param_2,undefined4 *param_3,int regEdi);
 void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint param_4);
 void __thiscall Vector_InsertN_34(uint param_1,int param_2,int param_3,undefined4 *regEdx);
-undefined4 FUN_005030a0();
+undefined4 Vector_ThrowTooLong();
 void Vector_DestroyRange_8(int regEax,int regEdi);
 void Vector_InsertN_8(int param_1,int param_2,uint param_3);
 void __thiscall Vector_InsertN_1e(uint param_1,int param_2,int param_3,undefined4 *regEdx);

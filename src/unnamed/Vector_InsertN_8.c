@@ -75,7 +75,7 @@ void Vector_InsertN_8(int param_1,int param_2,uint param_3)
       iVar6 = *(int *)(param_1 + 8) - iVar3 >> 3;
     }
     if (0x1fffffffU - iVar6 < param_3) {
-      uVar2 = FUN_005030a0();
+      uVar2 = Vector_ThrowTooLong();
       iVar3 = extraout_ECX;
     }
     if (iVar3 == 0) {
