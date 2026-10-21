@@ -684,17 +684,17 @@ LAB_004b7c01:
               local_27f0 = (undefined *)0xc300;
               TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
               if (local_27e4 != DAT_00e9af14) {
-                FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
+                TurnEventSet_Erase(&DAT_00e9af10,&local_27f0,local_27e4);
               }
               local_27f0 = (undefined *)0xc306;
               TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
               if (local_27e4 != DAT_00e9af14) {
-                FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
+                TurnEventSet_Erase(&DAT_00e9af10,&local_27f0,local_27e4);
               }
               local_27f0 = (undefined *)0xc40b;
               TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
               if (local_27e4 != DAT_00e9af14) {
-                FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
+                TurnEventSet_Erase(&DAT_00e9af10,&local_27f0,local_27e4);
               }
               PostTurnEvent(&g_replayContext,0x8005);
               PostTurnEvent(&g_replayContext,0x8006);
@@ -719,17 +719,17 @@ LAB_004b7c01:
               local_27f0 = (undefined *)0xc300;
               TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
               if (local_27e4 != DAT_00e9af14) {
-                FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
+                TurnEventSet_Erase(&DAT_00e9af10,&local_27f0,local_27e4);
               }
               local_27f0 = (undefined *)0xc306;
               TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
               if (local_27e4 != DAT_00e9af14) {
-                FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
+                TurnEventSet_Erase(&DAT_00e9af10,&local_27f0,local_27e4);
               }
               local_27f0 = (undefined *)0xc40b;
               TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
               if (local_27e4 != DAT_00e9af14) {
-                FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
+                TurnEventSet_Erase(&DAT_00e9af10,&local_27f0,local_27e4);
               }
               PostTurnEvent(&g_replayContext,0x8005);
               PostTurnEvent(&g_replayContext,0x8006);

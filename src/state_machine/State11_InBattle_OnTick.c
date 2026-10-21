@@ -1596,7 +1596,7 @@ LAB_004c08c8:
   local_3d60 = (int *)0xc303;
   TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
   if (local_3d68 != DAT_00e9af14) {
-    FUN_004e87b0(&DAT_00e9af10);
+    TurnEventSet_Erase(&DAT_00e9af10);
   }
   if (DAT_0056dbe8 == -1) {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -1628,7 +1628,7 @@ LAB_004c08c8:
       local_3d60 = (int *)0xc302;
       TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
       if (local_3d68 != DAT_00e9af14) {
-        FUN_004e87b0(&DAT_00e9af10);
+        TurnEventSet_Erase(&DAT_00e9af10);
       }
       uVar7 = CommitTurnDelay(0,*(int *)(g_clientContext + 0x621e0));
       *(undefined4 *)(&DAT_006aab04 + g_clientContext) = uVar7;
@@ -1677,17 +1677,17 @@ LAB_004c08c8:
     local_3d60 = (int *)0xc300;
     TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
     if (local_3d68 != DAT_00e9af14) {
-      FUN_004e87b0(&DAT_00e9af10);
+      TurnEventSet_Erase(&DAT_00e9af10);
     }
     local_3d60 = (int *)0xc306;
     TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
     if (local_3d68 != DAT_00e9af14) {
-      FUN_004e87b0(&DAT_00e9af10);
+      TurnEventSet_Erase(&DAT_00e9af10);
     }
     local_3d60 = (int *)0xc40b;
     TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
     if (local_3d68 != DAT_00e9af14) {
-      FUN_004e87b0(&DAT_00e9af10);
+      TurnEventSet_Erase(&DAT_00e9af10);
     }
     local_3d60 = (int *)0x8005;
     FUN_004e86f0((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
@@ -1805,7 +1805,7 @@ LAB_004c0f5c:
       local_3d68 = (int *)0xc303;
       TurnEventSet_Find((int)&DAT_00e9af10,&uStack_3d70,(ushort *)&local_3d68);
       if (uStack_3d70 != DAT_00e9af14) {
-        FUN_004e87b0(&DAT_00e9af10,&local_3d68,uStack_3d70);
+        TurnEventSet_Erase(&DAT_00e9af10,&local_3d68,uStack_3d70);
       }
       cVar3 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
       iVar6 = g_clientContext;

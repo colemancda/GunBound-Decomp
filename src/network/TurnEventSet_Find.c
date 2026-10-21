@@ -5,7 +5,9 @@
  * "Raw/verbatim ports" section for what that status means.
  *
  * (FUN_0040bee0 in the notes below is basic_string_AssignCStr's old
- * symbol.)
+ * symbol. FUN_004e87b0 in the notes below is TurnEventSet_Erase's old
+ * symbol, FUN_004e86f0 is now TurnEventSet_Insert and FUN_004e8b10 is
+ * now TurnEventSet_InsertRebalance - see those files for the renames.)
  *
  * WHAT IT IS.  A red-black tree lookup keyed on a ushort: node _Left/_Parent/
  * _Right at +0/+4/+8, the key at +0xc and the _Isnil flag at +0xf, with the

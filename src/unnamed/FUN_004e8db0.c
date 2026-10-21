@@ -31,7 +31,7 @@ undefined4 * FUN_004e8db0(undefined4 *param_1,int *param_2,int *param_3,int regE
   while (piVar2 != piVar4) {
     param_2 = piVar2;
     FUN_004e8f10();
-    FUN_004e87b0(regEsi,&param_1,piVar2);
+    TurnEventSet_Erase(regEsi,&param_1,piVar2);
     piVar2 = param_2;
   }
   *puVar3 = piVar2;

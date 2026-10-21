@@ -1,9 +1,24 @@
-/* FUN_004e87b0 - 0x004e87b0 in the original binary.
+/* TurnEventSet_Erase - 0x004e87b0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-21), CERTAIN. The VC7 STL _Tree::erase(iterator)
+ * overload for the turn-event set - TurnEventSet_Find.c's own header
+ * already maps this family by address ("0x4e86f0 = insert, 0x4e87b0 =
+ * erase(iterator)") and identifies the container as the set<ushort> at
+ * g_replayContext+0x45230 (DAT_00e9af10). Confirmed independently here:
+ * `tools/callsite_regs.py 0x4e87b0` shows all 26 call sites push the
+ * literal 0xe9af10 (or, at the two sites inside FUN_004e7d60/
+ * FUN_004e8db0, a register already pinned to that same address) - one
+ * owner, no shared instantiation to disambiguate against. The throw guard
+ * builds "invalid map/set<T> iterator" and the node-unlink/rebalance body
+ * decrements the set's _Mysize at container+8 and frees the erased node,
+ * exactly _Tree::erase(iterator)'s shape; its own node-unlink callees
+ * (FUN_004e8cb0/FUN_004e8d50, the rotations) are shared only with the
+ * sibling insert path TurnEventSet_Find.c already attributes to this same
+ * tree.
  */
 #include "ghidra_types.h"
 
@@ -20,7 +35,7 @@
 /* WARNING: Removing unreachable block (ram,0x004e88fa) */
 /* WARNING: Removing unreachable block (ram,0x004e890d) */
 
-void FUN_004e87b0(int param_1,undefined4 *param_2,int *param_3)
+void TurnEventSet_Erase(int param_1,undefined4 *param_2,int *param_3)
 
 {
   undefined4 *puVar1;

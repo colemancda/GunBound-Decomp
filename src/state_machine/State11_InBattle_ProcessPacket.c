@@ -363,7 +363,7 @@ LAB_004b4324:
             TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_9b4,(ushort *)&local_9a8);
             iVar6 = local_9b0;
             if (local_9b4 != DAT_00e9af14) {
-              FUN_004e87b0(&DAT_00e9af10,&local_9ac,local_9b4);
+              TurnEventSet_Erase(&DAT_00e9af10,&local_9ac,local_9b4);
               iVar6 = local_9b0;
             }
           }

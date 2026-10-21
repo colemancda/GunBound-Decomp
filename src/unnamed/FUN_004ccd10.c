@@ -700,42 +700,42 @@ LAB_004ce1bd:
   local_71c = (undefined *)0x8005;
   TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
-    FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
+    TurnEventSet_Erase(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0x8006;
   TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
-    FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
+    TurnEventSet_Erase(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0xc306;
   TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
-    FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
+    TurnEventSet_Erase(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0xc400;
   TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
-    FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
+    TurnEventSet_Erase(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0xc401;
   TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
-    FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
+    TurnEventSet_Erase(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0x8403;
   TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
-    FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
+    TurnEventSet_Erase(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0x8405;
   TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
-    FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
+    TurnEventSet_Erase(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0xc409;
   TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
-    FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
+    TurnEventSet_Erase(&DAT_00e9af10,&local_71c,local_714);
   }
 LAB_004ce3a6:
   *unaff_FS_OFFSET = local_c;

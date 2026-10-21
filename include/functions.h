@@ -1229,7 +1229,7 @@ undefined1 __fastcall FUN_004e82c0(int param_1);
 void FUN_004e83b0(int regEsi);
 void FUN_004e84c0();
 undefined4 * FUN_004e86f0();
-void FUN_004e87b0();
+void TurnEventSet_Erase();
 void __fastcall TurnEventSet_Find(int param_1,undefined4 *regEax,ushort *regEbx);
 void FUN_004e8ad0();
 undefined4 * __thiscall FUN_004e8b10(undefined4 *param_1,int treeSet,undefined4 *param_3,char param_4,undefined4 param_5);

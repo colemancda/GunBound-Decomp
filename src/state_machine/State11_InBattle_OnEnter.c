@@ -564,17 +564,17 @@ LAB_004bbe6b:
       puStack_98 = (undefined *)0xc300;
       TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)apuStack_90,(ushort *)&puStack_98);
       if (apuStack_90[0] != DAT_00e9af14) {
-        FUN_004e87b0(&DAT_00e9af10,&puStack_98,apuStack_90[0]);
+        TurnEventSet_Erase(&DAT_00e9af10,&puStack_98,apuStack_90[0]);
       }
       puStack_98 = (undefined *)0xc306;
       TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)apuStack_90,(ushort *)&puStack_98);
       if (apuStack_90[0] != DAT_00e9af14) {
-        FUN_004e87b0(&DAT_00e9af10,&puStack_98,apuStack_90[0]);
+        TurnEventSet_Erase(&DAT_00e9af10,&puStack_98,apuStack_90[0]);
       }
       puStack_98 = (undefined *)0xc40b;
       TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)apuStack_90,(ushort *)&puStack_98);
       if (apuStack_90[0] != DAT_00e9af14) {
-        FUN_004e87b0(&DAT_00e9af10,&puStack_98,apuStack_90[0]);
+        TurnEventSet_Erase(&DAT_00e9af10,&puStack_98,apuStack_90[0]);
       }
       puStack_98 = (undefined *)0x8005;
       FUN_004e86f0(apuStack_90,(int)&DAT_00e9af10,(ushort *)&puStack_98);

@@ -5,6 +5,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_004e87b0 below is TurnEventSet_Erase's old symbol.)
+ *
  * EAX RECOVERED (2026-08-25): the node, `mov eax,edi` at 0x4e8898 in
  * FUN_004e87b0, where EDI is the source's piVar6 -- the guard immediately
  * above the call (`mov al,[edi+0xf]; test al,al; je`) is that function's
