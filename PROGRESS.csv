@@ -1132,11 +1132,11 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e82c0,233,FUN_004e82c0,false,1,1,RAW-src
 004e83b0,272,FUN_004e83b0,false,1,4,RAW-src
 004e84c0,556,FUN_004e84c0,false,1,3,RAW-src
-004e86f0,186,FUN_004e86f0,false,22,2,RAW-src
+004e86f0,186,TurnEventSet_Insert,false,22,2,RAW-src
 004e87b0,692,TurnEventSet_Erase,false,26,9,RAW-src
 004e8a70,94,TurnEventSet_Find,false,27,0,RAW-src
 004e8ad0,55,FUN_004e8ad0,false,8,2,RAW-src
-004e8b10,414,FUN_004e8b10,false,2,6,RAW-src
+004e8b10,414,TurnEventSet_InsertRebalance,false,2,6,RAW-src
 004e8cb0,81,FUN_004e8cb0,false,5,0,RAW-src
 004e8d10,29,FUN_004e8d10,false,1,0,RAW-src
 004e8d30,28,FUN_004e8d30,false,1,0,RAW-src

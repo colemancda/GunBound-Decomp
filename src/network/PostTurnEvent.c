@@ -5,6 +5,8 @@
  * two - `PostTurnEvent(&g_replayContext, 0xc302)` and friends.  Found by
  * tools/retn_signature_audit.py.  The two parameters are now declared.
  *
+ * (FUN_004e86f0 in the notes below is TurnEventSet_Insert's old symbol.)
+ *
  * WHAT THE BODY DOES, and what is still dropped.  The whole function is a
  * forward into FUN_004e86f0 (orig 0x4e7d30-0x4e7d4f):
  *     sub esp,8 / push ebx
@@ -46,7 +48,7 @@ void PostTurnEvent(int param_1,undefined4 param_2)
    * 0xe9af10 every other call site passes as a literal) and EBX = &param_2
    * (the 16-bit event code).  Both were dropped by the decompile; both are
    * now passed. */
-  FUN_004e86f0((undefined4 *)local_8,param_1 + 0x45230,(ushort *)&param_2);
+  TurnEventSet_Insert((undefined4 *)local_8,param_1 + 0x45230,(ushort *)&param_2);
   return;
 }
 

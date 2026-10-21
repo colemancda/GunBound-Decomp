@@ -1,9 +1,16 @@
-/* FUN_004e86f0 - 0x004e86f0 in the original binary.
+/* TurnEventSet_Insert - 0x004e86f0 in the original binary.
  *
- * A std::set<ushort>::insert over the turn-event set: param_2 is the set,
- * param_3 points at the 16-bit key, and param_1 is the out-slot - it writes
- * the node to *param_1 and the inserted flag to param_1[1], the usual
- * pair<iterator,bool> return.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-21), CERTAIN. A std::set<ushort>::insert over the
+ * turn-event set: param_2 is the set, param_3 points at the 16-bit key,
+ * and param_1 is the out-slot - it writes the node to *param_1 and the
+ * inserted flag to param_1[1], the usual pair<iterator,bool> return.
+ * TurnEventSet_Find.c's own header already attributes this address to
+ * the same g_replayContext+0x45230 (DAT_00e9af10) set as that function,
+ * PostTurnEvent, and TurnEventSet_Erase, confirming the container.
  *
  * DROPPED-REGISTER-ARG FIX (2026-08-19).  The set arrived in EAX and the key
  * pointer in EBX, which Ghidra modelled as `in_EAX` / `unaff_EBX` - so every
@@ -18,13 +25,13 @@
  * PostTurnEvent is the only site that computes the set rather than using the
  * literal, and its `param_1 + 0x45230` resolves to that same 0xe9af10.
  *
- * Raw/near-verbatim port of Ghidra's decompiler output beyond this - not
- * hand-verified. See src/README.md's "Raw/verbatim ports" section.
+ * (FUN_004e8b10 in the notes below is TurnEventSet_InsertRebalance's old
+ * symbol.)
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_004e86f0(undefined4 *param_1,int param_2,ushort *param_3)
+undefined4 * TurnEventSet_Insert(undefined4 *param_1,int param_2,ushort *param_3)
 
 {
   undefined4 *puVar1;
@@ -54,7 +61,7 @@ undefined4 * FUN_004e86f0(undefined4 *param_1,int param_2,ushort *param_3)
        * 0x4e8747-0x4e8749: ECX=param_1(the traversal node this local now
        * holds), EDI is never reloaded so it's still this function's own
        * param_2 (the set) from entry. */
-      puVar2 = (undefined4 *)FUN_004e8b10(param_1,param_2,&param_1,1,param_3);
+      puVar2 = (undefined4 *)TurnEventSet_InsertRebalance(param_1,param_2,&param_1,1,param_3);
       *puVar1 = *puVar2;
       *(undefined1 *)(puVar1 + 1) = 1;
       return puVar1;
@@ -65,7 +72,7 @@ undefined4 * FUN_004e86f0(undefined4 *param_1,int param_2,ushort *param_3)
     /* FIXED (2026-09-20): dropped ECX(this)/EDI(tree-set) register args -
      * see FUN_004e8b10.c's header for the binary evidence at orig
      * 0x4e8781-0x4e8783 (same shape as the call above). */
-    puVar2 = (undefined4 *)FUN_004e8b10(param_1,param_2,&param_1,bVar3,param_3);
+    puVar2 = (undefined4 *)TurnEventSet_InsertRebalance(param_1,param_2,&param_1,bVar3,param_3);
     *puVar1 = *puVar2;
     *(undefined1 *)(puVar1 + 1) = 1;
     return puVar1;

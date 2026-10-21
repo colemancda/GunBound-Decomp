@@ -1,9 +1,20 @@
-/* FUN_004e8b10 - 0x004e8b10 in the original binary.
+/* TurnEventSet_InsertRebalance - 0x004e8b10 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-21), CERTAIN. Sole caller is TurnEventSet_Insert (old
+ * symbol FUN_004e86f0, see that file's own header), which TurnEventSet_
+ * Find.c already attributes to the set<ushort> at g_replayContext+0x45230
+ * (DAT_00e9af10) - the same container TurnEventSet_Erase unlinks from.
+ * This is the node-link-plus-rebalance half of that insert: it builds the
+ * new node, links it into the tree at the position its caller already
+ * located, and walks the red-black fixup loop, exactly mirroring the
+ * length_error-guarded sibling for the (distinct, 0x14-byte-node, int-
+ * keyed) g_valueGuardMap tree - see TreeInsertRebalance.c for that one.
+ *
+ * (FUN_004e86f0 in the notes below is TurnEventSet_Insert's old symbol.)
  *
  * DROPPED-REGISTER-ARGUMENT FIX (2026-09-20, no-prototype sweep). This is
  * a std::_Tree::_Insert-style rebalance helper: `ret 0xc` at the epilogue
@@ -41,7 +52,7 @@
 
 
 undefined4 * __thiscall
-FUN_004e8b10(undefined4 *param_1,int treeSet,undefined4 *param_3,char param_4,undefined4 param_5)
+TurnEventSet_InsertRebalance(undefined4 *param_1,int treeSet,undefined4 *param_3,char param_4,undefined4 param_5)
 
 {
   char cVar1;

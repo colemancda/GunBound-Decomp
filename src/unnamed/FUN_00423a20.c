@@ -83,7 +83,7 @@ LAB_00423b89:
       /* RECOVERED (2026-08-19): the key store the decompile dropped -
        * orig 0x423bd9 `mov dword [esp+0x14],0xc302`. */
       uEventKey = 0xc302;
-      FUN_004e86f0(local_8,(int)&DAT_00e9af10,(ushort *)&uEventKey);
+      TurnEventSet_Insert(local_8,(int)&DAT_00e9af10,(ushort *)&uEventKey);
     }
   }
   return;

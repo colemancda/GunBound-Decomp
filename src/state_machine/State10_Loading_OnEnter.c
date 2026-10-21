@@ -439,9 +439,9 @@ LAB_0043eec8:
    * orig 0x43efac `mov dword [esp+0x14],0xc303` and 0x43efc7 `... ,0xc302`,
    * the slot 4 bytes below the out-slot that EBX points at. */
   uEventKey = 0xc303;
-  FUN_004e86f0(auStack_108,(int)&DAT_00e9af10,(ushort *)&uEventKey);
+  TurnEventSet_Insert(auStack_108,(int)&DAT_00e9af10,(ushort *)&uEventKey);
   uEventKey = 0xc302;
-  FUN_004e86f0(auStack_108,(int)&DAT_00e9af10,(ushort *)&uEventKey);
+  TurnEventSet_Insert(auStack_108,(int)&DAT_00e9af10,(ushort *)&uEventKey);
   return;
 }
 

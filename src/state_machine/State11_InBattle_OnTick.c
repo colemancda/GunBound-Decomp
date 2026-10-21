@@ -96,7 +96,8 @@ void __fastcall State11_InBattle_OnTick(int *param_1)
   undefined4 uStack_3d78;
   undefined3 uVar20;
   undefined4 uStack_3d70;
-  /* RECOVERED (2026-08-19): the pair<iterator,bool> out-slot the eight
+  /* (FUN_004e86f0 below is TurnEventSet_Insert's old symbol.)
+   * RECOVERED (2026-08-19): the pair<iterator,bool> out-slot the eight
    * FUN_004e86f0 calls below write through - orig 0x4c0b13
    * `lea eax,[esp+0x18] / push eax`, 8 bytes at frame+0x18, which the
    * original overlays on this local_3d68/piStack_3d64 slot pair.  Given
@@ -1690,21 +1691,21 @@ LAB_004c08c8:
       TurnEventSet_Erase(&DAT_00e9af10);
     }
     local_3d60 = (int *)0x8005;
-    FUN_004e86f0((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
+    TurnEventSet_Insert((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
     local_3d60 = (int *)0x8006;
-    FUN_004e86f0((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
+    TurnEventSet_Insert((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
     local_3d60 = (int *)0xc306;
-    FUN_004e86f0((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
+    TurnEventSet_Insert((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
     local_3d60 = (int *)0xc400;
-    FUN_004e86f0((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
+    TurnEventSet_Insert((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
     local_3d60 = (int *)0xc401;
-    FUN_004e86f0((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
+    TurnEventSet_Insert((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
     local_3d60 = (int *)0x8403;
-    FUN_004e86f0((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
+    TurnEventSet_Insert((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
     local_3d60 = (int *)0x8405;
-    FUN_004e86f0((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
+    TurnEventSet_Insert((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
     local_3d60 = (int *)0xc409;
-    FUN_004e86f0((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
+    TurnEventSet_Insert((undefined4 *)auEventInsertResult,(int)&DAT_00e9af10,(ushort *)&local_3d60);
     DAT_0056dbe8 = -1;
     FinishTurnAndSelectNext();
     pcVar16 = (code *)EnterCriticalSection;
