@@ -1,15 +1,44 @@
-/* FUN_0040bae0 - 0x0040bae0 in the original binary.
+/* TreeInsertRebalance - 0x0040bae0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-21), CERTAIN. The node-link-plus-rebalance half of
+ * std::_Tree::_Insert over &g_valueGuardMap (the CValueGuard guard-cell
+ * map), the same instantiation TreeFind/TreeEraseRange/TreeLowerBound
+ * walk - identical node shape (0x14-byte node from the allocator at
+ * 0x40bea0: _Left/_Parent/_Right, int key at +0xc, colour at +0x10,
+ * _Isnil at +0x11) and the same throw guard shape ("map/set<T> too
+ * long") the sibling TurnEventSet_InsertRebalance uses for its own,
+ * differently-shaped (0x10-byte, ushort-keyed) tree.
+ *
+ * The container identity comes from the ORIGINAL binary's two call
+ * sites, both inside the function at orig 0x40b540 (`tools/
+ * callsite_regs.py 0x40bae0`: both at orig 0x40b598/0x40b5d0, ECX=esi
+ * uniformly). That function is currently ported as TreeLowerBound, whose
+ * own header documents it as the CValueGuard guard-cell map and its
+ * dispatcher as a deliberate bring-up NEUTER (src/registry/
+ * TreeLowerBound.c) - the real body, which is what actually calls this
+ * function, was replaced wholesale rather than ported, so this function
+ * currently has no live caller in the compiled source tree. That does
+ * not weaken the container identity: the evidence is read off the
+ * original binary's disassembly, independent of the neuter. Disassembly
+ * at orig 0x40b58e-0x40b5e4 shows the classic VC7 `_Tree::insert`
+ * shape - descend, decide left/right-of-parent, call this helper, store
+ * the pair<iterator,bool> result - matching TurnEventSet_Insert's own
+ * shape one-for-one.
+ *
+ * This function's own `unaff_EDI` (the tree/map object) is NOT promoted
+ * to a real parameter here, unlike its TurnEventSet sibling - left as-is
+ * since there is no live call site to thread a value through; this is a
+ * naming note only, not a dropped-register fix.
  */
 #include "ghidra_types.h"
 
 
 void __thiscall
-FUN_0040bae0(undefined4 *param_1,undefined4 *param_2,char param_3,undefined4 param_4)
+TreeInsertRebalance(undefined4 *param_1,undefined4 *param_2,char param_3,undefined4 param_4)
 
 {
   char cVar1;
