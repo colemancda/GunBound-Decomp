@@ -31,8 +31,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00402160,72,FUN_00402160,false,1,0,RAW-src
 004021b0,239,FindBuddyRoomsForServer,false,1,0,RAW-src
 004022b0,66,FUN_004022b0,false,1,0,RAW-src
-00402300,169,FUN_00402300,false,1,4,RAW-src
-004023b0,77,FUN_004023b0,false,1,1,RAW-src
+00402300,169,ProcessIncomingWhisper,false,1,4,RAW-src
+004023b0,77,FindRecentWhisperIndex,false,1,1,RAW-src
 00402400,229,DisplayIncomingWhisper,false,3,5,RAW-src
 004024f0,236,FUN_004024f0,false,5,4,RAW-src
 004025e0,182,FUN_004025e0,false,3,5,RAW-src

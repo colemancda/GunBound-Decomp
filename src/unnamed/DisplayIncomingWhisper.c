@@ -4,6 +4,9 @@
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
  *
+ * (FUN_004259d0, mentioned below, is now FindMuteListIndex; FUN_00402300
+ * is now ProcessIncomingWhisper.)
+ *
  * NAMED (2026-08-28, verb LIKELY): shows a private message received
  * from a peer. Both ported callers are receive arms handing a sender
  * name plus message text - DispatchDirectLinkPacket's opcode-0x1000
@@ -53,7 +56,7 @@ void DisplayIncomingWhisper(undefined4 param_1,char *param_2,uint param_3,char *
   char *pcVar8;
   char local_200 [512];
   
-  iVar3 = FUN_004259d0(in_EAX, g_clientContext);
+  iVar3 = FindMuteListIndex(in_EAX, g_clientContext);
   if (iVar3 == -1) {
     pcVar4 = in_EAX;
     do {
