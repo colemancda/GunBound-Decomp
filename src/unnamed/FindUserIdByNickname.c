@@ -6,6 +6,8 @@
  * map at ctx+0x6aa44c.  Which string is which is settled outside this
  * body:
  *
+ * (FUN_00402720 below is now SendWhisperByNickname.)
+ *
  * - Caller FUN_00402720's miss path sends opcode 0x1020
  *   (GB_OP 0x1020 = userRequest, the original SVC_USER_ID) whose whole
  *   payload is 12 bytes of this same key, and records an 'n'-prefixed

@@ -1,9 +1,26 @@
-/* FUN_00402720 - 0x00402720 in the original binary.
+/* SendWhisperByNickname - 0x00402720 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED (2026-10-26). Both real callers pass a (nickname, message text)
+ * pair: ParseChatSlashCommand's "/message"-family slash command hands
+ * it the parsed target nickname and the rest of the typed line, and
+ * CChatLogPanel_SubmitWhisper (a 1:1 whisper panel bound to a single
+ * partner - see its own header on `m_partnerName`) hands it the
+ * panel's partner name and pending input text. The body resolves the
+ * nickname via FindUserIdByNickname and then sends the message one of
+ * three ways: directly over g_directLinkConnection (opcode 0xa110,
+ * stamping the resolved 16-byte user id as the recipient) when that
+ * P2P link exists; through a UI vtable slot when it doesn't but one is
+ * registered at param_1+0x1bdc; or, on a nickname-lookup miss, through
+ * the normal server connection (opcode 0x1020, GB_OP_USER_REQUEST) to
+ * ask the server to resolve the id, deferring the actual send. "Send",
+ * not "Find" or "Resolve": the nickname lookup is delegated to the
+ * already-named FindUserIdByNickname: this function's own job is
+ * picking which transport carries the message and putting it on the
+ * wire.
  *
  * FIXED (2026-07-14): the trailing SendSocketData call only passed 2 of
  * its 3 real args and dropped the buffer ("this") entirely - same bug as
@@ -17,7 +34,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00402720(int param_1,char *param_2,char *param_3)
+void SendWhisperByNickname(int param_1,char *param_2,char *param_3)
 
 {
   undefined2 *puVar1;
@@ -35,7 +52,7 @@ void FUN_00402720(int param_1,char *param_2,char *param_3)
   undefined4 local_1c;
   undefined4 local_18;
   undefined4 local_14;
-  
+
   cVar2 = FindUserIdByNickname((char *)&local_20,param_2,(int)g_clientContext);
   puVar1 = g_directLinkConnection;
   if (cVar2 == '\x01') {
@@ -113,4 +130,3 @@ void FUN_00402720(int param_1,char *param_2,char *param_3)
   }
   return;
 }
-

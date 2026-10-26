@@ -19,18 +19,19 @@
  * blocked" notice (string table id 0x202) into the panel's own history
  * via AppendChatLogPanelLine with an empty sender prefix; otherwise (and
  * after one more gate, FUN_00415230) it forwards `(partner=+0x90,
- * text=+0x50)` to FUN_00402720, which resolves the partner by nickname
- * (FindUserIdByNickname) and sends the message as a direct-link, in-room
- * relay, or server-mediated whisper - a private send, not a channel
- * broadcast. Either way it then clears the input row's text buffer and
- * the shared text-entry control. Its sole callers (FUN_005057f0, this
- * panel's OnCommand) invoke it on the "Enter pressed" (evt 0, id 3) and
- * evt 0x1000 command codes - the same OnCommand-triggered shape as the
- * already-named CreateRoomDialog_SubmitCreateRoom /
+ * text=+0x50)` to SendWhisperByNickname (0x402720), which resolves the
+ * partner by nickname (FindUserIdByNickname) and sends the message as
+ * a direct-link, in-room relay, or server-mediated whisper - a private
+ * send, not a channel broadcast. Either way it then clears the input
+ * row's text buffer and the shared text-entry control. Its sole
+ * callers (FUN_005057f0, this panel's OnCommand) invoke it on the
+ * "Enter pressed" (evt 0, id 3) and evt 0x1000 command codes - the
+ * same OnCommand-triggered shape as the already-named
+ * CreateRoomDialog_SubmitCreateRoom /
  * EnterRoomNumberDialog_SubmitRoomNumber, hence the same `_Submit<Noun>`
  * naming. LIKELY rather than CERTAIN: FUN_00415230's own gate and the
- * exact wire shape of FUN_00402720's send are not independently
- * confirmed here.
+ * exact wire shape of SendWhisperByNickname's send are not
+ * independently confirmed here.
  */
 #include "ghidra_types.h"
 
@@ -78,7 +79,7 @@ void CChatLogPanel_SubmitWhisper(int param_1)
     else {
       cVar1 = FUN_00415230();
       if (cVar1 == '\0') {
-        FUN_00402720(&DAT_00e53e88,param_1 + 0x90,*(undefined4 *)(param_1 + 0x50));
+        SendWhisperByNickname(&DAT_00e53e88,param_1 + 0x90,*(undefined4 *)(param_1 + 0x50));
         goto LAB_00505bbe;
       }
       pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x205);

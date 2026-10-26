@@ -112,7 +112,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
           return 1;
         }
         SetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&DAT_00551cb1);
-        FUN_00402720(&DAT_00e53e88,local_1a0,param_2 + iVar3 + 1);
+        SendWhisperByNickname(&DAT_00e53e88,local_1a0,param_2 + iVar3 + 1);
         return 1;
       }
       uVar15 = 0x1f5;

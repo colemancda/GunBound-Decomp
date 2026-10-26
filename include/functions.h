@@ -171,7 +171,7 @@ void DisplayIncomingWhisper(undefined4 param_1,char *param_2,uint param_3,char *
 void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax);
 void FUN_004025e0();
 void FUN_004026a0(undefined4 param_1,undefined4 *param_2,uint param_3,char *regEax,int regEbx,char regCl);
-void FUN_00402720();
+void SendWhisperByNickname();
 void FUN_00402900(int param_1,char *param_2,char *regEax);
 void FUN_00402ad0(int param_1,char *param_2,char *regEax);
 void FUN_00402cf0(int param_1,char *regEdi);

@@ -4,6 +4,8 @@
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
  *
+ * (FUN_00402720 below is now SendWhisperByNickname.)
+ *
  * ARGUMENTS RE-SLOTTED AND EBX RECOVERED (2026-08-27).  All six call sites
  * passed NOTHING to this two-parameter __fastcall, so param_1 and param_2
  * were reading stale ECX/EDX and unaff_EBX was an uninitialised destination.

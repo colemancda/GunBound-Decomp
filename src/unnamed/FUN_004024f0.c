@@ -5,6 +5,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_00402720 in the SITE MAP below is now SendWhisperByNickname.)
+ *
  * DROPPED REGISTER RECOVERED (2026-08-24): EAX is the second object handed
  * on to FUN_004025e0(param_1, regEax).  Five call sites in three callers:
  *   DispatchDirectLinkPacket (2)  param_3 -- [esp+0x144] on the four-saved-register path,
