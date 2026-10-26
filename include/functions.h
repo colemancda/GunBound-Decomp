@@ -1228,7 +1228,7 @@ void ProcessEventBroadcast(int param_1,int param_2,undefined4 *param_3,uint regE
 void FUN_004e8040();
 uint PopBroadcastBattleAction();
 undefined1 __fastcall FUN_004e82c0(int param_1);
-void FUN_004e83b0(int regEsi);
+void PurgeBattleActionsForSlot(int regEsi,int slot);
 void DedupPendingBattleActionQueues();
 undefined4 * TurnEventSet_Insert();
 void TurnEventSet_Erase();

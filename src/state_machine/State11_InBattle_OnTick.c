@@ -249,7 +249,7 @@ LAB_004bdd21:
             if (((((&DAT_00e55e20)[local_3d4c >> 5] & 1 << ((byte)local_3d4c & 0x1f)) != 0) &&
                 ((&DAT_006a7670)[local_3d4c + local_3d50 * 8 + iVar6] == '\0')) &&
                (cVar3 = FUN_004e82c0((int)&g_replayContext), iVar6 = g_clientContext, cVar3 != '\0')) {
-              FUN_004e83b0((int)&g_replayContext);
+              PurgeBattleActionsForSlot((int)&g_replayContext,local_3d4c);
               iVar6 = g_clientContext;
             }
             local_3d4c = local_3d4c + 1;
