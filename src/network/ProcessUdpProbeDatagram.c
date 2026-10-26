@@ -267,7 +267,7 @@ LAB_004e64e4:
         return 1;
       }
       QueueBroadcastEvent(0xa001);
-      FUN_004e7140(local_243,param_1);
+      SendBroadcastEventToSlot(local_243,param_1);
       return 1;
     }
   }

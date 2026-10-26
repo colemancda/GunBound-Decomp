@@ -5,6 +5,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_004e7140 below is SendBroadcastEventToSlot's old symbol.)
+ *
  * SHORT CALLS + EAX (2026-08-25).  `ret 4` and two declared parameters mean
  * ECX is param_1 and only param_2 is pushed -- but both source sites passed a
  * single argument, so the pushed value was sitting in param_1's slot.  Both

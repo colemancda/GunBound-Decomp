@@ -5,6 +5,8 @@
  * into the schedule at ctx+0x44ff8, then encrypts the body in place 16 bytes
  * at a time back into ctx+0x44e0d.
  *
+ * (FUN_004e7140 below is SendBroadcastEventToSlot's old symbol.)
+ *
  * RECOVERED (2026-07-19): `ctx` arrives in EBX - a dropped register argument
  * Ghidra emitted as an uninitialised `int unaff_EBX`, so EVERY field access in
  * this function read garbage. The very first instruction of the original,

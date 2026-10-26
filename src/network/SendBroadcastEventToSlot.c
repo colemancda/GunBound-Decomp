@@ -1,9 +1,23 @@
-/* FUN_004e7140 - 0x004e7140 in the original binary.
+/* SendBroadcastEventToSlot - 0x004e7140 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * This is the per-slot flush half of the broadcast-event pipeline whose
+ * fill half is QueueBroadcastEvent: that function zeroes and refills the
+ * shared scratch event buffer at ctx+0x44dec, and this one is then called
+ * once per peer slot (param_1, bounds-checked 0-7 via
+ * Bitset_ThrowInvalidPosition) to actually deliver it - test the "slot
+ * active" bitset at ctx+0x140, call EncryptEventBroadcast on the context,
+ * copy the sealed buffer, then either signal the local replay-record path
+ * (FUN_004e75e0 + SetEvent) or send it over UDP (SendUdpDatagram, with a
+ * TCP fallback through FUN_004e8040 for specific opcode types), setting
+ * the "sent via TCP" bitset at ctx+0x13c.  Confirmed against all 9 call
+ * sites (count_call_args.py) - 6 pass &g_replayContext directly or via a
+ * caller-forwarded context parameter, BroadcastBattleSnapshot's tail jmp
+ * is the 7th, and ProcessUdpProbeDatagram/UdpProbeWorkerThread's calls on
+ * the UDP-probe context are the other two.
  *
  * (FUN_004e6160 in the notes below is ProcessUdpProbeDatagram's old
  * symbol; FUN_004e6770 is UdpProbeWorkerThread's old symbol.)
@@ -38,7 +52,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e7140(uint param_1,int regEax)
+void SendBroadcastEventToSlot(uint param_1,int regEax)
 
 {
   undefined2 *puVar1;
