@@ -16,6 +16,14 @@
  * (src/cxx/ValueGuard.cpp / src/network/EncodeOutgoingPacketField.c),
  * which passes &g_valueGuardMap as param_1 - the same map
  * TreeInsertRebalance/TreeEraseRange/TreeFind all already walk.
+ *
+ * DROPPED-ARG FIX (2026-10-26): the rotation helpers are now named
+ * TreeRotateLeft/TreeRotateRight (0x40bc80/0x40bd20) and have real 2-arg
+ * prototypes. All 6 calls below were short by one argument (passing only
+ * this function's own param_1, the container, into the callee's NODE
+ * slot) - each call site now also passes its disassembly-confirmed pivot
+ * node; see the comment at each call for which original instruction
+ * fixed that pivot.
  */
 #include "ghidra_types.h"
 
@@ -131,7 +139,9 @@ void TreeErase(int param_1,undefined4 *param_2,int *param_3)
           if ((char)piVar5[4] == '\0') {
             *(undefined1 *)(piVar5 + 4) = 1;
             *(undefined1 *)(piVar3 + 4) = 0;
-            FUN_0040bc80(param_1);
+            /* orig 0x40b7ad `mov ecx,esi` right before the call - the
+             * pivot is piVar3, not param_1. */
+            TreeRotateLeft((int)piVar3,param_1);
             piVar5 = (int *)piVar3[2];
           }
           if (*(char *)((int)piVar5 + 0x11) == '\0') {
@@ -139,13 +149,18 @@ void TreeErase(int param_1,undefined4 *param_2,int *param_3)
               if (*(char *)(piVar5[2] + 0x10) == '\x01') {
                 *(undefined1 *)(*piVar5 + 0x10) = 1;
                 *(undefined1 *)(piVar5 + 4) = 0;
-                FUN_0040bd20(param_1);
+                /* orig 0x40b7e3 - ECX is still piVar5 here (last loaded
+                 * at 0x40b7b8 `mov ecx,[esi+8]`, never reassigned before
+                 * this call), not piVar3. */
+                TreeRotateRight(piVar5,param_1);
                 piVar5 = (int *)piVar3[2];
               }
               *(char *)(piVar5 + 4) = (char)piVar3[4];
               *(undefined1 *)(piVar3 + 4) = 1;
               *(undefined1 *)(piVar5[2] + 0x10) = 1;
-              FUN_0040bc80(param_1);
+              /* orig 0x40b7fd `mov ecx,esi` right before the call - back
+               * to piVar3. */
+              TreeRotateLeft((int)piVar3,param_1);
               break;
             }
 LAB_0040b832:
@@ -156,7 +171,9 @@ LAB_0040b832:
           if ((char)piVar5[4] == '\0') {
             *(undefined1 *)(piVar5 + 4) = 1;
             *(undefined1 *)(piVar3 + 4) = 0;
-            FUN_0040bd20(param_1);
+            /* orig 0x40b80f `mov ecx,esi` right before the call - the
+             * pivot is piVar3, not param_1. */
+            TreeRotateRight(piVar3,param_1);
             piVar5 = (int *)*piVar3;
           }
           if (*(char *)((int)piVar5 + 0x11) == '\0') {
@@ -165,13 +182,18 @@ LAB_0040b832:
             if (*(char *)(*piVar5 + 0x10) == '\x01') {
               *(undefined1 *)(piVar5[2] + 0x10) = 1;
               *(undefined1 *)(piVar5 + 4) = 0;
-              FUN_0040bc80(param_1);
+              /* orig 0x40b85d - ECX is still piVar5 here (last loaded at
+               * 0x40b81a `mov ecx,[esi]`, never reassigned before this
+               * call), not piVar3. */
+              TreeRotateLeft((int)piVar5,param_1);
               piVar5 = (int *)*piVar3;
             }
             *(char *)(piVar5 + 4) = (char)piVar3[4];
             *(undefined1 *)(piVar3 + 4) = 1;
             *(undefined1 *)(*piVar5 + 0x10) = 1;
-            FUN_0040bd20(param_1);
+            /* orig 0x40b875 `mov ecx,esi` right before the call - back to
+             * piVar3. */
+            TreeRotateRight(piVar3,param_1);
             break;
           }
         }

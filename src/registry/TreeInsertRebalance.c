@@ -38,6 +38,16 @@
  * to a real parameter here, unlike its TurnEventSet sibling - left as-is
  * since there is no live call site to thread a value through; this is a
  * naming note only, not a dropped-register fix.
+ *
+ * CALL SITES FIXED FOR COMPILE (2026-10-26). The two rotation helpers
+ * this function calls are now TreeRotateLeft/TreeRotateRight
+ * (0x40bc80/0x40bd20) with real 2-arg prototypes - see their own headers.
+ * This function's 4 calls were short by one argument the same way
+ * TreeErase.c's were (passing only unaff_EDI, the container, into the
+ * callee's NODE slot); each now also passes its disassembly-confirmed
+ * pivot (see each call's own comment). This function still has no live
+ * caller, so the fix is for compileability/signature-consistency, not a
+ * newly-verified behavior.
  */
 #include "ghidra_types.h"
 
@@ -82,7 +92,7 @@ TreeInsertRebalance(undefined4 *param_1,undefined4 *param_2,char param_3,undefin
                     /* WARNING: Subroutine does not return */
     __CxxThrowException_8(local_34,&DAT_0055841c);
   }
-  piVar3 = (int *)FUN_0040bea0(*(undefined4 *)(unaff_EDI + 4),param_1,*(undefined4 *)(unaff_EDI + 4)
+  piVar3 = (int *)TreeAllocateNode(*(undefined4 *)(unaff_EDI + 4),param_1,*(undefined4 *)(unaff_EDI + 4)
                                ,param_4,0);
   *(int *)(unaff_EDI + 8) = *(int *)(unaff_EDI + 8) + 1;
   if (param_1 == *(undefined4 **)(unaff_EDI + 4)) {
@@ -124,23 +134,31 @@ LAB_0040bbd5:
       }
       else {
         if (piVar6 == (int *)piVar2[2]) {
-          FUN_0040bc80(unaff_EDI);
+          /* orig 0x40bbf3 `mov esi,ecx` right before the call - ECX (and
+           * so the pivot) is piVar2, not unaff_EDI. */
+          TreeRotateLeft((int)piVar2,unaff_EDI);
           piVar6 = piVar2;
         }
         *(undefined1 *)(piVar6[1] + 0x10) = 1;
         *(undefined1 *)(*(int *)(piVar6[1] + 4) + 0x10) = 0;
-        FUN_0040bd20(unaff_EDI);
+        /* orig 0x40bc0d `mov ecx,[eax+4]` where eax=piVar6[1] - the pivot
+         * is piVar6's grandparent, *(int*)(piVar6[1]+4), not unaff_EDI. */
+        TreeRotateRight((int *)*(int *)(piVar6[1] + 4),unaff_EDI);
       }
     }
     else {
       if ((char)piVar5[4] == '\0') goto LAB_0040bbd5;
       if (piVar6 == (int *)*piVar2) {
-        FUN_0040bd20(unaff_EDI);
+        /* orig 0x40bc23 `mov esi,ecx` right before the call - ECX (and so
+         * the pivot) is piVar2, not unaff_EDI. */
+        TreeRotateRight(piVar2,unaff_EDI);
         piVar6 = piVar2;
       }
       *(undefined1 *)(piVar6[1] + 0x10) = 1;
       *(undefined1 *)(*(int *)(piVar6[1] + 4) + 0x10) = 0;
-      FUN_0040bc80(unaff_EDI);
+      /* orig 0x40bc3d `mov ecx,[eax+4]` where eax=piVar6[1] - the pivot
+       * is piVar6's grandparent, *(int*)(piVar6[1]+4), not unaff_EDI. */
+      TreeRotateLeft((int)*(int *)(piVar6[1] + 4),unaff_EDI);
     }
     cVar1 = *(char *)(piVar6[1] + 0x10);
   } while( true );

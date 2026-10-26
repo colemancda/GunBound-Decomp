@@ -302,10 +302,11 @@ exception * __thiscall LogicError_CopyCtor(exception *param_1,exception *param_2
 int __thiscall FUN_0040b9b0();
 int __thiscall basic_string_AssignSubstr(int param_1,int param_2,uint param_3,uint param_4);
 void __thiscall TreeInsertRebalance(undefined4 *param_1,undefined4 *param_2,char param_3,undefined4 param_4);
-void __thiscall FUN_0040bc80();
+void __thiscall TreeRotateLeft(int param_1, int param_2);
 void FUN_0040bce0(int regEax);
 void TreeSubtreeMin(int *regEax);
-void __thiscall FUN_0040bd20();
+void __thiscall TreeRotateRight(int *param_1, int param_2);
+undefined4 * TreeAllocateNode(undefined4 param_1, undefined4 param_2, undefined4 param_3, undefined4 *param_4, undefined1 param_5);
 int __thiscall FUN_0040bda0(int param_1,uint param_2,uint param_3);
 undefined4 * TreeEraseRange(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
 int __thiscall basic_string_AssignCStr(int param_1,undefined4 *param_2,uint param_3);
