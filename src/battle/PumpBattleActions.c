@@ -46,8 +46,9 @@ void PumpBattleActions(int param_1)
   ProcessIncomingPackets(DAT_005b2b60,0);
   if (g_directLinkConnection != 0) {
     /* Context passed in EDI by the original (`mov edi,[0x7934f4]`
-     * immediately before the call) - see FUN_00405a40.c's header. */
-    FUN_00405a40(g_directLinkConnection);
+     * immediately before the call) - see DrainDirectLinkActionRing.c's
+     * header. */
+    DrainDirectLinkActionRing(g_directLinkConnection);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_00e9af44);
   DedupPendingBattleActionQueues(&g_replayContext);

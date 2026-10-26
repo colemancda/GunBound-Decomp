@@ -1,9 +1,21 @@
-/* FUN_00405a40 - 0x00405a40 in the original binary.
+/* DrainDirectLinkActionRing - 0x00405a40 in the original binary.
  *
- * Drains the pending battle-action/packet ring on the direct-link
- * connection context (g_directLinkConnection): walks the queue between the read
- * cursor at +0x24238 and the write cursor at +0x24234, dispatching each
- * entry by its opcode word.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26), HIGH. Drains the pending battle-action/packet ring on
+ * the direct-link connection context (g_directLinkConnection): walks the
+ * queue between the read cursor at +0x24238 and the write cursor at
+ * +0x24234, dispatching each entry by its opcode word. "Ring" is not a
+ * guess: ReceiveFramedPackets.c (src/network/) - the function that fills
+ * this same +0x24234/+0x24238/+0x24240 structure on the connection object -
+ * already describes it in its own header as "a ring of slot descriptors
+ * for the packet dispatcher", and its index arithmetic (`+1U & 0x800000ff`)
+ * matches the wraparound this function's own read-side advance uses. Sole
+ * caller PumpBattleActions.c:50 guards it on `g_directLinkConnection != 0`
+ * and is itself the top-level per-tick drain of the battle-action queues
+ * this ring feeds alongside PopDirectBattleAction/PopBroadcastBattleAction.
  *
  * DROPPED-`this` FIX (2026-07-16): the context pointer arrives in EDI (a
  * custom register convention Ghidra dropped as an uninitialised
@@ -21,7 +33,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00405a40(int param_1)
+void DrainDirectLinkActionRing(int param_1)
 
 {
   ushort *puVar1;
@@ -67,4 +79,3 @@ LAB_00405af0:
     FUN_00411b40();
   } while( true );
 }
-
