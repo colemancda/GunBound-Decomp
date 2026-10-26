@@ -38,7 +38,7 @@ undefined4 * TreeEraseRange(undefined4 *param_1,int *param_2,int *param_3,int re
   piVar1 = *(int **)(regEsi + 4);
   piVar2 = param_2;
   if ((param_2 == (int *)*piVar1) && (param_3 == piVar1)) {
-    FUN_0040c210(piVar1[1]);
+    TreeEraseSubtree(piVar1[1]);
     *(int *)(*(int *)(regEsi + 4) + 4) = *(int *)(regEsi + 4);
     *(undefined4 *)(regEsi + 8) = 0;
     *(undefined4 *)*(undefined4 *)(regEsi + 4) = *(undefined4 *)(regEsi + 4);
