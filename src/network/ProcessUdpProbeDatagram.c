@@ -230,7 +230,7 @@ LAB_004e64e4:
         puVar8 = (ushort *)((int)puVar8 + 1);
         puVar10 = (undefined4 *)((int)puVar10 + 1);
       }
-      FUN_004e8f70((short *)(param_1 + 0x1b0));
+      CArray_Add_206((undefined4 *)(param_1 + 0x1b0),(int *)(param_1 + 0x454a4));
       sVar7 = (short)local_25c;
       if (sVar7 != 0) {
         *(char *)(local_243 + 0x3c0 + param_1) = *(char *)(local_243 + 0x3c0 + param_1) + '\x01';

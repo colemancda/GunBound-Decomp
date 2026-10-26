@@ -1242,7 +1242,7 @@ undefined4 * FUN_004e8db0(undefined4 *param_1,int *param_2,int *param_3,int regE
 undefined4 FUN_004e8e70();
 void __fastcall FUN_004e8eb0();
 void __fastcall FUN_004e8f10();
-uint FUN_004e8f70();
+uint CArray_Add_206(undefined4 *param_1, int *regEbx);
 undefined4 CArray_Grow_206(uint regEax,int *regEsi);
 void FUN_004e9070();
 void QueueCompositorSpan(int param_1, int param_2, int param_3, int regEsi);

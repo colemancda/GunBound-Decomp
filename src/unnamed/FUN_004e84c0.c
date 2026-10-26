@@ -56,7 +56,7 @@ void FUN_004e84c0(int param_1)
         }
         *(int *)(param_1 + 0x454a8) = *(int *)(param_1 + 0x454a8) + -1;
         if ((bVar10) && (*(int *)(param_1 + 0x454a8) != 0)) {
-          FUN_004e8f70(param_1 + 0x1b0);
+          CArray_Add_206((undefined4 *)(param_1 + 0x1b0),piVar1);
         }
         bVar10 = false;
         uVar6 = uVar5;
@@ -102,7 +102,7 @@ LAB_004e86e2:
         }
         *(int *)(param_1 + 0x454b8) = *(int *)(param_1 + 0x454b8) + -1;
         if ((bVar2) && (*(int *)(param_1 + 0x454b8) != 0)) {
-          FUN_004e8f70(param_1 + 0x4529c);
+          CArray_Add_206((undefined4 *)(param_1 + 0x4529c),(int *)(param_1 + 0x454b4));
         }
         bVar2 = false;
         uVar6 = uVar5;
