@@ -5,8 +5,9 @@
  * object), whose +0x2004 sub-object holds the socket/session state (same
  * "connection sub-object at +0x2004" idiom documented in WinMain.c/
  * Shutdown.c/SignalConnectRequest.c for this same global). Called from
- * ShowErrorDialog/ShowMessageDialog/ShowErrorDialogFmt/FUN_00411b40, every
- * site already gated on `g_directLinkConnection != 0` - only the call itself dropped
+ * ShowErrorDialog/ShowMessageDialog/ShowErrorDialogFmt/
+ * DispatchDirectLinkMessengerPacket, every site already gated on
+ * `g_directLinkConnection != 0` - only the call itself dropped
  * the argument.
  *
  * DROPPED-ARGUMENT FIX: Ghidra typed this function void() and read the

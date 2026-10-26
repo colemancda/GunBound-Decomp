@@ -69,13 +69,13 @@ void DrainDirectLinkActionRing(int param_1)
       }
 LAB_00405aff:
       if (puVar1[1] == 0) {
-        FUN_00411b40();
+        DispatchDirectLinkMessengerPacket();
       }
     }
     if (((uVar2 == 0xa211) || (uVar2 == 0xa001)) || (uVar2 == 0xa111)) goto LAB_00405aff;
     bVar6 = uVar2 == 0xa201;
 LAB_00405af0:
     if (bVar6) goto LAB_00405aff;
-    FUN_00411b40();
+    DispatchDirectLinkMessengerPacket();
   } while( true );
 }

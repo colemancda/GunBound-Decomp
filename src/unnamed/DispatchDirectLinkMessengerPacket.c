@@ -1,16 +1,31 @@
-/* FUN_00411b40 - 0x00411b40 in the original binary.
+/* DispatchDirectLinkMessengerPacket - 0x00411b40 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26), HIGH. The 0xa2xx-family opcode handler for the
+ * direct-link messenger/buddy connection: dispatches on the opcode word
+ * (in_AX) across 0x1fff/0xa001/0xa100/0xa101/0xa250/0xa2f0/0xa2f1/0xa300,
+ * covering buddy-socket teardown, local profile sync, channel-roster
+ * bulk-fill, chat-line relay and per-buddy status updates. UpdateBuddyStatus's
+ * own already-committed header already calls this function "the 0xa2xx-opcode
+ * messenger handler" by name, and its sibling DispatchDirectLinkPacket (the
+ * 0x1xxx/0x2xxx-opcode dispatcher on the same direct-link connection) is
+ * named with the identical Dispatch...Packet pattern. DrainDirectLinkActionRing's
+ * header already predicted this exact function as its own opcode-dispatch
+ * target for the ring entries it does not resolve inline.
+ *
+ * Still only a K&R-empty declaration in functions.h: both of this function's
+ * real call sites (DrainDirectLinkActionRing) already pass zero arguments
+ * today, a pre-existing dropped-register defect this rename does not fix.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Type propagation algorithm not settling */
 
-void __fastcall FUN_00411b40(uint *param_1,int param_2)
+void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2)
 
 {
   int iVar1;
@@ -141,7 +156,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
               }
               puVar4 = param_1 + 9;
               param_1 = (uint *)((int)param_1 + 0x26);
-              FUN_00401d50((char *)&local_148,(int)&DAT_00e53e88,1,local_128,(short)*puVar4,
+              UpsertDirectLinkBuddyNode((char *)&local_148,(int)&DAT_00e53e88,1,local_128,(short)*puVar4,
                            (undefined4 *)local_108,(char *)&local_13c,(char *)&local_158);
               iVar7 = g_clientContext;
             }
@@ -237,7 +252,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
     puVar4 = &local_13c;
     puVar9 = local_108;
     uVar6 = FUN_00401ce0((int)&DAT_00e53e88,&local_120);
-    FUN_00401d50((char *)&local_148,(int)&DAT_00e53e88,1,uVar6,(short)uVar5,
+    UpsertDirectLinkBuddyNode((char *)&local_148,(int)&DAT_00e53e88,1,uVar6,(short)uVar5,
                  (undefined4 *)puVar9,(char *)puVar4,(char *)&local_158);
     UpdateBuddyStatus((int)&DAT_00e53e88,(char *)&local_13c,(undefined1 *)((int)param_1 + 0x38));
   }
@@ -252,7 +267,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
       local_154 = param_1[5];
       local_12c = 0;
       local_14c = 0;
-      FUN_00401ee0(&DAT_00e53e88,(char *)&local_150);
+      RemoveDirectLinkBuddyNode(&DAT_00e53e88,(char *)&local_150);
       return;
     }
     if (in_AX == 0xa300) {

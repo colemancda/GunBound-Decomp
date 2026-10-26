@@ -346,7 +346,7 @@ int __fastcall FUN_0040d200();
 void BuildSystemInfoBlob(undefined4 *, undefined4 *);
 void LoadClientSettingsFromRegistry();
 void SaveClientSettingsToRegistry();
-void __fastcall FUN_00411b40();
+void __fastcall DispatchDirectLinkMessengerPacket();
 void ProcessInputEventQueue();
 void ShowErrorDialog(); /* real args (closeSockets, messageId); K&R-empty so
                           * the ~38 other call sites still passing only 1 arg

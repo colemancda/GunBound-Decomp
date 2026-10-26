@@ -5,6 +5,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_00411b40 in the note below is now DispatchDirectLinkMessengerPacket.)
+ *
  * DROPPED REGISTERS ANALYSED, NOT APPLIED.  `ret 0`, so param_1 (ECX) and ESI
  * are the whole input.  At the sole call site (0x00411c65):
  *

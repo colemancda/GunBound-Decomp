@@ -9,8 +9,8 @@
  * key constants) matches the short at regEsi+0xe.
  *
  * The buddy identity is external, on both sides.  Callers: two of the
- * four binary sites (0x411fcc/0x412118 in FUN_00411b40, the
- * 0xa2xx-opcode messenger handler) pass regEax = &DAT_00e53e88, the
+ * four binary sites (0x411fcc/0x412118 in DispatchDirectLinkMessengerPacket,
+ * the 0xa2xx-opcode messenger handler) pass regEax = &DAT_00e53e88, the
  * registry CBuddyPanel::Update iterates with
  * FindActiveObjectByIndex(&DAT_00e53e88, row); the other two are
  * DispatchDirectLinkPacket's case 0x1001 and the FUN_00403d20 vtable

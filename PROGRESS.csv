@@ -235,7 +235,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040f400,3111,Shutdown,false,1,12,RAW-src
 00410040,917,WndProc,false,1,22,RAW-src
 004104f0,5587,WriteReplayEventRecord,false,1,49,RAW-src
-00411b40,1502,FUN_00411b40,false,2,13,RAW-src
+00411b40,1502,DispatchDirectLinkMessengerPacket,false,2,13,RAW-src
 00412130,426,ProcessInputEventQueue,false,1,5,RAW-src
 004122f0,430,ChangeGameState,false,15,8,RAW-src
 004124a0,432,ShowErrorDialog,false,40,7,RAW-src

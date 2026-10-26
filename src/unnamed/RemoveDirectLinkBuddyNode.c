@@ -15,7 +15,8 @@
  * reverse.
  *
  * (2026-09-01: the note below predates a rename - FUN_00426090 is now
- * FindNicknameByUserId.)
+ * FindNicknameByUserId. FUN_00411b40 in the same note is now
+ * DispatchDirectLinkMessengerPacket.)
  *
  * DROPPED REGISTER RECOVERED (2026-08-24): EAX is a NAME string -- the key
  * FUN_00401c50(param_1, char *) searches the list for.  Seven call sites,
