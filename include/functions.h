@@ -261,7 +261,7 @@ undefined4 * __thiscall LogicError_ctor(undefined4 *param_1,undefined4 param_2);
 void __fastcall FUN_0040a040();
 void * __thiscall FUN_0040a080();
 int * FUN_0040a0a0();
-void FUN_0040a1c0();
+void ValueGuardMap_Destructor();
 void ScrambleChecksumGuardBytes();
 int __fastcall InitGuardSlot();
 undefined4 __fastcall ScrubChecksumGuard();
