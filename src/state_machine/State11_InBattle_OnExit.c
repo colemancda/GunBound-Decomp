@@ -717,7 +717,7 @@ LAB_004bd75c:
   DAT_00793634 = 0;
   piVar9 = *(int **)(DAT_00e9af14 + 4);
   while (cVar1 == '\0') {
-    FUN_004e8ad0(piVar9[2]);
+    TurnEventSet_EraseSubtree(piVar9[2]);
     piVar5 = (int *)*piVar9;
     _free(piVar9);
     piVar9 = piVar5;

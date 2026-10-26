@@ -1223,7 +1223,7 @@ void __fastcall BeginUdpSessionProbe(undefined4 serverAddr,int serverPort,undefi
 undefined4 FUN_004e7740(int regEsi);
 void FUN_004e77e0(int param_1,int regEax);
 uint PopDirectBattleAction();
-void __thiscall FUN_004e7d60(int param_2,int regEax);
+void __thiscall ReleaseTurnEvent(int param_2,int regEax);
 void ProcessEventBroadcast(int param_1,int param_2,undefined4 *param_3,uint regEbx);
 void FUN_004e8040();
 uint PopBroadcastBattleAction();
@@ -1233,7 +1233,7 @@ void DedupPendingBattleActionQueues();
 undefined4 * TurnEventSet_Insert();
 void TurnEventSet_Erase();
 void __fastcall TurnEventSet_Find(int param_1,undefined4 *regEax,ushort *regEbx);
-void FUN_004e8ad0();
+void TurnEventSet_EraseSubtree(int *param_1);
 undefined4 * __thiscall TurnEventSet_InsertRebalance(undefined4 *param_1,int treeSet,undefined4 *param_3,char param_4,undefined4 param_5);
 void __thiscall FUN_004e8cb0();
 void FUN_004e8d10(int regEax);

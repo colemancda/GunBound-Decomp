@@ -1,9 +1,16 @@
-/* FUN_004e7d60 - 0x004e7d60 in the original binary.
+/* ReleaseTurnEvent - 0x004e7d60 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26), HIGH. Matches TurnEventSet_Find.c's own header
+ * (src/network/) verbatim: its family list reads "0x4e7d60 = erase-by-key
+ * with a 0xffff sentinel meaning clear()", and its "WHAT THE LOOKUP IS
+ * FOR" section calls these erase-by-key sites "the 'release this turn
+ * event' sites". Both real call sites confirmed: State11_InBattle_OnTick
+ * .c:1852 passes 0xc302 (erase that one key);
+ * ApplyBattleActionToContext.c:180 passes 0xffff (clear the whole set).
  *
  * param_1 IS NOT AN ARGUMENT.  Ghidra typed this __thiscall and so modelled
  * ECX as param_1, but ECX is never read here: the `push ecx` at 0x004e7d60 is
@@ -31,17 +38,20 @@
  * phantom param_1, so the `== -1` test at the top read whatever the caller
  * left on the stack.  ApplyBattleActionToContext passes 0xffff precisely to
  * take that branch, and it was firing at random.
+ *
+ * (FUN_004e8ad0 in the note above is now named TurnEventSet_EraseSubtree -
+ * see that file for the rename.)
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004e7d60(int param_2,int regEax)
+void __thiscall ReleaseTurnEvent(int param_2,int regEax)
 
 {
   int param_1; /* NOT an argument - see the header */
-  
+
   if (param_2 == -1) {
-    FUN_004e8ad0(*(undefined4 *)(*(int *)(regEax + 0x45234) + 4));
+    TurnEventSet_EraseSubtree(*(undefined4 *)(*(int *)(regEax + 0x45234) + 4));
     *(int *)(*(int *)(regEax + 0x45234) + 4) = *(int *)(regEax + 0x45234);
     *(undefined4 *)(regEax + 0x45238) = 0;
     *(undefined4 *)*(undefined4 *)(regEax + 0x45234) = *(undefined4 *)(regEax + 0x45234);
@@ -54,4 +64,3 @@ void __thiscall FUN_004e7d60(int param_2,int regEax)
   }
   return;
 }
-

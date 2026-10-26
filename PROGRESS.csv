@@ -1125,7 +1125,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e77e0,894,FUN_004e77e0,false,4,10,RAW-src
 004e7b60,450,PopDirectBattleAction,false,2,3,RAW-src
 004e7d30,34,PostTurnEvent,false,20,1,RAW-src
-004e7d60,119,FUN_004e7d60,false,2,3,RAW-src
+004e7d60,119,ReleaseTurnEvent,false,2,3,RAW-src
 004e7de0,605,ProcessEventBroadcast,false,1,10,RAW-src
 004e8040,142,FUN_004e8040,false,5,1,RAW-src
 004e80d0,481,PopBroadcastBattleAction,false,2,3,RAW-src
@@ -1135,7 +1135,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e86f0,186,TurnEventSet_Insert,false,22,2,RAW-src
 004e87b0,692,TurnEventSet_Erase,false,26,9,RAW-src
 004e8a70,94,TurnEventSet_Find,false,27,0,RAW-src
-004e8ad0,55,FUN_004e8ad0,false,8,2,RAW-src
+004e8ad0,55,TurnEventSet_EraseSubtree,false,8,2,RAW-src
 004e8b10,414,TurnEventSet_InsertRebalance,false,2,6,RAW-src
 004e8cb0,81,FUN_004e8cb0,false,5,0,RAW-src
 004e8d10,29,FUN_004e8d10,false,1,0,RAW-src

@@ -430,7 +430,7 @@ LAB_0043eec8:
   *(undefined4 *)(&DAT_006a7704 + iVar5) = 0xffffffff;
   *(undefined1 *)(iVar4 + 8) = 1;
   _DAT_00e9af1c = 500;
-  FUN_004e8ad0(*(undefined4 *)(DAT_00e9af14 + 4));
+  TurnEventSet_EraseSubtree(*(undefined4 *)(DAT_00e9af14 + 4));
   *(int *)(DAT_00e9af14 + 4) = DAT_00e9af14;
   _DAT_00e9af18 = 0;
   *(int *)DAT_00e9af14 = DAT_00e9af14;

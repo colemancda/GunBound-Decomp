@@ -20,7 +20,7 @@ undefined4 * FUN_004e8db0(undefined4 *param_1,int *param_2,int *param_3,int regE
   piVar1 = *(int **)(regEsi + 4);
   piVar2 = param_2;
   if ((param_2 == (int *)*piVar1) && (param_3 == piVar1)) {
-    FUN_004e8ad0(piVar1[1]);
+    TurnEventSet_EraseSubtree(piVar1[1]);
     *(int *)(*(int *)(regEsi + 4) + 4) = *(int *)(regEsi + 4);
     *(undefined4 *)(regEsi + 8) = 0;
     *(undefined4 *)*(undefined4 *)(regEsi + 4) = *(undefined4 *)(regEsi + 4);

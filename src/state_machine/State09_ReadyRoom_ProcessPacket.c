@@ -805,7 +805,7 @@ LAB_004d4cc7:
           cVar10 = *(char *)((int)*(int **)(DAT_00e9af14 + 4) + 0xf);
           piVar24 = *(int **)(DAT_00e9af14 + 4);
           while (cVar10 == '\0') {
-            FUN_004e8ad0(piVar24[2]);
+            TurnEventSet_EraseSubtree(piVar24[2]);
             piVar9 = (int *)*piVar24;
             _free(piVar24);
             piVar24 = piVar9;

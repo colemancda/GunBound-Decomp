@@ -4,6 +4,9 @@
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
  *
+ * (FUN_004e7d60 below is now named ReleaseTurnEvent - see that file for
+ * the rename.)
+ *
  * NAMED (2026-10-21), CERTAIN. The VC7 STL _Tree::erase(iterator)
  * overload for the turn-event set - TurnEventSet_Find.c's own header
  * already maps this family by address ("0x4e86f0 = insert, 0x4e87b0 =
