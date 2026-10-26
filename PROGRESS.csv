@@ -192,7 +192,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040bee0,234,basic_string_AssignCStr,false,8,3,RAW-src
 0040bfd0,226,FUN_0040bfd0,false,2,2,RAW-src
 0040c110,55,FUN_0040c110,false,1,1,RAW-src
-0040c150,93,FUN_0040c150,false,1,0,RAW-src
+0040c150,93,TreeIteratorDecrement,false,1,0,RAW-src
 0040c1b0,87,TreeIteratorIncrement,false,2,0,RAW-src
 0040c210,55,TreeEraseSubtree,false,2,2,RAW-src
 0040c250,534,OpenDriverRegistryKey,false,3,7,RAW-src
@@ -659,7 +659,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00467a50,20,InitSuperShot_Bullet16,false,1,1,RAW-src
 00467a70,2870,DetonateSuperShot_Bullet16,false,1,29,RAW-src
 004685b0,107,ExplodeSuperShot_Bullet16,false,1,4,RAW-src
-00468620,61,FUN_00468620,false,1,0,RAW-src
+00468620,61,DamagePopup_ctor,false,1,0,RAW-src
 00468860,27,InitShot2_Bullet1,false,1,1,RAW-src
 00468880,32,DeleteShot2_Bullet1,false,1,2,RAW-src
 004688a0,13,DestroyShot2_Bullet1,false,1,1,RAW-src

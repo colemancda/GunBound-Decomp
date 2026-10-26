@@ -6,10 +6,11 @@
  *
  * NAMED (2026-09-21). Finds or creates a per-frame class-id-0x30d54
  * "hit total" widget (frame index = param_1; the class-id-0x30d54
- * constructor is FUN_00468620) and accumulates param_2 into its +0x48
- * field, resetting its +0x40 age counter - the merge/create idiom of a
- * floating damage number that keeps rising while more hits land in the
- * same frame. Confirmed by the class's own vtable-slot-2 Tick
+ * constructor is DamagePopup_ctor, 0x468620) and accumulates param_2
+ * into its +0x48 field, resetting its +0x40 age counter - the
+ * merge/create idiom of a floating damage number that keeps rising
+ * while more hits land in the same frame. Confirmed by the class's own
+ * vtable-slot-2 Tick
  * (0x468660, UNCARVED in docs/vtable_census.txt): every tick it
  * increments +0x40/+0x44, decrements +0x3c (the screen Y offset) by 3
  * once +0x44 passes 10 (the number floats upward), marks itself dead
@@ -81,7 +82,7 @@ void __fastcall SpawnDamagePopup(int param_1,int param_2,undefined4 param_3,unde
       iVar2 = 0;
     }
     else {
-      FUN_00468620();
+      DamagePopup_ctor();
     }
     *(undefined4 *)(iVar2 + 0x3c) = param_4;
     *(int *)(iVar2 + 0x48) = param_2;

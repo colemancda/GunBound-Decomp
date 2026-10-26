@@ -311,7 +311,7 @@ undefined4 * TreeEraseRange(undefined4 *param_1,int *param_2,int *param_3,int re
 int __thiscall basic_string_AssignCStr(int param_1,undefined4 *param_2,uint param_3);
 void __thiscall FUN_0040bfd0(int param_1,uint param_2,uint param_3);
 undefined4 FUN_0040c110();
-void __fastcall FUN_0040c150();
+void __fastcall TreeIteratorDecrement();
 void __fastcall TreeIteratorIncrement();
 void TreeEraseSubtree();
 int OpenDriverRegistryKey();
@@ -784,7 +784,7 @@ void __thiscall Mobile15_MainAction();
 undefined4 * InitSuperShot_Bullet16(undefined4 *regEsi);
 void __fastcall DetonateSuperShot_Bullet16();
 void __fastcall ExplodeSuperShot_Bullet16();
-void __fastcall FUN_00468620();
+void __fastcall DamagePopup_ctor();
 undefined4 * InitShot2_Bullet1(undefined4 *regEsi);
 void * __thiscall DeleteShot2_Bullet1();
 void DestroyShot2_Bullet1(undefined4 *regEax);
