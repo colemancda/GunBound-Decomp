@@ -804,7 +804,7 @@ extern uint32_t g_valueGuardKeyTable;
 /* g_valueGuardMap (was DAT_00793770) - the CValueGuard guard-cell std::map
  * object.  Mobile.cpp and Projectile.cpp both already declared it locally as
  * "guard-cell std::map object", and ValueGuard.cpp as the key-table registry
- * root; TreeLowerBound takes its address as the map to search. */
+ * root; TreeInsert takes its address as the map to search. */
 extern uint8_t g_valueGuardMap;
 extern int *DAT_00793774; /* used dereferenced as a pointer at call sites */
 extern uint32_t DAT_00793778;

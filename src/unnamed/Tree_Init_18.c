@@ -1,5 +1,8 @@
 /* Tree_Init_18 - 0x00443610 in the original binary.
  *
+ * TreeLowerBound, cited below by name and by its 0x40b540 address, is
+ * now named TreeInsert (src/registry/TreeInsert.c). Left verbatim below.
+ *
  * VC7 STL red-black tree (std::map's _Tree) _Init, for the 0x18-byte-node
  * instantiation - hence the _18 node-stride suffix, per the container
  * naming convention.  The behaviour is the library member verbatim:

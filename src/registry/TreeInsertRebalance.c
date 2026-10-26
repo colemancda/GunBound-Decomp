@@ -1,5 +1,10 @@
 /* TreeInsertRebalance - 0x0040bae0 in the original binary.
  *
+ * TreeLowerBound, cited below by name, by its 0x40b540 address and by
+ * its old filename (src/registry/TreeLowerBound.c), is now named
+ * TreeInsert (src/registry/TreeInsert.c) - this note is what first made
+ * that identity case, and is left verbatim below.
+ *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.

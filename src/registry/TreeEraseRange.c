@@ -3,8 +3,8 @@
  * Old symbols cited by address throughout the note below, now named:
  * FUN_0040c210 = TreeEraseSubtree, FUN_0040b600 = TreeErase,
  * FUN_0040c1b0 = TreeIteratorIncrement, FUN_0040a1c0 =
- * ValueGuardMap_Destructor. Left verbatim below, including the quoted
- * disassembly addresses.
+ * ValueGuardMap_Destructor, TreeLowerBound (0x40b540) = TreeInsert. Left
+ * verbatim below, including the quoted disassembly addresses.
  *
  * VC7 STL _Tree::erase(iterator first, iterator last) of the CValueGuard
  * guard-cell map - the same instantiation TreeFind (0x40b8c0) and

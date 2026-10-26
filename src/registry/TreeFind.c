@@ -1,5 +1,10 @@
 /* TreeFind - 0x0040b8c0 in the original binary.
  *
+ * TreeLowerBound, cited by name and by its 0x40b540 address throughout
+ * the note below, is now named TreeInsert (src/registry/TreeInsert.c) -
+ * disassembly showed it is an _Tree::insert, not a lower_bound. Left
+ * verbatim below, including the quoted address.
+ *
  * The VC7 STL _Tree::find of the CValueGuard guard-cell map: a
  * lower_bound descent (node key at +0xc, _Isnil at +0x11, head node at
  * map+4) followed by the check that turns lower_bound into find -

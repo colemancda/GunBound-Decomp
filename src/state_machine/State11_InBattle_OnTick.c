@@ -1,5 +1,10 @@
 /* State11_InBattle_OnTick - 0x004bd8b0 in the original binary.
  *
+ * TreeLowerBound, cited below by name and by its 0x40b540 address, is
+ * now named TreeInsert (src/registry/TreeInsert.c); the call sites in
+ * this file's body were already updated to the new name. Left the note
+ * below verbatim.
+ *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
@@ -635,13 +640,13 @@ LAB_004be4b1:
       local_3d68 = local_3d34;
       if (local_3d34 != (int *)0x0) {
         ScrambleChecksumGuardBytes();
-        TreeLowerBound();
+        TreeInsert();
       }
       local_c = 0xffffffff;
       local_3d68 = local_3588;
       if (local_3588 != (int *)0x0) {
         ScrambleChecksumGuardBytes();
-        TreeLowerBound();
+        TreeInsert();
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_3d68 = (int *)PeekPacketChecksumState(&DAT_007949c8);
@@ -832,13 +837,13 @@ code_r0x004be720:
           uStack_34 = 3;
           if (iStack_35b0 != 0) {
             ScrambleChecksumGuardBytes(iStack_35b0,&g_valueGuardKeyTable);
-            TreeLowerBound(&stack0xffffc278,&g_valueGuardMap);
+            TreeInsert(&stack0xffffc278,&g_valueGuardMap);
             piVar15 = unaff_EDI;
           }
           uStack_34 = 2;
           if (iStack_698 != 0) {
             ScrambleChecksumGuardBytes(iStack_698,&g_valueGuardKeyTable);
-            TreeLowerBound(&stack0xffffc278,&g_valueGuardMap);
+            TreeInsert(&stack0xffffc278,&g_valueGuardMap);
             piVar15 = unaff_EDI;
           }
           (*pcVar16)(&g_valueGuardLock);
@@ -891,13 +896,13 @@ LAB_004bedb3:
               uStack_28 = 5;
               if (iStack_2f38 != 0) {
                 ScrambleChecksumGuardBytes(iStack_2f38,&g_valueGuardKeyTable);
-                TreeLowerBound(&stack0xffffc284,&g_valueGuardMap);
+                TreeInsert(&stack0xffffc284,&g_valueGuardMap);
                 piVar15 = unaff_EBX;
               }
               uStack_28 = 2;
               if (iStack_244 != 0) {
                 ScrambleChecksumGuardBytes(iStack_244,&g_valueGuardKeyTable);
-                TreeLowerBound(&stack0xffffc284,&g_valueGuardMap);
+                TreeInsert(&stack0xffffc284,&g_valueGuardMap);
                 piVar15 = unaff_EBX;
               }
               (*pcVar16)(&g_valueGuardLock);
@@ -949,7 +954,7 @@ LAB_004bedb3:
               iVar6 = iVar6 + 1;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            TreeLowerBound(&stack0xffffc284,&g_valueGuardMap);
+            TreeInsert(&stack0xffffc284,&g_valueGuardMap);
             piVar15 = unaff_EBX;
           }
           uStack_28 = 2;
@@ -962,7 +967,7 @@ LAB_004bedb3:
               iVar6 = iVar6 + 1;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            TreeLowerBound(&stack0xffffc284,&g_valueGuardMap);
+            TreeInsert(&stack0xffffc284,&g_valueGuardMap);
             piVar15 = unaff_EBX;
           }
           (*pcVar16)(&g_valueGuardLock);
@@ -1008,13 +1013,13 @@ LAB_004bedb3:
             uStack_28 = 9;
             if (iStack_26a8 != 0) {
               ScrambleChecksumGuardBytes(iStack_26a8,&g_valueGuardKeyTable);
-              TreeLowerBound(&stack0xffffc284,&g_valueGuardMap);
+              TreeInsert(&stack0xffffc284,&g_valueGuardMap);
               piVar15 = unaff_EBX;
             }
             uStack_28 = 2;
             if (iStack_468 != 0) {
               ScrambleChecksumGuardBytes(iStack_468,&g_valueGuardKeyTable);
-              TreeLowerBound(&stack0xffffc284,&g_valueGuardMap);
+              TreeInsert(&stack0xffffc284,&g_valueGuardMap);
               piVar15 = unaff_EBX;
             }
             (*pcVar16)(&g_valueGuardLock);
@@ -1064,7 +1069,7 @@ LAB_004bedb3:
               iVar6 = iVar6 + 1;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            TreeLowerBound(&stack0xffffc284,&g_valueGuardMap);
+            TreeInsert(&stack0xffffc284,&g_valueGuardMap);
             piVar15 = unaff_EBX;
           }
           uStack_28 = 2;
@@ -1077,7 +1082,7 @@ LAB_004bedb3:
               iVar6 = iVar6 + 1;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            TreeLowerBound(&stack0xffffc284,&g_valueGuardMap);
+            TreeInsert(&stack0xffffc284,&g_valueGuardMap);
             piVar15 = unaff_EBX;
           }
           (*pcVar16)(&g_valueGuardLock);
@@ -1131,7 +1136,7 @@ LAB_004bedb3:
             iVar6 = iVar6 + 1;
             iVar5 = iVar5 + -1;
           } while (iVar5 != 0);
-          TreeLowerBound(&stack0xffffc280,&g_valueGuardMap);
+          TreeInsert(&stack0xffffc280,&g_valueGuardMap);
           piVar15 = uStack_3d78;
         }
         uStack_2c = 2;
@@ -1144,7 +1149,7 @@ LAB_004bedb3:
             iVar6 = iVar6 + 1;
             iVar5 = iVar5 + -1;
           } while (iVar5 != 0);
-          TreeLowerBound(&stack0xffffc280,&g_valueGuardMap);
+          TreeInsert(&stack0xffffc280,&g_valueGuardMap);
           piVar15 = uStack_3d78;
         }
         (*pcVar16)(&g_valueGuardLock);
@@ -1201,7 +1206,7 @@ LAB_004bedb3:
               iVar6 = iVar6 + 1;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            TreeLowerBound(&stack0xffffc27c,&g_valueGuardMap);
+            TreeInsert(&stack0xffffc27c,&g_valueGuardMap);
             piVar15 = unaff_EBX;
           }
           unaff_ESI = uStack_28cc;
@@ -1215,7 +1220,7 @@ LAB_004bedb3:
               iVar6 = iVar6 + 1;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            TreeLowerBound(&stack0xffffc27c,&g_valueGuardMap);
+            TreeInsert(&stack0xffffc27c,&g_valueGuardMap);
             piVar15 = unaff_EBX;
           }
           (*pcVar16)(&g_valueGuardLock);
@@ -1258,7 +1263,7 @@ LAB_004bedb3:
           uStack_28 = 0x13;
           if (uStack_2484 != 0) {
             ScrambleChecksumGuardBytes(uStack_2484,&g_valueGuardKeyTable);
-            TreeLowerBound(&stack0xffffc27c,&g_valueGuardMap);
+            TreeInsert(&stack0xffffc27c,&g_valueGuardMap);
             piVar15 = unaff_EBX;
             unaff_ESI = uVar11;
           }
@@ -1266,7 +1271,7 @@ LAB_004bedb3:
           uStack_28 = 2;
           if (uStack_203c != 0) {
             ScrambleChecksumGuardBytes(uStack_203c,&g_valueGuardKeyTable);
-            TreeLowerBound(&stack0xffffc27c,&g_valueGuardMap);
+            TreeInsert(&stack0xffffc27c,&g_valueGuardMap);
             piVar15 = unaff_EBX;
             unaff_ESI = uVar11;
           }
@@ -1317,7 +1322,7 @@ LAB_004bedb3:
             iVar6 = iVar6 + 1;
             iVar5 = iVar5 + -1;
           } while (iVar5 != 0);
-          TreeLowerBound(&stack0xffffc27c,&g_valueGuardMap);
+          TreeInsert(&stack0xffffc27c,&g_valueGuardMap);
           piVar15 = unaff_EBX;
         }
         unaff_ESI = uStack_cf8;
@@ -1331,7 +1336,7 @@ LAB_004bedb3:
             iVar6 = iVar6 + 1;
             iVar5 = iVar5 + -1;
           } while (iVar5 != 0);
-          TreeLowerBound(&stack0xffffc27c,&g_valueGuardMap);
+          TreeInsert(&stack0xffffc27c,&g_valueGuardMap);
           piVar15 = unaff_EBX;
         }
         (*pcVar16)(&g_valueGuardLock);
@@ -1369,7 +1374,7 @@ LAB_004c008f:
           local_3d68 = (int *)((int)local_3d68 + -1);
         } while (local_3d68 != (int *)0x0);
         local_3d60 = piVar2;
-        TreeLowerBound();
+        TreeInsert();
         piVar15 = local_3d58;
       }
       if (bVar18) {
@@ -1407,7 +1412,7 @@ LAB_004c008f:
           uStack_28 = 0x16;
           if (uStack_315c != 0) {
             ScrambleChecksumGuardBytes(uStack_315c,&g_valueGuardKeyTable);
-            TreeLowerBound(&stack0xffffc27c,&g_valueGuardMap);
+            TreeInsert(&stack0xffffc27c,&g_valueGuardMap);
             piVar15 = unaff_EBX;
             unaff_ESI = uVar11;
           }
@@ -1415,7 +1420,7 @@ LAB_004c008f:
           uStack_28 = 2;
           if (uStack_3380 != 0) {
             ScrambleChecksumGuardBytes(uStack_3380,&g_valueGuardKeyTable);
-            TreeLowerBound(&stack0xffffc27c,&g_valueGuardMap);
+            TreeInsert(&stack0xffffc27c,&g_valueGuardMap);
             piVar15 = unaff_EBX;
             unaff_ESI = uVar11;
           }
@@ -1473,7 +1478,7 @@ LAB_004c08c8:
             uStack_28 = 0x18;
             if (uStack_f1c != 0) {
               ScrambleChecksumGuardBytes(uStack_f1c,&g_valueGuardKeyTable);
-              TreeLowerBound(&stack0xffffc27c,&g_valueGuardMap);
+              TreeInsert(&stack0xffffc27c,&g_valueGuardMap);
               piVar15 = unaff_EBX;
               unaff_ESI = uVar11;
             }
@@ -1481,7 +1486,7 @@ LAB_004c08c8:
             uStack_28 = 2;
             if (uStack_ad4 != 0) {
               ScrambleChecksumGuardBytes(uStack_ad4,&g_valueGuardKeyTable);
-              TreeLowerBound(&stack0xffffc27c,&g_valueGuardMap);
+              TreeInsert(&stack0xffffc27c,&g_valueGuardMap);
               piVar15 = unaff_EBX;
               unaff_ESI = uVar11;
             }
@@ -1531,12 +1536,12 @@ LAB_004c08c8:
             uStack_28 = 0x1a;
             if (iStack_17ac != 0) {
               ScrambleChecksumGuardBytes(iStack_17ac,&g_valueGuardKeyTable);
-              TreeLowerBound(&stack0xffffc27c,&g_valueGuardMap);
+              TreeInsert(&stack0xffffc27c,&g_valueGuardMap);
             }
             uStack_28 = 2;
             if (iStack_1364 != 0) {
               ScrambleChecksumGuardBytes(iStack_1364,&g_valueGuardKeyTable);
-              TreeLowerBound(&stack0xffffc27c,&g_valueGuardMap);
+              TreeInsert(&stack0xffffc27c,&g_valueGuardMap);
             }
             EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             iVar6 = PeekPacketChecksumState((void *)(g_clientContext + (int)piStack_3d5c * 0x224 + 0x5ba80));
@@ -1578,7 +1583,7 @@ LAB_004c08c8:
           iVar6 = iVar6 + -1;
         } while (iVar6 != 0);
         local_3d60 = local_3d34;
-        TreeLowerBound();
+        TreeInsert();
       }
       local_3d54 = local_3d54 + 1;
     } while ((int)local_3d54 < 8);
@@ -1881,7 +1886,7 @@ LAB_004c13d9:
     uStack_1c = 0xffffffff;
     if (piStack_3374 != (int *)0x0) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(&uStack_3d78,&g_valueGuardMap);
+      TreeInsert(&uStack_3d78,&g_valueGuardMap);
       piVar15 = local_3d68;
     }
     iVar14 = iVar6 + -7;
@@ -1902,7 +1907,7 @@ LAB_004c13d9:
     uStack_3d78 = (int *)iStack_3158;
     if (iStack_3158 != 0) {
       ScrambleChecksumGuardBytes(iStack_3158,&g_valueGuardKeyTable);
-      TreeLowerBound(&stack0xffffc280,&g_valueGuardMap);
+      TreeInsert(&stack0xffffc280,&g_valueGuardMap);
       piVar15 = piStack_3374;
     }
     (*pcVar16)(&g_valueGuardLock);

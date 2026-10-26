@@ -295,7 +295,7 @@ bool FUN_0040b450(undefined4 param_1,undefined4 param_2);
 bool CompareChecksumPair();
 bool CompareChecksumAtMost();
 void __fastcall FUN_0040b510();
-undefined4 * TreeLowerBound();
+undefined4 * TreeInsert();
 void TreeErase();
 void __fastcall TreeFind(int param_1,undefined4 **regEax,int *regEbx);
 exception * __thiscall LogicError_CopyCtor(exception *param_1,exception *param_2);

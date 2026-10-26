@@ -11,7 +11,7 @@
  *
  * The base destructor (slot 0 body, 0x45a560) is DELIBERATELY not promoted
  * here. It's 89 near-identical unrolled guard-cell scrubs (`if
- * (this[idx] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(); }`)
+ * (this[idx] != 0) { ScrambleChecksumGuardBytes(); TreeInsert(); }`)
  * plus two things that cannot be faithfully reproduced from C++ source:
  * (1) an `_eh_vector_destructor_iterator_(this+0xb728, 0x224, 4,
  * ScrubChecksumGuard)` CRT array-destruct helper - MSVC only emits that
@@ -78,7 +78,7 @@ extern "C" {
 void ScrambleChecksumGuardBytes(int slot, int *guardTable);
 extern int g_valueGuardKeyTable;   /* guard-table base pointer cell (0x79376c) */
 void ScrubChecksumGuard(void *cell);
-void TreeLowerBound(void *scratch, void *guardMap);
+void TreeInsert(void *scratch, void *guardMap);
 extern unsigned char g_valueGuardMap;  /* guard-cell std::map object (0x793770) */
 int  PeekPacketChecksumState(void *self);
 int  PeekChecksumStateUnderLock(void *cell);
@@ -257,7 +257,7 @@ extern unsigned char DAT_005f376c;
  * their .tableHandle drives the post-use scrub. */
 int CMobile::v5_ComputeGroundY()
 {
-    unsigned char scratch[8];              /* local_688 - TreeLowerBound scratch */
+    unsigned char scratch[8];              /* local_688 - TreeInsert scratch */
     CValueGuard g678, g454, g230;
     unsigned char *pbVar1 = this->m_pad908 + 0x670;
     unsigned char *pbVar2 = this->m_pad908 + 0x228;
@@ -277,8 +277,8 @@ int CMobile::v5_ComputeGroundY()
     PeekPacketChecksumState((void *)(local_67c));
     LeaveCriticalSection(&g_valueGuardLock);
     local_680 = FindGroundHeightAtColumn();
-    if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
-    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
+    if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&g_valueGuardKeyTable); TreeInsert(scratch,&g_valueGuardMap); }
+    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeInsert(scratch,&g_valueGuardMap); }
 
     uVar3 = EncodeChecksumDeltaDiv(pbVar1, &g454, 2);
     EncodeChecksumPairDiff(pbVar2, &g678, uVar3);
@@ -286,8 +286,8 @@ int CMobile::v5_ComputeGroundY()
     iVar4 = PeekPacketChecksumState((void *)(&g678));
     LeaveCriticalSection(&g_valueGuardLock);
     bool bVar7 = local_680 == iVar4;
-    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
-    if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
+    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeInsert(scratch,&g_valueGuardMap); }
+    if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&g_valueGuardKeyTable); TreeInsert(scratch,&g_valueGuardMap); }
 
     iVar4 = local_680;
     if (bVar7) {
@@ -299,13 +299,13 @@ int CMobile::v5_ComputeGroundY()
         PeekPacketChecksumState((void *)(local_67c));
         LeaveCriticalSection(&g_valueGuardLock);
         iVar5 = FindGroundHeightAtColumn();
-        if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
+        if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeInsert(scratch,&g_valueGuardMap); }
 
         EncodeChecksumPairDiff(pbVar2, &g678, reinterpret_cast<unsigned int>(pbVar1));
         EnterCriticalSection(&g_valueGuardLock);
         iVar6 = PeekPacketChecksumState((void *)(&g678));
         LeaveCriticalSection(&g_valueGuardLock);
-        if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
+        if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeInsert(scratch,&g_valueGuardMap); }
 
         iVar4 = local_680;
         if (iVar5 == iVar6) {
@@ -317,13 +317,13 @@ int CMobile::v5_ComputeGroundY()
             PeekPacketChecksumState((void *)(local_67c));
             LeaveCriticalSection(&g_valueGuardLock);
             iVar4 = FindGroundHeightAtColumn();
-            if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
+            if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeInsert(scratch,&g_valueGuardMap); }
 
             EncodeChecksumDeltaAdd(pbVar2, &g230, 1);
             EnterCriticalSection(&g_valueGuardLock);
             iVar5 = PeekPacketChecksumState((void *)(&g230));
             LeaveCriticalSection(&g_valueGuardLock);
-            if (g230.tableHandle != 0) { ScrambleChecksumGuardBytes(g230.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
+            if (g230.tableHandle != 0) { ScrambleChecksumGuardBytes(g230.tableHandle,&g_valueGuardKeyTable); TreeInsert(scratch,&g_valueGuardMap); }
 
             if (iVar4 == iVar5) {
                 iVar4 = PeekChecksumStateUnderLock(pbVar2);

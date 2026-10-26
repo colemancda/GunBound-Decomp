@@ -43,7 +43,7 @@
  * note found several - e.g. FUN_0041da80.c (406 lines) - where Ghidra's
  * decompile is severely corrupted well beyond just this one dropped
  * argument (dozens of zero-arg calls to unrelated functions like
- * EncodeGuardedBool()/TreeLowerBound()/ScrambleChecksumGuardBytes(),
+ * EncodeGuardedBool()/TreeInsert()/ScrambleChecksumGuardBytes(),
  * inconsistent indirect `(*pcVar5)()` calls, raw `stack0xfffffbNN`
  * artifacts). Mechanically inserting the angr-resolved `self` value into
  * those calls without also reconstructing the surrounding control flow
@@ -86,7 +86,7 @@ void EncodeOutgoingPacketField(void *self, uint param_1)
   if (uVar1 != 0) {
     ScrambleChecksumGuardBytes(uVar1,&g_valueGuardKeyTable);
     param_1 = uVar1;
-    TreeLowerBound(local_8,&g_valueGuardMap);
+    TreeInsert(local_8,&g_valueGuardMap);
   }
   if (DAT_00793778 == 0) {
     iVar4 = 0;
@@ -101,7 +101,7 @@ void EncodeOutgoingPacketField(void *self, uint param_1)
     /* DROPPED-REG FIX 2026-08-28: the key is the param_1 slot the line
        above just reused (`lea ebx,[esp+0x18]` at 0x40a3e3 = entry+8),
        the out-iterator lands in the dead scratch at entry-4 - the top
-       half of local_8, the same scratch TreeLowerBound gets above. */
+       half of local_8, the same scratch TreeInsert gets above. */
     TreeFind((int)&g_valueGuardMap,(undefined4 **)(local_8 + 4),(int *)&param_1);
   }
   puVar5 = (uint *)(iVar4 * 0x10 + g_valueGuardKeyTable);

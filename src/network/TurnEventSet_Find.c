@@ -1,5 +1,8 @@
 /* TurnEventSet_Find - 0x004e8a70 in the original binary.
  *
+ * TreeLowerBound, cited below by name and by its 0x40b540 address, is
+ * now named TreeInsert (src/registry/TreeInsert.c). Left verbatim below.
+ *
  * Named below; still a raw/near-verbatim port of Ghidra's decompiler
  * output rather than a hand-verified reconstruction.  See src/README.md's
  * "Raw/verbatim ports" section for what that status means.
