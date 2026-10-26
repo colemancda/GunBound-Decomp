@@ -4,6 +4,8 @@
  * accumulation buffer at context+0x44dec, bumping the write cursor at
  * context+0x44fec. Two rep-movs (dwords then trailing bytes).
  *
+ * (FUN_004e77e0 in the note below is now BroadcastRingEvent.)
+ *
  * RECOVERED (2026-07-19), verified with angr/capstone against the
  * original: the context base arrives in EAX. It is read before any
  * write - the third and fourth instructions of the function are

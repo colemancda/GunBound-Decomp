@@ -36,6 +36,7 @@ XFSArchive g_xfsScratch;
  * original segment gap is smaller. */
 unsigned char g_localizedStringTable[0x10000];
 
+/* (FUN_004e77e0 in the note below is now BroadcastRingEvent.) */
 /* The turn-event/replay-buffer context struct (was the 1-byte
  * DAT_00e55ce0). 0x454f9 bytes; established by cross-referencing every
  * offset dereferenced by FUN_004e84c0/FUN_004e7b60/FUN_004e80d0/

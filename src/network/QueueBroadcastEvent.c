@@ -9,7 +9,8 @@
  * these get promoted to verified.
  *
  * (FUN_004e6160 in the note below is ProcessUdpProbeDatagram's old
- * symbol; FUN_004e6770 is UdpProbeWorkerThread's old symbol.)
+ * symbol; FUN_004e6770 is UdpProbeWorkerThread's old symbol; FUN_004e77e0
+ * is BroadcastRingEvent's old symbol.)
  *
  * DROPPED REGISTER ARGUMENT RECOVERED (2026-08-20).  Everything this function
  * touches hangs off a base that arrived in ESI and that Ghidra modelled as an

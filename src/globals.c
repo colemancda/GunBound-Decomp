@@ -760,6 +760,7 @@ uint32_t DAT_00e53c48;
  * 0x1bf0 stops short of the CValueGuard cell at +0x1c30 (DAT_00e55ab8). */
 uint8_t DAT_00e53e88[0x1bf0];
 /* DAT_00e55ab8: moved to globals_sized.c (0x224 CValueGuard cell). */
+/* (FUN_004e77e0 in the note below is now BroadcastRingEvent.) */
 /* g_replayContext (was DAT_00e55ce0): moved to globals_sized.c (0x454f9-byte struct - battle/replay turn-event buffer; real extent established via FUN_004e84c0/FUN_004e7b60/FUN_004e80d0/FUN_004e77e0/FUN_004e7de0/FUN_004e6050, all of which take &g_replayContext as their context arg; the ~42 other DAT_00e5.../DAT_00e9... globals formerly declared here in this offset range are now offset-macros into that storage - see globals.h). The CRITICAL_SECTION at +0x45264 (DAT_00e9af44) IS covered by this array -- 0x45264 < 0x454f9 -- and is now an offset-macro into it rather than separate storage; this comment previously asserted the opposite. */
 /* DAT_00e9af44: moved to globals_sized.c (CRITICAL_SECTION) */
 uint8_t DAT_00e9b4e8;

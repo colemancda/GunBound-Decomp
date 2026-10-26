@@ -12,7 +12,7 @@
  * already-committed header already names this exact function and address
  * as "a TCP fallback through FUN_004e8040 for specific opcode types", and
  * all 4 of its call sites (SendBroadcastEventToSlot, BroadcastQueuedEvent,
- * UdpProbeWorkerThread and FUN_004e77e0) already pass a single int
+ * UdpProbeWorkerThread and BroadcastRingEvent) already pass a single int
  * argument matching this declared signature, so functions.h's prior
  * K&R-empty prototype is promoted to the real one here.
  */

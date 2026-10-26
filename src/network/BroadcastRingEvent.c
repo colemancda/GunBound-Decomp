@@ -1,9 +1,31 @@
-/* FUN_004e77e0 - 0x004e77e0 in the original binary.
+/* BroadcastRingEvent - 0x004e77e0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26), MODERATE. Only proceeds once
+ * ReconcileBroadcastAckState confirms the previous broadcast round is
+ * settled (its return equals the mode this function was itself called
+ * with - see that function's header), then pops the next entry off the
+ * deferred broadcast ring at ctx+0x3d0 via FUN_004e7660 (cursor
+ * ctx+0x40bd4, matching ResetReplayContext's already-committed naming of
+ * the ctx+0x40bd0/+0x40bd4 pair) and sends it - to one slot or to all 8 -
+ * with the same UDP/SendBroadcastEventToServer fan-out shape as the
+ * already-named BroadcastQueuedEvent, re-arming the ack bitsets and the
+ * +0x44de0 in-flight flag for the new round.
+ *
+ * This is deliberately named by the VERB "Broadcast" (matching
+ * QueueBroadcastEvent/BroadcastQueuedEvent's existing convention) over a
+ * noun naming the ring entry, because the ring itself has a confirmed
+ * producer: FUN_004e75e0 pushes onto the SAME ctx+0x3d0/+0x40bd0 ring from
+ * inside SendBroadcastEventToSlot and BroadcastQueuedEvent, guarded on the
+ * same ctx+0x44def bit-0x80 "defer to the ring" flag both of those
+ * functions already read - i.e. this function is the deferred-delivery
+ * counterpart of BroadcastQueuedEvent, not a resend of an unacknowledged
+ * item. The scoping pass's "Retransmit" is dropped: nothing this function
+ * does re-sends the SAME payload a second time - it only ever advances to
+ * the NEXT queued one once the prior round's acks are settled.
  *
  * (FUN_004e6770 below is now UdpProbeWorkerThread.)
  *
@@ -18,7 +40,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e77e0(int param_1,int regEax)
+void BroadcastRingEvent(int param_1,int regEax)
 
 {
   uint *puVar1;
@@ -45,7 +67,7 @@ void FUN_004e77e0(int param_1,int regEax)
   undefined4 local_1e7;
   undefined4 local_1e3;
   
-  iVar6 = FUN_004e7740(param_1);
+  iVar6 = ReconcileBroadcastAckState(param_1);
   if (iVar6 != in_EAX) {
     return;
   }
