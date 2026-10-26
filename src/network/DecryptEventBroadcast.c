@@ -1,11 +1,22 @@
-/* FUN_004e6f20 - 0x004e6f20 in the original binary.
+/* DecryptEventBroadcast - 0x004e6f20 in the original binary.
  *
  * (FUN_004e6160 in the notes below is ProcessUdpProbeDatagram's old
  * symbol.)
  *
- * The decrypt counterpart of EncryptEventBroadcast: expands the SECOND event
- * key (0x56dca0, mode 2) into the same schedule slot at ctx+0x44ff8, then
- * decrypts param_1's body in place, 16 bytes at a time, via a 0x400 scratch.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26). The decrypt counterpart of EncryptEventBroadcast:
+ * expands the SECOND event key (0x56dca0, mode 2) into the same
+ * schedule slot at ctx+0x44ff8, then decrypts param_1's body in place,
+ * 16 bytes at a time, via a 0x400 scratch. This is the exact mirror of
+ * EncryptEventBroadcast's own shape: same schedule offset ctx+0x44ff8,
+ * the same RijndaelSetKey(key,0x10,mode,schedule) call (mode 1 there vs
+ * mode 2 here, key base 0x56dc90 there vs 0x56dc90+0x10=0x56dca0 here -
+ * the two 16-byte halves of g_eventKeyBlock), and a per-block
+ * Encode/DecodeCipherBlock loop through the same local_400 scratch
+ * buffer.
  *
  * RECOVERED (2026-07-19): `ctx` arrives in EAX - a dropped register argument
  * Ghidra emitted as an uninitialised `int in_EAX`. It is read before any write
@@ -27,22 +38,18 @@
  * a garbage `in_EAX` corrupted memory. With EAX now a real parameter (and the
  * key block coalesced into g_eventKeyBlock, see globals.c) both reasons are
  * gone, so the call is restored.
- *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output otherwise, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004e6f20(undefined4 *param_1,uint param_2,int ctx)
+void DecryptEventBroadcast(undefined4 *param_1,uint param_2,int ctx)
 
 {
   int iVar1;
   uint uVar2;
   undefined4 *puVar3;
   undefined4 local_400 [256];
-  
+
   /* RECOVERED / RESTORED (2026-07-19), orig 0x4e6f28-0x4e6f3c:
    *   0x4e6f28  mov edi, eax               <- ctx (dropped EAX arg)
    *   0x4e6f2a  add edi, 0x44ff8           <- ctx arg (the schedule)
@@ -88,4 +95,3 @@ void FUN_004e6f20(undefined4 *param_1,uint param_2,int ctx)
   }
   return;
 }
-

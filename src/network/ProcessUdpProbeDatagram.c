@@ -161,8 +161,8 @@ undefined4 ProcessUdpProbeDatagram(int param_1)
     DAT_0056dcaa = (undefined1)((ushort)sStack_246 >> 8);
     DAT_0056dca7 = cStack_240;
     /* orig 0x4e6373 `mov eax, ebx` (EBX = this function's param_1) -
-     * FUN_004e6f20's recovered EAX context argument. */
-    FUN_004e6f20(&local_227,uVar4 - 0x21,param_1);
+     * DecryptEventBroadcast's recovered EAX context argument. */
+    DecryptEventBroadcast(&local_227,uVar4 - 0x21,param_1);
   }
   sVar2 = local_268;
   iVar6 = 0x21;

@@ -1205,7 +1205,7 @@ void FUN_004e6b50();
 void FUN_004e6b90();
 void __fastcall EncodeUdpProbeHeader(int param_1,undefined4 *param_2,int param_3,int param_4,int param_5);
 void EncryptEventBroadcast(int ctx);
-void FUN_004e6f20(undefined4 *param_1, uint param_2, int ctx);
+void DecryptEventBroadcast(undefined4 *param_1, uint param_2, int ctx);
 void FUN_004e7140(uint param_1, int regEax);
 /* ECX = dest address, EDX = dest port, stack = buf/len, EAX = the
  * connection object (recovered). */
