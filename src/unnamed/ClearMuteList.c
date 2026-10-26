@@ -1,9 +1,17 @@
-/* FUN_00425960 - 0x00425960 in the original binary.
+/* ClearMuteList - 0x00425960 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Sole caller is ParseChatSlashCommand's "loudall" arm (dispatched by an
+ * exact stricmp against s_loudall_00553580, the literal string "loudall"
+ * at 0x553580). It frees the whole mute array at g_clientContext+0x67ec60,
+ * running the per-element destructor FUN_00405320 on each entry first,
+ * zeroes the count/capacity fields, and shows localized string 0x200 -
+ * the clear-confirmation message paired with AddMuteListEntry's 0x1fe add
+ * message and RemoveMuteListEntry's 0x1ff removal message on the same
+ * array.
  *
  * DROPPED REGISTER RECOVERED (2026-08-24): EBX is g_clientContext, arriving
  * as ParseChatSlashCommand's own param_1.  At the sole call site (0x00421f88)
@@ -15,7 +23,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00425960(int regEbx)
+void ClearMuteList(int regEbx)
 
 {
   int iVar1;

@@ -87,7 +87,7 @@ void ApplyBattleActionToContext(int param_1,int param_2,int param_3)
     if (uVar3 == 1) {
       if ((g_currentGameState != 3) && (g_currentGameState != 4)) {
         iVar8 = (uint)bVar1 * 0xd + 0x457f1 + param_1;
-        iVar7 = FUN_004259d0(iVar8, g_clientContext);
+        iVar7 = FindMuteListIndex(iVar8, g_clientContext);
         if (iVar7 != -1) {
           return;
         }
@@ -125,7 +125,7 @@ void ApplyBattleActionToContext(int param_1,int param_2,int param_3)
         return;
       }
       iVar8 = (uint)bVar1 * 0xd + 0x41445 + param_1;
-      iVar7 = FUN_004259d0(iVar8, g_clientContext);
+      iVar7 = FindMuteListIndex(iVar8, g_clientContext);
       if (iVar7 != -1) {
         return;
       }

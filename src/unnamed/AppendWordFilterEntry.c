@@ -5,6 +5,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_00425840, mentioned in a note below, is now AddMuteListEntry.)
+ *
  * SEH-PROLOGUE ARTIFACT FIX (2026-07-30): same class as
  * WidgetChildArray_Destroy.c/FUN_00443c20.c/FUN_00509780.c -
  * `unaff_FS_OFFSET` was an uninitialised pointer the body wrote through

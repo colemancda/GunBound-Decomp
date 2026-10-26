@@ -4,7 +4,8 @@
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
  *
- * (FUN_00402720 below is now SendWhisperByNickname.)
+ * (FUN_00402720 below is now SendWhisperByNickname.  FUN_00425840/
+ * FUN_004258e0 further below are now AddMuteListEntry/RemoveMuteListEntry.)
  *
  * ARGUMENTS RE-SLOTTED AND EBX RECOVERED (2026-08-27).  All six call sites
  * passed NOTHING to this two-parameter __fastcall, so param_1 and param_2

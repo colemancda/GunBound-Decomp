@@ -1,9 +1,20 @@
-/* FUN_004258e0 - 0x004258e0 in the original binary.
+/* RemoveMuteListEntry - 0x004258e0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Sole caller is ParseChatSlashCommand's "loud" arm (dispatched by an
+ * exact stricmp against &DAT_00553588, which is the literal string "loud"
+ * at 0x553588 in the original image's data section - confirmed by reading
+ * the raw bytes there). It looks the typed name up via FindMuteListIndex
+ * (FUN_004259d0 below), and when found removes it from the mute array via
+ * AtlArray_RemoveAt_CString, then shows localized string 0x1ff - the
+ * removal-confirmation message paired with AddMuteListEntry's 0x1fe
+ * add message and ClearMuteList's 0x200 clear message on the same array.
+ *
+ * (FUN_00425840 is now AddMuteListEntry; FUN_004259d0 is now
+ * FindMuteListIndex.)
  *
  * EAX PROMOTED (2026-08-26): this function's own dropped incoming register,
  * `mov edi,eax` at its entry, forwarded straight to FUN_004259d0 as that
@@ -15,14 +26,14 @@
 #include "ghidra_types.h"
 
 
-void FUN_004258e0(undefined4 param_1,int regEax)
+void RemoveMuteListEntry(undefined4 param_1,int regEax)
 
 {
   int iVar1;
   char *_Format;
   char local_80 [128];
   
-  iVar1 = FUN_004259d0(param_1, regEax);
+  iVar1 = FindMuteListIndex(param_1, regEax);
   if (iVar1 != -1) {
     /* DROPPED REGISTERS RECOVERED (2026-08-27): 0x4258fe-0x425909 is
        `lea ebx,[edi + 0x67ec60]` with edi = regEax (set by this function's

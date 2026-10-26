@@ -1,9 +1,20 @@
-/* FUN_00425840 - 0x00425840 in the original binary.
+/* AddMuteListEntry - 0x00425840 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Sole caller is ParseChatSlashCommand's "mute" arm (dispatched by an
+ * exact stricmp against &DAT_005535a4, which is the literal string "mute"
+ * at 0x5535a4 in the original image's data section - confirmed by reading
+ * the raw bytes there). After the FindMuteListIndex (FUN_004259d0) probe
+ * comes back -1 (not already muted) and an own-nickname guard, it appends
+ * the typed name to the mute array via AppendWordFilterEntry and shows
+ * localized string 0x1fe - the add-confirmation message paired with
+ * RemoveMuteListEntry's 0x1ff removal message and ClearMuteList's 0x200
+ * clear message on the same array.
+ *
+ * (FUN_004259d0 below is now FindMuteListIndex.)
  *
  * EAX PROMOTED (2026-08-26): this function's own dropped incoming register,
  * `mov edi,eax` at its entry, forwarded straight to FUN_004259d0 as that
@@ -15,7 +26,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00425840(char *regEsi,int regEax)
+void AddMuteListEntry(char *regEsi,int regEax)
 
 {
   char cVar1;
@@ -23,7 +34,7 @@ void FUN_00425840(char *regEsi,int regEax)
   char *pcVar3;
   char local_80 [128];
   
-  iVar2 = FUN_004259d0(regEsi, regEax);
+  iVar2 = FindMuteListIndex(regEsi, regEax);
   if (iVar2 == -1) {
     pcVar3 = regEsi;
     do {

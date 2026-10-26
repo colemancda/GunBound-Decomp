@@ -200,7 +200,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
                 pcVar2 = pcVar2 + 1;
               } while (cVar1 != '\0');
               if ((uint)((int)pcVar2 - (int)(local_1a0 + 1)) < 0xd) {
-                FUN_00425840(local_1a0,param_1);
+                AddMuteListEntry(local_1a0,param_1);
               }
               iVar4 = iVar4 + 1;
             } while (iVar4 < iVar3);
@@ -265,7 +265,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
           if (iVar4 != 0) {
             iVar4 = __stricmp(local_220,s_loudall_00553580);
             if (iVar4 == 0) {
-              FUN_00425960(param_1);
+              ClearMuteList(param_1);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_comsik_00553578);
@@ -599,7 +599,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
                 pcVar2 = pcVar2 + 1;
               } while (cVar1 != '\0');
               if ((uint)((int)pcVar2 - (int)(local_1a0 + 1)) < 0xd) {
-                FUN_004258e0(local_1a0,param_1);
+                RemoveMuteListEntry(local_1a0,param_1);
               }
               iVar4 = iVar4 + 1;
             } while (iVar4 < iVar3);
