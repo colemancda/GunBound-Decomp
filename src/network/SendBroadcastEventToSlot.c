@@ -12,7 +12,8 @@
  * active" bitset at ctx+0x140, call EncryptEventBroadcast on the context,
  * copy the sealed buffer, then either signal the local replay-record path
  * (FUN_004e75e0 + SetEvent) or send it over UDP (SendUdpDatagram, with a
- * TCP fallback through FUN_004e8040 for specific opcode types), setting
+ * TCP fallback through SendBroadcastEventToServer for specific opcode
+ * types), setting
  * the "sent via TCP" bitset at ctx+0x13c.  Confirmed against all 9 call
  * sites (count_call_args.py) - 6 pass &g_replayContext directly or via a
  * caller-forwarded context parameter, BroadcastBattleSnapshot's tail jmp
@@ -102,7 +103,7 @@ void SendBroadcastEventToSlot(uint param_1,int regEax)
       sVar3 = *(short *)(in_EAX + 0x44dee);
       if ((((sVar3 < 0) || (sVar3 == 0x4002)) || (sVar3 == 0x4003)) ||
          (((sVar3 == 0x4004 || (sVar3 == 1)) || (sVar3 == 0x307)))) {
-        FUN_004e8040(param_1);
+        SendBroadcastEventToServer(param_1);
         if (7 < param_1) {
                     /* WARNING: Subroutine does not return */
           Bitset_ThrowInvalidPosition();

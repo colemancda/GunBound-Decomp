@@ -107,7 +107,7 @@ undefined4 BroadcastQueuedEvent(int replayCtx)
           }
         }
         else {
-          FUN_004e8040(uVar4);
+          SendBroadcastEventToServer(uVar4);
           puVar2 = (uint *)(iVar6 + 0x13c + replayCtx);
           *puVar2 = *puVar2 | uVar5;
         }

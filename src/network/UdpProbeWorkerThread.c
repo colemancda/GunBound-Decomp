@@ -159,7 +159,7 @@ LAB_004e6b17:
                 *(undefined1 *)(uVar8 + 0x454e4 + param_1) = 1;
                 *(byte *)(*(int *)(param_1 + 0x454f4) + 0x454ec + param_1) = bVar1;
                 *(int *)(param_1 + 0x454f4) = *(int *)(param_1 + 0x454f4) + 1;
-                FUN_004e8040(uVar8);
+                SendBroadcastEventToServer(uVar8);
                 *(uint *)(iVar4 + 0x13c + param_1) = *(uint *)(iVar4 + 0x13c + param_1) | uVar7;
                 QueueBroadcastEvent(0xf00c);
                 *(byte *)(param_1 + 0x44dec + *(int *)(param_1 + 0x44fec)) = bVar1;

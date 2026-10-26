@@ -1225,7 +1225,7 @@ void FUN_004e77e0(int param_1,int regEax);
 uint PopDirectBattleAction();
 void __thiscall ReleaseTurnEvent(int param_2,int regEax);
 void ProcessEventBroadcast(int param_1,int param_2,undefined4 *param_3,uint regEbx);
-void FUN_004e8040();
+void SendBroadcastEventToServer(int param_1);
 uint PopBroadcastBattleAction();
 bool __fastcall HasPendingTurnPhaseBarrierForSlot(int param_1,int slot,int mobileId);
 void PurgeBattleActionsForSlot(int regEsi,int slot);

@@ -109,7 +109,7 @@ void FUN_004e77e0(int param_1,int regEax)
         else {
           puVar1 = (uint *)(iVar6 + 0x13c + param_1);
           *puVar1 = *puVar1 | uVar9;
-          FUN_004e8040(uVar8);
+          SendBroadcastEventToServer(uVar8);
         }
         puVar10 = &local_200;
         puVar11 = local_208;
@@ -174,7 +174,7 @@ LAB_004e79e6:
       }
     }
     else {
-      FUN_004e8040(uVar8);
+      SendBroadcastEventToServer(uVar8);
       puVar1 = (uint *)(iVar6 + 0x13c + param_1);
       *puVar1 = *puVar1 | uVar9;
     }
