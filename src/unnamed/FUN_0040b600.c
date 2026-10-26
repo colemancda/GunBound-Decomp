@@ -57,7 +57,7 @@ void FUN_0040b600(int param_1,undefined4 *param_2,int *param_3)
                     /* WARNING: Subroutine does not return */
     __CxxThrowException_8(local_34,&DAT_00558458);
   }
-  FUN_0040c1b0();
+  TreeIteratorIncrement();
   piVar6 = (int *)*param_3;
   if (*(char *)((int)piVar6 + 0x11) == '\0') {
     if (*(char *)(param_3[2] + 0x11) == '\0') {

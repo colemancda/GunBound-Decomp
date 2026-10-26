@@ -312,7 +312,7 @@ int __thiscall basic_string_AssignCStr(int param_1,undefined4 *param_2,uint para
 void __thiscall FUN_0040bfd0(int param_1,uint param_2,uint param_3);
 undefined4 FUN_0040c110();
 void __fastcall FUN_0040c150();
-void __fastcall FUN_0040c1b0();
+void __fastcall TreeIteratorIncrement();
 void FUN_0040c210();
 int OpenDriverRegistryKey();
 void __fastcall FUN_0040c670();
