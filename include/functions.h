@@ -1222,11 +1222,11 @@ uint __fastcall FUN_004e7660(undefined4 param_1,int param_2,undefined4 *param_3,
 void __fastcall BeginUdpSessionProbe(undefined4 serverAddr,int serverPort,undefined4 *sessionId,char *localUserName,int replayCtx);
 undefined4 FUN_004e7740(int regEsi);
 void FUN_004e77e0(int param_1,int regEax);
-uint FUN_004e7b60();
+uint PopDirectBattleAction();
 void __thiscall FUN_004e7d60(int param_2,int regEax);
 void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3,uint regEbx);
 void FUN_004e8040();
-uint FUN_004e80d0();
+uint PopBroadcastBattleAction();
 undefined1 __fastcall FUN_004e82c0(int param_1);
 void FUN_004e83b0(int regEsi);
 void FUN_004e84c0();

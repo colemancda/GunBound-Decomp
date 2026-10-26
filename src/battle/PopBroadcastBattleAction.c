@@ -1,14 +1,32 @@
-/* FUN_004e80d0 - 0x004e80d0 in the original binary.
+/* PopBroadcastBattleAction - 0x004e80d0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26), LIKELY - structurally identical to
+ * PopDirectBattleAction (0x4e7b60, same per-slot "seen" bitmap gating
+ * via TurnEventSet_Find, same pop-and-shift-down), but over the other
+ * 0x206-stride array, g_replayContext+0x454b4/+0x454b8. That second
+ * array is filled ONLY by ProcessEventBroadcast (0x4e7de0, named
+ * elsewhere in this batch), the handler for server-relayed opcode-0x4501
+ * "event broadcast" packets - never by the direct/peer-to-peer UDP probe
+ * path that feeds PopDirectBattleAction's array. Sole caller
+ * PumpBattleActions.c drains this array SECOND, without the replay-file
+ * write PopDirectBattleAction's loop does.
+ *
+ * DROPPED KEY RECOVERED (2026-08-27): 0x4e8136 `mov cx,word ptr
+ * [edi + eax]` with eax = *(param_1 + 0x454b4) and edi = iVar6 (the
+ * same register the loop steps by 0x206, and the same base+4 the
+ * local_8 index below reads), zero-extended into the [esp+0x20]
+ * slot that `lea ebx,[esp+0x20]` then hands to the lookup.  Ghidra
+ * dropped the store along with the argument, so the slot itself
+ * had to be reintroduced.
  */
 #include "ghidra_types.h"
 
 
-uint FUN_004e80d0(int param_1,undefined4 *param_2,uint *param_3)
+uint PopBroadcastBattleAction(int param_1,undefined4 *param_2,uint *param_3)
 
 {
   ushort uVar1;
@@ -21,7 +39,7 @@ uint FUN_004e80d0(int param_1,undefined4 *param_2,uint *param_3)
   int local_c;
   uint keySlot; /* the [esp+0x20] slot Ghidra dropped - see below */
   char local_8 [8];
-  
+
   uVar2 = 0;
   if (*(int *)(param_1 + 0x454b8) == 0) {
     return 0;
@@ -42,13 +60,6 @@ uint FUN_004e80d0(int param_1,undefined4 *param_2,uint *param_3)
       ThrowCxxException(0x80070057);
     }
     do {
-      /* DROPPED KEY RECOVERED (2026-08-27): 0x4e8136 `mov cx,word ptr
-         [edi + eax]` with eax = *(param_1 + 0x454b4) and edi = iVar6 (the
-         same register the loop steps by 0x206, and the same base+4 the
-         local_8 index below reads), zero-extended into the [esp+0x20]
-         slot that `lea ebx,[esp+0x20]` then hands to the lookup.  Ghidra
-         dropped the store along with the argument, so the slot itself
-         had to be reintroduced. */
       keySlot = *(ushort *)(*(int *)(param_1 + 0x454b4) + iVar6);
       TurnEventSet_Find(param_1 + 0x45230,(undefined4 *)&local_c,(ushort *)&keySlot);
       if (local_c == *(int *)(param_1 + 0x45234)) {
@@ -111,4 +122,3 @@ uint FUN_004e80d0(int param_1,undefined4 *param_2,uint *param_3)
   }
   return uVar2 & 0xffffff00;
 }
-
