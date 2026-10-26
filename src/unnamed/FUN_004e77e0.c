@@ -50,7 +50,7 @@ void FUN_004e77e0(int param_1,int regEax)
     return;
   }
   if ((*(int *)(param_1 + 0x44ff0) != 0) && (in_EAX == 1)) {
-    FUN_004e5dc0(1,0);
+    QueueGameEvent(1,0);
   }
   /* FIXED (2026-09-20): dropped __fastcall EDX arg - at orig 0x4e7823
    * `mov edx,ebp` sets EDX to this function's own param_1 right before

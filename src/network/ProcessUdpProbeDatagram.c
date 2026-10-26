@@ -120,7 +120,7 @@ undefined4 ProcessUdpProbeDatagram(int param_1)
     if (*(int *)(param_1 + 0x44ff0) == 0) {
       return 1;
     }
-    FUN_004e5dc0(3,0);
+    QueueGameEvent(3,0);
     return 1;
   }
   if ((uVar4 != local_248) || ((int)uVar4 < 0x21)) {

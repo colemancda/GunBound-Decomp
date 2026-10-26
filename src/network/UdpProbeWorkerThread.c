@@ -113,7 +113,7 @@ void __fastcall UdpProbeWorkerThread(int param_1)
           DStack_40 = DVar6;
           if (*(int *)(param_1 + 0x45208) == 0) {
             if (*(int *)(param_1 + 0x44ff0) != 0) {
-              FUN_004e5dc0(4,0);
+              QueueGameEvent(4,0);
             }
             *(undefined4 *)(param_1 + 0x45208) = 0xffffffff;
           }
@@ -169,12 +169,12 @@ LAB_004e6b17:
               else if (*(int *)(param_1 + 0x44ff0) != 0) {
                 if (2 < *(int *)(param_1 + 0x44de8)) {
                   if (1 < iStack_4c) {
-                    FUN_004e5dc0(5,0xffffffff);
+                    QueueGameEvent(5,0xffffffff);
                     break;
                   }
-                  FUN_004e5dc0(5,uVar8);
+                  QueueGameEvent(5,uVar8);
                 }
-                FUN_004e5dc0(2,uVar8);
+                QueueGameEvent(2,uVar8);
               }
             }
             uVar8 = uVar8 + 1;
