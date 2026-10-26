@@ -175,7 +175,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
       goto switchD_004105f7_caseD_1022;
     }
     if (uVar6 == 0x4501) {
-      FUN_004e7de0(&g_replayContext,*pbVar22,pbVar22 + 1,param_1 - 1);
+      ProcessEventBroadcast(&g_replayContext,*pbVar22,pbVar22 + 1,param_1 - 1);
       goto switchD_004105f7_caseD_1022;
     }
     if (uVar6 < 0x3401) {

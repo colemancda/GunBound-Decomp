@@ -1,14 +1,38 @@
-/* FUN_004e7de0 - 0x004e7de0 in the original binary.
+/* ProcessEventBroadcast - 0x004e7de0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26), LIKELY (verb was left open by the scoping pass;
+ * settled on "Process" rather than "Decode" below). Sole caller
+ * WriteReplayEventRecord.c:178 hands this the server's opcode-0x4501
+ * packet body (`FUN_004e7de0(&g_replayContext,*pbVar22,pbVar22+1,
+ * param_1-1)` - a type byte, the rest of the payload, and its length).
+ * The body decrypts it via DecryptEventBroadcast (already named; its own
+ * header already cites this exact call site, "FUN_004e7de0, ebp = its
+ * EAX context arg"), validates a running-sum checksum, and - matching
+ * the opcode-0xa001/0xa002-ish type tags checked here - dispatches
+ * QueueBroadcastEvent/SendBroadcastEventToSlot (both already named) for
+ * one sub-type before appending the decoded record into the 0x206-stride
+ * array at g_replayContext+0x454b4/+0x454b8, the same array
+ * PopBroadcastBattleAction (named earlier in this batch) drains. This is
+ * the same decode-validate-dispatch-enqueue shape as ProcessUdpProbeDatagram
+ * (its own header: "recvfrom-first... validates a checksum/magic
+ * header... tracks... via EncodeUdpProbeHeader + SendUdpDatagram"), just
+ * over the TCP-delivered "event broadcast" packet instead of a UDP probe
+ * datagram - "Process", matching that sibling's verb, rather than
+ * "Decode", since dispatch and enqueue happen inline, not just decoding.
+ *
+ * DROPPED-REGISTER NOTE: `regEbx` is the payload length (param_1-1 at the
+ * call site, confirmed by the copy loops below stepping by it) - Ghidra's
+ * own `unaff`-free rendering here already reads it as a normal parameter,
+ * so no fix was needed; carried over unchanged.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3,uint regEbx)
+void ProcessEventBroadcast(int param_1,int param_2,undefined4 *param_3,uint regEbx)
 
 {
   LPCRITICAL_SECTION lpCriticalSection;
@@ -23,7 +47,7 @@ void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3,uint regEbx)
   undefined4 *puVar9;
   undefined4 *puVar10;
   undefined4 *puVar11;
-  
+
   if (7 < param_2) {
                     /* WARNING: Subroutine does not return */
     Bitset_ThrowInvalidPosition();
@@ -131,4 +155,3 @@ void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3,uint regEbx)
   }
   return;
 }
-
