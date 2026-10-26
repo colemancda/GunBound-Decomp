@@ -83,7 +83,7 @@ LAB_00412baa:
     else {
       DAT_0056d3dc = DAT_0056d3dc + param_1;
       if (200 < DAT_0056d3dc) {
-        FUN_004e8ad0(*(undefined4 *)(DAT_00e9af14 + 4));
+        TurnEventSet_EraseSubtree((int *)*(undefined4 *)(DAT_00e9af14 + 4));
         *(int *)(DAT_00e9af14 + 4) = DAT_00e9af14;
         _DAT_00e9af18 = 0;
         *(int *)DAT_00e9af14 = DAT_00e9af14;
@@ -112,7 +112,7 @@ LAB_00412baa:
       }
       DAT_0056d3d8 = DAT_0056d3d8 + 1;
       if (DAT_0056d3d8 < 0xc9) goto LAB_00412cb3;
-      FUN_004e8ad0(*(undefined4 *)(DAT_00e9af14 + 4));
+      TurnEventSet_EraseSubtree((int *)*(undefined4 *)(DAT_00e9af14 + 4));
       *(int *)(DAT_00e9af14 + 4) = DAT_00e9af14;
       _DAT_00e9af18 = 0;
       *(int *)DAT_00e9af14 = DAT_00e9af14;
