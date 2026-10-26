@@ -136,7 +136,7 @@ LAB_0043b008:
             puStack_10 = (undefined1 *)0xffffffff;
             if (iStack_450 != 0) {
               ScrambleChecksumGuardBytes(iStack_450,&g_valueGuardKeyTable);
-              TreeLowerBound(&local_8bc,&g_valueGuardMap);
+              TreeInsert(&local_8bc,&g_valueGuardMap);
               pcVar9 = (code *)LeaveCriticalSection;
             }
             iVar6 = EncodeChecksumDeltaSub(piVar11 + 0x2cc,auStack_8ac,param_2);
@@ -148,7 +148,7 @@ LAB_0043b008:
             local_c = 0xffffffff;
             if (local_894 != 0) {
               ScrambleChecksumGuardBytes(local_894,&g_valueGuardKeyTable);
-              TreeLowerBound(local_8b0,&g_valueGuardMap);
+              TreeInsert(local_8b0,&g_valueGuardMap);
               pcVar9 = (code *)LeaveCriticalSection;
             }
             iVar5 = g_clientContext;
@@ -248,7 +248,7 @@ LAB_0043b408:
                   iVar5 = iVar5 + 1;
                   iVar10 = iVar10 + -1;
                 } while (iVar10 != 0);
-                TreeLowerBound(local_8b8,&g_valueGuardMap);
+                TreeInsert(local_8b8,&g_valueGuardMap);
                 pcVar9 = (code *)LeaveCriticalSection;
                 pcVar12 = (code *)EnterCriticalSection;
               }
@@ -267,7 +267,7 @@ LAB_0043b408:
                   iVar5 = iVar5 + 1;
                   iVar10 = iVar10 + -1;
                 } while (iVar10 != 0);
-                TreeLowerBound(local_8b0,&g_valueGuardMap);
+                TreeInsert(local_8b0,&g_valueGuardMap);
                 pcVar9 = (code *)LeaveCriticalSection;
                 pcVar12 = (code *)EnterCriticalSection;
               }

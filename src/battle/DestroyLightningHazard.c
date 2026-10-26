@@ -26,17 +26,17 @@ void DestroyLightningHazard(undefined4 *param_1)
   local_4 = 2;
   if (param_1[0x127] != 0) {
     ScrambleChecksumGuardBytes(param_1[0x127],&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   local_4 = 1;
   if (param_1[0x9d] != 0) {
     ScrambleChecksumGuardBytes(param_1[0x9d],&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   local_4 = 0;
   if (param_1[0x14] != 0) {
     ScrambleChecksumGuardBytes(param_1[0x14],&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   *param_1 = &PTR_LAB_0055752c;
   *unaff_FS_OFFSET = local_c;

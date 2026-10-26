@@ -23,22 +23,22 @@ void FUN_004af680(undefined4 *param_1)
   local_4 = 3;
   if (param_1[0x11ce] != 0) {
     ScrambleChecksumGuardBytes(param_1[0x11ce],&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   local_4 = 2;
   if (param_1[0x1145] != 0) {
     ScrambleChecksumGuardBytes(param_1[0x1145],&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   local_4 = 1;
   if (param_1[0x10bc] != 0) {
     ScrambleChecksumGuardBytes(param_1[0x10bc],&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   local_4 = 0;
   if (param_1[0x1033] != 0) {
     ScrambleChecksumGuardBytes(param_1[0x1033],&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   DestroyProjectile(param_1);

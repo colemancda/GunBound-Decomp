@@ -23,7 +23,7 @@ void FUN_0049e5d0(undefined4 *param_1)
   local_4 = 0;
   if (param_1[0xfee] != 0) {
     ScrambleChecksumGuardBytes(param_1[0xfee],&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   DestroyProjectile(param_1);

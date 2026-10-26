@@ -34,7 +34,7 @@ undefined4 FUN_0044be40(int param_1,int param_2)
   local_4 = 0xffffffff;
   if ((*(int *)(local_230 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_238,&g_valueGuardMap);
+    TreeInsert(local_238,&g_valueGuardMap);
   }
   *unaff_FS_OFFSET = local_c;
   return uVar1;

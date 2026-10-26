@@ -80,7 +80,7 @@ void __fastcall AnimateMine(int *param_1)
   local_c = 0xffffffff;
   if ((*(int *)(local_8a8 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_8b0,&g_valueGuardMap);
+    TreeInsert(local_8b0,&g_valueGuardMap);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x99));
@@ -108,7 +108,7 @@ void __fastcall AnimateMine(int *param_1)
     local_c = 0xffffffff;
     if ((*(int *)(local_8a8 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_8b0,&g_valueGuardMap);
+      TreeInsert(local_8b0,&g_valueGuardMap);
     }
     if (local_8c4 == iVar4) {
       iDelta = EncodeChecksumDeltaSub(param_1 + 0x99,local_8a8,0x1e);
@@ -127,7 +127,7 @@ void __fastcall AnimateMine(int *param_1)
       local_c = 0xffffffff;
       if ((*(int *)(local_8a8 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&g_valueGuardKeyTable);
-        TreeLowerBound(local_8b0,&g_valueGuardMap);
+        TreeInsert(local_8b0,&g_valueGuardMap);
       }
       iDelta = EncodeChecksumDeltaSub(param_1 + 0x99,local_8a8,0x1e);
       local_c = 3;
@@ -138,7 +138,7 @@ void __fastcall AnimateMine(int *param_1)
       local_c = 0xffffffff;
       if ((*(int *)(local_8a8 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&g_valueGuardKeyTable);
-        TreeLowerBound(local_8b0,&g_valueGuardMap);
+        TreeInsert(local_8b0,&g_valueGuardMap);
       }
       if (bVar8) {
         uVar3 = EncodeChecksumDeltaAdd(param_1 + 0x99,local_8a8,1);
@@ -207,7 +207,7 @@ LAB_00498f85:
     local_c = 0xffffffff;
     if ((*(int *)(local_8a8 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_8b0,&g_valueGuardMap);
+      TreeInsert(local_8b0,&g_valueGuardMap);
     }
     if (iVar4 < (int)local_8c4) {
       iVar4 = param_1[0xfee];
@@ -272,7 +272,7 @@ LAB_00499217:
   if ((*(int *)(local_8a8 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&g_valueGuardKeyTable);
     local_8b8[0] = (*(int *)(local_8a8 + 0x14));
-    TreeLowerBound(local_8b0,&g_valueGuardMap);
+    TreeInsert(local_8b0,&g_valueGuardMap);
   }
   local_8c4 = 0;
   do {
@@ -287,7 +287,7 @@ LAB_00499217:
       local_8b8[0] = (*(int *)(local_684 + 0x14));
       if ((*(int *)(local_684 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_684 + 0x14),&g_valueGuardKeyTable);
-        TreeLowerBound(local_8b0,&g_valueGuardMap);
+        TreeInsert(local_8b0,&g_valueGuardMap);
       }
       iDelta = EncodeChecksumPairDiff(param_1 + 0x99,local_460,iVar5 + 0xb30);
       local_c = 9;
@@ -298,7 +298,7 @@ LAB_00499217:
       local_8b8[0] = (*(int *)(local_460 + 0x14));
       if ((*(int *)(local_460 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_460 + 0x14),&g_valueGuardKeyTable);
-        TreeLowerBound(local_8b0,&g_valueGuardMap);
+        TreeInsert(local_8b0,&g_valueGuardMap);
       }
       if (iVar5 * iVar5 + iVar6 * iVar6 < iVar4) {
         (**(code **)(*param_1 + 0x20))();
@@ -355,7 +355,7 @@ LAB_00499440:
       iVar6 = iVar6 + 1;
       local_8b8[0] = local_8b8[0] + -1;
     } while (local_8b8[0] != 0);
-    TreeLowerBound(local_8b8,&g_valueGuardMap);
+    TreeInsert(local_8b8,&g_valueGuardMap);
   }
   iDelta = EncodeChecksumPairDiff(param_1 + 0x99,auStack_23c,iVar5 + 0x480);
   local_c = 0xb;
@@ -372,7 +372,7 @@ LAB_00499440:
       iVar6 = iVar6 + 1;
       local_8b8[0] = local_8b8[0] + -1;
     } while (local_8b8[0] != 0);
-    TreeLowerBound(local_8b8,&g_valueGuardMap);
+    TreeInsert(local_8b8,&g_valueGuardMap);
   }
   if (local_8b0[0] * local_8b0[0] + iVar5 * iVar5 < iVar4) {
     (**(code **)(*param_1 + 0x20))();

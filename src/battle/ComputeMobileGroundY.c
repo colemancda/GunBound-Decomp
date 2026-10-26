@@ -69,12 +69,12 @@ int __fastcall ComputeMobileGroundY(int param_1)
   local_4 = 0;
   if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_688,&g_valueGuardMap);
+    TreeInsert(local_688,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_688,&g_valueGuardMap);
+    TreeInsert(local_688,&g_valueGuardMap);
   }
   uVar2 = EncodeChecksumDeltaDiv(iVar5,local_454,2);
   local_4 = 2;
@@ -87,12 +87,12 @@ int __fastcall ComputeMobileGroundY(int param_1)
   local_4 = 2;
   if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_688,&g_valueGuardMap);
+    TreeInsert(local_688,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_688,&g_valueGuardMap);
+    TreeInsert(local_688,&g_valueGuardMap);
   }
   iVar3 = local_680;
   if (bVar6) {
@@ -112,7 +112,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_688,&g_valueGuardMap);
+      TreeInsert(local_688,&g_valueGuardMap);
     }
     uVar8 = EncodeChecksumPairDiff(iVar1,local_678,iVar5);
     local_4 = 5;
@@ -122,7 +122,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_688,&g_valueGuardMap);
+      TreeInsert(local_688,&g_valueGuardMap);
     }
     iVar3 = local_680;
     if (iVar4 == iVar5) {
@@ -143,7 +143,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
       local_4 = 0xffffffff;
       if ((*(int *)(local_678 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
-        TreeLowerBound(local_688,&g_valueGuardMap);
+        TreeInsert(local_688,&g_valueGuardMap);
       }
       uVar8 = EncodeChecksumDeltaAdd(iVar1,local_230,1);
       local_4 = 7;
@@ -153,7 +153,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
-        TreeLowerBound(local_688,&g_valueGuardMap);
+        TreeInsert(local_688,&g_valueGuardMap);
       }
       if (iVar3 == iVar5) {
         iVar3 = PeekChecksumStateUnderLock(iVar1);

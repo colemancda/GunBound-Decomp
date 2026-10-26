@@ -301,7 +301,7 @@ LAB_0043ae95:
         iVar8 = iVar8 + 1;
         iVar14 = iVar14 + -1;
       } while (iVar14 != 0);
-      TreeLowerBound(local_238,&g_valueGuardMap);
+      TreeInsert(local_238,&g_valueGuardMap);
       pcVar13 = (code *)EnterCriticalSection;
     }
   }

@@ -190,7 +190,7 @@ void __fastcall DetonateItemShot(int *param_1)
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_ab0 != 0) {
     ScrambleChecksumGuardBytes(iStack_ab0,&g_valueGuardKeyTable);
-    TreeLowerBound(apiStack_acc,&g_valueGuardMap);
+    TreeInsert(apiStack_acc,&g_valueGuardMap);
   }
   EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac4,8);
   pcVar17 = (code *)EnterCriticalSection;
@@ -208,7 +208,7 @@ void __fastcall DetonateItemShot(int *param_1)
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_ab0 != 0) {
     ScrambleChecksumGuardBytes(iStack_ab0,&g_valueGuardKeyTable);
-    TreeLowerBound(apiStack_acc,&g_valueGuardMap);
+    TreeInsert(apiStack_acc,&g_valueGuardMap);
   }
   cVar6 = CheckGuardedBoolAnd(param_1[0x3d2] != 0,(byte *)(param_1 + 0x3d3));
   if (cVar6 == '\0') {

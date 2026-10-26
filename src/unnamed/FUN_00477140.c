@@ -103,7 +103,7 @@ void FUN_00477140(int regEsi)
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_478,&g_valueGuardMap);
+    TreeInsert(local_478,&g_valueGuardMap);
   }
   RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -129,7 +129,7 @@ void FUN_00477140(int regEsi)
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_478,&g_valueGuardMap);
+    TreeInsert(local_478,&g_valueGuardMap);
     pcVar6 = (code *)LeaveCriticalSection;
   }
   uVar11 = EncodeChecksumDeltaSub(regEsi + 0x264,local_454,10);
@@ -145,7 +145,7 @@ void FUN_00477140(int regEsi)
   local_c = 0xffffffff;
   if (iStack_448 != 0) {
     ScrambleChecksumGuardBytes(iStack_448,&g_valueGuardKeyTable);
-    TreeLowerBound(&stack0xfffffb80,&g_valueGuardMap);
+    TreeInsert(&stack0xfffffb80,&g_valueGuardMap);
     pcVar6 = (code *)LeaveCriticalSection;
   }
   uVar11 = EncodeChecksumDeltaSub(regEsi + 0x264,&local_45c,10);
@@ -160,7 +160,7 @@ void FUN_00477140(int regEsi)
   uStack_14 = 0xffffffff;
   if (iStack_450 != 0) {
     ScrambleChecksumGuardBytes(iStack_450,&g_valueGuardKeyTable);
-    TreeLowerBound(&stack0xfffffb78,&g_valueGuardMap);
+    TreeInsert(&stack0xfffffb78,&g_valueGuardMap);
   }
   uVar11 = EncodeChecksumDeltaSub(regEsi + 0x264,auStack_240,10);
   uStack_14 = 4;
@@ -175,7 +175,7 @@ void FUN_00477140(int regEsi)
   uStack_14 = 0xffffffff;
   if (iStack_22c != 0) {
     ScrambleChecksumGuardBytes(iStack_22c,&g_valueGuardKeyTable);
-    TreeLowerBound(&stack0xfffffb78,&g_valueGuardMap);
+    TreeInsert(&stack0xfffffb78,&g_valueGuardMap);
   }
   iVar1 = g_clientContext;
   cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));

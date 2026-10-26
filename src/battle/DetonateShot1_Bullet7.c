@@ -125,7 +125,7 @@ void __fastcall DetonateShot1_Bullet7(int *param_1)
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
       ScrambleChecksumGuardBytes(iStack_ab0,&g_valueGuardKeyTable);
-      TreeLowerBound(apuStack_adc,&g_valueGuardMap);
+      TreeInsert(apuStack_adc,&g_valueGuardMap);
       pcVar13 = (code *)LeaveCriticalSection;
     }
     pvDelta = EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac4,8);
@@ -141,7 +141,7 @@ void __fastcall DetonateShot1_Bullet7(int *param_1)
     uStack_c = 0xffffffff;
     if (uStack_ab4 != 0) {
       ScrambleChecksumGuardBytes(uStack_ab4,&g_valueGuardKeyTable);
-      TreeLowerBound(&piStack_ae0,&g_valueGuardMap);
+      TreeInsert(&piStack_ae0,&g_valueGuardMap);
       pcVar13 = (code *)LeaveCriticalSection;
       unaff_EBX = uStack_ab4;
     }
@@ -554,7 +554,7 @@ LAB_0044d07e:
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_ab0 != 0) {
     ScrambleChecksumGuardBytes(iStack_ab0,&g_valueGuardKeyTable);
-    TreeLowerBound(apuStack_adc,&g_valueGuardMap);
+    TreeInsert(apuStack_adc,&g_valueGuardMap);
     pcVar13 = (code *)LeaveCriticalSection;
   }
   if (iVar5 < iVar4) {

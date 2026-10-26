@@ -56,12 +56,12 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
     local_4 = 0;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_688,&g_valueGuardMap);
+      TreeInsert(local_688,&g_valueGuardMap);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_688,&g_valueGuardMap);
+      TreeInsert(local_688,&g_valueGuardMap);
     }
     uVar8 = EncodeChecksumDeltaSub(param_1 + 0x40,local_678,param_2);
     local_4 = 2;
@@ -71,7 +71,7 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
     local_4 = 0xffffffff;
     if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_690,&g_valueGuardMap);
+      TreeInsert(local_690,&g_valueGuardMap);
     }
     uVar8 = EncodeChecksumDeltaSub(param_1 + 0x264,local_230,param_3);
     local_4 = 3;
@@ -82,7 +82,7 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
     local_4 = 0xffffffff;
     if ((*(int *)(local_230 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_680,&g_valueGuardMap);
+      TreeInsert(local_680,&g_valueGuardMap);
       iVar5 = local_690[0];
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

@@ -15,7 +15,7 @@ undefined4 __fastcall ScrubChecksumGuard(int param_1)
   
   if (*(int *)(param_1 + 0x14) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_8,&g_valueGuardMap);
+    TreeInsert(local_8,&g_valueGuardMap);
   }
   /* Ghidra emitted a bare `return;` in a value-returning function;
    * MSVC falls through with whatever's in EAX, gcc 14 rejects it

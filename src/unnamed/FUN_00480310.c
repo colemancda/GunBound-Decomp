@@ -128,7 +128,7 @@ void __fastcall FUN_00480310(int *param_1)
     pcVar14 = (code *)LeaveCriticalSection;
     if (iStack_aac != 0) {
       ScrambleChecksumGuardBytes(iStack_aac,&g_valueGuardKeyTable);
-      TreeLowerBound(aiStack_ac8,&g_valueGuardMap);
+      TreeInsert(aiStack_ac8,&g_valueGuardMap);
       pcVar14 = (code *)LeaveCriticalSection;
     }
   }
@@ -163,7 +163,7 @@ void __fastcall FUN_00480310(int *param_1)
     uStack_4 = 0xffffffff;
     if (iStack_888 != 0) {
       ScrambleChecksumGuardBytes(iStack_888,&g_valueGuardKeyTable);
-      TreeLowerBound(aiStack_ac8,&g_valueGuardMap);
+      TreeInsert(aiStack_ac8,&g_valueGuardMap);
     }
   }
   (*pcVar15)(&g_valueGuardLock);
@@ -419,7 +419,7 @@ void __fastcall FUN_00480310(int *param_1)
     param_1[0xfee] = iVar6;
     if (iStack_67c != 0) {
       ScrambleChecksumGuardBytes(iStack_67c,&g_valueGuardKeyTable);
-      TreeLowerBound(&stack0xfffff520,&g_valueGuardMap);
+      TreeInsert(&stack0xfffff520,&g_valueGuardMap);
       pcVar14 = (code *)LeaveCriticalSection;
     }
     (*pcVar15)(&g_valueGuardLock);

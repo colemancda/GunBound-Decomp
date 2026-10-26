@@ -52,12 +52,12 @@ void __fastcall FUN_00482130(int param_1)
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ad0,&g_valueGuardMap);
+    TreeInsert(local_ad0,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ad0,&g_valueGuardMap);
+    TreeInsert(local_ad0,&g_valueGuardMap);
   }
   if ((g_clipMinX <= iVar4 + 0x20) && (local_ad0[0] = iVar4 + -0x20, local_ad0[0] <= g_clipMaxX)
      ) {
@@ -73,17 +73,17 @@ void __fastcall FUN_00482130(int param_1)
     SUBFIELD(local_4,0,undefined1) = 3;
     if ((*(int *)(local_89c + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_ac8,&g_valueGuardMap);
+      TreeInsert(local_ac8,&g_valueGuardMap);
     }
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
     if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_ac8,&g_valueGuardMap);
+      TreeInsert(local_ac8,&g_valueGuardMap);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_230 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_ac8,&g_valueGuardMap);
+      TreeInsert(local_ac8,&g_valueGuardMap);
     }
     iVar2 = g_clipMinY;
     if ((g_clipMinY <= iVar5) &&

@@ -93,12 +93,12 @@ void AlignMobileToTerrain(int param_1)
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ad0,&g_valueGuardMap);
+    TreeInsert(local_ad0,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ad0,&g_valueGuardMap);
+    TreeInsert(local_ad0,&g_valueGuardMap);
   }
   uVar2 = EncodeChecksumDeltaDiv(param_1 + 0x119c,local_ac0,2);
   local_4 = 2;
@@ -124,28 +124,28 @@ void AlignMobileToTerrain(int param_1)
   if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
     local_ad0[0] = iVar3;
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   iVar3 = (*(int *)(local_454 + 0x14));
   SUBFIELD(local_4,0,undefined1) = 3;
   if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
     local_ad0[0] = iVar3;
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   iVar3 = (*(int *)(local_89c + 0x14));
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
   if ((*(int *)(local_89c + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&g_valueGuardKeyTable);
     local_ad0[0] = iVar3;
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   iVar3 = (*(int *)(local_ac0 + 0x14));
   local_4 = 0xffffffff;
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
     local_ad0[0] = iVar3;
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   uVar2 = EncodeChecksumDeltaDiv(param_1 + 0x119c,local_454,2);
   local_4 = 6;
@@ -170,25 +170,25 @@ void AlignMobileToTerrain(int param_1)
   local_ad0[0] = (*(int *)(local_ac0 + 0x14));
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   SUBFIELD(local_4,0,undefined1) = 7;
   local_ad0[0] = (*(int *)(local_89c + 0x14));
   if ((*(int *)(local_89c + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),6);
   local_ad0[0] = (*(int *)(local_678 + 0x14));
   if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   local_ad0[0] = (*(int *)(local_454 + 0x14));
   if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   PeekPacketChecksumState((void *)(param_1 + 0x119c));
   PeekPacketChecksumState((void *)(param_1 + 0xd54));
@@ -220,7 +220,7 @@ void AlignMobileToTerrain(int param_1)
   local_4 = 0xffffffff;
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   if (3 < (int)((uVar4 ^ (int)uVar4 >> 0x1f) - ((int)uVar4 >> 0x1f))) {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -257,7 +257,7 @@ void AlignMobileToTerrain(int param_1)
   local_4 = 0xffffffff;
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(param_1 + 0x1c54));
@@ -279,12 +279,12 @@ void AlignMobileToTerrain(int param_1)
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xc);
     if ((*(int *)(local_ac0 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_ac8,&g_valueGuardMap);
+      TreeInsert(local_ac8,&g_valueGuardMap);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_89c + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_ac8,&g_valueGuardMap);
+      TreeInsert(local_ac8,&g_valueGuardMap);
     }
   }
   cVar1 = PeekPacketChecksumBool();
@@ -301,7 +301,7 @@ void AlignMobileToTerrain(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_ac0 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_ac8,&g_valueGuardMap);
+      TreeInsert(local_ac8,&g_valueGuardMap);
     }
     cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\x01') {
@@ -317,7 +317,7 @@ void AlignMobileToTerrain(int param_1)
       local_4 = 0xffffffff;
       if ((*(int *)(local_ac0 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
-        TreeLowerBound(local_ac8,&g_valueGuardMap);
+        TreeInsert(local_ac8,&g_valueGuardMap);
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar3 = PeekPacketChecksumState((void *)(param_1 + 0x1c54));
@@ -354,12 +354,12 @@ void AlignMobileToTerrain(int param_1)
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x12);
       if ((*(int *)(local_ac0 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
-        TreeLowerBound(local_ac8,&g_valueGuardMap);
+        TreeInsert(local_ac8,&g_valueGuardMap);
       }
       local_4 = 0xffffffff;
       if ((*(int *)(local_89c + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&g_valueGuardKeyTable);
-        TreeLowerBound(local_ac8,&g_valueGuardMap);
+        TreeInsert(local_ac8,&g_valueGuardMap);
       }
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -382,7 +382,7 @@ void AlignMobileToTerrain(int param_1)
       local_4 = 0xffffffff;
       if ((*(int *)(local_ac0 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
-        TreeLowerBound(local_ac8,&g_valueGuardMap);
+        TreeInsert(local_ac8,&g_valueGuardMap);
       }
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -405,7 +405,7 @@ void AlignMobileToTerrain(int param_1)
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
-        TreeLowerBound(local_ac8,&g_valueGuardMap);
+        TreeInsert(local_ac8,&g_valueGuardMap);
       }
     }
   }

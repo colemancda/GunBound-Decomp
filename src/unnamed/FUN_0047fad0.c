@@ -142,14 +142,14 @@ void FUN_0047fad0(int param_1,int param_2,int param_3,int param_4,int *regEsi)
     regEsi[0xfee] = iVar3;
     if (((uStack_45c & 1) != 0) && (iStack_444 != 0)) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(aiStack_464,&g_valueGuardMap);
+      TreeInsert(aiStack_464,&g_valueGuardMap);
       unaff_EBX = iStack_444;
     }
     puStack_8 = (undefined1 *)0xffffffff;
     pcVar5 = (code *)LeaveCriticalSection;
     if (iStack_220 != 0) {
       ScrambleChecksumGuardBytes(iStack_220,&g_valueGuardKeyTable);
-      TreeLowerBound(aiStack_464,&g_valueGuardMap);
+      TreeInsert(aiStack_464,&g_valueGuardMap);
       pcVar5 = (code *)LeaveCriticalSection;
       unaff_EBX = iStack_220;
     }

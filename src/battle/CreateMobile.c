@@ -331,7 +331,7 @@ LAB_0042b60a:
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
       ScrambleChecksumGuardBytes(iStack_440,&g_valueGuardKeyTable);
-      TreeLowerBound(auStack_4dc,&g_valueGuardMap);
+      TreeInsert(auStack_4dc,&g_valueGuardMap);
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x1b6c,auStack_454,2);
     local_4 = 0x12;
@@ -342,7 +342,7 @@ LAB_0042b60a:
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
       ScrambleChecksumGuardBytes(iStack_440,&g_valueGuardKeyTable);
-      TreeLowerBound(auStack_4dc,&g_valueGuardMap);
+      TreeInsert(auStack_4dc,&g_valueGuardMap);
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x1ae3,auStack_454,2);
     local_4 = 0x13;
@@ -359,7 +359,7 @@ LAB_0042b60a:
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
       ScrambleChecksumGuardBytes(iStack_440,&g_valueGuardKeyTable);
-      TreeLowerBound(auStack_4dc,&g_valueGuardMap);
+      TreeInsert(auStack_4dc,&g_valueGuardMap);
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x1c7e,auStack_230,2);
     local_4 = 0x14;
@@ -370,7 +370,7 @@ LAB_0042b60a:
     local_4 = 0xffffffff;
     if (iStack_21c != 0) {
       ScrambleChecksumGuardBytes(iStack_21c,&g_valueGuardKeyTable);
-      TreeLowerBound(auStack_4dc,&g_valueGuardMap);
+      TreeInsert(auStack_4dc,&g_valueGuardMap);
     }
   }
   RegisterActiveObject(0, 0, (undefined4 *)0);

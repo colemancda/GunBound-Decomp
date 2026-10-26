@@ -189,13 +189,13 @@ void FinishTurnAndSelectNext(int param_1)
         uStack_20 = 1;
         if (iStack_45c != 0) {
           ScrambleChecksumGuardBytes(iStack_45c,&g_valueGuardKeyTable);
-          TreeLowerBound(&stack0xfffff8e4,&g_valueGuardMap);
+          TreeInsert(&stack0xfffff8e4,&g_valueGuardMap);
           iVar3 = unaff_EBP;
         }
         uStack_20 = 0;
         if (iStack_238 != 0) {
           ScrambleChecksumGuardBytes(iStack_238,&g_valueGuardKeyTable);
-          TreeLowerBound(&stack0xfffff8e4,&g_valueGuardMap);
+          TreeInsert(&stack0xfffff8e4,&g_valueGuardMap);
           iVar3 = unaff_EBP;
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -267,7 +267,7 @@ void FinishTurnAndSelectNext(int param_1)
         pcVar14 = (code *)LeaveCriticalSection;
         if (local_664 != 0) {
           ScrambleChecksumGuardBytes(local_664,&g_valueGuardKeyTable);
-          TreeLowerBound(local_700,&g_valueGuardMap);
+          TreeInsert(local_700,&g_valueGuardMap);
           pcVar14 = (code *)LeaveCriticalSection;
         }
       }

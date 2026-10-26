@@ -23,12 +23,12 @@ void FUN_00482080(undefined4 *param_1)
   local_4 = 1;
   if (param_1[0x9c] != 0) {
     ScrambleChecksumGuardBytes(param_1[0x9c],&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   local_4 = local_4 & 0xffffff00;
   if (param_1[0x13] != 0) {
     ScrambleChecksumGuardBytes(param_1[0x13],&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   *param_1 = &PTR_LAB_0055752c;
   *unaff_FS_OFFSET = local_c;

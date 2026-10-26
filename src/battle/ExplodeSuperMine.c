@@ -116,7 +116,7 @@ void __fastcall ExplodeSuperMine(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_480,&g_valueGuardMap);
+      TreeInsert(local_480,&g_valueGuardMap);
     }
     RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -147,7 +147,7 @@ void __fastcall ExplodeSuperMine(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_480,&g_valueGuardMap);
+      TreeInsert(local_480,&g_valueGuardMap);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar2 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
@@ -164,7 +164,7 @@ void __fastcall ExplodeSuperMine(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_480,&g_valueGuardMap);
+      TreeInsert(local_480,&g_valueGuardMap);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar2 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
@@ -181,7 +181,7 @@ void __fastcall ExplodeSuperMine(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_480,&g_valueGuardMap);
+      TreeInsert(local_480,&g_valueGuardMap);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar2 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
@@ -199,7 +199,7 @@ void __fastcall ExplodeSuperMine(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_230 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
-      TreeLowerBound(local_480,&g_valueGuardMap);
+      TreeInsert(local_480,&g_valueGuardMap);
     }
     iVar5 = g_clientContext;
     cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));

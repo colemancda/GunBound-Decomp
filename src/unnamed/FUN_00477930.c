@@ -68,27 +68,27 @@ void __fastcall FUN_00477930(int param_1)
   local_4 = 3;
   if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   local_4 = 2;
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   local_4 = 1;
   if ((*(int *)(local_89c + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   local_4 = 0;
   if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_230 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_ac8,&g_valueGuardMap);
+    TreeInsert(local_ac8,&g_valueGuardMap);
   }
   *unaff_FS_OFFSET = local_c;
   return;

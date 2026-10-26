@@ -229,12 +229,12 @@ LAB_00420896:
     uStack_4 = 2;
     if (iStack_888 != 0) {
       ScrambleChecksumGuardBytes(iStack_888,&g_valueGuardKeyTable);
-      TreeLowerBound(auStack_8a4,&g_valueGuardMap);
+      TreeInsert(auStack_8a4,&g_valueGuardMap);
     }
     uStack_4 = 0xffffffff;
     if (iStack_664 != 0) {
       ScrambleChecksumGuardBytes(iStack_664,&g_valueGuardKeyTable);
-      TreeLowerBound(auStack_8a4,&g_valueGuardMap);
+      TreeInsert(auStack_8a4,&g_valueGuardMap);
     }
     if (cVar3 == '\0') {
       (**(code **)(*local_8b8 + 4))(s_normal_00552230);
@@ -406,14 +406,14 @@ LAB_00420896:
     if (piStack_444 != (int *)0x0) {
       ScrambleChecksumGuardBytes();
       local_8b8 = piStack_444;
-      TreeLowerBound(&piStack_8a8,&g_valueGuardMap);
+      TreeInsert(&piStack_8a8,&g_valueGuardMap);
       local_8ac = piVar2;
     }
     puStack_8 = (undefined1 *)0xffffffff;
     if (piStack_220 != (int *)0x0) {
       ScrambleChecksumGuardBytes();
       local_8b8 = piStack_220;
-      TreeLowerBound(&piStack_8a8,&g_valueGuardMap);
+      TreeInsert(&piStack_8a8,&g_valueGuardMap);
       local_8ac = piVar2;
     }
     if (cVar3 == '\0') {

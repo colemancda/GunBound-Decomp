@@ -1463,7 +1463,7 @@ void State11_InBattle_Render(void)
             iVar6 = iVar6 + 1;
             uStack_a38 = uStack_a38 - 1;
           } while (uStack_a38 != 0);
-          TreeLowerBound(&uStack_a38,&g_valueGuardMap);
+          TreeInsert(&uStack_a38,&g_valueGuardMap);
         }
         uStack_100 = 0xffffffff;
         if (pcStack_a04 != (char *)0x0) {
@@ -1475,7 +1475,7 @@ void State11_InBattle_Render(void)
             iVar6 = iVar6 + 1;
             iVar5 = iVar5 + -1;
           } while (iVar5 != 0);
-          TreeLowerBound(&uStack_a38,&g_valueGuardMap);
+          TreeInsert(&uStack_a38,&g_valueGuardMap);
         }
         uVar9 = EncodeChecksumDeltaSub(*(int *)(g_clientContext + 0x621e0) + 0xb30,auStack_774,
                              *(undefined4 *)(&g_nCameraY + g_clientContext));
@@ -1497,7 +1497,7 @@ void State11_InBattle_Render(void)
             iVar6 = iVar6 + 1;
             uStack_a38 = uStack_a38 - 1;
           } while (uStack_a38 != 0);
-          TreeLowerBound(&uStack_a38,&g_valueGuardMap);
+          TreeInsert(&uStack_a38,&g_valueGuardMap);
         }
         uStack_100 = 2;
         if (iStack_53c != 0) {
@@ -1509,7 +1509,7 @@ void State11_InBattle_Render(void)
             iVar6 = iVar6 + 1;
             iVar5 = iVar5 + -1;
           } while (iVar5 != 0);
-          TreeLowerBound(&uStack_a38,&g_valueGuardMap);
+          TreeInsert(&uStack_a38,&g_valueGuardMap);
         }
         uStack_100 = 0xffffffff;
         if (iStack_760 != 0) {
@@ -1521,7 +1521,7 @@ void State11_InBattle_Render(void)
             iVar6 = iVar6 + 1;
             iVar5 = iVar5 + -1;
           } while (iVar5 != 0);
-          TreeLowerBound(&uStack_a38,&g_valueGuardMap);
+          TreeInsert(&uStack_a38,&g_valueGuardMap);
         }
         iVar6 = *(int *)(g_clientContext + 0x621e0);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -1675,7 +1675,7 @@ LAB_004c6daa:
             } while (uStack_a38 != 0);
 LAB_004c6f6d:
             uStack_a38 = 0;
-            TreeLowerBound(&uStack_a38,&g_valueGuardMap);
+            TreeInsert(&uStack_a38,&g_valueGuardMap);
             iVar5 = g_clientContext;
           }
         }
@@ -1971,7 +1971,7 @@ LAB_004c7566:
         *(char *)(iVar6 + g_valueGuardKeyTable + iVar5) = (char)iVar19;
         iVar5 = iVar5 + 1;
       } while (iVar5 < 0x10);
-      TreeLowerBound(&uStack_a38,&g_valueGuardMap);
+      TreeInsert(&uStack_a38,&g_valueGuardMap);
     }
     uStack_100 = 0xffffffff;
     if (pcStack_a04 != (char *)0x0) {
@@ -1983,7 +1983,7 @@ LAB_004c7566:
         iVar6 = iVar6 + 1;
         iVar5 = iVar5 + -1;
       } while (iVar5 != 0);
-      TreeLowerBound(&uStack_a38,&g_valueGuardMap);
+      TreeInsert(&uStack_a38,&g_valueGuardMap);
     }
     uVar9 = EncodeChecksumDeltaSub(*(int *)(g_clientContext + 0x621e4) + 0xb30,auStack_550,
                          *(undefined4 *)(&g_nCameraY + g_clientContext));
@@ -2005,7 +2005,7 @@ LAB_004c7566:
         iVar5 = iVar5 + 1;
         uStack_a38 = uStack_a38 - 1;
       } while (uStack_a38 != 0);
-      TreeLowerBound(&uStack_a38,&g_valueGuardMap);
+      TreeInsert(&uStack_a38,&g_valueGuardMap);
     }
     uStack_100 = 9;
     if (pcStack_a04 != (char *)0x0) {
@@ -2017,7 +2017,7 @@ LAB_004c7566:
         iVar5 = iVar5 + 1;
         iVar19 = iVar19 + -1;
       } while (iVar19 != 0);
-      TreeLowerBound(&uStack_a38,&g_valueGuardMap);
+      TreeInsert(&uStack_a38,&g_valueGuardMap);
     }
     uStack_100 = 0xffffffff;
     if (iStack_53c != 0) {
@@ -2029,7 +2029,7 @@ LAB_004c7566:
         iVar5 = iVar5 + 1;
         iVar19 = iVar19 + -1;
       } while (iVar19 != 0);
-      TreeLowerBound(&uStack_a38,&g_valueGuardMap);
+      TreeInsert(&uStack_a38,&g_valueGuardMap);
     }
     cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e4) + 0x8bb7));
     if (cVar4 == '\0') {
@@ -2131,7 +2131,7 @@ LAB_004c7ef8:
         iVar6 = iVar6 + 1;
         uStack_a38 = uStack_a38 - 1;
       } while (uStack_a38 != 0);
-      TreeLowerBound(&uStack_a38,&g_valueGuardMap);
+      TreeInsert(&uStack_a38,&g_valueGuardMap);
       iVar6 = g_clientContext;
     }
     if (*(int *)(iVar6 + 0x227bc) == 0xc0) {

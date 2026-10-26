@@ -130,17 +130,17 @@ void FUN_00432850(int param_1,int param_2)
   local_4 = 1;
   if (local_19a8 != 0) {
     ScrambleChecksumGuardBytes(local_19a8,&g_valueGuardKeyTable);
-    TreeLowerBound();
+    TreeInsert();
   }
   local_4 = 0;
   if (local_1bcc != 0) {
     ScrambleChecksumGuardBytes(local_1bcc,&g_valueGuardKeyTable);
-    TreeLowerBound();
+    TreeInsert();
   }
   local_4 = 0xffffffff;
   if (local_1df0 != 0) {
     ScrambleChecksumGuardBytes(local_1df0,&g_valueGuardKeyTable);
-    TreeLowerBound();
+    TreeInsert();
   }
   FloatToInt64();
   FloatToInt64();
@@ -152,7 +152,7 @@ void FUN_00432850(int param_1,int param_2)
   local_4 = 0xffffffff;
   if (local_1df0 != 0) {
     ScrambleChecksumGuardBytes(local_1df0,&g_valueGuardKeyTable);
-    TreeLowerBound();
+    TreeInsert();
   }
   local_1e0c = 0;
   if (0 < param_2) {
@@ -238,7 +238,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           local_1e24 = local_1e24 + -1;
         } while (local_1e24 != 0);
-        TreeLowerBound();
+        TreeInsert();
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar12 = EncodeChecksumDeltaMul();
@@ -257,7 +257,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound();
+        TreeInsert();
         pcVar11 = (code *)LeaveCriticalSection;
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -329,7 +329,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1c4,&g_valueGuardMap);
+        TreeInsert(&stack0xffffe1c4,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_24 = 0xffffffff;
@@ -342,7 +342,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1c4,&g_valueGuardMap);
+        TreeInsert(&stack0xffffe1c4,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = InitGuardedChecksumSlot(piVar3 + 0x81e,auStack_114c,piVar3 + 0xcf2);
@@ -363,7 +363,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1c0,&g_valueGuardMap);
+        TreeInsert(&stack0xffffe1c0,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_28 = 0xffffffff;
@@ -376,7 +376,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1c0,&g_valueGuardMap);
+        TreeInsert(&stack0xffffe1c0,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = InitGuardedChecksumSlot(piVar3 + 0x8a7,auStack_d08,piVar3 + 0xcf2);
@@ -397,7 +397,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1bc,&g_valueGuardMap);
+        TreeInsert(&stack0xffffe1bc,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_2c = 0xffffffff;
@@ -410,7 +410,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1bc,&g_valueGuardMap);
+        TreeInsert(&stack0xffffe1bc,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = InitGuardedChecksumSlot(piVar3 + 0x930,auStack_1378,piVar3 + 0xd7b);
@@ -431,7 +431,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1b8,&g_valueGuardMap);
+        TreeInsert(&stack0xffffe1b8,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_30 = 0xffffffff;
@@ -444,7 +444,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1b8,&g_valueGuardMap);
+        TreeInsert(&stack0xffffe1b8,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = InitGuardedChecksumSlot(piVar3 + 0x9b9,auStack_aec,piVar3 + 0xd7b);
@@ -465,7 +465,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1b4,&g_valueGuardMap);
+        TreeInsert(&stack0xffffe1b4,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_34 = 0xffffffff;
@@ -478,7 +478,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1b4,&g_valueGuardMap);
+        TreeInsert(&stack0xffffe1b4,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = InitGuardedChecksumSlot(piVar3 + 0xa42,auStack_260,piVar3 + 0xd7b);
@@ -499,7 +499,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           local_1e24 = local_1e24 + -1;
         } while (local_1e24 != 0);
-        TreeLowerBound();
+        TreeInsert();
       }
       local_4 = 0xffffffff;
       if (iStack_21c != 0) {
@@ -511,7 +511,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound();
+        TreeInsert();
       }
       RegisterActiveObject(0, 0, (undefined4 *)0);
       local_1e10 = local_1e10 + 6;

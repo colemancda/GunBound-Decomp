@@ -124,7 +124,7 @@ void __fastcall DetonateShot2_Bullet11(int *param_1)
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
       ScrambleChecksumGuardBytes(iStack_ab0,&g_valueGuardKeyTable);
-      TreeLowerBound(apuStack_ae0,&g_valueGuardMap);
+      TreeInsert(apuStack_ae0,&g_valueGuardMap);
       param_1 = piStack_ae8;
     }
     uVar18 = EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac4,8);
@@ -137,7 +137,7 @@ void __fastcall DetonateShot2_Bullet11(int *param_1)
     piVar9 = param_1;
     if (iStack_ab0 != 0) {
       ScrambleChecksumGuardBytes(iStack_ab0,&g_valueGuardKeyTable);
-      TreeLowerBound(apuStack_ae0,&g_valueGuardMap);
+      TreeInsert(apuStack_ae0,&g_valueGuardMap);
       piVar9 = piStack_ae8;
     }
     cVar4 = CheckGuardedBoolAnd(piVar9[0x3d2] != 0,(byte *)(piVar9 + 0x3d3));

@@ -324,7 +324,7 @@ void __fastcall FUN_004513b0(int *param_1)
       uStack_b60 = &puStack_b34;
       piStack_b48 = (int *)puVar26;
       ppuStack_b64 = (undefined **)0x4525d0;
-      TreeLowerBound();
+      TreeInsert();
       pcVar16 = (code *)LeaveCriticalSection;
     }
     uStack_b60 = (undefined **)0x8;
@@ -353,7 +353,7 @@ void __fastcall FUN_004513b0(int *param_1)
       uStack_b68 = &piStack_b3c;
       puStack_b50 = puVar26;
       uStack_b6c = (undefined *)0x452655;
-      TreeLowerBound();
+      TreeInsert();
       uVar8 = extraout_EDX_00;
       pcVar16 = (code *)LeaveCriticalSection;
     }
@@ -884,7 +884,7 @@ LAB_00451f7a:
     uStack_90 = 0xffffffff;
     if (ppuStack_b38 != (undefined **)0x0) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(&ppuStack_b64,&g_valueGuardMap);
+      TreeInsert(&ppuStack_b64,&g_valueGuardMap);
       pcVar16 = (code *)LeaveCriticalSection;
     }
     uVar8 = EncodeChecksumDeltaDiv(param_1 + 0x81e,&puStack_b4c,10);
@@ -897,7 +897,7 @@ LAB_00451f7a:
     uStack_98 = 0xffffffff;
     if (puStack_b40 != (undefined *)0x0) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(&uStack_b6c,&g_valueGuardMap);
+      TreeInsert(&uStack_b6c,&g_valueGuardMap);
       pcVar16 = (code *)LeaveCriticalSection;
     }
     uVar8 = EncodeChecksumDeltaDiv(param_1 + 0x8a7,&puStack_b54,10);
@@ -910,7 +910,7 @@ LAB_00451f7a:
     uStack_88 = 0xffffffff;
     if (puStack_b30 != (undefined4 *)0x0) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(&uStack_b5c,&g_valueGuardMap);
+      TreeInsert(&uStack_b5c,&g_valueGuardMap);
     }
   }
   puVar25 = &g_valueGuardLock;

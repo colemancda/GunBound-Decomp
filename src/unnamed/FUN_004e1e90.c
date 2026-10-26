@@ -22,7 +22,7 @@ void FUN_004e1e90(int param_1)
   local_4 = 2;
   if (*(int *)(param_1 + 0xf1c) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(param_1 + 0xf1c),&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   local_4 = 1;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x890),0x224,3,ScrubChecksumGuard);
@@ -31,7 +31,7 @@ void FUN_004e1e90(int param_1)
   local_4 = 0xffffffff;
   if (*(int *)(param_1 + 0x14) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x14),&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   *unaff_FS_OFFSET = local_c;
   return;

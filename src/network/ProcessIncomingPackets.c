@@ -134,7 +134,7 @@ LAB_004d33f1:
         *(char *)(iVar6 + g_valueGuardKeyTable + iVar14) = (char)iVar8;
         iVar14 = iVar14 + 1;
       } while (iVar14 < 0x10);
-      TreeLowerBound(local_24dc,&g_valueGuardMap);
+      TreeInsert(local_24dc,&g_valueGuardMap);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_2230 + 0x14)) != 0) {
@@ -145,7 +145,7 @@ LAB_004d33f1:
         *(char *)(iVar6 + g_valueGuardKeyTable + iVar14) = (char)iVar8;
         iVar14 = iVar14 + 1;
       } while (iVar14 < 0x10);
-      TreeLowerBound(local_24dc,&g_valueGuardMap);
+      TreeInsert(local_24dc,&g_valueGuardMap);
     }
     /* BRING-UP (2026-07-17): the original condition is `while (*psVar1 !=
      * sVar5)` - a per-packet sequence-checksum sync that spins until the

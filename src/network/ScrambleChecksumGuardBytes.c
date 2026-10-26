@@ -18,7 +18,7 @@
  *
  *     if (param_1[0x33f1] != 0) {
  *         ScrambleChecksumGuardBytes();
- *         TreeLowerBound(local_14);
+ *         TreeInsert(local_14);
  *     }
  *
  * so the argument is the enclosing if's subject - available locally at every

@@ -23,12 +23,12 @@ void __fastcall State09_ReadyRoom_Destroy(undefined4 *param_1)
   local_4 = 1;
   if (param_1[0xa0] != 0) {
     ScrambleChecksumGuardBytes(param_1[0xa0],&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   local_4 = local_4 & 0xffffff00;
   if (param_1[8] != 0) {
     ScrambleChecksumGuardBytes(param_1[8],&g_valueGuardKeyTable);
-    TreeLowerBound(local_14,&g_valueGuardMap);
+    TreeInsert(local_14,&g_valueGuardMap);
   }
   *param_1 = &PTR_LAB_00553fb0;
   *unaff_FS_OFFSET = local_c;

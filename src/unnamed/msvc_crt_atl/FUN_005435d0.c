@@ -14,7 +14,7 @@ void FUN_005435d0(void)
   
   if (DAT_00e53484 != 0) {
     ScrambleChecksumGuardBytes(DAT_00e53484,&g_valueGuardKeyTable);
-    TreeLowerBound(local_8,&g_valueGuardMap);
+    TreeInsert(local_8,&g_valueGuardMap);
   }
   return;
 }

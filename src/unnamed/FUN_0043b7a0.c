@@ -125,7 +125,7 @@ LAB_0043ba8e:
             local_4 = 0xffffffff;
             if ((*(int *)(local_678 + 0x14)) != 0) {
               ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
-              TreeLowerBound(local_680,&g_valueGuardMap);
+              TreeInsert(local_680,&g_valueGuardMap);
             }
             EncodeChecksumDeltaSub(piVar1 + 0x120,local_230,param_2);
             local_4 = 3;
@@ -135,7 +135,7 @@ LAB_0043ba8e:
             local_4 = 0xffffffff;
             if ((*(int *)(local_230 + 0x14)) != 0) {
               ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
-              TreeLowerBound(local_680,&g_valueGuardMap);
+              TreeInsert(local_680,&g_valueGuardMap);
             }
             if (iVar6 * iVar6 + iVar5 * iVar5 < param_4 * param_4) {
               EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
