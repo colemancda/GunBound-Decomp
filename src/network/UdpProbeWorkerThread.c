@@ -1,13 +1,41 @@
-/* FUN_004e6770 - 0x004e6770 in the original binary.
+/* UdpProbeWorkerThread - 0x004e6770 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26). This function has NO direct call anywhere in the
+ * image - FUN_004e7140's own header already notes that its single
+ * reference is a pointer at .data 0x5572f4, inside a vtable. That
+ * vtable is 0x5572f0 (docs/vtable_census.txt: slot 0
+ * FUN_004e6030/the scalar-deleting destructor, slot 1 this function,
+ * slots 2/3 NoOpMethod), and it is installed at `param_1`'s offset 0 by
+ * the constructor at 0x4e5e00, whose own sole caller constructs it at
+ * the literal address 0xe55ce0 - g_replayContext (the same global this
+ * subsystem's other context-taking helpers, e.g.
+ * EncryptEventBroadcast/DecryptEventBroadcast/QueueBroadcastEvent,
+ * already key off).
+ *
+ * The thread itself is started by this object's own "start" method
+ * (FUN_004e6b50, a bring-up neuter - see its own header), which calls
+ * `__beginthread(0x4f47e0, 0, this)`. 0x4f47e0 is a generic three-phase
+ * thread-runner thunk shared by more than one class: it dispatches
+ * `this`'s own vtable slots +8, then +4, then +0xc (each `call
+ * [slot](this)`) before calling `_endthread`. For this object slots +8
+ * and +0xc are both NoOpMethod, so the dispatch at +4 - this function -
+ * is the entire thread body. The body itself is a UDP socket bind
+ * (port 0x20ab) plus a `WaitForMultipleObjects` event loop that calls
+ * the already-named ProcessUdpProbeDatagram on FD_READ, re-sends the
+ * pending login probe datagram (BeginUdpSessionProbe's own header
+ * documents this exact worker loop by this address) every 2s, and
+ * periodically fires the 25-second keepalive broadcast events
+ * (0x4fff/0x8fff) - i.e. the UDP probe subsystem's own dedicated
+ * worker thread, not a generic helper.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004e6770(int param_1)
+void __fastcall UdpProbeWorkerThread(int param_1)
 
 {
   byte bVar1;
@@ -25,7 +53,7 @@ void __fastcall FUN_004e6770(int param_1)
   sockaddr local_3c;
   byte abStack_2c [4];
   int iStack_28;
-  
+
   SVar3 = socket(2,2,0);
   *(SOCKET *)(param_1 + 0x14) = SVar3;
   if (SVar3 != 0xffffffff) {
@@ -169,4 +197,3 @@ LAB_004e6b2c:
   *(undefined4 *)(param_1 + 0x14) = 0xffffffff;
   return;
 }
-

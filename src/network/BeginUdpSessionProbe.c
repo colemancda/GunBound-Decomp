@@ -4,11 +4,12 @@
  * address and port in the broadcast/P2P context, copies the 4-byte login
  * session id and the local account name in beside them, sets the attempt
  * counter +0x45208 to 7, and sends the session id as one 4-byte datagram to
- * that address under the context's +0x17c critical section.  The UDP worker
- * thread (FUN_004e6770) re-sends the identical datagram every 2 s while the
- * counter is positive and posts failure event 4 if all 7 attempts go
- * unanswered; the receive path (ProcessUdpProbeDatagram) cancels it -- counter := -1,
- * success event 3 -- when the server echoes those same 4 bytes back.
+ * that address under the context's +0x17c critical section.  The worker
+ * thread (UdpProbeWorkerThread, 0x4e6770) re-sends the identical
+ * datagram every 2 s while the counter is positive and posts failure
+ * event 4 if all 7 attempts go unanswered; the receive path
+ * (ProcessUdpProbeDatagram) cancels it -- counter := -1, success event
+ * 3 -- when the server echoes those same 4 bytes back.
  *
  * NAME EVIDENCE.  The sole call site (0x4e0371) is the
  * GB_OP_AUTHENTICATION_RESPONSE *success* branch of
@@ -30,8 +31,8 @@
  *     copied out of payload+6 thirty instructions earlier.
  *   - "Probe", not "keepalive": the keepalive in this subsystem is the
  *     separate 25-second QueueBroadcastEvent(0x4fff/0x8fff) branch of the
- *     same worker loop (FUN_004e6770.c:63-72).  This one fires once at login
- *     and stops on the first echo.
+ *     same worker loop (UdpProbeWorkerThread.c:91-102).  This one
+ *     fires once at login and stops on the first echo.
  *   - "Begin", not "Send": arming +0x45208 = 7 is the half the worker thread
  *     and the receive path key off; the raw sender is already named
  *     SendUdpDatagram.

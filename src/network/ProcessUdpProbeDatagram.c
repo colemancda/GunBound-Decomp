@@ -8,8 +8,8 @@
  * BeginUdpSessionProbe.c's own header already names and describes by
  * this exact old address: "the receive path (FUN_004e6160) cancels it --
  * counter := -1, success event 3 -- when the server echoes those same 4
- * bytes back." Confirmed independently: its sole caller, the UDP worker
- * thread FUN_004e6770, invokes it only when `WSAEnumNetworkEvents`
+ * bytes back." Confirmed independently: its sole caller,
+ * UdpProbeWorkerThread (0x4e6770), invokes it only when `WSAEnumNetworkEvents`
  * reports the socket readable (FD_READ), and this function's own body
  * opens by calling `recvfrom` to pull that one datagram off the socket,
  * then validates a checksum/magic header, matches it against the

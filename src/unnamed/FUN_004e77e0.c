@@ -5,6 +5,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_004e6770 below is now UdpProbeWorkerThread.)
+ *
  * DROPPED REGISTER RECOVERED (2026-08-27): in_EAX is a mode discriminator the
  * body branches on twice -- `if (iVar6 != in_EAX)` and `(in_EAX == 1)` -- so
  * the four sites were switching on whatever happened to be in EAX.

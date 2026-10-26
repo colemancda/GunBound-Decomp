@@ -6,7 +6,7 @@
  * verbatim ports" section for status.
  *
  * (FUN_004e6160 in the notes below is ProcessUdpProbeDatagram's old
- * symbol.)
+ * symbol; FUN_004e6770 is UdpProbeWorkerThread's old symbol.)
  *
  * CONTEXT PROMOTED TO A REAL PARAMETER (2026-08-27).  in_EAX was previously
  * BOUND to &g_replayContext inside this file, on the evidence that every
