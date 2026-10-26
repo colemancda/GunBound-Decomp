@@ -50,7 +50,7 @@ void PumpBattleActions(int param_1)
     FUN_00405a40(g_directLinkConnection);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_00e9af44);
-  FUN_004e84c0(&g_replayContext);
+  DedupPendingBattleActionQueues(&g_replayContext);
   cVar2 = PopDirectBattleAction(&g_replayContext,local_400,&local_40c);
   while (cVar2 != '\0') {
     if (*(FILE **)(&g_replayFileHandle + g_clientContext) != (FILE *)0x0) {

@@ -1229,7 +1229,7 @@ void FUN_004e8040();
 uint PopBroadcastBattleAction();
 undefined1 __fastcall FUN_004e82c0(int param_1);
 void FUN_004e83b0(int regEsi);
-void FUN_004e84c0();
+void DedupPendingBattleActionQueues();
 undefined4 * TurnEventSet_Insert();
 void TurnEventSet_Erase();
 void __fastcall TurnEventSet_Find(int param_1,undefined4 *regEax,ushort *regEbx);

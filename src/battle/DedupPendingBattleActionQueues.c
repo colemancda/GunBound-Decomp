@@ -1,14 +1,28 @@
-/* FUN_004e84c0 - 0x004e84c0 in the original binary.
+/* DedupPendingBattleActionQueues - 0x004e84c0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26), LIKELY. Sole caller PumpBattleActions.c calls this
+ * once, before draining either battle-action queue (PopDirectBattleAction's
+ * array at g_replayContext+0x454a4/+0x454a8, then PopBroadcastBattleAction's
+ * at +0x454b4/+0x454b8). For each array it walks adjacent record pairs
+ * (stride 0x206), compares the field at +2 of record[i] against the same
+ * field of record[i+1], and - if both the field and the variable-length
+ * payload that follows also match byte-for-byte - collapses the pair by
+ * shift-removing the earlier record, keeping the later one. The removed
+ * record is stashed via CArray_Add_206 into the single-record staging
+ * buffer at +0x1b0 (for array A) or +0x4529c (for array B), the very same
+ * staging cells ProcessUdpProbeDatagram and ProcessEventBroadcast build a
+ * record into before appending - but only for the FIRST duplicate
+ * collapsed per array per call (gated by a local one-shot flag), matching
+ * what a stash slot can hold.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004e84c0(int param_1)
+void DedupPendingBattleActionQueues(int param_1)
 
 {
   int *piVar1;
@@ -23,7 +37,7 @@ void FUN_004e84c0(int param_1)
   bool bVar9;
   bool bVar10;
   int local_4;
-  
+
   bVar10 = true;
   bVar2 = true;
   if (*(int *)(param_1 + 0x454a8) != 1 && -1 < *(int *)(param_1 + 0x454a8) + -1) {
@@ -116,4 +130,3 @@ LAB_004e86ba:
   }
   return;
 }
-
