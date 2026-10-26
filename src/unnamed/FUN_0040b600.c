@@ -84,12 +84,12 @@ void FUN_0040b600(int param_1,undefined4 *param_2,int *param_3)
   if ((int *)*puVar1 == param_3) {
     piVar3 = piVar5;
     if (*(char *)((int)piVar6 + 0x11) == '\0') {
-      /* FUN_0040bd00 is void-returning (see its own definition) - this
+      /* TreeSubtreeMin is void-returning (see its own definition) - this
        * call site's return-value use is a Ghidra per-call-site
        * decompilation inconsistency, same class as entry/WinMain.c's
        * FUN_004058c0 fix. piVar3 keeps its prior value (piVar5) as a
        * result. */
-      FUN_0040bd00(piVar6);
+      TreeSubtreeMin(piVar6);
     }
     *puVar1 = piVar3;
   }

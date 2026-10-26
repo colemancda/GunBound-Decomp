@@ -304,7 +304,7 @@ int __thiscall basic_string_AssignSubstr(int param_1,int param_2,uint param_3,ui
 void __thiscall TreeInsertRebalance(undefined4 *param_1,undefined4 *param_2,char param_3,undefined4 param_4);
 void __thiscall FUN_0040bc80();
 void FUN_0040bce0(int regEax);
-void FUN_0040bd00(int *regEax);
+void TreeSubtreeMin(int *regEax);
 void __thiscall FUN_0040bd20();
 int __thiscall FUN_0040bda0(int param_1,uint param_2,uint param_3);
 undefined4 * TreeEraseRange(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
