@@ -49,7 +49,7 @@ undefined4 * TreeEraseRange(undefined4 *param_1,int *param_2,int *param_3,int re
   while (piVar2 != piVar4) {
     param_2 = piVar2;
     TreeIteratorIncrement();
-    FUN_0040b600(regEsi,&param_1,piVar2);
+    TreeErase(regEsi,&param_1,piVar2);
     piVar2 = param_2;
   }
   *puVar3 = piVar2;

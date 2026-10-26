@@ -31,7 +31,7 @@ int  DAT_00793778;                  /* "encoding active" gate */
 int  g_valueGuardMap;                  /* key-table registry root */
 void ScrambleChecksumGuardBytes(int slot, int *guardTable);            /* registry re-key step */
 void TreeLowerBound(void *scratch, void *guardMap);
-void FUN_0040b600(void *root, void *field, int tableObj);
+void TreeErase(void *root, void *field, int tableObj);
 /* The guard map's FIND (lower_bound + exact check); real ABI recovered
  * 2026-08-28 - map in ECX, out-iterator through the second argument,
  * address of the key in the third. See src/registry/TreeFind.c. */
@@ -92,7 +92,7 @@ void CValueGuard::EncodeOutgoingPacketField(u32 value)
     int newHandle = 0;
     if (DAT_00793778 != 0) {
         newHandle = *(int *)(*DAT_00793774 + 0xc);
-        FUN_0040b600(&g_valueGuardMap, &value, (int)DAT_00793774);
+        TreeErase(&g_valueGuardMap, &value, (int)DAT_00793774);
     }
     tableHandle = (u32)newHandle;
     if (newHandle != 0) {

@@ -1,9 +1,21 @@
-/* FUN_0040b600 - 0x0040b600 in the original binary.
+/* TreeErase - 0x0040b600 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * VC7 STL _Tree::erase(iterator): the same "invalid map/set<T> iterator"
+ * throw guard as TreeEraseRange, then node-unlink (splicing in
+ * TreeSubtreeMin for a two-child node) with TreeIteratorIncrement called
+ * first to compute the returned successor, rebalance via the rotation
+ * helpers (0x40bc80/0x40bd20) shared with TreeInsertRebalance, free the
+ * node, and decrement _Mysize at container+8. Container identity is
+ * external and exact: TreeEraseRange's own header names this as "the
+ * single-iterator erase overload" its erase(first,last) loop calls, and
+ * its only other caller is CValueGuard::EncodeOutgoingPacketField
+ * (src/cxx/ValueGuard.cpp / src/network/EncodeOutgoingPacketField.c),
+ * which passes &g_valueGuardMap as param_1 - the same map
+ * TreeInsertRebalance/TreeEraseRange/TreeFind all already walk.
  */
 #include "ghidra_types.h"
 
@@ -20,7 +32,7 @@
 /* WARNING: Removing unreachable block (ram,0x0040b74a) */
 /* WARNING: Removing unreachable block (ram,0x0040b75d) */
 
-void FUN_0040b600(int param_1,undefined4 *param_2,int *param_3)
+void TreeErase(int param_1,undefined4 *param_2,int *param_3)
 
 {
   undefined4 *puVar1;

@@ -296,7 +296,7 @@ bool CompareChecksumPair();
 bool CompareChecksumAtMost();
 void __fastcall FUN_0040b510();
 undefined4 * TreeLowerBound();
-void FUN_0040b600();
+void TreeErase();
 void __fastcall TreeFind(int param_1,undefined4 **regEax,int *regEbx);
 exception * __thiscall LogicError_CopyCtor(exception *param_1,exception *param_2);
 int __thiscall FUN_0040b9b0();

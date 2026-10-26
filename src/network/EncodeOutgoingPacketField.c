@@ -93,7 +93,7 @@ void EncodeOutgoingPacketField(void *self, uint param_1)
   }
   else {
     iVar4 = *(int *)(*DAT_00793774 + 0xc);
-    FUN_0040b600(&g_valueGuardMap,&param_1,*DAT_00793774);
+    TreeErase(&g_valueGuardMap,&param_1,*DAT_00793774);
   }
   *(int *)(unaff_EDI + 0x14) = iVar4;
   if (iVar4 != 0) {
