@@ -1,9 +1,20 @@
-/* FUN_00401d50 - 0x00401d50 in the original binary.
+/* UpsertDirectLinkBuddyNode - 0x00401d50 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26), HIGH. Find-or-create one buddy-roster entry keyed by
+ * name in the container param_2 (&DAT_00e53e88 at every resolved call site):
+ * on a miss it allocates a fresh 0x5c-byte node stamped with vtable
+ * &PTR_FUN_00551cb4 - the same vtable FUN_004025e0 stamps via the same
+ * FUN_00401bb0 roster lookup, an independent second stamper for the same
+ * class; on a hit (param_3 != '\0') it updates the existing node's fields
+ * instead of allocating.  The pointer below ties the old FUN_ symbols this
+ * header's evidence block still uses to their current names; the block
+ * itself is left verbatim.
+ *
+ *   FUN_00411b40 -> DispatchDirectLinkMessengerPacket
  *
  * Find-or-create one named entry in the container param_2.  The dropped
  * EAX is the LOOKUP KEY: `mov ebx,eax` at 0x00401d58, before any write
@@ -58,7 +69,7 @@
 
 
 void __thiscall
-FUN_00401d50(char *param_1,int param_2,char param_3,undefined4 param_4,short param_5,
+UpsertDirectLinkBuddyNode(char *param_1,int param_2,char param_3,undefined4 param_4,short param_5,
             undefined4 *param_6,char *param_7,char *regEax)
 
 {

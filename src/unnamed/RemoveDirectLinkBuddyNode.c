@@ -1,9 +1,18 @@
-/* FUN_00401ee0 - 0x00401ee0 in the original binary.
+/* RemoveDirectLinkBuddyNode - 0x00401ee0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26), HIGH. The delete counterpart of
+ * UpsertDirectLinkBuddyNode: looks the node up by name (FUN_00401bb0,
+ * FUN_00401c50), compacts a parallel 0x7f-entry array around the removed
+ * slot, frees an owned buffer at +0x17a8, unlinks the node from its
+ * container's doubly-linked list, and calls its own vtable slot 0
+ * (&PTR_FUN_00551cb4's scalar-deleting destructor) with the `delete[]`
+ * flag argument 1 before updating the owning widget's child range -
+ * mirrors UpsertDirectLinkBuddyNode's allocate-and-link path exactly in
+ * reverse.
  *
  * (2026-09-01: the note below predates a rename - FUN_00426090 is now
  * FindNicknameByUserId.)
@@ -29,7 +38,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00401ee0(int param_1,char *regEax)
+void RemoveDirectLinkBuddyNode(int param_1,char *regEax)
 
 {
   int *piVar1;

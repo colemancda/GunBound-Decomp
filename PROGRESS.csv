@@ -23,8 +23,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00401c50,93,FUN_00401c50,false,1,1,RAW-src
 00401cb0,33,FUN_00401cb0,false,1,0,RAW-src
 00401ce0,104,FUN_00401ce0,false,1,0,RAW-src
-00401d50,398,FUN_00401d50,false,5,4,RAW-src
-00401ee0,191,FUN_00401ee0,false,7,4,RAW-src
+00401d50,398,UpsertDirectLinkBuddyNode,false,5,4,RAW-src
+00401ee0,191,RemoveDirectLinkBuddyNode,false,7,4,RAW-src
 00401fa0,125,UpdateBuddyStatus,false,4,1,RAW-src
 00402020,63,FUN_00402020,false,1,0,RAW-src
 00402060,238,FUN_00402060,false,1,0,RAW-src

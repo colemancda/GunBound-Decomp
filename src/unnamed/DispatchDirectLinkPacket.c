@@ -147,7 +147,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
         return;
       }
       if (uVar2 == 0x1002) {
-        FUN_00401ee0(param_2,(char *)regEax); /* case 0x1002: the key is this function's own (still dropped) EAX */
+        RemoveDirectLinkBuddyNode(param_2,(char *)regEax); /* case 0x1002: the key is this function's own (still dropped) EAX */
         return;
       }
       if (uVar2 == 0x1003) {
@@ -173,7 +173,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
         local_10c[9] = -1;
         local_10c[10] = -1;
         local_10c[0xb] = -1;
-        FUN_00401d50((char *)local_12c,param_2,1,0,*(undefined2 *)(param_1 + 0x10),&local_118,
+        UpsertDirectLinkBuddyNode((char *)local_12c,param_2,1,0,*(undefined2 *)(param_1 + 0x10),&local_118,
                      (char *)param_3,(char *)regEax);
         return;
       }
@@ -233,7 +233,7 @@ LAB_0040377c:
         if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
           (**(code **)(**(int **)(param_2 + 0x1bdc) + 0x28))();
         }
-        FUN_00401ee0(param_2,(char *)param_3 + 1);
+        RemoveDirectLinkBuddyNode(param_2,(char *)param_3 + 1);
         return;
       }
       *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
@@ -244,7 +244,7 @@ LAB_0040377c:
       *(undefined4 *)(iVar4 + 0x10) = regEax[3];
       *(int *)(iVar4 + 0x2000) = *(int *)(iVar4 + 0x2000) + 0x10;
       FUN_00405a20();
-      FUN_00401ee0(param_2,(char *)param_3 + 1);
+      RemoveDirectLinkBuddyNode(param_2,(char *)param_3 + 1);
       return;
     case 0x2005:
       if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {

@@ -749,6 +749,7 @@ uint32_t DAT_00e53c48;
  * once those call sites are individually recovered. */
 /* DAT_00e54a9c/aa0/da8, DAT_00e55a34/45/46/54/58/64: now offset-macros into
  * DAT_00e53e88 - see the note on it below. */
+/* (FUN_00401ee0 in the note below is now RemoveDirectLinkBuddyNode.) */
 /* Resized 0xf28 -> 0x1bf0 (2026-08-24).  Wiring FUN_00402300's `this` to this
  * object made its writes at +0xf28.., +0x15a8 and +0x1bb0 reachable, and
  * FUN_00402cf0 / FUN_00401ee0 / RBTree_RemoveNode already read +0x15b0, +0x1bdc

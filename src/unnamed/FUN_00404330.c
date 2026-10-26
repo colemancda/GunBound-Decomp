@@ -21,7 +21,7 @@ void __thiscall FUN_00404330(int param_1,char *param_2)
   
   cVar3 = FindNicknameByUserId((char *)local_20,param_2,(int)g_clientContext);
   if (cVar3 == '\x01') {
-    FUN_00401ee0(param_1 + -8,(char *)local_20);
+    RemoveDirectLinkBuddyNode(param_1 + -8,(char *)local_20);
     return;
   }
   local_38 = 0x69;

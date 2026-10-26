@@ -77,13 +77,13 @@ void FUN_00402cf0(int param_1,char *regEdi)
     *(int *)(puVar1 + 0x1000) = iVar5;
     *puVar1 = (short)iVar5;
     SendSocketData((char *)puVar1,*(undefined4 *)((char *)puVar1 + 0x2004),iVar5);
-    FUN_00401ee0(param_1,regEdi);
+    RemoveDirectLinkBuddyNode(param_1,regEdi);
     return;
   }
   if (*(int **)(param_1 + 0x1bdc) != (int *)0x0) {
     (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x28))(&local_20);
   }
-  FUN_00401ee0(param_1,regEdi);
+  RemoveDirectLinkBuddyNode(param_1,regEdi);
   return;
 }
 
