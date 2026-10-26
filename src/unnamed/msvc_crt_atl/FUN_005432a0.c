@@ -10,7 +10,7 @@
 void FUN_005432a0(void)
 
 {
-  FUN_004e6050(&g_replayContext);
+  ReplayContext_Destructor(&g_replayContext);
   return;
 }
 
