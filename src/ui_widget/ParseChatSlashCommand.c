@@ -42,7 +42,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
    * this code path is ever exercised. */
   undefined4 systemInfoBlob2 [6];
 
-  FUN_00423050(param_1,param_2);
+  RecordChatHistoryEntry(param_1,param_2);
   if (*param_2 != '/') {
     return 0;
   }

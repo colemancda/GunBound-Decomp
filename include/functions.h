@@ -438,7 +438,7 @@ void __fastcall CopyChatCommandToken(int param_1,int param_2,undefined4 *regEbx)
 undefined4 ParseChatSlashCommand();
 void __thiscall FUN_00422f10(undefined4 param_1,undefined4 param_2,int regEsi);
 void FUN_00422f70();
-void FUN_00423050();
+void RecordChatHistoryEntry(int param_1,byte *param_2);
 void ApplyBattleActionToContext();
 void __fastcall FUN_00423a20();
 undefined4 FUN_00423bf0(int ctx); /* avatar part-table counter; derives archive=ctx+0xf6e8, encodes count cells ctx+0x5f3774.. (2026-08-11) */

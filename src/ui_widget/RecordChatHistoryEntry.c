@@ -1,14 +1,25 @@
-/* FUN_00423050 - 0x00423050 in the original binary.
+/* RecordChatHistoryEntry - 0x00423050 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26), MODERATE-HIGH (one caller, so not promoted to
+ * HIGH). Sole caller ParseChatSlashCommand.c, called unconditionally on
+ * every submitted chat line before any slash-command parsing. Operates
+ * on a per-instance ring of ten 0x80-byte entries (DAT_005f325c +
+ * param_1, counted/cursor-tracked by DAT_005f375c/DAT_005f3760 at the
+ * same offset) that FUN_00415d40's init zeroes to the same 10*0x80
+ * extent: walks the existing entries doing a byte-pair dedup against
+ * param_2, returns on a match, otherwise shifts the ring down one slot
+ * (dropping the oldest once full at 10) and appends param_2 as the
+ * newest entry. Classic recall-history-ring shape: record the just-sent
+ * line, deduped against recent history.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00423050(int param_1,byte *param_2)
+void RecordChatHistoryEntry(int param_1,byte *param_2)
 
 {
   byte bVar1;
