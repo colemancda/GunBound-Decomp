@@ -169,7 +169,7 @@ void __thiscall ProcessIncomingWhisper(int param_1,int param_2,int regEax);
 int FindRecentWhisperIndex(int regEbx,char *param_1);
 void DisplayIncomingWhisper(undefined4 param_1,char *param_2,uint param_3,char *regEax);
 void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax);
-void FUN_004025e0();
+void EnsureChatLogPanelForPeer(undefined4 param_1,char *param_2);
 void FUN_004026a0(undefined4 param_1,undefined4 *param_2,uint param_3,char *regEax,int regEbx,char regCl);
 void SendWhisperByNickname();
 void FUN_00402900(int param_1,char *param_2,char *regEax);

@@ -7,9 +7,10 @@
  * NAMED (2026-10-26), HIGH. Find-or-create one buddy-roster entry keyed by
  * name in the container param_2 (&DAT_00e53e88 at every resolved call site):
  * on a miss it allocates a fresh 0x5c-byte node stamped with vtable
- * &PTR_FUN_00551cb4 - the same vtable FUN_004025e0 stamps via the same
- * FindDirectLinkBuddyNode roster lookup, an independent second stamper
- * for the same class; on a hit (param_3 != '\0') it updates the existing
+ * &PTR_FUN_00551cb4 - the same vtable EnsureChatLogPanelForPeer stamps
+ * via the same FindDirectLinkBuddyNode roster lookup, an independent
+ * second stamper for the same class; on a hit (param_3 != '\0') it
+ * updates the existing
  * node's fields instead of allocating.  The pointer below ties the old
  * FUN_ symbols this header's evidence block still uses to their current
  * names; the block itself is left verbatim.

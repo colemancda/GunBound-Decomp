@@ -6,7 +6,9 @@
  * verbatim ports" section for status.
  *
  * (FUN_00402720 in the SITE MAP below is now SendWhisperByNickname.
- * FUN_00401ee0 in the same map is now RemoveDirectLinkBuddyNode.)
+ * FUN_00401ee0 in the same map is now RemoveDirectLinkBuddyNode.
+ * FUN_004025e0, named in the DROPPED REGISTER note below, is now
+ * EnsureChatLogPanelForPeer.)
  *
  * DROPPED REGISTER RECOVERED (2026-08-24): EAX is the second object handed
  * on to FUN_004025e0(param_1, regEax).  Five call sites in three callers:
@@ -83,7 +85,7 @@ void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax)
   FUN_00426120(local_80);
   iVar3 = PanelManager_FindByName((int)&g_uiPanelManager);
   if (iVar3 == 0) {
-    FUN_004025e0(param_1,regEax);
+    EnsureChatLogPanelForPeer(param_1,regEax);
     iVar3 = PanelManager_FindByName((int)&g_uiPanelManager);
     if (iVar3 == 0) {
       return;

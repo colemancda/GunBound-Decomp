@@ -35,7 +35,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004023b0,77,FindRecentWhisperIndex,false,1,1,RAW-src
 00402400,229,DisplayIncomingWhisper,false,3,5,RAW-src
 004024f0,236,FUN_004024f0,false,5,4,RAW-src
-004025e0,182,FUN_004025e0,false,3,5,RAW-src
+004025e0,182,EnsureChatLogPanelForPeer,false,3,5,RAW-src
 004026a0,122,FUN_004026a0,false,14,1,RAW-src
 00402720,472,SendWhisperByNickname,false,2,7,RAW-src
 00402900,453,FUN_00402900,false,1,7,RAW-src

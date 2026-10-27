@@ -5,7 +5,8 @@
  * section for status.
  *
  * (FUN_004259d0, mentioned below, is now FindMuteListIndex; FUN_00402300
- * is now ProcessIncomingWhisper.)
+ * is now ProcessIncomingWhisper; FUN_004025e0, mentioned below, is now
+ * EnsureChatLogPanelForPeer.)
  *
  * NAMED (2026-08-28, verb LIKELY): shows a private message received
  * from a peer. Both ported callers are receive arms handing a sender
@@ -92,7 +93,7 @@ void DisplayIncomingWhisper(undefined4 param_1,char *param_2,uint param_3,char *
     FUN_00426120(local_200);
     iVar3 = PanelManager_FindByName((int)&g_uiPanelManager);
     if (iVar3 == 0) {
-      FUN_004025e0(param_1,in_EAX);
+      EnsureChatLogPanelForPeer(param_1,in_EAX);
       iVar3 = PanelManager_FindByName((int)&g_uiPanelManager);
       if (iVar3 == 0) {
         return;

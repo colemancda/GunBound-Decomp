@@ -26,11 +26,11 @@
  *       EBX=ESI=incoming EAX (`mov esi,eax` at 0x401ee7, `mov
  *       ebx,esi` at 0x401eea) -- regEax in the source, the SAME key
  *       FUN_00401c50 is given two lines later.
- *   FUN_004025e0 (0x402601)   container=param_1 (`mov eax,[esp+0xc]`,
- *       the first stack arg once the 2 prologue pushes are accounted
- *       for), key=EBX=param_2 (`mov ebx,ebp` at 0x4025e6, ebp=[esp+
- *       0x10]=param_2, preserved across the intervening
- *       PanelManager_FindByName call).
+ *   EnsureChatLogPanelForPeer (0x402601)   container=param_1 (`mov
+ *       eax,[esp+0xc]`, the first stack arg once the 2 prologue pushes
+ *       are accounted for), key=EBX=param_2 (`mov ebx,ebp` at
+ *       0x4025e6, ebp=[esp+0x10]=param_2, preserved across the
+ *       intervening PanelManager_FindByName call).
  *   DispatchDirectLinkPacket (0x40361f, case 0x1004)   container=
  *       param_2 (pushed `ebp`), key=EBX=EDI=this function's own
  *       regEax (`mov edi,eax` at entry 0x4032d2, dominates this

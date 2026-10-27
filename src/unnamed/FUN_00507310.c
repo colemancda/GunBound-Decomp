@@ -41,7 +41,7 @@ joined_r0x00507384:
       iVar4 = __stricmp((char *)(iVar4 * 0xd + 0x41445 + g_clientContext),
                         (char *)(g_clientContext + 0x23330));
       if (iVar4 != 0) {
-        FUN_004025e0(&DAT_00e53e88,
+        EnsureChatLogPanelForPeer(&DAT_00e53e88,
                      *(int *)(g_clientContext + 0x44248 +
                              (*(int *)(&DAT_005f2f3c + g_clientContext) + iVar5) * 4) * 0xd + 0x41445 +
                      g_clientContext);

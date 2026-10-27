@@ -1,14 +1,25 @@
-/* FUN_004025e0 - 0x004025e0 in the original binary.
+/* EnsureChatLogPanelForPeer - 0x004025e0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26), HIGH. Three callers - FUN_00507310, already-named
+ * DisplayIncomingWhisper, and FUN_004024f0 - all funnel into this on the
+ * roster container &DAT_00e53e88, right after a PanelManager_FindByName
+ * miss (panel key 0x4e21 = 20001, BuildChatLogPanel's class per
+ * docs/widgets.md). On that miss it finds-or-builds a throwaway roster
+ * node for the peer via FindDirectLinkBuddyNode/operator_new(0x5c) -
+ * stamped with the same vtable (&PTR_FUN_00551cb4) UpsertDirectLinkBuddyNode
+ * uses - calls BuildChatLogPanel with it, and then frees the throwaway
+ * node (vtable slot 0, `delete[]` flag 1) if it was newly allocated here
+ * rather than found. So: ensure a chat-log panel exists for this peer,
+ * building both the roster entry and the panel on first contact.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004025e0(undefined4 param_1,char *param_2)
+void EnsureChatLogPanelForPeer(undefined4 param_1,char *param_2)
 
 {
   char cVar1;
