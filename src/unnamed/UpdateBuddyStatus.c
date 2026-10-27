@@ -1,7 +1,8 @@
 /* UpdateBuddyStatus - 0x00401fa0 in the original binary.
  *
- * Finds the buddy node named by the regEcx key (via FUN_00401bb0's
- * case-insensitive walk over the registry regEax points at) and stores
+ * Finds the buddy node named by the regEcx key (via
+ * FindDirectLinkBuddyNode's case-insensitive walk over the registry
+ * regEax points at) and stores
  * the incoming status block regEsi into it: the presence byte
  * regEsi[0] always goes to node+0x30, and the 16-byte location payload
  * at regEsi+8 goes to node+0x31..+0x40 only when the 6-byte checksum
@@ -29,11 +30,8 @@ void UpdateBuddyStatus(int regEax,char *regEcx,undefined1 *regEsi)
 
 {
   int iVar1;
-  (void)regEcx; /* the name key: mov ebx,ecx at 0x401fa2 feeds FUN_00401bb0's
-                   still-dropped unaff_EBX (__stricmp key at 0x401bd5); pass it
-                   through when FUN_00401bb0 is promoted. */
-  
-  iVar1 = FUN_00401bb0(regEax);
+
+  iVar1 = FindDirectLinkBuddyNode(regEax, regEcx);
   if (iVar1 != 0) {
     *(undefined1 *)(iVar1 + 0x30) = *regEsi;
     if (*(short *)(regEsi + 0xe) ==

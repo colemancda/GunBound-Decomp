@@ -15,6 +15,18 @@
  * not declare although its `ret 0xc` and both of its callers
  * (FUN_00403000.c:44/68, three arguments) say it exists.  Now declared as
  * param_3 there.  The port had passed the packet's owner as the packet.
+ *
+ * FUN_00401bb0 CALL SITE RECOVERED (2026-10-27), part of naming that
+ * function FindDirectLinkBuddyNode: the case-0x1004 call at 0x40361f
+ * pushes `ebp` (param_2) as the stack container argument and sets
+ * `ebx` from `edi` (this function's own regEax, live since the entry
+ * `mov edi,eax` at 0x4032d2) as the lookup key register.  param_2
+ * here, in turn, traces to FUN_00403170's own param_1, which is used
+ * as `param_1 + 0x1be4` for the same RBTree every other
+ * &DAT_00e53e88-based caller (SendWhisperByNickname, FUN_00402900,
+ * FUN_00402cf0, FUN_00404410, ...) addresses at that fixed offset --
+ * confirming param_2 is &DAT_00e53e88, the same container every other
+ * FindDirectLinkBuddyNode call site uses.
  */
 #include "ghidra_types.h"
 
@@ -40,7 +52,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
   uVar2 = *(uint *)(param_1 + 4);
   if (uVar2 < 0x1005) {
     if (uVar2 == 0x1004) {
-      iVar4 = FUN_00401bb0(param_2);
+      iVar4 = FindDirectLinkBuddyNode(param_2, (char *)regEax);
       if ((iVar4 != 0) &&
          (bVar5 = (*(char *)(param_1 + 8) != '1') - 1U & 0x12, *(byte *)(iVar4 + 0x30) = bVar5,
          bVar5 == 0x12)) {

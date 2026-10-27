@@ -6,7 +6,9 @@
  * verbatim ports" section for status.
  *
  * (2026-09-01: the note below predates two renames - FUN_00426030 is now
- * FindUserIdByNickname and FUN_00426090 is FindNicknameByUserId.)
+ * FindUserIdByNickname and FUN_00426090 is FindNicknameByUserId.
+ * 2026-10-27: FUN_00401bb0, named in the note below, is now
+ * FindDirectLinkBuddyNode.)
  *
  * DROPPED REGISTER RECOVERED (2026-08-28): EDI is the 0x10-byte name record
  * this function sends and logs. It is read before it is ever written - in

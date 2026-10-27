@@ -8,13 +8,14 @@
  * name in the container param_2 (&DAT_00e53e88 at every resolved call site):
  * on a miss it allocates a fresh 0x5c-byte node stamped with vtable
  * &PTR_FUN_00551cb4 - the same vtable FUN_004025e0 stamps via the same
- * FUN_00401bb0 roster lookup, an independent second stamper for the same
- * class; on a hit (param_3 != '\0') it updates the existing node's fields
- * instead of allocating.  The pointer below ties the old FUN_ symbols this
- * header's evidence block still uses to their current names; the block
- * itself is left verbatim.
+ * FindDirectLinkBuddyNode roster lookup, an independent second stamper
+ * for the same class; on a hit (param_3 != '\0') it updates the existing
+ * node's fields instead of allocating.  The pointer below ties the old
+ * FUN_ symbols this header's evidence block still uses to their current
+ * names; the block itself is left verbatim.
  *
  *   FUN_00411b40 -> DispatchDirectLinkMessengerPacket
+ *   FUN_00401bb0 -> FindDirectLinkBuddyNode
  *
  * Find-or-create one named entry in the container param_2.  The dropped
  * EAX is the LOOKUP KEY: `mov ebx,eax` at 0x00401d58, before any write
@@ -81,7 +82,7 @@ UpsertDirectLinkBuddyNode(char *param_1,int param_2,char param_3,undefined4 para
   int *piVar5;
   int iVar6;
   
-  iVar3 = FUN_00401bb0(param_2);
+  iVar3 = FindDirectLinkBuddyNode(param_2, in_EAX);
   if (iVar3 == 0) {
     puVar4 = operator_new(0x5c);
     if (puVar4 != (undefined4 *)0x0) {

@@ -152,7 +152,7 @@ HMODULE FUN_00401880(uint param_1,WORD param_2); /* narrow WORD arg: empty-paren
 undefined4 * FUN_00401910();
 void * __thiscall FUN_00401a50();
 void FUN_00401a70();
-int FUN_00401bb0();
+int FindDirectLinkBuddyNode(int param_1,char *key);
 int FindActiveObjectByIndex(int regEax,int regEdi);
 int FUN_00401c50();
 void __fastcall FUN_00401cb0(char *param_1,int regEsi);

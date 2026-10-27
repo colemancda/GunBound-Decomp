@@ -5,9 +5,10 @@
  * section for status.
  *
  * NAMED (2026-10-26), HIGH. The delete counterpart of
- * UpsertDirectLinkBuddyNode: looks the node up by name (FUN_00401bb0,
- * FUN_00401c50), compacts a parallel 0x7f-entry array around the removed
- * slot, frees an owned buffer at +0x17a8, unlinks the node from its
+ * UpsertDirectLinkBuddyNode: looks the node up by name
+ * (FindDirectLinkBuddyNode, FUN_00401c50), compacts a parallel 0x7f-entry
+ * array around the removed slot, frees an owned buffer at +0x17a8,
+ * unlinks the node from its
  * container's doubly-linked list, and calls its own vtable slot 0
  * (&PTR_FUN_00551cb4's scalar-deleting destructor) with the `delete[]`
  * flag argument 1 before updating the owning widget's child range -
@@ -50,7 +51,7 @@ void RemoveDirectLinkBuddyNode(int param_1,char *regEax)
   undefined4 *puVar6;
   undefined4 *puVar7;
   
-  puVar2 = (undefined4 *)FUN_00401bb0(param_1);
+  puVar2 = (undefined4 *)FindDirectLinkBuddyNode(param_1, regEax);
   if (puVar2 != (undefined4 *)0x0) {
     iVar3 = FUN_00401c50(param_1,regEax);
     if (iVar3 < 0x7f) {

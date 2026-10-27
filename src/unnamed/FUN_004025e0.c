@@ -18,7 +18,7 @@ void FUN_004025e0(undefined4 param_1,char *param_2)
   
   iVar3 = PanelManager_FindByName((int)&g_uiPanelManager);
   if (iVar3 == 0) {
-    puVar4 = (undefined4 *)FUN_00401bb0(param_1);
+    puVar4 = (undefined4 *)FindDirectLinkBuddyNode(param_1, param_2);
     bVar2 = false;
     if (puVar4 == (undefined4 *)0x0) {
       puVar4 = operator_new(0x5c);

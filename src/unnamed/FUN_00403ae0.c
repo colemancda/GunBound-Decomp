@@ -3,6 +3,19 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FUN_00401bb0 CALL SITE RECOVERED (2026-10-27), part of naming that
+ * function FindDirectLinkBuddyNode: at 0x403b0b the pushed stack
+ * container is `lea esi,[ebp-8]` (param_1 + -8) and the key register
+ * EBX is `lea ebx,[esp+0x2c]`, the SAME address FUN_00404700's own
+ * header already identifies as local_20 (the nickname buffer
+ * FindNicknameByUserId just filled two lines above, at the same depth
+ * 0x4c). param_1 + -8 is the owner object this virtual's "this" sits 8
+ * bytes into -- the same convention FUN_00403d20's header confirms for
+ * its vtable twin, where owner + 0x1be4 (the RBTree every
+ * &DAT_00e53e88 caller shares) equals this - 8 + 0x1bdc -- so the
+ * container here is &DAT_00e53e88 too, the same one every other
+ * FindDirectLinkBuddyNode call site uses.
  */
 #include "ghidra_types.h"
 
@@ -23,7 +36,7 @@ void __thiscall FUN_00403ae0(int param_1,char *param_2)
   
   cVar2 = FindNicknameByUserId((char *)local_20,param_2,(int)g_clientContext);
   if (cVar2 == '\x01') {
-    iVar3 = FUN_00401bb0(param_1 + -8);
+    iVar3 = FindDirectLinkBuddyNode(param_1 + -8, (char *)local_20);
     if ((iVar3 != 0) &&
        (bVar7 = (param_2[0x12] == '\0') - 1U & 0x12, *(byte *)(iVar3 + 0x30) = bVar7, bVar7 == 0x12)
        ) {

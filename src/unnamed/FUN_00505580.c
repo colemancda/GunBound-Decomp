@@ -3,6 +3,14 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FUN_00401bb0 CALL SITE RECOVERED (2026-10-27), part of naming that
+ * function FindDirectLinkBuddyNode: at 0x5055ec the only stack push is
+ * the literal container `&DAT_00e53e88`, and EBX - the lookup-key
+ * register - was already set at 0x5055e2 by `mov ebx,[ebp+0x50]`, i.e.
+ * `*(char **)(param_1 + 0x50)`, the same buddy-name pointer this
+ * function reads again right after (0x50563b) and passes to
+ * FUN_00402ad0.
  */
 #include "ghidra_types.h"
 
@@ -37,7 +45,7 @@ void FUN_00505580(int param_1)
     AssignStringBuffer(param_1 + 0x50,pcVar5);
   }
   if (*(int *)(*(int *)(param_1 + 0x50) + -0xc) != 0) {
-    iVar3 = FUN_00401bb0(&DAT_00e53e88);
+    iVar3 = FindDirectLinkBuddyNode(&DAT_00e53e88, *(char **)(param_1 + 0x50));
     if (iVar3 == 0) {
       iVar3 = __mbsicmp(*(uchar **)(param_1 + 0x50),(uchar *)(g_clientContext + 0x23330));
       if (iVar3 != 0) {
