@@ -433,7 +433,7 @@ int FUN_00420600(int ctx,int slot);
 int FUN_00420650();
 void FUN_004207c0();
 undefined4 FUN_004217b0(int ctx,undefined4 param_1);
-int FUN_00421820();
+int TokenizeChatCommandLine(char *param_1);
 void __fastcall CopyChatCommandToken(int param_1,int param_2,undefined4 *regEbx);
 undefined4 ParseChatSlashCommand();
 void __thiscall FUN_00422f10(undefined4 param_1,undefined4 param_2,int regEsi);

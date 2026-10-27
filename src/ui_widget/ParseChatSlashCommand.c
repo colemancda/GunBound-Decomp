@@ -63,7 +63,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
     } while (cVar1 != '\0');
     iVar3 = FUN_00525ea0(&local_100,&DAT_005535f4);
   }
-  iVar3 = FUN_00421820(&local_100);
+  iVar3 = TokenizeChatCommandLine(&local_100);
   if (local_100 < '\0') {
     uVar10 = 0;
   }

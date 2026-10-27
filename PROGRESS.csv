@@ -325,7 +325,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004206f0,197,GetPlayerRecordBySlot,false,72,1,RAW-src
 004207c0,4075,FUN_004207c0,false,1,18,RAW-src
 004217b0,110,FUN_004217b0,false,9,3,RAW-src
-00421820,72,FUN_00421820,false,1,0,RAW-src
+00421820,72,TokenizeChatCommandLine,false,1,0,RAW-src
 00421870,70,CopyChatCommandToken,false,6,0,RAW-src
 004218c0,5693,ParseChatSlashCommand,false,4,29,RAW-src
 00422f10,81,FUN_00422f10,false,4,1,RAW-src

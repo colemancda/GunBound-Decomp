@@ -6,7 +6,9 @@
  *
  * (FUN_00402720 below is now SendWhisperByNickname.  FUN_00425840/
  * FUN_004258e0 further below are now AddMuteListEntry/RemoveMuteListEntry.
- * AppendWordFilterEntry, also further below, is now AtlArray_AppendCString.)
+ * AppendWordFilterEntry, also further below, is now AtlArray_AppendCString.
+ * FUN_00421820, named in the evidence block below, is now
+ * TokenizeChatCommandLine.)
  *
  * ARGUMENTS RE-SLOTTED AND EBX RECOVERED (2026-08-27).  All six call sites
  * passed NOTHING to this two-parameter __fastcall, so param_1 and param_2
