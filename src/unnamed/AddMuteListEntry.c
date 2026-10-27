@@ -9,7 +9,7 @@
  * at 0x5535a4 in the original image's data section - confirmed by reading
  * the raw bytes there). After the FindMuteListIndex (FUN_004259d0) probe
  * comes back -1 (not already muted) and an own-nickname guard, it appends
- * the typed name to the mute array via AppendWordFilterEntry and shows
+ * the typed name to the mute array via AtlArray_AppendCString and shows
  * localized string 0x1fe - the add-confirmation message paired with
  * RemoveMuteListEntry's 0x1ff removal message and ClearMuteList's 0x200
  * clear message on the same array.
@@ -44,7 +44,7 @@ void AddMuteListEntry(char *regEsi,int regEax)
     if (pcVar3 != regEsi + 1) {
       iVar2 = __stricmp(regEsi,(char *)(g_clientContext + 0x23330));
       if (iVar2 != 0) {
-        AppendWordFilterEntry(regEsi);
+        AtlArray_AppendCString(regEsi);
         pcVar3 = (char *)GetLocalizedString(&g_localizedStringTable,0x1fe);
         _sprintf(local_80,pcVar3);
         (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_80,2,6);

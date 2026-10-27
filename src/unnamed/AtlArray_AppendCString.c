@@ -1,11 +1,23 @@
-/* AppendWordFilterEntry - 0x00415bc0 in the original binary.
+/* AtlArray_AppendCString - 0x00415bc0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * (FUN_00425840, mentioned in a note below, is now AddMuteListEntry.)
+ *
+ * RENAMED (2026-10-26): this is a single shared/generic ATL-array-append
+ * template instantiation - grows the array via AtlArray_GrowBuffer if
+ * needed, then calls ConstructStringFromText to construct one CStringT-
+ * style element and returns its index - used by THREE unrelated callers/
+ * containers (LoadFourWordList.c's word-filter array, AddMuteListEntry.c's
+ * chat mute list, and State11_InBattle_ProcessBattleAction.c's own,
+ * separate array), not word-filter-specific. The old name
+ * AppendWordFilterEntry was only accurate for the first of those three;
+ * see AtlArray_RemoveAt_CString.c's own header for the full three-caller
+ * E8-scan evidence that establishes this is a shared template member, the
+ * same reasoning that already named this file's RemoveAt counterpart.
+ * (AppendWordFilterEntry is now AtlArray_AppendCString.)
  *
  * SEH-PROLOGUE ARTIFACT FIX (2026-07-30): same class as
  * WidgetChildArray_Destroy.c/FUN_00443c20.c/FUN_00509780.c -
@@ -48,7 +60,7 @@
 #include "ghidra_types.h"
 
 
-uint __fastcall AppendWordFilterEntry(int *thisArray,char *lineText)
+uint __fastcall AtlArray_AppendCString(int *thisArray,char *lineText)
 
 {
   int iVar1;

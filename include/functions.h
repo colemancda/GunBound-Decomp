@@ -387,7 +387,7 @@ void thunk_FUN_004158f0();
 void FUN_004158f0();
 undefined4 LoadFourWordList();
 undefined4 CheckChatWordFilter();
-uint __fastcall AppendWordFilterEntry();
+uint __fastcall AtlArray_AppendCString();
 int FUN_00415c60();
 void FUN_00415ca0(undefined4 *regEax);
 void FUN_00415ce0(int param_1,int regEbx);

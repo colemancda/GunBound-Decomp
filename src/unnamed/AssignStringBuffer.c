@@ -17,8 +17,9 @@
  * just computed by an inline strlen loop) - this is a CStringT-style
  * assign-from-buffer helper: `(dest, srcBuffer, length)`. Only the one
  * call site actually reachable in current live testing is fixed here
- * (ConstructStringFromText.c, itself reached via AppendWordFilterEntry/LoadFourWordList's
- * FourWord.txt/Sound.txt word-list loading); the ~17 other call sites
+ * (ConstructStringFromText.c, itself reached via AtlArray_AppendCString/
+ * LoadFourWordList's FourWord.txt/Sound.txt word-list loading); the ~17
+ * other call sites
  * across src/ui_widget and src/unnamed keep their existing (pre-existing,
  * not worsened by this fix) 2-arg calls against the K&R-empty decl -
  * fixing those needs each site's own length expression traced, deferred

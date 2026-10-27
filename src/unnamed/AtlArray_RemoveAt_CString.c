@@ -12,8 +12,9 @@
  *
  * (FUN_004258e0 is now RemoveMuteListEntry; FUN_004259d0 is now
  * FindMuteListIndex; FUN_00425840/FUN_00425960 are now AddMuteListEntry/
- * ClearMuteList.  The notes below predate those renames and still use
- * the old symbols throughout - left verbatim.)
+ * ClearMuteList.  AppendWordFilterEntry, named several times below, is
+ * now AtlArray_AppendCString.  The notes below predate those renames and
+ * still use the old symbols throughout - left verbatim.)
  *
  * DROPPED REGISTERS RECOVERED (2026-08-27).  A previous pass stopped here
  * saying only ESI was determined, because EDI's value was "live from earlier

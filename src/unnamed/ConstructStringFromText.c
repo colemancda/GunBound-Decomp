@@ -6,18 +6,19 @@
  * it (via AssignStringBuffer) or, if `param_1`'s high 16 bits are zero
  * (a small integer disguised as a pointer - a Win32 resource-ID
  * sentinel), calls FUN_00401880/CString_LoadStringFromInstance instead. Confirmed live via
- * AppendWordFilterEntry's call (constructing one word-filter array
+ * AtlArray_AppendCString's call (constructing one word-filter array
  * element per line of FourWord.txt/Sound.txt) - see that file's own
  * header. Raw/near-verbatim port of Ghidra's decompiler output
  * otherwise, not hand-verified. See src/README.md's "Raw/verbatim
  * ports" section for status.
  *
  * SEH-PROLOGUE ARTIFACT FIX (2026-07-30): same class as
- * AppendWordFilterEntry.c/WidgetChildArray_Destroy.c/FUN_00443c20.c/
+ * AtlArray_AppendCString.c/WidgetChildArray_Destroy.c/FUN_00443c20.c/
  * FUN_00509780.c - `unaff_FS_OFFSET` was an uninitialised pointer the body
  * wrote through (`*unaff_FS_OFFSET = &uStack_c;`) on every call. Stripped
- * per that idiom. Reached live for the first time once AppendWordFilterEntry.c's
- * dropped-args bug was fixed (this function is AppendWordFilterEntry's own
+ * per that idiom. Reached live for the first time once
+ * AtlArray_AppendCString.c's dropped-args bug was fixed (this function is
+ * AtlArray_AppendCString's own
  * `ConstructStringFromText(lineText, arraySlot)` call, constructing one CStringT-style
  * element per word parsed from FourWord.txt/Sound.txt) - the garbage
  * FS_OFFSET write was corrupting memory on every single word appended.

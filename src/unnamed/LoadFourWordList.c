@@ -49,12 +49,15 @@
  * also removes the multi-page `__chkstk` prologue this function used to
  * need, which is a nice side effect but not why the crash is fixed.
  *
+ * (AppendWordFilterEntry, named throughout the note just below, is now
+ * AtlArray_AppendCString.)
+ *
  * AppendWordFilterEntry CALL-SITE FIX (2026-07-30): `AppendWordFilterEntry(acStack_10f50)`
  * dropped that function's real `this` (the word-filter AtlArray header at
  * g_wordFilterArrayHeader, was DAT_00e9c9dc/DAT_00e9c9e0 - see
  * globals_sized.c) and passed the parsed line as if it were `this` instead
- * of the actual 2nd argument. See AppendWordFilterEntry.c's own header for the full
- * objdump-confirmed detail.
+ * of the actual 2nd argument. See AtlArray_AppendCString.c's own header
+ * for the full objdump-confirmed detail.
  *
  * CloseSpriteReadState/FUN_004f0d70 CALL-SITE FIX (2026-07-30): both were
  * still called with zero args here, matching CloseSpriteReadState.c's own
@@ -154,7 +157,7 @@ LAB_00415a5e:
       }
       else {
         acStack_10f50[iVar5] = '\0';
-        AppendWordFilterEntry((int *)&g_wordFilterArrayHeader,acStack_10f50);
+        AtlArray_AppendCString((int *)&g_wordFilterArrayHeader,acStack_10f50);
         iVar5 = 0;
       }
     }
