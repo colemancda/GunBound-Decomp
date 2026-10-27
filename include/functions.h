@@ -1676,7 +1676,7 @@ void TextEntry_SetControlText(char *regEsi,int regEdi);
 undefined4 __thiscall FUN_00507090();
 void __thiscall FUN_00507170();
 void __fastcall FUN_005071a0();
-undefined4 __thiscall FUN_00507310();
+undefined4 __thiscall ChannelUserListPanel_HitTest(int param_1,int param_2,int param_3);
 void __fastcall RenderChannelUserRow(int thisPtr);
 void __thiscall FUN_00507660();
 void __fastcall FUN_005078f0(int thisPtr);

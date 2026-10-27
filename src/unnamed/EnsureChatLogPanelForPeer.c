@@ -4,9 +4,10 @@
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
  *
- * NAMED (2026-10-26), HIGH. Three callers - FUN_00507310, already-named
- * DisplayIncomingWhisper, and FUN_004024f0 - all funnel into this on the
- * roster container &DAT_00e53e88, right after a PanelManager_FindByName
+ * NAMED (2026-10-26), HIGH. Three callers - ChannelUserListPanel_HitTest,
+ * already-named DisplayIncomingWhisper, and FUN_004024f0 - all funnel
+ * into this on the roster container &DAT_00e53e88, right after a
+ * PanelManager_FindByName
  * miss (panel key 0x4e21 = 20001, BuildChatLogPanel's class per
  * docs/widgets.md). On that miss it finds-or-builds a throwaway roster
  * node for the peer via FindDirectLinkBuddyNode/operator_new(0x5c) -

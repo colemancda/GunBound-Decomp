@@ -4,6 +4,9 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (2026-10-27: FUN_00507310, cited below as a cross-reference, is now
+ * ChannelUserListPanel_HitTest.)
+ *
  * BlitRLESprite's 4th arg (rleData) and 1st arg (this/x-cursor) were
  * dropped as in_EAX/a bare `0` in the raw port - recovered via objdump at
  * this function's two call sites (0x507600 and 0x50761e, both `call

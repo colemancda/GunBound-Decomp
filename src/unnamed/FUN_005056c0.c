@@ -4,6 +4,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (2026-10-27: FUN_00507310, named below, is now ChannelUserListPanel_HitTest.)
+ *
  * DROPPED-REG FIX (2026-08-28): this two-line wrapper was losing BOTH of
  * its inputs. It ends in `ret 4` at 0x5056f5, so it takes one stack
  * argument, and its single caller FUN_00507310 already passes one - but

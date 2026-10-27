@@ -1,13 +1,42 @@
-/* FUN_00507310 - 0x00507310 in the original binary.
+/* ChannelUserListPanel_HitTest - 0x00507310 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-27), HIGH, CORRECTED FROM THE PROPOSED "OnMouseUp".
+ * docs/vtable_census.txt places this at vtable 0x557cac slot 4, with
+ * slot 9 the already-named RenderChannelUserRow on the same table -
+ * src/cxx/Widget.h/.cpp identify that vtable as CChannelUserListPanel's
+ * (builder 0x509d80) and confirm RenderChannelUserRow is its slot-9
+ * Update override. Slot 4, not slot 3, is where this class's sibling
+ * CLobbyChatPanel (vtable 0x557cd4, differing from this one only at
+ * slots 4/7/9) still carries the UNMODIFIED base Widget_HitTest
+ * (0x50e9c0) - and Widget.h's own comment on that virtual spells slot
+ * 4 out explicitly as "Widget_HitTest - rect test then child
+ * broadcast". Slot 3 (Widget_OnMouseUp) is untouched in
+ * BOTH vtables, so this overrides HitTest, not OnMouseUp. The body's
+ * tail is the clincher: after the row-click side effect below, it runs
+ * the exact own-rect test Widget_HitTestSelf documents as "the
+ * widget's own-rect half of Widget_HitTest" - same m_hidden (+0x1e)
+ * gate, same +0x28/+0x30 and +0x2c/+0x34 strict-inequality bounds,
+ * same bool result - and returns it unconditionally, matching
+ * CWidget::HitTest's contract exactly.
+ *
+ * Ahead of that rect test, when (param_2,param_3) lands in one of the
+ * panel's 7 user rows (columns param_1+0x28+9..+0xa5, rows starting at
+ * param_1+0x2c+0x25 and stepping 0x1e), and the row's name differs from
+ * the local player's own nickname, it opens that user's whisper panel
+ * via EnsureChatLogPanelForPeer - the same per-row click action
+ * RenderChannelUserRow draws the row for. So this HitTest override
+ * does double duty: triggering the row's whisper-open click as a side
+ * effect of being queried, then still returning the generic
+ * contains-point test every CWidget::HitTest caller expects.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_00507310(int param_1,int param_2,int param_3)
+undefined4 __thiscall ChannelUserListPanel_HitTest(int param_1,int param_2,int param_3)
 
 {
   int *piVar1;
