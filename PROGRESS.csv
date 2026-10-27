@@ -245,7 +245,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00412e00,73,FUN_00412e00,false,1,3,RAW-src
 00412e50,733,FUN_00412e50,false,1,6,RAW-src
 00413130,2483,GameTick,false,1,41,RAW-src
-00413af0,242,FUN_00413af0,false,2,0,RAW-src
+00413af0,242,DisplayLocalizedChatMessage,false,2,0,RAW-src
 00413bf0,742,SendPlayResult,false,5,6,RAW-src
 00413ee0,389,FUN_00413ee0,false,1,0,RAW-src
 00414070,315,FUN_00414070,false,16,1,RAW-src

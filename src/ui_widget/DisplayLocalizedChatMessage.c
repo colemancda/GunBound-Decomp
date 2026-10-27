@@ -1,14 +1,26 @@
-/* FUN_00413af0 - 0x00413af0 in the original binary.
+/* DisplayLocalizedChatMessage - 0x00413af0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-26), HIGH. Both call sites (ParseChatSlashCommand.c,
+ * ClearMuteList.c) pass a GetLocalizedString() result straight in, so the
+ * input is always a localized string table lookup rather than raw network
+ * text. The body splits that string on a literal "\n" or a real newline
+ * and dispatches each line through
+ * g_gameStateVTableArray[g_currentGameState]'s +0x28 slot - the same
+ * "append a chat line" virtual that ParseChatSlashCommand's own inline
+ * uses (local_1a0 sites), BeginNewTurn, BuildItemLoadout, and the state
+ * machine's ProcessBattleAction/ProcessPacket handlers all call with the
+ * same (text, 2, colorFlag) shape. So this is a local/system chat-line
+ * display helper fed by the localization table, not a packet receive
+ * path.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00413af0(char *regEdi)
+void DisplayLocalizedChatMessage(char *regEdi)
 
 {
   char cVar1;

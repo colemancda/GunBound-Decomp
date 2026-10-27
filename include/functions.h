@@ -356,7 +356,7 @@ void ShowMessageDialog();
 void PumpBattleActions();
 uint FUN_00412e00(undefined4 param_1,char *regEdi);
 void FUN_00412e50();
-void FUN_00413af0(char *regEdi);
+void DisplayLocalizedChatMessage(char *regEdi);
 void SendPlayResult();
 void FUN_00413ee0(ushort *dest,ushort *src);
 void __fastcall FUN_00414070(uint frameIdx,uint key,int canvas);
