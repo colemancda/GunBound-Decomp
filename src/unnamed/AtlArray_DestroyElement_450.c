@@ -8,7 +8,7 @@
  * - AtlArray_CallConstructors_450's catch block (0x44c8da), unwinding
  *   the elements already built before rethrowing;
  * - the `nNewSize == 0` arm of AtlArray_SetCount_450 (0x44c7d3) and
- *   AtlArray_RemoveAll_450 (0x44c605), and RemoveAt FUN_0044c6a0
+ *   AtlArray_RemoveAll_450 (0x44c605), and AtlArray_RemoveAt_450
  *   (0x44c6e5), each in a 0x450-stride loop over m_pData;
  * - FUN_00418dc0's four inlined ~CAtlArray loops (0x4197e9, 0x419821,
  *   0x419858, 0x419891) and AtlArray_InsertAt_450 (0x50d066);

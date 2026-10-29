@@ -17,8 +17,9 @@
  * The one caller, FUN_0050a320 (the Avatar-Store reorder, 0x50a44b),
  * pushes (g_clientContext + 0x44e20, an index, the scratch record it
  * just copied out with AtlArray_CopyElement_450, 1) right after calling
- * 0x44c6a0 - the RemoveAt that AtlArray_RemoveAll_450's header
- * identifies - on the same array (0x50a42e): a move expressed as
+ * AtlArray_RemoveAt_450 (0x44c6a0) - the RemoveAt that
+ * AtlArray_RemoveAll_450's header identifies - on the same array
+ * (0x50a42e): a move expressed as
  * RemoveAt + InsertAt.  That file is C++ and carries its own extern
  * declaration, renamed with this one.
  *

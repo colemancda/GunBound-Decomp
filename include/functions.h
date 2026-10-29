@@ -682,7 +682,7 @@ void FUN_0044c460(int param_1,int param_2,int param_3,int param_4,int param_5,in
 void RemoveInventoryItems(int regEbx,int regEax,int *regEdi);
 void AtlArray_RemoveAll_450(int *regEdi);
 undefined4 __fastcall FUN_0044c630(int param_1,int regEax);
-void FUN_0044c6a0(int *param_1, int regEdi);
+void AtlArray_RemoveAt_450(int *param_1, int regEdi);
 void AtlArray_CopyElement_450(int dstRecord,int srcRecord);
 undefined1 __fastcall AtlArray_SetCount_450(uint param_1,int *param_2,int growBy);
 void AtlArray_CallConstructors_450(int pElements,uint nElements);

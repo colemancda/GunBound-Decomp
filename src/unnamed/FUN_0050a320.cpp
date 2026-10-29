@@ -53,7 +53,7 @@ extern unsigned char g_valueGuardLock;
 int AvatarListRowHitTest(int widget, int x, int y);
 int AtlArray_ConstructElement_450(void *buf);
 void AtlArray_CopyElement_450(int dstRecord, int srcRecord);
-void FUN_0044c6a0(unsigned int ctx, int regEdi);
+void AtlArray_RemoveAt_450(unsigned int ctx, int regEdi);
 void AtlArray_InsertAt_450(unsigned int ctx, unsigned int idx, void *buf, int flag);
 void FUN_0044b0b0(void *state);
 void AtlArray_DestroyElement_450(void *buf);
@@ -113,7 +113,7 @@ extern "C" int FUN_0050a320(CWidget *this_, int x, int y)
       AtlArray_CopyElement_450((int)local_45c,
                    (int)(*(unsigned int *)(self + 0x94) * 0x450
                          + *(int *)(g_clientContext + 0x44e20)));
-      FUN_0044c6a0(g_clientContext + 0x44e20,1);
+      AtlArray_RemoveAt_450(g_clientContext + 0x44e20,1);
       AtlArray_InsertAt_450(g_clientContext + 0x44e20, local_468, local_45c, 1);
       FUN_0044b0b0(puVar2);
       iVar4 = 0;
