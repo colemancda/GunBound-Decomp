@@ -8,7 +8,8 @@
  *   else if (nNewSize > m_nMaxSize) GrowBuffer(...)  -> arr[2] < newCount
  *   else if (nNewSize < m_nSize)   CallDestructors
  *                                  -> AtlArray_CallDestructors_450
- *   else if (nNewSize > m_nSize)   CallConstructors  -> FUN_0044c870
+ *   else if (nNewSize > m_nSize)   CallConstructors
+ *                                  -> AtlArray_CallConstructors_450
  *   m_nSize = nNewSize; return true;
  *
  * It is ATL and not MFC.  MFC's CArray::SetSize returns VOID and throws
@@ -78,7 +79,7 @@ undefined1 __fastcall AtlArray_SetCount_450(uint param_1,int *param_2,int growBy
       goto LAB_0044c85f;
     }
   }
-  FUN_0044c870(uVar2 * 0x450 + *param_2,param_1 - uVar2);
+  AtlArray_CallConstructors_450(uVar2 * 0x450 + *param_2,param_1 - uVar2);
 LAB_0044c85f:
   param_2[1] = param_1;
   return 1;

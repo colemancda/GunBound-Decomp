@@ -40,7 +40,7 @@ void FUN_0050cff0(int *param_1,uint param_2,undefined4 param_3,int param_4)
     _memmove((void *)((param_4 + param_2) * 0x450 + *param_1),(void *)(param_2 * 0x450 + *param_1),
              (iVar1 - param_2) * 0x450);
     local_8 = 0;
-    FUN_0044c870(*param_1 + param_2 * 0x450,param_4);
+    AtlArray_CallConstructors_450(*param_1 + param_2 * 0x450,param_4);
   }
   else {
     /* 0x50d01e-0x50d02c (the fall-through arm): `mov eax,[ebp+0x14];

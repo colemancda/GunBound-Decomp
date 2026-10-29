@@ -47,8 +47,9 @@
  * nCount, -1); the other arm is SetCount(m_nSize + nCount, -1), a
  * destructor loop (FUN_00426810) from nOldSize over the nCount slots
  * SetCount just constructed, _memmove of the (nOldSize - iElement) upper
- * elements up nCount slots, then CallConstructors (FUN_0044c870, which
- * loops FUN_00428550 at 0x450 stride) over the vacated hole.  BOTH arms
+ * elements up nCount slots, then CallConstructors
+ * (AtlArray_CallConstructors_450, which loops FUN_00428550 at 0x450
+ * stride) over the vacated hole.  BOTH arms
  * fall into `for (i = iElement; i < iElement + nCount; i++)
  * m_pData[i] = element` -- that last loop is this function.
  * - 0x50a411, in FUN_0050a320 (the Avatar-Store reorder) uses it directly

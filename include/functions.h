@@ -685,7 +685,7 @@ undefined4 __fastcall FUN_0044c630(int param_1,int regEax);
 void FUN_0044c6a0(int *param_1, int regEdi);
 void AtlArray_CopyElement_450(int dstRecord,int srcRecord);
 undefined1 __fastcall AtlArray_SetCount_450(uint param_1,int *param_2,int growBy);
-void FUN_0044c870();
+void AtlArray_CallConstructors_450(int pElements,uint nElements);
 undefined4 * InitShot1_Bullet7(undefined4 *regEsi);
 void * __thiscall DeleteShot1_Bullet7();
 void DestroyShot1_Bullet7(undefined4 *regEax);
