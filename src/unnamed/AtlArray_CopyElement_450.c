@@ -15,8 +15,8 @@
  *
  * ESI is the destination and EBX the source, which the body already showed
  * (`*(unaff_ESI + 4) = *(unaff_EBX + 4)`) and each call site confirms
- * separately: FUN_0044c630 sets ESI to `uVar1*0x450 + *(int *)param_1` and
- * derives EBX from it by a constant delta; AtlArray_InsertAt_450 sets
+ * separately: AtlArray_Append_450 sets ESI to `uVar1*0x450 + *(int
+ * *)param_1` and derives EBX from it by a constant delta; AtlArray_InsertAt_450 sets
  * ESI from its own loop counter over `*param_1` and takes EBX straight
  * from param_3; and
  * FUN_0050a320 points ESI at the local_45c scratch record and EBX at
@@ -39,7 +39,8 @@
  * NAMED 2026-08-27, from the callers, not the body.  Three binary call
  * sites, three C call sites, two arguments each:
  *
- * - 0x44c673, in FUN_0044c630 = CAtlArray::Append: caches m_nSize, calls
+ * - 0x44c673, in AtlArray_Append_450 = CAtlArray::Append: caches
+ * m_nSize, calls
  * AtlArray_SetCount_450(m_nSize + aSrc.m_nSize, this, -1), walks the two
  * arrays in lockstep by 0x450 calling this function per element, and
  * returns the OLD size -- Append's exact contract and return.

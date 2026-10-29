@@ -1,9 +1,33 @@
-/* FUN_0044c630 - 0x0044c630 in the original binary.
+/* AtlArray_Append_450 - 0x0044c630 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (2026-10-29): ATL7 CAtlArray<E>::Append(const CAtlArray& aSrc)
+ * for the 0x450-byte avatar-item record - the member
+ * AtlArray_RemoveAll_450's and AtlArray_CopyElement_450's headers already
+ * identified at this address.  atlcoll.h's body in order: nOldSize =
+ * m_nSize (`mov ebp,[ebx+4]`); SetCount(m_nSize + aSrc.m_nSize, -1)
+ * (AtlArray_SetCount_450, 0x44c64a); CopyElements inlined as a lockstep
+ * 0x450-stride walk calling the element operator=
+ * (AtlArray_CopyElement_450, 0x44c673); return nOldSize (`mov
+ * eax,ebp` / the [esp+0x10] spill).  Destination array in ECX (the
+ * __fastcall param_1 here), source array in EAX.
+ *
+ * What fixes the member from outside is the callers.  FUN_0044bf00 runs
+ * AtlArray_RemoveAll_450 on g_clientContext + 0x44e50 and then calls
+ * this twice into that same array, from +0x44e30 (0x44c0dd) and then
+ * +0x44e40 (0x44c0f4) - clear, then concatenate two arrays: Append's
+ * use, not Add's.  The third site, 0x444886 in State07's avatar-store
+ * handler, appends +0x44e50 onto +0x44e30 (`lea eax,[ecx+0x44e50]; add
+ * ecx,0x44e30`).
+ *
+ * NOT TO BE CONFUSED with AtlArray_AppendCString (0x415bc0): despite
+ * its name that one adds ONE constructed element and returns its index,
+ * i.e. it is ATL's Add, the member AtlArray_Add_450 is for this
+ * instantiation.  This function is ATL's Append (array onto array); the
+ * two are not the same member at two instantiations.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * EAX RECOVERED (2026-08-25), and the ECX slot filled with it: all three sites
  * pass two client-context sub-objects, `mov ecx,[0x5b3484]` then a lea and an
@@ -18,7 +42,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall FUN_0044c630(int param_1,int regEax)
+undefined4 __fastcall AtlArray_Append_450(int param_1,int regEax)
 
 {
   undefined4 uVar1;

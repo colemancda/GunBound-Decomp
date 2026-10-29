@@ -550,7 +550,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0044c460,308,FUN_0044c460,false,2,3,RAW-src
 0044c5a0,67,RemoveInventoryItems,false,1,2,RAW-src
 0044c5f0,58,AtlArray_RemoveAll_450,false,5,2,RAW-src
-0044c630,99,FUN_0044c630,false,3,2,RAW-src
+0044c630,99,AtlArray_Append_450,false,3,2,RAW-src
 0044c6a0,157,AtlArray_RemoveAt_450,false,4,3,RAW-src
 0044c740,104,AtlArray_CopyElement_450,false,3,5,RAW-src
 0044c7b0,183,AtlArray_SetCount_450,false,3,5,RAW-src

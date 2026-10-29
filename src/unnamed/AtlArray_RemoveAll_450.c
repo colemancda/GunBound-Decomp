@@ -18,8 +18,8 @@
  * which walks the same 0x450 stride and calls the same
  * AtlArray_DestroyElement_450
  * per-element destructor.  The callers corroborate the container reading:
- * both files pass these same bases to FUN_0044c630 on the next line, and
- * FUN_0044bf00 _qsort's `*(void **)(g_clientContext + 0x44e40)` with
+ * both files pass these same bases to AtlArray_Append_450 on the next
+ * line, and FUN_0044bf00 _qsort's `*(void **)(g_clientContext + 0x44e40)` with
  * `*(size_t *)(g_clientContext + 0x44e44)` as the count and 0x450 as the
  * element width -- the m_pData/m_nSize pair at +0/+4 of one of them.
  *

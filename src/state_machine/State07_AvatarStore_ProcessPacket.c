@@ -313,7 +313,7 @@ LAB_0044469b:
         *(undefined1 *)((int)this + 0x32f92) = 0;
         AtlArray_RemoveAll_450((int *)(g_clientContext + 0x44e30));
         AtlArray_RemoveAll_450((int *)(g_clientContext + 0x44e40));
-        FUN_0044c630((int)(g_clientContext + 0x44e30),(int)(g_clientContext + 0x44e50));
+        AtlArray_Append_450((int)(g_clientContext + 0x44e30),(int)(g_clientContext + 0x44e50));
         return;
       }
     }

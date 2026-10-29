@@ -62,8 +62,8 @@
  * darken different rows, and only the dropped EAX distinguishes them.  What
  * blocks finishing it is the E-0xc slot, which Ghidra never modelled at all
  * (there is no local_c in this function), so it has to be reintroduced along
- * with whichever store feeds it -- the same shape as FUN_0044c630's dropped
- * pointer walk. */
+ * with whichever store feeds it -- the same shape as AtlArray_Append_450's
+ * dropped pointer walk. */
 #include "ghidra_types.h"
 
 
