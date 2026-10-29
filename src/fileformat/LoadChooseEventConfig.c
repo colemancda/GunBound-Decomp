@@ -46,6 +46,16 @@
  * the objdump detail (edi is reused as CloseXFSArchive's own archive arg
  * right after, and every CloseXFSArchive call site in the tree already
  * uses &g_xfsScratch).
+ *
+ * EVENT-CODE FIX (2026-10-29): ParseChooseEventLine's 3rd argument (the
+ * value stored at the map node's +4) is EDI, the line's event code, not
+ * local_f710 (the archive-open sentinel, always -1 here).  Orig: a tab
+ * stores `_atol(prefix)` into EDI (`call 0x525cf9; mov edi,eax` at
+ * 0x409c04-0x409c0c, a result the port threw away), and both newline
+ * paths zero it (`xor edi,edi` at 0x409c26 and 0x409c43).  Before the
+ * first tab, EDI still holds the read state loaded at 0x409b67
+ * (`mov edi,[esp+0x14]`), ported as found.  Previously every ChooseEvent
+ * entry was stored with code -1.
  */
 #include "xfs.h"
 #include "ghidra_types.h"
@@ -61,6 +71,7 @@ undefined4 LoadChooseEventConfig(void *param_1)
   void *pvVar2;
   int iVar3;
   int iVar4;
+  int eventCode;
   undefined4 *puVar5;
   char cStack_10f55;
   undefined4 uStack_10f54;
@@ -111,6 +122,7 @@ undefined4 LoadChooseEventConfig(void *param_1)
   iVar4 = 0;
   bVar1 = false;
   iVar3 = ReadXFSEntryByte(uStack_10f54,&cStack_10f55,1);
+  eventCode = (int)uStack_10f54;
   do {
     if (iVar3 == 0) {
       CloseSpriteReadState(uStack_10f54,(int)&g_xfsScratch);
@@ -130,20 +142,22 @@ LAB_00409b81:
     else if (cStack_10f55 != '\r') {
       if (cStack_10f55 == '\t') {
         acStack_10f50[iVar4] = '\0';
-        _atol(acStack_10f50);
+        eventCode = _atol(acStack_10f50);
         iVar4 = 0;
       }
       else if (cStack_10f55 == '\n') {
         if (bVar1) {
           iVar4 = 0;
           bVar1 = false;
+          eventCode = 0;
         }
         else {
           if (iVar4 != 0) {
             acStack_10f50[iVar4] = '\0';
-            ParseChooseEventLine(param_1, acStack_10f50, local_f710);
+            ParseChooseEventLine(param_1, acStack_10f50, eventCode);
           }
           iVar4 = 0;
+          eventCode = 0;
         }
       }
       else {
