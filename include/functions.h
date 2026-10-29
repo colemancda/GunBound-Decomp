@@ -1558,7 +1558,7 @@ void IntMap_RemoveAll_14(int *regEsi);
 int __fastcall FUN_00500b70();
 void FUN_00500ba0(int *param_1,undefined4 *param_2,undefined4 *param_3,int *regEbx);
 undefined4 HashMap_InitHashTable();
-void FUN_00500ce0();
+void StringMap_Rehash_ac(int *map,uint nBins);
 uint HashMap_PickSize();
 void StringMap_FreeNode_ac(int regEax,int regEsi);
 char * StringMap_Find_ac(char *param_1,uint *param_2,undefined4 *param_3,int *regEax,uint *regEbx);

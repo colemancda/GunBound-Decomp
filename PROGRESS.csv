@@ -1457,7 +1457,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00500b70,46,FUN_00500b70,false,1,0,RAW-src
 00500ba0,88,FUN_00500ba0,false,1,0,RAW-src
 00500c00,201,HashMap_InitHashTable,false,24,3,RAW-src
-00500ce0,313,FUN_00500ce0,false,2,6,RAW-src
+00500ce0,313,StringMap_Rehash_ac,false,2,6,RAW-src
 00500e30,70,HashMap_PickSize,false,29,1,RAW-src
 00500e80,102,StringMap_FreeNode_ac,false,3,4,RAW-src
 00500ef0,115,StringMap_Find_ac,false,4,2,RAW-src
