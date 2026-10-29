@@ -8,7 +8,7 @@
  * bounds guard inlined into every child-broadcast loop (AtlThrow with
  * E_INVALIDARG, ThrowCxxException) matches CAtlArray's checked element access.
  * The client is ATL-era code elsewhere too (CAtlBaseModule in
- * FUN_00401880).
+ * AtlFindStringResourceInstance, 0x401880).
  *
  * The free VC++ Toolkit 2003 / Platform SDK only ship ATL 3 (no
  * atlcoll.h), so this is a from-evidence reimplementation of the small

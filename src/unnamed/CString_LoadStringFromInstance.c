@@ -3,13 +3,13 @@
  * CString::LoadString(hInst, nID): FindResourceA(param_1, (regEax >> 4) + 1,
  * RT_STRING), then walks the string-table block to entry nID & 0xf and copies
  * it into the CString at *param_2.  ConstructStringFromText passes the
- * HMODULE that FUN_00401880 (AtlFindStringResourceInstance) resolved for the
+ * HMODULE that AtlFindStringResourceInstance (0x401880) resolved for the
  * same nID one line earlier.
  *
  * RE-SLOTTED AND EAX RECOVERED (2026-08-24).  CString::LoadString(hInst, nID):
  * FindResourceA(param_1, (regEax >> 4) + 1, RT_STRING).  Sole call site
  * 0x0040556b in ConstructStringFromText: ECX = iVar2, the HMODULE
- * FUN_00401880 (AtlFindStringResourceInstance) just returned; push = param_2,
+ * AtlFindStringResourceInstance (0x401880) just returned; push = param_2,
  * the CString; EAX = (uint)param_1 & 0xffff, the string id.  The port had
  * passed the CString as the HMODULE.
  */

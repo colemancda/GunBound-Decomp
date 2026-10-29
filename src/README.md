@@ -389,7 +389,8 @@ Concretely, that means:
     further this pass)
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`
-  - `unnamed/FUN_0041b8c0.c`, `FUN_00401880.c` (the ATL call), `FUN_00449540.c`,
+  - `unnamed/FUN_0041b8c0.c`, `AtlFindStringResourceInstance.c` (the ATL
+    call), `FUN_00449540.c`,
     `FUN_004cb280.c`, `FUN_004ccd10.c`, `SeedTT800State.c`, `FUN_00525c42.c`,
     `FUN_0053753c.c` (the last two are CRT-internal thread/FPU-state
     helpers, not game logic - likely not worth porting at all rather
@@ -454,8 +455,8 @@ exception unwinder from decompiled output is unnecessary (Winelib/glibc
 already provide correct ones), riskier than most game-logic code (silent
 memory corruption instead of a clean crash when subtly wrong), and off
 the actual goal. One of the already-documented genuinely-broken files
-(`FUN_00401880.c`'s ATL template call) is exactly the kind of problem
-this exclusion sidesteps entirely for the other 543.
+(`AtlFindStringResourceInstance.c`'s ATL template call) is exactly the
+kind of problem this exclusion sidesteps entirely for the other 543.
 
 `PROGRESS.csv` marks these `EXCLUDED-msvc-crt-atl` — a fourth status,
 distinct from `RAW-src`/`PARITY-<file>`/`TODO`, meaning "intentionally
