@@ -170,7 +170,7 @@ void FUN_004ff770(int *param_1,int param_2)
                          (uint *)((char *)local_2e9a + 4),local_318c);
             if ((uint)local_173e <= local_2ebc - 0x36) {
               GetSystemTimeAsFileTime(&local_3158);
-              FUN_00500940(puVar1 + 8,&local_3158,local_2e9a[0]);
+              IntMap_SetAt_14(puVar1 + 8,&local_3158,local_2e9a[0]);
               if (0x100 < (uint)local_3190[9]) {
                 local_3190 = (undefined4 *)FUN_00500b70();
                 while (local_3190 != (undefined4 *)0x0) {

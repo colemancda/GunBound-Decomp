@@ -1,8 +1,23 @@
-/* FUN_004fed40 - 0x004fed40 in the original binary.
+/* IntMap_SetAt_1768 - 0x004fed40 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (2026-10-29): ATL7 CAtlMap::SetAt(key, value) for the
+ * 0x1768-node int-keyed maps - the same routine as IntMap_SetAt_14
+ * (0x500940), instruction for instruction up to the value store: GetNode
+ * is IntMap_Find_1768 (0x4fed5b), the table init is HashMap_InitHashTable
+ * with the same E_OUTOFMEMORY throw, CreateNode is IntMap_Insert_1768
+ * (0x4fed93), and the value assignment is the 0x1758-byte record copy
+ * IntMap_CopyValue_1768 (0x4feda1 / 0x4fedb9) into node+4.  Returns the
+ * node (`mov eax,esi`), i.e. SetAt's POSITION.
+ *
+ * The one binary caller, FUN_004fe110 at 0x4fe33c, passes the map at
+ * peer-record+0x50 (`lea ecx,[ebx+0x50]`, pushed), the key from the
+ * record's +0x18 field in EAX, and a value record it has just built
+ * (FUN_004fe590 into the 0x1768-byte stack buffer).  That is the map
+ * IntMap_RemoveKey_1768 and FUN_005006f0 work on.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * SHORT DEFINITION + EAX (2026-08-25).  `ret 8` is two stack parameters and
  * Ghidra declared one.  The second is read on both exit paths -- 0x4fed98
@@ -32,7 +47,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_004fed40(int *param_1,undefined1 *param_2,undefined4 regEax)
+int IntMap_SetAt_1768(int *param_1,undefined1 *param_2,undefined4 regEax)
 
 {
   char cVar1;

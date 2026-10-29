@@ -1415,7 +1415,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fe8d0,541,FUN_004fe8d0,false,4,10,RAW-src
 004feb00,424,FUN_004feb00,false,5,8,RAW-src
 004fecb0,130,FUN_004fecb0,false,1,5,RAW-src
-004fed40,137,FUN_004fed40,false,1,5,RAW-src
+004fed40,137,IntMap_SetAt_1768,false,1,5,RAW-src
 004fedd0,69,CArray_Add_1750,false,2,3,RAW-src
 004fee20,325,StringMap_RemoveAll_28,false,1,6,RAW-src
 004fef70,109,StringMap_Find_28,false,2,2,RAW-src
@@ -1451,7 +1451,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00500790,171,IntMap_RemoveAll_1768,false,2,5,RAW-src
 00500840,183,IntMap_Insert_1768,false,1,4,RAW-src
 00500900,50,FUN_00500900,false,1,1,RAW-src
-00500940,111,FUN_00500940,false,1,4,RAW-src
+00500940,111,IntMap_SetAt_14,false,1,4,RAW-src
 005009b0,107,IntMap_RemoveKey_14,false,1,2,RAW-src
 00500a20,325,IntMap_RemoveAll_14,false,2,6,RAW-src
 00500b70,46,FUN_00500b70,false,1,0,RAW-src

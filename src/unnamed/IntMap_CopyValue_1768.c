@@ -4,7 +4,7 @@
  * map: three header dwords, the word at +0xc, the length word at +0xe, then
  * that many bytes from +0x10 (rep movsd + rep movsb), then the trailer
  * dwords at +0x174c/+0x1750/+0x1754 and the byte at +0x1758.  It is the
- * value-assignment tail of that map's SetAt wrapper, FUN_004fed40.
+ * value-assignment tail of that map's SetAt wrapper, IntMap_SetAt_1768.
  *
  * NAME EVIDENCE.  The suffix is the NODE STRIDE, as it is everywhere else in
  * this family (StringMap_Find_1c/Insert_1c, IntMap_Find_14/Insert_14,
@@ -31,11 +31,11 @@
  * record, and regEax is the destination node+4.
  *
  * EAX RECOVERED (2026-08-25): the DESTINATION of a ~0x1758-byte record copy.
- * Both call sites are in FUN_004fed40 -- one on the hot path, one in the cold
- * block past its epilogue -- and both set it with `lea eax,[esi+4]` where ESI
- * is the node the map find or insert just returned, i.e. the source's iVar2.
- * EDX (param_2) is the copy SOURCE and is FUN_004fed40's own second stack
- * parameter, read at [esp+0x20] on the hot path and [esp+0x1c] on the cold
+ * Both call sites are in IntMap_SetAt_1768 -- one on the hot path, one in
+ * the cold block past its epilogue -- and both set it with `lea
+ * eax,[esi+4]` where ESI is the node the map find or insert just
+ * returned, i.e. the source's iVar2.  EDX (param_2) is the copy SOURCE
+ * and is IntMap_SetAt_1768's own second stack parameter, read at [esp+0x20] on the hot path and [esp+0x1c] on the cold
  * one -- different offsets, the same E+8 slot.  ECX is a phantom.
  */
 #include "ghidra_types.h"
