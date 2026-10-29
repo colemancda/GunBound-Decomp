@@ -132,8 +132,9 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
                 EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
                 EncodeOutgoingPacketField((void *)((char *)&local_468 + 0x22c), uVar13);
                 LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-                FUN_0042ae30(&local_468);
-                FUN_0042ae30(&local_468);
+                /* ARRAY RECOVERED 2026-10-29: ECX at 0x428449/0x428462; see AtlArray_Add_450.c. */
+                AtlArray_Add_450((int *)(g_clientContext + 0x44e20),(undefined4)&local_468);
+                AtlArray_Add_450((int *)(g_clientContext + 0x44e30),(undefined4)&local_468);
                 payload = payload + 2;
                 local_c = 0xffffffff;
                 AtlArray_DestroyElement_450(&local_468);

@@ -16,8 +16,9 @@
  * and the two guarded value cells at +8 and +0x22c to 0, zeroing each
  * cell's table handle (+0x1c, +0x240) and trailing byte (+0x228, +0x44c)
  * - the handles AtlArray_DestroyElement_450 releases.  It returns `this`
- * (`mov eax,esi`).  Not to be confused with FUN_0042aeb0, the record's
- * COPY constructor (see AtlArray_CopyElement_450's header).
+ * (`mov eax,esi`).  Not to be confused with
+ * AtlArray_CopyConstructElement_450, the record's COPY constructor (see
+ * AtlArray_CopyElement_450's header).
  *
  * The name follows AtlArray_CopyElement_450 and
  * AtlArray_DestroyElement_450 (container prefix plus element stride,

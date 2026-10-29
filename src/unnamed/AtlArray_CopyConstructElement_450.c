@@ -1,9 +1,30 @@
-/* FUN_0042aeb0 - 0x0042aeb0 in the original binary.
+/* AtlArray_CopyConstructElement_450 - 0x0042aeb0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (2026-10-29), LIKELY: the copy constructor E(const E&) of the
+ * 0x450-byte avatar-item record that the CAtlArrays at g_clientContext +
+ * 0x44e20..0x44e50 hold - the `::new (m_pData + iElement) E(element)`
+ * that AtlArray_Add_450 runs on the new slot (0x42ae85, after the
+ * placement-new null test), its one binary call site.  Destination and
+ * source are both pushed (`ret 8`), and it returns the destination
+ * (`mov eax,esi`).
+ *
+ * The body confirms the role against its siblings: it copies the
+ * guarded bool at +0 (word + byte), the dword at +4 and the two guarded
+ * value cells at +8 and +0x22c (Peek the source, Encode into the
+ * destination), but first zeroes the destination's table handles at
+ * +0x1c / +0x240 and trailing bytes at +0x228 / +0x44c - exactly the
+ * fields AtlArray_ConstructElement_450 initialises and
+ * AtlArray_CopyElement_450 (the assignment operator) leaves alone.
+ *
+ * LIKELY rather than CERTAIN because the name is the container's, not
+ * the record's: like AtlArray_ConstructElement_450, this is a member of
+ * the element type, carried under the container prefix plus stride only
+ * because the record type is still unnamed.  It should become the
+ * record's copy constructor once the type is named.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at both argless PeekPacketChecksumState() calls: a two-cell COPY CONSTRUCTOR - each Peek reads param_2 (EBP, the source) at the same offset the Encode beside it writes into param_1 (ESI, the dest): +8 and +0x22c.  Two-object copier: same offset, different base.
@@ -11,7 +32,7 @@
 #include "ghidra_types.h"
 
 
-undefined2 * FUN_0042aeb0(undefined2 *param_1,undefined2 *param_2)
+undefined2 * AtlArray_CopyConstructElement_450(undefined2 *param_1,undefined2 *param_2)
 
 {
   undefined4 uVar1;

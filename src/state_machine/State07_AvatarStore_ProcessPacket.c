@@ -175,7 +175,8 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
                 local_514 = local_514 + 1;
               } while (local_514 < *(uint *)(g_clientContext + 0x44e24));
             }
-            FUN_0042ae30(&local_468);
+            /* ARRAY RECOVERED 2026-10-29: ECX at 0x4445e9; see AtlArray_Add_450.c. */
+            AtlArray_Add_450((int *)(g_clientContext + 0x44e20),(undefined4)&local_468);
             iVar4 = g_clientContext;
             uVar11 = *(uint *)(g_clientContext + 0x44bec);
             piVar14 = (int *)(g_clientContext + 0x44be8);
@@ -194,7 +195,8 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
               }
             }
             *(int *)(iVar4 + 0x44bec) = *(int *)(iVar4 + 0x44bec) + 1;
-            FUN_0042ae30(&local_468);
+            /* ARRAY RECOVERED 2026-10-29: ECX at 0x44464e; see AtlArray_Add_450.c. */
+            AtlArray_Add_450((int *)(g_clientContext + 0x44e40),(undefined4)&local_468);
             LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
             Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
@@ -246,8 +248,9 @@ LAB_0044469b:
                 SetGuardedBool(0,GB_GUARD_UNRECOVERED);
                 QueueOutgoingPacketField(0x80000000);
                 QueueOutgoingPacketField(*(undefined4 *)puVar13);
-                FUN_0042ae30(&local_468);
-                FUN_0042ae30(&local_468);
+                /* ARRAY RECOVERED 2026-10-29: ECX at 0x44426d/0x444286; see AtlArray_Add_450.c. */
+                AtlArray_Add_450((int *)(g_clientContext + 0x44e20),(undefined4)&local_468);
+                AtlArray_Add_450((int *)(g_clientContext + 0x44e30),(undefined4)&local_468);
                 puVar13 = puVar13 + 2;
                 local_c = 0xffffffff;
                 AtlArray_DestroyElement_450(&local_468);
@@ -332,8 +335,9 @@ LAB_0044469b:
         QueueOutgoingPacketField(0x80000000);
         uVar9 = PeekChecksumStateUnderLock((int)this + 0x3054c);
         QueueOutgoingPacketField(uVar9);
-        FUN_0042ae30(&local_468);
-        FUN_0042ae30(&local_468);
+        /* ARRAY RECOVERED 2026-10-29: ECX at 0x4450bf/0x4450d8; see AtlArray_Add_450.c. */
+        AtlArray_Add_450((int *)(g_clientContext + 0x44e20),(undefined4)&local_468);
+        AtlArray_Add_450((int *)(g_clientContext + 0x44e30),(undefined4)&local_468);
         QueueOutgoingPacketField(0xffffffff);
         LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,300000);
         FUN_0044b0b0(this);

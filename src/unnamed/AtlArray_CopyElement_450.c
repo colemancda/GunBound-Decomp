@@ -5,7 +5,7 @@
  * "Raw/verbatim ports" section for what that status means.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
- * cell at both argless PeekPacketChecksumState() calls: the same two-cell copy as FUN_0042aeb0 with the bases in registers - source EBX (unaff_EBX), dest ESI - at +8 and +0x22c.
+ * cell at both argless PeekPacketChecksumState() calls: the same two-cell copy as AtlArray_CopyConstructElement_450 with the bases in registers - source EBX (unaff_EBX), dest ESI - at +8 and +0x22c.
  *
  * REGISTERS PROMOTED (2026-08-27).  Both bases were dropped and all three
  * call sites passed nothing.  The record is 0x450 bytes -- fixed
@@ -88,10 +88,11 @@
  * established whether that 0x1750 family is MFC or something else, so no
  * library attribution is claimed for it here.
  *
- * Do NOT confuse this with FUN_0042aeb0, the COPY CONSTRUCTOR of the same
- * element: that one zeroes the guard tableHandles at +0x1c/+0x240 and the
- * bytes at +0x228/+0x44c (exactly the cells the default constructor
- * AtlArray_ConstructElement_450 zeroes) before copying.  This function assumes a live,
+ * Do NOT confuse this with AtlArray_CopyConstructElement_450, the COPY
+ * CONSTRUCTOR of the same element: that one zeroes the guard
+ * tableHandles at +0x1c/+0x240 and the bytes at +0x228/+0x44c (exactly
+ * the cells the default constructor AtlArray_ConstructElement_450
+ * zeroes) before copying.  This function assumes a live,
  * already-constructed destination, which is why InsertAt and Append must
  * construct the slots first and only then call it.
  *
@@ -132,8 +133,8 @@ void AtlArray_CopyElement_450(int dstRecord,int srcRecord)
    * used as a base pointer above for the `unaff_ESI + 4` write): cell is
    * unaff_ESI+8, matching the same 8/0x22c cell-offset pair confirmed
    * (via tableHandle zero-writes) in the sibling constructors
-   * AtlArray_ConstructElement_450.c/FUN_0042aeb0.c. `unaff_ESI` is
-   * plain `int`, so byte offsets add directly. See
+   * AtlArray_ConstructElement_450.c/AtlArray_CopyConstructElement_450.c.
+   * `unaff_ESI` is plain `int`, so byte offsets add directly. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField(unaff_ESI + 8, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

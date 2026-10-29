@@ -7,7 +7,7 @@
  *
  * - AtlArray_SetCount_450 (0x44c838): `else if (nNewSize > m_nMaxSize)
  *   { if (!GrowBuffer(nNewSize)) return false; }` - EAX = the new count.
- * - FUN_0042ae30 (0x42ae56), CAtlArray::Add (AtlArray_RemoveAll_450's
+ * - AtlArray_Add_450 (0x42ae56), CAtlArray::Add (AtlArray_RemoveAll_450's
  *   header names it): `if (iElement >= m_nMaxSize) { if
  *   (!GrowBuffer(iElement + 1)) AtlThrow(E_OUTOFMEMORY); }` - EAX =
  *   m_nSize + 1, and the failure arm is ThrowCxxException(0x8007000e).
