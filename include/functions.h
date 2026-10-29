@@ -1513,7 +1513,7 @@ void CopyNameField_12(int regEsi,int regEdi);
 int ConnectToHostPort(undefined4 param_1,u_short param_2,int regEbx); /* narrow u_short arg: empty-paren decl conflicts under gcc */
 void __fastcall CommEngineCloseConnection(undefined4 param_1,int *param_2,int *regEax);
 LRESULT __stdcall CommEngineNotifyWndProc(HWND, UINT, WPARAM, uint);
-undefined4 FUN_004fe860();
+undefined4 FindP2PPeerRecord();
 bool __thiscall FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 param_5);
 LRESULT __stdcall FUN_004fecb0(HWND, UINT, WPARAM, uint);
 int IntMap_SetAt_1768(int *param_1,undefined1 *param_2,undefined4 regEax);

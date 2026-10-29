@@ -64,7 +64,7 @@ FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 para
   
   uStack_c = 0x4fe120;
   if ((ushort)param_6 < 0x173b) {
-    cVar2 = FUN_004fe860(param_2,&local_2ecc);
+    cVar2 = FindP2PPeerRecord(param_2,&local_2ecc);
     uStack_2eaa = (ushort)param_6;
     if (cVar2 == '\0') {
       (**(code **)(*param_2 + 4))(param_3);
@@ -72,10 +72,10 @@ FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 para
         (**(code **)*param_2)(0,param_3,param_4,param_5,param_6,param_1);
         return 1;
       }
-      cVar2 = FUN_004fe860(param_2,&local_2ecc);
+      cVar2 = FindP2PPeerRecord(param_2,&local_2ecc);
       if (cVar2 == '\0') {
         FUN_004fe8d0(param_3,0,0,0,0);
-        cVar2 = FUN_004fe860(param_2,&local_2ecc);
+        cVar2 = FindP2PPeerRecord(param_2,&local_2ecc);
         if (cVar2 == '\0') {
           return 0;
         }

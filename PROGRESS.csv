@@ -1411,7 +1411,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fe5f0,174,ConnectToHostPort,false,1,7,RAW-src
 004fe6a0,70,CommEngineCloseConnection,false,6,2,RAW-src
 004fe6f0,310,CommEngineNotifyWndProc,false,1,8,RAW-src
-004fe860,101,FUN_004fe860,false,11,1,RAW-src
+004fe860,101,FindP2PPeerRecord,false,11,1,RAW-src
 004fe8d0,541,FUN_004fe8d0,false,4,10,RAW-src
 004feb00,424,FUN_004feb00,false,5,8,RAW-src
 004fecb0,130,FUN_004fecb0,false,1,5,RAW-src

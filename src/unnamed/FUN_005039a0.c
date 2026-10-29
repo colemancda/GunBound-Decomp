@@ -29,7 +29,7 @@ void FUN_005039a0(int param_1,undefined4 param_2,int *param_3,undefined4 regEax,
   char cVar2;
   
   piVar1 = param_3;
-  cVar2 = FUN_004fe860(regEdi,&param_3);
+  cVar2 = FindP2PPeerRecord(regEdi,&param_3);
   if ((((cVar2 != '\0') && (*param_3 != 0)) && (param_3[2] == param_1)) &&
      ((((short)param_3[3] == (short)param_2 && ((int *)param_3[4] == piVar1)) &&
       ((short)param_3[5] == (short)regEbx)))) {

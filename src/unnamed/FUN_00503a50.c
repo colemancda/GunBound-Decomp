@@ -26,7 +26,7 @@ void FUN_00503a50(undefined4 *param_1,int param_2)
   
   iVar7 = param_2;
   puVar2 = param_1;
-  cVar4 = FUN_004fe860(param_1,&param_1);
+  cVar4 = FindP2PPeerRecord(param_1,&param_1);
   puVar3 = param_1;
   if (cVar4 != '\0') {
     puVar1 = param_1;

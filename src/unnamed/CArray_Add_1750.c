@@ -15,8 +15,8 @@
  *   - EAX is the vector object.  At 0x4fe1ea it is `lea eax,[ebx+0x80]` and
  *     at 0x4fe3f5 `lea eax,[esi+0x80]`, and both EBX (0x4fe186) and ESI
  *     (0x4fe3dc) are loaded from the SAME caller slot [esp+0xc], the
- *     local FUN_004fe860 fills = local_2ecc.  So both sites pass the same
- *     expression and no site pairing was needed.
+ *     local FindP2PPeerRecord fills = local_2ecc.  So both sites pass the
+ *     same expression and no site pairing was needed.
  *
  * The body is a std::vector-style push_back: reserve one more element, then
  * copy the caller's record into slot uVar1 at stride 0x1750.

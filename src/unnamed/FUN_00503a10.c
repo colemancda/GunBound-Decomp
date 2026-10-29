@@ -18,10 +18,10 @@ void FUN_00503a10(undefined4 regEax,undefined4 regEdi)
   char cVar1;
   int local_4;
   
-  cVar1 = FUN_004fe860(regEdi,&local_4);
+  cVar1 = FindP2PPeerRecord(regEdi,&local_4);
   if (cVar1 == '\0') {
     FUN_004fe8d0(regEax,0,0,0,0);
-    cVar1 = FUN_004fe860(regEdi,&local_4);
+    cVar1 = FindP2PPeerRecord(regEdi,&local_4);
     if (cVar1 != '\0') {
       *(undefined1 *)(local_4 + 0x1c) = 1;
     }

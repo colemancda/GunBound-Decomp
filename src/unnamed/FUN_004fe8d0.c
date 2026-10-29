@@ -56,7 +56,7 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
   /* Windows SEH __try/__except frame setup stripped - handler body
    * (LAB_00537aeb) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
-  cVar1 = FUN_004fe860(param_1,&local_b8);
+  cVar1 = FindP2PPeerRecord(param_1,&local_b8);
   piVar8 = local_b8;
   if (cVar1 == '\0') {
     FUN_004ff1a0((int)local_9c);

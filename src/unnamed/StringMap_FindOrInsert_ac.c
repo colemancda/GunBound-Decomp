@@ -13,11 +13,11 @@
  * One difference from _10: this returns the NODE (EAX from the find, or
  * from the insert - nothing touches it before `ret`), not the value slot;
  * _10 returns node+4.  The one binary caller adds the value offset itself.
- * FUN_004fe8d0 asks FUN_004fe860 for the peer's record in the P2P peer
- * table at this+0x290 and, only when that misses, calls this on the same
+ * FUN_004fe8d0 asks FindP2PPeerRecord for the peer's record in the P2P
+ * peer table at this+0x290 and, only when that misses, calls this on the same
  * table (`lea esi,[ebx+0x290]` at 0x4fe93b) with the copied 16-char id,
  * then `lea edi,[eax+0x14]` (0x4fe94f) and initialises the record there -
- * node+0x14 being exactly the value slot FUN_004fe860 hands out.
+ * node+0x14 being exactly the value slot FindP2PPeerRecord hands out.
  *
  * Why LIKELY rather than certain: there is no exact ATL7 member that
  * returns the CNode* after a find-or-insert (operator[] returns the value

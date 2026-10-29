@@ -11,8 +11,9 @@
  * them, feeding the P2P send path next to DispatchP2PMessage.  So the
  * map is the id-keyed P2P peer table and this predicate reports whether
  * a peer entry exists.  "LIKELY" because the sole caller (0x504800, see
- * below) is unported and the record semantics rest on the still-unnamed
- * FUN_004fe860/FUN_005039a0 pair rather than on a named consumer.
+ * below) is unported and the record semantics rest on FUN_005039a0
+ * (still unnamed) and FindP2PPeerRecord (0x4fe860, itself only LIKELY)
+ * rather than on a firmly named consumer.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
