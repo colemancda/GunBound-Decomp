@@ -65,7 +65,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00404e60,476,FUN_00404e60,false,1,2,RAW-src
 00405040,96,FUN_00405040,false,2,0,RAW-src
 004050a0,96,FUN_004050a0,false,2,0,RAW-src
-00405150,304,FUN_00405150,false,1,6,RAW-src
+00405150,304,HashMap_Rehash_2c,false,1,6,RAW-src
 00405290,102,HashMap_FreeNode_2c,false,1,4,RAW-src
 00405300,5,thunk_FUN_00405320,true,4,0,RAW-src
 00405310,5,thunk_FUN_00405320,true,1,0,RAW-src

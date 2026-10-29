@@ -1,13 +1,33 @@
-/* FUN_00405150 - 0x00405150 in the original binary.
+/* HashMap_Rehash_2c - 0x00405150 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (2026-10-29): ATL7 CAtlMap::Rehash(nBins) for the 0x2c-node
+ * map - the same member as StringMap_Rehash_10 (see that file for the
+ * atlcoll.h statement-by-statement match), instruction for instruction,
+ * with only the node offsets moved: the relink reads m_pNext at
+ * node+0x24 (0x405218) and m_nHash at node+0x28 (0x405210), the
+ * stride-8/stride-4 CNode tail of a 0x2c-byte node.  Map in [ebp+8],
+ * nBins in [ebp+0xc], `ret 8`.
+ *
+ * The instantiation is fixed by its one binary caller,
+ * HashMap_FreeNode_2c (0x4052c3), which pushes (PickSize result, map)
+ * from FreeNode's rehash-threshold arm and links nodes through the same
+ * +0x24.  The HashMap_ prefix is that family's, for the reason
+ * HashMap_RemoveAll_2c records: nothing that survives touches the key,
+ * so a key-claiming prefix would be invented.
+ *
+ * Promoted from a K&R prototype to (int *map, uint nBins) like
+ * StringMap_Rehash_10; the one C site already passed those two values,
+ * and its int-typed map register is cast.  The port still carries
+ * Ghidra's unaff_FS_OFFSET SEH-frame artifact, left as is.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00405150(int *param_1,uint param_2)
+void HashMap_Rehash_2c(int *param_1,uint param_2)
 
 {
   int iVar1;

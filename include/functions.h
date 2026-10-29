@@ -198,7 +198,7 @@ undefined4 __thiscall FUN_00404dd0(int *param_1,uchar *param_2,int regEax);
 void FUN_00404e60();
 int FUN_00405040(int param_1,int regEax);
 int FUN_004050a0(int param_1,int regEax);
-void FUN_00405150();
+void HashMap_Rehash_2c(int *map,uint nBins);
 void HashMap_FreeNode_2c(int regEax,int regEsi);
 void __fastcall thunk_FUN_00405320();
 void __fastcall FUN_00405320();
