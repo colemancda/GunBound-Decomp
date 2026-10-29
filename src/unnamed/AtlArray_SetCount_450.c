@@ -13,8 +13,9 @@
  * It is ATL and not MFC.  MFC's CArray::SetSize returns VOID and throws
  * CMemoryException when the reallocation fails; this one returns a bool and
  * propagates failure as 0 (`if (cVar1 == '\0') return 0;`), which is
- * CAtlArray::SetCount's contract.  Its GrowBuffer is FUN_0042af40 and its
- * per-element destructor FUN_00426810 -- both still unnamed; the sibling
+ * CAtlArray::SetCount's contract.  Its GrowBuffer is
+ * AtlArray_GrowBuffer_450 (0x42af40) and its per-element destructor
+ * FUN_00426810 -- the latter still unnamed; the sibling
  * AtlArray_GrowBuffer/AtlArray_RemoveAt in this tree belong to a different
  * element size, which is why this one carries the _450 suffix, as
  * CArray_Grow_1750/_4004/_206 do.
@@ -59,7 +60,7 @@ undefined1 __fastcall AtlArray_SetCount_450(uint param_1,int *param_2,int growBy
     return 1;
   }
   if ((uint)param_2[2] < param_1) {
-    cVar1 = FUN_0042af40(param_1);
+    cVar1 = AtlArray_GrowBuffer_450(param_1);
     if (cVar1 == '\0') {
       return 0;
     }

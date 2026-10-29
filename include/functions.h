@@ -505,7 +505,7 @@ void State03_GameRoomList_CreateButtons();
 int RoomCardHitTest(int param_1,int param_2,int regEsi);
 uint __thiscall FUN_0042ae30();
 undefined2 * FUN_0042aeb0();
-undefined4 FUN_0042af40(uint regEax);
+undefined4 AtlArray_GrowBuffer_450(uint regEax);
 void FUN_0042b010(int regEdi);
 void __thiscall CreateMobile(); /* 0x42b0b0 - battle-mobile factory (16-way type->class) */
 void __thiscall SpawnRiderEffect(int param_1,undefined4 param_2,int param_3,int regEsi);

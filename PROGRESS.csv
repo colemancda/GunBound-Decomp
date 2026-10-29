@@ -397,7 +397,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0042ada0,137,RoomCardHitTest,false,4,0,RAW-src
 0042ae30,118,FUN_0042ae30,false,8,3,RAW-src
 0042aeb0,142,FUN_0042aeb0,false,1,2,RAW-src
-0042af40,172,FUN_0042af40,false,2,3,RAW-src
+0042af40,172,AtlArray_GrowBuffer_450,false,2,3,RAW-src
 0042b010,134,FUN_0042b010,false,1,4,RAW-src
 0042b0b0,2584,CreateMobile,false,4,21,RAW-src
 0042bb10,155,SpawnRiderEffect,false,5,5,RAW-src
