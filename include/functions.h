@@ -475,7 +475,7 @@ void __fastcall AtlArray_RemoveAt_CString(int param_1,int *regEbx,int regEsi);
 int __fastcall FUN_00426570();
 int StringMap_FindOrInsert_10(char *regEax,int *regEsi);
 int __thiscall StringMap_SetAt_CString();
-void __fastcall FUN_00426700(int param_1,int regEax);
+void __fastcall AtlArray_CallDestructors_450(int param_1,int regEax);
 undefined4 * StringMap_Find_10();
 void FUN_00426810();
 undefined4 InventoryItemArray_Reserve(uint regEax,int *regEsi);

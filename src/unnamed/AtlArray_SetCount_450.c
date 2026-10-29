@@ -6,7 +6,8 @@
  *   if (nGrowBy != -1) m_nGrowBy = nGrowBy;          -> arr[3] = growBy
  *   if (nNewSize == 0) { destructors; free; 0; 0 }   -> the param_1 == 0 arm
  *   else if (nNewSize > m_nMaxSize) GrowBuffer(...)  -> arr[2] < newCount
- *   else if (nNewSize < m_nSize)   CallDestructors   -> FUN_00426700
+ *   else if (nNewSize < m_nSize)   CallDestructors
+ *                                  -> AtlArray_CallDestructors_450
  *   else if (nNewSize > m_nSize)   CallConstructors  -> FUN_0044c870
  *   m_nSize = nNewSize; return true;
  *
@@ -70,7 +71,7 @@ undefined1 __fastcall AtlArray_SetCount_450(uint param_1,int *param_2,int growBy
     uVar2 = param_2[1];
     if (param_1 <= uVar2) {
       if (param_1 < uVar2) {
-        FUN_00426700((int)(param_1 * 0x450 + *param_2),uVar2 - param_1);
+        AtlArray_CallDestructors_450((int)(param_1 * 0x450 + *param_2),uVar2 - param_1);
         param_2[1] = param_1;
         return 1;
       }
