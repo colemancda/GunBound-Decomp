@@ -29,8 +29,8 @@
  * the parameter: the -1 sentinel is the first thing the body tests.
  *
  * (A fourth binary call at 0x50d14a is an SEH unwind funclet past
- * FUN_0050cff0's 0x126 bytes, with no ported C counterpart -- 3 C sites
- * against 4 binary sites is correct here.)
+ * AtlArray_InsertAt_450's 0x126 bytes, with no ported C counterpart --
+ * 3 C sites against 4 binary sites is correct here.)
  */
 #include "ghidra_types.h"
 

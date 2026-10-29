@@ -1,13 +1,35 @@
-/* FUN_0050cff0 - 0x0050cff0 in the original binary.
+/* AtlArray_InsertAt_450 - 0x0050cff0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (2026-10-29): ATL7 CAtlArray<E>::InsertAt(iElement, element,
+ * nElements) for the 0x450-byte avatar-item record, as
+ * AtlArray_CopyElement_450's header already maps it.  The body is
+ * atlcoll.h's VC7.1 InsertAt: if iElement >= m_nSize, SetCount(iElement
+ * + nElements, -1) (AtlArray_SetCount_450, 0x50d02c); otherwise
+ * SetCount(m_nSize + nElements, -1) (0x50d044), destroy the nElements
+ * slots past the old size (AtlArray_DestroyElement_450, 0x50d066),
+ * _memmove the upper elements up (0x50d0af) and re-construct the hole
+ * (AtlArray_CallConstructors_450, 0x50d0c4); then both arms assign
+ * `m_pData[i] = element` over the inserted range
+ * (AtlArray_CopyElement_450, 0x50d0f0).  Every callee is already named
+ * as a member of this one instantiation.  Four stack arguments (`ret
+ * 0x10`): the array, then iElement, element, nElements.
+ *
+ * The one caller, FUN_0050a320 (the Avatar-Store reorder, 0x50a44b),
+ * pushes (g_clientContext + 0x44e20, an index, the scratch record it
+ * just copied out with AtlArray_CopyElement_450, 1) right after calling
+ * 0x44c6a0 - the RemoveAt that AtlArray_RemoveAll_450's header
+ * identifies - on the same array (0x50a42e): a move expressed as
+ * RemoveAt + InsertAt.  That file is C++ and carries its own extern
+ * declaration, renamed with this one.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0050cff0(int *param_1,uint param_2,undefined4 param_3,int param_4)
+void AtlArray_InsertAt_450(int *param_1,uint param_2,undefined4 param_3,int param_4)
 
 {
   int iVar1;

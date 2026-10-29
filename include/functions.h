@@ -1723,7 +1723,7 @@ void RenderAvatarListDragRow();
 int __fastcall AvatarListRowHitTest(int param_1,int param_2,int regEsi);
 void RadioGroup_RefreshEnableStates();
 void RefreshConnectionStatusLabel();
-void FUN_0050cff0();
+void AtlArray_InsertAt_450(int *param_1,uint param_2,undefined4 param_3,int param_4);
 void FUN_0050d160();
 void __fastcall RenderReadyRoomChatRow();
 undefined4 __thiscall FUN_0050d7a0();

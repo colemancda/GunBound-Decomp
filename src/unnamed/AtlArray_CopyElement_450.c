@@ -16,8 +16,9 @@
  * ESI is the destination and EBX the source, which the body already showed
  * (`*(unaff_ESI + 4) = *(unaff_EBX + 4)`) and each call site confirms
  * separately: FUN_0044c630 sets ESI to `uVar1*0x450 + *(int *)param_1` and
- * derives EBX from it by a constant delta; FUN_0050cff0 sets ESI from its
- * own loop counter over `*param_1` and takes EBX straight from param_3; and
+ * derives EBX from it by a constant delta; AtlArray_InsertAt_450 sets
+ * ESI from its own loop counter over `*param_1` and takes EBX straight
+ * from param_3; and
  * FUN_0050a320 points ESI at the local_45c scratch record and EBX at
  * `this->[0x94]*0x450 + *(g_clientContext + 0x44e20)`.
  *
@@ -42,8 +43,8 @@
  * AtlArray_SetCount_450(m_nSize + aSrc.m_nSize, this, -1), walks the two
  * arrays in lockstep by 0x450 calling this function per element, and
  * returns the OLD size -- Append's exact contract and return.
- * - 0x50d0f0, in FUN_0050cff0 = CAtlArray::InsertAt(iElement, element,
- * nCount): the iElement >= m_nSize arm is a bare SetCount(iElement +
+ * - 0x50d0f0, in AtlArray_InsertAt_450 = CAtlArray::InsertAt(iElement,
+ * element, nCount): the iElement >= m_nSize arm is a bare SetCount(iElement +
  * nCount, -1); the other arm is SetCount(m_nSize + nCount, -1), a
  * destructor loop (AtlArray_DestroyElement_450) from nOldSize over the
  * nCount slots SetCount just constructed, _memmove of the (nOldSize -

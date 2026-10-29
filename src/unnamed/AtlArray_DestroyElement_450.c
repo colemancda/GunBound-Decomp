@@ -11,7 +11,7 @@
  *   AtlArray_RemoveAll_450 (0x44c605), and RemoveAt FUN_0044c6a0
  *   (0x44c6e5), each in a 0x450-stride loop over m_pData;
  * - FUN_00418dc0's four inlined ~CAtlArray loops (0x4197e9, 0x419821,
- *   0x419858, 0x419891) and InsertAt FUN_0050cff0 (0x50d066);
+ *   0x419858, 0x419891) and AtlArray_InsertAt_450 (0x50d066);
  * - and at scope end on a stack temporary built by
  *   AtlArray_ConstructElement_450 (0x428550) in State03/State07's packet
  *   handlers and in FUN_0050a320 - temporaries that are filled and then

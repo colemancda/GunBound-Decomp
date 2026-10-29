@@ -20,7 +20,7 @@
  * - AtlArray_SetCount_450 (0x44c857), the growing arm `else if
  *   (nNewSize > m_nSize) CallConstructors(m_pData + m_nSize, nNewSize -
  *   m_nSize)`: pushes m_nSize*0x450 + m_pData and nNewSize - m_nSize.
- * - FUN_0050cff0 (0x50d0c4), CAtlArray::InsertAt
+ * - AtlArray_InsertAt_450 (0x50d0c4), CAtlArray::InsertAt
  *   (AtlArray_CopyElement_450's header): after the memmove that opens the
  *   hole, `CallConstructors(m_pData + iElement, nElements)`.
  *
