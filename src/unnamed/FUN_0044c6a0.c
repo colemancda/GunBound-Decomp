@@ -23,7 +23,7 @@ void FUN_0044c6a0(int *param_1,int regEdi)
   iVar1 = (param_1[1] - in_EAX) - regEdi;
   iVar2 = *param_1 + in_EAX * 0x450;
   for (iVar3 = regEdi; iVar3 != 0; iVar3 = iVar3 + -1) {
-    FUN_00426810(iVar2);
+    AtlArray_DestroyElement_450(iVar2);
     iVar2 = iVar2 + 0x450;
   }
   if (iVar1 != 0) {

@@ -283,7 +283,7 @@ void FUN_00418dc0(int param_1)
   iVar5 = *(int *)(param_1 + 0x44e50);
   if (iVar5 != 0) {
     for (iVar6 = *(int *)(param_1 + 0x44e54); iVar6 != 0; iVar6 = iVar6 + -1) {
-      FUN_00426810(iVar5);
+      AtlArray_DestroyElement_450(iVar5);
       iVar5 = iVar5 + 0x450;
     }
     _free(*(void **)(param_1 + 0x44e50));
@@ -292,7 +292,7 @@ void FUN_00418dc0(int param_1)
   iVar5 = *(int *)(param_1 + 0x44e40);
   if (iVar5 != 0) {
     for (iVar6 = *(int *)(param_1 + 0x44e44); iVar6 != 0; iVar6 = iVar6 + -1) {
-      FUN_00426810(iVar5);
+      AtlArray_DestroyElement_450(iVar5);
       iVar5 = iVar5 + 0x450;
     }
     _free(*(void **)(param_1 + 0x44e40));
@@ -301,7 +301,7 @@ void FUN_00418dc0(int param_1)
   iVar5 = *(int *)(param_1 + 0x44e30);
   if (iVar5 != 0) {
     for (iVar6 = *(int *)(param_1 + 0x44e34); iVar6 != 0; iVar6 = iVar6 + -1) {
-      FUN_00426810(iVar5);
+      AtlArray_DestroyElement_450(iVar5);
       iVar5 = iVar5 + 0x450;
     }
     _free(*(void **)(param_1 + 0x44e30));
@@ -310,7 +310,7 @@ void FUN_00418dc0(int param_1)
   iVar5 = *(int *)(param_1 + 0x44e20);
   if (iVar5 != 0) {
     for (iVar6 = *(int *)(param_1 + 0x44e24); iVar6 != 0; iVar6 = iVar6 + -1) {
-      FUN_00426810(iVar5);
+      AtlArray_DestroyElement_450(iVar5);
       iVar5 = iVar5 + 0x450;
     }
     _free(*(void **)(param_1 + 0x44e20));

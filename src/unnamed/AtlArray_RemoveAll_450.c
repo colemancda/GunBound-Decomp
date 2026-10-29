@@ -15,7 +15,8 @@
  * The body is CAtlArray<T>::RemoveAll for that element -- destructor loop
  * over m_nSize, free(m_pData), then m_pData/m_nSize/m_nMaxSize zeroed --
  * i.e. exactly the `nNewSize == 0` arm of AtlArray_SetCount_450 (0x44c7b0),
- * which walks the same 0x450 stride and calls the same FUN_00426810
+ * which walks the same 0x450 stride and calls the same
+ * AtlArray_DestroyElement_450
  * per-element destructor.  The callers corroborate the container reading:
  * both files pass these same bases to FUN_0044c630 on the next line, and
  * FUN_0044bf00 _qsort's `*(void **)(g_clientContext + 0x44e40)` with
@@ -26,7 +27,8 @@
  * RemoveAll() { SetCount( 0, -1 ); }` with the inline call constant-folded,
  * which is why the body is instruction-for-instruction the `nNewSize == 0`
  * arm of AtlArray_SetCount_450 (0x44c7c2-0x44c805): the `if (m_pData)` test,
- * the destructor loop over m_nSize at 0x450 stride into FUN_00426810, _free,
+ * the destructor loop over m_nSize at 0x450 stride into
+ * AtlArray_DestroyElement_450, _free,
  * m_pData cleared, then m_nSize and m_nMaxSize cleared. m_nGrowBy at +0x0c
  * is left alone, as ATL leaves it. SetCount's copy of that arm ends `mov
  * al,1` for its bool contract; this one falls through to `ret` at 0x44c629
@@ -38,7 +40,8 @@
  * to the ATL header. FUN_00418dc0 (the client-context destructor) carries
  * the INLINED ~CAtlArray for these very four arrays, four times in a row at
  * 0x44e50 / 0x44e40 / 0x44e30 / 0x44e20, and each copy is only `if (m_pData)
- * { dtor loop at 0x450 stride into FUN_00426810; free; }` -- it never writes
+ * { dtor loop at 0x450 stride into AtlArray_DestroyElement_450; free; }`
+ * -- it never writes
  * m_nSize or m_nMaxSize. This function does write them, and writes them
  * UNCONDITIONALLY: the `je 0x44c621` at 0x44c5f8 skips only `*m_pData = 0`
  * at 0x44c61f, while `[edi+4] = 0` at 0x44c622 and `[edi+8] = 0` at 0x44c625
@@ -89,7 +92,8 @@
  * FUN_00424400 all index *(g_clientContext + 0x44e20) by 0x450 and read the
  * guarded part-code cell at +0x22c, bounds-checked against the count at
  * +0x44e24 -- the m_pData/m_nSize pair at +0/+4 of the struct this function
- * zeroes. Its destructor FUN_00426810 releases the record's two CValueGuard
+ * zeroes. Its destructor AtlArray_DestroyElement_450 releases the record's
+ * two CValueGuard
  * handles at +0x1c and +0x240 (the value cells the copy helper moves are the
  * paired +8 and +0x22c).
  *
@@ -124,7 +128,7 @@ void AtlArray_RemoveAll_450(int *regEdi)
   iVar2 = *unaff_EDI;
   if (iVar2 != 0) {
     for (iVar1 = unaff_EDI[1]; iVar1 != 0; iVar1 = iVar1 + -1) {
-      FUN_00426810(iVar2);
+      AtlArray_DestroyElement_450(iVar2);
       iVar2 = iVar2 + 0x450;
     }
     _free((void *)*unaff_EDI);

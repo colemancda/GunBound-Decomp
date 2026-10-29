@@ -368,7 +368,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00426620,200,StringMap_SetAt_CString,false,13,5,RAW-src
 00426700,34,AtlArray_CallDestructors_450,false,1,1,RAW-src
 00426780,139,StringMap_Find_10,false,9,1,RAW-src
-00426810,154,FUN_00426810,false,14,2,RAW-src
+00426810,154,AtlArray_DestroyElement_450,false,14,2,RAW-src
 004268b0,172,InventoryItemArray_Reserve,false,1,3,RAW-src
 00426960,230,StringMap_Insert_CString,false,3,5,RAW-src
 00426a60,86,StringMap_ConstructNode_CString,false,1,1,RAW-src

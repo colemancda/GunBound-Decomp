@@ -32,7 +32,7 @@ void FUN_0050cff0(int *param_1,uint param_2,undefined4 param_3,int param_4)
     if (param_4 != 0) {
       local_1c = param_4;
       do {
-        FUN_00426810(local_18);
+        AtlArray_DestroyElement_450(local_18);
         local_18 = local_18 + 0x450;
         local_1c = local_1c + -1;
       } while (local_1c != 0);

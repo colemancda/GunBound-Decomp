@@ -477,7 +477,7 @@ int StringMap_FindOrInsert_10(char *regEax,int *regEsi);
 int __thiscall StringMap_SetAt_CString();
 void __fastcall AtlArray_CallDestructors_450(int param_1,int regEax);
 undefined4 * StringMap_Find_10();
-void FUN_00426810();
+void AtlArray_DestroyElement_450();
 undefined4 InventoryItemArray_Reserve(uint regEax,int *regEsi);
 int __thiscall StringMap_Insert_CString();
 int __thiscall StringMap_ConstructNode_CString(char *key,int *node,undefined4 hash);

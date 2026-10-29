@@ -201,7 +201,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
             pcVar19 = (code *)EnterCriticalSection;
 LAB_0044469b:
             local_c = 0xffffffff;
-            FUN_00426810(&local_468);
+            AtlArray_DestroyElement_450(&local_468);
             local_520 = local_520 + 1;
           } while (local_520 < (int)(uint)uVar1);
         }
@@ -250,7 +250,7 @@ LAB_0044469b:
                 FUN_0042ae30(&local_468);
                 puVar13 = puVar13 + 2;
                 local_c = 0xffffffff;
-                FUN_00426810(&local_468);
+                AtlArray_DestroyElement_450(&local_468);
                 iVar20 = iVar20 + 1;
                 iVar4 = PeekChecksumStateUnderLock(&DAT_005f4894 + g_clientContext);
               } while (iVar20 < iVar4);
@@ -373,7 +373,7 @@ LAB_0044469b:
                            0x4a,0x1a,1,0);
         g_serverWaitTicks = 0xffffffff;
         local_c = 0xffffffff;
-        FUN_00426810(&local_468);
+        AtlArray_DestroyElement_450(&local_468);
         return;
       }
       if (*payload == 0x6003) {

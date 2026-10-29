@@ -17,7 +17,7 @@
  * propagates failure as 0 (`if (cVar1 == '\0') return 0;`), which is
  * CAtlArray::SetCount's contract.  Its GrowBuffer is
  * AtlArray_GrowBuffer_450 (0x42af40) and its per-element destructor
- * FUN_00426810 -- the latter still unnamed; the sibling
+ * AtlArray_DestroyElement_450 (0x426810); the sibling
  * AtlArray_GrowBuffer/AtlArray_RemoveAt in this tree belong to a different
  * element size, which is why this one carries the _450 suffix, as
  * CArray_Grow_1750/_4004/_206 do.
@@ -51,7 +51,7 @@ undefined1 __fastcall AtlArray_SetCount_450(uint param_1,int *param_2,int growBy
     iVar4 = *param_2;
     if (iVar4 != 0) {
       for (iVar3 = param_2[1]; iVar3 != 0; iVar3 = iVar3 + -1) {
-        FUN_00426810(iVar4);
+        AtlArray_DestroyElement_450(iVar4);
         iVar4 = iVar4 + 0x450;
       }
       _free((void *)*param_2);

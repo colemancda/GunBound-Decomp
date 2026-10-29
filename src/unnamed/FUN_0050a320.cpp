@@ -56,7 +56,7 @@ void AtlArray_CopyElement_450(int dstRecord, int srcRecord);
 void FUN_0044c6a0(unsigned int ctx, int regEdi);
 void FUN_0050cff0(unsigned int ctx, unsigned int idx, void *buf, int flag);
 void FUN_0044b0b0(void *state);
-void FUN_00426810(void *buf);
+void AtlArray_DestroyElement_450(void *buf);
 unsigned int PeekPacketChecksumState(void *self);
 void EncodeOutgoingPacketField(void *self, unsigned int field);
 void ThrowCxxException(long hr);
@@ -153,7 +153,7 @@ extern "C" int FUN_0050a320(CWidget *this_, int x, int y)
       } while (iVar4 < 0x890);
       *(unsigned char *)(self + 0x91) = 1;
       local_4 = -1;
-      FUN_00426810(local_45c);
+      AtlArray_DestroyElement_450(local_45c);
     }
   }
   *(unsigned int *)(self + 0x94) = 0xffffffff;

@@ -26,7 +26,7 @@ void __fastcall AtlArray_CallDestructors_450(int param_1,int regEax)
 {
   
   for (; regEax != 0; regEax = regEax + -1) {
-    FUN_00426810(param_1);
+    AtlArray_DestroyElement_450(param_1);
     param_1 = param_1 + 0x450;
   }
   return;

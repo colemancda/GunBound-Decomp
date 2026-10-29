@@ -45,7 +45,8 @@
  * - 0x50d0f0, in FUN_0050cff0 = CAtlArray::InsertAt(iElement, element,
  * nCount): the iElement >= m_nSize arm is a bare SetCount(iElement +
  * nCount, -1); the other arm is SetCount(m_nSize + nCount, -1), a
- * destructor loop (FUN_00426810) from nOldSize over the nCount slots
+ * destructor loop (AtlArray_DestroyElement_450) from nOldSize over the
+ * nCount slots
  * SetCount just constructed, _memmove of the (nOldSize - iElement) upper
  * elements up nCount slots, then CallConstructors
  * (AtlArray_CallConstructors_450, which loops FUN_00428550 at 0x450
@@ -55,7 +56,8 @@
  * - 0x50a411, in FUN_0050a320 (the Avatar-Store reorder) uses it directly
  * as `E temp; temp = m_pData[dragIndex];`: FUN_00428550 default-
  * constructs the 0x450 scratch local_45c[1104] above it, this copies the
- * record in, RemoveAt + InsertAt move it, and FUN_00426810 destroys the
+ * record in, RemoveAt + InsertAt move it, and AtlArray_DestroyElement_450
+ * destroys the
  * temp at the end.
  *
  * Calling convention: dst arrives in ESI and src in EBX, with a plain `ret`.

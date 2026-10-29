@@ -136,7 +136,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
                 FUN_0042ae30(&local_468);
                 payload = payload + 2;
                 local_c = 0xffffffff;
-                FUN_00426810(&local_468);
+                AtlArray_DestroyElement_450(&local_468);
                 local_690 = (undefined1 *)((int)local_690 + 1);
                 EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
                 iVar10 = PeekPacketChecksumState((void *)(g_clientContext + 0x5f4894));
