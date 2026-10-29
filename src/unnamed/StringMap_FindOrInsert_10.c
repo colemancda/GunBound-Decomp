@@ -4,8 +4,9 @@
  * the 0x10-node string-map instantiation: find the key, and if absent (init
  * the hash table if still empty, then) insert a fresh node; either way
  * return node+4, the value slot.  The stride comes from this
- * instantiation's own insert half, FUN_00426960, which carves nodes out
- * of `_malloc(map[9] * 0x10 + 4)` chunks - node layout +0 key CString
+ * instantiation's own insert half, StringMap_Insert_CString (0x426960,
+ * was FUN_00426960), which carves nodes out of
+ * `_malloc(map[9] * 0x10 + 4)` chunks - node layout +0 key CString
  * (built by FUN_00426a60), +4 value, +8 bucket chain, +0xc hash.  Same
  * member-for-member shape as the named StringMap_SetAt_1c/_28 upserts
  * of the 0x1c/0x28-node families minus their trailing value store, and
@@ -15,8 +16,8 @@
  * the returned slot.  Both callers are the nickname<->user-id cache
  * twins FindUserIdByNickname (0x426030) / FindNicknameByUserId
  * (0x426090) over the maps at ctx+0x6aa41c/+0x6aa44c; the third member
- * of this instantiation, FUN_00426620, is the SetAt-shaped upsert the
- * response handlers use.
+ * of this instantiation, StringMap_SetAt_CString (0x426620, was
+ * FUN_00426620), is the SetAt-shaped upsert the response handlers use.
  *
  * RECOVERED (2026-09-01): the prerequisite caller promotions landed in
  * the same batch as this note - the regEax parameter below is live and
@@ -38,7 +39,7 @@ int StringMap_FindOrInsert_10(char *regEax,int *regEsi)
   undefined1 local_8 [4];
   undefined1 local_4 [4];
   
-  iVar2 = FUN_00426780(local_8,&local_c,local_4,regEsi,(uchar *)regEax);
+  iVar2 = StringMap_Find_10(local_8,&local_c,local_4,regEsi,(uchar *)regEax);
   if (iVar2 == 0) {
     if (*regEsi == 0) {
       cVar1 = HashMap_InitHashTable(regEsi,regEsi[2],1);
@@ -47,7 +48,7 @@ int StringMap_FindOrInsert_10(char *regEax,int *regEsi)
         ThrowCxxException(0x8007000e);
       }
     }
-    iVar2 = FUN_00426960(*(int *)local_8,regEsi,(undefined4)regEax,local_c);
+    iVar2 = StringMap_Insert_CString(*(int *)local_8,regEsi,(undefined4)regEax,local_c);
   }
   return iVar2 + 4;
 }

@@ -34,7 +34,7 @@ undefined4 FindNicknameByUserId(char *param_1,char *regEax,int regEcx)
   undefined1 local_8 [4];
   undefined1 local_4 [4];
   
-  iVar2 = FUN_00426780(local_4,local_8,local_c,(int *)(regEcx + 0x6aa44c),(uchar *)regEax);
+  iVar2 = StringMap_Find_10(local_4,local_8,local_c,(int *)(regEcx + 0x6aa44c),(uchar *)regEax);
   if (iVar2 != 0) {
     puVar3 = (undefined4 *)StringMap_FindOrInsert_10(regEax,(int *)(regEcx + 0x6aa44c));
     pcVar4 = (char *)*puVar3;

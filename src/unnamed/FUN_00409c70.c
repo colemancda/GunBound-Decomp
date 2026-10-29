@@ -23,7 +23,7 @@ undefined4 FUN_00409c70(int *param_1,uchar *regEbx)
   undefined1 local_8 [4];
   undefined1 local_4 [4];
   
-  iVar1 = FUN_00426780(local_4,local_8,&stack0x00000004,param_1,regEbx);
+  iVar1 = StringMap_Find_10(local_4,local_8,&stack0x00000004,param_1,regEbx);
   if (iVar1 != 0) {
     return *(undefined4 *)(iVar1 + 4);
   }

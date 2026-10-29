@@ -211,8 +211,8 @@ LAB_0042326c:
       local_414 = *(undefined4 *)(param_2 + 0x3b);
       local_420 = 0;
       local_410 = 0;
-      FUN_00426620(&local_41c,&DAT_006aa41c + param_1,&local_430);
-      FUN_00426620(&local_430,&DAT_006aa44c + param_1,&local_41c);
+      StringMap_SetAt_CString(&local_41c,&DAT_006aa41c + param_1,&local_430);
+      StringMap_SetAt_CString(&local_430,&DAT_006aa44c + param_1,&local_41c);
       iVar8 = g_clientContext;
       uVar10 = (uint)bVar1;
       *(uint *)(g_clientContext + 0x4599c + uVar10 * 4) = (uint)*(ushort *)(param_2 + 0x3f);

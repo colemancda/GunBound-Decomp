@@ -17,8 +17,8 @@
  *   (CBuddy2's rosters, strncpy 0x10 everywhere).
  * - The 0x1021 (GB_OP_USER_RESPONSE) handler FUN_00403000 reads
  *   [status:2][nickname:12][id:16], flushes the 'n'+nickname pendings
- *   with the id, and inserts both maps via FUN_00426620; the 0x1023
- *   list handler does the mirror with 'i'+id records.  The server's
+ *   with the id, and inserts both maps via StringMap_SetAt_CString;
+ *   the 0x1023 list handler does the mirror with 'i'+id records.  The server's
  *   Username type fixes the nickname at 0xC bytes.
  * - ApplyBattleActionToContext's 0x8400 arm caches each synced player's
  *   16-byte (+0x23) and 12-byte (+0x33) strings into the same two maps.
@@ -45,7 +45,7 @@ undefined4 FindUserIdByNickname(char *param_1,char *regEax,int regEcx)
   undefined1 local_8 [4];
   undefined1 local_4 [4];
   
-  iVar2 = FUN_00426780(local_4,local_8,local_c,(int *)(regEcx + 0x6aa41c),(uchar *)regEax);
+  iVar2 = StringMap_Find_10(local_4,local_8,local_c,(int *)(regEcx + 0x6aa41c),(uchar *)regEax);
   if (iVar2 != 0) {
     puVar3 = (undefined4 *)StringMap_FindOrInsert_10(regEax,(int *)(regEcx + 0x6aa41c));
     pcVar4 = (char *)*puVar3;

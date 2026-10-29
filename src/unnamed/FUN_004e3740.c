@@ -41,7 +41,7 @@ undefined4 * FUN_004e3740(int *param_1,uchar *regEbx)
    * it.  The store was folded away by Ghidra - same as GetLocalizedString. */
   local_18 = (int)(puVar2 + 4);
   uStack_4 = 0;
-  iVar3 = FUN_00426780(auStack_10,auStack_14,&stack0x00000004,param_1,regEbx);
+  iVar3 = StringMap_Find_10(auStack_10,auStack_14,&stack0x00000004,param_1,regEbx);
   if (iVar3 != 0) {
     FUN_0043ddb0((int *)(iVar3 + 4),&local_18);
     uStack_4 = 0xffffffff;

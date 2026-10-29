@@ -78,8 +78,8 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2)
       local_154 = param_1[5];
       local_12c = 0;
       local_14c = 0;
-      FUN_00426620(&local_158,&DAT_006aa41c + g_clientContext,&local_13c);
-      FUN_00426620(&local_13c,&DAT_006aa44c + iVar7,&local_158);
+      StringMap_SetAt_CString(&local_158,&DAT_006aa41c + g_clientContext,&local_13c);
+      StringMap_SetAt_CString(&local_13c,&DAT_006aa44c + iVar7,&local_158);
       FUN_00508d00(&g_uiPanelManager);
       return;
     }
@@ -146,8 +146,8 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2)
               local_150 = param_1[6];
               local_12c = 0;
               local_14c = 0;
-              FUN_00426620(&local_158,&DAT_006aa41c + iVar7,&local_13c);
-              FUN_00426620(&local_13c,&DAT_006aa44c + iVar7,&local_158);
+              StringMap_SetAt_CString(&local_158,&DAT_006aa41c + iVar7,&local_13c);
+              StringMap_SetAt_CString(&local_13c,&DAT_006aa44c + iVar7,&local_158);
               local_144 = param_1[8];
               local_148 = param_1[7];
               local_140 = 0;

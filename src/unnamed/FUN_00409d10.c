@@ -5,6 +5,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_00426780 below is now StringMap_Find_10.)
+ *
  * DROPPED-ARGUMENT FIX (2026-09-20): __thiscall with 4 real params
  * (ECX=`this` + ret 0xc = 3 stack dwords, disasm 0x409d10-0x409deb); the
  * declared shape was already correct. The sole caller
