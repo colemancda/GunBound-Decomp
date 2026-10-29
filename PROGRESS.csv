@@ -1436,7 +1436,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ff770,1134,FUN_004ff770,false,1,22,RAW-src
 004ffbe0,662,FUN_004ffbe0,false,1,5,RAW-src
 004ffe80,605,FUN_004ffe80,false,1,6,RAW-src
-005000e0,85,FUN_005000e0,false,1,4,RAW-src
+005000e0,85,StringMap_FindOrInsert_ac,false,1,4,RAW-src
 00500140,171,StringMap_RemoveAll_ac,false,1,5,RAW-src
 005001f0,172,CArray_Grow_1750,false,1,3,RAW-src
 005002a0,87,IntMap_Find_1768,false,3,0,RAW-src

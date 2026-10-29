@@ -1537,7 +1537,7 @@ void CommConnectionList_Erase(int *regEax,int *regEdi);
 void FUN_004ff770();
 void FUN_004ffbe0();
 void FUN_004ffe80();
-void FUN_005000e0(int *regEsi,char *regEdi);
+void StringMap_FindOrInsert_ac(int *regEsi,char *regEdi);
 void StringMap_RemoveAll_ac(int *regEax);
 undefined4 CArray_Grow_1750(uint regEax,int *regEsi);
 uint * __thiscall IntMap_Find_1768(int *param_1,undefined4 *param_2,uint *regEax,uint *regEsi,uint regEdi);
