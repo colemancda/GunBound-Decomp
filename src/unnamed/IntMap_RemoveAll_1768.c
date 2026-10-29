@@ -23,8 +23,8 @@
  *
  * The instantiation is the one IntMap_Find_1768 and IntMap_Insert_1768
  * serve: the node this sweep steps through by +0x1760 is the node
- * IntMap_FreeNode_1768 retires, and FUN_00500710 ties that node to
- * IntMap_Find_1768 directly.
+ * IntMap_FreeNode_1768 retires, and IntMap_RemoveKey_1768 ties that node
+ * to IntMap_Find_1768 directly.
  */
 #include "ghidra_types.h"
 

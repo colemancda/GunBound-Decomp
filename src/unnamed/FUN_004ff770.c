@@ -95,7 +95,7 @@ void FUN_004ff770(int *param_1,int param_2)
             (**(code **)*param_1)
                       (1,local_2eaa,*(undefined2 *)(iVar4 + 0x10),iVar4 + 0x14,
                        *(undefined2 *)(iVar4 + 0x12),iVar4 + 4);
-            FUN_00500710((int *)(local_3190 + 0x14),local_2e9a[0]);
+            IntMap_RemoveKey_1768((int *)(local_3190 + 0x14),local_2e9a[0]);
           }
           *local_3190 = CONCAT22(SUBFIELD(local_3174.sa_data,4,undefined2),SUBFIELD(local_3174.sa_data,2,undefined2));
           *(undefined2 *)(local_3190 + 1) = SUBFIELD(local_3174.sa_data,0,undefined2);
@@ -179,7 +179,7 @@ void FUN_004ff770(int *param_1,int param_2)
                                     (local_3158.dwHighDateTime - local_315c) -
                                     (uint)(local_3158.dwLowDateTime < local_3160),10000,0);
                   if (60000 < uVar3) {
-                    FUN_005009b0((int *)(puVar1 + 8),(uint)local_318c);
+                    IntMap_RemoveKey_14((int *)(puVar1 + 8),(uint)local_318c);
                   }
                 }
               }

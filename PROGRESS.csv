@@ -1447,12 +1447,12 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005006b0,8,FUN_005006b0,false,1,1,RAW-src
 005006c0,42,FUN_005006c0,false,1,2,RAW-src
 005006f0,27,FUN_005006f0,false,1,1,RAW-src
-00500710,119,FUN_00500710,false,2,2,RAW-src
+00500710,119,IntMap_RemoveKey_1768,false,2,2,RAW-src
 00500790,171,IntMap_RemoveAll_1768,false,2,5,RAW-src
 00500840,183,IntMap_Insert_1768,false,1,4,RAW-src
 00500900,50,FUN_00500900,false,1,1,RAW-src
 00500940,111,FUN_00500940,false,1,4,RAW-src
-005009b0,107,FUN_005009b0,false,1,2,RAW-src
+005009b0,107,IntMap_RemoveKey_14,false,1,2,RAW-src
 00500a20,325,IntMap_RemoveAll_14,false,2,6,RAW-src
 00500b70,46,FUN_00500b70,false,1,0,RAW-src
 00500ba0,88,FUN_00500ba0,false,1,0,RAW-src

@@ -9,7 +9,7 @@
  * key or value destructor - POD node.
  *
  * WHICH INSTANTIATION, from the caller: both binary sites are in
- * FUN_005009b0 (0x5009f9, 0x500a0f), which runs IntMap_Find_14
+ * IntMap_RemoveKey_14 (0x5009f9, 0x500a0f), which runs IntMap_Find_14
  * (0x5009cb, map in ECX = EBX), unlinks the node it returned from its
  * bucket by reading +0x10 (m_nHash) and +0xc (m_pNext), and hands that
  * node to this function in EAX with the same map in ESI (`mov esi,ebx`)

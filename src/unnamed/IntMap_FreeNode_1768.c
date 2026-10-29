@@ -19,8 +19,8 @@
  * first and called
  * with nothing, so writing the call in terms of the advanced value would
  * have retired the wrong node. The captured value gets a local there.
- * FUN_00500710's two sites are straightforward - `mov eax,ecx` for
- * the node the lookup found, with the map already in ESI.
+ * IntMap_RemoveKey_1768's two sites are straightforward - `mov eax,ecx`
+ * for the node the lookup found, with the map already in ESI.
  *
  * NAMED (2026-08-28): ATL7's CAtlMap<K,V>::FreeNode out of VC7.1's
  * atlcoll.h - the same member as StringMap_FreeNode_CString, for a
@@ -30,8 +30,8 @@
  * which is what a POD key and value give.
  *
  * WHICH INSTANTIATION, from a caller rather than from the body:
- * FUN_00500710 runs IntMap_Find_1768 over its map and then hands the
- * node that find returned straight to this function with the same map
+ * IntMap_RemoveKey_1768 runs IntMap_Find_1768 over its map and then hands
+ * the node that find returned straight to this function with the same map
  * still in EBX. So the node is the 0x1768 one - payload below +0x1760,
  * m_pNext at +0x1760 (the link this writes), m_nHash at +0x1764 (the
  * field IntMap_Find_1768 compares), 0x1768 total - and the suffix is
