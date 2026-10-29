@@ -25,9 +25,11 @@
  * (0x42660a) and FUN_00404410 (0x404552), each after a
  * StringMap_Find_10 miss.
  *
- * Note (not fixed here): the port's FUN_00426a60(iVar3,param_4) call
- * drops the key - the original passes it in ECX (`mov ecx,[ebp+0xc]` at
- * 0x4269df) - so the ported node gets no key string.
+ * DROPPED-KEY FIX (2026-10-29): the FUN_00426a60 call used to pass only
+ * (node, hash) and dropped the key, which the original passes in ECX
+ * (`mov ecx,[ebp+0xc]` at 0x4269df = param_3), so every ported node was
+ * built with no key string.  It now passes (key, node, hash), matching
+ * that callee's recovered signature.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -72,7 +74,7 @@ int __thiscall StringMap_Insert_CString(int param_1,int *param_2,undefined4 para
   iVar3 = param_2[0xb];
   param_2[0xb] = *(int *)(iVar3 + 8);
   local_8 = 1;
-  FUN_00426a60(iVar3,param_4);
+  FUN_00426a60((char *)param_3,(int *)iVar3,param_4);
   local_8 = 0xffffffff;
   param_2[1] = param_2[1] + 1;
   *(undefined4 *)(iVar3 + 8) = *(undefined4 *)(*param_2 + param_1 * 4);
