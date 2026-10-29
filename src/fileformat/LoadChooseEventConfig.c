@@ -8,6 +8,8 @@
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
  *
+ * (FUN_00409c70 below is now FindChooseEventCode.)
+ *
  * DROPPED ARGUMENT: Ghidra's decompile took this function as taking no
  * arguments, but the prologue at 0x409a2b (`push ecx`) saves an incoming
  * register argument to the stack before the security-cookie call, and

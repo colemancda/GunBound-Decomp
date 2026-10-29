@@ -5,6 +5,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_004e3740 below is now FindSoundFileName.)
+ *
  * BOTH REGISTERS RECOVERED (2026-08-25).  ATL CSimpleStringT::operator=:
  * regEdi is `this`, regEax the source string; both CStringData headers sit
  * at buffer-0x10 (+0xc refcount/lock).  Sites: GetLocalizedString assigns

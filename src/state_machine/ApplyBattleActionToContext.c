@@ -116,10 +116,11 @@ void ApplyBattleActionToContext(int param_1,int param_2,int param_3)
           puVar17 = (ushort *)((int)puVar17 + 1);
           pbVar19 = pbVar19 + 1;
         }
-        /* orig 0x42339f also pushes an extra 0 the ret-4 callee never reads
-         * (dead stack slot) - deliberately not reproduced. */
-        FUN_004e3740((int *)&DAT_00794e14,&local_408);
-        AcquireSoundChannel(uVar6);
+        /* orig 0x42339f `push 0` is AcquireSoundChannel's flag, pushed early
+         * and left on the stack across the ret-4 FindSoundFileName call;
+         * 0x4233b4 `mov edi,eax; call 0x4ee9b0` then hands the looked-up
+         * sound name over in EDI. */
+        AcquireSoundChannel((char *)FindSoundFileName((int *)&DAT_00794e14,&local_408),uVar6);
         AppendChatLogEntry(param_1,0,(uint)bVar1 * 9 + 0x457a9 + param_1,iVar8,puVar12,0,1,
                            param_3 - 0x21U);
         return;

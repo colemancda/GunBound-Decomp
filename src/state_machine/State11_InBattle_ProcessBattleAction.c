@@ -229,8 +229,10 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
                   puVar13 = (ushort *)((int)puVar13 + 1);
                   pbVar14 = pbVar14 + 1;
                 }
-                FUN_004e3740((int *)&DAT_00794e14,&local_2658);
-                AcquireSoundChannel(uVar21);
+                /* orig 0x4b564f/0x4b584b `mov edi,eax; call 0x4ee9b0`: the sound name
+                 * goes to AcquireSoundChannel in EDI; uVar21 is the `push 0` flag. */
+                AcquireSoundChannel((char *)FindSoundFileName((int *)&DAT_00794e14,&local_2658),
+                                    uVar21);
                 FUN_0041ef90(g_clientContext,0,local_27e4,puVar12,uVar11,local_27ec[3] + 300,0);
                 AppendChatLogEntry(g_clientContext,0,(int)local_27e0 * 9 + 0x5012e + g_clientContext,
                              local_27f0 + g_clientContext + 0x50196,puVar12,0,1,uVar11);
@@ -328,8 +330,10 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
               puVar13 = (ushort *)((int)puVar13 + 1);
               pbVar14 = pbVar14 + 1;
             }
-            FUN_004e3740((int *)&DAT_00794e14,&local_2658);
-            AcquireSoundChannel(uVar21);
+            /* orig 0x4b564f/0x4b584b `mov edi,eax; call 0x4ee9b0`: the sound name
+             * goes to AcquireSoundChannel in EDI; uVar21 is the `push 0` flag. */
+            AcquireSoundChannel((char *)FindSoundFileName((int *)&DAT_00794e14,&local_2658),
+                                uVar21);
             FUN_0041ef90(g_clientContext,7,local_27e4,puVar12,uVar11,local_27ec[3] + 300,0);
             AppendChatLogEntry(g_clientContext,7,(int)local_27e0 * 9 + 0x5012e + g_clientContext,
                          local_27f0 + g_clientContext + 0x50196,puVar12,0,1,uVar11);
