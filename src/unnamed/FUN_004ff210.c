@@ -16,7 +16,7 @@ void FUN_004ff210(void)
     _free(*(void **)(in_EAX + 0x80));
   }
   IntMap_RemoveAll_1768((int *)(in_EAX + 0x50));
-  FUN_00500a20((int *)(in_EAX + 0x20));
+  IntMap_RemoveAll_14((int *)(in_EAX + 0x20));
   return;
 }
 

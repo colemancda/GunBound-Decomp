@@ -1,13 +1,34 @@
-/* FUN_00501220 - 0x00501220 in the original binary.
+/* IntMap_Rehash_14 - 0x00501220 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (2026-10-29): ATL7 CAtlMap::Rehash(nBins) for the 0x14-node
+ * integer maps - the same member as StringMap_Rehash_10 (see that file
+ * for the atlcoll.h statement-by-statement match), instruction for
+ * instruction, with only the node offsets moved: the relink reads
+ * m_pNext at node+0xc (0x5012e8) and m_nHash at node+0x10 (0x5012e0),
+ * which is the stride-8/stride-4 CNode tail of a 0x14-byte node.  Map
+ * in [ebp+8], nBins in [ebp+0xc], `ret 8`; nBins == 0 takes
+ * HashMap_PickSize (0x501255), an empty table InitHashTable(map, nBins,
+ * 0) (0x50126f), and the low threshold is clamped under 0x11.
+ *
+ * The instantiation is fixed by the callers, not the body.  All three
+ * binary sites push (PickSize result, map) from the shared
+ * NewNode/FreeNode threshold arm: IntMap_Insert_14 (0x5015e9) - the
+ * insert half of IntMap_Find_14 - IntMap_FreeNode_14 (0x501389) and
+ * IntMap_RemoveAll_14's inlined FreeNode (0x500acd).  So the prefix and
+ * suffix are IntMap_Insert_14's.
+ *
+ * Promoted from a K&R prototype to (int *map, uint nBins) like
+ * StringMap_Rehash_10; every C site already passed exactly those two
+ * values, and the int-typed map registers are cast.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00501220(int *param_1,uint param_2)
+void IntMap_Rehash_14(int *param_1,uint param_2)
 
 {
   int iVar1;

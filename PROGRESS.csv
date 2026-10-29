@@ -1453,7 +1453,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00500900,50,FUN_00500900,false,1,1,RAW-src
 00500940,111,FUN_00500940,false,1,4,RAW-src
 005009b0,107,FUN_005009b0,false,1,2,RAW-src
-00500a20,325,FUN_00500a20,false,2,6,RAW-src
+00500a20,325,IntMap_RemoveAll_14,false,2,6,RAW-src
 00500b70,46,FUN_00500b70,false,1,0,RAW-src
 00500ba0,88,FUN_00500ba0,false,1,0,RAW-src
 00500c00,201,HashMap_InitHashTable,false,24,3,RAW-src
@@ -1468,8 +1468,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00501010,88,FUN_00501010,false,5,2,RAW-src
 00501070,313,FUN_00501070,false,2,6,RAW-src
 005011c0,93,IntMap_FreeNode_1768,false,3,3,RAW-src
-00501220,304,FUN_00501220,false,3,6,RAW-src
-00501360,90,FUN_00501360,false,2,3,RAW-src
+00501220,304,IntMap_Rehash_14,false,3,6,RAW-src
+00501360,90,IntMap_FreeNode_14,false,2,3,RAW-src
 005013c0,81,IntMap_Find_14,false,3,0,RAW-src
 00501420,228,StringMap_Insert_ac,false,1,5,RAW-src
 00501510,78,FUN_00501510,false,1,2,RAW-src

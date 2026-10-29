@@ -1554,7 +1554,7 @@ undefined4 * IntMap_Insert_1768(undefined4 param_1,undefined4 param_2,int regEbx
 undefined4 FUN_00500900(undefined4 *regEbx,int *regEcx,uint regEdi);
 void FUN_00500940(int *param_1,undefined4 *param_2,undefined4 regEax);
 undefined4 FUN_005009b0(int *regEbx,uint regEdi);
-void FUN_00500a20(int *regEsi);
+void IntMap_RemoveAll_14(int *regEsi);
 int __fastcall FUN_00500b70();
 void FUN_00500ba0(int *param_1,undefined4 *param_2,undefined4 *param_3,int *regEbx);
 undefined4 HashMap_InitHashTable();
@@ -1569,8 +1569,8 @@ undefined4 FUN_00500fa0(undefined4 param_1,undefined4 param_2,int regEax,undefin
 void __fastcall FUN_00501010();
 void FUN_00501070();
 void IntMap_FreeNode_1768(int regEax,int regEsi);
-void FUN_00501220();
-void FUN_00501360(int regEax,int regEsi);
+void IntMap_Rehash_14(int *map,uint nBins);
+void IntMap_FreeNode_14(int regEax,int regEsi);
 uint * __thiscall IntMap_Find_14(int *param_1,undefined4 *param_2,uint *regEax,uint *regEsi,uint regEdi);
 undefined4 * StringMap_Insert_ac(int param_1,undefined4 param_2,undefined4 *regEax,int *regEbx);
 void FUN_00501510(int regEsi);

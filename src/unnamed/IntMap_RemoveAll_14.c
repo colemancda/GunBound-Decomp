@@ -1,8 +1,24 @@
-/* FUN_00500a20 - 0x00500a20 in the original binary.
+/* IntMap_RemoveAll_14 - 0x00500a20 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (2026-10-29): ATL7 CAtlMap::RemoveAll for the 0x14-node integer
+ * maps - the same member as IntMap_RemoveAll_1768 and
+ * HashMap_RemoveAll_2c, with FreeNode and PickSize inlined: raise the
+ * lock count at map+0x20 (0x500a29), walk every bin retiring nodes by
+ * their m_pNext at +0xc (0x500a63) onto m_pFree at +0x2c, delete[] the
+ * bins (_free 0x525421), InitHashTable(PickSize(0), false) when
+ * unlocked (0x500b2e / 0x500b35), free the plex chain at +0x28, and drop
+ * the lock count again (0x500b5b).
+ *
+ * The instantiation is fixed by the callee: the inlined FreeNode's
+ * rehash arm calls IntMap_Rehash_14 (0x500acd), the rehash that
+ * IntMap_Insert_14 and IntMap_FreeNode_14 share.  The map is the one at
+ * +0x20 of the 0x90-byte object whose +0x50 map IntMap_RemoveAll_1768
+ * clears, and both callers (0x4fe98c, 0x4ff231) clear the two maps
+ * together.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * ESI RECOVERED (2026-08-25): the map at +0x20 of the same 0x90-byte object
  * IntMap_RemoveAll_1768 clears at +0x50 -- `add esi,0x20` at 0x4ff22e and
@@ -13,7 +29,7 @@
 
 /* WARNING: Removing unreachable block (ram,0x00500aa3) */
 
-void FUN_00500a20(int *regEsi)
+void IntMap_RemoveAll_14(int *regEsi)
 
 {
   uint *puVar1;
@@ -51,7 +67,7 @@ void FUN_00500a20(int *regEsi)
           if ((&DAT_00557660)[iVar6] == 0xffffffff) {
             uVar7 = uVar5;
           }
-          FUN_00501220(regEsi,uVar7);
+          IntMap_Rehash_14(regEsi,uVar7);
         }
         iVar6 = iVar2;
         if (regEsi[1] == 0) {

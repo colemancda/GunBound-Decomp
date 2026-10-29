@@ -27,7 +27,7 @@
  * WHY _10.  The relink reads m_pNext at node+8 and m_nHash at node+0xc,
  * which is the 0x10-byte node (4-byte key, 4-byte value) and no other.
  * Every other node size has its own copy with the hash read further in:
- * FUN_00501220 (+0x10, 0x14 node), FUN_00500440 (+0x18, 0x1c),
+ * IntMap_Rehash_14 (+0x10, 0x14 node), FUN_00500440 (+0x18, 0x1c),
  * FUN_00500300 (+0x24, 0x28), FUN_00405150 (+0x28, 0x2c), FUN_00500ce0
  * (+0xa8, 0xac) and FUN_00501070 (+0x1764, 0x1768).  It serves both the
  * CString-valued and the int-valued 0x10
