@@ -480,7 +480,7 @@ undefined4 * StringMap_Find_10();
 void FUN_00426810();
 undefined4 InventoryItemArray_Reserve(uint regEax,int *regEsi);
 int __thiscall StringMap_Insert_CString();
-int __thiscall FUN_00426a60(char *key,int *node,undefined4 hash);
+int __thiscall StringMap_ConstructNode_CString(char *key,int *node,undefined4 hash);
 int FUN_00428550();
 void __thiscall State03_GameRoomList_OnCommand();
 void __fastcall State03_GameRoomList_HandleMouseInput(int,int,unsigned int,unsigned int,unsigned int); /* State03 vtable slot 6 */

@@ -21,8 +21,9 @@
  * ChooseEvent.txt node was built with no key string and
  * StringMap_Find_10 could never match one.  It now passes (key, node).
  * The same bug in the CString-valued twin is fixed in
- * StringMap_Insert_CString's node constructor FUN_00426a60.  The SEH
- * registration through the uninitialised `unaff_FS_OFFSET`, which wrote
+ * StringMap_Insert_CString's node constructor
+ * StringMap_ConstructNode_CString.  The SEH registration through the
+ * uninitialised `unaff_FS_OFFSET`, which wrote
  * through a garbage pointer on every call, is stripped too, as in
  * ConstructStringFromText.c.
  */

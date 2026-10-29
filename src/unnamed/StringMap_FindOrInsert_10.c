@@ -7,7 +7,8 @@
  * instantiation's own insert half, StringMap_Insert_CString (0x426960,
  * was FUN_00426960), which carves nodes out of
  * `_malloc(map[9] * 0x10 + 4)` chunks - node layout +0 key CString
- * (built by FUN_00426a60), +4 value, +8 bucket chain, +0xc hash.  Same
+ * (built by StringMap_ConstructNode_CString), +4 value, +8 bucket chain,
+ * +0xc hash.  Same
  * member-for-member shape as the named StringMap_SetAt_1c/_28 upserts
  * of the 0x1c/0x28-node families minus their trailing value store, and
  * it shares the literal HashMap_InitHashTable (0x500c00, MFC

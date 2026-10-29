@@ -4,8 +4,9 @@
  * 0x10-byte nodes whose find is StringMap_Find_10 (0x426780): pop a node
  * off the free list at map+0x2c (refilling it from a fresh
  * `_malloc(map[9] * 0x10 + 4)` block chained at +0x28 when empty),
- * construct it through FUN_00426a60, link it at the head of bin[ECX],
- * bump the count at +4, and rehash via FUN_00500e30 (PickSize) /
+ * construct it through StringMap_ConstructNode_CString (0x426a60), link
+ * it at the head of bin[ECX], bump the count at +4, and rehash via
+ * FUN_00500e30 (PickSize) /
  * FUN_00409e20 when it passes +0x18 with the lock at +0x20 clear.
  * Stack: map, key, hash (ECX = the bucket index the find wrote).
  *
@@ -13,8 +14,9 @@
  * byte-identical 0x10 stride and free-list code: FUN_00409d10, the
  * insert ParseChooseEventLine (0x409cb0) runs for the ChooseEvent.txt
  * table.  What separates them is the node constructor.  Here
- * FUN_00426a60 builds the key CStringA at node+0 (`call 0x405510`) AND
- * a second, nil CStringA at node+4 (0x426a88-0x426a9c: GetNilString
+ * StringMap_ConstructNode_CString builds the key CStringA at node+0
+ * (`call 0x405510`) AND a second, nil CStringA at node+4
+ * (0x426a88-0x426a9c: GetNilString
  * + 0x10 stored to [esi+4]); 0x409d10 runs only the key constructor and
  * stores the hash, leaving +4 a 4-byte POD that its caller writes.  So
  * the suffix names the VALUE type, matching StringMap_FreeNode_CString
@@ -25,8 +27,9 @@
  * (0x42660a) and FUN_00404410 (0x404552), each after a
  * StringMap_Find_10 miss.
  *
- * DROPPED-KEY FIX (2026-10-29): the FUN_00426a60 call used to pass only
- * (node, hash) and dropped the key, which the original passes in ECX
+ * DROPPED-KEY FIX (2026-10-29): the StringMap_ConstructNode_CString call
+ * used to pass only (node, hash) and dropped the key, which the original
+ * passes in ECX
  * (`mov ecx,[ebp+0xc]` at 0x4269df = param_3), so every ported node was
  * built with no key string.  It now passes (key, node, hash), matching
  * that callee's recovered signature.
@@ -74,7 +77,7 @@ int __thiscall StringMap_Insert_CString(int param_1,int *param_2,undefined4 para
   iVar3 = param_2[0xb];
   param_2[0xb] = *(int *)(iVar3 + 8);
   local_8 = 1;
-  FUN_00426a60((char *)param_3,(int *)iVar3,param_4);
+  StringMap_ConstructNode_CString((char *)param_3,(int *)iVar3,param_4);
   local_8 = 0xffffffff;
   param_2[1] = param_2[1] + 1;
   *(undefined4 *)(iVar3 + 8) = *(undefined4 *)(*param_2 + param_1 * 4);
