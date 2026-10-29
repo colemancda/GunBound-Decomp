@@ -36,7 +36,7 @@ void HashTable_OnNodeRemoved(int regEax,int regEsi)
   *(uint *)(regEsi + 4) = uVar3;
   if ((uVar3 < *(uint *)(regEsi + 0x1c)) && (*(int *)(regEsi + 0x20) == 0)) {
     uVar2 = FUN_00500e30();
-    FUN_00409e20(regEsi,uVar2);
+    StringMap_Rehash_10((int *)regEsi,uVar2);
   }
   if (*(int *)(regEsi + 4) == 0) {
     _Memory = *(int **)(regEsi + 0x28);

@@ -12,8 +12,8 @@
  * head at map+0x2c (refilling from `_malloc(map[9] * 0x10 + 4)` blocks
  * chained at +0x28), construct the node under an SEH state of 1
  * (0x409d8f-0x409d9e, NewNode's _ATLTRY), bump the count at +4, link into
- * bin[ECX], and rehash through FUN_00500e30 (PickSize) / FUN_00409e20
- * (Rehash) past the +0x18 threshold with the +0x20 lock clear.
+ * bin[ECX], and rehash through FUN_00500e30 (PickSize) / StringMap_Rehash_10
+ * (0x409e20) past the +0x18 threshold with the +0x20 lock clear.
  *
  * WHY _Int AND NOT _10.  The stride cannot separate it from
  * StringMap_Insert_CString; the node constructor can.  That one calls
@@ -90,7 +90,7 @@ int __thiscall StringMap_Insert_Int(int param_1,int *param_2,undefined4 param_3,
   *(int *)(*param_2 + param_1 * 4) = iVar3;
   if (((uint)param_2[6] < (uint)param_2[1]) && (param_2[8] == 0)) {
     uVar2 = FUN_00500e30();
-    FUN_00409e20(param_2,uVar2);
+    StringMap_Rehash_10(param_2,uVar2);
   }
   return iVar3;
 }

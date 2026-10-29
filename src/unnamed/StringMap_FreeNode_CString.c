@@ -37,7 +37,8 @@
  *   m_pFree = pNode                           [map+0x2c] = node
  *   m_nElements--                             [map+4]
  *   if (m_nElements < m_nLoRehashThreshold
- *       && !IsLocked()) Rehash(PickSize(...)) +0x1c, +0x20, FUN_00409e20
+ *       && !IsLocked()) Rehash(PickSize(...)) +0x1c, +0x20,
+ *                                             StringMap_Rehash_10
  *   if (m_nElements == 0) FreePlexes()        the +0x28 chain, +0x2c = 0
  *
  * WHY THE SUFFIX IS A TYPE AND NOT A STRIDE. The node here is 0x10 bytes
@@ -79,7 +80,7 @@ void StringMap_FreeNode_CString(int regEax,int regEdi)
   *(uint *)(unaff_EDI + 4) = uVar3;
   if ((uVar3 < *(uint *)(unaff_EDI + 0x1c)) && (*(int *)(unaff_EDI + 0x20) == 0)) {
     uVar2 = FUN_00500e30();
-    FUN_00409e20(unaff_EDI,uVar2);
+    StringMap_Rehash_10((int *)unaff_EDI,uVar2);
   }
   if (*(int *)(unaff_EDI + 4) == 0) {
     _Memory = *(int **)(unaff_EDI + 0x28);

@@ -126,7 +126,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00409c70,49,FindChooseEventCode,false,1,1,RAW-src
 00409cb0,87,ParseChooseEventLine,false,1,4,RAW-src
 00409d10,232,StringMap_Insert_Int,false,1,5,RAW-src
-00409e20,304,FUN_00409e20,false,4,6,RAW-src
+00409e20,304,StringMap_Rehash_10,false,4,6,RAW-src
 00409f60,102,HashTable_OnNodeRemoved,false,1,4,RAW-src
 00409fd0,95,LogicError_ctor,false,9,2,RAW-src
 0040a040,50,FUN_0040a040,false,1,2,RAW-src
