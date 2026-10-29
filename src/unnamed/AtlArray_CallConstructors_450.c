@@ -59,7 +59,7 @@ void AtlArray_CallConstructors_450(int param_1,uint param_2)
     iVar1 = uVar2 * 0x450 + param_1;
     local_8 = 1;
     if (iVar1 != 0) {
-      FUN_00428550(iVar1);
+      AtlArray_ConstructElement_450(iVar1);
     }
   }
   *unaff_FS_OFFSET = local_10;

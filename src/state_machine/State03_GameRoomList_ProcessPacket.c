@@ -115,7 +115,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             if (0 < iVar10) {
               do {
-                FUN_00428550(&local_468);
+                AtlArray_ConstructElement_450(&local_468);
                 local_c = 0;
                 local_464 = (int)local_690;
                 EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

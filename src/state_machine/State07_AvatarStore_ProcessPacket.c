@@ -138,7 +138,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
               puVar17 = (undefined4 *)((int)puVar17 + 1);
               puVar21 = (undefined4 *)((int)puVar21 + 1);
             }
-            FUN_00428550(&local_468);
+            AtlArray_ConstructElement_450(&local_468);
             pcVar19 = (code *)EnterCriticalSection;
             local_c = 2;
             local_464 = -1;
@@ -240,7 +240,7 @@ LAB_0044469b:
             iVar4 = PeekChecksumStateUnderLock(&DAT_005f4894 + g_clientContext);
             if (0 < iVar4) {
               do {
-                FUN_00428550(&local_468);
+                AtlArray_ConstructElement_450(&local_468);
                 local_c = 4;
                 local_464 = iVar20;
                 SetGuardedBool(0,GB_GUARD_UNRECOVERED);
@@ -325,7 +325,7 @@ LAB_0044469b:
         if (cVar2 != '\0') {
           QueueOutgoingPacketField(0);
         }
-        FUN_00428550(&local_468);
+        AtlArray_ConstructElement_450(&local_468);
         local_c = 0;
         local_464 = FUN_0044c310();
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);

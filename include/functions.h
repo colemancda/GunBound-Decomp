@@ -481,7 +481,7 @@ void AtlArray_DestroyElement_450();
 undefined4 InventoryItemArray_Reserve(uint regEax,int *regEsi);
 int __thiscall StringMap_Insert_CString();
 int __thiscall StringMap_ConstructNode_CString(char *key,int *node,undefined4 hash);
-int FUN_00428550();
+int AtlArray_ConstructElement_450();
 void __thiscall State03_GameRoomList_OnCommand();
 void __fastcall State03_GameRoomList_HandleMouseInput(int,int,unsigned int,unsigned int,unsigned int); /* State03 vtable slot 6 */
 void __fastcall FUN_00429730();

@@ -60,7 +60,8 @@
  * is RemoveAt with ATL's `iElement + nElements > m_nSize ->
  * AtlThrow(E_INVALIDARG)` intact as ThrowCxxException(0x80070057), 0x44c7b0
  * is SetCount, 0x44c870 is CallConstructors (SEH-guarded placement-new loop
- * over FUN_00428550), 0x426700 is CallDestructors, 0x42af40 is GrowBuffer.
+ * over AtlArray_ConstructElement_450), 0x426700 is CallDestructors,
+ * 0x42af40 is GrowBuffer.
  * It is ATL and not MFC on four behavioural tests, not on vibe: GrowBuffer
  * is a SEPARATE function returning bool with ATL's `clamp(m_nSize/8, 4,
  * 1024)` policy (MFC folds growth into SetSize); SetCount returns bool where

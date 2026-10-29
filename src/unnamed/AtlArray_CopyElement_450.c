@@ -46,19 +46,17 @@
  * nCount): the iElement >= m_nSize arm is a bare SetCount(iElement +
  * nCount, -1); the other arm is SetCount(m_nSize + nCount, -1), a
  * destructor loop (AtlArray_DestroyElement_450) from nOldSize over the
- * nCount slots
- * SetCount just constructed, _memmove of the (nOldSize - iElement) upper
- * elements up nCount slots, then CallConstructors
- * (AtlArray_CallConstructors_450, which loops FUN_00428550 at 0x450
- * stride) over the vacated hole.  BOTH arms
- * fall into `for (i = iElement; i < iElement + nCount; i++)
+ * nCount slots SetCount just constructed, _memmove of the (nOldSize -
+ * iElement) upper elements up nCount slots, then CallConstructors
+ * (AtlArray_CallConstructors_450, which loops
+ * AtlArray_ConstructElement_450 at 0x450 stride) over the vacated hole.
+ * BOTH arms fall into `for (i = iElement; i < iElement + nCount; i++)
  * m_pData[i] = element` -- that last loop is this function.
  * - 0x50a411, in FUN_0050a320 (the Avatar-Store reorder) uses it directly
- * as `E temp; temp = m_pData[dragIndex];`: FUN_00428550 default-
- * constructs the 0x450 scratch local_45c[1104] above it, this copies the
- * record in, RemoveAt + InsertAt move it, and AtlArray_DestroyElement_450
- * destroys the
- * temp at the end.
+ * as `E temp; temp = m_pData[dragIndex];`: AtlArray_ConstructElement_450
+ * default-constructs the 0x450 scratch local_45c[1104] above it, this
+ * copies the record in, RemoveAt + InsertAt move it, and
+ * AtlArray_DestroyElement_450 destroys the temp at the end.
  *
  * Calling convention: dst arrives in ESI and src in EBX, with a plain `ret`.
  * That is an LTCG custom convention, the same family as
@@ -93,7 +91,7 @@
  * Do NOT confuse this with FUN_0042aeb0, the COPY CONSTRUCTOR of the same
  * element: that one zeroes the guard tableHandles at +0x1c/+0x240 and the
  * bytes at +0x228/+0x44c (exactly the cells the default constructor
- * FUN_00428550 zeroes) before copying.  This function assumes a live,
+ * AtlArray_ConstructElement_450 zeroes) before copying.  This function assumes a live,
  * already-constructed destination, which is why InsertAt and Append must
  * construct the slots first and only then call it.
  *
@@ -134,8 +132,8 @@ void AtlArray_CopyElement_450(int dstRecord,int srcRecord)
    * used as a base pointer above for the `unaff_ESI + 4` write): cell is
    * unaff_ESI+8, matching the same 8/0x22c cell-offset pair confirmed
    * (via tableHandle zero-writes) in the sibling constructors
-   * FUN_00428550.c/FUN_0042aeb0.c. `unaff_ESI` is plain `int`, so byte
-   * offsets add directly. See
+   * AtlArray_ConstructElement_450.c/FUN_0042aeb0.c. `unaff_ESI` is
+   * plain `int`, so byte offsets add directly. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField(unaff_ESI + 8, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

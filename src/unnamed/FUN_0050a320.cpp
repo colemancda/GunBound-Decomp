@@ -51,7 +51,7 @@ extern unsigned char g_valueGuardLock;
 /* Row-at-point helper; x/y recovered 2026-08-28 - see
  * AvatarListRowHitTest.c (was FUN_0050cdb0.c). */
 int AvatarListRowHitTest(int widget, int x, int y);
-int FUN_00428550(void *buf);
+int AtlArray_ConstructElement_450(void *buf);
 void AtlArray_CopyElement_450(int dstRecord, int srcRecord);
 void FUN_0044c6a0(unsigned int ctx, int regEdi);
 void FUN_0050cff0(unsigned int ctx, unsigned int idx, void *buf, int flag);
@@ -98,7 +98,7 @@ extern "C" int FUN_0050a320(CWidget *this_, int x, int y)
       local_468 = *(int *)(g_clientContext + 0x44e24) - 1;
     }
     if (local_468 != uVar7) {
-      FUN_00428550(local_45c);
+      AtlArray_ConstructElement_450(local_45c);
       local_4 = 0;
       if (*(unsigned int *)(g_clientContext + 0x44e24) <= *(unsigned int *)(self + 0x94)) {
         /* WARNING: Subroutine does not return */
@@ -108,8 +108,8 @@ extern "C" int FUN_0050a320(CWidget *this_, int x, int y)
          `mov edx,[ecx+0x44e20]; imul eax,eax,0x450; add eax,edx;
          mov ebx,eax` (source) with eax = self->[0x94], and
          `lea esi,[esp+0x20]` (destination) -- the same [esp+0x20] the
-         FUN_00428550 call above passes, i.e. local_45c, whose declared
-         1104 bytes are exactly the 0x450 record size. */
+         AtlArray_ConstructElement_450 call above passes, i.e. local_45c,
+         whose declared 1104 bytes are exactly the 0x450 record size. */
       AtlArray_CopyElement_450((int)local_45c,
                    (int)(*(unsigned int *)(self + 0x94) * 0x450
                          + *(int *)(g_clientContext + 0x44e20)));
