@@ -1405,7 +1405,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fe110,760,FUN_004fe110,false,3,10,RAW-src
 004fe420,102,HashMap_Construct,false,9,1,RAW-src
 004fe490,108,StringMap_SetAt_1c,false,1,4,RAW-src
-004fe500,113,FUN_004fe500,false,2,2,RAW-src
+004fe500,113,StringMap_RemoveKey_1c,false,2,2,RAW-src
 004fe590,64,FUN_004fe590,false,1,0,RAW-src
 004fe5d0,32,CopyNameField_12,false,4,0,RAW-src
 004fe5f0,174,ConnectToHostPort,false,1,7,RAW-src
@@ -1520,7 +1520,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00503f30,209,Vector_FillN_8,false,2,2,RAW-src
 00504010,29,Vector_FillN_1e,false,1,0,RAW-src
 00504030,32,Vector_CopyBackward_1e,false,1,0,RAW-src
-00504050,125,FUN_00504050,false,1,2,RAW-src
+00504050,125,StringMap_RemoveKey_ac,false,1,2,RAW-src
 005040d0,55,FUN_005040d0,false,1,0,RAW-src
 00504110,72,FUN_00504110,false,3,0,RAW-src
 00504160,38,Vector_UninitFillN_34,false,3,1,RAW-src

@@ -19,8 +19,8 @@
  * first and called
  * with nothing, so writing the call in terms of the advanced value would
  * have retired the wrong node. The captured value gets a local there.
- * FUN_00504050's two sites are straightforward - `mov eax,ecx` for
- * the node the lookup found, with the map already in ESI.
+ * StringMap_RemoveKey_ac's two sites are straightforward - `mov eax,ecx`
+ * for the node the lookup found, with the map already in ESI.
  *
  * NAMED (2026-08-28): ATL7's CAtlMap<K,V>::FreeNode out of VC7.1's
  * atlcoll.h - the same member as StringMap_FreeNode_CString, for a
@@ -29,9 +29,9 @@
  * the class from outside.
  *
  * WHICH INSTANTIATION, from a caller rather than from the body:
- * FUN_00504050 runs StringMap_Find_ac over its map and then hands the
- * node that find returned straight to this function with the same map
- * still in EAX. So the node is the 0xac one - payload below +0xa4,
+ * StringMap_RemoveKey_ac runs StringMap_Find_ac over its map and then
+ * hands the node that find returned straight to this function with the
+ * same map still in EAX. So the node is the 0xac one - payload below +0xa4,
  * m_pNext at +0xa4 (the link this writes), m_nHash at +0xa8 (the field
  * StringMap_Find_ac compares), 0xac total - and the suffix is that node
  * stride, matching StringMap_Find_ac and StringMap_Insert_ac.

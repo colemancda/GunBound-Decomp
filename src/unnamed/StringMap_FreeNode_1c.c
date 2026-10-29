@@ -9,10 +9,11 @@
  * key or value destructor - POD node.
  *
  * WHICH INSTANTIATION, from the caller: both binary sites are in
- * FUN_004fe500 (0x4fe54f, 0x4fe564), which runs StringMap_Find_1c
- * (0x4fe520, map in EAX = ESI), unlinks the node it returned from its
- * bucket by reading +0x18 (m_nHash) and +0x14 (m_pNext), and hands that
- * node to this function in EAX with the same map still in ESI -
+ * StringMap_RemoveKey_1c (0x4fe54f, 0x4fe564), which runs
+ * StringMap_Find_1c (0x4fe520, map in EAX = ESI), unlinks the node it
+ * returned from its bucket by reading +0x18 (m_nHash) and +0x14
+ * (m_pNext), and hands that node to this function in EAX with the same
+ * map still in ESI -
  * CAtlMap::RemoveKey's shape.  So the node is StringMap_Find_1c's, and
  * the prefix follows it.
  *

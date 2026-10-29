@@ -18,8 +18,8 @@
  *
  * The instantiation is the one StringMap_Find_ac and
  * StringMap_Insert_ac serve: the node this sweep steps through by +0xa4
- * is the node StringMap_FreeNode_ac retires, and FUN_00504050 ties that
- * node to StringMap_Find_ac directly. Its own caller is
+ * is the node StringMap_FreeNode_ac retires, and StringMap_RemoveKey_ac
+ * ties that node to StringMap_Find_ac directly. Its own caller is
  * DestroyCommEngine, which passes the map at +0xa4 of the comm engine.
  */
 #include "ghidra_types.h"

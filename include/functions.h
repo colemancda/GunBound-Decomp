@@ -1506,7 +1506,7 @@ void FUN_004fddd0();
 void DestroyCommEngine(undefined4 *regEsi);
 undefined4 CreateBoundSocket(char *regEax,int regEsi);
 void StringMap_SetAt_1c(int param_1,undefined4 regEdi,int *regEsi);
-undefined4 __fastcall FUN_004fe500();
+undefined4 __fastcall StringMap_RemoveKey_1c();
 void __fastcall FUN_004fe590(undefined4 param_1,undefined4 *param_2,undefined4 *regEax);
 undefined4 __thiscall FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 param_4,undefined4 *param_5,uint param_6);
 void CopyNameField_12(int regEsi,int regEdi);
@@ -1620,7 +1620,7 @@ void __fastcall Vector_CopyBackward_34(undefined4 param_1,undefined4 *param_2,un
 void Vector_FillN_8(int *param_1,int *param_2,int *param_3);
 void __fastcall Vector_FillN_1e(undefined4 param_1,undefined4 *param_2,undefined4 *regEax,undefined4 *regEbx);
 void __fastcall Vector_CopyBackward_1e(undefined4 param_1,undefined4 *param_2,undefined4 *regEax,undefined4 *regEbx);
-undefined4 __fastcall FUN_00504050();
+undefined4 __fastcall StringMap_RemoveKey_ac();
 void __fastcall FUN_005040d0(undefined4 *param_1,undefined4 *param_2,undefined4 *regEax);
 void __fastcall FUN_00504110();
 void __fastcall Vector_UninitFillN_34(int param_1,undefined4 param_2,undefined4 param_3,int regEax,undefined4 *regEbx);

@@ -96,7 +96,7 @@ joined_r0x00503aa3:
   } while (bVar5 < 0x10);
   uStack_1 = (undefined1)uVar8;
   acStack_12[uVar8] = '\0';
-  FUN_00504050();
+  StringMap_RemoveKey_ac();
   return;
 }
 

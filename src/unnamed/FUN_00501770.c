@@ -617,7 +617,7 @@ LAB_00501b17:
           else {
             FUN_00503a50(local_4970,&local_496c);
             FUN_004fdc50((int)(local_48ba + 0x1c),(int)&local_496c);
-            FUN_004fe500();
+            StringMap_RemoveKey_1c();
           }
           uVar10 = 0;
           do {
