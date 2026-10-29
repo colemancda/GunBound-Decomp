@@ -82,7 +82,7 @@
  * invisible to Ghidra, so both products are missing from the port.
  *
  * ATL's CAtlMap and not MFC's CMap, and the binary settles it:
- * FUN_00500e30 is CAtlMap::PickSize -- it divides by m_fOptimalLoad at
+ * HashMap_PickSize is CAtlMap::PickSize -- it divides by m_fOptimalLoad at
  * [ecx+0xc] and scans the table at 0x557850, which is atlcoll.h's
  * s_anPrimes verbatim (17, 23, 29, 37, 41, 53, 67, 83, 103, 131, 163,
  * 211, 257, 331, 409, 521, 647, 821, ... 13316089, then the UINT_MAX

@@ -1559,7 +1559,7 @@ int __fastcall FUN_00500b70();
 void FUN_00500ba0(int *param_1,undefined4 *param_2,undefined4 *param_3,int *regEbx);
 undefined4 HashMap_InitHashTable();
 void FUN_00500ce0();
-uint FUN_00500e30();
+uint HashMap_PickSize();
 void StringMap_FreeNode_ac(int regEax,int regEsi);
 char * StringMap_Find_ac(char *param_1,uint *param_2,undefined4 *param_3,int *regEax,uint *regEbx);
 void thunk_FUN_00500f80();

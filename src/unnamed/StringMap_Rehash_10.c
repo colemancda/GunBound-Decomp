@@ -3,8 +3,8 @@
  * NAMED (2026-10-29): ATL7 CAtlMap::Rehash(nBins) for the 0x10-node
  * string maps, matched against atlcoll.h statement for statement:
  *
- *   if (nBins == 0) nBins = PickSize(m_nElements)   FUN_00500e30 (0x409e55),
- *                                                   EAX = [map+4]
+ *   if (nBins == 0) nBins = PickSize(m_nElements)   HashMap_PickSize,
+ *                                                   0x409e55, EAX = [map+4]
  *   if (nBins == m_nBins) return                    cmp edi,[esi+8]
  *   if (m_ppBins == NULL) {
  *     InitHashTable(nBins, false); return }         HashMap_InitHashTable
@@ -59,7 +59,7 @@ void StringMap_Rehash_10(int *param_1,uint param_2)
    * (LAB_00537880) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
   if (param_2 == 0) {
-    param_2 = FUN_00500e30();
+    param_2 = HashMap_PickSize();
   }
   if (param_2 != param_1[2]) {
     if (*param_1 == 0) {

@@ -7,7 +7,7 @@
  * ATL's DisableAutoRehash/EnableAutoRehash), walk m_ppBins over m_nBins
  * (regEax[2]) freeing every chained node through HashMap_FreeNode_2c
  * (0x405290, named with it), free the bin array, re-InitHashTable at
- * PickSize(0) (FUN_00500e30) when unlocked, and free the plex chain at
+ * PickSize(0) (HashMap_PickSize) when unlocked, and free the plex chain at
  * map+0x28 (regEax[10]).
  *
  * The _2c suffix is the node stride: this instantiation's next pointer
@@ -57,7 +57,7 @@ void HashMap_RemoveAll_2c(int *regEax)
   regEax[1] = 0;
   if (regEax[8] == 0) {
     uVar5 = 0;
-    uVar3 = FUN_00500e30(0);
+    uVar3 = HashMap_PickSize(0);
     HashMap_InitHashTable(regEax,uVar3,uVar5);
   }
   regEax[0xb] = 0;

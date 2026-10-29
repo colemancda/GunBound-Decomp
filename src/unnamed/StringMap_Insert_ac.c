@@ -65,7 +65,7 @@ undefined4 * StringMap_Insert_ac(int param_1,undefined4 param_2,undefined4 *regE
   puVar2[0x29] = *(undefined4 *)(*regEbx + param_1 * 4);
   *(undefined4 **)(*regEbx + param_1 * 4) = puVar2;
   if (((uint)regEbx[6] < (uint)regEbx[1]) && (regEbx[8] == 0)) {
-    uVar4 = FUN_00500e30();
+    uVar4 = HashMap_PickSize();
     FUN_00500ce0(regEbx,uVar4);
   }
   return puVar2;

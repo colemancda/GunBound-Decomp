@@ -28,7 +28,7 @@
  * NAMED (2026-08-28): ATL7's CAtlMap<K,V>::FreeNode out of VC7.1's
  * atlcoll.h. The class is settled from outside this function -
  * HashMap_Construct (0x4fe420) is the CAtlMap constructor for this very
- * object and its header pins all twelve members, and FUN_00500e30 is
+ * object and its header pins all twelve members, and HashMap_PickSize is
  * CAtlMap::PickSize, scanning atlcoll.h's own s_anPrimes table at
  * 0x557850. Against that field map the body is the member verbatim:
  *
@@ -79,7 +79,7 @@ void StringMap_FreeNode_CString(int regEax,int regEdi)
   *(int *)(unaff_EDI + 0x2c) = in_EAX;
   *(uint *)(unaff_EDI + 4) = uVar3;
   if ((uVar3 < *(uint *)(unaff_EDI + 0x1c)) && (*(int *)(unaff_EDI + 0x20) == 0)) {
-    uVar2 = FUN_00500e30();
+    uVar2 = HashMap_PickSize();
     StringMap_Rehash_10((int *)unaff_EDI,uVar2);
   }
   if (*(int *)(unaff_EDI + 4) == 0) {

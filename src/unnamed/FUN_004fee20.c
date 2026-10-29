@@ -71,7 +71,7 @@ void FUN_004fee20(int *regEsi)
   regEsi[1] = 0;
   if (regEsi[8] == 0) {
     uVar10 = 0;
-    uVar9 = FUN_00500e30(0);
+    uVar9 = HashMap_PickSize(0);
     HashMap_InitHashTable(regEsi,uVar9,uVar10);
   }
   regEsi[0xb] = 0;

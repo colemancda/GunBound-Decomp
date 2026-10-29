@@ -6,7 +6,7 @@
  * The member is the library shape shared with the named
  * StringMap_FreeNode_ac: push the node onto m_pFree at map+0x2c (link
  * through node+0x24), decrement m_nElements at map+4, Rehash
- * (FUN_00405150) at PickSize (FUN_00500e30) when the count drops under
+ * (FUN_00405150) at PickSize (HashMap_PickSize) when the count drops under
  * the low threshold at map+0x1c and auto-rehash is unlocked (map+0x20),
  * and free the plex chain at map+0x28 when the map empties.  No key or
  * value destruction - POD elements.
@@ -32,7 +32,7 @@ void HashMap_FreeNode_2c(int regEax,int regEsi)
   *(int *)(regEsi + 0x2c) = regEax;
   *(uint *)(regEsi + 4) = uVar3;
   if ((uVar3 < *(uint *)(regEsi + 0x1c)) && (*(int *)(regEsi + 0x20) == 0)) {
-    uVar2 = FUN_00500e30();
+    uVar2 = HashMap_PickSize();
     FUN_00405150(regEsi,uVar2);
   }
   if (*(int *)(regEsi + 4) == 0) {

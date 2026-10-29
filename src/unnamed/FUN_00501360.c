@@ -26,7 +26,7 @@ void FUN_00501360(int regEax,int regEsi)
   *(int *)(regEsi + 0x2c) = regEax;
   *(uint *)(regEsi + 4) = uVar3;
   if ((uVar3 < *(uint *)(regEsi + 0x1c)) && (*(int *)(regEsi + 0x20) == 0)) {
-    uVar2 = FUN_00500e30();
+    uVar2 = HashMap_PickSize();
     FUN_00501220(regEsi,uVar2);
   }
   if (*(int *)(regEsi + 4) == 0) {

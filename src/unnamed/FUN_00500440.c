@@ -26,7 +26,7 @@ void FUN_00500440(int *param_1,uint param_2)
   local_10 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_10;
   if (param_2 == 0) {
-    param_2 = FUN_00500e30();
+    param_2 = HashMap_PickSize();
   }
   if (param_2 != param_1[2]) {
     if (*param_1 == 0) {

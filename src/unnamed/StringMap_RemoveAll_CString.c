@@ -31,7 +31,7 @@
  * see that file for why the suffix is a value type rather than the node
  * stride. The class comes from outside this function: HashMap_Construct
  * (0x4fe420) is the CAtlMap constructor over this object and pins the
- * member offsets, and FUN_00500e30 is CAtlMap::PickSize, reading
+ * member offsets, and HashMap_PickSize is CAtlMap::PickSize, reading
  * atlcoll.h's own s_anPrimes table at 0x557850. Against that map the
  * body is the member verbatim, in order:
  *
@@ -86,7 +86,7 @@ void StringMap_RemoveAll_CString(int *regEax)
   in_EAX[1] = 0;
   if (in_EAX[8] == 0) {
     uVar5 = 0;
-    uVar3 = FUN_00500e30(0);
+    uVar3 = HashMap_PickSize(0);
     HashMap_InitHashTable(in_EAX,uVar3,uVar5);
   }
   in_EAX[0xb] = 0;

@@ -25,7 +25,7 @@ void FUN_00501070(int *param_1,uint param_2)
    * (LAB_005377b0) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
   if (param_2 == 0) {
-    param_2 = FUN_00500e30();
+    param_2 = HashMap_PickSize();
   }
   if (param_2 != param_1[2]) {
     if (*param_1 == 0) {

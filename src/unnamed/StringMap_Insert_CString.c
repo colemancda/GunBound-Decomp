@@ -6,7 +6,7 @@
  * `_malloc(map[9] * 0x10 + 4)` block chained at +0x28 when empty),
  * construct it through StringMap_ConstructNode_CString (0x426a60), link
  * it at the head of bin[ECX], bump the count at +4, and rehash via
- * FUN_00500e30 (PickSize) / StringMap_Rehash_10 (0x409e20) when it
+ * HashMap_PickSize (0x500e30) / StringMap_Rehash_10 (0x409e20) when it
  * passes +0x18 with the lock at +0x20 clear.
  * Stack: map, key, hash (ECX = the bucket index the find wrote).
  *
@@ -84,7 +84,7 @@ int __thiscall StringMap_Insert_CString(int param_1,int *param_2,undefined4 para
   *(undefined4 *)(iVar3 + 8) = *(undefined4 *)(*param_2 + param_1 * 4);
   *(int *)(*param_2 + param_1 * 4) = iVar3;
   if (((uint)param_2[6] < (uint)param_2[1]) && (param_2[8] == 0)) {
-    uVar2 = FUN_00500e30();
+    uVar2 = HashMap_PickSize();
     StringMap_Rehash_10(param_2,uVar2);
   }
   return iVar3;

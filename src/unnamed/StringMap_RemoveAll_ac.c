@@ -7,7 +7,7 @@
  * NAMED (2026-08-28): ATL7's CAtlMap<K,V>::RemoveAll out of VC7.1's
  * atlcoll.h, for the 0xac-node instantiation. The class is settled from
  * outside - HashMap_Construct (0x4fe420) is the CAtlMap constructor over
- * this object and pins its members, FUN_00500e30 is CAtlMap::PickSize
+ * this object and pins its members, HashMap_PickSize is CAtlMap::PickSize
  * with atlcoll.h's s_anPrimes table at 0x557850 - and the body is the
  * member verbatim: raise m_nLockCount at +0x20, sweep every bin of the
  * +0 array over the +8 bin count handing each node to
@@ -56,7 +56,7 @@ void StringMap_RemoveAll_ac(int *regEax)
   regEax[1] = 0;
   if (regEax[8] == 0) {
     uVar5 = 0;
-    uVar3 = FUN_00500e30(0);
+    uVar3 = HashMap_PickSize(0);
     HashMap_InitHashTable(regEax,uVar3,uVar5);
   }
   _Memory = (int *)regEax[10];

@@ -25,7 +25,7 @@
  * NAMED (2026-08-28): ATL7's CAtlMap<K,V>::FreeNode out of VC7.1's
  * atlcoll.h - the same member as StringMap_FreeNode_CString, for a
  * third instantiation. See that file for the field-by-field
- * correspondence and for how HashMap_Construct and FUN_00500e30 settle
+ * correspondence and for how HashMap_Construct and HashMap_PickSize settle
  * the class from outside. This copy has no node destructor call at all,
  * which is what a POD key and value give.
  *
@@ -56,7 +56,7 @@ void IntMap_FreeNode_1768(int regEax,int regEsi)
   *(int *)(unaff_ESI + 0x2c) = in_EAX;
   *(uint *)(unaff_ESI + 4) = uVar3;
   if ((uVar3 < *(uint *)(unaff_ESI + 0x1c)) && (*(int *)(unaff_ESI + 0x20) == 0)) {
-    uVar2 = FUN_00500e30();
+    uVar2 = HashMap_PickSize();
     FUN_00501070(unaff_ESI,uVar2);
   }
   if (*(int *)(unaff_ESI + 4) == 0) {

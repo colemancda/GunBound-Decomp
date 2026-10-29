@@ -36,7 +36,7 @@ void FUN_00415600(void)
   in_EAX[1] = 0;
   if (in_EAX[8] == 0) {
     uVar5 = 0;
-    uVar3 = FUN_00500e30(0);
+    uVar3 = HashMap_PickSize(0);
     HashMap_InitHashTable(in_EAX,uVar3,uVar5);
   }
   in_EAX[0xb] = 0;
