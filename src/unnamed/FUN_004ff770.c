@@ -135,7 +135,7 @@ void FUN_004ff770(int *param_1,int param_2)
         local_3132 = local_2eae;
         local_312e = local_2e9a[0];
         sendto(param_1[0xa2],(char *)&local_3150,(uint)local_3150,0,&local_3174,0x10);
-        local_2ec0 = FUN_00500900((undefined4 *)&local_3160,(int *)(puVar1 + 8),local_2e9a[0]);
+        local_2ec0 = IntMap_Lookup_14((undefined4 *)&local_3160,(int *)(puVar1 + 8),local_2e9a[0]);
         if (local_2ec0 == '\0') {
           uVar3 = local_2ebc - 0x26;
           local_318c = (int)(uVar3 + ((int)uVar3 >> 0x1f & 0xfU)) >> 4;

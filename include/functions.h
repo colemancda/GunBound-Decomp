@@ -1551,7 +1551,7 @@ undefined4 FUN_005006f0(int *regEcx,uint regEdi);
 undefined4 IntMap_RemoveKey_1768(int *regEbx,uint regEdi);
 void IntMap_RemoveAll_1768(int *regEax);
 undefined4 * IntMap_Insert_1768(undefined4 param_1,undefined4 param_2,int regEbx,int *regEsi);
-undefined4 FUN_00500900(undefined4 *regEbx,int *regEcx,uint regEdi);
+undefined4 IntMap_Lookup_14(undefined4 *regEbx,int *regEcx,uint regEdi);
 void IntMap_SetAt_14(int *param_1,undefined4 *param_2,undefined4 regEax);
 undefined4 IntMap_RemoveKey_14(int *regEbx,uint regEdi);
 void IntMap_RemoveAll_14(int *regEsi);
