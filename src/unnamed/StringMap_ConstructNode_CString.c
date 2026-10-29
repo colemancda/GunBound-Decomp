@@ -14,7 +14,7 @@
  * hash at +0xc; +8 is left for the caller's link.
  *
  * The _CString suffix follows its caller: the other 0x10-node insert,
- * FUN_00409d10 (the ChooseEvent.txt map's), inlines its node
+ * StringMap_Insert_Int (0x409d10, the ChooseEvent.txt map's), inlines its node
  * construction - the key constructor at 0x409d96 and the hash store at
  * 0x409da5, with nothing written to the POD value at +4 - so it has no
  * separate counterpart of this function.  Node rather than Element

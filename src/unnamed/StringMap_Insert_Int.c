@@ -1,9 +1,34 @@
-/* FUN_00409d10 - 0x00409d10 in the original binary.
+/* StringMap_Insert_Int - 0x00409d10 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (2026-10-29): ATL7 CAtlMap::NewNode for the 0x10-node string map
+ * whose value is a POD int - the ChooseEvent.txt table at DAT_00e9bea8.
+ * The role comes from its only caller, ParseChooseEventLine (0x409cb0):
+ * on a StringMap_Find_10 miss it lazily runs HashMap_InitHashTable, calls
+ * this (0x409cfa) and stores the line's _atol code through the returned
+ * node at +4 (`mov [eax+4],edi` at 0x409cff), which is the value
+ * FindChooseEventCode (0x409c70) reads back from node+4.  The body is
+ * NewNode member for member, at the same stride and with the same
+ * free-list refill as StringMap_Insert_CString (0x426960): pop the free
+ * head at map+0x2c (refilling from `_malloc(map[9] * 0x10 + 4)` blocks
+ * chained at +0x28), construct the node under an SEH state of 1
+ * (0x409d8f-0x409d9e, NewNode's _ATLTRY), bump the count at +4, link into
+ * bin[ECX], and rehash through FUN_00500e30 (PickSize) / FUN_00409e20
+ * (Rehash) past the +0x18 threshold with the +0x20 lock clear.
+ *
+ * WHY _Int AND NOT _10.  The stride cannot separate it from
+ * StringMap_Insert_CString; the node constructor can.  That one calls
+ * StringMap_ConstructNode_CString, which also builds a nil CStringA
+ * value at +4; this one inlines the construction, building only the key
+ * (ConstructStringFromText, 0x409d96) and the hash (0x409da5), and
+ * leaves +4 for the caller's int.  Same value-type rule as the _CString
+ * members; StringMap_FreeNode_CString's header gives the destructor-side
+ * version of the split.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes below that predate the name call this function FUN_00409d10.)
  *
  * (FUN_00426780 below is now StringMap_Find_10.)
  *
@@ -30,7 +55,7 @@
 #include "ghidra_types.h"
 
 
-int __thiscall FUN_00409d10(int param_1,int *param_2,undefined4 param_3,undefined4 param_4)
+int __thiscall StringMap_Insert_Int(int param_1,int *param_2,undefined4 param_3,undefined4 param_4)
 
 {
   int *piVar1;

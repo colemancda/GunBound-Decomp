@@ -11,7 +11,8 @@
  * Stack: map, key, hash (ECX = the bucket index the find wrote).
  *
  * WHY _CString AND NOT _10.  The image has a second insert with the
- * byte-identical 0x10 stride and free-list code: FUN_00409d10, the
+ * byte-identical 0x10 stride and free-list code: StringMap_Insert_Int
+ * (0x409d10), the
  * insert ParseChooseEventLine (0x409cb0) runs for the ChooseEvent.txt
  * table.  What separates them is the node constructor.  Here
  * StringMap_ConstructNode_CString builds the key CStringA at node+0

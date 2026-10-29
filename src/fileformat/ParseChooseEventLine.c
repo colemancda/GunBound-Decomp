@@ -27,6 +27,8 @@
  * ebx,eax` at this function's own entry, never touched before `mov
  * eax,esi; call 0x426780`). See FUN_00426780.c's own header.
  *
+ * (FUN_00409d10 below is now StringMap_Insert_Int.)
+ *
  * DROPPED-ARGUMENT FIX (2026-09-20): the FUN_00409d10(param_1,param_2,
  * local_c) call was missing FUN_00409d10's own leading `this` (ECX) stack
  * arg. Orig 0x409cef-0x409cfa: `mov ecx,[esp+4]` (=local_c's VALUE) `push
@@ -65,7 +67,7 @@ void ParseChooseEventLine(int *param_1,undefined4 param_2,undefined4 param_3)
         ThrowCxxException(0x8007000e);
       }
     }
-    iVar2 = FUN_00409d10(*(int *)local_8,param_1,param_2,local_c);
+    iVar2 = StringMap_Insert_Int(*(int *)local_8,param_1,param_2,local_c);
   }
   *(undefined4 *)(iVar2 + 4) = param_3;
   return;

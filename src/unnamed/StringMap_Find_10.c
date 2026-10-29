@@ -20,9 +20,10 @@
  * CStringA->CStringA maps whose insert is StringMap_Insert_CString
  * (0x426960) - the nickname/user-id caches at ctx+0x6aa41c/+0x6aa44c and
  * the Sound.txt table DAT_00794e14 - and the CStringA->POD
- * ChooseEvent.txt table DAT_00e9bea8, whose insert is FUN_00409d10
- * (ParseChooseEventLine, 0x409cef-0x409cfa).  A _CString suffix here
- * would hide the second family.  9 binary call sites.
+ * ChooseEvent.txt table DAT_00e9bea8, whose insert is
+ * StringMap_Insert_Int (0x409d10; ParseChooseEventLine,
+ * 0x409cef-0x409cfa).  A _CString suffix here would hide the second
+ * family.  9 binary call sites.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"

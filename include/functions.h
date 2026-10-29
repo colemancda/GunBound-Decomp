@@ -254,7 +254,7 @@ void DrawWindGauge();
 void State11_InBattle_RenderPlayerRoster(int param_1);
 void SyncChatTypingState(int thisObj, int keepText);
 undefined4 FindChooseEventCode(int *param_1,uchar *regEbx);
-int __thiscall FUN_00409d10(int param_1,int *param_2,undefined4 param_3,undefined4 param_4);
+int __thiscall StringMap_Insert_Int(int param_1,int *param_2,undefined4 param_3,undefined4 param_4);
 void FUN_00409e20();
 void HashTable_OnNodeRemoved(int regEax,int regEsi);
 undefined4 * __thiscall LogicError_ctor(undefined4 *param_1,undefined4 param_2);
