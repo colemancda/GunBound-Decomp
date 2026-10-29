@@ -1417,7 +1417,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fecb0,130,FUN_004fecb0,false,1,5,RAW-src
 004fed40,137,FUN_004fed40,false,1,5,RAW-src
 004fedd0,69,CArray_Add_1750,false,2,3,RAW-src
-004fee20,325,FUN_004fee20,false,1,6,RAW-src
+004fee20,325,StringMap_RemoveAll_28,false,1,6,RAW-src
 004fef70,109,StringMap_Find_28,false,2,2,RAW-src
 004fefe0,325,StringMap_RemoveAll_1c,false,2,6,RAW-src
 004ff130,109,StringMap_Find_1c,false,3,2,RAW-src
@@ -1440,7 +1440,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00500140,171,StringMap_RemoveAll_ac,false,1,5,RAW-src
 005001f0,172,CArray_Grow_1750,false,1,3,RAW-src
 005002a0,87,IntMap_Find_1768,false,3,0,RAW-src
-00500300,304,FUN_00500300,false,2,6,RAW-src
+00500300,304,StringMap_Rehash_28,false,2,6,RAW-src
 00500440,304,StringMap_Rehash_1c,false,3,6,RAW-src
 00500580,199,StringMap_Insert_1c,false,1,4,RAW-src
 00500650,90,StringMap_FreeNode_1c,false,2,3,RAW-src

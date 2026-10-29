@@ -1,15 +1,29 @@
-/* FUN_004fee20 - 0x004fee20 in the original binary.
+/* StringMap_RemoveAll_28 - 0x004fee20 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (2026-10-29): ATL7 CAtlMap::RemoveAll for the 0x28-node maps -
+ * the same member as StringMap_RemoveAll_1c, with FreeNode and PickSize
+ * inlined: raise the lock count at map+0x20 (0x4fee29), walk every bin
+ * retiring nodes by their m_pNext at +0x20 (0x4fee63) onto m_pFree at
+ * +0x2c, delete[] the bins (_free 0x525421), InitHashTable(PickSize(0),
+ * false) when unlocked (0x4fef2e / 0x4fef35), free the plex chain at
+ * +0x28, and drop the lock count (0x4fef5b).
+ *
+ * The instantiation is fixed by the callee: the inlined FreeNode's
+ * rehash arm calls StringMap_Rehash_28 (0x4feecd), the rehash
+ * StringMap_Insert_28 uses.  The one caller is DestroyCommP2POwner
+ * (0x4fd334, map at +0x1ac0), right after it clears the 0x1c map at
+ * +0x1af0 with StringMap_RemoveAll_1c.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Removing unreachable block (ram,0x004feea3) */
 
-void FUN_004fee20(int *regEsi)
+void StringMap_RemoveAll_28(int *regEsi)
 
 {
   uint *puVar1;
@@ -47,7 +61,7 @@ void FUN_004fee20(int *regEsi)
           if ((&DAT_00557a40)[iVar6] == 0xffffffff) {
             uVar7 = uVar5;
           }
-          FUN_00500300(regEsi,uVar7);
+          StringMap_Rehash_28(regEsi,uVar7);
         }
         iVar6 = iVar2;
         if (regEsi[1] == 0) {

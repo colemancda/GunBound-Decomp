@@ -1518,7 +1518,7 @@ bool __thiscall FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *par
 LRESULT __stdcall FUN_004fecb0(HWND, UINT, WPARAM, uint);
 int FUN_004fed40(int *param_1,undefined1 *param_2,undefined4 regEax);
 uint CArray_Add_1750(undefined4 *param_1,int *regEax);
-void FUN_004fee20(int *regEsi);
+void StringMap_RemoveAll_28(int *regEsi);
 char * StringMap_Find_28(char *param_1,uint *param_2,undefined4 *param_3,int *regEax,uint *regEbx);
 void StringMap_RemoveAll_1c(int *regEsi);
 char * StringMap_Find_1c(char *param_1,uint *param_2,undefined4 *param_3,int *regEax,uint *regEbx);
@@ -1541,7 +1541,7 @@ void FUN_005000e0(int *regEsi,char *regEdi);
 void StringMap_RemoveAll_ac(int *regEax);
 undefined4 CArray_Grow_1750(uint regEax,int *regEsi);
 uint * __thiscall IntMap_Find_1768(int *param_1,undefined4 *param_2,uint *regEax,uint *regEsi,uint regEdi);
-void FUN_00500300();
+void StringMap_Rehash_28(int *map,uint nBins);
 void StringMap_Rehash_1c(int *map,uint nBins);
 undefined4 * StringMap_Insert_1c(int param_1,undefined4 param_2,undefined4 *regEax,int *regEbx);
 void StringMap_FreeNode_1c(int regEax,int regEsi);

@@ -71,7 +71,7 @@ LAB_004fd2b5:
     param_1[0x767] = 0;
   }
   StringMap_RemoveAll_1c((int *)(param_1 + 0x6bc));
-  FUN_004fee20((int *)(param_1 + 0x6b0));
+  StringMap_RemoveAll_28((int *)(param_1 + 0x6b0));
   if ((void *)param_1[0x6a9] != (void *)0x0) {
     _free((void *)param_1[0x6a9]);
   }
