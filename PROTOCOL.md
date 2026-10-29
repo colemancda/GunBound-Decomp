@@ -937,8 +937,9 @@ value, used here as a hard-failure/assert code rather than a recoverable
 error — suggesting this "should never happen" in normal play and is treated
 as a client-side integrity violation if it does). If the bounds check
 passes: calls `FUN_0044c370()` (the actual purchase-commit logic — not
-traced further), then `FUN_0044c6a0()` (refreshes the store display), then
-enters a loop with a `switch` on a local index variable (`local_520`,
+traced further), then `AtlArray_RemoveAt_450()` (was `FUN_0044c6a0`;
+ATL `CAtlArray::RemoveAt` of one record from a 0x450-byte avatar-item
+array, not a display refresh), then enters a loop with a `switch` on a local index variable (`local_520`,
 values `0`/`1`/`2`/`3` seen) selecting between what appear to be different
 purchase-outcome response codes (success / insufficient funds / item
 unavailable / etc. — the individual cases' distinguishing logic largely
