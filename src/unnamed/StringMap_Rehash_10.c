@@ -27,12 +27,12 @@
  * WHY _10.  The relink reads m_pNext at node+8 and m_nHash at node+0xc,
  * which is the 0x10-byte node (4-byte key, 4-byte value) and no other.
  * Every other node size has its own copy with the hash read further in:
- * IntMap_Rehash_14 (+0x10, 0x14 node), StringMap_Rehash_1c (+0x18, 0x1c),
- * StringMap_Rehash_28 (+0x24, 0x28), HashMap_Rehash_2c (+0x28, 0x2c), StringMap_Rehash_ac
- * (+0xa8, 0xac) and FUN_00501070 (+0x1764, 0x1768).  It serves both the
- * CString-valued and the int-valued 0x10
- * maps (its callers include both inserts), so the suffix is the stride,
- * as on StringMap_Find_10, not a value type.
+ * IntMap_Rehash_14 (+0x10, 0x14 node), StringMap_Rehash_1c (+0x18,
+ * 0x1c), StringMap_Rehash_28 (+0x24, 0x28), HashMap_Rehash_2c (+0x28,
+ * 0x2c), StringMap_Rehash_ac (+0xa8, 0xac) and IntMap_Rehash_1768
+ * (+0x1764, 0x1768).  It serves both the CString-valued and the
+ * int-valued 0x10 maps (its callers include both inserts), so the suffix
+ * is the stride, as on StringMap_Find_10, not a value type.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"

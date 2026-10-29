@@ -57,7 +57,7 @@ void IntMap_FreeNode_1768(int regEax,int regEsi)
   *(uint *)(unaff_ESI + 4) = uVar3;
   if ((uVar3 < *(uint *)(unaff_ESI + 0x1c)) && (*(int *)(unaff_ESI + 0x20) == 0)) {
     uVar2 = HashMap_PickSize();
-    FUN_00501070(unaff_ESI,uVar2);
+    IntMap_Rehash_1768((int *)unaff_ESI,uVar2);
   }
   if (*(int *)(unaff_ESI + 4) == 0) {
     _Memory = *(int **)(unaff_ESI + 0x28);

@@ -48,7 +48,7 @@ undefined4 * IntMap_Insert_1768(undefined4 param_1,undefined4 param_2,int regEbx
   *(undefined4 **)(*regEsi + regEbx * 4) = puVar1;
   if (((uint)regEsi[6] < (uint)regEsi[1]) && (regEsi[8] == 0)) {
     uVar3 = HashMap_PickSize();
-    FUN_00501070(regEsi,uVar3);
+    IntMap_Rehash_1768(regEsi,uVar3);
   }
   return puVar1;
 }

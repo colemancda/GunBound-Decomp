@@ -1567,7 +1567,7 @@ void FUN_00500f80();
 void FUN_00500f90();
 undefined4 FUN_00500fa0(undefined4 param_1,undefined4 param_2,int regEax,undefined4 *regEdi);
 void __fastcall FUN_00501010();
-void FUN_00501070();
+void IntMap_Rehash_1768(int *map,uint nBins);
 void IntMap_FreeNode_1768(int regEax,int regEsi);
 void IntMap_Rehash_14(int *map,uint nBins);
 void IntMap_FreeNode_14(int regEax,int regEsi);

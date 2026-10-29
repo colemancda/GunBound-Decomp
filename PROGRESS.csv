@@ -1466,7 +1466,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00500f90,8,FUN_00500f90,false,3,1,RAW-src
 00500fa0,107,FUN_00500fa0,false,1,1,RAW-src
 00501010,88,FUN_00501010,false,5,2,RAW-src
-00501070,313,FUN_00501070,false,2,6,RAW-src
+00501070,313,IntMap_Rehash_1768,false,2,6,RAW-src
 005011c0,93,IntMap_FreeNode_1768,false,3,3,RAW-src
 00501220,304,IntMap_Rehash_14,false,3,6,RAW-src
 00501360,90,IntMap_FreeNode_14,false,2,3,RAW-src

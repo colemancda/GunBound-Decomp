@@ -1,13 +1,31 @@
-/* FUN_00501070 - 0x00501070 in the original binary.
+/* IntMap_Rehash_1768 - 0x00501070 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (2026-10-29): ATL7 CAtlMap::Rehash(nBins) for the 0x1768-node
+ * maps - the same member as StringMap_Rehash_10 (see that file for the
+ * atlcoll.h statement-by-statement match), instruction for instruction,
+ * with only the node offsets moved: the relink reads m_pNext at
+ * node+0x1760 (0x50113b) and m_nHash at node+0x1764 (0x501130), the
+ * stride-8/stride-4 CNode tail of a 0x1768-byte node.  Map in [ebp+8],
+ * nBins in [ebp+0xc], `ret 8`.
+ *
+ * The instantiation is fixed by the callers, not the body.  Both binary
+ * sites push (PickSize result, map) from the shared NewNode/FreeNode
+ * threshold arm: IntMap_Insert_1768 (0x5008e2) - the insert half of
+ * IntMap_Find_1768 - and IntMap_FreeNode_1768 (0x5011ec).  The prefix
+ * follows those siblings.
+ *
+ * Promoted from a K&R prototype to (int *map, uint nBins) like
+ * StringMap_Rehash_10; both C sites already passed exactly those two
+ * values, and the int-typed map register is cast.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00501070(int *param_1,uint param_2)
+void IntMap_Rehash_1768(int *param_1,uint param_2)
 
 {
   int iVar1;
