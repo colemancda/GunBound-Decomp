@@ -15,11 +15,12 @@
  *   the 16-byte value this returns into a direct-link 0xa110 frame as
  *   the recipient - the messenger addresses peers by the 16-char id
  *   (CBuddy2's rosters, strncpy 0x10 everywhere).
- * - The 0x1021 (GB_OP_USER_RESPONSE) handler FUN_00403000 reads
- *   [status:2][nickname:12][id:16], flushes the 'n'+nickname pendings
- *   with the id, and inserts both maps via StringMap_SetAt_CString;
- *   the 0x1023 list handler does the mirror with 'i'+id records.  The server's
- *   Username type fixes the nickname at 0xC bytes.
+ * - The 0x1021 (GB_OP_USER_RESPONSE) handler ProcessUserLookupResponse
+ *   reads [status:2][nickname:12][id:16], flushes the 'n'+nickname
+ *   pendings with the id, and inserts both maps via
+ *   StringMap_SetAt_CString; its 0x1023 list arm does the mirror with
+ *   'i'+id records.  The server's Username type fixes the nickname at
+ *   0xC bytes.
  * - ApplyBattleActionToContext's 0x8400 arm caches each synced player's
  *   16-byte (+0x23) and 12-byte (+0x33) strings into the same two maps.
  *

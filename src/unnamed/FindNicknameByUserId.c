@@ -9,8 +9,8 @@
  * miss path records an 'i'-prefixed pending entry and sends opcode
  * 0x1022 (GB_OP_USER_NICKNAME_REQUEST, the original SVC_USER_NICK)
  * carrying this same 16-char key, and the 0x1023 response lists
- * (id:16, nickname:12) records that FUN_00403000 flushes by 'i'+id and
- * inserts into both maps.
+ * (id:16, nickname:12) records that ProcessUserLookupResponse flushes
+ * by 'i'+id and inserts into both maps.
  *
  * The interior StringMap_FindOrInsert_10 call (was FUN_004265c0); since the
  * preceding find already succeeded it only re-finds the node and yields

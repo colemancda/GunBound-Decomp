@@ -580,7 +580,11 @@ LAB_004111c0:
       (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x10))
                 (*(undefined2 *)(g_connectionContextA + 0x44d8),*(undefined2 *)(pbVar22 + 0xe));
       ShowErrorDialogFmt(0,&local_d58,0x36);
-      FUN_00403000(&DAT_00e53e88);
+      /* orig 0x41071f-0x41072c: AX = [ebp+0xc] (param_2, the opcode),
+       * push 0xe53e88 (the messenger), ECX = ESI = [ebp+0x10] (param_3,
+       * the payload).  The port had passed only &DAT_00e53e88, which
+       * landed in the payload slot. */
+      ProcessUserLookupResponse((ushort *)param_3,(undefined4)&DAT_00e53e88,(short)param_2);
       break;
     }
     local_d44 = *(undefined4 *)(pbVar22 + 0xe);
@@ -588,7 +592,7 @@ LAB_004111c0:
     local_d3c = *(undefined4 *)(pbVar22 + 0x16);
     local_d38 = *(uint *)(pbVar22 + 0x1a);
     local_d34 = 0;
-    FUN_004260f0((int)g_clientContext,(undefined4)&local_d44,(undefined4)&local_d58);
+    CacheNicknameUserIdPair((int)g_clientContext,(undefined4)&local_d44,(undefined4)&local_d58);
     iVar19 = __stricmp(&DAT_006aa408 + g_clientContext,(char *)&local_d58);
     if (iVar19 == 0) {
       uVar15 = AppendToEncodedSocketBuffer(0,0x10,&local_d44,(int)g_connectionContextA);
@@ -615,11 +619,14 @@ LAB_004111c0:
       local_d3c = *(undefined4 *)(pbVar22 + 0x1a);
       local_d48 = 0;
       local_d38 = local_d38 & 0xffffff00;
-      FUN_004260f0((int)g_clientContext,(undefined4)&local_d58,(undefined4)&local_d44);
+      CacheNicknameUserIdPair((int)g_clientContext,(undefined4)&local_d58,(undefined4)&local_d44);
       pbVar22 = param_3;
     }
 LAB_00410792:
-    FUN_00403000(&DAT_00e53e88);
+    /* orig 0x410792-0x41079c: same setup as the 0x1021 error arm above -
+     * AX = param_2, push 0xe53e88, ECX = ESI = param_3 (reloaded from
+     * [ebp+0x10] at 0x41078f on the paths that had reused ESI). */
+    ProcessUserLookupResponse((ushort *)param_3,(undefined4)&DAT_00e53e88,(short)param_2);
     break;
   case 0x1030:
     puVar26 = *(undefined4 **)pbVar22;

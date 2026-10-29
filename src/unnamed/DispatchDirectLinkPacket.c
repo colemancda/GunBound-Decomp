@@ -6,6 +6,8 @@
  * is due.  param_1 is the packet (ECX), param_2/param_3 the two stack
  * arguments, regEax a 16-byte name record used as the key for case 0x1002.
  *
+ * (FUN_00403000 below is now ProcessUserLookupResponse.)
+ *
  * RE-SLOTTED AND EAX RECOVERED (2026-08-24).  `ret 8`: param_1 is ECX (the
  * packet: [esi+4] is the opcode dispatched on), param_2/param_3 the two
  * pushes, EAX (`mov edi,eax` at entry) a 16-byte name record copied into the

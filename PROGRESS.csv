@@ -42,7 +42,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00402ad0,539,FUN_00402ad0,false,1,9,RAW-src
 00402cf0,358,FUN_00402cf0,false,1,7,RAW-src
 00402e60,401,FUN_00402e60,false,1,7,RAW-src
-00403000,354,FUN_00403000,false,2,2,RAW-src
+00403000,354,ProcessUserLookupResponse,false,2,2,RAW-src
 00403170,244,FUN_00403170,false,2,5,RAW-src
 00403270,75,HasPendingDirectLinkRecord,false,1,1,RAW-src
 004032c0,1447,DispatchDirectLinkPacket,false,1,13,RAW-src
@@ -353,7 +353,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00425e60,460,HitTestMine,false,3,6,RAW-src
 00426030,84,FindUserIdByNickname,false,6,2,RAW-src
 00426090,84,FindNicknameByUserId,false,8,2,RAW-src
-004260f0,35,FUN_004260f0,false,2,1,RAW-src
+004260f0,35,CacheNicknameUserIdPair,false,2,1,RAW-src
 00426120,161,FUN_00426120,false,3,0,RAW-src
 004261d0,63,FUN_004261d0,false,1,3,RAW-src
 00426210,27,FUN_00426210,false,1,0,RAW-src
