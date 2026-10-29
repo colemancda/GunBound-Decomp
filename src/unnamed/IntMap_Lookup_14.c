@@ -12,7 +12,7 @@
  * drops the packet when it is found (`jne 0x4ffbd1`, the exit).  Only on
  * a miss does it go on to IntMap_SetAt_14 the same key with the current
  * FILETIME (0x4ffb2c) - lookup-then-insert, the bool Lookup's use.
- * FUN_005006f0 (0x5006f0) is the other overload, CPair*
+ * IntMap_LookupPair_1768 (0x5006f0) is the other overload, CPair*
  * Lookup(key), for the 0x1768-node maps.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler

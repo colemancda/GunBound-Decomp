@@ -12,8 +12,8 @@
  * both the 0x1768 members).  Both binary callers remove an entry they
  * have just consumed.  FUN_004ff770 at 0x4ff8a6 runs it on the map at
  * peer-record+0x50 (`lea ebx,[esi+0x50]`, still live) with the same key
- * in EDI that FUN_005006f0 found there at 0x4ff871, after handing the
- * found pair to the owner's vtable slot 0; FUN_004ffbe0 at 0x4ffd6e
+ * in EDI that IntMap_LookupPair_1768 found there at 0x4ff871, after
+ * handing the found pair to the owner's vtable slot 0; FUN_004ffbe0 at 0x4ffd6e
  * (`lea ebx,[ebp+0x64]`) likewise follows a slot-0 call.  Look up,
  * consume, remove: the RemoveKey shape.
  *

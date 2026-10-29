@@ -90,7 +90,7 @@ void FUN_004ff770(int *param_1,int param_2)
         local_3178 = 0;
         cVar2 = FUN_004fe860(param_1,&local_3190);
         if (cVar2 != '\0') {
-          iVar4 = FUN_005006f0((int *)(local_3190 + 0x14),local_2e9a[0]);
+          iVar4 = IntMap_LookupPair_1768((int *)(local_3190 + 0x14),local_2e9a[0]);
           if (iVar4 != 0) {
             (**(code **)*param_1)
                       (1,local_2eaa,*(undefined2 *)(iVar4 + 0x10),iVar4 + 0x14,

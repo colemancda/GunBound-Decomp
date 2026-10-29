@@ -13,7 +13,7 @@
  * peer-record+0x50 (`lea ecx,[ebx+0x50]`, pushed), the key from the
  * record's +0x18 field in EAX, and a value record it has just built
  * (FUN_004fe590 into the 0x1768-byte stack buffer).  That is the map
- * IntMap_RemoveKey_1768 and FUN_005006f0 work on.
+ * IntMap_RemoveKey_1768 and IntMap_LookupPair_1768 work on.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
