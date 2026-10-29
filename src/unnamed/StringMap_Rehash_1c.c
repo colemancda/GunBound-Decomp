@@ -1,13 +1,33 @@
-/* FUN_00500440 - 0x00500440 in the original binary.
+/* StringMap_Rehash_1c - 0x00500440 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (2026-10-29): ATL7 CAtlMap::Rehash(nBins) for the 0x1c-node
+ * maps - the same member as StringMap_Rehash_10 (see that file for the
+ * atlcoll.h statement-by-statement match), instruction for instruction,
+ * with only the node offsets moved: the relink reads m_pNext at
+ * node+0x14 (0x500508) and m_nHash at node+0x18 (0x500500), the
+ * stride-8/stride-4 CNode tail of a 0x1c-byte node.  Map in [ebp+8],
+ * nBins in [ebp+0xc], `ret 8`.
+ *
+ * The instantiation is fixed by the callers, not the body.  All three
+ * binary sites push (PickSize result, map) from the shared
+ * NewNode/FreeNode threshold arm: StringMap_Insert_1c (0x500630) - the
+ * insert half of StringMap_Find_1c - StringMap_FreeNode_1c (0x500679)
+ * and StringMap_RemoveAll_1c's inlined FreeNode (0x4ff08d).  The prefix
+ * follows those siblings.
+ *
+ * Promoted from a K&R prototype to (int *map, uint nBins) like
+ * StringMap_Rehash_10; every C site already passed exactly those two
+ * values, and the int-typed map register is cast.  The port still
+ * carries Ghidra's unaff_FS_OFFSET SEH-frame artifact, left as is.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00500440(int *param_1,uint param_2)
+void StringMap_Rehash_1c(int *param_1,uint param_2)
 
 {
   int iVar1;

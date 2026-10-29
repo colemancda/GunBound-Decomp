@@ -381,7 +381,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
       if (0x1d < param_3) {
         local_4970 = (undefined4 *)(param_1 + -0x2c8);
         FUN_00503bb0(param_1 + -0x2c8);
-        FUN_004fefe0((int *)(param_1 + 0x17fc));
+        StringMap_RemoveAll_1c((int *)(param_1 + 0x17fc));
         namelen = &local_4984;
         name = &local_496c;
         s = GetConnectionSocketIfListed(*(undefined4 **)(param_1 + 0x1780),
