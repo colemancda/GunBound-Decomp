@@ -9,6 +9,12 @@
  * of the lookup its caller just performed -- EAX the new node's key/value
  * source, EBX the map object.  Its two stack parameters are the bucket index
  * and the hash, which the caller already passes.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x5014ef
+ * passed nothing.  NewNode threshold arm: EAX = `mov eax,[ebx+4]` (the
+ * incremented m_nElements, compared with [ebx+0x18]), ECX = `mov ecx,ebx`
+ * (the map); witness: ebx is pushed as the Rehash map right after (call at
+ * 0x5014f6).  Now passes (regEbx, (uint)regEbx[1]).
  */
 #include "ghidra_types.h"
 
@@ -65,7 +71,7 @@ undefined4 * StringMap_Insert_ac(int param_1,undefined4 param_2,undefined4 *regE
   puVar2[0x29] = *(undefined4 *)(*regEbx + param_1 * 4);
   *(undefined4 **)(*regEbx + param_1 * 4) = puVar2;
   if (((uint)regEbx[6] < (uint)regEbx[1]) && (regEbx[8] == 0)) {
-    uVar4 = HashMap_PickSize();
+    uVar4 = HashMap_PickSize(regEbx,(uint)regEbx[1]);
     StringMap_Rehash_ac(regEbx,uVar4);
   }
   return puVar2;

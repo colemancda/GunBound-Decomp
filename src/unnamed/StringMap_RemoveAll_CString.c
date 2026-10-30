@@ -50,6 +50,12 @@
  * instantiation - DisableAutoRehash has just raised the count - and it
  * is present here exactly as the template writes it, which is a small
  * extra confirmation that this is library source and not hand-written.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x4155cc
+ * passed only a literal 0.  ECX = `mov ecx,edi` (the map), EAX = 0 (`xor
+ * eax,eax`): RemoveAll's `InitHashTable(PickSize(0), false)`; witness: the
+ * same edi is pushed as HashMap_InitHashTable's map right after (call at
+ * 0x4155d3).  Now passes (in_EAX, 0).
  */
 #include "ghidra_types.h"
 
@@ -86,7 +92,7 @@ void StringMap_RemoveAll_CString(int *regEax)
   in_EAX[1] = 0;
   if (in_EAX[8] == 0) {
     uVar5 = 0;
-    uVar3 = HashMap_PickSize(0);
+    uVar3 = HashMap_PickSize(in_EAX,0);
     HashMap_InitHashTable(in_EAX,uVar3,uVar5);
   }
   in_EAX[0xb] = 0;

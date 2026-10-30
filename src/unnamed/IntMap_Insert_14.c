@@ -8,6 +8,12 @@
  * bucket index the find just computed, ESI the map object.  Both stack
  * arguments carry the same value -- the key -- because the second is read
  * back out of the slot the find stashed it in.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x5015e2
+ * passed nothing.  NewNode threshold arm: EAX = `mov eax,[esi+4]` (the
+ * incremented m_nElements, compared with [esi+0x18]), ECX = `mov ecx,esi`
+ * (the map); witness: esi is pushed as the Rehash map right after (call at
+ * 0x5015e9).  Now passes (regEsi, (uint)regEsi[1]).
  */
 #include "ghidra_types.h"
 
@@ -47,7 +53,7 @@ undefined4 * IntMap_Insert_14(undefined4 param_1,undefined4 param_2,int regEbx,i
   puVar1[3] = *(undefined4 *)(*regEsi + regEbx * 4);
   *(undefined4 **)(*regEsi + regEbx * 4) = puVar1;
   if (((uint)regEsi[6] < (uint)regEsi[1]) && (regEsi[8] == 0)) {
-    uVar3 = HashMap_PickSize();
+    uVar3 = HashMap_PickSize(regEsi,(uint)regEsi[1]);
     IntMap_Rehash_14(regEsi,uVar3);
   }
   return puVar1;

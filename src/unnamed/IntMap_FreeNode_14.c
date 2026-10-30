@@ -24,6 +24,13 @@
  * map object, set once at the caller's entry and never rewritten -- the
  * linear trace reports `pop esi` only because one of the two sites sits in a
  * cold block past the epilogue.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x501382
+ * passed nothing.  FreeNode threshold arm: EAX = `mov eax,edx` after `dec
+ * edx` (the decremented m_nElements, also stored to [map+4] - this port's
+ * uVar3), ECX = `mov ecx,esi` (the map); witness: esi is pushed as the
+ * Rehash map right after (call at 0x501389).  Now passes ((int *)regEsi,
+ * uVar3).
  */
 #include "ghidra_types.h"
 
@@ -41,7 +48,7 @@ void IntMap_FreeNode_14(int regEax,int regEsi)
   *(int *)(regEsi + 0x2c) = regEax;
   *(uint *)(regEsi + 4) = uVar3;
   if ((uVar3 < *(uint *)(regEsi + 0x1c)) && (*(int *)(regEsi + 0x20) == 0)) {
-    uVar2 = HashMap_PickSize();
+    uVar2 = HashMap_PickSize((int *)regEsi,uVar3);
     IntMap_Rehash_14((int *)regEsi,uVar2);
   }
   if (*(int *)(regEsi + 4) == 0) {

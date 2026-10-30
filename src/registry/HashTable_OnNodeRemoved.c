@@ -18,6 +18,13 @@
  * previous node in EAX (`mov eax,edi / mov edi,[edi+8] / call`), so the
  * source hoists the node into `node` before the advance -- the order
  * matters, because this function overwrites node+8.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x409f8c
+ * passed nothing.  FreeNode threshold arm: EAX = `mov eax,edx` after `dec
+ * edx` (the decremented m_nElements, also stored to [map+4] - this port's
+ * uVar3), ECX = `mov ecx,esi` (the map); witness: esi is pushed as the
+ * Rehash map right after (call at 0x409f93).  Now passes ((int *)regEsi,
+ * uVar3).
  */
 #include "ghidra_types.h"
 
@@ -35,7 +42,7 @@ void HashTable_OnNodeRemoved(int regEax,int regEsi)
   *(int *)(regEsi + 0x2c) = regEax;
   *(uint *)(regEsi + 4) = uVar3;
   if ((uVar3 < *(uint *)(regEsi + 0x1c)) && (*(int *)(regEsi + 0x20) == 0)) {
-    uVar2 = HashMap_PickSize();
+    uVar2 = HashMap_PickSize((int *)regEsi,uVar3);
     StringMap_Rehash_10((int *)regEsi,uVar2);
   }
   if (*(int *)(regEsi + 4) == 0) {

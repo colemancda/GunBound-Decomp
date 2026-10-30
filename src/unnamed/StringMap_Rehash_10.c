@@ -37,6 +37,12 @@
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x409e55
+ * passed nothing.  Inside this Rehash's nBins == 0 arm: EAX = `mov
+ * eax,[esi+4]` (m_nElements), ECX = `mov ecx,esi`, ESI = [ebp+8] =
+ * param_1, the map being rehashed.  Now passes (param_1,
+ * (uint)param_1[1]).
  */
 #include "ghidra_types.h"
 
@@ -59,7 +65,7 @@ void StringMap_Rehash_10(int *param_1,uint param_2)
    * (LAB_00537880) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
   if (param_2 == 0) {
-    param_2 = HashMap_PickSize();
+    param_2 = HashMap_PickSize(param_1,(uint)param_1[1]);
   }
   if (param_2 != param_1[2]) {
     if (*param_1 == 0) {

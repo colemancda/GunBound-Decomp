@@ -17,6 +17,12 @@
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x4fef2e
+ * passed only a literal 0.  ECX = `mov ecx,esi` (the map), EAX = 0 (`xor
+ * eax,eax`): RemoveAll's `InitHashTable(PickSize(0), false)`; witness: the
+ * same esi is pushed as HashMap_InitHashTable's map right after (call at
+ * 0x4fef35).  Now passes (regEsi, 0).
  */
 #include "ghidra_types.h"
 
@@ -85,7 +91,7 @@ void StringMap_RemoveAll_28(int *regEsi)
   regEsi[1] = 0;
   if (regEsi[8] == 0) {
     uVar10 = 0;
-    uVar9 = HashMap_PickSize(0);
+    uVar9 = HashMap_PickSize(regEsi,0);
     HashMap_InitHashTable(regEsi,uVar9,uVar10);
   }
   regEsi[0xb] = 0;

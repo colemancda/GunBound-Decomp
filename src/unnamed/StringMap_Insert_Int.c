@@ -52,6 +52,12 @@
  * uninitialised `unaff_FS_OFFSET`, which wrote
  * through a garbage pointer on every call, is stripped too, as in
  * ConstructStringFromText.c.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x409dcd
+ * passed nothing.  NewNode threshold arm: EAX = `mov eax,[esi+4]` (the
+ * incremented m_nElements, compared with [esi+0x18]), ECX = `mov ecx,esi`
+ * (the map); witness: esi is pushed as the Rehash map right after (call at
+ * 0x409dd4).  Now passes (param_2, (uint)param_2[1]).
  */
 #include "ghidra_types.h"
 
@@ -90,7 +96,7 @@ int __thiscall StringMap_Insert_Int(int param_1,int *param_2,undefined4 param_3,
   *(undefined4 *)(iVar3 + 8) = *(undefined4 *)(*param_2 + param_1 * 4);
   *(int *)(*param_2 + param_1 * 4) = iVar3;
   if (((uint)param_2[6] < (uint)param_2[1]) && (param_2[8] == 0)) {
-    uVar2 = HashMap_PickSize();
+    uVar2 = HashMap_PickSize(param_2,(uint)param_2[1]);
     StringMap_Rehash_10(param_2,uVar2);
   }
   return iVar3;

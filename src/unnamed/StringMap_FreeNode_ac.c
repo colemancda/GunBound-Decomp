@@ -35,6 +35,13 @@
  * m_pNext at +0xa4 (the link this writes), m_nHash at +0xa8 (the field
  * StringMap_Find_ac compares), 0xac total - and the suffix is that node
  * stride, matching StringMap_Find_ac and StringMap_Insert_ac.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x500ead
+ * passed nothing.  FreeNode threshold arm: EAX = `mov eax,edx` after `dec
+ * edx` (the decremented m_nElements, also stored to [map+4] - this port's
+ * uVar3), ECX = `mov ecx,esi` (the map); witness: esi is pushed as the
+ * Rehash map right after (call at 0x500eb4).  Now passes ((int
+ * *)unaff_ESI, uVar3).
  */
 #include "ghidra_types.h"
 
@@ -55,7 +62,7 @@ void StringMap_FreeNode_ac(int regEax,int regEsi)
   *(int *)(unaff_ESI + 0x2c) = in_EAX;
   *(uint *)(unaff_ESI + 4) = uVar3;
   if ((uVar3 < *(uint *)(unaff_ESI + 0x1c)) && (*(int *)(unaff_ESI + 0x20) == 0)) {
-    uVar2 = HashMap_PickSize();
+    uVar2 = HashMap_PickSize((int *)unaff_ESI,uVar3);
     StringMap_Rehash_ac((int *)unaff_ESI,uVar2);
   }
   if (*(int *)(unaff_ESI + 4) == 0) {

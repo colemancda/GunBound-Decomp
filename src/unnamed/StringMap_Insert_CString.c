@@ -38,6 +38,12 @@
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x426a1b
+ * passed nothing.  NewNode threshold arm: EAX = `mov eax,[esi+4]` (the
+ * incremented m_nElements, compared with [esi+0x18]), ECX = `mov ecx,esi`
+ * (the map); witness: esi is pushed as the Rehash map right after (call at
+ * 0x426a22).  Now passes (param_2, (uint)param_2[1]).
  */
 #include "ghidra_types.h"
 
@@ -84,7 +90,7 @@ int __thiscall StringMap_Insert_CString(int param_1,int *param_2,undefined4 para
   *(undefined4 *)(iVar3 + 8) = *(undefined4 *)(*param_2 + param_1 * 4);
   *(int *)(*param_2 + param_1 * 4) = iVar3;
   if (((uint)param_2[6] < (uint)param_2[1]) && (param_2[8] == 0)) {
-    uVar2 = HashMap_PickSize();
+    uVar2 = HashMap_PickSize(param_2,(uint)param_2[1]);
     StringMap_Rehash_10(param_2,uVar2);
   }
   return iVar3;

@@ -23,6 +23,12 @@
  * ESI RECOVERED (2026-08-25): the map at +0x20 of the same 0x90-byte object
  * IntMap_RemoveAll_1768 clears at +0x50 -- `add esi,0x20` at 0x4ff22e and
  * `lea esi,[esp+0x4c]` (frame -0x7c = -0x9c + 0x20) at 0x4fe988.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x500b2e
+ * passed only a literal 0.  ECX = `mov ecx,esi` (the map), EAX = 0 (`xor
+ * eax,eax`): RemoveAll's `InitHashTable(PickSize(0), false)`; witness: the
+ * same esi is pushed as HashMap_InitHashTable's map right after (call at
+ * 0x500b35).  Now passes (regEsi, 0).
  */
 #include "ghidra_types.h"
 
@@ -91,7 +97,7 @@ void IntMap_RemoveAll_14(int *regEsi)
   regEsi[1] = 0;
   if (regEsi[8] == 0) {
     uVar10 = 0;
-    uVar9 = HashMap_PickSize(0);
+    uVar9 = HashMap_PickSize(regEsi,0);
     HashMap_InitHashTable(regEsi,uVar9,uVar10);
   }
   regEsi[0xb] = 0;

@@ -25,6 +25,12 @@
  * serve: the node this sweep steps through by +0x1760 is the node
  * IntMap_FreeNode_1768 retires, and IntMap_RemoveKey_1768 ties that node
  * to IntMap_Find_1768 directly.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x5007ff
+ * passed only a literal 0.  ECX = `mov ecx,esi` (the map), EAX = 0 (`xor
+ * eax,eax`): RemoveAll's `InitHashTable(PickSize(0), false)`; witness: the
+ * same esi is pushed as HashMap_InitHashTable's map right after (call at
+ * 0x500806).  Now passes (regEax, 0).
  */
 #include "ghidra_types.h"
 
@@ -60,7 +66,7 @@ void IntMap_RemoveAll_1768(int *regEax)
   regEax[1] = 0;
   if (regEax[8] == 0) {
     uVar5 = 0;
-    uVar3 = HashMap_PickSize(0);
+    uVar3 = HashMap_PickSize(regEax,0);
     HashMap_InitHashTable(regEax,uVar3,uVar5);
   }
   _Memory = (int *)regEax[10];

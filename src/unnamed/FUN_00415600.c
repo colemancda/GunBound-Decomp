@@ -3,6 +3,12 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x41566c
+ * passed only a literal 0.  ECX = `mov ecx,esi` (the map), EAX = 0 (`xor
+ * eax,eax`): RemoveAll's `InitHashTable(PickSize(0), false)`; witness: the
+ * same esi is pushed as HashMap_InitHashTable's map right after (call at
+ * 0x415673).  Now passes (in_EAX, 0).
  */
 #include "ghidra_types.h"
 
@@ -36,7 +42,7 @@ void FUN_00415600(void)
   in_EAX[1] = 0;
   if (in_EAX[8] == 0) {
     uVar5 = 0;
-    uVar3 = HashMap_PickSize(0);
+    uVar3 = HashMap_PickSize(in_EAX,0);
     HashMap_InitHashTable(in_EAX,uVar3,uVar5);
   }
   in_EAX[0xb] = 0;

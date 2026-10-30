@@ -57,6 +57,13 @@
  *
  * Its maps are the two the arena carries at +0x6aa41c and +0x6aa44c,
  * which StringMap_RemoveAll_CString is called on from FUN_00418dc0.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x4156fa
+ * passed nothing.  FreeNode threshold arm: EAX = `mov eax,edx` after `dec
+ * edx` (the decremented m_nElements, also stored to [map+4] - this port's
+ * uVar3), ECX = `mov ecx,edi` (the map); witness: edi is pushed as the
+ * Rehash map right after (call at 0x415701).  Now passes ((int
+ * *)unaff_EDI, uVar3).
  */
 #include "ghidra_types.h"
 
@@ -79,7 +86,7 @@ void StringMap_FreeNode_CString(int regEax,int regEdi)
   *(int *)(unaff_EDI + 0x2c) = in_EAX;
   *(uint *)(unaff_EDI + 4) = uVar3;
   if ((uVar3 < *(uint *)(unaff_EDI + 0x1c)) && (*(int *)(unaff_EDI + 0x20) == 0)) {
-    uVar2 = HashMap_PickSize();
+    uVar2 = HashMap_PickSize((int *)unaff_EDI,uVar3);
     StringMap_Rehash_10((int *)unaff_EDI,uVar2);
   }
   if (*(int *)(unaff_EDI + 4) == 0) {

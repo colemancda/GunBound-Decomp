@@ -37,6 +37,13 @@
  * field IntMap_Find_1768 compares), 0x1768 total - and the suffix is
  * that node stride, matching IntMap_Find_1768, IntMap_Insert_1768 and
  * IntMap_CopyValue_1768.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x5011e5
+ * passed nothing.  FreeNode threshold arm: EAX = `mov eax,edx` after `dec
+ * edx` (the decremented m_nElements, also stored to [map+4] - this port's
+ * uVar3), ECX = `mov ecx,esi` (the map); witness: esi is pushed as the
+ * Rehash map right after (call at 0x5011ec).  Now passes ((int
+ * *)unaff_ESI, uVar3).
  */
 #include "ghidra_types.h"
 
@@ -56,7 +63,7 @@ void IntMap_FreeNode_1768(int regEax,int regEsi)
   *(int *)(unaff_ESI + 0x2c) = in_EAX;
   *(uint *)(unaff_ESI + 4) = uVar3;
   if ((uVar3 < *(uint *)(unaff_ESI + 0x1c)) && (*(int *)(unaff_ESI + 0x20) == 0)) {
-    uVar2 = HashMap_PickSize();
+    uVar2 = HashMap_PickSize((int *)unaff_ESI,uVar3);
     IntMap_Rehash_1768((int *)unaff_ESI,uVar2);
   }
   if (*(int *)(unaff_ESI + 4) == 0) {

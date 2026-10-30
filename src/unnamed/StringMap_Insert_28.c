@@ -8,6 +8,12 @@
  * StringMap_Insert_1c and StringMap_Insert_ac).  EAX is the key -- `mov eax,ebp`, and EBP
  * holds the caller's param_1 as read at its ENTRY, before the find overwrote
  * that stack slot with the hash -- and EBX is the map object.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x504529
+ * passed nothing.  NewNode threshold arm: EAX = `mov eax,[ebx+4]` (the
+ * incremented m_nElements, compared with [ebx+0x18]), ECX = `mov ecx,ebx`
+ * (the map); witness: ebx is pushed as the Rehash map right after (call at
+ * 0x504530).  Now passes (regEbx, (uint)regEbx[1]).
  */
 #include "ghidra_types.h"
 
@@ -63,7 +69,7 @@ undefined4 * StringMap_Insert_28(int param_1,undefined4 param_2,undefined4 *regE
   puVar2[8] = *(undefined4 *)(*regEbx + param_1 * 4);
   *(undefined4 **)(*regEbx + param_1 * 4) = puVar2;
   if (((uint)regEbx[6] < (uint)regEbx[1]) && (regEbx[8] == 0)) {
-    uVar4 = HashMap_PickSize();
+    uVar4 = HashMap_PickSize(regEbx,(uint)regEbx[1]);
     StringMap_Rehash_28(regEbx,uVar4);
   }
   return puVar2;

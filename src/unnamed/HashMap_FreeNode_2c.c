@@ -15,6 +15,13 @@
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x4052bc
+ * passed nothing.  FreeNode threshold arm: EAX = `mov eax,edx` after `dec
+ * edx` (the decremented m_nElements, also stored to [map+4] - this port's
+ * uVar3), ECX = `mov ecx,esi` (the map); witness: esi is pushed as the
+ * Rehash map right after (call at 0x4052c3).  Now passes ((int *)regEsi,
+ * uVar3).
  */
 #include "ghidra_types.h"
 
@@ -33,7 +40,7 @@ void HashMap_FreeNode_2c(int regEax,int regEsi)
   *(int *)(regEsi + 0x2c) = regEax;
   *(uint *)(regEsi + 4) = uVar3;
   if ((uVar3 < *(uint *)(regEsi + 0x1c)) && (*(int *)(regEsi + 0x20) == 0)) {
-    uVar2 = HashMap_PickSize();
+    uVar2 = HashMap_PickSize((int *)regEsi,uVar3);
     HashMap_Rehash_2c((int *)regEsi,uVar2);
   }
   if (*(int *)(regEsi + 4) == 0) {

@@ -21,6 +21,12 @@
  * is the node StringMap_FreeNode_ac retires, and StringMap_RemoveKey_ac
  * ties that node to StringMap_Find_ac directly. Its own caller is
  * DestroyCommEngine, which passes the map at +0xa4 of the comm engine.
+ *
+ * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x5001af
+ * passed only a literal 0.  ECX = `mov ecx,esi` (the map), EAX = 0 (`xor
+ * eax,eax`): RemoveAll's `InitHashTable(PickSize(0), false)`; witness: the
+ * same esi is pushed as HashMap_InitHashTable's map right after (call at
+ * 0x5001b6).  Now passes (regEax, 0).
  */
 #include "ghidra_types.h"
 
@@ -56,7 +62,7 @@ void StringMap_RemoveAll_ac(int *regEax)
   regEax[1] = 0;
   if (regEax[8] == 0) {
     uVar5 = 0;
-    uVar3 = HashMap_PickSize(0);
+    uVar3 = HashMap_PickSize(regEax,0);
     HashMap_InitHashTable(regEax,uVar3,uVar5);
   }
   _Memory = (int *)regEax[10];
