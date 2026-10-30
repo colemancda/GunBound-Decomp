@@ -17,11 +17,16 @@
  *
  * EDI RECOVERED (2026-10-30): the source element is EDI (`mov eax,[edi]`
  * at 0x503725, `mov eax,[edi+4]` at 0x503741, no write first), set by
- * the caller's `mov edi,ecx` at 0x50315b; now the trailing regEdi.  The
- * body still does not use it: each clone is FUN_0043de10 with EAX =
- * handle - 0x10 (0x50372c, 0x503744), and FUN_0043de10's port has no
- * parameter for EAX at any of its 11 call sites - a family-wide gap left
- * for its own change.
+ * the caller's `mov edi,ecx` at 0x50315b; now the trailing regEdi.
+ *
+ * FIXED (2026-10-30): the body now uses it. Each clone is FUN_0043de10
+ * with EAX = the source handle - 0x10 (`mov eax,[edi] / sub eax,0x10` at
+ * 0x503725/0x50372c, `mov eax,[edi+4] / sub eax,0x10` at
+ * 0x503741/0x503744), and the clone's returned header + 0x10 is the new
+ * handle (`add eax,0x10` at 0x503734/0x503750). The calls passed no
+ * header, and the stores read an uninitialised iVar1 in place of the
+ * return value. The SEH-prologue artifact (push -1 / push 0x537a58 /
+ * mov fs:[0],esp at 0x503710-0x50371e and its try-state local) is gone.
  */
 #include "ghidra_types.h"
 
@@ -30,18 +35,10 @@ int * Vector_CopyElement_8(int *param_1,int regEdi)
 
 {
   int iVar1;
-  undefined4 local_c;
-  undefined1 *puStack_8;
-  undefined4 local_4;
-  local_4 = 0xffffffff;
-  /* Windows SEH __try/__except frame setup stripped - handler body
-   * (LAB_00537a58) wasn't included in this function's own decompile.
-   * Same rationale as entry/InitGame.c - see src/README.md. */
-  FUN_0043de10();
+
+  iVar1 = FUN_0043de10((int *)(*(int *)regEdi + -0x10));
   *param_1 = iVar1 + 0x10;
-  local_4 = 0;
-  FUN_0043de10();
+  iVar1 = FUN_0043de10((int *)(*(int *)(regEdi + 4) + -0x10));
   param_1[1] = iVar1 + 0x10;
   return param_1;
 }
-

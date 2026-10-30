@@ -41,7 +41,7 @@ int * Vector_CopyBackward_8(int param_1,int param_2,int *param_3)
         AssignStringBuffer(piVar6,*(int *)(param_2 + -8));
       }
       else {
-        iVar4 = FUN_0043de10();
+        iVar4 = FUN_0043de10(piVar1);
         LOCK();
         iVar3 = *piVar2;
         *piVar2 = *piVar2 + -1;
@@ -64,7 +64,7 @@ int * Vector_CopyBackward_8(int param_1,int param_2,int *param_3)
         AssignStringBuffer(piVar7,*piVar1);
       }
       else {
-        iVar5 = FUN_0043de10();
+        iVar5 = FUN_0043de10(piVar2);
         piVar1 = (int *)(iVar3 + -4);
         LOCK();
         iVar3 = *piVar1;

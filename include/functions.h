@@ -609,7 +609,7 @@ undefined4 LoadLocalizedStrings();
 undefined4 * GetLocalizedString();
 int FUN_0043dd40();
 void FUN_0043ddb0(int *regEax,int *regEdi);
-undefined4 FUN_0043de10();
+undefined4 FUN_0043de10(int *regEax);
 int FUN_0043de70(int *param_1,int regEcx,char *regEax);
 int * __fastcall FUN_0043e060();
 void __fastcall FUN_0043e0f0(int *param_1,int regEbx,undefined4 regEax);

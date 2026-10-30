@@ -13,6 +13,14 @@
  * Vector_InsertN_8's realloc and append arms that the _34 member
  * serves in Vector_InsertN_34's, plus the push-back wrapper
  * Vector_PushBack_8.
+ *
+ * FIXED (2026-10-30): each clone passes FUN_0043de10 its EAX source
+ * header, the value's handle - 0x10 (`mov eax,[edi] / sub eax,0x10` at
+ * 0x5041d5 and `mov eax,[edi+4] / sub eax,0x10` at 0x5041e8, with EDI =
+ * the incoming ECX value pointer, param_1). The SEH-prologue artifact
+ * (push -1 / push 0x537abd / mov fs:[0],esp at 0x504193-0x5041a1, the
+ * try-state byte at [ebp-4]) is stripped; its catch block at 0x504206 is
+ * not part of this decompile.
  */
 #include "ghidra_types.h"
 
@@ -21,28 +29,16 @@ void __fastcall Vector_UninitFillN_8(undefined4 param_1,int param_2,int *param_3
 
 {
   int iVar1;
-  undefined4 *unaff_FS_OFFSET;
-  undefined4 local_10;
-  undefined1 *puStack_c;
-  undefined1 local_8;
-  undefined3 uStack_7;
-  
-  puStack_c = &LAB_00537abd;
-  local_10 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_10;
-  uStack_7 = 0;
+
   for (; param_2 != 0; param_2 = param_2 + -1) {
-    local_8 = 1;
     if (param_3 != (int *)0x0) {
-      iVar1 = FUN_0043de10();
+      /* 0x5041d5-0x5041da / 0x5041e8-0x5041ee: EAX = value handle - 0x10 */
+      iVar1 = FUN_0043de10((int *)(*(int *)param_1 + -0x10));
       *param_3 = iVar1 + 0x10;
-      local_8 = 2;
-      iVar1 = FUN_0043de10();
+      iVar1 = FUN_0043de10((int *)(*(int *)(param_1 + 4) + -0x10));
       param_3[1] = iVar1 + 0x10;
     }
     param_3 = param_3 + 2;
   }
-  *unaff_FS_OFFSET = local_10;
   return;
 }
-

@@ -30,7 +30,7 @@ void FUN_0043ddb0(int *regEax,int *regEdi)
   if (piVar1 != piVar5) {
     piVar2 = (int *)(iVar3 + -4);
     if ((-1 < *(int *)(iVar3 + -4)) && (*piVar1 == *piVar5)) {
-      iVar4 = FUN_0043de10();
+      iVar4 = FUN_0043de10(piVar1);
       LOCK();
       iVar3 = *piVar2;
       *piVar2 = *piVar2 + -1;

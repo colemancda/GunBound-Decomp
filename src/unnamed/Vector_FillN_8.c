@@ -37,7 +37,7 @@ void Vector_FillN_8(int *param_1,int *param_2,int *param_3)
         AssignStringBuffer(param_1,*param_3);
       }
       else {
-        iVar4 = FUN_0043de10();
+        iVar4 = FUN_0043de10(piVar1);
         LOCK();
         iVar3 = *piVar2;
         *piVar2 = *piVar2 + -1;
@@ -57,7 +57,7 @@ void Vector_FillN_8(int *param_1,int *param_2,int *param_3)
         AssignStringBuffer(param_1 + 1,param_3[1]);
       }
       else {
-        iVar4 = FUN_0043de10();
+        iVar4 = FUN_0043de10(piVar1);
         LOCK();
         iVar3 = *piVar2;
         *piVar2 = *piVar2 + -1;
