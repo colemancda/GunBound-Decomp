@@ -16,9 +16,14 @@
  * `this` - confirmed via objdump (orig 0x506e70-0x506e74): `push ebx; push
  * esi; mov esi,eax` is the entry sequence, EAX live-in with no prior
  * write, immediately cached into ESI for the rest of the function - cdecl,
- * single register arg. No live callers currently port-side (Ghidra shows
- * 2 xrefs in the original, neither traced yet) - functions.h stays
- * K&R-empty until one is found and wired.
+ * single register arg.
+ *
+ * CALLERS (2026-10-30): both xrefs are CEditBox (vtable 0x557c84)
+ * virtuals, carved into src/cxx/EditBox.cpp: slot 0 SetFocus (0x506fb0,
+ * `mov eax,ecx` then call at 0x506fbd) and slot 2 OnMouseDown (0x506fd0,
+ * `mov eax,ecx` at 0x507001, call at 0x507007). So `this` is a CEditBox:
+ * +0x38 is its m_text, +0x138 its m_maxLen, +8 its m_parent. functions.h
+ * now carries the one-argument prototype.
  *
  * NOT A BUG (verified, left as-is): `lpString = (LPCSTR)(in_EAX + 0x38);
  * if (lpString == 0)` looks like a decompiler mis-read of a pointer field,

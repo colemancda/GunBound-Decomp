@@ -1458,10 +1458,10 @@ vtable 0x557c5c  installs=1  slots=10
    8: 0x50e520  Widget_DrawChildren
    9: 0x506dc0  FUN_00506dc0
 
-vtable 0x557c84  installs=1  slots=10  UNCARVED=2
-   0: 0x506fb0  UNCARVED
+vtable 0x557c84  installs=1  slots=10
+   0: 0x506fb0  FUN_00506fb0
    1: 0x50e870  Widget_MouseMoveChildren
-   2: 0x506fd0  UNCARVED
+   2: 0x506fd0  FUN_00506fd0
    3: 0x50e950  Widget_MouseUpChildren
    4: 0x50e9c0  Widget_HitTest
    5: 0x507090  FUN_00507090

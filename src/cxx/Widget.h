@@ -154,6 +154,11 @@ public:
         for (int i = 0; i < 0x100; ++i) m_text[i] = 0;
     }
 
+    virtual void SetFocus(bool active);      /* slot 0: 0x506fb0 - carved, EditBox.cpp: the base
+                                              * store, then 0x506e70 (ActivateLegacyTextInputField)
+                                              * when gaining focus */
+    virtual bool OnMouseDown(int x, int y);  /* slot 2: 0x506fd0 - carved, EditBox.cpp: a click
+                                              * inside the rect focuses the field */
     virtual void Draw();             /* 0x507030 TextEntry_SyncFromControl - promoted, EditBox.cpp */
 
     char m_text[0x100];              /* +0x38: synced from the EDIT control */

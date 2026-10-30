@@ -1673,7 +1673,7 @@ undefined4 FUN_00506bf0();
 void __thiscall FUN_00506cf0();
 void __fastcall FUN_00506dc0();
 void __thiscall FUN_00506e10();
-void ActivateLegacyTextInputField();
+void ActivateLegacyTextInputField(int thisObj);
 void FUN_00506f30(int regEsi);
 void TextEntry_SetControlText(char *regEsi,int regEdi);
 undefined4 __thiscall FUN_00507090();
