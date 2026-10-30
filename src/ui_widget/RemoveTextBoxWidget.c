@@ -136,9 +136,9 @@
  * via CommitActiveTextInput first), read per frame by SyncActiveTextInput,
  * cycled by FUN_0040d020 on Tab/Enter/Escape -- and it is precisely the slot
  * this function's tail clears when the object being destroyed owns it.
- * NOTE for whoever is next in crt_shims_msvc.c: line 400 fixes up
- * g_activeObjectRegistry2 + 0x10 with the ring, which per the above is the
- * wrong offset for this container (+0xc); line 399's registry 1 is correct.
+ * (crt_shims_msvc.c used to also store the ring at g_activeObjectRegistry2
+ * + 0x10, the wrong offset for this container; that store is gone, and
+ * InitGame now writes the +0xc field itself.)
  *
  * SIBLING ACCESSORS ON THIS SAME CLASS, named on other axes -- do not add a
  * third: GetWidgetChildText (0x40cfe0) is its text getter, InitTextBoxWidget

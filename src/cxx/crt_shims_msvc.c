@@ -177,16 +177,13 @@ static void gb_init_widget_registry(unsigned char *registry, unsigned char *sent
     *(int *)(sentinel + 0x18) = (int)sentinel;         /* outer list: empty */
     *(int *)(sentinel + 0x1c) = (int)sentinel;
     *(int *)(registry + 0x04) = (int)sentinel;
-    /* registry+0x0c/+0x10/+0x18/+0x1c are left alone - +0x10 is the input-ring
-     * pointer, written below. */
+    /* registry+0x0c/+0x10/+0x18/+0x1c are left alone - the input-ring
+     * pointer lives there (+0x10 in registry 1, +0xc in the text-box
+     * registry) and InitGame writes it. */
 }
 extern unsigned char g_activeObjectRegistry[0x20], g_activeObjectRegistry2[0x20], g_spriteRegistry[0x20];
 /* One list sentinel per registry root - see gb_init_widget_registry. */
 static unsigned char gb_registrySentinel[4][0x20];
-/* input-event ring (globals_sized.c) - the registries' +0x10 slot points here
- * so a button release can EnqueueInputEvent onto the queue ProcessInputEventQueue
- * drains; see the gb_startup_init wiring below. */
-extern unsigned char g_inputEventRing[0x1808];
 /* g_uiPanelManager (0xe53c40) - a genuine CPanelManager object, unlike
  * the three registries above (its list head/tail are meant to start
  * NULL, not self-referencing). Real field layout decompiled from its
@@ -429,9 +426,10 @@ static void gb_startup_init(void)
      * port wrote them through split 1-byte globals. InitGame now stores
      * both fields itself (orig 0x40ed16/0x40ed1b), and nothing reads them
      * before it runs, so the hand-patches are gone. gb_init_widget_registry
-     * leaves both slots alone. The +0x10 store below has no counterpart in
-     * the original for this registry. */
-    *(void **)(g_activeObjectRegistry2 + 0x10) = g_inputEventRing;
+     * leaves both slots alone. A store of the ring to the text-box
+     * registry's +0x10 (0xe9c10c) was removed too: that object is only 0x10
+     * bytes (ctor 0x40cd40), the original never writes 0xe9c10c, and none
+     * of its readers touches +0x10. */
     gb_init_panel_manager(g_uiPanelManager);
     /* DAT_00e9be94 / DAT_00ea0e1c are Ghidra's split-out aliases of
      * registry+4, i.e. the SENTINEL pointer - not the container address. */
