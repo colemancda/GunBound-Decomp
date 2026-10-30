@@ -16,7 +16,9 @@ extern unsigned char g_chatInputActive;      /* "chat entry armed" flag */
 extern unsigned int g_sharedTextInputControl;       /* shared overlay EDIT control (+4 = HWND) */
 extern unsigned char DAT_00551cb1;      /* the empty string the EDIT is reset to */
 extern unsigned char g_localizedStringTable;      /* localized-string table base */
-char PeekPacketChecksumBool(void);                /* replay-playback mode check */
+/* 0x4065a0: the cell arrives in EAX, promoted to a parameter in the C
+ * port (e9c8ebd1). */
+char PeekPacketChecksumBool(unsigned char *cell); /* replay-playback mode check */
 void FetchActiveTextInputText(int editState, char *out); /* read the EDIT control's text into out[128] */
 char ParseChatSlashCommand(int ctx, char *text); /* slash-command handler (true = consumed) */
 char CheckChatWordFilter(char *text);          /* "message too long" check */
@@ -62,7 +64,9 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
     if (g_chatInputActive != 1) {
         return;
     }
-    if (PeekPacketChecksumBool() == 0) {
+    /* 0x43e753-0x43e75e: mov eax,[0x5b3484] / add eax,0x6aa678 /
+     * call 0x4065a0 - the replay-mode cell GameTick also peeks. */
+    if (PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6aa678)) == 0) {
         FetchActiveTextInputText(g_sharedTextInputControl, text);
         if (text[0] != '\0' && ParseChatSlashCommand(g_clientContext, text) == 0) {
             int msgId;

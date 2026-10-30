@@ -63,7 +63,9 @@ extern const char s_ready_00551e80[];
 void InvokeWidget(int widgetId, int enabled);
 void ShowErrorDialog(int mode);
 void SendOutgoingPacket(int channelCtx);  /* flush/send the pending channel-1 packet */
-char PeekPacketChecksumBool(void);                /* mode check gating the page-offset source */
+/* 0x4065a0: the cell arrives in EAX, promoted to a parameter in the C
+ * port (e9c8ebd1). */
+char PeekPacketChecksumBool(unsigned char *cell); /* mode check gating the page-offset source */
 int SetGuardedBool(int value, int guardPtr);
 void CloseServerConnection(int connCtx);   /* the connection context to tear down */
 int __fastcall FUN_00402020(int param_1); /* per-slot blink randomizer */
@@ -257,8 +259,12 @@ void CState02ServerSelect::OnTick()
             InvokeWidget(2, m_highlightedSlot != -1);
             ShowErrorDialog(0);
             m_uiDirty = 1;
-            if (PeekPacketChecksumBool() != 0) {
-                SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+            /* 0x4e1a82-0x4e1aa7: both calls take the cell
+             * g_clientContext + 0x3b968 in EAX (`add eax,0x3b968` at
+             * 0x4e1a8a and 0x4e1aa2); SetGuardedBool's value is the
+             * pushed 0. */
+            if (PeekPacketChecksumBool((unsigned char *)g_clientContext + 0x3b968) != 0) {
+                SetGuardedBool(0,(int)((unsigned char *)g_clientContext + 0x3b968));
             }
             CloseServerConnection(g_connectionContextB);
             cfg = (unsigned char *)g_connectionContextB;
@@ -286,7 +292,8 @@ void CState02ServerSelect::OnTick()
         *(int *)(ctx + 0x44d0) = cur + 1;
         *(unsigned char *)(ctx + 0x4d1 + cur) = 0;
         *(int *)(ctx + 0x44d0) += 1;
-        if (PeekPacketChecksumBool() == 0) {
+        /* 0x4e1b4c-0x4e1b5d: the same cell, `add eax,0x3b968`. */
+        if (PeekPacketChecksumBool((unsigned char *)g_clientContext + 0x3b968) == 0) {
             *(unsigned short *)(ctx + 0x4d0 + *(int *)(ctx + 0x44d0)) =
                 (unsigned short)m_scrollOffset;
         } else {
