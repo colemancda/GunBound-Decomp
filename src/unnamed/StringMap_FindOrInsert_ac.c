@@ -25,11 +25,14 @@
  * observable behaviour and the _10 sibling rather than on a library
  * identity.
  *
- * RETURN VALUE NOT PORTED - LEFT UNFIXED (2026-10-29).  The port is
- * declared void, so the C caller cannot see the node: FUN_004fe8d0
- * writes through an uninitialised `iVar5` where the original uses this
- * function's EAX.  Fixing it means returning the find/insert result here
- * and assigning it to iVar5 at the call.
+ * RETURN VALUE RECOVERED (2026-10-29).  The port was declared void, so the
+ * C caller could not see the node and FUN_004fe8d0 wrote through an
+ * uninitialised `iVar5`.  In the original EAX at `ret` (0x500134) is the
+ * StringMap_Find_ac result on a hit (call 0x5000f5 -> `test eax,eax; jne
+ * 0x500130`, straight to `pop ebx; add esp,0xc; ret`) or the
+ * StringMap_Insert_ac result on a miss (call 0x50012b falls into the same
+ * epilogue); nothing between either call and `ret` writes EAX.  Now returns
+ * that node; the caller does `lea edi,[eax+0x14]` at 0x4fe94f with it.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -48,7 +51,7 @@
 #include "ghidra_types.h"
 
 
-void StringMap_FindOrInsert_ac(int *regEsi,char *regEdi)
+int StringMap_FindOrInsert_ac(int *regEsi,char *regEdi)
 
 {
   char cVar1;
@@ -57,7 +60,7 @@ void StringMap_FindOrInsert_ac(int *regEsi,char *regEdi)
   undefined4 local_8;
   undefined1 local_4 [4];
   
-  iVar2 = StringMap_Find_ac(regEdi,(uint *)&local_c,(undefined4 *)local_4,regEsi,(uint *)&local_8);
+  iVar2 = (int)StringMap_Find_ac(regEdi,(uint *)&local_c,(undefined4 *)local_4,regEsi,(uint *)&local_8);
   if (iVar2 == 0) {
     if (*regEsi == 0) {
       cVar1 = HashMap_InitHashTable(regEsi,regEsi[2],1);
@@ -66,8 +69,8 @@ void StringMap_FindOrInsert_ac(int *regEsi,char *regEdi)
         ThrowCxxException(0x8007000e);
       }
     }
-    StringMap_Insert_ac(local_8,local_c,(undefined4 *)regEdi,regEsi);
+    iVar2 = (int)StringMap_Insert_ac(local_8,local_c,(undefined4 *)regEdi,regEsi);
   }
-  return;
+  return iVar2;
 }
 

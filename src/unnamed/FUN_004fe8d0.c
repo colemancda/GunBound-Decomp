@@ -27,6 +27,13 @@
  * `mov ebx,ecx` at function entry (0x4fe8fa, before `esi` gets
  * repurposed) = this function's own `param_1`. So the true call is
  * `(this=iVar5, param_1, param_2, ...)`, not `(param_1, param_2, ...)`.
+ *
+ * RETURNED NODE WIRED (2026-10-29): StringMap_FindOrInsert_ac (call at
+ * 0x4fe94a) leaves the node in EAX and the original consumes it at once:
+ * `lea edi,[eax+0x14]` (0x4fe94f), then `mov [edi],ebp` / `mov [edi+4],bp`
+ * (node+0x14 / +0x18 zeroed) and `mov [edi+0x18],eax` (node+0x2c).  The
+ * port had discarded the return and written through an uninitialised
+ * `iVar5`; iVar5 is now the call's result.
  */
 #include "ghidra_types.h"
 
@@ -72,7 +79,7 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
     } while (bVar2 < 0x10);
     local_9d = (undefined1)uVar4;
     local_ae[uVar4] = '\0';
-    StringMap_FindOrInsert_ac((int *)((int)param_1 + 0x290),local_ae);
+    iVar5 = StringMap_FindOrInsert_ac((int *)((int)param_1 + 0x290),local_ae);
     *(int *)(iVar5 + 0x14) = 0;
     *(undefined2 *)(iVar5 + 0x18) = 0;
     uVar6 = FUN_00504e90();
