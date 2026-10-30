@@ -16,8 +16,9 @@
  * together (compare ReplayContext_Destructor).  The original is `ret 4`
  * (0x416c16), callee-cleaned; the port is cdecl, and the bring-up does
  * not call it - crt_shims_msvc.c substitutes a zeroed arena.  The
- * function also carries a live SEH artifact (unaff_FS_OFFSET is read and
- * written uninitialised), which would fault if it were ever called.
+ * function also carried a live SEH artifact (unaff_FS_OFFSET read and
+ * written uninitialised), which would have faulted if it were ever
+ * called; stripped 2026-10-30, see below.
  *
  * FIXED (2026-09-01): recovered the dropped guard-cell arg at all 22
  * argless InitGuardedBool sites (cell address arrives in ECX,
@@ -29,7 +30,16 @@
  * &DAT_006aa678+param_1 witness sites 2 and 22. Offsets: 0x22d30,
  * 0x23310, 0x3b498, 0x3b968, 0x5b818, 0x62140/43/46/49/4c/4f/52,
  * 0x5f3770, 0x67e3cc, 0x6a7f90, 0x6a9b6c/6f/72, 0x6aa625/28/2b,
- * 0x6aa678. */
+ * 0x6aa678.
+ *
+ * SEH-PROLOGUE ARTIFACT STRIPPED (2026-10-30): the prologue `push -1;
+ * push 0x53be60; mov eax,fs:[0]; push eax; mov fs:[0],esp` (0x415d40-
+ * 0x415d4e) and the epilogue `mov fs:[0],ecx` (0x416c0c) are the
+ * compiler's EH frame, which Ghidra rendered as reads and writes through
+ * an uninitialised unaff_FS_OFFSET pointer.  Removed per the idiom in
+ * ConstructStringFromText.c (also AtlArray_AppendCString.c /
+ * WidgetChildArray_Destroy.c); the local_4 state markers stay as
+ * address witnesses.  Nothing else in this function was changed. */
 #include "ghidra_types.h"
 
 
@@ -40,15 +50,11 @@ int ClientContext_Constructor(int param_1)
   byte bVar2;
   byte bVar3;
   undefined4 *puVar4;
-  undefined4 *unaff_FS_OFFSET;
-  undefined4 local_c;
-  undefined1 *puStack_8;
   undefined4 local_4;
   
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053be60;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH frame setup stripped (0x415d40-0x415d4e, handler
+   * 0x53be60) - see the 2026-10-30 note in the header. */
   *(undefined ***)(param_1 + 0xf6cc) = &PTR_FUN_005572dc;
   InitializeCriticalSection((LPCRITICAL_SECTION)(param_1 + 0xf6d0));
   local_4 = 0;
@@ -700,7 +706,6 @@ int ClientContext_Constructor(int param_1)
    * See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField(param_1 + 0x449c4, 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  *unaff_FS_OFFSET = local_c;
   return param_1;
 }
 

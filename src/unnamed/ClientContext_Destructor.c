@@ -14,16 +14,34 @@
  * (`mov dword ptr [0x5b3484], 0` at 0x418dee).  The original is `ret 4`
  * (0x419d20); the port is cdecl, consistent with its one C caller.
  *
- * KNOWN DEFECTS, NOT FIXED (rename only):
- *   - live SEH artifact: unaff_FS_OFFSET is read and written
- *     uninitialised in the prologue and epilogue, so this faults if run;
- *   - both FUN_004f0d70 (CloseXFSArchive) calls drop the archive, which
+ * KNOWN DEFECTS at naming time, both FIXED 2026-10-30:
+ *   - live SEH artifact: unaff_FS_OFFSET was read and written
+ *     uninitialised in the prologue and epilogue, so this faulted if run;
+ *   - both FUN_004f0d70 (CloseXFSArchive) calls dropped the archive, which
  *     the original passes in ESI = param_1+0xf6e8: `lea esi,[edi+0xf6e8]`
  *     at 0x418de8 for the call at 0x418df8, and again at 0x419cda for
  *     the call at 0x419ce0.  Witness: the second call is guarded by
  *     `cmp dword ptr [edi+0x10728], -1`, and 0x10728 = 0xf6e8 + 0x1040,
  *     the archive's file-handle field per FUN_004f0d70's own header.
+ *
+ * FIXED (2026-10-30):
+ *   - SEH-PROLOGUE ARTIFACT STRIPPED.  The prologue `push -1; push
+ *     0x53b742; mov eax,fs:[0]; push eax; mov fs:[0],esp` (0x418dc0-
+ *     0x418dce) and the epilogue `mov fs:[0],ecx` (0x419d16) are the
+ *     compiler's EH frame; removed per the idiom in
+ *     ConstructStringFromText.c.  The local_4 state markers stay.
+ *   - CloseXFSArchive ARCHIVE RECOVERED at both sites.  EDI = [esp+0x2c]
+ *     = param_1 (0x418ddc), and ESI = `lea esi,[edi+0xf6e8]` immediately
+ *     before each call (0x418de8 -> 0x418df8, 0x419cda -> 0x419ce0).
+ *     FUN_004f0d70 already takes its ESI archive as an explicit
+ *     XFSArchive * (see its header), and the other ported callers pass
+ *     it that way (ShutdownDirectDraw's &g_graphicsArchive,
+ *     LoadSoundConfig's &g_xfsScratch), so both calls now pass
+ *     (XFSArchive *)(param_1 + 0xf6e8).  The archive is the context's
+ *     embedded 0x10740-byte XFS object at +0xf6e8; the second call's
+ *     `cmp [edi+0x10728],-1` guard reads its handle at +0x1040.
  */
+#include "xfs.h"
 #include "ghidra_types.h"
 
 
@@ -36,18 +54,15 @@ void ClientContext_Destructor(int param_1)
   uint uVar4;
   int iVar5;
   int iVar6;
-  undefined4 *unaff_FS_OFFSET;
   undefined1 local_14 [8];
-  undefined4 uStack_c;
-  undefined1 *puStack_8;
   undefined4 local_4;
   
-  puStack_8 = &LAB_0053b742;
-  uStack_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &uStack_c;
+  /* Windows SEH frame setup stripped (0x418dc0-0x418dce, handler
+   * 0x53b742) - see the 2026-10-30 note in the header. */
   local_4 = 0x5f;
   g_clientContext = 0;
-  FUN_004f0d70();
+  /* ESI = `lea esi,[edi+0xf6e8]` at 0x418de8, call at 0x418df8 */
+  FUN_004f0d70((XFSArchive *)(param_1 + 0xf6e8));
   if (*(int *)(&DAT_006aa8b4 + param_1) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(&DAT_006aa8b4 + param_1),&g_valueGuardKeyTable);
     TreeInsert(local_14,&g_valueGuardMap);
@@ -434,13 +449,13 @@ void ClientContext_Destructor(int param_1)
     TreeInsert(local_14,&g_valueGuardMap);
   }
   if (*(int *)(param_1 + 0x10728) != -1) {
-    FUN_004f0d70();
+    /* ESI = `lea esi,[edi+0xf6e8]` at 0x419cda, call at 0x419ce0 */
+    FUN_004f0d70((XFSArchive *)(param_1 + 0xf6e8));
   }
   *(undefined ***)(param_1 + 0x1fdfc) = &PTR_FUN_005572dc;
   DeleteCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x1fe00));
   *(undefined ***)(param_1 + 0xf6cc) = &PTR_FUN_005572dc;
   DeleteCriticalSection((LPCRITICAL_SECTION)(param_1 + 0xf6d0));
-  *unaff_FS_OFFSET = uStack_c;
   return;
 }
 
