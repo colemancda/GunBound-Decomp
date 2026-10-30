@@ -876,6 +876,54 @@ extern "C" CGameState *g_gameStateVTableArray[16]; /* 0x5b33f8 - the C tree
                                      * C linkage so both sides bind the same
                                      * symbol */
 
+/* The two state-3 lobby panels, CChannelUserListPanel (vtable 0x557cac)
+ * and CLobbyChatPanel (0x557cd4), share slot 2 (+0x08), 0x5078d0, in
+ * place of CPanel's 0x505430 (vtable 0x557bbc +0x08). Carved 2026-10-30;
+ * it is 20 bytes:
+ *
+ *   0x5078d0  mov eax,[0x5b3404]           ; g_gameStateVTableArray[3]
+ *   0x5078d5  mov dword [eax+0x124],-1
+ *   0x5078df  jmp 0x50e8e0                 ; CWidget::MouseDownChildren
+ *
+ * ECX and the two stack words pass through untouched, so the tail jump is
+ * MouseDownChildren(x, y) on the same widget, and its AL / ret 8 is this
+ * slot's result. State03_GameRoomList_HandleMouseInput writes the same -1
+ * to the same +0x124 field on its own WM_LBUTTONDOWN path (0x428bf0),
+ * so a press on either lobby panel clears that state-3 field and then
+ * reaches the children only. CPanel's press core (drag arming, auto-focus)
+ * does not run. Until now both classes inherited CPanel::OnMouseDown. */
+static bool FUN_005078d0(CWidget *self, int x, int y)
+{
+    *(int *)((char *)g_gameStateVTableArray[3] + 0x124) = -1;
+    return self->MouseDownChildren(x, y);
+}
+
+bool CChannelUserListPanel::OnMouseDown(int x, int y)
+{
+    return FUN_005078d0(this, x, y);
+}
+
+bool CLobbyChatPanel::OnMouseDown(int x, int y)
+{
+    return FUN_005078d0(this, x, y);
+}
+
+/* CChannelUserListPanel slot 4 (+0x10) is 0x507310,
+ * ChannelUserListPanel_HitTest, in place of Widget_HitTest (0x50e9c0).
+ * It is __thiscall with two stack words and ret 8 (0x50745d), and returns
+ * its bool in AL (0x507427-0x507458). ghidra_types.h erases __thiscall to
+ * cdecl, so the C port takes `this` as the first stack argument. Like
+ * AvatarStorePanel_HitTest it has no child broadcast: after the row click
+ * that opens a whisper panel, it ends in the m_hidden-gated own-rect
+ * test. That is the original's behaviour, so the forward replaces the
+ * inherited slot outright. */
+extern "C" unsigned int ChannelUserListPanel_HitTest(int this_, int x, int y);
+
+bool CChannelUserListPanel::HitTest(int x, int y)
+{
+    return (unsigned char)ChannelUserListPanel_HitTest((int)this, x, y) != 0;
+}
+
 /* WorldListPanel_OnMouseDown - the row-selection handler. Runs the
  * CPanel default first (a DIRECT 0x505430 call in the original, not
  * virtual); outside the panel that result stands. Inside, resolve the

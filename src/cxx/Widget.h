@@ -276,6 +276,13 @@ public:
 class CChannelUserListPanel : public CPanel {  /* vtable 0x557cac; builder 0x509d80 */
 public:
     CChannelUserListPanel();                   /* inlined in the builder */
+    virtual bool OnMouseDown(int x, int y);    /* 0x5078d0 - Panel.cpp (slot 2, shared with
+                                                * CLobbyChatPanel: clears state 3's +0x124,
+                                                * then the child mouse-down broadcast) */
+    virtual bool HitTest(int x, int y);        /* 0x507310 - Panel.cpp forwards to the C
+                                                * ChannelUserListPanel_HitTest (slot 4: row
+                                                * click opens a whisper, then the own-rect
+                                                * test; no child broadcast) */
     virtual void OnCommand(int evt, int id, int arg); /* 0x507460 - Panel.cpp forwards to the C
                                                 * FUN_00507460 (slot 7: scrollbar position
                                                 * to g_clientContext+0x5f2f3c, then the
@@ -309,6 +316,8 @@ public:
 class CLobbyChatPanel : public CPanel {        /* vtable 0x557cd4; builder 0x509af0 */
 public:
     CLobbyChatPanel();                         /* inlined in the builder */
+    virtual bool OnMouseDown(int x, int y);    /* 0x5078d0 - Panel.cpp (slot 2, shared with
+                                                * CChannelUserListPanel) */
     virtual void OnCommand(int evt, int id, int arg); /* 0x507660 - Panel.cpp forwards to the C
                                                 * LobbyChatPanel_OnCommand (slot 7) */
     virtual void Update();                     /* 0x5078f0 - ported as the C

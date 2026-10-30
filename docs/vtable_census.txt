@@ -1470,10 +1470,10 @@ vtable 0x557c84  installs=1  slots=10  UNCARVED=2
    8: 0x507030  TextEntry_SyncFromControl
    9: 0x5071a0  FUN_005071a0
 
-vtable 0x557cac  installs=1  slots=10  UNCARVED=1
+vtable 0x557cac  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus
    1: 0x50e3a0  Widget_OnDragMove
-   2: 0x5078d0  UNCARVED
+   2: 0x5078d0  FUN_005078d0
    3: 0x50e4c0  Widget_OnMouseUp
    4: 0x507310  ChannelUserListPanel_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
@@ -1482,10 +1482,10 @@ vtable 0x557cac  installs=1  slots=10  UNCARVED=1
    8: 0x50e520  Widget_DrawChildren
    9: 0x5074a0  RenderChannelUserRow
 
-vtable 0x557cd4  installs=1  slots=10  UNCARVED=1
+vtable 0x557cd4  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus
    1: 0x50e3a0  Widget_OnDragMove
-   2: 0x5078d0  UNCARVED
+   2: 0x5078d0  FUN_005078d0
    3: 0x50e4c0  Widget_OnMouseUp
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
