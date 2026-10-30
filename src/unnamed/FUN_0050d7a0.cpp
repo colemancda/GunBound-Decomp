@@ -19,6 +19,11 @@
  * `g_gameStateVTableArray[2]+0xc`, confirming identity), passing all
  * three arguments explicitly sidesteps that register-convention issue
  * entirely rather than needing an inline-asm capture.
+ *
+ * 2026-10-30: this is CWorldListPanel's slot 1 (word at 0x557f0c), now
+ * wired as CWorldListPanel::OnMouseMove in Panel.cpp. OnDragMove is
+ * non-virtual now, so the call below is the direct `call 0x50e3a0` at
+ * 0x50d7c2. It does not go back through slot 1 into this function.
  */
 #include "../cxx/Widget.h"
 

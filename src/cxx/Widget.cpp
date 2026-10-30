@@ -124,7 +124,8 @@ bool CWidget::ResetPressState(int x, int y)
             m_y < y && y < m_y + m_height);
 }
 
-/* 0x50e3a0, vtable slot 11 (base drag). While the drag flag is armed,
+/* 0x50e3a0, slot 1 of the panel vtables (non-virtual here; CPanel's
+ * OnMouseMove calls it, and so does 0x50d7a0). While the drag flag is armed,
  * shift by the delta from the last drag point and update it; then the
  * mouse-move child broadcast and the usual consumed-or-inside report.
  * The drag fields (+0x39 flag, +0x3c/+0x40 last point) live in the
@@ -438,14 +439,6 @@ void CWidget::Update()
     for (unsigned int i = 0; i < count; ++i) {
         m_children[i]->Update();
     }
-}
-
-/* Slot 10 - 0x50e860, byte-identical to SetFocus (identical-code
- * folding; see the Widget.h slot-10 note). Kept as a separate method so
- * the vtable keeps its 12 distinct slots. */
-void CWidget::v10(bool b)
-{
-    m_focused = (u8)b;
 }
 
 /* ===========================================================================

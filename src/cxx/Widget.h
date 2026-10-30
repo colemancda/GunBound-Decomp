@@ -2,7 +2,7 @@
  * vtable family). Reconstruction of docs/widgets.md; see src/cxx/README.md
  * for conventions and confidence levels.
  *
- * CONFIRMED: the 12-slot vtable order, the field offsets, the composite
+ * CONFIRMED: the 10-slot vtable order, the field offsets, the composite
  * child list, the OnCommand(evt,id,arg) child->parent callback chain, the
  * concrete object sizes (CLabel 0x40, CEditBox 0x140, CScrollBar 0x58).
  * GUESSED: every name; literal single inheritance.
@@ -54,9 +54,18 @@ public:
                                                          * command dispatcher. */
     virtual void Draw();                                /* slot 8  +0x20: self + child broadcast (Widget_DrawChildren) */
     virtual void Update();                              /* slot 9  +0x24: per-class hook (e.g. panel row-loop 0x50dc40) */
-    virtual void v10(bool b);                           /* slot 10 +0x28: same 0x50e860 body as SetFocus
-                                                         * (identical-code folded); distinct role unknown */
-    virtual bool OnDragMove(int x, int y);              /* slot 11 +0x2c: base drag, Widget_OnDragMove */
+    /* THE WIDGET VTABLES HAVE 10 SLOTS, NOT 12 (2026-10-30). The old
+     * "slot 10 = 0x50e860, slot 11 = 0x50e3a0" were read past the end of
+     * a vtable: 0x557bbc + 0x28 is 0x557be4, the next vtable (CBuddyPanel),
+     * whose slots 0 and 1 are those two words. Every widget vtable in
+     * 0x557b94..0x557f58 is 0x28 bytes apart. find_vtable_refs puts
+     * 0x50e3a0 only at vtable+4 (slot 1) and 0x50e4c0 only at vtable+0xc
+     * (slot 3), never at +0x28/+0x2c. The 11-slot vtables nearby (0x557cfc,
+     * 0x557f80) are the panel-manager family, not CWidget. So the
+     * placeholder v10 is gone, and OnDragMove (0x50e3a0) is the
+     * non-virtual helper below. It is CPanel's slot 1, wired there.
+     * Before this, no CPanel subclass ever dragged: panels inherited
+     * the plain child broadcast for slot 1. */
 
     /* Non-virtual base helpers (real member functions in the binary,
      * called by subclass handlers): */
@@ -76,6 +85,10 @@ public:
                                              * returns -1 when not found. */
     bool MouseDownChildren(int x, int y); /* 0x50e8e0 - promoted, Widget.cpp */
     bool MouseUpChildren(int x, int y);   /* 0x50e950 - promoted, Widget.cpp */
+    bool OnDragMove(int x, int y);        /* 0x50e3a0 - promoted, Widget.cpp: the panel drag move.
+                                           * NOT virtual: it is slot 1 of the panel vtables
+                                           * (CPanel::OnMouseMove), and 0x50d7a0 calls it
+                                           * directly (`call 0x50e3a0` at 0x50d7c2). */
 
     /* field offsets confirmed in docs/widgets.md; m_unk* are the
      * undocumented gaps, kept explicit so everything else lands exactly */
@@ -242,8 +255,13 @@ public:
      * is deferred pending a CString reconstruction; see there). */
     CPanel();
 
+    virtual bool OnMouseMove(int x, int y);  /* slot 1: 0x50e3a0 - Panel.cpp: the drag move
+                                              * (CWidget::OnDragMove), word at 0x557bc0 */
     virtual bool OnMouseDown(int x, int y);  /* 0x505430 - promoted, Panel.cpp: the panel default
                                               * (press core + auto-focus the first edit box) */
+    virtual bool OnMouseUp(int x, int y);    /* slot 3: 0x50e4c0 - Panel.cpp forwards to
+                                              * Widget_OnMouseUp: disarms the +0x39 drag, then
+                                              * the child mouse-up broadcast; word at 0x557bc8 */
     virtual void Update();                   /* 0x5054b0 - Panel.cpp: slot 9 of the base vtable
                                               * 0x557bbc is Widget_DrawSelf (the frame sprite,
                                               * then the deep child Update broadcast), not
@@ -271,6 +289,10 @@ public:
 class CWorldListPanel : public CPanel {   /* vtable 0x557f08; builder 0x5099d0 */
 public:
     CWorldListPanel();                    /* inlined in the builder */
+
+    virtual bool OnMouseMove(int x, int y);           /* slot 1: 0x50d7a0 (word at 0x557f0c) -
+                                                       * Panel.cpp forwards to FUN_0050d7a0: row
+                                                       * hover, then the drag move */
 
     virtual bool OnMouseDown(int x, int y);           /* WorldListPanel_OnMouseDown - port pending on the
                                                        * CPanel mouse-down default chain (0x505430) */

@@ -73,6 +73,41 @@ void __fastcall Widget_DrawSelf(int this_);
  * tests m_hidden itself (0x5054b3), blits the m_unk44/m_unk48 frame, and
  * tail-jumps to 0x50ecf0 for the children (0x5054fc), so this one call
  * covers what the inherited broadcast did. */
+/* 0x50e3a0 and 0x50e4c0, slots 1 and 3 of the panel base vtable 0x557bbc
+ * (words at 0x557bc0 and 0x557bc8), and of every panel vtable except
+ * CWorldListPanel's slot 1 and CAvatarStorePanel's slots 1 and 3, which
+ * override them. PanelManager_DispatchMouseMove (0x50f020) calls each
+ * panel's slot 1 (`call [eax+4]` at 0x50f040). With these slots
+ * unwired, the C++ panels inherited CWidget's plain child broadcasts. The
+ * +0x39 drag flag that HandlePress arms was then never followed (slot 1)
+ * and never cleared (slot 3). Neither body calls a virtual of its own
+ * object: 0x50e3a0 calls 0x50e730 (MoveBy) and 0x50e870
+ * (MouseMoveChildren) directly, and 0x50e4c0 calls 0x50e950
+ * (MouseUpChildren) directly, so both forwards are non-virtual. */
+extern "C" int Widget_OnMouseUp(CWidget *this_, int x, int y);
+
+bool CPanel::OnMouseMove(int x, int y)
+{
+    return OnDragMove(x, y);
+}
+
+bool CPanel::OnMouseUp(int x, int y)
+{
+    return Widget_OnMouseUp(this, x, y) != 0;
+}
+
+/* 0x50d7a0, CWorldListPanel's slot 1 (word at 0x557f0c): the row
+ * hit-test into State02's highlighted slot, then a direct
+ * `call 0x50e3a0` (the drag move) and the rect report. The C++ body is
+ * FUN_0050d7a0.cpp, a free extern "C" function with `this` as its first
+ * stack argument. */
+extern "C" int FUN_0050d7a0(CWorldListPanel *this_, int x, int y);
+
+bool CWorldListPanel::OnMouseMove(int x, int y)
+{
+    return FUN_0050d7a0(this, x, y) != 0;
+}
+
 void CPanel::Update()
 {
     Widget_DrawSelf((int)this);
