@@ -1,13 +1,23 @@
-/* FUN_005078f0 - 0x005078f0 in the original binary.
+/* LobbyChatPanel_Update - 0x005078f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-30), CERTAIN: CLobbyChatPanel's slot-9 Update
+ * override. The original's vtable 0x557cd4 holds this at slot 9
+ * (+0x24); that vtable is installed only by BuildLobbyChatPanel
+ * (0x509b35) and src/cxx/Widget.h records it as CLobbyChatPanel's,
+ * declaring this address as that class's Update. src/cxx/Panel.cpp's
+ * CLobbyChatPanel::Update forwards here (the never-wired slot-9 gap
+ * fixed alongside CBuddyPanel::Update). The rows it draws are offset by
+ * ctx+0x3b97c, the scroll position LobbyChatPanel_OnCommand stores from
+ * the scrollbar's evt-0x2000 report.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_005078f0(int param_1)
+void __fastcall LobbyChatPanel_Update(int param_1)
 
 {
   char cVar1;

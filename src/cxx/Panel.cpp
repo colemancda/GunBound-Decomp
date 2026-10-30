@@ -516,8 +516,9 @@ void CBuddyPanel::Update()
  * CChannelUserListPanel::Update, vtable slot 9. The SAME never-wired gap as
  * CBuddyPanel::Update above, found by diffing the original's vtables at
  * 0x557cd4/0x557cac against the port's virtuals: both slot-9 functions were
- * already fully ported as C (FUN_005078f0.c / RenderChannelUserRow.c - each
- * does the m_hidden check, Widget_DrawSelf, then its rows), but with no C++
+ * already fully ported as C (LobbyChatPanel_Update.c /
+ * RenderChannelUserRow.c - each does the m_hidden check, Widget_DrawSelf,
+ * then its rows), but with no C++
  * override declared the compiled vtable fell through to CWidget::Update's
  * child-broadcast no-op. Net effect in the lobby: no CHATTING frame, no
  * CHANNEL panel at all, and the panels' CHILD widgets (tabs, scrollbar
@@ -526,12 +527,12 @@ void CBuddyPanel::Update()
  * missing panels" screen the live original-vs-port comparison showed
  * (build/shots/). Forward to the ported C bodies; both are __fastcall with
  * `this` as their only argument, same as Widget_DrawSelf. */
-extern "C" void __fastcall FUN_005078f0(int this_);
+extern "C" void __fastcall LobbyChatPanel_Update(int this_);
 extern "C" void __fastcall RenderChannelUserRow(int this_);
 
 void CLobbyChatPanel::Update()
 {
-    FUN_005078f0((int)this);
+    LobbyChatPanel_Update((int)this);
 }
 
 void CChannelUserListPanel::Update()

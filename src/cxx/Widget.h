@@ -297,8 +297,8 @@ class CLobbyChatPanel : public CPanel {        /* vtable 0x557cd4; builder 0x509
 public:
     CLobbyChatPanel();                         /* inlined in the builder */
     virtual void Update();                     /* 0x5078f0 - ported as the C
-                                                * FUN_005078f0 (frame + chat rows +
-                                                * the selected-room detail via
+                                                * LobbyChatPanel_Update (frame + chat
+                                                * rows + the selected-room detail via
                                                 * FUN_0042a680); never wired, so the
                                                 * inherited child-broadcast no-op ran
                                                 * instead. Same gap as

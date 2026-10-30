@@ -32,7 +32,7 @@
  * the method at 0x4285c0, which is slot 4 of the class vtable at
  * 0x553674-0x5536b4 (all slots land in the 0x428xxx-0x429xxx lobby
  * range). That is the same pointer FUN_0042a680 receives as param_1 via
- * `FUN_0042a680(g_gameStateVTableArray[3])` (src/unnamed/FUN_005078f0.c),
+ * `FUN_0042a680(g_gameStateVTableArray[3])` (LobbyChatPanel_Update.c),
  * and it is allocated `operator_new(0x294)` in InitGame.c, so the +0x124
  * accesses are well inside the object - no sizing issue.
  *

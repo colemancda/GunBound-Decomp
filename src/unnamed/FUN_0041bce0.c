@@ -29,13 +29,13 @@ void FUN_0041bce0(int param_1)
    * stores in the whole function are `mov [esp+0x18],0x24` at 0x41bd33
    * (row has no icon) and `mov [esp+0x18],0x32` at 0x41bd49 (row has an
    * icon), and it is reloaded as the this/x of every text call below.
-   * Same drop, same role as FUN_005078f0.c's xCursor and
+   * Same drop, same role as LobbyChatPanel_Update.c's xCursor and
    * RenderReadyRoomChatRow.c's iVar11. */
   int xCursor;
   /* RECOVERED: the running glyph-width advance (EBP), 6 px per character,
    * accumulated across the row's strings at 0x41bf07-0x41bf13 and
    * 0x41bf6d-0x41bf76.  Ghidra kept the strlen walks and discarded their
-   * results - the same drop as FUN_005078f0.c's xAdvance. */
+   * results - the same drop as LobbyChatPanel_Update.c's xAdvance. */
   int xAdvance;
   undefined4 local_8;
   int local_4;
