@@ -39,6 +39,7 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
   uint uVar1;
   int iVar2;
   int iVar3;
+  int iFillEnd;
   void *pvVar4;
   undefined4 uVar5;
   uint uVar6;
@@ -156,14 +157,21 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
       Vector_UninitFillN_12(param_4 - (uint)((iVar3 - param_3) / 0x12),0,param_3,
                             (undefined4 *)iVar3,local_2c);
       *(uint *)(param_2 + 8) = *(int *)(param_2 + 8) + param_4 * 0x12;
+      /* fill end = new _Mylast - n*0x12 = the old _Mylast (0x502db2-0x502db9) */
+      iFillEnd = iVar3;
     }
     else {
       iVar2 = iVar3 + param_4 * -0x12;
       uVar5 = Vector_UninitCopy_12(0,(undefined4 *)iVar2,(undefined4 *)iVar3,(undefined4 *)iVar3);
       *(undefined4 *)(param_2 + 8) = uVar5;
       FUN_005042f0((undefined4 *)iVar2,(undefined4 *)param_3,(undefined4 *)iVar3);
+      /* fill end = _Where + n*0x12 (`lea ecx,[esi+ebx]` at 0x502def) */
+      iFillEnd = param_3 + param_4 * 0x12;
     }
-    FUN_00503eb0();
+    /* fill(_Where, fill end, element copy): EAX = _Where (EBX / [ebp+0xc]),
+     * ECX = the per-arm end above, EDX = `lea edx,[ebp-0x28]` (0x502df4) =
+     * local_2c.  The port passed nothing. */
+    Vector_FillN_12((undefined4 *)iFillEnd,local_2c,(undefined4 *)param_3);
   }
   *unaff_FS_OFFSET = local_10;
   return;

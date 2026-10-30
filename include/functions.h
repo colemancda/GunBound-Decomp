@@ -1615,7 +1615,7 @@ void FUN_00503bb0(int regEbx);
 undefined4 __thiscall CommP2POwner_ReassemblePackets(undefined4 *param_1,ushort *param_2,uint param_3);
 void CopyNameField_e(int regEsi,int regEdi);
 void StringMap_SetAt_28(undefined4 param_1,undefined4 *regEsi,int *regEdi);
-void __fastcall FUN_00503eb0();
+void __fastcall Vector_FillN_12(undefined4 *param_1,undefined4 *param_2,undefined4 *regEax);
 void __fastcall Vector_FillN_34(undefined4 param_1,undefined4 *param_2,undefined4 *regEax,undefined4 *regEbx);
 void __fastcall Vector_CopyBackward_34(undefined4 param_1,undefined4 *param_2,undefined4 *regEax,undefined4 *regEbx);
 void Vector_FillN_8(int *param_1,int *param_2,int *param_3);

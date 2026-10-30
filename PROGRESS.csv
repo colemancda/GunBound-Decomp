@@ -1514,7 +1514,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00503c40,459,CommP2POwner_ReassemblePackets,false,2,2,RAW-src
 00503e10,32,CopyNameField_e,false,5,0,RAW-src
 00503e30,120,StringMap_SetAt_28,false,6,4,RAW-src
-00503eb0,52,FUN_00503eb0,false,1,0,RAW-src
+00503eb0,52,Vector_FillN_12,false,1,0,RAW-src
 00503ef0,27,Vector_FillN_34,false,1,0,RAW-src
 00503f10,30,Vector_CopyBackward_34,false,1,0,RAW-src
 00503f30,209,Vector_FillN_8,false,2,2,RAW-src
