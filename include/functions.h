@@ -1717,7 +1717,7 @@ undefined4 __thiscall FUN_0050a030();
 uint __thiscall FUN_0050a1b0();
 undefined4 __thiscall FUN_0050a320();
 undefined4 __thiscall AvatarStorePanel_HitTest();
-void __fastcall FUN_0050a8f0();
+void __fastcall AvatarStorePanel_Draw();
 void __thiscall AvatarStorePanel_OnCommand();
 void __fastcall RenderAvatarListRow(int param_1,int regEax);
 void RenderAvatarListDragRow();
@@ -1762,7 +1762,7 @@ void __fastcall FUN_0050f290(int *param_1);
 undefined4 PanelManager_PrependNode();
 void PanelManager_GrowNodePool();
 uint FUN_0050f3f0(int,int);
-void __fastcall FUN_0050f840();
+void __fastcall FUN_0050f840(int param_1,int param_2);
 undefined8 FUN_0050f890(); /* 64-bit result used from EDX:EAX at call sites */
 undefined8 DecodeMpegLayerIISamples();
 void FUN_0050fd90();
