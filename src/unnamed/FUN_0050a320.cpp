@@ -37,6 +37,9 @@
  * fields) - this function has no callers of its own in the raw C tree
  * (only reachable via vtable dispatch in the original), so no other files
  * needed touching.
+ *
+ * AtlArray_RemoveAt_450 INDEX RECOVERED (2026-10-29): the call at orig
+ * 0x50a42e now passes self->[0x94] (`mov eax,[ebp+0x94]`, 0x50a41c).
  */
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -53,7 +56,7 @@ extern unsigned char g_valueGuardLock;
 int AvatarListRowHitTest(int widget, int x, int y);
 int AtlArray_ConstructElement_450(void *buf);
 void AtlArray_CopyElement_450(int dstRecord, int srcRecord);
-void AtlArray_RemoveAt_450(unsigned int ctx, int regEdi);
+void AtlArray_RemoveAt_450(unsigned int ctx, int regEdi, int regEax);
 void AtlArray_InsertAt_450(unsigned int ctx, unsigned int idx, void *buf, int flag);
 void FUN_0044b0b0(void *state);
 void AtlArray_DestroyElement_450(void *buf);
@@ -113,7 +116,10 @@ extern "C" int FUN_0050a320(CWidget *this_, int x, int y)
       AtlArray_CopyElement_450((int)local_45c,
                    (int)(*(unsigned int *)(self + 0x94) * 0x450
                          + *(int *)(g_clientContext + 0x44e20)));
-      AtlArray_RemoveAt_450(g_clientContext + 0x44e20,1);
+      /* INDEX RECOVERED (2026-10-29), orig 0x50a42e: EAX = `mov eax,[ebp+0x94]`
+         at 0x50a41c, EBP = this (`mov ebp,ecx` at 0x50a33d) -- the row being
+         moved, the same self->[0x94] the copy above reads. */
+      AtlArray_RemoveAt_450(g_clientContext + 0x44e20,1,*(int *)(self + 0x94));
       AtlArray_InsertAt_450(g_clientContext + 0x44e20, local_468, local_45c, 1);
       FUN_0044b0b0(puVar2);
       iVar4 = 0;

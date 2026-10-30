@@ -22,9 +22,15 @@
  * AtlArray_RemoveAt_CString (0x4264d0) are the same template member at
  * other instantiations, hence the stride suffix.
  *
- * The index (EAX) is still the undeclared `in_EAX` below, so the C sites
- * pass no iElement - left as found in this rename.  FUN_0050a320.cpp
- * carries its own extern declaration, renamed with this one.
+ * INDEX PROMOTED (2026-10-29).  iElement arrives in EAX (`mov esi,eax` at
+ * 0x44c6a9, then `lea ebp,[esi+edi]` / `imul esi,esi,0x450`); it was the
+ * undeclared `in_EAX`, so no C site passed it.  It is now the trailing
+ * `regEax` parameter and all four sites pass it:
+ *   0x44496b, 0x444dad, 0x444ddf (State07): the PeekChecksumStateUnderLock
+ *     (0x40a4d0) result of the call just before each - 0x444954, 0x444d96,
+ *     0x444dc8 - on this+0x3054c, EAX untouched up to the call;
+ *   0x50a42e (FUN_0050a320): `mov eax,[ebp+0x94]` at 0x50a41c, EBP = this.
+ * FUN_0050a320.cpp carries its own extern declaration, updated to match.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -33,26 +39,25 @@
 #include "ghidra_types.h"
 
 
-void AtlArray_RemoveAt_450(int *param_1,int regEdi)
+void AtlArray_RemoveAt_450(int *param_1,int regEdi,int regEax)
 
 {
-  int in_EAX;
   int iVar1;
   int iVar2;
   int iVar3;
   
-  if ((uint)param_1[1] < (uint)(in_EAX + regEdi)) {
+  if ((uint)param_1[1] < (uint)(regEax + regEdi)) {
                     /* WARNING: Subroutine does not return */
     ThrowCxxException(0x80070057);
   }
-  iVar1 = (param_1[1] - in_EAX) - regEdi;
-  iVar2 = *param_1 + in_EAX * 0x450;
+  iVar1 = (param_1[1] - regEax) - regEdi;
+  iVar2 = *param_1 + regEax * 0x450;
   for (iVar3 = regEdi; iVar3 != 0; iVar3 = iVar3 + -1) {
     AtlArray_DestroyElement_450(iVar2);
     iVar2 = iVar2 + 0x450;
   }
   if (iVar1 != 0) {
-    _memmove((void *)(*param_1 + in_EAX * 0x450),(void *)((in_EAX + regEdi) * 0x450 + *param_1),
+    _memmove((void *)(*param_1 + regEax * 0x450),(void *)((regEax + regEdi) * 0x450 + *param_1),
              iVar1 * 0x450);
   }
   param_1[1] = param_1[1] - regEdi;

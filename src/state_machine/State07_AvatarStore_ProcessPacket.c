@@ -36,6 +36,11 @@
  *   - C421 / C533 (0x444b22, 0x444f9e) are esp + 0xc + 0x228, and
  *     esp + 0xc is where the prologue spilled ECX at 0x4440ef -- the
  *     `this` pointer.
+ *
+ * AtlArray_RemoveAt_450 INDEX RECOVERED (2026-10-29): its three calls
+ * (orig 0x44496b, 0x444dad, 0x444ddf) passed no iElement; each now passes
+ * the PeekChecksumStateUnderLock result the original leaves in EAX (calls
+ * at 0x444954, 0x444d96, 0x444dc8) - see the comments at the calls.
  */
 #include "ghidra_types.h"
 #include "opcodes.h"
@@ -401,8 +406,13 @@ LAB_0044469b:
               ThrowCxxException(0x80070057);
             }
             FUN_0044c370(*(int *)(*(int *)(g_clientContext + 0x44e20) + uVar11 * 0x450 + 4));
-            PeekChecksumStateUnderLock((int)this + 0x3054c);
-            AtlArray_RemoveAt_450(g_clientContext + 0x44e20,1);
+            /* INDEX RECOVERED (2026-10-29), orig 0x44496b: EAX = the
+             * PeekChecksumStateUnderLock result (`push edi; call 0x40a4d0`
+             * at 0x444953/0x444954, EDI = this+0x3054c from 0x444916),
+             * untouched by the `mov ecx,[g_clientContext]; add ecx,0x44e20;
+             * push ecx; mov edi,1` that follows. */
+            AtlArray_RemoveAt_450(g_clientContext + 0x44e20,1,
+                                  PeekChecksumStateUnderLock((int)this + 0x3054c));
             iVar4 = 0;
             local_520 = 0;
             do {
@@ -508,13 +518,19 @@ LAB_00444d76:
           ThrowCxxException(0x80070057);
         }
         FUN_0044c370(*(int *)(*(int *)(g_clientContext + 0x44e20) + uVar11 * 0x450 + 4));
-        PeekChecksumStateUnderLock(iVar4);
-        AtlArray_RemoveAt_450(g_clientContext + 0x44e20,1);
+        /* INDEX RECOVERED (2026-10-29), orig 0x444dad: EAX = the
+         * PeekChecksumStateUnderLock result (`push esi; call 0x40a4d0` at
+         * 0x444d95/0x444d96, ESI = this+0x3054c = iVar4 from 0x444d58);
+         * nothing before the call rewrites EAX. */
+        AtlArray_RemoveAt_450(g_clientContext + 0x44e20,1,PeekChecksumStateUnderLock(iVar4));
         uVar11 = *(uint *)(g_clientContext + 0x44e34);
         uVar8 = PeekChecksumStateUnderLock(iVar4);
         if (uVar8 < uVar11) {
-          PeekChecksumStateUnderLock(iVar4);
-          AtlArray_RemoveAt_450(g_clientContext + 0x44e30,1);
+          /* INDEX RECOVERED (2026-10-29), orig 0x444ddf: EAX = the
+           * re-read PeekChecksumStateUnderLock result (`push esi; call
+           * 0x40a4d0` at 0x444dc7/0x444dc8, ESI = iVar4), not the uVar8
+           * compared at 0x444dc3 - the original calls it again. */
+          AtlArray_RemoveAt_450(g_clientContext + 0x44e30,1,PeekChecksumStateUnderLock(iVar4));
         }
         local_514 = 0;
         local_520 = 0;
