@@ -16,11 +16,10 @@
  * &local_4668), the 0x3001 arm (dest local_48f0, src &local_496c) and the
  * 0x4001 record loop (dest &local_4944, src iVar7).
  *
- * CAVEAT on the 0x2021 site: the original writes 18 bytes at esp_base+0x38,
- * but the port declares that slot as `undefined1 local_4958 [4]` with
- * local_4954/local_4950/local_494c modelling what are really its +4/+8/+0xc
- * fields.  The argument is right; the declaration is a pre-existing
- * split-struct defect in the caller and is not fixed here.
+ * The 0x2021 site writes 18 bytes at esp_base+0x38. The caller used to
+ * declare that slot as `undefined1 local_4958 [4]` plus local_4954,
+ * local_4950 and local_494c. It is one 0x14-byte local_4958 since
+ * 2026-10-30.
  *
  * NAMED (2026-08-28): one of three copies of the same fixed-width name
  * field assignment, distinguished by the width of the record they write.

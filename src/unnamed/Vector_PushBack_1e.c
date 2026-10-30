@@ -7,8 +7,15 @@
  *
  * EAX RECOVERED (2026-08-25) from the single site in CommP2POwner_ProcessPacket, under the
  * -0x4990 frame constant that function's earlier recoveries established and
- * that four independent slots agree on: `lea eax,[esp+0x3c]` with no push
- * pending = &local_4954.
+ * that four independent slots agree on: `lea eax,[esp+0x3c]`.
+ *
+ * CORRECTED (2026-10-30): a push IS pending at that lea - `push ecx`
+ * (this function's element argument) at 0x50233f, one instruction
+ * before `lea eax,[esp+0x3c]` at 0x502340 - so EAX = esp_base+0x38, the
+ * vector object local_4958 (allocator +0, _Myfirst +4), not &local_4954.
+ * The caller's 0x4001 arm hands the same object to its slot-0x34
+ * handler and to the tidy at 0x50235e/0x502366, both `lea [esp+0x38]`
+ * with nothing pushed. The caller now passes local_4958.
  */
 #include "ghidra_types.h"
 

@@ -66,10 +66,18 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
   undefined4 *local_4970;
   sockaddr local_496c;
   undefined1 local_495c;
-  undefined1 local_4958 [4];
-  undefined4 local_4954;
-  undefined4 local_4950;
-  undefined4 local_494c;
+  /* COALESCED (2026-10-30): one 0x14-byte slot at esp_base+0x38 (frame
+   * constant -0x4990), which Ghidra split into local_4958[4], local_4954,
+   * local_4950 and local_494c. The names are the offsets. The function
+   * uses the slot in two ways. In the 0x1011, 0x1ffe and 0x4001 arms it is
+   * a VC7.1 vector: allocator +0, _Myfirst +4, _Mylast +8, _Myend +0xc,
+   * zeroed by `mov [esp+0x3c/0x40/0x44],edx` (0x5022a2-0x5022aa), and the
+   * whole object is passed as `lea eax/esi,[esp+0x38]` (0x501e1e,
+   * 0x50235e, 0x502366). In the 0x2021 arm it is the 18-byte name
+   * record that CopyNameField_12 writes (`lea esi,[esp+0x38]` at
+   * 0x50218c), which runs past +4 into the next two words. Split, that
+   * write overran the 4-byte local_4958. */
+  undefined1 local_4958 [0x14];
   undefined4 local_4944;
   undefined4 uStack_4940;
   undefined4 uStack_493c;
@@ -224,9 +232,9 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
     if (0x101f < uVar6) {
       if (uVar6 == 0x1ffe) {
         if (3 < param_3) {
-          local_4954 = 0;
-          local_4950 = 0;
-          local_494c = 0;
+          *(undefined4 *)(local_4958 + 4) = 0;
+          *(undefined4 *)(local_4958 + 8) = 0;
+          *(undefined4 *)(local_4958 + 0xc) = 0;
           local_c = 1;
           iVar7 = (**(code **)(DAT_005b1444 + 0xc))();
           local_4978 = iVar7 + 0x10;
@@ -392,9 +400,9 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
       goto LAB_00502483;
     }
     if ((uVar6 != 0x1011) || (param_3 < 2)) goto LAB_00502483;
-    local_4954 = 0;
-    local_4950 = 0;
-    local_494c = 0;
+    *(undefined4 *)(local_4958 + 4) = 0;
+    *(undefined4 *)(local_4958 + 8) = 0;
+    *(undefined4 *)(local_4958 + 0xc) = 0;
     local_c = 0;
     uStack_4940 = 0;
     uStack_493c = 0;
@@ -679,9 +687,9 @@ LAB_00501b17:
     goto LAB_00502483;
   }
   if ((uVar6 != 0x4001) || (param_3 < 2)) goto LAB_00502483;
-  local_4954 = 0;
-  local_4950 = 0;
-  local_494c = 0;
+  *(undefined4 *)(local_4958 + 4) = 0;
+  *(undefined4 *)(local_4958 + 8) = 0;
+  *(undefined4 *)(local_4958 + 0xc) = 0;
   local_c = 3;
   if (*puVar1 == 0) {
     if (3 < param_3) {
@@ -708,7 +716,12 @@ LAB_00501b17:
           CopyNameField_a((int)((char *)&local_4944 + 0x12),iVar7 + 0x1c);
           local_4928 = *(undefined2 *)(iVar7 + 0x24);
           iVar7 = iVar7 + 0x26;
-          Vector_PushBack_1e(&local_4944,(int)&local_4954);
+          /* 0x50233f-0x502347: `push ecx` (the element) is pending when
+           * `lea eax,[esp+0x3c]` runs, so EAX = esp_base+0x38 = the vector
+           * local_4958, the same object the slot-0x34 handler and the tidy
+           * below receive (0x50235e, 0x502366). The port had passed
+           * &local_4954, which is 4 bytes in. */
+          Vector_PushBack_1e(&local_4944,(int)local_4958);
           local_4984 = local_4984 - 1;
         } while (local_4984 != 0);
         local_4984 = 0;
