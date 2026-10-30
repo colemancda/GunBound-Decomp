@@ -636,6 +636,36 @@ void CAvatarStorePanel::Draw()
     AvatarStorePanel_Draw((int)this);
 }
 
+/* CAvatarStorePanel's mouse slots, read from the vtable bytes at
+ * 0x557eb8: +0x04 0x50a030, +0x08 0x50a1b0, +0x0c 0x50a320. Each body
+ * is __thiscall in the original (`mov ebp,ecx` at 0x50a03b; ret 8 at
+ * 0x50a19b/0x50a1aa, 0x50a305/0x50a30f and 0x50a638) and returns its
+ * bool in AL.
+ * The ports are extern "C" cdecl with `this` first, which is the erased
+ * __thiscall shape. None of them reaches the base through the vtable.
+ * 0x50a030 and 0x50a320 run the non-virtual child move/up broadcasts
+ * themselves, and 0x50a1b0 calls CPanel::OnMouseDown directly
+ * (`call 0x505430` at 0x50a290). So each forward replaces the inherited
+ * slot outright. Slot 9 (0x50aa10) has no port and stays inherited. */
+extern "C" int FUN_0050a030(CWidget *this_, int x, int y);
+extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y);
+extern "C" int FUN_0050a320(CWidget *this_, int x, int y);
+
+bool CAvatarStorePanel::OnMouseMove(int x, int y)
+{
+    return (unsigned char)FUN_0050a030(this, x, y) != 0;
+}
+
+bool CAvatarStorePanel::OnMouseDown(int x, int y)
+{
+    return (unsigned char)FUN_0050a1b0(this, x, y) != 0;
+}
+
+bool CAvatarStorePanel::OnMouseUp(int x, int y)
+{
+    return (unsigned char)FUN_0050a320(this, x, y) != 0;
+}
+
 /* 0x509110 - BuildBuddyPanel (docs/widgets.md: the shared buddy list).
  * SINGLETON keyed 20000: if already registered, just set the existing
  * panel's +0x1d reshow flag. Otherwise: (568,11) 211x267 with the

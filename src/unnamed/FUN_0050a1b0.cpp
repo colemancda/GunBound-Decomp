@@ -79,7 +79,10 @@ extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y)
           RadioGroup_RefreshEnableStates(this_);
         }
         cVar2 = (char)Widget_HitTestSelf((int)this_, x, y);
-        cVar3 = this_->OnMouseDown(x, y);
+        /* `call 0x505430` at 0x50a290: CPanel::OnMouseDown called
+         * directly, not through the vtable. A virtual call would re-enter
+         * CAvatarStorePanel::OnMouseDown, which forwards here. */
+        cVar3 = this_->CPanel::OnMouseDown(x, y);
         if (cVar2 == '\0' && cVar3 == '\0') {
           QueueOutgoingPacketField(0xffffffff);
           RadioGroup_RefreshEnableStates(this_);
