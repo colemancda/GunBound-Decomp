@@ -623,7 +623,7 @@ void __thiscall State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ush
 void __thiscall State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort *payload);
 void __thiscall State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *payload);
 void __thiscall State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *payload);
-void __thiscall FUN_0043e700();
+void __thiscall State10_Loading_OnGameEvent();
 void State10_Loading_AppendChatLine();
 int __fastcall State10_Loading_Render(int param_1);
 void FUN_00442d50();

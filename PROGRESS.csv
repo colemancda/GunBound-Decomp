@@ -484,7 +484,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0043e150,296,FUN_0043e150,false,1,3,RAW-src
 0043e280,440,State10_Loading_ProcessPacket,false,1,6,RAW-src
 0043e440,700,State10_Loading_ProcessBattleAction,false,1,15,RAW-src
-0043e700,17,FUN_0043e700,false,1,0,RAW-src
+0043e700,17,State10_Loading_OnGameEvent,false,1,0,RAW-src
 0043e720,288,State10_Loading_HandleChatInput,false,1,11,RAW-src
 0043e840,1936,State10_Loading_OnEnter,false,1,12,RAW-src
 0043eff0,231,State10_Loading_OnExit,false,1,0,RAW-src

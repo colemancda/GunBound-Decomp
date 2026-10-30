@@ -1595,7 +1595,7 @@ void *vtable_State10_Loading[32] = {
   (void *)CGameState_ScalarDeletingDestructor,             /* 0  0x4e5320 */
   (void *)State10_Loading_ProcessPacket,                   /* 1  0x43e280 */
   (void *)State10_Loading_ProcessBattleAction,              /* 2  0x43e440 */
-  (void *)FUN_0043e700,                                     /* 3  0x43e700 */
+  (void *)State10_Loading_OnGameEvent,                      /* 3  0x43e700 */
   (void *)CGameState_NoOpVirtual_B,                         /* 4  0x4fdef0 */
   (void *)CGameState_NoOpVirtual_A,                         /* 5  0x448430 */
   (void *)State10_Loading_HandleChatInput,                  /* 6  0x43e720 */
