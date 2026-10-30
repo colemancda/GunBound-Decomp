@@ -13,11 +13,11 @@
  * write.
  *
  * Only one of the three binary sites has a ported caller. At 0x505d7f
- * FUN_00505d20 loads it with `mov edi,[esi+0x90]` at 0x505d6f, esi being
- * its own `this` - which is the very field the source's surrounding
- * guard already tests, `*(int *)(param_1 + 0x90) != -1`. So the ordinal
- * is that widget's selected row, and the caller uses the returned node's
- * +0x21 as a string.
+ * BuddyPanel_OnCommand loads it with `mov edi,[esi+0x90]` at 0x505d6f,
+ * esi being its own `this` - which is the very field the source's
+ * surrounding guard already tests, `*(int *)(param_1 + 0x90) != -1`.
+ * So the ordinal is that widget's selected row, and the caller uses
+ * the returned node's +0x21 as a string.
  *
  * NAMED (2026-08-28): this is an enumeration of an active-object
  * registry by ordinal, returning the EDI'th registered object across all
@@ -39,7 +39,7 @@
  *   walk the same two rings, need no equivalent test: they stop on the
  *   0xffffffff sentinel id instead.
  *
- * The one ported caller agrees: FUN_00505d20 passes the widget's
+ * The one ported caller agrees: BuddyPanel_OnCommand passes the widget's
  * selected-row field at this+0x90 - guarded against -1 on the line above
  * - and then reads the returned node's +0x21 as a string. An ordinal in,
  * the row's object out.
