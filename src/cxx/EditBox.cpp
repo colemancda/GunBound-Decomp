@@ -17,6 +17,30 @@ extern unsigned int g_sharedTextInputControl;
 /* 0x506e70: points the shared EDIT control at a field (EAX = the field in
  * the original; promoted to a parameter in the C port). */
 void ActivateLegacyTextInputField(int thisObj);
+/* 0x507090, slot 5. __thiscall in the original; ghidra_types.h erases
+ * that to cdecl in the C definition, so `this` is the first stack
+ * argument here. */
+unsigned int FUN_00507090(int this_, int key);
+/* 0x5071a0, slot 9. __fastcall(int) in C: `this` in ECX, as in the
+ * original (`mov ebx,ecx` at 0x5071a4, plain ret). */
+void __fastcall FUN_005071a0(int this_);
+}
+
+/* 0x507090, vtable 0x557c84 slot 5 (word at 0x557c98). The body
+ * replaces the inherited child key broadcast and does not call it, so the
+ * forward does not call the base either. The result is AL. */
+bool CEditBox::DispatchKey(int key)
+{
+    return (FUN_00507090((int)this, key) & 0xff) != 0;
+}
+
+/* 0x5071a0, vtable 0x557c84 slot 9 (word at 0x557ca8). Draws the field
+ * itself and makes no virtual calls. The original has no child Update
+ * broadcast (no call to 0x50ecf0 between 0x5071a0 and its ret at
+ * 0x50730f), so the forward does not add CWidget::Update. */
+void CEditBox::Update()
+{
+    FUN_005071a0((int)this);
 }
 
 /* 0x506fb0, vtable 0x557c84 slot 0 (SetFocus). Carved 2026-10-30 from

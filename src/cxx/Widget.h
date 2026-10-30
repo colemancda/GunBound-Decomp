@@ -159,7 +159,18 @@ public:
                                               * when gaining focus */
     virtual bool OnMouseDown(int x, int y);  /* slot 2: 0x506fd0 - carved, EditBox.cpp: a click
                                               * inside the rect focuses the field */
+    virtual bool DispatchKey(int key);       /* slot 5: 0x507090 - EditBox.cpp forwards to the C
+                                              * FUN_00507090 (focused field: Tab/Shift+Tab/Enter/
+                                              * Escape report 0x1102/0x1101/0x1100/0x1001 to the
+                                              * parent's OnCommand) */
+    virtual bool DispatchMouse(int msg);     /* slot 6: 0x507170 - body in FUN_00507170.cpp:
+                                              * non-virtual CWidget::DispatchKey when focused, then
+                                              * CWidget::DispatchMouse (both direct calls) */
     virtual void Draw();             /* 0x507030 TextEntry_SyncFromControl - promoted, EditBox.cpp */
+    virtual void Update();                   /* slot 9: 0x5071a0 - EditBox.cpp forwards to the C
+                                              * FUN_005071a0 (clip to the rect, draw the text and
+                                              * the selection/caret). No child Update broadcast in
+                                              * the original. */
 
     char m_text[0x100];              /* +0x38: synced from the EDIT control */
     int  m_maxLen;                   /* +0x138: factory's 6th argument */
