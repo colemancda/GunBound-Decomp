@@ -1073,7 +1073,7 @@ void __thiscall State11_InBattle_HandleKeyInput();
 void __fastcall State11_InBattle_HandleMouseInput(int*,int,unsigned int,int,unsigned int); /* State11 vtable slot 6 */
 void FUN_004b9cd2();
 void __fastcall State11_InBattle_OnTick();
-void __thiscall FUN_004c1b90();
+void __thiscall State11_InBattle_AppendChatLine();
 void __fastcall RenderWindGaugeTick();
 void State11_InBattle_RenderWeatherHazards();
 void State11_InBattle_ClearEffectTextures();

@@ -1623,7 +1623,7 @@ void *vtable_State11_InBattle[32] = {
   (void *)State11_InBattle_OnEnter,                         /* 7  0x4bb730 */
   (void *)State11_InBattle_OnExit,                          /* 8  0x4bcd00 */
   (void *)State11_InBattle_OnTick,                          /* 9  0x4bd8b0 */
-  (void *)FUN_004c1b90,                                     /* 10 0x4c1b90 */
+  (void *)State11_InBattle_AppendChatLine,                  /* 10 0x4c1b90 */
   (void *)RenderWindGaugeTick,                              /* 11 0x4c1c90 */
   (void *)State11_InBattle_RenderWeatherHazards,            /* 12 0x4c1d10 */
   (void *)State11_InBattle_ClearEffectTextures,             /* 13 0x4c1d30 */
