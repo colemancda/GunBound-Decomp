@@ -1624,7 +1624,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050a320,789,FUN_0050a320,false,1,13,RAW-src
 0050a640,682,AvatarStorePanel_HitTest,false,1,7,RAW-src
 0050a8f0,144,FUN_0050a8f0,false,1,3,RAW-src
-0050a980,137,FUN_0050a980,false,1,4,RAW-src
+0050a980,137,AvatarStorePanel_OnCommand,false,1,4,RAW-src
 0050ae40,4052,RenderAvatarListRow,false,1,10,RAW-src
 0050be20,3969,RenderAvatarListDragRow,false,1,10,RAW-src
 0050cdb0,56,AvatarListRowHitTest,false,2,0,RAW-src

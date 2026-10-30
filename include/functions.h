@@ -1718,7 +1718,7 @@ uint __thiscall FUN_0050a1b0();
 undefined4 __thiscall FUN_0050a320();
 undefined4 __thiscall AvatarStorePanel_HitTest();
 void __fastcall FUN_0050a8f0();
-void __thiscall FUN_0050a980();
+void __thiscall AvatarStorePanel_OnCommand();
 void __fastcall RenderAvatarListRow(int param_1,int regEax);
 void RenderAvatarListDragRow();
 int __fastcall AvatarListRowHitTest(int param_1,int param_2,int regEsi);
