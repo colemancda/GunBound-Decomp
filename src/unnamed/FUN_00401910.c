@@ -3,6 +3,14 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * SEH-PROLOGUE ARTIFACT FIX (2026-10-30): the original links an EH frame
+ * (mov eax,fs:[0] / push 0x537922 / mov fs:[0],esp at 0x401910-0x40191e)
+ * and unlinks it before returning.  Ghidra rendered that as writes
+ * through an uninitialised `unaff_FS_OFFSET` pointer plus the try-state
+ * counter local_4 (including a CONCAT31 sub-byte store).  The handler
+ * (LAB_00537922) is not part of this decompile, so the plumbing is
+ * stripped as in ConstructStringFromText.c.
  */
 #include "ghidra_types.h"
 
@@ -13,17 +21,8 @@ undefined4 * FUN_00401910(undefined4 *param_1)
   undefined4 uVar1;
   int iVar2;
   undefined4 *puVar3;
-  undefined4 *unaff_FS_OFFSET;
-  undefined4 local_c;
-  undefined1 *puStack_8;
-  undefined4 local_4;
   
-  local_c = *unaff_FS_OFFSET;
-  local_4 = 0xffffffff;
-  puStack_8 = &LAB_00537922;
-  *unaff_FS_OFFSET = &local_c;
   ActiveObjectRegistry_BaseConstructor(param_1);
-  local_4 = 0;
   param_1[2] = &PTR_LAB_00551cf4;
   *param_1 = &PTR_FUN_00551cf0;
   param_1[2] = &PTR_LAB_00551cb8;
@@ -34,7 +33,6 @@ undefined4 * FUN_00401910(undefined4 *param_1)
   param_1[0x6fd] = 10;
   param_1[0x6fe] = 0;
   HashMap_Construct(0xa,0x3f400000,0x3e800000,0x40100000,0x11,param_1 + 0x6ff);
-  local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
   puVar3 = param_1 + 3;
   for (iVar2 = 0x300; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar3 = 0;
@@ -70,7 +68,6 @@ undefined4 * FUN_00401910(undefined4 *param_1)
   param_1[0x6f8] = 0;
   uVar1 = CreateCommP2POwner(param_1 + 2);
   param_1[0x6f7] = uVar1;
-  *unaff_FS_OFFSET = local_c;
   return param_1;
 }
 

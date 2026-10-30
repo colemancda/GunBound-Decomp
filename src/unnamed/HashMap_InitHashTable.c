@@ -19,8 +19,16 @@
  * _ftol2 at 0x500cac stored to +0x1c at 0x500cb4.  Spelled out as
  * (uint)(longlong)((double)nBins * m_f*Threshold), as in the seven Rehash
  * copies.  (This function is ATL's CAtlMap::InitHashTable, not MFC's -
- * see HashMap_Construct.  Its live unaff_FS_OFFSET SEH artifact is left
- * for a separate change.)
+ * see HashMap_Construct.)
+ *
+ * SEH-PROLOGUE ARTIFACT FIX (2026-10-30): the original links an EH frame
+ * (push -1 / push 0x537710 / mov eax,fs:[0] ... mov fs:[0],esp at
+ * 0x500c03-0x500c11) around the operator_new, and unlinks it at both
+ * exits (mov fs:[0],ecx at 0x500c73 and 0x500cc7).  Ghidra rendered
+ * that as writes through an uninitialised `unaff_FS_OFFSET` pointer -
+ * live on every map's first insert - plus the try-state counter
+ * local_8.  The handler (LAB_00537710) is not part of this decompile,
+ * so the plumbing is stripped as in ConstructStringFromText.c.
  */
 #include "ghidra_types.h"
 
@@ -33,27 +41,17 @@ undefined4 HashMap_InitHashTable(undefined4 *param_1,int param_2,int param_3)
   uint uVar3;
   int iVar4;
   undefined4 *puVar5;
-  undefined4 *unaff_FS_OFFSET;
-  undefined4 local_10;
-  undefined1 *puStack_c;
-  undefined4 local_8;
-  
-  local_8 = 0xffffffff;
-  puStack_c = &LAB_00537710;
-  local_10 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_10;
+
   if ((void *)*param_1 != (void *)0x0) {
     _free((void *)*param_1);
     *param_1 = 0;
   }
   if (param_3 != '\0') {
-    local_8 = 0;
     pvVar1 = operator_new(param_2 * 4);
     *param_1 = pvVar1;
     puVar5 = (undefined4 *)*param_1;
     iVar4 = param_2;
     if (puVar5 == (undefined4 *)0x0) {
-      *unaff_FS_OFFSET = local_10;
       return 0;
     }
     for (; iVar4 != 0; iVar4 = iVar4 + -1) {
@@ -70,7 +68,6 @@ undefined4 HashMap_InitHashTable(undefined4 *param_1,int param_2,int param_3)
   if (uVar3 < 0x11) {
     param_1[7] = 0;
   }
-  *unaff_FS_OFFSET = local_10;
   return 1;
 }
 
