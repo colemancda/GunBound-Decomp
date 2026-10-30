@@ -1487,7 +1487,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00502890,83,FUN_00502890,false,1,2,RAW-src
 005028f0,38,FUN_005028f0,false,2,1,RAW-src
 00502920,137,Vector_PushBack_1e,false,1,2,RAW-src
-005029b0,104,FUN_005029b0,false,1,1,RAW-src
+005029b0,104,Vector_Insert_12,false,1,1,RAW-src
 00502a20,104,Vector_Insert_34,false,1,1,RAW-src
 00502a90,64,Vector_Tidy_8,false,1,2,RAW-src
 00502ad0,33,Vector_Size_1e,false,1,0,RAW-src

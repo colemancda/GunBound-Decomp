@@ -24,13 +24,15 @@
  *   0x502dfa  Vector_FillN_12(_Where, end, _Tmp)
  * Calling convention as compiled (whole-program, not the _34 one): ECX =
  * the element, stack = vector, _Where, _Count, `ret 0xc`. Its one caller
- * FUN_005029b0, the one-element insert, sets `mov ecx,[esp+0x18]` and
+ * Vector_Insert_12, the one-element insert, sets `mov ecx,[esp+0x18]` and
  * pushes 1, the position and the vector - insert()'s `_Insert_n(_Where,
  * 1, _Val)` - and is itself reached from the push_back FUN_00502750.
  *
  * The two 2026-09-20 notes below predate the name and are kept
  * verbatim: their FUN_00504550 is Vector_UninitCopy_12, and their
- * FUN_005029b0 is this vector's one-element insert.
+ * FUN_005029b0 is Vector_Insert_12, the one-element insert. The TODO
+ * the second note describes was resolved 2026-10-30 - see
+ * Vector_Insert_12.c, which now declares the element and passes it.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20): the 4 FUN_00504550() calls here were
  * missing its dest argument (see FUN_00504550.c's header) and, in two

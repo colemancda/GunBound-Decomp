@@ -27,7 +27,9 @@ void __fastcall FUN_00502750(int param_1,undefined4 regEax)
     *(int *)(param_1 + 8) = iVar1 + 0x12;
     return;
   }
-  FUN_005029b0(&local_4,*(undefined4 *)(param_1 + 8),regEax);
+  /* EDI = the vector (`mov edi,ecx` at 0x502754), read by insert at
+   * 0x5029bb; EBX = the element, pushed third at 0x5027bc. */
+  Vector_Insert_12(&local_4,*(int *)(param_1 + 8),(undefined4 *)regEax,param_1);
   return;
 }
 
