@@ -1534,7 +1534,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005045a0,44,Vector_UninitCopy_34,false,4,1,RAW-src
 005045d0,137,Vector_UninitCopy_8,false,4,1,RAW-src
 005046b0,116,Vector_UninitCopy_1e,false,4,0,RAW-src
-00504730,91,FUN_00504730,false,1,2,RAW-src
+00504730,91,AtlList_GetFreeNode_177c,false,1,2,RAW-src
 00504790,98,HasP2PSessionPeer,false,1,1,RAW-src
 00504880,79,RequestP2PPeerByName,false,0,3,RAW-src
 00504970,463,DispatchP2PMessage,false,2,3,RAW-src

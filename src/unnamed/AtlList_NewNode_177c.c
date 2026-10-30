@@ -12,10 +12,10 @@
  * +0xc and m_pFree +0x10 (both maintained by the GetFreeNode callee,
  * AtlList_GetFreeNode_177c), m_nBlockSize +0x14. That has no vptr, so
  * it is not MFC's CObject-derived CList. Member for member:
- * GetFreeNode, take m_pFree and its successor, placement-new the element at node+8
- * (guarded by new's null test, 0x504430/0x504434), m_pFree =
- * successor, node->m_pNext (+0) = pNext, node->m_pPrev (+4) = pPrev,
- * ++m_nElements, return the node.
+ * GetFreeNode, take m_pFree and its successor, placement-new the
+ * element at node+8 (guarded by new's null test, 0x504430/0x504434),
+ * m_pFree = successor, node->m_pNext (+0) = pNext, node->m_pPrev (+4)
+ * = pPrev, ++m_nElements, return the node.
  *
  * External confirmation from the one caller, CommConnectionSendOrQueue
  * (0x5038d7): it passes EBX = conn+0x20 (`add ebx,0x20` at 0x5038ca,
@@ -55,7 +55,7 @@ undefined4 AtlList_NewNode_177c(undefined4 *param_1,undefined4 param_2,undefined
   int unaff_EBX = regEbx;
   undefined4 *puVar5;
   
-  FUN_00504730(unaff_EBX);
+  AtlList_GetFreeNode_177c(unaff_EBX);
   puVar1 = *(undefined4 **)(unaff_EBX + 0x10);
   uVar2 = *puVar1;
   if (puVar1 != (undefined4 *)0x0) {

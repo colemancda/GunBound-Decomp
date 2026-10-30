@@ -1635,7 +1635,7 @@ undefined4 __fastcall Vector_UninitCopy_12(undefined4 param_1,undefined4 *param_
 int __fastcall Vector_UninitCopy_34(int param_1,undefined4 param_2,undefined4 param_3,int regEax,int regEbx);
 int * __thiscall Vector_UninitCopy_8(int param_1,int param_2,int *param_3);
 undefined4 __fastcall Vector_UninitCopy_1e(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 param_4,undefined4 *regEax);
-void FUN_00504730(int regEsi);
+void AtlList_GetFreeNode_177c(int regEsi);
 undefined4 HasP2PSessionPeer(char *param_1,int regEsi);
 uint RequestP2PPeerByName(char *param_1,int regEcx);
 bool HasP2PPeerRecord(int param_1,int regEsi);
