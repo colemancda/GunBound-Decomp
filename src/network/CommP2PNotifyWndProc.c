@@ -14,8 +14,8 @@
  * registers with WSAAsyncSelect for the UDP socket at +0x288, and on
  * that socket with WSAGETSELECTEVENT == FD_READ (1) it calls
  * CommP2PReceiveDatagram(obj, WSAGETSELECTERROR).  WM_TIMER (0x113)
- * for the timer ids at +0x2c4/+0x2c0 goes to FUN_004ffe80/FUN_004ffbe0;
- * everything else goes to DefWindowProcA.
+ * for the timer ids at +0x2c4/+0x2c0 goes to FUN_004ffe80 /
+ * RetransmitPendingP2PDatagrams; everything else goes to DefWindowProcA.
  */
 #include "ghidra_types.h"
 
@@ -47,7 +47,7 @@ LRESULT __stdcall CommP2PNotifyWndProc(HWND param_1,UINT param_2,WPARAM param_3,
       return 0;
     }
     if (param_3 == *(WPARAM *)(LVar1 + 0x2c0)) {
-      FUN_004ffbe0(LVar1);
+      RetransmitPendingP2PDatagrams(LVar1);
       return 0;
     }
   }

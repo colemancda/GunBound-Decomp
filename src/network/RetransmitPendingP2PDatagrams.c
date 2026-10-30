@@ -1,8 +1,32 @@
-/* FUN_004ffbe0 - 0x004ffbe0 in the original binary.
+/* RetransmitPendingP2PDatagrams - 0x004ffbe0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-30, CERTAIN (was FUN_004ffbe0).  The WM_TIMER handler
+ * CommP2PNotifyWndProc runs for the timer id stored at +0x2c0
+ * (param_1[0xb0]).  That timer is armed by the P2P send path FUN_004fe110
+ * - SetTimer(hwnd, 0x14a, 900, NULL) into +0x2c0 - right after it
+ * sends a datagram through SendEncryptedP2PDatagram and records a copy
+ * with IntMap_SetAt_1768 in the peer record's +0x50 map, stamped with
+ * GetSystemTimeAsFileTime.  This walks every peer-table node (record at
+ * node+0x14, so that map is node+0x64) and every entry in it:
+ *   - fewer than 6 tries (`cmp eax,5; jle` at 0x4ffd0f) and older than
+ *     900 ms (`cmp eax,0x384; jbe` at 0x4ffda2, the FILETIME delta
+ *     divided by 10000): resend the stored copy through
+ *     SendEncryptedP2PDatagram to the peer's address(es), try count +1;
+ *   - out of tries: either one second round (tries reset, flags set),
+ *     or hand the entry to the owner's vtable slot 0 with a leading 0
+ *     and IntMap_RemoveKey_1768 it.  CommP2PReceiveDatagram makes the
+ *     same slot-0 call with a leading 1 when an ACK retires an entry
+ *     from the same map, so slot 0 is the delivery-result callback and
+ *     this is the failure half.
+ * When nothing is left pending it KillTimer's +0x2c0 and zeroes it, so
+ * the next FUN_004fe110 send re-arms it.
+ *
+ * NOT FIXED: both owner-vtable calls (slot 1 at 0x4ffd2e, slot 0 at
+ * 0x4ffd69) set ECX = EBX = param_1 as `this`; the port drops it.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20): the 2 SendEncryptedP2PDatagram() calls here
  * (orig 0x4ffdec/0x4ffe24) were each missing the callee's leading
@@ -17,7 +41,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004ffbe0(int *param_1)
+void RetransmitPendingP2PDatagrams(int *param_1)
 
 {
   undefined4 uVar1;

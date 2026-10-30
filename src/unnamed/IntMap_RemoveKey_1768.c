@@ -13,8 +13,9 @@
  * have just consumed.  CommP2PReceiveDatagram at 0x4ff8a6 runs it on the map at
  * peer-record+0x50 (`lea ebx,[esi+0x50]`, still live) with the same key
  * in EDI that IntMap_LookupPair_1768 found there at 0x4ff871, after
- * handing the found pair to the owner's vtable slot 0; FUN_004ffbe0 at 0x4ffd6e
- * (`lea ebx,[ebp+0x64]`) likewise follows a slot-0 call.  Look up,
+ * handing the found pair to the owner's vtable slot 0;
+ * RetransmitPendingP2PDatagrams at 0x4ffd6e (`lea ebx,[ebp+0x64]`)
+ * likewise follows a slot-0 call.  Look up,
  * consume, remove: the RemoveKey shape.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler

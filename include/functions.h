@@ -1536,7 +1536,7 @@ void FUN_004ff690(undefined4 param_1,int regEax);
 void FUN_004ff6d0();
 void CommConnectionList_Erase(int *regEax,int *regEdi);
 void CommP2PReceiveDatagram();
-void FUN_004ffbe0();
+void RetransmitPendingP2PDatagrams();
 void FUN_004ffe80();
 int StringMap_FindOrInsert_ac(int *regEsi,char *regEdi);
 void StringMap_RemoveAll_ac(int *regEax);

@@ -18,9 +18,10 @@
  *     ECX, the 4-byte param_5), the header size CommP2PReceiveDatagram
  *     checks for (`mov ebx,0x26` at 0x4ff7e2).
  * Its five callers are the P2P send path FUN_004fe110 (three sites,
- * one per candidate peer address) and the WM_TIMER handler FUN_004ffbe0
- * (two sites).  It returns sendto != SOCKET_ERROR.  LIKELY because the
- * nonce helper and both callers are still unnamed.
+ * one per candidate peer address) and the WM_TIMER handler
+ * RetransmitPendingP2PDatagrams (two sites).  It returns sendto !=
+ * SOCKET_ERROR.  LIKELY because the nonce helper and FUN_004fe110 are
+ * still unnamed.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20). include/functions.h had no prototype
  * for this function, so every caller compiled it without argument-count
