@@ -1577,7 +1577,7 @@ undefined4 * StringMap_Insert_ac(int param_1,undefined4 param_2,undefined4 *regE
 void FUN_00501510(int regEsi);
 undefined4 * IntMap_Insert_14(undefined4 param_1,undefined4 param_2,int regEbx,int *regEsi);
 void FUN_00501600(int regEsi);
-void __fastcall FUN_005016d0();
+void __fastcall CommP2POwner_OnConnectionClosed();
 undefined4 __thiscall FUN_00501770();
 uint FUN_005024a0();
 uint __fastcall FUN_00502500(uint param_1,undefined4 *param_2,ushort opcode,int regEbx);
