@@ -111,7 +111,9 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
         iVar3 = (*(int *)(param_2 + 8) - iVar3) / 0x12;
       }
       if (local_18 < iVar3 + param_4) {
-        iVar3 = FUN_004fdc30();
+        /* `this` restored: `mov ecx,edi` at 0x502c72, EDI = [ebp+8] =
+         * param_2 (0x502bac) - see Vector_Size_12.c. */
+        iVar3 = Vector_Size_12(param_2);
         local_18 = iVar3 + param_4;
       }
       local_18 = local_18 * 0x12;

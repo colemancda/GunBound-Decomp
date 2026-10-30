@@ -1392,7 +1392,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fda50,71,FUN_004fda50,false,1,2,RAW-src
 004fdaa0,150,FUN_004fdaa0,false,1,4,RAW-src
 004fdb40,88,FUN_004fdb40,false,1,1,RAW-src
-004fdc30,31,FUN_004fdc30,false,1,0,RAW-src
+004fdc30,31,Vector_Size_12,false,1,0,RAW-src
 004fdc50,35,FUN_004fdc50,false,4,0,RAW-src
 004fdc80,109,CreateCommEngineNotifyWindow,false,1,2,RAW-src
 004fdd30,97,ResolveHostAddress,false,1,4,RAW-src

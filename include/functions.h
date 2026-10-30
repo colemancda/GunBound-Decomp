@@ -1497,7 +1497,7 @@ undefined4 __thiscall FUN_004fd960();
 undefined4 __thiscall FUN_004fda50();
 LRESULT __stdcall FUN_004fdaa0(HWND, UINT, WPARAM, LPARAM);
 bool FUN_004fdb40(int param_1,int regEcx);
-int __fastcall FUN_004fdc30();
+int __fastcall Vector_Size_12(int param_1);
 void FUN_004fdc50(int regEax,int regEsi);
 void CreateCommEngineNotifyWindow(undefined4 *regEsi);
 undefined4 ResolveHostAddress(undefined4 param_1,undefined4 param_2,char *regEax);
