@@ -37,6 +37,37 @@
  * to Vector_CopyElement_8 as its EDI source.  The one caller,
  * Vector_PushBack_8's fallback, leaves its own incoming ECX (the
  * element) untouched down to the call at 0x5028db.
+ *
+ * FIXED (2026-10-30), from the disassembly of every helper call:
+ *
+ * - SEH-prologue artifact stripped (push -1 / push 0x537b98 / mov fs:[0],
+ *   esp at 0x503133-0x503141, the [ebp-0x10] esp save and the try-state
+ *   byte at [ebp-4]); the catch blocks at 0x503299 and 0x50332d are not in
+ *   this decompile, and the port wrote through an uninitialised
+ *   unaff_FS_OFFSET on every call.
+ * - Vector_UninitFillN_8 takes ECX = the value, EDX = the count and one
+ *   stack word, the destination (0x5041b4/0x5041b6/0x5041ad); the second
+ *   pushed word is VC7.1's unused allocator. Both calls passed the
+ *   destination as the value and the _Where iterator as the count. Now:
+ *   0x50322e  ECX = &local_24 (lea ecx,[ebp-0x20]), EDX = ebx = _Count,
+ *             dest = eax = the head copy's end;
+ *   0x5032ff  ECX = &local_24, EDX = _Count - (old end - _Where) / 8
+ *             (sub ebx,ecx at 0x5032f6), dest = eax = the old end.
+ * - Vector_UninitCopy_8 takes ECX = first ([edi] source walk), stack =
+ *   last, dest, allocator (0x5045f6, [ebp+8], [ebp+0xc]). Its port is
+ *   __thiscall erased to cdecl, so first is the leading stack word; all
+ *   four calls had dropped ECX and shifted the stack words one slot
+ *   left. Now:
+ *   0x503219  (old begin [esi+4], _Where, new buffer)
+ *   0x50324b  (_Where, old end [esi+8], head end + _Count*8)
+ *   0x5032e0  (_Where, old end, _Where + _Count*8)
+ *   0x503356  (old end - _Count*8, old end, old end)
+ * - the by-value element copy is one 8-byte {CString, CString} pair:
+ *   Vector_CopyElement_8 writes [0] and [4] of &local_24 ([ebp-0x20]),
+ *   the fill calls read the same pair through it, and the epilogue
+ *   releases [ebp-0x1c] and [ebp-0x20]. Ghidra split it into local_24
+ *   and local_20, which MSVC need not keep adjacent, so it is coalesced
+ *   into local_24[2].
  */
 #include "ghidra_types.h"
 
@@ -44,9 +75,6 @@
 void Vector_InsertN_8(int param_1,int param_2,uint param_3,int regEcx)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xffffffd0;
   int *piVar1;
   uint uVar2;
   int iVar3;
@@ -54,25 +82,13 @@ void Vector_InsertN_8(int param_1,int param_2,uint param_3,int regEcx)
   undefined4 uVar5;
   int extraout_ECX;
   int iVar6;
-  undefined4 *unaff_FS_OFFSET;
-  int local_24;
-  int local_20;
+  int local_24[2];
   int local_1c;
   uint local_18;
-  undefined1 *local_14;
-  undefined4 local_10;
-  undefined1 *puStack_c;
-  undefined4 local_8;
   
-  local_8 = 0xffffffff;
-  puStack_c = &LAB_00537b98;
-  local_10 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_10;
-  local_14 = &stack0xffffffd0;
   /* 0x50315b: mov edi,ecx - the element is the clone's source */
-  Vector_CopyElement_8(&local_24,regEcx);
+  Vector_CopyElement_8(local_24,regEcx);
   iVar6 = 0;
-  local_8 = 0;
   iVar3 = *(int *)(param_1 + 4);
   if (iVar3 == 0) {
     uVar2 = 0;
@@ -118,10 +134,12 @@ void Vector_InsertN_8(int param_1,int param_2,uint param_3,int regEcx)
       }
       local_18 = local_18 << 3;
       pvVar4 = operator_new(local_18);
-      local_8 = CONCAT31(SUBFIELD(local_8,1,undefined3),1);
-      iVar3 = Vector_UninitCopy_8(param_2,pvVar4,param_2);
-      Vector_UninitFillN_8(iVar3,param_2);
-      Vector_UninitCopy_8(*(undefined4 *)(param_1 + 8),iVar3 + param_3 * 8,param_2);
+      /* 0x503219: ECX = old begin, (_Where, new buffer) */
+      iVar3 = (int)Vector_UninitCopy_8(*(int *)(param_1 + 4),param_2,(int *)pvVar4);
+      /* 0x50322e: ECX = &element, EDX = _Count, dest = the head's end */
+      Vector_UninitFillN_8((undefined4)local_24,param_3,(int *)iVar3);
+      /* 0x50324b: ECX = _Where, (old end, head end + _Count*8) */
+      Vector_UninitCopy_8(param_2,*(int *)(param_1 + 8),(int *)(iVar3 + param_3 * 8));
       iVar3 = *(int *)(param_1 + 4);
       if (iVar3 == 0) {
         iVar6 = 0;
@@ -144,41 +162,42 @@ void Vector_InsertN_8(int param_1,int param_2,uint param_3,int regEcx)
       local_1c = *(int *)(param_1 + 8);
       local_18 = param_3 * 8;
       if ((uint)(local_1c - param_2 >> 3) < param_3) {
-        Vector_UninitCopy_8(local_1c,local_18 + param_2,param_2);
-        local_8 = CONCAT31(SUBFIELD(local_8,1,undefined3),3);
-        Vector_UninitFillN_8(*(undefined4 *)(param_1 + 8),param_2);
-        local_8 = 0;
+        /* 0x5032e0: ECX = _Where, (old end, _Where + _Count*8) */
+        Vector_UninitCopy_8(param_2,local_1c,(int *)(local_18 + param_2));
+        /* 0x5032ff: ECX = &element, EDX = the count past the old end,
+           dest = the old end */
+        Vector_UninitFillN_8((undefined4)local_24,
+                             param_3 - (*(int *)(param_1 + 8) - param_2 >> 3),
+                             *(int **)(param_1 + 8));
         iVar3 = *(int *)(param_1 + 8) + local_18;
         *(int *)(param_1 + 8) = iVar3;
-        Vector_FillN_8(param_2,iVar3 - local_18,&local_24);
+        Vector_FillN_8((int *)param_2,(int *)(iVar3 - local_18),local_24);
       }
       else {
         iVar3 = local_1c + param_3 * -8;
-        uVar5 = Vector_UninitCopy_8(local_1c,local_1c,param_2);
+        /* 0x503356: ECX = old end - _Count*8, (old end, old end) */
+        uVar5 = (undefined4)Vector_UninitCopy_8(iVar3,local_1c,(int *)local_1c);
         *(undefined4 *)(param_1 + 8) = uVar5;
         Vector_CopyBackward_8(param_2,iVar3,local_1c,param_2);
-        Vector_FillN_8(param_2,local_18 + param_2,&local_24);
+        Vector_FillN_8((int *)param_2,(int *)(local_18 + param_2),local_24);
       }
     }
   }
-  local_8 = 0xffffffff;
-  piVar1 = (int *)(local_20 + -4);
+  piVar1 = (int *)(local_24[1] + -4);
   LOCK();
   iVar3 = *piVar1;
   *piVar1 = *piVar1 + -1;
   UNLOCK();
   if (iVar3 + -1 < 1) {
-    (**(code **)(**(int **)(local_20 + -0x10) + 4))((undefined4 *)(local_20 + -0x10));
+    (**(code **)(**(int **)(local_24[1] + -0x10) + 4))((undefined4 *)(local_24[1] + -0x10));
   }
-  piVar1 = (int *)(local_24 + -4);
+  piVar1 = (int *)(local_24[0] + -4);
   LOCK();
   iVar3 = *piVar1;
   *piVar1 = *piVar1 + -1;
   UNLOCK();
   if (iVar3 == 1 || iVar3 + -1 < 0) {
-    (**(code **)(**(int **)(local_24 + -0x10) + 4))((undefined4 *)(local_24 + -0x10));
+    (**(code **)(**(int **)(local_24[0] + -0x10) + 4))((undefined4 *)(local_24[0] + -0x10));
   }
-  *unaff_FS_OFFSET = local_10;
   return;
 }
-
