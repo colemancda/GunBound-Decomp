@@ -1648,7 +1648,7 @@ void __fastcall Widget_DrawSelf(int param_1);
 void Widget_SetChildRange();
 void FUN_00505580();
 void FUN_005056c0(char *param_1,int regEbx);
-void __thiscall FUN_00505700();
+void __thiscall AddBuddyDialog_OnCommand();
 undefined4 * Panel_BaseConstructor();
 void __thiscall ChatLogPanel_OnCommand();
 void __fastcall ChatLogPanel_Update();
