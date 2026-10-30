@@ -20,6 +20,9 @@
  *
  * FIXED (2026-10-30): every Widget_OnCommandDefault call now passes
  * `this` (ECX = esi = this at 0x505823, 0x505843, 0x505858, 0x50587b).
+ *
+ * WIRED (2026-10-30): src/cxx/Panel.cpp's CChatLogPanel::OnCommand now
+ * forwards here (vtable 0x557b94 slot 7).
  */
 #include "ghidra_types.h"
 

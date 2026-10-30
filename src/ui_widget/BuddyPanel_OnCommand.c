@@ -20,8 +20,8 @@
  * FIXED (2026-10-30): the Widget_OnCommandDefault calls now pass `this`
  * (ECX = esi = this at 0x505d56, 0x505d9e, 0x505dbd, 0x505dd6).
  *
- * Noted, not fixed: Panel.cpp declares no CBuddyPanel::OnCommand, so the C++
- * build never reaches this body.
+ * WIRED (2026-10-30): src/cxx/Panel.cpp's CBuddyPanel::OnCommand now forwards here
+ * (vtable 0x557be4 slot 7).
  */
 #include "ghidra_types.h"
 

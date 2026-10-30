@@ -16,10 +16,8 @@
  * value ChatLogPanel_OnCommand stores from the scrollbar's evt-0x2000
  * position report.
  *
- * Noted, not fixed: src/cxx/Panel.cpp declares no CChatLogPanel::Update
- * override, so the C++ build's whisper panel inherits CWidget::Update
- * and this body is never reached - the same never-wired gap that
- * CBuddyPanel::Update and CLobbyChatPanel::Update had.
+ * WIRED (2026-10-30): src/cxx/Panel.cpp's CChatLogPanel::Update now forwards here
+ * (vtable 0x557b94 slot 9).
  *
  * FIXED (2026-10-30): the row index's scroll clamp was inverted (it
  * used the +0x1048 offset only when negative); see the site comment.

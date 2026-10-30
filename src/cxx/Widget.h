@@ -288,6 +288,11 @@ public:
 class CReadyRoomChatPanel : public CPanel {    /* vtable 0x557ee0; builder 0x5094f0 */
 public:
     CReadyRoomChatPanel();                     /* inlined in the builder */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x50d160 - Panel.cpp forwards to the C
+                                                * ReadyRoomChatPanel_OnCommand (slot 7) */
+    virtual void Update();                     /* 0x50d200 - Panel.cpp forwards to the C
+                                                * RenderReadyRoomChatRow (slot 9: frame via
+                                                * Widget_DrawSelf, then the chat rows) */
 };
 
 /* State 3's lobby chat panel: the focused chat input (Win32 EDIT,
@@ -296,6 +301,8 @@ public:
 class CLobbyChatPanel : public CPanel {        /* vtable 0x557cd4; builder 0x509af0 */
 public:
     CLobbyChatPanel();                         /* inlined in the builder */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x507660 - Panel.cpp forwards to the C
+                                                * LobbyChatPanel_OnCommand (slot 7) */
     virtual void Update();                     /* 0x5078f0 - ported as the C
                                                 * LobbyChatPanel_Update (frame + chat
                                                 * rows + the selected-room detail via
@@ -312,6 +319,14 @@ public:
 class CAvatarStorePanel : public CPanel {      /* vtable 0x557eb8; builder 0x509e60 */
 public:
     CAvatarStorePanel();                       /* inlined in the builder */
+    virtual bool HitTest(int x, int y);        /* 0x50a640 - Panel.cpp forwards to the C
+                                                * AvatarStorePanel_HitTest (slot 4; no
+                                                * child broadcast, unlike the base) */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x50a980 - Panel.cpp forwards to the C
+                                                * AvatarStorePanel_OnCommand (slot 7) */
+    virtual void Draw();                       /* 0x50a8f0 - Panel.cpp forwards to the C
+                                                * AvatarStorePanel_Draw (slot 8: drag
+                                                * auto-scroll, then the child Draw broadcast) */
     u8  m_unk90;                               /* +0x90 */
     u8  m_unk91;                               /* +0x91 */
     u8  m_pad92[2];                            /* +0x92 */
@@ -344,6 +359,8 @@ public:
 class CBuddyPanel : public CPanel {            /* vtable 0x557be4; builder 0x509110 */
 public:
     CBuddyPanel() { m_unk90 = -1; }            /* base defaults + the +0x90 slot */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x505d20 - Panel.cpp forwards to the C
+                                                * BuddyPanel_OnCommand (slot 7) */
     virtual void Update();                     /* 0x505df0 - Panel.cpp: draws the panel's own
                                                 * background frame (via Widget_DrawSelf), then the
                                                 * buddy-count text and rows. Slot 9; without this
@@ -360,6 +377,9 @@ public:
 class CCreateRoomDialog : public CPanel {      /* vtable 0x557c34; builder 0x508190 */
 public:
     CCreateRoomDialog() { m_pinned = 1; }
+    virtual void Update();                     /* 0x5068e0 - Panel.cpp forwards to the C
+                                                * CreateRoomDialog_Update (slot 9: frame via
+                                                * Widget_DrawSelf, then the mode sprite) */
     int m_unk90;                               /* +0x90: never initialized by the builder */
     int m_unk94;                               /* +0x94: builder's 2nd argument */
     int m_unk98;                               /* +0x98: builder's 3rd argument */
@@ -373,6 +393,9 @@ public:
 class CStaticText : public CWidget {           /* vtable 0x557f30, size 0x53c; factory 0x507ff0 */
 public:
     CStaticText() : m_color(0) { m_typeId = 3; }
+    virtual void Update();           /* 0x50dfd0 - Panel.cpp forwards to the C
+                                      * StaticText_Update (slot 9: the wrapped
+                                      * lines, then the child Update broadcast) */
 
     u16 m_color;                     /* +0x38: RGB565 text color */
     u8  m_wrapped[0x500];            /* +0x3a: word-wrapped text (0x80-byte lines) */
@@ -387,6 +410,11 @@ public:
 class CChatLogPanel : public CPanel {          /* vtable 0x557b94; builder BuildChatLogPanel */
 public:
     CChatLogPanel();                           /* inlined in the builder */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x5057f0 - Panel.cpp forwards to the C
+                                                * ChatLogPanel_OnCommand (slot 7) */
+    virtual void Update();                     /* 0x505890 - Panel.cpp forwards to the C
+                                                * ChatLogPanel_Update (slot 9: frame via
+                                                * Widget_DrawSelf, then the history lines) */
 
     char m_partnerName[0x18];        /* +0x90: copied from the partner record (+0x21) */
     u8   m_history[4000];            /* +0xa8: zeroed at build; the chat history buffer */

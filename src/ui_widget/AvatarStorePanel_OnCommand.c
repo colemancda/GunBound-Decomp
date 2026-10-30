@@ -25,7 +25,9 @@
  * g_inputEventRing base, at 0x50a9ec, with stack words (0, *this,
  * code). That dropped EAX is the open per-site recovery
  * EnqueueInputEvent.c tracks, shared with EnterRoomNumberDialog_OnCommand.
- * Panel.cpp declares no CAvatarStorePanel::OnCommand.
+ *
+ * WIRED (2026-10-30): src/cxx/Panel.cpp's CAvatarStorePanel::OnCommand now forwards here
+ * (vtable 0x557eb8 slot 7).
  */
 #include "ghidra_types.h"
 

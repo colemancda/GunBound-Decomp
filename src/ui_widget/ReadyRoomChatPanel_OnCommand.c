@@ -34,8 +34,9 @@
  * keep Ghidra's argument lists - the allocator at 0x50d184 takes
  * ECX = &DAT_005b1444, and the release at 0x50d1e6 takes ECX = the
  * manager read from the string header and one pushed word, the header.
- * Panel.cpp declares no CReadyRoomChatPanel::OnCommand, so the C++
- * build never reaches this body.
+ *
+ * WIRED (2026-10-30): src/cxx/Panel.cpp's CReadyRoomChatPanel::OnCommand now forwards here
+ * (vtable 0x557ee0 slot 7).
  */
 #include "ghidra_types.h"
 

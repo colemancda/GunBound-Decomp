@@ -540,6 +540,102 @@ void CChannelUserListPanel::Update()
     RenderChannelUserRow((int)this);
 }
 
+/* The same never-wired gap for the batch-19 panel bodies. Each slot below
+ * was read from the original's vtable bytes, and each forward replaces
+ * what the port inherited:
+ *
+ *   0x557b94 CChatLogPanel       slot 7 0x5057f0, slot 9 0x505890
+ *   0x557be4 CBuddyPanel         slot 7 0x505d20
+ *   0x557c34 CCreateRoomDialog   slot 9 0x5068e0
+ *   0x557cd4 CLobbyChatPanel     slot 7 0x507660
+ *   0x557ee0 CReadyRoomChatPanel slot 7 0x50d160, slot 9 0x50d200
+ *   0x557f30 CStaticText         slot 9 0x50dfd0
+ *   0x557eb8 CAvatarStorePanel   slot 4 0x50a640, slot 7 0x50a980,
+ *                                slot 8 0x50a8f0
+ *
+ * The slot-9 bodies of the panels (0x505890, 0x5068e0, 0x50d200) open with
+ * the m_hidden test and `call 0x5054b0` (Widget_DrawSelf, the CPanel frame
+ * plus the deep child Update broadcast), and 0x50dfd0 broadcasts Update
+ * to its children itself (0x50e02d). Each of them already does what the
+ * inherited CWidget::Update did, so nothing else is called here. The
+ * slot-7 bodies end in Widget_OnCommandDefault, which is CWidget::OnCommand
+ * called non-virtually (Widget.cpp), so the base event handling still runs
+ * once. AvatarStorePanel_Draw ends in the same child Draw broadcast as
+ * CWidget::Draw. AvatarStorePanel_HitTest replaces Widget_HitTest outright:
+ * 0x50a8b0-0x50a8e1 is only the m_hidden-gated rect test, with no child
+ * broadcast, and that is the original's behaviour.
+ *
+ * Conventions: the __fastcall bodies take `this` in ECX like the virtual.
+ * The OnCommand and HitTest bodies are __thiscall in the original, which
+ * ghidra_types.h erases to cdecl, so the C ports take `this` as their first
+ * stack argument. */
+extern "C" void ChatLogPanel_OnCommand(int this_, unsigned int evt, int id, unsigned int arg);
+extern "C" void __fastcall ChatLogPanel_Update(int this_);
+extern "C" void BuddyPanel_OnCommand(int this_, int evt, int id, unsigned int arg);
+extern "C" void __fastcall CreateRoomDialog_Update(int this_);
+extern "C" void LobbyChatPanel_OnCommand(int this_, int evt, unsigned int id, unsigned int arg);
+extern "C" void ReadyRoomChatPanel_OnCommand(int this_, int evt, int id, unsigned int arg);
+extern "C" void __fastcall RenderReadyRoomChatRow(int this_);
+extern "C" void __fastcall StaticText_Update(int this_);
+extern "C" unsigned int AvatarStorePanel_HitTest(int this_, int x, int y);
+extern "C" void AvatarStorePanel_OnCommand(void *this_, int evt, int id, unsigned int arg);
+extern "C" void __fastcall AvatarStorePanel_Draw(int this_);
+
+void CChatLogPanel::OnCommand(int evt, int id, int arg)
+{
+    ChatLogPanel_OnCommand((int)this, (unsigned int)evt, id, (unsigned int)arg);
+}
+
+void CChatLogPanel::Update()
+{
+    ChatLogPanel_Update((int)this);
+}
+
+void CBuddyPanel::OnCommand(int evt, int id, int arg)
+{
+    BuddyPanel_OnCommand((int)this, evt, id, (unsigned int)arg);
+}
+
+void CCreateRoomDialog::Update()
+{
+    CreateRoomDialog_Update((int)this);
+}
+
+void CLobbyChatPanel::OnCommand(int evt, int id, int arg)
+{
+    LobbyChatPanel_OnCommand((int)this, evt, (unsigned int)id, (unsigned int)arg);
+}
+
+void CReadyRoomChatPanel::OnCommand(int evt, int id, int arg)
+{
+    ReadyRoomChatPanel_OnCommand((int)this, evt, id, (unsigned int)arg);
+}
+
+void CReadyRoomChatPanel::Update()
+{
+    RenderReadyRoomChatRow((int)this);
+}
+
+void CStaticText::Update()
+{
+    StaticText_Update((int)this);
+}
+
+bool CAvatarStorePanel::HitTest(int x, int y)
+{
+    return (unsigned char)AvatarStorePanel_HitTest((int)this, x, y) != 0;
+}
+
+void CAvatarStorePanel::OnCommand(int evt, int id, int arg)
+{
+    AvatarStorePanel_OnCommand(this, evt, id, (unsigned int)arg);
+}
+
+void CAvatarStorePanel::Draw()
+{
+    AvatarStorePanel_Draw((int)this);
+}
+
 /* 0x509110 - BuildBuddyPanel (docs/widgets.md: the shared buddy list).
  * SINGLETON keyed 20000: if already registered, just set the existing
  * panel's +0x1d reshow flag. Otherwise: (568,11) 211x267 with the

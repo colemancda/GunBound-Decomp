@@ -16,8 +16,8 @@
  * dialog's own background - indexed by +0x90 and drawn at
  * (x+0x7c, y+0x5c).
  *
- * Noted, not fixed: Panel.cpp declares no CCreateRoomDialog::Update, so
- * the C++ build never reaches this body (the CBuddyPanel::Update gap).
+ * WIRED (2026-10-30): src/cxx/Panel.cpp's CCreateRoomDialog::Update now forwards here
+ * (vtable 0x557c34 slot 9).
  *
  * 2026-09-02: FindSpriteFrame/BlitSprite16bpp/BlitSpriteClipped register
  * args recovered from orig 0x506910-0x50693e - see the site comment.

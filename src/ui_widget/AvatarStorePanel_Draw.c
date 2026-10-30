@@ -37,7 +37,9 @@
  * FIXED (2026-10-30): Widget_FindChildIndex now gets its register
  * arguments - ECX = this (0x50a933), ESI = 0, EDI = 4 (the scrollbar
  * type).
- * Panel.cpp declares no CAvatarStorePanel::Draw.
+ *
+ * WIRED (2026-10-30): src/cxx/Panel.cpp's CAvatarStorePanel::Draw now forwards here
+ * (vtable 0x557eb8 slot 8).
  */
 #include "ghidra_types.h"
 

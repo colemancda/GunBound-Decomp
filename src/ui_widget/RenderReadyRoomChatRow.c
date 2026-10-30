@@ -8,6 +8,10 @@
  * BlitSpriteClipped register args recovered from orig 0x50d27f-0x50d2da -
  * see the site comment (note the coordinate-derived outer key, faithful to
  * the binary).
+ *
+ * WIRED (2026-10-30): it is slot 9 of vtable 0x557ee0 (CReadyRoomChatPanel),
+ * read from the original's vtable bytes, and src/cxx/Panel.cpp's
+ * CReadyRoomChatPanel::Update now forwards here.
  */
 #include "ghidra_types.h"
 

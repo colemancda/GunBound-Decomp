@@ -24,8 +24,10 @@
  * ghidra_types.h).
  *
  * Noted, not fixed: Widget_DrawChildrenDeep (0x50ecf0) has the same
- * argless child call. Panel.cpp/Widget.h declare no
- * CStaticText::Update, so the C++ build never reaches this body.
+ * argless child call.
+ *
+ * WIRED (2026-10-30): src/cxx/Panel.cpp's CStaticText::Update now forwards here
+ * (vtable 0x557f30 slot 9).
  *
  * BlitRLESprite's dropped 4th arg (rleData) and its ECX/`this` arg were
  * recovered from objdump at this file's single call site (0x50dff8):

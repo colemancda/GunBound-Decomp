@@ -25,8 +25,8 @@
  * already-named callees are what EquipAvatarPart.c and
  * UnequipAvatarSlot.c describe as "the store item-action handler".
  *
- * Noted, not fixed: Panel.cpp declares no CAvatarStorePanel::HitTest,
- * so the C++ build never reaches this body.
+ * WIRED (2026-10-30): src/cxx/Panel.cpp's CAvatarStorePanel::HitTest now forwards here
+ * (vtable 0x557eb8 slot 4).
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 5 argless PeekPacketChecksumState() calls.  Same store-screen

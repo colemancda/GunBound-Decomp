@@ -25,8 +25,8 @@
  * FIXED (2026-10-30): Widget_FindChildIndex gets ECX = ebp = this,
  * ESI = 0, EDI = 2 (0x5076d9-0x5076e2).
  *
- * Noted, not fixed: Panel.cpp declares no
- * CLobbyChatPanel::OnCommand, so the C++ build never reaches this body.
+ * WIRED (2026-10-30): src/cxx/Panel.cpp's CLobbyChatPanel::OnCommand now forwards here
+ * (vtable 0x557cd4 slot 7).
  */
 #include "ghidra_types.h"
 
