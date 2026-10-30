@@ -89,14 +89,19 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
    * the argless CopyNameField_e calls.  Every StringMap_SetAt_28 call but the 0x2010
    * one reads it back as the map value record. */
   undefined1 local_4900 [14];
-  undefined1 local_48f0 [18];
-  undefined1 local_48de;
-  undefined1 local_48c9;
-  /* RECOVERED (2026-08-28): the record's 8-char field at esp_base+0xc8, in the
-   * 0xc8..0xd1 gap; written only by the two argless CopyNameField_a calls, which
-   * store 8 characters plus a length byte at +9. */
-  undefined1 local_48c8 [10];
-  undefined2 local_48be;
+  /* COALESCED (2026-10-30): the 0x34-byte vector element at esp_base+0xa0
+   * (frame constant -0x4990), which Ghidra split into local_48f0[18],
+   * local_48de, local_48c9, local_48c8[10] and local_48be - names that ARE
+   * the offsets: +0 (0x48f0) the 16-char id field (CopyNameField_12),
+   * +0x12 (0x48de) the 20-char note field (CopyNameField_16, 22 bytes - it
+   * overran the one-byte local_48de), +0x27 (0x48c9) that field's length
+   * byte, +0x28 (0x48c8) the 8-char field (CopyNameField_a), +0x32
+   * (0x48be) the ushort status.  Disasm: `lea esi,[esp+0xb2]` (0x5019b8),
+   * `lea esi,[esp+0xc8]` (0x5019c6, 0x502117), `mov [esp+0xd2],cx`
+   * (0x5019d9, 0x502128), the whole element at `lea eax,[esp+0xa0]`
+   * (0x5019e1, 0x502136).  Vector_CopyElement_34 copies exactly this
+   * layout.  One buffer, as the SHA-1 context was coalesced. */
+  undefined1 local_48f0 [0x34];
   char local_48ba [82];
   undefined4 auStack_4868 [64];
   byte abStack_4768 [256];
@@ -469,13 +474,13 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
               uStack_4930 = 0;
               pcVar12 = pcVar12 + 0x30;
             }
-            CopyNameField_16((int)&local_48de,(int)&local_4944);
+            CopyNameField_16((int)(local_48f0 + 0x12),(int)&local_4944);
             /* RECOVERED (2026-08-28), orig 0x5019c4 `mov edi,ebx`: EDI is the
              * cursor as the two branches above left it, which is exactly the
              * current pcVar12 - witnessed by 0x5019d2 `mov cx,[ebx+8]` being
              * the `*(pcVar12 + 8)` read two lines below. */
-            CopyNameField_a((int)local_48c8,(int)pcVar12);
-            local_48be = *(undefined2 *)(pcVar12 + 8);
+            CopyNameField_a((int)(local_48f0 + 0x28),(int)pcVar12);
+            *(undefined2 *)(local_48f0 + 0x32) = *(undefined2 *)(pcVar12 + 8);
             pcVar12 = pcVar12 + 10;
             Vector_PushBack_34((int)local_4958,(undefined4)local_48f0);
             Vector_PushBack_12(local_497c + 0x17ac,(int)local_48f0);
@@ -606,10 +611,10 @@ LAB_00501b17:
        * built - the 16-byte id in local_496c and the 8-byte field in
        * local_4924 - not packet bytes. */
       CopyNameField_12((int)local_48f0,(int)&local_496c);
-      CopyNameField_a((int)local_48c8,(int)&local_4924);
-      local_48be = (undefined2)local_4978;
-      local_48c9 = 0;
-      local_48de = 0;
+      CopyNameField_a((int)(local_48f0 + 0x28),(int)&local_4924);
+      *(undefined2 *)(local_48f0 + 0x32) = (undefined2)local_4978;
+      local_48f0[0x27] = 0;
+      local_48f0[0x12] = 0;
       (**(code **)(**(int **)(iVar7 + 0x17bc) + 0x2c))(local_48f0);
     }
     goto LAB_00502483;

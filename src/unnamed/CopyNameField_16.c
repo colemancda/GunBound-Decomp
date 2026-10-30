@@ -22,13 +22,11 @@
  * +0x31: the middle field is exactly a 0x16-byte record at +0x12 with
  * its length byte at +0x12+0x15 = +0x27.
  *
- * CALLER DEFECT, NOT FIXED: CommP2POwner_ProcessPacket declares that
- * element as separate locals (local_48f0[18], a one-byte local_48de,
- * local_48c9, local_48c8[10], local_48be), so this call writes 22 bytes
- * into a 1-byte local and MSVC need not lay the pieces out contiguously
- * for the push_backs that read local_48f0 as one 0x34-byte record. The
- * same split-struct class as the 0x2021-site caveat in CopyNameField_12;
- * the fix is to coalesce the element into one 0x34-byte buffer.
+ * CALLER DEFECT FIXED (2026-10-30): CommP2POwner_ProcessPacket declared
+ * that element as separate locals (local_48f0[18], a one-byte local_48de,
+ * local_48c9, local_48c8[10], local_48be), so this call wrote 22 bytes
+ * into a 1-byte local.  The element is now one 0x34-byte local_48f0 and
+ * this call writes local_48f0 + 0x12.
  *
  * ESI and EDI RECOVERED (2026-08-25) from the single site in CommP2POwner_ProcessPacket, under the
  * -0x4990 frame constant that function's earlier recoveries established and
