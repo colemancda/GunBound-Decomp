@@ -18,7 +18,7 @@
  * IntMap_SetAt_14) and record+0x50 (IntMap_LookupPair_1768 /
  * IntMap_RemoveKey_1768); FUN_004fe8d0 calls StringMap_FindOrInsert_ac
  * on the same table when this misses and initialises the new record at
- * node+0x14; FUN_004fe110 feeds the record's fields to FUN_004feb00's
+ * node+0x14; FUN_004fe110 feeds the record's fields to SendEncryptedP2PDatagram's
  * sockaddr.  LIKELY, like HasP2PPeerRecord, because no named consumer
  * spells out that these records are peers.
  *

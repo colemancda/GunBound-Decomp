@@ -1,8 +1,26 @@
-/* FUN_004feb00 - 0x004feb00 in the original binary.
+/* SendEncryptedP2PDatagram - 0x004feb00 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-29, LIKELY (was FUN_004feb00).  The evidence is in the
+ * callees and the socket, not the control flow:
+ *   - it ends in sendto on the SOCKET at param_2+0x288 - the UDP socket
+ *     CreateBoundSocket binds and registers (WSAAsyncSelect 0x54d) with
+ *     the CCommP2P notify window, the same one CommP2PReceiveDatagram
+ *     reads with recvfrom - to the sockaddr param_4;
+ *   - the payload goes through RijndaelSetKey (key = the Sha1Final
+ *     digest of nonce || id || param_5) and FUN_004fcd20, whose header
+ *     identifies it as a plain ECB encrypt loop;
+ *   - the datagram starts with a 0x26-byte header (ushort total length,
+ *     16-byte nonce from FUN_004fcd80 on param_2+4, the 16-char id from
+ *     ECX, the 4-byte param_5), the header size CommP2PReceiveDatagram
+ *     checks for (`mov ebx,0x26` at 0x4ff7e2).
+ * Its five callers are the P2P send path FUN_004fe110 (three sites,
+ * one per candidate peer address) and the WM_TIMER handler FUN_004ffbe0
+ * (two sites).  It returns sendto != SOCKET_ERROR.  LIKELY because the
+ * nonce helper and both callers are still unnamed.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20). include/functions.h had no prototype
  * for this function, so every caller compiled it without argument-count
@@ -26,7 +44,7 @@
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
 bool __thiscall
-FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 param_5)
+SendEncryptedP2PDatagram(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 param_5)
 
 {
   char cVar1;

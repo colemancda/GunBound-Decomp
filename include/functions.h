@@ -1515,7 +1515,7 @@ void __fastcall CommEngineCloseConnection(undefined4 param_1,int *param_2,int *r
 LRESULT __stdcall CommEngineNotifyWndProc(HWND, UINT, WPARAM, uint);
 undefined4 FindP2PPeerRecord(undefined4 param_1,int *param_2,char *regEsi);
 void __thiscall FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param_5,short param_6);
-bool __thiscall FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 param_5);
+bool __thiscall SendEncryptedP2PDatagram(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 param_5);
 LRESULT __stdcall CommP2PNotifyWndProc(HWND, UINT, WPARAM, uint);
 int IntMap_SetAt_1768(int *param_1,undefined1 *param_2,undefined4 regEax);
 uint CArray_Add_1750(undefined4 *param_1,int *regEax);
