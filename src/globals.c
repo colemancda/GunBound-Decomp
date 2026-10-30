@@ -1431,7 +1431,7 @@ void *vtable_ButtonWidget[32];
  * NEW stubs). A prototype composes fine with the earlier K&R decl and
  * makes the reference decorate correctly. */
 void __fastcall FUN_00429730(int param_1);
-void __fastcall FUN_00448370(int param_1);
+void __fastcall State07_AvatarStore_OnTick(int param_1);
 void __fastcall RenderWindGaugeTick(int param_1);
 void __fastcall State03_GameRoomList_OnEnter(int *param_1);
 void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1);
@@ -1558,7 +1558,7 @@ void *vtable_State07_AvatarStore[32] = {
   (void *)FUN_004475c0,                                     /* 6  0x4475c0 (stub) */
   (void *)State07_AvatarStore_OnEnter,                      /* 7  0x447760 */
   (void *)State07_AvatarStore_OnExit,                       /* 8  0x448050 */
-  (void *)FUN_00448370,                                     /* 9  0x448370 */
+  (void *)State07_AvatarStore_OnTick,                       /* 9  0x448370 */
   (void *)CGameState_NoOpVirtual_A,                         /* 10 0x448430 */
   (void *)NoOpMethod, (void *)NoOpMethod,                   /* 11-12 0x429800 */
   (void *)State07_AvatarStore_RenderStoreContent,           /* 13 0x448440 */

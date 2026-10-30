@@ -1,8 +1,19 @@
-/* FUN_00448370 - 0x00448370 in the original binary.
+/* State07_AvatarStore_OnTick - 0x00448370 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-30, CERTAIN (was FUN_00448370).  Slot 9 (+0x24) of
+ * State07's vtable 0x5555f8, read from the original's .rdata.  That slot
+ * is the one GameTick calls on the current state once per tick
+ * (`*(vtable + 0x24)` on g_gameStateVTableArray[g_currentGameState],
+ * src/entry/GameTick.c), and every named sibling fills it with its
+ * OnTick: State01_Title_OnTick, State02_ServerSelect_OnTick,
+ * State06_Logo2_OnTick, State09_ReadyRoom_OnTick, State11_InBattle_OnTick.
+ * Like State09_ReadyRoom_OnTick it hit-tests g_cursorAnchorX/Y each
+ * tick (here through the still-unnamed FUN_0044c3d0) and keeps the hit
+ * index and a same-index tick counter at +0x3478c/+0x34790.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at the file's one argless PeekPacketChecksumState() call
@@ -11,7 +22,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00448370(int param_1)
+void __fastcall State07_AvatarStore_OnTick(int param_1)
 
 {
   char cVar1;

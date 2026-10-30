@@ -654,7 +654,7 @@ void __fastcall State07_AvatarStore_Destroy(undefined4 *param_1);
 void FUN_004452c0();  /* State07 vtable slot 4 - not yet ported, bring-up auto-stub */
 void __thiscall State07_AvatarStore_OnCommand();
 void __fastcall FUN_004475c0(void *thisPtr, int dummyEDX, uint msg, uint wParam, uint lParam); /* State07 vtable slot 6 - convention-correct stub, see FUN_004475c0.c */
-void __fastcall FUN_00448370();
+void __fastcall State07_AvatarStore_OnTick();
 void __fastcall State07_AvatarStore_RenderStoreContent(int param_1); /* State07 vtable slot 13 - 0x448440 */
 void __fastcall State07_AvatarStore_RenderAvatarPreview(int param_1); /* State07 vtable slot 14 - 0x449050 */
 void FUN_00449250();

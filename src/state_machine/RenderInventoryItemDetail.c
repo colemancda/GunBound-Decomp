@@ -6,7 +6,7 @@
  * verbatim ports" section for status.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
- * cell at the file's one argless PeekPacketChecksumState() call: param_1+0x325b0 (`lea edi,[ebp+0x325b0]`, EBP = param_1 spilled at entry) - the same store-panel cell FUN_00448370 reads.
+ * cell at the file's one argless PeekPacketChecksumState() call: param_1+0x325b0 (`lea edi,[ebp+0x325b0]`, EBP = param_1 spilled at entry) - the same store-panel cell State07_AvatarStore_OnTick reads.
  */
 #include "ghidra_types.h"
 
