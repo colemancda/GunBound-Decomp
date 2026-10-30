@@ -46,12 +46,14 @@ void ChangeGameState(int newStateId)
      * and the first mouse-move in the next state dispatched vtable slot 1
      * (SetButtonStateByIndex) through that freed object -> NULL slot -> crash
      * (live-repro'd: entering the AVATAR store, obj 0x0b874a30 vtable=sentinel).
-     * Redirect registry1's two clears into the block. registry2's +8 stays the
-     * separate DAT_00e9c104: State09_ReadyRoom / SyncActiveTextInput track it as
-     * a standalone flag, self-consistent, and must not be rerouted here. */
+     * Redirect registry1's two clears into the block. The third store,
+     * 0x41233a `mov [0xe9c104],eax`, is registry2's +8 focus slot - the
+     * one SyncActiveTextInput reads as [eax+8] - so it is a field store
+     * too (it used to go to a split DAT_00e9c104 global nothing else
+     * read through the registry). */
     *(undefined4 *)(g_activeObjectRegistry + 8) = 0;
     *(undefined4 *)(g_activeObjectRegistry + 0xc) = 0;
-    DAT_00e9c104 = 0;
+    *(undefined4 *)(g_activeObjectRegistry2 + 8) = 0;
     SweepActiveObjectRegistry((int)&g_activeObjectRegistry2);
     FUN_005098e0((int)&g_uiPanelManager, 10000);
     if (newStateId == 0xf) {

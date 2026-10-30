@@ -90,10 +90,13 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
         uVar3 = SendOutgoingPacket(iVar10);
         return uVar3;
       }
-      if (DAT_00e9c104 != 0) {
-        CommitActiveTextInput();
+      /* 0x4d54ff-0x4d5516 / 0x4d55be-0x4d55d5: eax = [0xe9c104]
+       * (registry2 +8, the focused text box), moved to EDI as
+       * CommitActiveTextInput's `this`, then the slot is cleared. */
+      if (*(int *)(g_activeObjectRegistry2 + 8) != 0) {
+        CommitActiveTextInput(*(int *)(g_activeObjectRegistry2 + 8));
       }
-      DAT_00e9c104 = 0;
+      *(int *)(g_activeObjectRegistry2 + 8) = 0;
       FUN_004f3060(&g_activeObjectRegistry2);
       hWnd = *(HWND *)(g_sharedTextInputControl + 4);
     }
@@ -101,10 +104,13 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
       if (param_2 - 0xbU != 0) {
         return param_2 - 0xbU;
       }
-      if (DAT_00e9c104 != 0) {
-        CommitActiveTextInput();
+      /* 0x4d54ff-0x4d5516 / 0x4d55be-0x4d55d5: eax = [0xe9c104]
+       * (registry2 +8, the focused text box), moved to EDI as
+       * CommitActiveTextInput's `this`, then the slot is cleared. */
+      if (*(int *)(g_activeObjectRegistry2 + 8) != 0) {
+        CommitActiveTextInput(*(int *)(g_activeObjectRegistry2 + 8));
       }
-      DAT_00e9c104 = 0;
+      *(int *)(g_activeObjectRegistry2 + 8) = 0;
       FUN_004f3060(&g_activeObjectRegistry2);
       hWnd = *(HWND *)(g_sharedTextInputControl + 4);
     }

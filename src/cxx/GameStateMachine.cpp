@@ -25,7 +25,6 @@ extern unsigned char DAT_00e53e88[];      /* the lobby-connection object */
  * see globals.h.  This file keeps a private extern block, so it spells the
  * same offset-macro here. */
 #define DAT_00e55a45 (DAT_00e53e88[0x1bbd])
-extern unsigned int DAT_00e9be98, DAT_00e9be9c, DAT_00e9c104;
 extern unsigned int DAT_0056d108, DAT_007934d8;
 extern unsigned char DAT_0067ec70;
 extern unsigned char g_activeObjectRegistry[0x20], g_activeObjectRegistry2[0x20]; /* the two active-object registries */
@@ -97,9 +96,11 @@ void ChangeGameState(int newStateId)
     DAT_00e55a45 = 0;
     g_gameStateVTableArray[g_currentGameState]->OnExit();
     SweepActiveObjectRegistry(g_activeObjectRegistry);
-    DAT_00e9be98 = 0;
-    DAT_00e9be9c = 0;
-    DAT_00e9c104 = 0;
+    /* 0x412330-0x41233a: zero registry 1's +8 (hover) and +0xc, then
+     * registry 2's +8 (focused text box). Fields, not separate globals. */
+    *(unsigned int *)(g_activeObjectRegistry + 8) = 0;
+    *(unsigned int *)(g_activeObjectRegistry + 0xc) = 0;
+    *(unsigned int *)(g_activeObjectRegistry2 + 8) = 0;
     SweepActiveObjectRegistry(g_activeObjectRegistry2);
     FUN_005098e0(10000);
     if (newStateId == 0xf) {

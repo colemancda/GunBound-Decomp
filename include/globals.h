@@ -1042,10 +1042,6 @@ extern uint8_t DAT_00e9ba40;
  * Until that is settled, a name asserting either would be a guess. */
 extern uint8_t g_activeObjectRegistry[0x20]; /* sized to real storage - see globals.c */
 extern uint32_t DAT_00e9be94;
-extern uint8_t DAT_00e9be98;
-#define _DAT_00e9be98 DAT_00e9be98
-extern uint8_t DAT_00e9be9c;
-#define _DAT_00e9be9c DAT_00e9be9c
 extern uint8_t DAT_00e9bea4;
 extern uint32_t DAT_00e9bea8;
 extern uint8_t DAT_00e9bed8;
@@ -1074,7 +1070,6 @@ extern uint8_t DAT_00e9c7a0;   /* WinMain guard slot 17 (opcode 0xc8) */
 extern uint8_t DAT_00e9c350;   /* WinMain guard slot 18 (opcode 0x100) */
 
 extern uint8_t g_activeObjectRegistry2[0x20]; /* the second one - see the note above */
-extern uint32_t DAT_00e9c104;
 extern uint8_t DAT_00e9c334[0x14]; /* worker-thread control block - see globals.c */
 /* DAT_00e9c344 IS the worker-thread block's +0x10 running flag, not a global
  * of its own.  It had separate storage, so Shutdown.c's `DAT_00e9c344 = 0`

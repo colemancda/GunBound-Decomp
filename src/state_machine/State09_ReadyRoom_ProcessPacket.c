@@ -92,10 +92,13 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
     else {
       if (opcode < 0x3106) {
         if (opcode == GB_OP_ROOM_UPDATE_NOTIFICATION) {
-          if (DAT_00e9c104 != 0) {
-            CommitActiveTextInput();
+          /* 0x4d39d1-0x4d39e7: edi = [0xe9c104] (registry2 +8, the
+           * focused text box) is CommitActiveTextInput's EDI `this`, then
+           * the slot is cleared. */
+          if (*(int *)(g_activeObjectRegistry2 + 8) != 0) {
+            CommitActiveTextInput(*(int *)(g_activeObjectRegistry2 + 8));
           }
-          DAT_00e9c104 = 0;
+          *(int *)(g_activeObjectRegistry2 + 8) = 0;
           FUN_004f3060(&g_activeObjectRegistry2);
           SendMessageA(*(HWND *)(g_sharedTextInputControl + 4),0xc5,0x3c,0);
           *(undefined1 *)((int)this + 0x62c) = 0;

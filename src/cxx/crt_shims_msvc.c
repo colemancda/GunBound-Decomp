@@ -225,8 +225,9 @@ extern unsigned char DAT_00e53e88[0xf28];
  * FUN_0041b6f0 does exactly that, `*(DAT_00e9be94 + 0x1c)` every tick - would
  * deref NULL. Point it at the registry base, the same value the +4 sentinel
  * field holds, so the walk enters the (empty, self-terminating) list. The
- * remaining split globals (DAT_00e9be98/9c/a0/a4 bytes, DAT_00e9c104/08) are
- * flag/focus fields, not node pointers, and correctly stay zero. */
+ * old split focus/ring globals (DAT_00e9be98/9c/a0, DAT_00e9c104/08) are
+ * gone - their users now address the registry fields - and DAT_00e9bea4
+ * is a flag byte, not a node pointer, so it correctly stays zero. */
 extern unsigned int DAT_00e9be94;
 /* Same KNOWN DIVERGENCE alias as DAT_00e9be94, for the global sprite
  * registry (g_spriteRegistry): DAT_00ea0e1c is Ghidra's split-out copy of its +4

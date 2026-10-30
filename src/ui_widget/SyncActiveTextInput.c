@@ -3,7 +3,7 @@
  * PROMOTED (2026-07-14): the per-frame chat/text-input sync pass. `param_1`
  * is the second active-object registry (&g_activeObjectRegistry2); its +8 slot holds the
  * currently-focused text-input object (0 when none - the same value ChangeGameState
- * zeroes and State09_ReadyRoom tracks via the separately-declared DAT_00e9c104).
+ * zeroes and State09_ReadyRoom clears - formerly the split DAT_00e9c104).
  * When an input object is focused, this copies the live text out of the Win32
  * edit control (g_sharedTextInputControl: the CreateWindowExA edit box built by
  * FUN_0040c670, HWND at +4, active-flag at +8) into that object's +0x48 text
