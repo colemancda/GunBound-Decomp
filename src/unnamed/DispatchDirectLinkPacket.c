@@ -202,7 +202,10 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
       return;
     case 0x2001:
       pcVar6 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa3 - (uint)(*(char *)(param_1 + 8) != '\0'));
-      _sprintf(local_10c + 0xc,pcVar6);
+      /* `push edi` at 0x40368a, ahead of the GetLocalizedString pushes, is
+       * the sprintf's third argument (add esp,0xc at 0x4036a8): the name in
+       * this function's EAX, as in the 0x2000 arm. */
+      _sprintf(local_10c + 0xc,pcVar6,regEax);
       BuildItemTooltipPanel(&g_uiPanelManager,local_10c + 0xc);
       return;
     case 0x2002:
