@@ -31,8 +31,26 @@
  * CommEngineNotifyWndProc's 0x20 arm at 0x4fe7ba, leaves ECX stale in
  * the original - the recovered call passes 0 there to match the other
  * five rather than reproduce an uninitialised read.
+ *
+ * DISPATCH `this` RESTORED (2026-10-30): the slot-2 call also loads ECX
+ * with the engine object (`mov esi,edx` at 0x4fe6a4, `mov ecx,esi` at
+ * 0x4fe6aa, `call [eax+8]` at 0x4fe6ac); the port passed only the two
+ * stack values and dropped ECX.  Slot 2 of the engine's derived vtable
+ * 0x5575b8 is CommP2POwner_OnConnectionClosed (0x5016d0, read from
+ * .rdata), the only engine-derived vtable in the image (the base
+ * 0x557598 has the `ret 8` no-op 0x4fdef0 there, which reads nothing).
+ * That port is declared `void __fastcall (int param_1)` - ECX only; its
+ * body never reads the two pushed dwords (see its header), so the call
+ * now goes through CommEngineClosedNotifyFn, the same __fastcall(int)
+ * shape, passing the engine as ECX and nothing on the stack.  param_1
+ * (the pushed ECX value) is no longer forwarded; the prototype is
+ * unchanged.
  */
 #include "ghidra_types.h"
+
+/* Slot 2 of the engine vtable 0x5575b8: CommP2POwner_OnConnectionClosed,
+ * declared __fastcall(int this) in this tree - match it exactly. */
+typedef void (__fastcall *CommEngineClosedNotifyFn)(int self);
 
 
 void __fastcall CommEngineCloseConnection(undefined4 param_1,int *param_2,int *regEax)
@@ -41,7 +59,8 @@ void __fastcall CommEngineCloseConnection(undefined4 param_1,int *param_2,int *r
   int *in_EAX = regEax;
   int *piVar1;
   
-  (**(code **)(*param_2 + 8))(param_1,in_EAX);
+  /* 0x4fe6aa: ECX = engine (param_2), call [vtbl+8] */
+  ((CommEngineClosedNotifyFn)*(code **)(*param_2 + 8))((int)param_2);
   piVar1 = (int *)param_2[1];
   if (piVar1 != (int *)0x0) {
     while (in_EAX != piVar1) {

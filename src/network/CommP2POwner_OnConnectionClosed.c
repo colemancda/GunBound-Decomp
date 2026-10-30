@@ -23,13 +23,32 @@
  * connection node, 0x4fe6a8/0x4fe6a9), but the body never reads them.
  * The port declares only the ECX this.
  *
- * KNOWN DEFECT, NOT FIXED: the final virtual call (0x501738-0x501740:
- * `mov ecx,[esi+0x1aac]; mov edx,[ecx]; call [edx+4]`) passes that
- * object as ECX; the port's `(**(code **)(... + 4))()` drops it.  The
- * callee's class is unidentified, so its convention in this tree is not
- * known and the call is left as Ghidra emitted it.
+ * DISPATCH `this` RESTORED (2026-10-30): the final virtual call
+ * (0x501738-0x501740: `mov ecx,[esi+0x1aac]; mov edx,[ecx]; call
+ * [edx+4]`, ESI = ECX = this at 0x5016d2) passes that object as ECX; the
+ * port's `(**(code **)(... + 4))()` dropped it.  The object is the
+ * session handler ConstructCommP2POwner stores at owner+0x1ab0 (its
+ * second stack argument, `mov [ebp+0x1ab0],eax` at 0x4fd18f; this is the
+ * owner+4 sub-object, so this+0x1aac is that field).  Its only
+ * constructor caller, FUN_004fd090 (0x401a26), is handed `lea
+ * eax,[ebp+8]` at 0x4019ed by FUN_00401910, whose +8 sub-object gets
+ * vtable 0x551cb8 at 0x401948.  Slot 1 of 0x551cb8 is 0x403890 (read
+ * from .rdata): `cmp [ecx+0x1bc8],0x2710; mov byte [ecx+0x1bc4],1; ...;
+ * ret` - ECX `this`, no stack arguments.  0x403890 is not carved yet,
+ * but its ported siblings in the same vtable (FUN_00403ae0,
+ * FUN_00403d20, FUN_00403f30, FUN_00404330) are raw-C erased
+ * __thiscall, i.e. cdecl with `this` first, so the call now goes
+ * through CommP2PSessionClosedFn with the handler as its only argument,
+ * as CommP2POwner_ReassemblePackets does for its slot-0 dispatch.  The
+ * vtable is still the placeholder global PTR_LAB_00551cb8, so this path
+ * is not reachable at runtime yet.
  */
 #include "ghidra_types.h"
+
+/* Slot 1 of the session handler's vtable (0x551cb8 in the original,
+ * target 0x403890, plain `ret`): a raw-C erased __thiscall, so cdecl
+ * with `this` first. */
+typedef void (*CommP2PSessionClosedFn)(int self);
 
 
 void __fastcall CommP2POwner_OnConnectionClosed(int param_1)
@@ -50,7 +69,9 @@ void __fastcall CommP2POwner_OnConnectionClosed(int param_1)
     _free(*(void **)(param_1 + 0x201c));
     *(undefined4 *)(param_1 + 0x201c) = 0;
   }
-  (**(code **)(**(int **)(param_1 + 0x1aac) + 4))();
+  /* 0x501738: ECX = [this+0x1aac], call [vtbl+4] */
+  ((CommP2PSessionClosedFn)*(code **)(**(int **)(param_1 + 0x1aac) + 4))
+            (*(int *)(param_1 + 0x1aac));
   return;
 }
 
