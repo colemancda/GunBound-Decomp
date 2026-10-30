@@ -29,9 +29,9 @@
  * `mov edx,1` - so the call is (param_1, 1, _Mylast). NOT fixed: on the
  * fallback the element also stays in ECX for Vector_InsertN_8, which
  * copies it at entry (`mov edi,ecx` at 0x50315b into
- * Vector_CopyElement_8), but Vector_InsertN_8's own port has no
- * parameter for it - repairing that is a change to Vector_InsertN_8's
- * signature, not to this call.
+ * Vector_CopyElement_8); ECX is not written on the path from entry to
+ * the call at 0x5028db.  Vector_InsertN_8 now takes it as its trailing
+ * regEcx (2026-10-30) and the fallback passes param_1.
  *
  * ESI RECOVERED (2026-08-25): `lea esi,[esp+0x38]` at 0x501e1e in
  * CommP2POwner_ProcessPacket = &local_4958 under that function's -0x4990 frame constant.
@@ -54,7 +54,7 @@ void __fastcall Vector_PushBack_8(undefined4 param_1,int regEsi)
     *(int *)(regEsi + 8) = iVar1 + 8;
     return;
   }
-  Vector_InsertN_8(regEsi,*(undefined4 *)(regEsi + 8),1);
+  Vector_InsertN_8(regEsi,*(undefined4 *)(regEsi + 8),1,param_1);
   return;
 }
 

@@ -14,11 +14,19 @@
  * (still a dropped register here) via the 0x43de10 addref/clone the
  * whole CString family uses, dest handles at +0/+4 - stride 8, element
  * type pinned. Sole binary caller: Vector_InsertN_8 at 0x50315d.
+ *
+ * EDI RECOVERED (2026-10-30): the source element is EDI (`mov eax,[edi]`
+ * at 0x503725, `mov eax,[edi+4]` at 0x503741, no write first), set by
+ * the caller's `mov edi,ecx` at 0x50315b; now the trailing regEdi.  The
+ * body still does not use it: each clone is FUN_0043de10 with EAX =
+ * handle - 0x10 (0x50372c, 0x503744), and FUN_0043de10's port has no
+ * parameter for EAX at any of its 11 call sites - a family-wide gap left
+ * for its own change.
  */
 #include "ghidra_types.h"
 
 
-int * Vector_CopyElement_8(int *param_1)
+int * Vector_CopyElement_8(int *param_1,int regEdi)
 
 {
   int iVar1;

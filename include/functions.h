@@ -1597,10 +1597,10 @@ void __thiscall Vector_InsertN_12(undefined4 *param_1,int param_2,int param_3,ui
 void __thiscall Vector_InsertN_34(uint param_1,int param_2,int param_3,undefined4 *regEdx);
 undefined4 Vector_ThrowTooLong();
 void Vector_DestroyRange_8(int regEax,int regEdi);
-void Vector_InsertN_8(int param_1,int param_2,uint param_3);
+void Vector_InsertN_8(int param_1,int param_2,uint param_3,int regEcx);
 void __thiscall Vector_InsertN_1e(uint param_1,int param_2,int param_3,undefined4 *regEdx);
 void __fastcall Vector_CopyElement_34(undefined4 param_1,undefined4 *param_2,undefined4 *regEax);
-int * Vector_CopyElement_8(int *param_1);
+int * Vector_CopyElement_8(int *param_1,int regEdi);
 void __fastcall Vector_CopyElement_1e(undefined4 param_1,undefined4 *param_2,undefined4 *regEax);
 void CopyNameField_16(int regEsi,int regEdi);
 void CopyNameField_a(int regEsi,int regEdi);

@@ -28,11 +28,20 @@
  * FUN_00504190 = Vector_UninitFillN_8, FUN_00504330 =
  * Vector_CopyBackward_8, FUN_00503f30 = Vector_FillN_8, FUN_00503110 =
  * Vector_DestroyRange_8.
+ *
+ * ELEMENT RECOVERED (2026-10-30): the by-value element arrives in ECX -
+ * `mov edi,ecx` at 0x50315b, ECX not written before it - and is the
+ * source Vector_CopyElement_8 clones from (it reads [edi] and [edi+4] at
+ * 0x503725/0x503741).  The three stack words (vector, _Where, _Count)
+ * were already parameters; ECX becomes the trailing regEcx and is passed
+ * to Vector_CopyElement_8 as its EDI source.  The one caller,
+ * Vector_PushBack_8's fallback, leaves its own incoming ECX (the
+ * element) untouched down to the call at 0x5028db.
  */
 #include "ghidra_types.h"
 
 
-void Vector_InsertN_8(int param_1,int param_2,uint param_3)
+void Vector_InsertN_8(int param_1,int param_2,uint param_3,int regEcx)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -60,7 +69,8 @@ void Vector_InsertN_8(int param_1,int param_2,uint param_3)
   local_10 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_10;
   local_14 = &stack0xffffffd0;
-  Vector_CopyElement_8(&local_24);
+  /* 0x50315b: mov edi,ecx - the element is the clone's source */
+  Vector_CopyElement_8(&local_24,regEcx);
   iVar6 = 0;
   local_8 = 0;
   iVar3 = *(int *)(param_1 + 4);
