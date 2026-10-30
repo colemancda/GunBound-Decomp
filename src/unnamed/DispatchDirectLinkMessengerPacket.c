@@ -112,8 +112,11 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2,usho
         }
       }
       else if (in_AX == 0xa001) {
-        FUN_00405b20();
-        SetGuardedBool(*(char *)((int)param_1 + 2) == '\x01',GB_GUARD_UNRECOVERED);
+        /* 0x411b8e: ecx = [0x7934f4] (g_directLinkConnection) is
+         * 0x405b20's __fastcall `this`. 0x411ba5-0x411baf: the guarded
+         * bool's cell is EAX = g_clientContext + 0x3b968. */
+        FUN_00405b20((undefined2 *)g_directLinkConnection);
+        SetGuardedBool(*(char *)((int)param_1 + 2) == '\x01',g_clientContext + 0x3b968);
         iVar7 = g_clientContext;
         *(undefined4 *)(g_clientContext + 0x3b96b) = *(undefined4 *)((int)param_1 + 3);
         *(undefined4 *)(iVar7 + 0x3b96f) = *(undefined4 *)((int)param_1 + 7);
@@ -185,7 +188,9 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2,usho
             local_128 = local_128 + 1;
           } while (local_128 < (int)local_124);
         }
-        cVar3 = CheckGuardedBoolAnd(g_currentGameState == 2);
+        /* 0x411d87: lea eax,[edx+0x3b968], edx = [0x5b3484] - the same
+         * cell. */
+        cVar3 = CheckGuardedBoolAnd(g_currentGameState == 2,(byte *)(g_clientContext + 0x3b968));
         iVar7 = DAT_007934f0;
         if ((cVar3 != '\0') && (*(char *)(DAT_007934f0 + 0x84e5) == '\x01')) {
           *(undefined4 *)(DAT_007934f0 + 0x44d0) = 6;
