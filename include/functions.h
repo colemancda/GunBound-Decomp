@@ -484,7 +484,7 @@ int __thiscall StringMap_ConstructNode_CString(char *key,int *node,undefined4 ha
 int AtlArray_ConstructElement_450();
 void __thiscall State03_GameRoomList_OnCommand();
 void __fastcall State03_GameRoomList_HandleMouseInput(int,int,unsigned int,unsigned int,unsigned int); /* State03 vtable slot 6 */
-void __fastcall FUN_00429730();
+void __fastcall State03_GameRoomList_OnTick();
 void NoOpMethod();
 /* State07 avatar-widget vtable slot 1 adapter (no-op; the real target
  * ResolveNamedState stays a bring-up bypass) - see the .c's header. */

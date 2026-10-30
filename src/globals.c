@@ -1430,7 +1430,7 @@ void *vtable_ButtonWidget[32];
  * via a stub-list diff: 17 real, already-ported methods showed up as
  * NEW stubs). A prototype composes fine with the earlier K&R decl and
  * makes the reference decorate correctly. */
-void __fastcall FUN_00429730(int param_1);
+void __fastcall State03_GameRoomList_OnTick(int param_1);
 void __fastcall State07_AvatarStore_OnTick(int param_1);
 void __fastcall RenderWindGaugeTick(int param_1);
 void __fastcall State03_GameRoomList_OnEnter(int *param_1);
@@ -1648,7 +1648,7 @@ void *vtable_State03_GameRoomList[32] = {
   (void *)State03_GameRoomList_HandleMouseInput,            /* 6  0x428b90 */
   (void *)State03_GameRoomList_OnEnter,                     /* 7  0x428d00 */
   (void *)State03_GameRoomList_OnExit,                      /* 8  0x429480 */
-  (void *)FUN_00429730,                                     /* 9  0x429730 */
+  (void *)State03_GameRoomList_OnTick,                      /* 9  0x429730 */
   (void *)State10_Loading_AppendChatLine,                   /* 10 0x442240 (shared) */
   (void *)NoOpMethod, (void *)NoOpMethod,                   /* 11-12 0x429800 */
   (void *)NoOpMethod, (void *)NoOpMethod,                   /* 13-14 0x429800 */

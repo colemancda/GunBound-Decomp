@@ -13,8 +13,8 @@
  * source already passes `param_4 >> 0x10` as the row, and the binary takes
  * ESI from `movzx esi,ax` on the same [esp+0x14] value, i.e. the low half.
  * All three of its sites are identical, so they need no pairing.
- * FUN_00429730 pairs `mov esi,[0x56d10c]` = g_cursorAnchorX with the
- * g_cursorAnchorY the source already passes. */
+ * State03_GameRoomList_OnTick pairs `mov esi,[0x56d10c]` = g_cursorAnchorX
+ * with the g_cursorAnchorY the source already passes. */
 #include "ghidra_types.h"
 
 
