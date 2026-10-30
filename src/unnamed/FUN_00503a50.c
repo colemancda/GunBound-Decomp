@@ -3,6 +3,10 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * StringMap_RemoveKey_ac CALL RECOVERED (2026-10-29): it was called with no
+ * arguments; now passes the key (EDX, 0x503b87) and the peer table at
+ * param_1+0x290 (EAX, 0x503b81) - see the comment at the call.
  */
 #include "ghidra_types.h"
 
@@ -96,7 +100,12 @@ joined_r0x00503aa3:
   } while (bVar5 < 0x10);
   uStack_1 = (undefined1)uVar8;
   acStack_12[uVar8] = '\0';
-  StringMap_RemoveKey_ac();
+  /* RECOVERED (2026-10-29), orig 0x503b8b: EAX = `lea eax,[ebp+0x290]`
+   * (0x503b81) with EBP = the incoming param_1 (`mov ebp,[esp+0x20]` at
+   * 0x503a59, never rewritten; held here in puVar2 because param_1 is
+   * reused) and EDX = `lea edx,[esp+0x12]` (0x503b87) = acStack_12, the
+   * 16-char id the loop above just copied and NUL-terminated. */
+  StringMap_RemoveKey_ac(acStack_12,(int *)((int)puVar2 + 0x290));
   return;
 }
 

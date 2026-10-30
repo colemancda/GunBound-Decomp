@@ -3,6 +3,11 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * StringMap_RemoveKey_1c CALL RECOVERED (2026-10-29): the 0x3fff arm's call
+ * (orig 0x50243e) passed nothing; now passes the key local_48ba + 0x1c
+ * (EDX, 0x502437) and the map at this+0x17fc (EAX, 0x502431) - see the
+ * comment at the call.
  */
 #include "ghidra_types.h"
 
@@ -617,7 +622,15 @@ LAB_00501b17:
           else {
             FUN_00503a50(local_4970,&local_496c);
             FUN_004fdc50((int)(local_48ba + 0x1c),(int)&local_496c);
-            StringMap_RemoveKey_1c();
+            /* RECOVERED (2026-10-29), orig 0x50243e: EDX = `lea edx,[esp+0xf2]`
+             * (0x502437) - the same slot FUN_004fdc50 just filled from EAX at
+             * 0x502425/0x50242c, i.e. local_48ba + 0x1c (local_48ba + 0x2e is
+             * esp+0x104 at 0x502090) - and EAX = `lea eax,[edi+0x17fc]`
+             * (0x502431).  EDI is this function's `this` here: the branch
+             * built local_4970 from it (`lea ecx,[edi-0x2c8]` at 0x50238f),
+             * the other arm restores it from [esp+0x14] (0x50240c), and the
+             * same EDI feeds `[edi+0x17bc]` at 0x50245a below = param_1. */
+            StringMap_RemoveKey_1c(local_48ba + 0x1c,(int *)(param_1 + 0x17fc));
           }
           uVar10 = 0;
           do {

@@ -22,28 +22,32 @@
  * straight through to the find helper (`mov esi,eax` at the entry, `mov
  * eax,esi` before the call) and then used to rewrite the bucket head.
  *
- * THE MAP IS NOT ACTUALLY RECOVERED - LEFT UNFIXED (2026-10-29).  The
- * EAX note above says the map was promoted, but the body still declares
- * `int *regEax` as an UNINITIALISED LOCAL and dereferences it, and the
- * prototype in functions.h is `__fastcall ()`, so the C caller(s) pass
- * neither the map (EAX) nor the key (EDX, param_2 here).  Recovering it
- * means a trailing map parameter plus the key at every C site:
- * 0x503b8b (FUN_00503a50) EAX = its EBP + 0x290, EDX = its id local
- * acStack_12.
+ * MAP AND KEY RECOVERED (2026-10-29).  The previous body declared
+ * `int *regEax` as an uninitialised local and the functions.h prototype
+ * was `__fastcall ()`, so callers passed neither input.  The disassembly
+ * fixes the real convention: the map arrives in EAX (`mov esi,eax` at
+ * 0x504055, then `mov eax,esi` before the find call at 0x504070) and the
+ * key in EDX (`push edx` at 0x504061, the find helper's first
+ * stack argument).  ECX is NOT an input - it is overwritten by `lea
+ * ecx,[esp+0x10]` at 0x50405c before any read - and there are no
+ * stack arguments (plain `ret`).  So the Ghidra __fastcall label was
+ * wrong: the port is now a plain function taking the key (EDX) and the
+ * map (EAX) as trailing register parameters, the repo's promotion idiom.
+ * C site fixed: 0x503b8b in FUN_00503a50 (EAX = `lea eax,[ebp+0x290]` at
+ * 0x503b81, EDX = `lea edx,[esp+0x12]` at 0x503b87).
  */
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall StringMap_RemoveKey_ac(undefined4 param_1,undefined4 param_2)
+undefined4 StringMap_RemoveKey_ac(char *regEdx,int *regEax)
 
 {
-  int *regEax;   /* the map; see the header note */
   int iVar1;
   int local_c;
   undefined1 local_8 [8];
   
   local_c = 0;
-  iVar1 = StringMap_Find_ac((char *)param_2,(uint *)local_8,(undefined4 *)&local_c,regEax,
+  iVar1 = (int)StringMap_Find_ac(regEdx,(uint *)local_8,(undefined4 *)&local_c,regEax,
                        (uint *)(local_8 + 4));
   if (iVar1 == 0) {
     return 0;
