@@ -1504,7 +1504,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005037d0,32,CopyNameField_16,false,1,0,RAW-src
 005037f0,32,CopyNameField_a,false,4,0,RAW-src
 00503810,35,FUN_00503810,false,1,0,RAW-src
-00503840,201,FUN_00503840,false,2,4,RAW-src
+00503840,201,CommConnectionSendOrQueue,false,2,4,RAW-src
 00503910,25,GetConnectionSocketIfListed,false,1,0,RAW-src
 00503930,101,GetConnectionLocalAddressIfListed,false,1,1,RAW-src
 005039a0,97,FUN_005039a0,false,1,2,RAW-src

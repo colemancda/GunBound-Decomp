@@ -1605,7 +1605,7 @@ void __fastcall Vector_CopyElement_1e(undefined4 param_1,undefined4 *param_2,und
 void CopyNameField_16(int regEsi,int regEdi);
 void CopyNameField_a(int regEsi,int regEdi);
 void FUN_00503810(int regEsi,int regEax);
-bool __fastcall FUN_00503840();
+bool __fastcall CommConnectionSendOrQueue();
 undefined4 __fastcall GetConnectionSocketIfListed(undefined4 *param_1,int regEax);
 undefined4 __thiscall GetConnectionLocalAddressIfListed(undefined4 *param_1,char *param_2,char *param_3,int regEax);
 void FUN_005039a0(int param_1,undefined4 param_2,int *param_3,undefined4 regEax,undefined4 regEdi,undefined4 regEbx);

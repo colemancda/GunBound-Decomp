@@ -19,7 +19,12 @@ uint FUN_005024a0(void)
   if ((*(char *)(unaff_ESI + 0x1a70) != '\0') && (uVar2 = 0, *(int *)(unaff_ESI + 0x1a74) != 0)) {
     _Var1 = FID_conflict___time32((__time32_t *)0x0);
     *(__time32_t *)(unaff_ESI + 0x1abc) = _Var1;
-    uVar2 = FUN_00503840(*(undefined4 *)(unaff_ESI + 0x1a74));
+    /* DROPPED ARGS, NOT FIXED: the original (0x5024b5-0x5024e6) builds a
+     * 4-byte frame [len=4:u16][opcode:u16] from its own stack argument and
+     * calls with ECX = 4, EDX = &frame, stack = this connection - the
+     * header-only twin of FUN_00502500. This port declares neither the
+     * opcode nor ESI; see CommConnectionSendOrQueue.c. */
+    uVar2 = CommConnectionSendOrQueue(*(undefined4 *)(unaff_ESI + 0x1a74));
     return uVar2;
   }
   return uVar2 & 0xffffff00;

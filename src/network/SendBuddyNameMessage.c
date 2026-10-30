@@ -24,8 +24,8 @@
  * word [esp+0x10] = ECX + 4        ; total frame size
  * word [esp+0x12] = word [ebp+8]   ; its stack arg = the message type
  * rep movs ECX bytes from EDX      ; the payload
- * stamps [EBX+0x1abc] = time(0) and calls FUN_00503840, a send() loop on
- * the connection's socket at +8 ([0x5442e4] = ws2_32!send) that queues on
+ * stamps [EBX+0x1abc] = time(0) and calls CommConnectionSendOrQueue, a
+ * send() loop on the connection's socket at +8 ([0x5442e4] = ws2_32!send) that queues on
  * WSAEWOULDBLOCK ([0x544314] = WSAGetLastError, 0x2733).  So param_1 is a
  * MESSAGE TYPE and the 0x10 bytes copied here (ECX=0x10, EDX=&local_10 at
  * 0x4fcec8/0x4fcecd) are the whole payload.

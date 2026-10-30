@@ -7,15 +7,15 @@
  * FRAME WRITER for the CBuddy2 messenger connection.  Gates on the session
  * flag [EBX+0x1a70] and the connection pointer [EBX+0x1a74], stamps the
  * keepalive clock [EBX+0x1abc] = time(0), and queues one wire frame on the
- * connection through FUN_00503840 (the send()/WSAEWOULDBLOCK queue loop,
- * ECX=length, EDX=frame, stack=connection).  See SendBuddyNameMessage.c's
+ * connection through CommConnectionSendOrQueue (the send()/WSAEWOULDBLOCK
+ * queue loop, ECX=length, EDX=frame, stack=connection).  See SendBuddyNameMessage.c's
  * header for the surrounding CBuddy2 map.
  *
  * DROPPED REGISTERS + DEAD-CODED HEADER RECOVERED (2026-09-01).  The raw
  * port declared the stack opcode as `int unaff_EBX`, dropped EBX (the
  * session/engine), copied the payload directly into a headerless buffer, and
- * called FUN_00503840 with a single argument.  Rebuilt faithfully from
- * 0x502500-0x50257f:
+ * called CommConnectionSendOrQueue with a single argument.  Rebuilt
+ * faithfully from 0x502500-0x50257f:
  *   - ECX (param_1) = payload length, EDX (param_2) = payload buffer, both
  *     already named by Ghidra.
  *   - [ebp+8] (opcode, ret 4) is the REAL stack parameter, not EBX; promoted
@@ -73,7 +73,7 @@ uint __fastcall FUN_00502500(uint param_1,undefined4 *param_2,ushort opcode,int 
       }
       _Var1 = FID_conflict___time32((__time32_t *)0x0);
       *(__time32_t *)(regEbx + 0x1abc) = _Var1;
-      uVar2 = FUN_00503840(frameLen,(char *)frame,*(int *)(regEbx + 0x1a74));
+      uVar2 = CommConnectionSendOrQueue(frameLen,(char *)frame,*(int *)(regEbx + 0x1a74));
       return uVar2;
     }
   }
