@@ -34,7 +34,7 @@ void __thiscall FUN_00506310(undefined4 *param_1,int param_2,int param_3,undefin
     if (param_2 == 0x1000) {
 LAB_0050639f:
       FUN_00506210(param_1);
-      Widget_OnCommandDefault(param_2,param_3,param_4);
+      Widget_OnCommandDefault((int)param_1,param_2,param_3,param_4);
       return;
     }
     if (param_2 == 0x1001) {
@@ -48,12 +48,12 @@ LAB_0050639f:
         *(undefined4 *)(g_inputEventParam1Queue + g_inputEventQueueWriteIndex * 4) = uVar1;
         *(undefined4 *)(g_inputEventParam2Queue + g_inputEventQueueWriteIndex * 4) = 9;
         g_inputEventQueueWriteIndex = uVar2;
-        Widget_OnCommandDefault(0x1001,param_3,param_4);
+        Widget_OnCommandDefault((int)param_1,0x1001,param_3,param_4);
         return;
       }
     }
   }
-  Widget_OnCommandDefault(param_2,param_3,param_4);
+  Widget_OnCommandDefault((int)param_1,param_2,param_3,param_4);
   return;
 }
 

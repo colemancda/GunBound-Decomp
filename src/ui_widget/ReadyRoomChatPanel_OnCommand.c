@@ -27,8 +27,10 @@
  *     wrote through Ghidra's uninitialised unaff_FS_OFFSET. Stripped,
  *     as in WidgetChildArray_Destroy.c and LobbyChatPanel_OnCommand.c.
  *
- * Noted, not fixed: the Widget_OnCommandDefault call still lacks its
- * `this` (a tree-wide prototype problem), and the CAtlStringMgr calls
+ * FIXED (2026-10-30): the Widget_OnCommandDefault call now passes `this`
+ * (ECX = esi = this at 0x50d1c0).
+ *
+ * Noted, not fixed: the CAtlStringMgr calls
  * keep Ghidra's argument lists - the allocator at 0x50d184 takes
  * ECX = &DAT_005b1444, and the release at 0x50d1e6 takes ECX = the
  * manager read from the string header and one pushed word, the header.
@@ -56,7 +58,7 @@ void __thiscall ReadyRoomChatPanel_OnCommand(int param_1,int param_2,int param_3
   if ((param_2 == 0x2000) && (param_3 == 0)) {
     *(undefined4 *)(g_clientContext + 0x3b97c) = param_4;
   }
-  Widget_OnCommandDefault(param_2,param_3,param_4);
+  Widget_OnCommandDefault(param_1,param_2,param_3,param_4);
   uStack_4 = 0xffffffff;
   piVar1 = puVar3 + 3;
   LOCK();

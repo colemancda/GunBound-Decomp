@@ -18,10 +18,8 @@
  * label BuildChatLogPanel creates as child id 0 (sets the +0x1d close
  * flag). Same `<Panel>_OnCommand` form as WorldListPanel_OnCommand.
  *
- * Noted, not fixed: every Widget_OnCommandDefault call here is
- * missing its `this` (ECX = this at each site); that prototype is
- * declared with no parameters in functions.h and is a cross-cutting
- * fix for all panel OnCommand ports at once.
+ * FIXED (2026-10-30): every Widget_OnCommandDefault call now passes
+ * `this` (ECX = esi = this at 0x505823, 0x505843, 0x505858, 0x50587b).
  */
 #include "ghidra_types.h"
 
@@ -33,27 +31,27 @@ void __thiscall ChatLogPanel_OnCommand(int param_1,uint param_2,int param_3,unde
     if (param_2 == 0x1001) {
 LAB_0050584f:
       *(undefined1 *)(param_1 + 0x1d) = 1;
-      Widget_OnCommandDefault(param_2,param_3,param_4);
+      Widget_OnCommandDefault(param_1,param_2,param_3,param_4);
       return;
     }
     if (param_2 == 0) {
       if (param_3 == 0) goto LAB_0050584f;
       if (param_3 == 3) {
         CChatLogPanel_SubmitWhisper(param_1);
-        Widget_OnCommandDefault(0,3,param_4);
+        Widget_OnCommandDefault(param_1,0,3,param_4);
         return;
       }
     }
     else if (param_2 == 0x1000) {
       CChatLogPanel_SubmitWhisper(param_1);
-      Widget_OnCommandDefault(0x1000,param_3,param_4);
+      Widget_OnCommandDefault(param_1,0x1000,param_3,param_4);
       return;
     }
   }
   else if ((param_2 == 0x2000) && (param_3 == 0)) {
     *(undefined4 *)(param_1 + 0x1048) = param_4;
   }
-  Widget_OnCommandDefault(param_2,param_3,param_4);
+  Widget_OnCommandDefault(param_1,param_2,param_3,param_4);
   return;
 }
 

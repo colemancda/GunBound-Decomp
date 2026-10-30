@@ -1742,7 +1742,7 @@ void __thiscall Widget_MoveBy();
 void __fastcall Widget_ClearPressedRecursive();
 void __thiscall Widget_SetEnabled();
 void FUN_0050e820(int regEbx,int regEdi);
-void __thiscall Widget_OnCommandDefault();
+void Widget_OnCommandDefault(int this_,int evt,int id,int arg);
 void __fastcall Widget_DrawChildrenDeep();
 undefined4 AtlArray_GrowBuffer();
 void * __thiscall FUN_0050ede0();

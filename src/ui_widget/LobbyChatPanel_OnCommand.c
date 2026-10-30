@@ -19,8 +19,10 @@
  * 0x2000 id 0 from the scrollbar, whose position lands in
  * ctx+0x3b97c - the row offset LobbyChatPanel_Update reads.
  *
- * Noted, not fixed: the Widget_OnCommandDefault call is missing its
- * `this` (a tree-wide prototype problem), and Widget_FindChildIndex is
+ * FIXED (2026-10-30): the Widget_OnCommandDefault call now passes `this`
+ * (ECX = ebp = this at 0x50788c).
+ *
+ * Noted, not fixed: Widget_FindChildIndex is
  * called with none of its register arguments (open tree-wide, see
  * TextEntry_SetControlText.c). Panel.cpp declares no
  * CLobbyChatPanel::OnCommand, so the C++ build never reaches this body.
@@ -138,7 +140,7 @@ void __thiscall LobbyChatPanel_OnCommand(int param_1,int param_2,uint param_3,un
   else if ((param_2 == 0x2000) && (param_3 == 0)) {
     *(undefined4 *)(g_clientContext + 0x3b97c) = param_4;
   }
-  Widget_OnCommandDefault(param_2,param_3,param_4);
+  Widget_OnCommandDefault(param_1,param_2,param_3,param_4);
   uStack_4 = 0xffffffff;
   piVar1 = puVar4 + 3;
   LOCK();

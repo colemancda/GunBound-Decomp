@@ -19,8 +19,8 @@
  * evt 0x1001, sets the +0x1d close flag. There is no C++ class for
  * this dialog yet, so the prefix follows the docs' name for it.
  *
- * Noted, not fixed: the Widget_OnCommandDefault calls lack their
- * `this` (a tree-wide prototype problem).
+ * FIXED (2026-10-30): the Widget_OnCommandDefault calls now pass `this`
+ * (ECX = esi = this at 0x505732 and 0x50574c).
  */
 #include "ghidra_types.h"
 
@@ -39,10 +39,10 @@ void __thiscall AddBuddyDialog_OnCommand(int param_1,int param_2,int param_3,und
   }
   else if (iVar1 == 1) {
     *(undefined1 *)(param_1 + 0x1d) = 1;
-    Widget_OnCommandDefault(param_2,param_3,param_4);
+    Widget_OnCommandDefault(param_1,param_2,param_3,param_4);
     return;
   }
-  Widget_OnCommandDefault(param_2,param_3,param_4);
+  Widget_OnCommandDefault(param_1,param_2,param_3,param_4);
   return;
 }
 

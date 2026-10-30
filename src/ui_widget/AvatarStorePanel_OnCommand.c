@@ -17,8 +17,10 @@
  * state7+0x454 that AvatarStorePanel_HitTest adds to its row index.
  * Evt 0 ids 0, 2 and 3 post input events 0x14, 0x16 and 0x1a.
  *
- * Noted, not fixed: the Widget_OnCommandDefault calls lack their
- * `this` (a tree-wide prototype problem), and the EnqueueInputEvent
+ * FIXED (2026-10-30): the Widget_OnCommandDefault calls now pass `this`
+ * (ECX = esi = this at 0x50a9be and 0x50a9fd).
+ *
+ * Noted, not fixed: the EnqueueInputEvent
  * call drops its leading queue argument - EAX = 0x795070, the
  * g_inputEventRing base, at 0x50a9ec, with stack words (0, *this,
  * code). That dropped EAX is the open per-site recovery
@@ -56,11 +58,11 @@ void __thiscall AvatarStorePanel_OnCommand(undefined4 *param_1,int param_2,int p
     *(undefined4 *)(g_gameStateVTableArray[7] + 0x454) = param_4;
     FUN_0044b0b0(puVar1);
     RefreshConnectionStatusLabel(param_1);
-    Widget_OnCommandDefault(0x2000,0,param_4);
+    Widget_OnCommandDefault((int)param_1,0x2000,0,param_4);
     return;
   }
 LAB_0050a9f8:
-  Widget_OnCommandDefault(param_2,param_3,param_4);
+  Widget_OnCommandDefault((int)param_1,param_2,param_3,param_4);
   return;
 }
 

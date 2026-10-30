@@ -17,9 +17,10 @@
  * vtable 0x557e68), and id 2 "Del" acts on the buddy selected at
  * +0x90. Same `<Panel>_OnCommand` form as WorldListPanel_OnCommand.
  *
- * Noted, not fixed: the Widget_OnCommandDefault calls are missing their
- * `this` (that prototype is declared with no parameters, a tree-wide
- * fix), and Panel.cpp declares no CBuddyPanel::OnCommand, so the C++
+ * FIXED (2026-10-30): the Widget_OnCommandDefault calls now pass `this`
+ * (ECX = esi = this at 0x505d56, 0x505d9e, 0x505dbd, 0x505dd6).
+ *
+ * Noted, not fixed: Panel.cpp declares no CBuddyPanel::OnCommand, so the C++
  * build never reaches this body.
  */
 #include "ghidra_types.h"
@@ -37,7 +38,7 @@ void __thiscall BuddyPanel_OnCommand(int param_1,int param_2,int param_3,undefin
     else {
       if (param_3 == 1) {
         FUN_00508b90((int)&g_uiPanelManager);
-        Widget_OnCommandDefault(0,1,param_4);
+        Widget_OnCommandDefault(param_1,0,1,param_4);
         return;
       }
       if ((param_3 == 2) && (*(int *)(param_1 + 0x90) != -1)) {
@@ -47,7 +48,7 @@ void __thiscall BuddyPanel_OnCommand(int param_1,int param_2,int param_3,undefin
         iVar1 = FindActiveObjectByIndex((int)&DAT_00e53e88,*(int *)(param_1 + 0x90));
         if (iVar1 != 0) {
           FUN_00508ea0(&g_uiPanelManager,(uchar *)(iVar1 + 0x21));
-          Widget_OnCommandDefault(0,2,param_4);
+          Widget_OnCommandDefault(param_1,0,2,param_4);
           return;
         }
       }
@@ -55,10 +56,10 @@ void __thiscall BuddyPanel_OnCommand(int param_1,int param_2,int param_3,undefin
   }
   else if ((param_2 == 0x2000) && (param_3 == 0)) {
     DAT_00e54da8 = param_4;
-    Widget_OnCommandDefault(0x2000,0,param_4);
+    Widget_OnCommandDefault(param_1,0x2000,0,param_4);
     return;
   }
-  Widget_OnCommandDefault(param_2,param_3,param_4);
+  Widget_OnCommandDefault(param_1,param_2,param_3,param_4);
   return;
 }
 

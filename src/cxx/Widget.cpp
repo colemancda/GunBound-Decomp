@@ -487,9 +487,14 @@ void Widget_SetEnabled(CWidget *this_, bool enabled)
 
 
 
+/* 0x50eb10 itself - the base slot-7 body. The raw C OnCommand overrides
+ * reach it with a direct `call 0x50eb10` (ECX = this, three stack words,
+ * ret 0xc), never through the vtable, so this must be the qualified,
+ * non-virtual CWidget::OnCommand: a virtual call would re-enter the
+ * calling override as soon as Panel.cpp wires it, and recurse. */
 void Widget_OnCommandDefault(CWidget *this_, int evt, int id, int arg)
 {
-    this_->OnCommand(evt, id, arg);
+    this_->CWidget::OnCommand(evt, id, arg);
 }
 
 /* `this` arrives in EBX in the original (Widget_AddChild.c's own
