@@ -1,8 +1,23 @@
-/* FUN_005068e0 - 0x005068e0 in the original binary.
+/* CreateRoomDialog_Update - 0x005068e0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-30), CERTAIN: CCreateRoomDialog's slot-9 Update
+ * override. The original's vtable 0x557c34 holds this at slot 9
+ * (+0x24), the slot src/cxx/Widget.h declares as CWidget::Update; that
+ * vtable is installed only by BuildCreateRoomDialog (0x5081ef), and
+ * Widget.h records it as CCreateRoomDialog's. Same shape as the other
+ * slot-9 panel overrides (CBuddyPanel::Update, 0x505df0): m_hidden
+ * (+0x1e) gate, Widget_DrawSelf for the frame, then the panel's own
+ * extra. The extra is one more frame of sprite set 0x2713 - the outer
+ * key BuildCreateRoomDialog (Panel.cpp) stores at +0x44 as this
+ * dialog's own background - indexed by +0x90 and drawn at
+ * (x+0x7c, y+0x5c).
+ *
+ * Noted, not fixed: Panel.cpp declares no CCreateRoomDialog::Update, so
+ * the C++ build never reaches this body (the CBuddyPanel::Update gap).
  *
  * 2026-09-02: FindSpriteFrame/BlitSprite16bpp/BlitSpriteClipped register
  * args recovered from orig 0x506910-0x50693e - see the site comment.
@@ -10,7 +25,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_005068e0(int param_1)
+void __fastcall CreateRoomDialog_Update(int param_1)
 
 {
   int iVar1;

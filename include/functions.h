@@ -1664,7 +1664,7 @@ void __thiscall FUN_00506430();
 undefined4 CreateRoomDialog_SubmitCreateRoom();
 void RadioGroup_SelectLowChild();
 void RadioGroup_SelectHighChild();
-void __fastcall FUN_005068e0();
+void __fastcall CreateRoomDialog_Update();
 undefined4 EnterRoomNumberDialog_SubmitRoomNumber();
 void __thiscall EnterRoomNumberDialog_OnCommand();
 undefined4 FUN_00506bf0();
