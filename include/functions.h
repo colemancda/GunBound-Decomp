@@ -631,7 +631,7 @@ void FUN_00442e00(uint regEax);
 void FUN_004430c0();
 void LoadReadyRoomSlotAvatar(int regEax); /* 0x4431a0 - unpack the ready-room avatar copy (+0x501fe) -> LoadAvatarSprites */
 void __fastcall State06_Logo2_OnTick(int);
-void __fastcall FUN_00443540(int);
+void __fastcall State05_Logo1_OnTick(int);
 void RenderScreenBackdrop();
 void FUN_004435b0();
 void FUN_004435e0();

@@ -1509,7 +1509,7 @@ void *vtable_State05_Logo1[32] = {
   (void *)CGameState_NoOpVirtual_A,
   (void *)NoOpMethod, /* slot 6 mouse dispatch: 0x4433c0, not yet ported */
   (void *)State05_Logo1_OnEnter, (void *)State05_Logo1_OnExit,
-  (void *)FUN_00443540,
+  (void *)State05_Logo1_OnTick,
   /* Slots 10-17, recovered from the original's real vtable in .data at
    * 0x555590 - same reconstruction gap/technique as vtable_State06_Logo2
    * below and vtable_State01_Title above (slot 15 shared with it, see

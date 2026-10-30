@@ -500,7 +500,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00443330,39,State06_Logo2_OnTick,false,1,1,RAW-src
 004433f0,49,State05_Logo1_OnEnter,false,1,2,RAW-src
 00443430,262,State05_Logo1_OnExit,false,1,2,RAW-src
-00443540,40,FUN_00443540,false,1,1,RAW-src
+00443540,40,State05_Logo1_OnTick,false,1,1,RAW-src
 00443570,62,RenderScreenBackdrop,false,3,3,RAW-src
 004435b0,44,FUN_004435b0,false,1,2,RAW-src
 004435e0,44,FUN_004435e0,false,1,2,RAW-src
