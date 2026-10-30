@@ -80,7 +80,7 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
                                   *(int *)(iVar2 + 8)), iVar3 != 0)) {
         CommitActiveTextInput(*(int *)(param_2 + 8));
         *(int *)(param_2 + 8) = iVar3;
-        FUN_0040cc50();
+        FUN_0040cc50(iVar3);
         return;
       }
     }
@@ -100,7 +100,7 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
           }
           CommitActiveTextInput(*(int *)(param_2 + 8));
           *(int *)(param_2 + 8) = iVar3;
-          FUN_0040cc50();
+          FUN_0040cc50(iVar3);
           return;
         }
         uVar4 = 10;

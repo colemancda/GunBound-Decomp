@@ -4,17 +4,27 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * EBX PROMOTED (2026-10-30): the first instruction, 0x40cc50
+ * `mov eax,[ebx+0x44c]`, reads EBX with no prior write, and the body ends
+ * with `mov [ebx+0x448],2; ret` (cdecl, no stack args). EBX is the text box
+ * that just took focus. All four callers set it to the value they just stored
+ * into the registry's +8 slot: 0x40ce89 (HandleBackgroundActiveObjectMouseDown,
+ * ebx = FindActiveObjectAt's result from 0x40ce5d), 0x40cfce (FUN_0040cf80,
+ * ebx = the matched node from 0x40cfa3/0x40cfaf), and 0x40d0c8/0x40d11d
+ * (FUN_0040d020, `mov ebx,esi` at 0x40d0c3/0x40d118). The port read an
+ * uninitialised unaff_EBX.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0040cc50(void)
+void FUN_0040cc50(int regEbx)
 
 {
   char cVar1;
   char *pcVar2;
   char *pcVar3;
-  int unaff_EBX;
+  int unaff_EBX = regEbx;
   HWND hWnd;
   LPCSTR lpString;
   

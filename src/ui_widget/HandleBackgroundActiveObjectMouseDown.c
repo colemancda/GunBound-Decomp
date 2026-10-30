@@ -46,7 +46,7 @@ undefined4 HandleBackgroundActiveObjectMouseDown(int param_1,int mouseX,int mous
       CommitActiveTextInput(*(int *)(param_1 + 8));
     }
     *(int *)(param_1 + 8) = iVar1;
-    FUN_0040cc50();
+    FUN_0040cc50(iVar1);
   }
   return 1;
 }

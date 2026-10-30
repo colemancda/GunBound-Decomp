@@ -52,7 +52,7 @@ void __fastcall FUN_0040cf80(undefined4 param_1,uint param_2,int param_3,uint re
         CommitActiveTextInput(*(int *)(param_3 + 8));
       }
       *(int *)(param_3 + 8) = iVar2;
-      FUN_0040cc50();
+      FUN_0040cc50(iVar2);
     }
   }
   return;
