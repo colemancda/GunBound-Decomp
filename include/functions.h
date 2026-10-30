@@ -1589,7 +1589,7 @@ void __fastcall Vector_PushBack_8(undefined4 param_1,int regEsi);
 void FUN_005028f0(int regEsi);
 void Vector_PushBack_1e(undefined4 param_1,int regEax);
 int * Vector_Insert_12(int *param_1,int param_2,undefined4 *param_3,int regEdi);
-int * Vector_Insert_34(int *param_1,int param_2,undefined4 *param_3);
+int * Vector_Insert_34(int *param_1,int param_2,undefined4 *param_3,int regEdi);
 void Vector_Tidy_8(int regEbx);
 int __fastcall Vector_Size_1e(int param_1);
 int * Vector_Insert_1e(int *param_1,int param_2,undefined4 *param_3,int regEdi);

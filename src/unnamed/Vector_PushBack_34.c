@@ -54,7 +54,8 @@ void __fastcall Vector_PushBack_34(int param_1,undefined4 regEax)
     *(int *)(param_1 + 8) = iVar1 + 0x34;
     return;
   }
-  Vector_Insert_34(&local_4,*(undefined4 *)(param_1 + 8),regEax);
+  /* 0x502869-0x502873: EDI = the vector (`mov edi,ecx` at 0x502804) */
+  Vector_Insert_34(&local_4,*(undefined4 *)(param_1 + 8),regEax,param_1);
   return;
 }
 

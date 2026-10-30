@@ -16,9 +16,11 @@
  * argument order - so the vector and the position are the two stack
  * arguments. The port had passed the vector into ECX.
  *
- * EDI remains this function's own outstanding dropped register: it is
- * the vector, read at 0x502a2b before anything writes it, and its one
- * caller Vector_PushBack_34 holds it in the same register.
+ * EDI RECOVERED (2026-10-30): EDI is the vector, read at 0x502a2b
+ * (`mov esi,[edi+4]`) before anything writes it, and its one caller
+ * Vector_PushBack_34 holds the vector there (`mov edi,ecx` at 0x502804,
+ * unchanged to the call at 0x502873).  Promoted to the trailing regEdi,
+ * as Vector_Insert_12 (f51a3351) and Vector_Insert_1e do.
  *
  * NAMED (2026-08-28): the PUBLIC one-element
  * std::vector<T>::insert(iterator _P, const T& _X) of VC7.1's <vector>,
@@ -40,11 +42,11 @@
 #include "ghidra_types.h"
 
 
-int * Vector_Insert_34(int *param_1,int param_2,undefined4 *param_3)
+int * Vector_Insert_34(int *param_1,int param_2,undefined4 *param_3,int regEdi)
 
 {
   int iVar1;
-  int unaff_EDI;
+  int unaff_EDI = regEdi;
   
   iVar1 = *(int *)(unaff_EDI + 4);
   if (iVar1 != 0) {
