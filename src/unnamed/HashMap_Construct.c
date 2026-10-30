@@ -77,9 +77,9 @@
  * fixup for m_nBins being UINT.  The 17 in `cmp eax,0x11` is
  * atlcoll.h's own literal, not the nBins that happens to equal it --
  * HashMap_InitHashTable (0x500c00) carries the same clamp against a
- * runtime bucket count.  The two FloatToInt64() calls below are the
+ * runtime bucket count.  The two FloatToInt64() calls below were the
  * _ftol calls at 0x4fe464 and 0x4fe470; their FPU operands are
- * invisible to Ghidra, so both products are missing from the port.
+ * invisible to Ghidra, so both products were missing from the port (recovered 2026-10-30, below).
  *
  * ATL's CAtlMap and not MFC's CMap, and the binary settles it:
  * HashMap_PickSize is CAtlMap::PickSize -- it divides by m_fOptimalLoad at
@@ -122,6 +122,18 @@
  * parameter.  unaff_ESI is the real `this` -- never written in the
  * callee and the base of every field store -- while the ECX value
  * Ghidra called param_1 is just m_nBlockSize at +0x24.
+ *
+ * REHASH THRESHOLDS RECOVERED (2026-10-30): the two FloatToInt64() calls
+ * (the _ftol2 calls at 0x4fe464 / 0x4fe470) are now the products the
+ * paragraph above describes.  nBins is EAX (`mov [esp+8],eax; fild
+ * [esp+8]` at 0x4fe437/0x4fe43b, fix-up `fadd [0x557fac]` at 0x4fe458);
+ * `fld [esp+0x10]` at 0x4fe45e is the third stack argument (param_4, also
+ * stored to +0x14 = m_fHiThreshold at 0x4fe453) and its product goes to
+ * +0x18 at 0x4fe46d; `fmul [esp+0xc]` at 0x4fe469 is param_3 (stored to
+ * +0x10 = m_fLoThreshold at 0x4fe450) and its product goes to +0x1c at
+ * 0x4fe475.  The port reads the stored float members rather than the
+ * undefined4 arguments, which is the same value.  0x53753c is _ftol2
+ * (truncating); spelled (uint)(longlong)(double...) as in HashMap_PickSize.
  */
 #include "ghidra_types.h"
 
@@ -144,9 +156,10 @@ HashMap_Construct(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
   unaff_ESI[0xb] = 0;
   unaff_ESI[4] = param_3;
   unaff_ESI[5] = param_4;
-  uVar1 = FloatToInt64();
+  /* UpdateRehashThresholds, 0x4fe43b-0x4fe475: nBins (EAX) as UINT */
+  uVar1 = (uint)(longlong)((double)(uint)regEax * (double)*(float *)(unaff_ESI + 5));
   unaff_ESI[6] = uVar1;
-  uVar2 = FloatToInt64();
+  uVar2 = (uint)(longlong)((double)(uint)regEax * (double)*(float *)(unaff_ESI + 4));
   unaff_ESI[7] = uVar2;
   if (uVar2 < 0x11) {
     unaff_ESI[7] = 0;

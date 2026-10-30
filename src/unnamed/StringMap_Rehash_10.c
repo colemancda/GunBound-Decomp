@@ -43,6 +43,20 @@
  * eax,[esi+4]` (m_nElements), ECX = `mov ecx,esi`, ESI = [ebp+8] =
  * param_1, the map being rehashed.  Now passes (param_1,
  * (uint)param_1[1]).
+ *
+ * REHASH THRESHOLDS RECOVERED (2026-10-30): the port computed
+ * m_nHiRehashThreshold (+0x18) and m_nLoRehashThreshold (+0x1c) through
+ * two FloatToInt64() calls, which convert an uninitialised x87 ST0, so
+ * both thresholds were garbage after every rehash.  The tail is ATL's
+ * UpdateRehashThresholds over the new bin count: `fild [ebp+0xc]`
+ * (param_2, already stored as m_nBins) at 0x409f18, the UINT fix-up
+ * `fadd [0x557fac]` (4294967296.0f) at 0x409f22, then
+ * `fld st(0); fmul [esi+0x14]` (m_fHiThreshold) at 0x409f2a and _ftol2
+ * (0x53753c, truncating) at 0x409f2d stored to +0x18 at 0x409f35, and
+ * `fmul [esi+0x10]` (m_fLoThreshold) at 0x409f32 and _ftol2 at 0x409f38
+ * stored to +0x1c at 0x409f40, before the existing under-17 clamp.  Now
+ * spelled out as (uint)(longlong)((double)param_2 * m_f*Threshold), the
+ * form HashMap_PickSize uses.
  */
 #include "ghidra_types.h"
 
@@ -102,9 +116,9 @@ void StringMap_Rehash_10(int *param_1,uint param_2)
     _free((void *)*param_1);
     *param_1 = (int)puVar2;
     param_1[2] = param_2;
-    iVar3 = FloatToInt64();
-    param_1[6] = iVar3;
-    uVar6 = FloatToInt64();
+    /* UpdateRehashThresholds, 0x409f18-0x409f40: nBins (param_2) as UINT */
+    param_1[6] = (uint)(longlong)((double)param_2 * (double)*(float *)(param_1 + 5));
+    uVar6 = (uint)(longlong)((double)param_2 * (double)*(float *)(param_1 + 4));
     param_1[7] = uVar6;
     if (uVar6 < 0x11) {
       param_1[7] = 0;

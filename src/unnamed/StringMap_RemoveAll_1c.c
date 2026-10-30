@@ -23,6 +23,16 @@
  * eax,eax`): RemoveAll's `InitHashTable(PickSize(0), false)`; witness: the
  * same esi is pushed as HashMap_InitHashTable's map right after (call at
  * 0x4ff0f5).  Now passes (regEsi, 0).
+ *
+ * INLINED PickSize RECOVERED (2026-10-30): the inlined FreeNode's
+ * threshold arm computed its bin count through FloatToInt64(), which
+ * converts an uninitialised x87 ST0.  The disassembly is CAtlMap::PickSize
+ * inlined: EAX = the decremented m_nElements (`mov eax,edx`, also stored to
+ * [esi+4] - this port's iVar3 - 1U), `fild` of it at 0x4ff04a, the UINT
+ * fix-up `fadd [0x557fac]` (4294967296.0f) at 0x4ff050, `fdiv [esi+0xc]`
+ * (m_fOptimalLoad) at 0x4ff056, and _ftol2 (0x53753c, truncating) at
+ * 0x4ff059.  Spelled (uint)(longlong)((double)n / m_fOptimalLoad), as in
+ * HashMap_PickSize itself.
  */
 #include "ghidra_types.h"
 
@@ -55,7 +65,8 @@ void StringMap_RemoveAll_1c(int *regEsi)
         regEsi[0xb] = iVar6;
         regEsi[1] = iVar3 - 1U;
         if ((iVar3 - 1U < (uint)regEsi[7]) && (regEsi[8] == 0)) {
-          uVar5 = FloatToInt64();
+          /* inlined PickSize(m_nElements), 0x4ff04a-0x4ff059 */
+          uVar5 = (uint)(longlong)((double)(iVar3 - 1U) / (double)*(float *)(regEsi + 3));
           iVar6 = 0;
           if (0x11 < uVar5) {
             do {
