@@ -1583,7 +1583,7 @@ uint FUN_005024a0();
 uint __fastcall FUN_00502500(uint param_1,undefined4 *param_2,ushort opcode,int regEbx);
 uint FUN_00502650();
 void __fastcall Vector_PushBack_12(int param_1,undefined4 regEax);
-void FUN_005027d0(undefined4 param_1,undefined4 *regEbx,int regEsi);
+void Vector_Erase_12(undefined4 param_1,undefined4 *regEbx,int regEsi);
 void __fastcall Vector_PushBack_34(int param_1,undefined4 regEax);
 void __fastcall FUN_00502890(undefined4 param_1,int regEsi);
 void FUN_005028f0(int regEsi);

@@ -38,7 +38,7 @@
  * it is a 16-char NUL-terminated string.)  Sink: the 0x3003 reply arm
  * memcmps 0x10 bytes of it (0x50224f) against a 0x12-stride array walked
  * from [this+0x17b0] to [this+0x17b4] and erases the match through
- * FUN_005027d0 with the container at this+0x17ac (0x50226e).
+ * Vector_Erase_12 with the container at this+0x17ac (0x50226e).
  *
  * - THE SESSION OBJECT IS A CBuddy2.  Our EBX is DispatchP2PMessage's
  * param_3 (`mov ebx,[ebp+8]` at 0x504ad5).  CommP2POwner_ProcessPacket - one function,

@@ -10,7 +10,7 @@
  * 16+2-byte member assignment (and the one Vector_FillN_12 uses). Not a
  * copy of a whole vector; the name pairs with Vector_CopyBackward_*.
  *
- * The identity comes from its one caller, FUN_005027d0 at 0x5027e2,
+ * The identity comes from its one caller, Vector_Erase_12 at 0x5027e2,
  * which is the 0x12 vector's erase(_Where): it passes ECX = _Where +
  * 0x12 (`lea ecx,[edi+0x12]`), EDX = _Mylast (`mov edx,[esi+8]`) and EAX
  * = _Where, then drops _Mylast by 0x12 - VC7.1's `copy(_Where + 1,

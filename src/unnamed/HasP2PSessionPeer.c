@@ -8,7 +8,7 @@
  * begin/end pair addressed 0x2f4 higher (+0x17b0/+0x17b4) - the 0x3001
  * arm inserts a peer (with nick and address info) via Vector_PushBack_12 and
  * the 0x3003 arm erases one after the identical strnicmp-by-name walk
- * via FUN_005027d0 - and SendBuddyNameMessage's header established that
+ * via Vector_Erase_12 - and SendBuddyNameMessage's header established that
  * base as the CBuddy2 messenger session object and reads the 0x3002/
  * 0x3003 exchange as "drop peer <name> from my session list".  So this
  * predicate reports whether a peer name is on the messenger session's

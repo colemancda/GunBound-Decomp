@@ -534,7 +534,7 @@ LAB_00501b17:
           do {
             iVar7 = __strnicmp(pcVar12,(char *)&local_496c,0x10);
             if (iVar7 == 0) {
-              FUN_005027d0(pcVar12,(undefined4 *)&local_4978,param_1 + 0x17ac);
+              Vector_Erase_12(pcVar12,(undefined4 *)&local_4978,param_1 + 0x17ac);
               break;
             }
             pcVar12 = pcVar12 + 0x12;
