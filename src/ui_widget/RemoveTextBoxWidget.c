@@ -19,7 +19,7 @@
  * calls.  ESI is 0 on the first call of each pair and 1 on the second.
  *
  * The three call pairs are pinned by their own blocks rather than by order:
- * FUN_00445450's is preceded by the address-bearing label LAB_00445543, and
+ * State07_AvatarStore_OnCommand's is preceded by the address-bearing label LAB_00445543, and
  * 0x445543 really is that block (`xor edx,edx / mov edi,0xe9be90 /
  * call 0x405fb0 / xor esi,esi / mov edx,0x2710 / mov edi,0xe9c0fc`).  The
  * other two carry a call-sequence fingerprint plus a store the source also
@@ -50,7 +50,7 @@
  *
  * WHICH OBJECTS THESE ARE.  tools/callsite_regs.py 0x40cdf0 gives 8 call
  * sites in 4 pairs -- State07_AvatarStore_ProcessPacket (0x444cce/0x444cdd),
- * FUN_004452c0 (0x44542f/0x44543e), FUN_00445450 (0x44555b/0x44556a) and
+ * FUN_004452c0 (0x44542f/0x44543e), State07_AvatarStore_OnCommand (0x44555b/0x44556a) and
  * RenderInventoryItemDetail (0x44b9f9/0x44ba08) -- with EDX = 0x2710 at 8/8,
  * EDI = 0xe9c0fc (g_activeObjectRegistry2) loaded once per pair, and ESI = 0
  * then 1.  Those two keys were pinned from the other end, not from this
@@ -78,7 +78,7 @@
  * narrower and enough: the avatar-store gift dialog's two text boxes are
  * (0x2710,0) and (0x2710,1) in registry 2.
  *
- * WHAT THE TWO BOXES ARE.  FUN_00445450 case 0x35 reads them back with
+ * WHAT THE TWO BOXES ARE.  State07_AvatarStore_OnCommand case 0x35 reads them back with
  * GetWidgetChildText(0,0x2710,&g_activeObjectRegistry2,0) into a 16-byte
  * field and (...,1) into a length-prefixed string, then emits opcode 0x6030
  * (or 0x6031, GB_OP_GIFT_GIVEN, on the other side of a guard bool -- both
@@ -104,7 +104,7 @@
  * call CreateAvatarStoreButtons there; the one at
  * RenderInventoryItemDetail.c:118 is a later, separately-guarded branch.
  * Ids 0x34/0x35 are created in the same block as the two text boxes
- * (FUN_00445450 lines 516-518 and 520-540).  Buttons through registry 1,
+ * (State07_AvatarStore_OnCommand lines 516-518 and 520-540).  Buttons through registry 1,
  * text boxes through registry 2.
  *
  * THIS SETTLES AN OPEN QUESTION IN globals.h.  That header records a

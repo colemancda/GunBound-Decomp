@@ -9,7 +9,7 @@
  *   return m_pData[iElement];             [ecx] + eax*0x450
  *
  * Container and stride are fixed from outside the body.  All 30 binary
- * call sites (every one in FUN_00445450) load ECX the same way, `add
+ * call sites (every one in State07_AvatarStore_OnCommand) load ECX the same way, `add
  * ecx,0x44e20` on g_clientContext, which is the owned-item array
  * AtlArray_RemoveAll_450's header identifies among the four 0x450-element
  * CAtlArrays at +0x44e20/+0x44e30/+0x44e40/+0x44e50, and whose element
@@ -19,7 +19,7 @@
  * suffix follows AtlArray_SetCount_450 / AtlArray_RemoveAll_450.
  *
  * ARRAY AND INDEX PROMOTED (2026-10-29).  The definition read the index
- * from an uninitialised in_EAX local and all 30 C sites in FUN_00445450.c
+ * from an uninitialised in_EAX local and all 30 C sites in State07_AvatarStore_OnCommand.c
  * were argless.  It is now (int *param_1, uint regEax) - the array first,
  * the EAX index trailing, as AtlArray_RemoveAt_450 does; __fastcall is
  * dropped because ECX here is an erased-__thiscall `this` and every caller
@@ -28,7 +28,7 @@
  * PeekChecksumStateUnderLock (0x40a4d0) call immediately before it, on
  * this+0x3054c (the selected-item index guard; pushed as esi/ebx/edi,
  * each `lea r,[ebp+0x3054c]`), with no EAX write in between.  Each site
- * was checked individually; FUN_00445450.c's header lists the pairing.
+ * was checked individually; State07_AvatarStore_OnCommand.c's header lists the pairing.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"

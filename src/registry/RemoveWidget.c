@@ -137,7 +137,7 @@
  * but such a run is still identified by WHAT ELSE IT CALLS.  Keying each run
  * on the tuple of its other callee names plus its RemoveWidget count, and
  * pairing only where that key is unique on BOTH sides, added 16 more sites
- * across four files - 8 of them in FUN_00445450, which no earlier rule
+ * across four files - 8 of them in State07_AvatarStore_OnCommand, which no earlier rule
  * touched at all.
  *
  * Audited by containment against the scanned registers: for each function the
@@ -145,7 +145,7 @@
  * scanned from that function's call sites, with slack for sites whose ESI was
  * not an immediate.  0 unexplained claims tree-wide.
  *
- * WHAT DOES NOT YIELD: five of the remaining callers - FUN_00445450,
+ * WHAT DOES NOT YIELD: five of the remaining callers - State07_AvatarStore_OnCommand,
  * State11_InBattle_HandleKeyInput/HandleMouseInput, HandleTurnTimeoutSlot and
  * FUN_004ccd10 - have CreateButtonWidget landmarks that are NOT UNIQUE within
  * the function, so runs cannot be keyed by them at all; the tool refuses

@@ -1,8 +1,21 @@
-/* FUN_00445450 - 0x00445450 in the original binary.
+/* State07_AvatarStore_OnCommand - 0x00445450 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-29, CERTAIN (was FUN_00445450).  Slot 5 (+0x14) of
+ * State07's vtable 0x5555f8 - the table FUN_00443c20, the state's
+ * constructor, stamps, read from the original .rdata: slot 1 is
+ * State07_AvatarStore_ProcessPacket (0x4440c0), slot 7
+ * State07_AvatarStore_OnEnter (0x447760).  Slot 5 of the sibling state
+ * tables is the named command dispatcher in each: 0x553670 slot 5 =
+ * State03_GameRoomList_OnCommand (0x4285c0), 0x5569f8 slot 5 =
+ * State09_ReadyRoom_OnCommand (0x4d54e0), 0x5570f0 slot 5 =
+ * State02_ServerSelect_OnCommand (0x4e1170).  Same shape: ECX this plus
+ * three stack arguments (`ret 0xc` at 0x4474fe, as State03's at
+ * 0x428b0b).  Earlier notes in other files called it the store-window
+ * builder.
  *
  * PARTIALLY FIXED (2026-07-13): InvokeWidget's own dropped widgetId
  * fixed at its 2 call sites here (ids 52, 53 per an angr CFG backward-
@@ -61,7 +74,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefined4 param_4)
+void __thiscall State07_AvatarStore_OnCommand(int param_1,int param_2,undefined4 param_3,undefined4 param_4)
 
 {
   char cVar1;

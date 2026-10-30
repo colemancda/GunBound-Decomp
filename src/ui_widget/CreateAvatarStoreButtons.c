@@ -5,7 +5,8 @@
  * names - b_store_buy, b_store_cashcharge, b_store_cloth, b_store_cap,
  * b_store_buddygame, b_store_down and the rest.  Called from
  * State07_AvatarStore_OnEnter, State07_AvatarStore_ProcessPacket,
- * RenderInventoryItemDetail and the store-window builder FUN_00445450.
+ * RenderInventoryItemDetail and the store command handler
+ * State07_AvatarStore_OnCommand.
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */

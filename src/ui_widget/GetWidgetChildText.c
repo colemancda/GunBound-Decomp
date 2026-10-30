@@ -21,7 +21,7 @@
  * ascending and a miss is detectable; the callers do not check.
  *
  * ESI RECOVERED (2026-08-25): an immediate at all three sites -- 0 twice and 1
- * once.  The two FUN_00445450 sites are the pair that needed care: they are
+ * once.  The two State07_AvatarStore_OnCommand sites are the pair that needed care: they are
  * adjacent source lines separated only by an inline string-copy loop, so that
  * loop's own `jne` is the only branch between them and neither call can be
  * reached without the other.  VA order is source order there, which makes the

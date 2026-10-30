@@ -4,7 +4,7 @@
  * activeFlag/tableHandle pair and registers it via
  * EncodeOutgoingPacketField(cell, 0), for cells 0x23c apart at
  * +0/0x23c/.../0x1580 (object extent 0x17a4 bytes). `this` arrives in
- * ECX; sole callers are FUN_00445450's five `lea ecx,[esp+0x2d3c]` /
+ * ECX; sole callers are State07_AvatarStore_OnCommand's five `lea ecx,[esp+0x2d3c]` /
  * `call 0x425350` sites (the state-7 OnCommand's stack workspace - see
  * that file's guardWorkspace local).
  *

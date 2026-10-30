@@ -21,7 +21,7 @@
  * (`mov ax, word ptr [...]`) -- a 16-bit field.  Per caller:
  *   ApplyAvatarStatBonuses  *(ushort *)(param_2 + 2N) for N = 0..3, the
  *                           push literal N pairing each site to its source
- *   FUN_00445450            the result of PeekChecksumStateUnderLock(iVar9 +
+ *   State07_AvatarStore_OnCommand            the result of PeekChecksumStateUnderLock(iVar9 +
  *                           0x22c) -- which the port had been DISCARDING; the
  *                           block's six calls run in a straight line, so
  *                           source order is VA order and the pairing is exact
@@ -29,7 +29,7 @@
  *                           into uVar2 on the line above
  *
  * regEsi is the avatar-part WORKSPACE, a ~0x17d0-byte struct this function
- * reads at +0x224..+0x23b and +0x17a4..+0x17cc.  FUN_00445450 already
+ * reads at +0x224..+0x23b and +0x17a4..+0x17cc.  State07_AvatarStore_OnCommand already
  * declares it (partWorkspace).  The other two callers never declared it at
  * all -- every use was through this dropped register -- yet both frames put
  * it at exactly -0x17f0, and RenderInventoryItemDetail's lone `local_15cc`

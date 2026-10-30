@@ -1757,7 +1757,7 @@ from the call sites:
 | `0x320`–`0x32f` | `State10_Loading_OnEnter` | loading-screen labels (16 contiguous) |
 | `0x4e20`–`0x4e23` | `State03_GameRoomList_RenderRoomLabel` | room-list column headers |
 | `0x1770`–`0x177f` | `WriteReplayEventRecord` | replay event-type descriptions (16 contiguous, one per event kind) |
-| `0x2c3`–`0x2cb`, `0xea60`–`0xea69` | `FUN_00445450` (unnamed avatar-store UI builder) | avatar-store labels |
+| `0x2c3`–`0x2cb`, `0xea60`–`0xea69` | `State07_AvatarStore_OnCommand` (State07 slot 5) | avatar-store labels |
 | `0xea6a`–`0xea6d`, `0xfa8` | `State07_AvatarStore_ProcessPacket` | avatar-store purchase-dialog strings (confirmed) |
 
 A handful of sites pass a **computed/variable** id (`uVar…`, `iVar + N`)

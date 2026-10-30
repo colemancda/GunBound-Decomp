@@ -13,7 +13,7 @@
  *
  * The four unrolled rounds each call FUN_00423e20 - the XFS entry
  * opener the avatar-part chain already uses (FUN_004240c0,
- * FUN_00445450, RenderInventoryItemDetail) - with selector 0..3, then
+ * State07_AvatarStore_OnCommand, RenderInventoryItemDetail) - with selector 0..3, then
  * copy the eight LOCAL cells into destCells.  The first round assigns,
  * the next three accumulate, which is what makes this a sum over the
  * equipped parts rather than a plain copy.
@@ -87,7 +87,7 @@ void ApplyAvatarStatBonuses(undefined4 param_1,undefined4 param_2,undefined4 par
   undefined4 local_4;
   /* The avatar-part workspace at frame -0x17f0, which this port never
    * declared because every use went through a dropped register.  Same
-   * object FUN_00445450 declares as partWorkspace - see FUN_00423e20.c. */
+   * object State07_AvatarStore_OnCommand declares as partWorkspace - see FUN_00423e20.c. */
   undefined1 partWorkspace [0x17d0];
   
   local_4 = 0xffffffff;

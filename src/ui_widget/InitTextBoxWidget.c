@@ -9,7 +9,7 @@
  *     +0x40/+0x44 as the extents (x2 = +0x40 + +0x38, y2 = +0x44 + +0x3c),
  *     then walks the NUL-terminated string at +0x48 counting characters and
  *     splitting it into lines - a word-wrapping text renderer.
- *   - both call sites (FUN_00445450) do operator_new(0x458), call this, then
+ *   - both call sites (State07_AvatarStore_OnCommand) do operator_new(0x458), call this, then
  *     RegisterActiveObject, immediately after the store window's
  *     "b_storewindow_cancel"/"b_storewindow_confirm" buttons - and pass the
  *     same x (0xf2) those buttons use.

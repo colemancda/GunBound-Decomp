@@ -6,7 +6,7 @@
  * 0=body, 1=head, 2=glasses, 3=flag) sets that one part code and passes the rest
  * as 0xffffffff to the compositor LoadAvatarSprites. Peer of EquipAvatarPart
  * (0x44b170) / UnequipAvatarSlot (0x44b330), which both transmit. Dispatched
- * from FUN_00445450.
+ * from State07_AvatarStore_OnCommand.
  *
  * Function IDENTITY is confirmed (Avatar-Store try-on preview, local only); the
  * BODY is a raw/near-verbatim Ghidra port, not hand-verified. See src/README.md's
@@ -22,7 +22,7 @@
  * in a new iVar5.
  *
  * ESI RECOVERED (2026-08-26): the object.  Its single call site is
- * `mov esi,ebp` at 0x44587f in FUN_00445450, where EBP is set once at
+ * `mov esi,ebp` at 0x44587f in State07_AvatarStore_OnCommand, where EBP is set once at
  * 0x445472 (`mov ebp,ecx`) and never rewritten -- so it is that __thiscall's
  * own param_1.  The three guard checks on the line above the call read
  * param_1 + 0x325b0 / +0x32c54 / +0x32e63 off the same object.
