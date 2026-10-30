@@ -1553,7 +1553,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00505700,87,FUN_00505700,false,1,2,RAW-src
 00505760,122,Panel_BaseConstructor,false,18,1,RAW-src
 005057f0,151,ChatLogPanel_OnCommand,false,1,2,RAW-src
-00505890,95,FUN_00505890,false,1,2,RAW-src
+00505890,95,ChatLogPanel_Update,false,1,2,RAW-src
 00505900,450,AppendChatLogPanelLine,false,3,5,RAW-src
 00505ad0,312,CChatLogPanel_SubmitWhisper,false,2,9,RAW-src
 00505d20,194,FUN_00505d20,false,1,4,RAW-src
