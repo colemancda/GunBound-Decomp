@@ -264,16 +264,18 @@ extern unsigned int DAT_005b1444;
 extern unsigned int g_clipMinX, g_clipMaxX, g_clipMinY, g_clipMaxY;
 
 /* g_clientContext - see globals.h's own comment: a ~1MB+ arena built by
- * FUN_00415d40, whose only real caller (orig 0x540d30) is a tiny wrapper
- * with no other callers in the whole binary - almost certainly a hidden
- * CRT-level global-object static initializer (the same role this file's
- * own gb_init_cs_entry/.CRT$XCU hook plays), never reached by anything
+ * ClientContext_Constructor (0x415d40), whose only real caller is the
+ * .CRT$XCU static initializer at 0x540d30 - `push 0x7a7ae0; call
+ * 0x415d40; push 0x543200; call atexit` - i.e. the C++ global object at
+ * 0x7a7ae0, with ClientContext_Destructor registered via the 0x543200
+ * thunk (the same role this file's own gb_init_cs_entry/.CRT$XCU hook
+ * plays). It is never reached by anything
  * Ghidra decompiled as regular WinMain/InitGame flow, so g_clientContext
  * stayed NULL for the entire bring-up. Confirmed live: GameTick's own
  * PeekPacketChecksumBool call sites (g_clientContext+0x6aa678,
  * +0x23310) crashed reading off a NULL-based address.
  *
- * NOT calling the real FUN_00415d40 here (484 lines, several more
+ * NOT calling the real ClientContext_Constructor here (484 lines, several more
  * unverified helper calls, C++ array-construction reflection
  * (_eh_vector_constructor_iterator_) - too much new untested surface for
  * a bring-up scaffold fix). Instead: give g_clientContext a real, safely
@@ -285,7 +287,7 @@ extern unsigned int g_clipMinX, g_clipMaxX, g_clipMinY, g_clipMaxY;
  * valid all-false encoding (checksum = byte0+byte1-0x34; {0,0x34,0}
  * satisfies that with bit0 of byte1 clear) so those two specific reads
  * don't spuriously trip g_valueGuardTamperFlag - this is exactly what
- * FUN_00415d40 itself does for the 0x23310 cell (see its own body,
+ * ClientContext_Constructor itself does for the 0x23310 cell (see its own body,
  * lines ~444-450), just without running the rest of that function.
  * Real per-player CValueGuard cells (g_clientContext+0xebef4, see
  * ValueGuard.h) and everything else in the arena stay zeroed - not

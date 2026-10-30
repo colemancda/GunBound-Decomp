@@ -181,7 +181,7 @@ serves a network-paginated list, a local buddy list, and item grids unchanged.
 
 Most per-screen game data lives at fixed byte offsets inside one large global
 arena reached through the base pointer **`g_clientContext`** (formerly
-`DAT_005b3484`; a raw address in a `uint32_t`, arena built by `FUN_00415d40`).
+`DAT_005b3484`; a raw address in a `uint32_t`, arena built by `ClientContext_Constructor`).
 It holds the outgoing packet buffer (`+0x4d0`, length cursor `+0x44d0`),
 Winsock socket handles (`+0x84e0`), critical sections, room/player/whisper
 state, and per-screen scratch (e.g. the server-list SoA at `+0x3f808`). There

@@ -19,7 +19,7 @@
  * retired the wrong node, and the last node of each bucket would have
  * been retired as a null. The captured value gets a local of its own.
  *
- * All three sites resolve. FUN_00418dc0 passes two arena offsets with
+ * All three sites resolve. ClientContext_Destructor passes two arena offsets with
  * `lea eax,[edi+0x6aa44c]` and `lea eax,[edi+0x6aa41c]` at
  * 0x418e76/0x418e81 - an ADDRESS, which callsite_regs.py renders
  * identically to a load. The third arrives through

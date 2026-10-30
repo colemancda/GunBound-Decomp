@@ -709,7 +709,7 @@ uint8_t g_softwareCursorAnimBlock[0x38];
  *
  * 2026-07-14: found + decompiled the REAL constructor (FUN_00507dc0,
  * .CRT$XCU-registered via FUN_00540dc0 - same hidden-static-initializer
- * pattern as g_clientContext's own FUN_00415d40). Confirms the true
+ * pattern as g_clientContext's own ClientContext_Constructor). Confirms the true
  * object layout and size:
  *   +0x00: vtable pointer (&PTR_FUN_00557cfc) - zero live callers ever
  *          dereference it (checked via a full-binary xref search), left

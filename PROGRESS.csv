@@ -280,7 +280,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00415c60,52,FUN_00415c60,false,5,0,RAW-src
 00415ca0,63,FUN_00415ca0,false,2,0,RAW-src
 00415ce0,84,FUN_00415ce0,false,5,0,RAW-src
-00415d40,3801,FUN_00415d40,false,1,13,RAW-src
+00415d40,3801,ClientContext_Constructor,false,1,13,RAW-src
 00416c20,2201,FUN_00416c20,false,1,1,RAW-src
 004174c0,4210,FUN_004174c0,false,2,2,RAW-src
 00418540,363,FUN_00418540,false,1,2,RAW-src
@@ -289,7 +289,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00418910,254,DestroyItemRecord,false,2,2,RAW-src
 00418a10,369,FUN_00418a10,false,1,2,RAW-src
 00418b90,554,FUN_00418b90,false,2,2,RAW-src
-00418dc0,3939,FUN_00418dc0,false,1,11,RAW-src
+00418dc0,3939,ClientContext_Destructor,false,1,11,RAW-src
 00419d30,89,FUN_00419d30,false,2,4,RAW-src
 00419d90,5740,LoadGameDataFiles,false,3,15,RAW-src
 0041b410,151,WrapChatLineText,false,4,0,RAW-src

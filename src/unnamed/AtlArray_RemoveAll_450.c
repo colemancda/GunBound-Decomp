@@ -37,7 +37,7 @@
  * NAMED 2026-08-27.
  *
  * (1) IT IS NOT THE DESTRUCTOR, and the binary settles that without appeal
- * to the ATL header. FUN_00418dc0 (the client-context destructor) carries
+ * to the ATL header. ClientContext_Destructor (the client-context destructor) carries
  * the INLINED ~CAtlArray for these very four arrays, four times in a row at
  * 0x44e50 / 0x44e40 / 0x44e30 / 0x44e20, and each copy is only `if (m_pData)
  * { dtor loop at 0x450 stride into AtlArray_DestroyElement_450; free; }`
@@ -50,7 +50,7 @@
  * else.
  *
  * (2) THE FOUR-FIELD LAYOUT AND THE ARRAY COUNT COME FROM THE CONSTRUCTOR,
- * not from inference. FUN_00415d40 zeroes four consecutive 0x10-byte headers
+ * not from inference. ClientContext_Constructor zeroes four consecutive 0x10-byte headers
  * at g_clientContext + 0x44e20 / 0x44e30 / 0x44e40 / 0x44e50 -- {m_pData,
  * m_nSize, m_nMaxSize, m_nGrowBy} each, exactly src/cxx/AtlArray.h's layout.
  *

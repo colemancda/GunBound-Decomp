@@ -42,7 +42,7 @@
  * call right after each pair that syncs the same cell); the last call
  * (CheckGuardedBoolAnd(iVar4<iVar5) block) is g_clientContext+0x5b85c, the
  * same client-context checksum cell already established by sibling files
- * (e.g. FUN_00415d40.c's `EncodeOutgoingPacketField(param_1 + 0x5b85c, 0)`
+ * (e.g. ClientContext_Constructor.c's `EncodeOutgoingPacketField(param_1 + 0x5b85c, 0)`
  * where param_1 there is itself g_clientContext-derived). */
 #include "ghidra_types.h"
 

@@ -46,7 +46,7 @@
  * 0x53bd91. All three are MSVC exception-unwind funclets in the tail of
  * .text, each of the form mov esi,[ebp+4]; add esi,<member offset>; jmp
  * 0x4f1770, for member subobjects at +0x85c (see FUN_004e38f0) and at
- * DAT_006a7f88 plus an index (see FUN_00418dc0). They are compiler-generated
+ * DAT_006a7f88 plus an index (see ClientContext_Destructor). They are compiler-generated
  * cleanup code with no corresponding source statement, so they are correctly
  * absent from the source call count, and each one sets ESI and only ESI
  * before jumping - three further confirmations of the argument register.

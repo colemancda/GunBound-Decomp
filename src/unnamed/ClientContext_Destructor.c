@@ -1,13 +1,33 @@
-/* FUN_00418dc0 - 0x00418dc0 in the original binary.
+/* ClientContext_Destructor - 0x00418dc0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-29, CERTAIN (was FUN_00418dc0).  Its only caller is the
+ * atexit thunk src/unnamed/msvc_crt_atl/FUN_00543200.c, `push 0x7a7ae0;
+ * call 0x418dc0; ret` - the stock MSVC static-object-destructor idiom,
+ * the same shape ReplayContext_Destructor and ValueGuardMap_Destructor
+ * are named from.  0x7a7ae0 is the object ClientContext_Constructor
+ * builds from the .CRT$XCU initializer at 0x540d30, which registers
+ * 0x543200 with _atexit; the body begins by zeroing g_clientContext
+ * (`mov dword ptr [0x5b3484], 0` at 0x418dee).  The original is `ret 4`
+ * (0x419d20); the port is cdecl, consistent with its one C caller.
+ *
+ * KNOWN DEFECTS, NOT FIXED (rename only):
+ *   - live SEH artifact: unaff_FS_OFFSET is read and written
+ *     uninitialised in the prologue and epilogue, so this faults if run;
+ *   - both FUN_004f0d70 (CloseXFSArchive) calls drop the archive, which
+ *     the original passes in ESI = param_1+0xf6e8: `lea esi,[edi+0xf6e8]`
+ *     at 0x418de8 for the call at 0x418df8, and again at 0x419cda for
+ *     the call at 0x419ce0.  Witness: the second call is guarded by
+ *     `cmp dword ptr [edi+0x10728], -1`, and 0x10728 = 0xf6e8 + 0x1040,
+ *     the archive's file-handle field per FUN_004f0d70's own header.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00418dc0(int param_1)
+void ClientContext_Destructor(int param_1)
 
 {
   int *piVar1;

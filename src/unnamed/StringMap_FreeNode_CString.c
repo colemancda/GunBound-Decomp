@@ -56,7 +56,7 @@
  * type, on the AtlArray_RemoveAt_CString precedent.
  *
  * Its maps are the two the arena carries at +0x6aa41c and +0x6aa44c,
- * which StringMap_RemoveAll_CString is called on from FUN_00418dc0.
+ * which StringMap_RemoveAll_CString is called on from ClientContext_Destructor.
  *
  * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x4156fa
  * passed nothing.  FreeNode threshold arm: EAX = `mov eax,edx` after `dec

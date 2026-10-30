@@ -496,7 +496,7 @@ extern uint8_t DAT_005b3440;
 extern uint32_t DAT_005b3480;
 /* g_clientContext (was DAT_005b3484) - base ADDRESS of the main client
  * context arena: a ~1 MB block (offsets run past 0xeb000) constructed by
- * FUN_00415d40. Holds, among much else: the outgoing packet buffer
+ * ClientContext_Constructor. Holds, among much else: the outgoing packet buffer
  * (+0x4d0 / length cursor +0x44d0), Winsock socket handles (+0x84e0),
  * critical sections, room/player/whisper state, and the server-list
  * structure-of-arrays populated by opcode 0x1102 (16-entry parallel arrays

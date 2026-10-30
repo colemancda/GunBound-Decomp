@@ -1,8 +1,23 @@
-/* FUN_00415d40 - 0x00415d40 in the original binary.
+/* ClientContext_Constructor - 0x00415d40 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-29, CERTAIN (was FUN_00415d40).  Its only caller is the
+ * .CRT$XCU static initializer at 0x540d30: `push 0x7a7ae0; call
+ * 0x415d40; push 0x543200; call _atexit` - the stock MSVC shape for a
+ * C++ global object, constructed in place at 0x7a7ae0 with its
+ * destructor (ClientContext_Destructor, via the 0x543200 atexit thunk)
+ * registered right after.  The body publishes the object as the arena
+ * base, `mov [0x5b3484], ebp` at 0x416aab = `g_clientContext = param_1`
+ * below, and ClientContext_Destructor zeroes the same global first.
+ * Named in the *_Constructor / *_Destructor form so the pair reads
+ * together (compare ReplayContext_Destructor).  The original is `ret 4`
+ * (0x416c16), callee-cleaned; the port is cdecl, and the bring-up does
+ * not call it - crt_shims_msvc.c substitutes a zeroed arena.  The
+ * function also carries a live SEH artifact (unaff_FS_OFFSET is read and
+ * written uninitialised), which would fault if it were ever called.
  *
  * FIXED (2026-09-01): recovered the dropped guard-cell arg at all 22
  * argless InitGuardedBool sites (cell address arrives in ECX,
@@ -18,7 +33,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_00415d40(int param_1)
+int ClientContext_Constructor(int param_1)
 
 {
   int iVar1;

@@ -956,7 +956,7 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
   gameplay-specific — likely a reusable engine primitive for "a slot that
   may or may not own a heap sub-object," used here for per-avatar-slot data
   but probably reused elsewhere too (this exact ctor/dtor pair, with the
-  same `0x224` stride, also appears in `FUN_00415d40`'s huge object-init
+  same `0x224` stride, also appears in `ClientContext_Constructor`'s huge object-init
   function from earlier session work). A related, larger initializer,
   **`InitGuardedChecksumSlot`** (`0x40ada0`, 248 bytes), does the same
   `+0x220`/`+0x14` zero-init plus an extra `EncodeChecksumDeltaMul`-seeded
@@ -1348,7 +1348,7 @@ comes from `WndProc` mouse messages into the `g_cursorAnchorX/d110` anchor.)
    thing — a generic minimal container (owned-pointer-plus-flag, ctor/dtor
    `InitGuardSlot`/`ScrubChecksumGuard`), not obviously gameplay data either, and
    reused elsewhere in the engine (same ctor/dtor pair, same stride, seen in
-   `FUN_00415d40`'s object-init too) — see the recurring-structures list
+   `ClientContext_Constructor`'s object-init too) — see the recurring-structures list
    above. The room-list's 20-element loop is **inconclusive**: its `0x224`
    loop-counter increment doesn't match either the checksum-state or the
    generic-container identity, and looks more like it's tracking a wire/

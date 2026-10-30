@@ -16,7 +16,7 @@
  *     as regEax, so they simply forward it.
  *   - FUN_00401910 uses `mov ebp,[esp+0x18]`, which under its SEH triple plus
  *     two saves is E+4 = param_1.
- *   - FUN_00415d40 does `lea esi,[ebp + 0x6a7f88]` with ebp from [esp+0x1c],
+ *   - ClientContext_Constructor does `lea esi,[ebp + 0x6a7f88]` with ebp from [esp+0x1c],
  *     E+4 = param_1 under its SEH triple plus three saves -- and 0x6a7f88 is
  *     the active-object list offset the weather-hazard spawners already name.
  *   - FUN_004e3810 does `lea esi,[edi + 0x85c]` with edi from [esp+0x1c],

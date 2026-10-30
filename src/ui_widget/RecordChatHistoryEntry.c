@@ -9,7 +9,7 @@
  * every submitted chat line before any slash-command parsing. Operates
  * on a per-instance ring of ten 0x80-byte entries (DAT_005f325c +
  * param_1, counted/cursor-tracked by DAT_005f375c/DAT_005f3760 at the
- * same offset) that FUN_00415d40's init zeroes to the same 10*0x80
+ * same offset) that ClientContext_Constructor's init zeroes to the same 10*0x80
  * extent: walks the existing entries doing a byte-pair dedup against
  * param_2, returns on a match, otherwise shifts the ring down one slot
  * (dropping the oldest once full at 10) and appends param_2 as the

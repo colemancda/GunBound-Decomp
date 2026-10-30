@@ -10,7 +10,7 @@
 void FUN_00543200(void)
 
 {
-  FUN_00418dc0(&DAT_007a7ae0);
+  ClientContext_Destructor(&DAT_007a7ae0);
   return;
 }
 

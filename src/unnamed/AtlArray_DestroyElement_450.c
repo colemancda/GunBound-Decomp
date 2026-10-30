@@ -10,7 +10,7 @@
  * - the `nNewSize == 0` arm of AtlArray_SetCount_450 (0x44c7d3) and
  *   AtlArray_RemoveAll_450 (0x44c605), and AtlArray_RemoveAt_450
  *   (0x44c6e5), each in a 0x450-stride loop over m_pData;
- * - FUN_00418dc0's four inlined ~CAtlArray loops (0x4197e9, 0x419821,
+ * - ClientContext_Destructor's four inlined ~CAtlArray loops (0x4197e9, 0x419821,
  *   0x419858, 0x419891) and AtlArray_InsertAt_450 (0x50d066);
  * - and at scope end on a stack temporary built by
  *   AtlArray_ConstructElement_450 (0x428550) in State03/State07's packet

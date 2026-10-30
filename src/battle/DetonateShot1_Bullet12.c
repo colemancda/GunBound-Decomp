@@ -40,7 +40,7 @@
  * SyncOutgoingChecksumField(...,auStack_ac4/auStack_8a0) call right after
  * each pair); the last call (CheckGuardedBoolAnd(iVar5<iVar6) block) is
  * g_clientContext+0x5b85c, the same client-context checksum cell used by
- * sibling files (e.g. FUN_00415d40.c). */
+ * sibling files (e.g. ClientContext_Constructor.c). */
 #include "ghidra_types.h"
 
 

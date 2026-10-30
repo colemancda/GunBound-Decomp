@@ -12,7 +12,7 @@
  * 0x40a65c) both pass `lea edi,[esp+0x20]` - the same stack cell Ghidra
  * names `local_21c` here (EncodeOutgoingPacketField reads/writes
  * self+0x14, so self is local_21c's address minus 0x14, same idiom as
- * src/unnamed/FUN_00415d40.c's global-relative sites). The third call
+ * src/unnamed/ClientContext_Constructor.c's global-relative sites). The third call
  * (0x40a681) passes `mov edi,esi` where esi==param_2 - confirmed by the
  * immediately preceding `mov [esi+0x220],bl` / `mov [esi+0x14],ebx`
  * matching this file's own `param_2+0x220`/`param_2+0x14` writes just
