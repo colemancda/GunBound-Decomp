@@ -624,7 +624,7 @@ void __thiscall State07_AvatarStore_ProcessPacket(void *this,int payloadLen,usho
 void __thiscall State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *payload);
 void __thiscall State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *payload);
 void __thiscall State10_Loading_OnGameEvent();
-void State10_Loading_AppendChatLine();
+void State10_Loading_AppendChatLine(void *thisPtr,char *param_1,undefined4 param_2,undefined4 param_3);
 int __fastcall State10_Loading_Render(int param_1);
 void FUN_00442d50();
 void FUN_00442e00(uint regEax);
@@ -1120,7 +1120,7 @@ void __fastcall State09_ReadyRoom_Destroy(undefined4 *param_1);
 void __thiscall State09_ReadyRoom_OnActivate();
 uint __thiscall State09_ReadyRoom_OnCommand();
 void __fastcall State09_ReadyRoom_OnTick();
-void AppendReadyRoomStatusMessage();
+void AppendReadyRoomStatusMessage(void *thisPtr,char *param_1,undefined4 param_2,undefined4 param_3);
 void __fastcall State09_ReadyRoom_RenderRosterAndItems();
 void __fastcall State09_ReadyRoom_RenderStatusOverlay();
 undefined4 RefreshReadyRoomControls();

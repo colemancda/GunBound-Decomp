@@ -42,7 +42,7 @@ void RemoveMuteListEntry(undefined4 param_1,int regEax)
     AtlArray_RemoveAt_CString(iVar1,(int *)(regEax + 0x67ec60),1);
     _Format = (char *)GetLocalizedString(&g_localizedStringTable,0x1ff);
     _sprintf(local_80,_Format,param_1);
-    (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_80,2,6);
+    (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(g_gameStateVTableArray[g_currentGameState],local_80,2,6);
   }
   return;
 }

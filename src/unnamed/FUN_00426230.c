@@ -32,7 +32,7 @@ void FUN_00426230(int in_EAX)
   uVar3 = (undefined4)(((ulonglong)(uint)(iVar1 / 0x14) % 0xe10) / 0x3c);
   _Format = (char *)GetLocalizedString(&g_localizedStringTable,0x204);
   _sprintf(local_400,_Format,iVar4,uVar2,uVar3);
-  (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_400,2,6);
+  (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(g_gameStateVTableArray[g_currentGameState],local_400,2,6);
   return;
 }
 

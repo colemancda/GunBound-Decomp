@@ -16,17 +16,32 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 /* CGameState's +0x8 (buffer,len replay-action handler) and +0xc
- * (event-code,value) virtuals both take `this` via ECX (__fastcall) -
- * orig 0x412ad5-0x412aec, 0x412dc8-0x412ddb, and 0x412be5-0x412c01
- * all show `mov ecx, [.. *4+0x5b33f8]` (the state object) loaded well
- * before `call [edx+0x8]`/`call [edx+0xc]` with no other load of ecx in
- * between - ecx (this) is live across the intervening arg pushes,
- * confirming __fastcall. The generic `code()` cast this file used for
- * these calls dropped `this` entirely and pushed only the explicit
- * args, leaving every callee reading garbage/null off its own object
- * pointer. */
-typedef void (__fastcall *GameStateVirtualFn2)(void *thisPtr, void *buf, size_t len);
-typedef void (__fastcall *GameStateVirtualFn2i)(void *thisPtr, int a1, int a2);
+ * (event-code,value) virtuals both take `this` via ECX - orig
+ * 0x412ad5-0x412aec, 0x412bea-0x412c01 and 0x412dc8-0x412ddb all show
+ * `mov ecx, [eax*4+0x5b33f8]` (the state object) loaded before
+ * `call [edx+0x8]`/`call [edx+0xc]` with no other load of ecx in
+ * between.  The generic `code()` cast this file once used dropped
+ * `this` entirely.
+ *
+ * CONVENTION CORRECTED (2026-10-30): these typedefs were __fastcall,
+ * which puts `this` in ECX and the FIRST explicit argument in EDX - but
+ * every target is a raw-C port of an erased __thiscall, i.e. cdecl with
+ * `this` as the first stack argument (ghidra_types.h erases __thiscall).
+ * The targets, from the vtables in globals.c:
+ *   slot 2: State09_ReadyRoom_ProcessBattleAction(this, buf, len),
+ *           State10_Loading_ProcessBattleAction(this, buf),
+ *           State11_InBattle_ProcessBattleAction(this, buf, len);
+ *   slot 3: State02_ServerSelect_OnTopButton(this, code, value),
+ *           State09_ReadyRoom_OnActivate(this, code),
+ *           State10_Loading_OnGameEvent(this, code);
+ *   the rest are the CGameState_NoOpVirtual_A/B no-ops (void).
+ * Each reads its object from ECX in the original (`mov edi,ecx` at
+ * 0x4d4ebf, `mov esi,ecx` at 0x43e467, `mov edi,ecx` at 0x4b549f; `push
+ * ecx` at 0x4d54cb, `[ecx+0x14c]` at 0x43e707, `mov edi,ecx` at 0x4e1209),
+ * so the ports take it first on the stack.  Under __fastcall they got
+ * buf/code in their `this` slot.  Now plain cdecl, `this` first. */
+typedef void (*GameStateVirtualFn2)(void *thisPtr, void *buf, size_t len);
+typedef void (*GameStateVirtualFn2i)(void *thisPtr, int a1, int a2);
 
 void PumpBattleActions(int param_1)
 

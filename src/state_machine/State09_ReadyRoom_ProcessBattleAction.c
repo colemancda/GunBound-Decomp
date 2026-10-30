@@ -112,7 +112,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
             iVar13 = iVar4;
             pcVar6 = (char *)GetLocalizedString(&g_localizedStringTable,0x260);
             _sprintf(local_488,pcVar6,iVar12,iVar4,iVar13);
-            (**(code **)(*(int *)this + 0x28))(local_488,2,6);
+            (**(code **)(*(int *)this + 0x28))(this,local_488,2,6);
             return;
           }
           if (uVar2 == GB_ACT_PLAYER_INFO_SYNC) {
@@ -185,7 +185,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         iVar4 = (uint)bVar1 * 0xd + 0x457f1 + g_clientContext;
         pcVar6 = (char *)GetLocalizedString(&g_localizedStringTable,0x275);
         _sprintf(local_488,pcVar6,iVar4);
-        (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_488,2,6);
+        (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(g_gameStateVTableArray[g_currentGameState],local_488,2,6);
         return;
       }
       if (uVar2 == GB_ACT_MAP_SELECTION_SYNC) {

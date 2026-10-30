@@ -146,7 +146,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                 if (bVar2 != 0xd) {
                   if (bVar2 == 10) {
                     (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                              (local_d30,2,uVar15);
+                              (g_gameStateVTableArray[g_currentGameState],local_d30,2,uVar15);
                     uVar15 = 0;
                     puVar26 = (undefined4 *)local_d30;
                     for (iVar19 = 0x80; iVar19 != 0; iVar19 = iVar19 + -1) {
@@ -164,7 +164,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
               } while (iVar12 < (int)param_1);
             }
             (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                      (local_d30,2,uVar15);
+                      (g_gameStateVTableArray[g_currentGameState],local_d30,2,uVar15);
             pbVar22 = param_3;
           }
           goto switchD_004105f7_caseD_1022;

@@ -47,7 +47,7 @@ void AddMuteListEntry(char *regEsi,int regEax)
         AtlArray_AppendCString(regEsi);
         pcVar3 = (char *)GetLocalizedString(&g_localizedStringTable,0x1fe);
         _sprintf(local_80,pcVar3);
-        (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_80,2,6);
+        (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(g_gameStateVTableArray[g_currentGameState],local_80,2,6);
       }
     }
   }

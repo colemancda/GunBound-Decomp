@@ -74,7 +74,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
             uVar9 = 6;
             uVar8 = 2;
             uVar7 = GetLocalizedString(&g_localizedStringTable,0x202);
-            (**(code **)(iVar2 + 0x28))(uVar7,uVar8,uVar9);
+            (**(code **)(iVar2 + 0x28))(g_gameStateVTableArray[3],uVar7,uVar8,uVar9);
           }
           else {
             cVar3 = FUN_00415230();
@@ -102,7 +102,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
               uVar9 = 6;
               uVar8 = 2;
               uVar7 = GetLocalizedString(&g_localizedStringTable,0x205);
-              (**(code **)(iVar2 + 0x28))(uVar7,uVar8,uVar9);
+              (**(code **)(iVar2 + 0x28))(g_gameStateVTableArray[3],uVar7,uVar8,uVar9);
             }
           }
         }

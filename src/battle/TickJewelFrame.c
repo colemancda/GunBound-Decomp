@@ -348,7 +348,7 @@ LAB_00479e75:
           uVar12 = 2;
           uVar4 = 3;
         }
-        (**(code **)(*(int *)g_gameStateVTableArray[0xb] + 0x28))(acStack_91c,uVar4,uVar12);
+        (**(code **)(*(int *)g_gameStateVTableArray[0xb] + 0x28))(g_gameStateVTableArray[0xb],acStack_91c,uVar4,uVar12);
         iVar8 = PeekChecksumStateUnderLock(piVar1);
         if (iVar8 == 0) {
           uVar15 = 2;

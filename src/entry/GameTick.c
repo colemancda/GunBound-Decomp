@@ -22,7 +22,18 @@
  * confirmed via functions.h) read garbage/null off its own object
  * pointer and crashed. */
 typedef void (__fastcall *GameStateVirtualFn)(void *thisPtr);
-typedef void (__fastcall *GameStateVirtualFn3)(void *thisPtr, undefined4 a1, undefined4 a2, undefined4 a3);
+/* Slot 10 (+0x28), the chat-line appender, is NOT __fastcall
+ * (CONVENTION CORRECTED 2026-10-30): its targets are raw-C ports of
+ * erased __thiscall methods - cdecl with `this` first on the stack -
+ * State11_InBattle_AppendChatLine(this, text, type, n) (reads ECX:
+ * `mov edi,ecx` at 0x4c1b9f), and State10_Loading_AppendChatLine /
+ * AppendReadyRoomStatusMessage (this, text, type, n), which ignore
+ * `this`; the no-op CGameState_NoOpVirtual_A (`ret 0xc`) fills it
+ * elsewhere.  Under __fastcall the text went to EDX and every target
+ * read type/n as its text.  Both GameTick sites load ECX with the
+ * current state (`mov ecx,[reg*4+0x5b33f8]` before the calls at
+ * 0x413203 and 0x4133d3). */
+typedef void (*GameStateVirtualFn3)(void *thisPtr, undefined4 a1, undefined4 a2, undefined4 a3);
 
 /* IDirect3DDevice7/IDirectDrawSurface7 vtable calls below (g_pD3DDevice7,
  * g_pBackBufferSurface) were also cast through the generic `code()`/

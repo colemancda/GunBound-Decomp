@@ -48,7 +48,7 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
       iVar11 = iVar5;
       _Format = (char *)GetLocalizedString(&g_localizedStringTable,0x260);
       _sprintf(acStack_4d4,_Format,iVar10,iVar5,iVar11);
-      (**(code **)(*(int *)this + 0x28))(acStack_4d4,2,6);
+      (**(code **)(*(int *)this + 0x28))(this,acStack_4d4,2,6);
     }
     else if (*(short *)(packetBuf + 2) == -0x3cff) {
       *(uint *)(g_gameStateVTableArray[0xb] + 0x10a4) = (uint)*(ushort *)(packetBuf + 0x22);

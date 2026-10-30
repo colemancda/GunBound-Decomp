@@ -200,7 +200,7 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2)
           cVar3 = (char)*param_1;
           if (cVar3 == '\n') {
             (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                      (local_108,3,uVar6);
+                      (g_gameStateVTableArray[g_currentGameState],local_108,3,uVar6);
             uVar6 = 0;
             puVar8 = (undefined4 *)local_108;
             for (iVar7 = 0x40; iVar7 != 0; iVar7 = iVar7 + -1) {
@@ -217,7 +217,7 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2)
           param_2 = param_2 + -1;
         } while (param_2 != 0);
       }
-      (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_108,3,uVar6);
+      (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(g_gameStateVTableArray[g_currentGameState],local_108,3,uVar6);
       return;
     }
   }

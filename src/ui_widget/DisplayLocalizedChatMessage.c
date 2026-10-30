@@ -47,7 +47,7 @@ void DisplayLocalizedChatMessage(char *regEdi)
         piVar4 = (int *)g_gameStateVTableArray[g_currentGameState];
         uVar6 = 0;
       }
-      (**(code **)(*piVar4 + 0x28))(local_400,2,uVar6);
+      (**(code **)(*piVar4 + 0x28))(piVar4,local_400,2,uVar6);
       iVar3 = 0;
       iVar5 = iVar5 + 2;
       bVar2 = false;
@@ -56,13 +56,13 @@ void DisplayLocalizedChatMessage(char *regEdi)
       piVar4 = (int *)g_gameStateVTableArray[g_currentGameState];
       local_400[iVar3] = '\0';
       if (bVar2) {
-        (**(code **)(*piVar4 + 0x28))(local_400,2,6);
+        (**(code **)(*piVar4 + 0x28))(piVar4,local_400,2,6);
         iVar3 = 0;
         iVar5 = iVar5 + 1;
         bVar2 = false;
       }
       else {
-        (**(code **)(*piVar4 + 0x28))(local_400,2,0);
+        (**(code **)(*piVar4 + 0x28))(piVar4,local_400,2,0);
         iVar3 = 0;
         iVar5 = iVar5 + 1;
         bVar2 = false;
@@ -78,10 +78,10 @@ void DisplayLocalizedChatMessage(char *regEdi)
   piVar4 = (int *)g_gameStateVTableArray[g_currentGameState];
   local_400[iVar3] = '\0';
   if (bVar2) {
-    (**(code **)(*piVar4 + 0x28))(local_400,2,6);
+    (**(code **)(*piVar4 + 0x28))(piVar4,local_400,2,6);
     return;
   }
-  (**(code **)(*piVar4 + 0x28))(local_400,2,0);
+  (**(code **)(*piVar4 + 0x28))(piVar4,local_400,2,0);
   return;
 }
 

@@ -177,7 +177,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
             iVar3 = iVar3 + 1;
             pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0x27a);
             _sprintf(local_1a0,pcVar2,iVar3);
-            (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_1a0,2,6);
+            (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(g_gameStateVTableArray[g_currentGameState],local_1a0,2,6);
             return 1;
           }
         }
@@ -215,7 +215,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
             iVar4 = iVar3;
             pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0x1fc);
             _sprintf(local_1a0,pcVar2,iVar4);
-            (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_1a0,2,6);
+            (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(g_gameStateVTableArray[g_currentGameState],local_1a0,2,6);
             uVar10 = 0;
             acStack_1ad[1] = 0;
             if (0 < iVar3) {
@@ -227,7 +227,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
                 }
                 if (bVar14) {
                   (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                            (acStack_1ad + 1,2,0);
+                            (g_gameStateVTableArray[g_currentGameState],acStack_1ad + 1,2,0);
                   acStack_1ad[1] = 0;
                 }
                 puVar7 = (undefined4 *)AtlArray_GetAt((int *)(&DAT_0067ec60 + param_1),uVar10);
@@ -258,7 +258,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
               } while ((int)uVar10 < iVar3);
             }
             (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                      (acStack_1ad + 1,2,0);
+                      (g_gameStateVTableArray[g_currentGameState],acStack_1ad + 1,2,0);
             return 1;
           }
           iVar4 = __stricmp(local_220,&DAT_00553588);
@@ -272,198 +272,198 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
             if (((iVar4 == 0) || (iVar4 = __stricmp(local_220,&DAT_00553570), iVar4 == 0)) &&
                (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553554,9,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553554,9,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (s_Game_Programmer___comsik_00553538,9,0);
+                        (g_gameStateVTableArray[g_currentGameState],s_Game_Programmer___comsik_00553538,9,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553508,9,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553508,9,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_005534d4,9,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_005534d4,9,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,&DAT_005534cc);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_005534b4,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_005534b4,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (s_Oh___It_s_CozY_here______00553498,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],s_Oh___It_s_CozY_here______00553498,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_enddream_0055348c);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553478,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553478,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553440,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553440,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553404,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553404,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_005533d0,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_005533d0,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_yesoori_005533c8);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_005533b0,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_005533b0,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553390,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553390,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_oorusa_00553388);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553370,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553370,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553354,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553354,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_jaeyong_0055334c);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553330,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553330,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553320,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553320,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_yaong2_00553318);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_005532fc,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_005532fc,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_005532e4,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_005532e4,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_jchlee75_005532d8);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_005532bc,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_005532bc,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_0055328c,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_0055328c,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_reddragon_00553280);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553258,8,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553258,8,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (s_Server___Game_buddy_Programmer___0055322c,8,0);
+                        (g_gameStateVTableArray[g_currentGameState],s_Server___Game_buddy_Programmer___0055322c,8,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_designer_00553220);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553200,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553200,2,5);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_johnny5_005531f8);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_005531e0,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_005531e0,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_005531b4,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_005531b4,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553188,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553188,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553148,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553148,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_0055310c,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_0055310c,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_loserii_00553104);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_005530ec,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_005530ec,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_005530cc,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_005530cc,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_scjang_005530c4);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_005530ac,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_005530ac,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553074,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553074,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_0055303c,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_0055303c,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00553018,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00553018,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_chuko_00553010);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552ffc,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552ffc,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552fe4,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552fe4,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552fc8,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552fc8,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552fac,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552fac,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_pirania_00552fa4);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552f90,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552f90,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552f64,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552f64,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552f4c,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552f4c,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552f34,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552f34,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_blash45_00552f2c);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552f1c,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552f1c,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552ef0,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552ef0,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552ed4,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552ed4,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_knights_00552ecc);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552ebc,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552ebc,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552ea4,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552ea4,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552e90,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552e90,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552e68,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552e68,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552e30,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552e30,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,&DAT_00552e24);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552e14,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552e14,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552de4,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552de4,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552db4,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552db4,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552d94,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552d94,2,0);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552d60,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552d60,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_ethera_00552d58);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (&DAT_00552d38,2,5);
+                        (g_gameStateVTableArray[g_currentGameState],&DAT_00552d38,2,5);
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (s_Feel_ethereal_____00552d24,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],s_Feel_ethereal_____00552d24,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_noack_00552d1c);
             if ((iVar4 == 0) && (iVar3 == 1)) {
               DAT_00e9b1d8 = 1;
               (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
-                        (s_Acks_will_not_be_send_00552d04,2,0);
+                        (g_gameStateVTableArray[g_currentGameState],s_Acks_will_not_be_send_00552d04,2,0);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_clear_00552cfc);
