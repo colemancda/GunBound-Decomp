@@ -228,6 +228,10 @@ public:
 
     virtual bool OnMouseDown(int x, int y);  /* 0x505430 - promoted, Panel.cpp: the panel default
                                               * (press core + auto-focus the first edit box) */
+    virtual void Update();                   /* 0x5054b0 - Panel.cpp: slot 9 of the base vtable
+                                              * 0x557bbc is Widget_DrawSelf (the frame sprite,
+                                              * then the deep child Update broadcast), not
+                                              * CWidget::Update's broadcast alone */
 
     bool HandlePress(int x, int y);          /* 0x50e420 - promoted, Panel.cpp: the press core
                                               * (pressed-state, child broadcast, drag arming) */

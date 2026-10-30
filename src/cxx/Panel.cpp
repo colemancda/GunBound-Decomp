@@ -65,6 +65,19 @@ void __fastcall RenderWorldListRow(int panel, unsigned int index);
 void __fastcall Widget_DrawSelf(int this_);
 }
 
+/* 0x5054b0 - CPanel::Update, vtable slot 9. The base panel vtable at
+ * 0x557bbc has 0x5054b0 at +0x24 (Widget_DrawSelf), where CWidget's
+ * classes have the bare child broadcast 0x50ecf0. CPanel declared no
+ * Update, so every panel without its own override inherited
+ * CWidget::Update and never drew its frame sprite. Widget_DrawSelf
+ * tests m_hidden itself (0x5054b3), blits the m_unk44/m_unk48 frame, and
+ * tail-jumps to 0x50ecf0 for the children (0x5054fc), so this one call
+ * covers what the inherited broadcast did. */
+void CPanel::Update()
+{
+    Widget_DrawSelf((int)this);
+}
+
 static CPanelListNode *PanelListHead()
 {
     return *(CPanelListNode **)((unsigned char *)&g_uiPanelManager + 4);
