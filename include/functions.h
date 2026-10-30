@@ -1725,7 +1725,7 @@ void __thiscall AvatarStorePanel_OnCommand();
 void __fastcall RenderAvatarListRow(int param_1,int regEax);
 void RenderAvatarListDragRow();
 int __fastcall AvatarListRowHitTest(int param_1,int param_2,int regEsi);
-void RadioGroup_RefreshEnableStates();
+void RadioGroup_RefreshEnableStates(int param_1, char regBl);
 void RefreshConnectionStatusLabel();
 void AtlArray_InsertAt_450(int *param_1,uint param_2,undefined4 param_3,int param_4);
 void __thiscall ReadyRoomChatPanel_OnCommand();

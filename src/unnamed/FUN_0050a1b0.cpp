@@ -46,7 +46,7 @@ char PeekPacketChecksumBool();
 int AvatarListRowHitTest(int widget, int x, int y);
 unsigned int QueueOutgoingPacketField(unsigned int field);
 void RefreshConnectionStatusLabel(void *this_);
-void RadioGroup_RefreshEnableStates(void *this_);
+void RadioGroup_RefreshEnableStates(int param_1, char regBl);
 unsigned char __fastcall Widget_HitTestSelf(int param_1, int regEsi, int regEdi);
 }
 
@@ -76,7 +76,8 @@ extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y)
           QueueOutgoingPacketField(iVar4);
           self[0x90] = 1;
           RefreshConnectionStatusLabel(this_);
-          RadioGroup_RefreshEnableStates(this_);
+          /* 0x50a271-0x50a274: push ebp (this), mov bl,1. */
+          RadioGroup_RefreshEnableStates((int)this_, 1);
         }
         cVar2 = (char)Widget_HitTestSelf((int)this_, x, y);
         /* `call 0x505430` at 0x50a290: CPanel::OnMouseDown called
@@ -85,7 +86,8 @@ extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y)
         cVar3 = this_->CPanel::OnMouseDown(x, y);
         if (cVar2 == '\0' && cVar3 == '\0') {
           QueueOutgoingPacketField(0xffffffff);
-          RadioGroup_RefreshEnableStates(this_);
+          /* 0x50a2b2-0x50a2b5: push ebp (this), xor bl,bl. */
+          RadioGroup_RefreshEnableStates((int)this_, 0);
         }
         if (0x239 < x && x < 0x275 && 0x2b < y && y < 0x67) {
           puVar1[0x31484] = 1;

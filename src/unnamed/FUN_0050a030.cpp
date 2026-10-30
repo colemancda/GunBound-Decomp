@@ -42,7 +42,7 @@ extern unsigned int g_clientContext;
 extern unsigned char g_valueGuardLock;
 unsigned int PeekPacketChecksumState(void *self);
 void EncodeOutgoingPacketField(void *self, unsigned int field);
-void RadioGroup_RefreshEnableStates(void *this_);
+void RadioGroup_RefreshEnableStates(int param_1, char regBl);
 void ThrowCxxException(long hr);
 unsigned int FUN_004240c0(unsigned int ctx, int a, int b, unsigned int c, int outRecord);
 }
@@ -67,7 +67,8 @@ extern "C" int FUN_0050a030(CWidget *this_, int x, int y)
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField((void *)(puVar1 + 4), 0xffffffff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    RadioGroup_RefreshEnableStates(this_);
+    /* 0x50a0cc-0x50a0cf: push ebp (this), xor bl,bl. */
+    RadioGroup_RefreshEnableStates((int)this_, 0);
     if (*(unsigned int *)(g_clientContext + 0x44e24) <= *(unsigned int *)(self + 0x94)) {
       /* WARNING: Subroutine does not return */
       ThrowCxxException(0x80070057);
