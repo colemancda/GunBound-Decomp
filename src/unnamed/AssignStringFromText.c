@@ -23,10 +23,10 @@
  * 0x4055d0); EDX is the declared param_2, the text. All three sites
  * pass the address of a handle variable: CommP2POwner_ProcessPacket's 0x1ffe arm
  * hands its two decode buffers to the two handles it seeded from the
- * (**(DAT_005b1444+0xc))() object, and FUN_00507660 hands a child
- * widget's +0x38 text to a handle in an 8-byte frame hole Ghidra left
- * undeclared - the same string whose -0xc length header the code after
- * the call reads back.
+ * (**(DAT_005b1444+0xc))() object, and LobbyChatPanel_OnCommand hands
+ * a child widget's +0x38 text to a handle in an 8-byte frame hole
+ * Ghidra left undeclared - the same string whose -0xc length header
+ * the code after the call reads back.
  */
 #include "ghidra_types.h"
 

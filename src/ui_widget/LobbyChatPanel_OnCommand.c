@@ -1,13 +1,34 @@
-/* FUN_00507660 - 0x00507660 in the original binary.
+/* LobbyChatPanel_OnCommand - 0x00507660 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED (2026-10-30), CERTAIN: CLobbyChatPanel's OnCommand override.
+ * The original's vtable 0x557cd4 holds this at slot 7 (+0x1c); that
+ * vtable is installed only by BuildLobbyChatPanel (0x509b35), and
+ * src/cxx/Widget.h records it as CLobbyChatPanel's (slot 9 is the
+ * CLobbyChatPanel::Update Panel.cpp forwards to LobbyChatPanel_Update).
+ * Widget.h declares slot 7 as CWidget::OnCommand(evt, id, arg): ECX is
+ * saved to EBP at 0x507680, the single exit is `ret 0xc`, and EBP goes
+ * back into ECX for the base slot-7 body Widget_OnCommandDefault at
+ * 0x50788a. The events it handles are this panel's children per
+ * docs/widgets.md: evt 0 from the channel-tab labels (ids 0-7), evt
+ * 0x1000 from the chat-input edit box (the line goes through
+ * ParseChatSlashCommand / CheckChatWordFilter and is sent), and evt
+ * 0x2000 id 0 from the scrollbar, whose position lands in
+ * ctx+0x3b97c - the row offset LobbyChatPanel_Update reads.
+ *
+ * Noted, not fixed: the Widget_OnCommandDefault call is missing its
+ * `this` (a tree-wide prototype problem), and Widget_FindChildIndex is
+ * called with none of its register arguments (open tree-wide, see
+ * TextEntry_SetControlText.c). Panel.cpp declares no
+ * CLobbyChatPanel::OnCommand, so the C++ build never reaches this body.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 param_4)
+void __thiscall LobbyChatPanel_OnCommand(int param_1,int param_2,uint param_3,undefined4 param_4)
 
 {
   int *piVar1;

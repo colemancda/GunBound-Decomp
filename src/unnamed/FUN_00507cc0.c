@@ -6,8 +6,8 @@
  * verbatim ports" section for status.
  *
  * EBX RECOVERED (2026-08-25): both sites hand it their own caller's `this`,
- * by different routes.  In FUN_00507660 it is `mov ebx,ebp` where EBP is that
- * __thiscall's incoming ECX, i.e. its param_1.  In
+ * by different routes.  In LobbyChatPanel_OnCommand it is `mov ebx,ebp`
+ * where EBP is that __thiscall's incoming ECX, i.e. its param_1.  In
  * State03_GameRoomList_ProcessPacket it is `mov ebx,[edx+0x28c]` with EDX from
  * [esp+0x1c] -- and that slot is where the prologue spills ECX
  * (`mov ebx,ecx; mov [esp+0x1c],ebx` at 0x426afc), so it is that function's
