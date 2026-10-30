@@ -660,7 +660,8 @@ uint8_t DAT_00e52858;
 uint8_t DAT_00e52859;
 uint8_t DAT_00e5285a;
 uint8_t DAT_00e5285b;
-uint8_t DAT_00e5285c;
+/* DAT_00e5285c was keyboard +0x4c - InitGame stores into
+ * g_keyboardDeviceTimerBlock + 0x4c directly now. */
 uint8_t DAT_00e52864;
 uint8_t DAT_00e52868;
 uint8_t DAT_00e52e68;

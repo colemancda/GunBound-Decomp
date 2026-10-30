@@ -899,8 +899,6 @@ extern uint8_t DAT_00e52858;
 extern uint8_t DAT_00e52859;
 extern uint8_t DAT_00e5285a;
 extern uint8_t DAT_00e5285b;
-extern uint8_t DAT_00e5285c;
-#define _DAT_00e5285c DAT_00e5285c
 extern uint8_t DAT_00e52864;
 extern uint8_t DAT_00e52868;
 extern uint8_t DAT_00e52e68;

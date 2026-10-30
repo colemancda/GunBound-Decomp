@@ -144,11 +144,17 @@ int InitGame(undefined4 param_1,undefined4 param_2)
          * sits four bytes lower); 0xe536e4 is +0x4c of the DirectInput
          * mouse singleton (0xe53698), the queue FUN_004ee320 reads as
          * [esi+0x4c]. Ghidra split each into its own 1-byte global, so the
-         * pointer was truncated into storage nothing read. */
+         * pointer was truncated into storage nothing read. The fourth
+         * store, 0x40ed25, is 0xe5285c: +0x4c of the DirectInput keyboard
+         * singleton (0xe52810). Its vtable 0x55745c (installed by the ctor
+         * at 0x4edd62, which zeroes +0x4c at 0x4edd27) has the poll
+         * 0x4ede50 in slot 3, and that poll loads the queue as [esi+0x4c]
+         * at 0x4edede, 0x4edefd and 0x4edf26, as the mouse's slot-3 poll
+         * 0x4ee320 does for its own +0x4c. */
         *(void **)(g_activeObjectRegistry + 0x10) = g_inputEventRing;
         *(void **)(g_activeObjectRegistry2 + 0xc) = g_inputEventRing;
         *(void **)(g_mouseDeviceTimerBlock + 0x4c) = g_inputEventRing;
-        _DAT_00e5285c = &g_inputEventQueueWriteIndex;
+        *(void **)(g_keyboardDeviceTimerBlock + 0x4c) = g_inputEventRing;
         g_gameStateVTableArray[0] = operator_new(4);
         if ((undefined4 *)g_gameStateVTableArray[0] == (undefined4 *)0x0) {
           g_gameStateVTableArray[0] = (undefined *)0x0;
