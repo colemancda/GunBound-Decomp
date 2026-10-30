@@ -16,74 +16,88 @@
  * header already predicted this exact function as its own opcode-dispatch
  * target for the ring entries it does not resolve inline.
  *
- * Still only a K&R-empty declaration in functions.h: both of this function's
- * real call sites (DrainDirectLinkActionRing) already pass zero arguments
- * today, a pre-existing dropped-register defect this rename does not fix.
+ * OPCODE IN AX RECOVERED (2026-10-30): the prologue is `movzx eax,ax /
+ * cmp eax,0xa250` (0x411b4d), with ECX = the payload (`mov ebx,ecx`,
+ * 0x411b57) and EDX = its length (`mov esi,edx`, 0x411b59). Ghidra kept
+ * ECX/EDX as the __fastcall pair and read the opcode from an
+ * uninitialised in_AX. It is promoted to a trailing stack parameter,
+ * regAx, and both call sites in DrainDirectLinkActionRing (0x405af5,
+ * 0x405b0c) now pass all three: `mov ax,[ecx]` / `add ecx,2` at
+ * 0x405ab5-0x405abb (the opcode word and the payload after it) and
+ * `lea edx,[esi-2]` with esi = [conn + index*4 + 0x24640] (0x405a90),
+ * the slot's length minus the opcode.
+ *
+ * SPLIT STACK STRINGS COALESCED (2026-10-30): the frame (0x154 bytes,
+ * three pushes) holds five byte buffers that Ghidra split into dword
+ * locals. Their names are their offsets, and every path fills them with
+ * dword moves and then stores a NUL byte at the end:
+ *   esp+0x10  local_158..local_14c  12 chars + NUL [esp+0x1c]  (name)
+ *   esp+0x20  local_148..local_140   8 chars + NUL [esp+0x28]
+ *   esp+0x2c  local_13c..local_12c  16 chars + NUL [esp+0x3c]  (id)
+ *   esp+0x48  local_120..local_10e  18 chars + NUL [esp+0x5a]
+ *   esp+0x60  local_108             0x100 bytes: the 0xa101 line buffer
+ *             (zeroed as 1+0x3f*4+2+1 bytes, 0x411e5f-0x411e78) and the
+ *             0x80-byte 0xff fill (0x411c6a, 0x4120c6)
+ * Each is passed by address as a string (StringMap_SetAt_CString,
+ * FUN_00508d00, UpsertDirectLinkBuddyNode, UpdateBuddyStatus, ...), so
+ * separate locals that MSVC may reorder are wrong. local_108 was even
+ * declared as 3 bytes and then written for 0x100. Each is now one char
+ * array, named after its first Ghidra local. The `x & 0xffffff` on the
+ * second dword of local_148 is byte 7 of that string: when byte 7 has its
+ * high bit set and byte 6 does not (0x411d05-0x411d20, 0x412094-0x4120c1),
+ * byte 7 is cut. That is a DBCS lead-byte truncation, and it is now
+ * written as one.
+ *
+ * Fixed with the coalesce: the 0xa2f1 path passed &local_150 (name+8) to
+ * RemoveDirectLinkBuddyNode. 0x41200a is `lea eax,[esp+0x14]` after one
+ * push, which is esp+0x10, the start of the name, as its stores at
+ * 0x412013/0x412017 (also after the push) and 0x412001 (before it) show.
  */
 #include "ghidra_types.h"
 
 
-/* WARNING: Type propagation algorithm not settling */
-
-void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2)
+void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2,ushort regAx)
 
 {
   int iVar1;
   int iVar2;
   char cVar3;
-  ushort in_AX;
-  uint *puVar4;
+  ushort in_AX = regAx;
+  char *puVar4;
+  char cVar5;
   uint uVar5;
   undefined4 uVar6;
   int iVar7;
   undefined4 *puVar8;
-  undefined1 *puVar9;
-  uint local_158;
-  uint local_154;
-  uint local_150;
-  undefined1 local_14c;
-  uint local_148;
-  uint local_144;
-  undefined1 local_140;
-  uint local_13c;
-  uint local_138;
-  uint local_134;
-  uint local_130;
-  undefined1 local_12c;
+  char *puVar9;
+  char *pcVar10;
+  char local_158[0x10];      /* esp+0x10: 12-char name + NUL */
+  char local_148[0xc];       /* esp+0x20: 8 chars + NUL */
+  char local_13c[0x14];      /* esp+0x2c: 16-char id + NUL */
   int local_128;
   uint local_124;
-  uint local_120;
-  uint local_11c;
-  uint local_118;
-  uint local_114;
-  undefined2 local_110;
-  undefined1 local_10e;
-  undefined1 local_108 [3];
-  undefined1 uStack_105;
-  uint local_104;
-  uint local_100;
-  uint local_fc;
-  uint local_f8;
-  undefined1 local_f4;
-  
+  char local_120[0x18];      /* esp+0x48: 18 chars + NUL */
+  char local_108[0x100];     /* esp+0x60: line / record buffer */
+
   iVar7 = g_clientContext;
   if (in_AX < 0xa251) {
     if (in_AX == 0xa250) {
-      local_13c = *param_1;
-      local_138 = param_1[1];
-      local_134 = param_1[2];
-      local_130 = param_1[3];
-      local_158 = param_1[4];
-      local_150 = param_1[6];
-      local_154 = param_1[5];
-      local_12c = 0;
-      local_14c = 0;
-      StringMap_SetAt_CString(&local_158,&DAT_006aa41c + g_clientContext,&local_13c);
-      StringMap_SetAt_CString(&local_13c,&DAT_006aa44c + iVar7,&local_158);
+      /* 0x411ee5-0x411f35 */
+      *(uint *)(local_13c + 0) = param_1[0];
+      *(uint *)(local_13c + 4) = param_1[1];
+      *(uint *)(local_13c + 8) = param_1[2];
+      *(uint *)(local_13c + 0xc) = param_1[3];
+      *(uint *)(local_158 + 0) = param_1[4];
+      *(uint *)(local_158 + 8) = param_1[6];
+      *(uint *)(local_158 + 4) = param_1[5];
+      local_13c[0x10] = 0;
+      local_158[0xc] = 0;
+      StringMap_SetAt_CString(local_158,&DAT_006aa41c + g_clientContext,local_13c);
+      StringMap_SetAt_CString(local_13c,&DAT_006aa44c + iVar7,local_158);
       /* 0x411f59: lea edi,[esp+0x14] after the push is the same slot the
        * second StringMap call took as [esp+0x10] (0x411f3f), i.e. the
-       * 12-byte name block local_158/154/150 + the NUL byte local_14c. */
-      FUN_00508d00((int)&g_uiPanelManager,(uchar *)&local_158);
+       * 12-byte name. */
+      FUN_00508d00((int)&g_uiPanelManager,(uchar *)local_158);
       return;
     }
     if (in_AX < 0xa101) {
@@ -105,62 +119,67 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2)
         *(undefined4 *)(iVar7 + 0x3b96f) = *(undefined4 *)((int)param_1 + 7);
         *(undefined4 *)(iVar7 + 0x3b973) = *(undefined4 *)((int)param_1 + 0xb);
         *(undefined4 *)(iVar7 + 0x3b977) = *(undefined4 *)((int)param_1 + 0xf);
-        local_158 = *(uint *)((int)param_1 + 0x13);
-        local_154 = *(uint *)((int)param_1 + 0x17);
-        puVar4 = &local_158;
-        local_150 = *(uint *)((int)param_1 + 0x1b);
-        local_14c = 0;
-        iVar7 = (iVar7 + 0x23330) - (int)puVar4;
+        /* 0x411bde-0x411c10: the 12-char name, NUL-terminated, copied to
+         * g_clientContext + 0x23330. */
+        *(uint *)(local_158 + 0) = *(uint *)((int)param_1 + 0x13);
+        *(uint *)(local_158 + 4) = *(uint *)((int)param_1 + 0x17);
+        *(uint *)(local_158 + 8) = *(uint *)((int)param_1 + 0x1b);
+        local_158[0xc] = 0;
+        puVar4 = local_158;
+        pcVar10 = (char *)(iVar7 + 0x23330);
         do {
-          uVar5 = *puVar4;
-          *(char *)((int)puVar4 + iVar7) = (char)uVar5;
-          puVar4 = (uint *)((int)puVar4 + 1);
-        } while ((char)uVar5 != '\0');
+          cVar5 = *puVar4;
+          *pcVar10 = cVar5;
+          puVar4 = puVar4 + 1;
+          pcVar10 = pcVar10 + 1;
+        } while (cVar5 != '\0');
         local_124 = (uint)*(ushort *)((int)param_1 + 0x29);
         param_1 = (uint *)((int)param_1 + 0x2b);
         local_128 = 0;
         if (local_124 != 0) {
           do {
-            /* _local_108: Ghidra's overlapping-symbol convention (same
-             * idiom as _DAT_/DAT_ pairs, but for a local this time) - a
-             * 4-byte view of the same stack slot as local_108[3]. */
-            *(uint *)local_108 = *param_1;
-            local_104 = param_1[1];
-            local_100 = param_1[2];
-            local_fc = param_1[3];
-            local_f8 = param_1[4];
-            local_f4 = 0;
-            puVar4 = param_1 + 5;
-            FUN_00401cb0((char *)local_108,(int)&DAT_00e53e88);
-            puVar8 = (undefined4 *)local_108;
-            for (iVar7 = 0x20; iVar7 != 0; iVar7 = iVar7 + -1) {
-              *puVar8 = 0xffffffff;
-              puVar8 = puVar8 + 1;
+            /* 0x411c30-0x411c5d: a 20-char group name + NUL. */
+            *(uint *)(local_108 + 0) = param_1[0];
+            *(uint *)(local_108 + 4) = param_1[1];
+            *(uint *)(local_108 + 8) = param_1[2];
+            *(uint *)(local_108 + 0xc) = param_1[3];
+            *(uint *)(local_108 + 0x10) = param_1[4];
+            local_108[0x14] = 0;
+            puVar8 = (undefined4 *)(param_1 + 5);
+            FUN_00401cb0(local_108,(int)&DAT_00e53e88);
+            {
+              undefined4 *puFill = (undefined4 *)local_108;
+              for (iVar7 = 0x20; iVar7 != 0; iVar7 = iVar7 + -1) {
+                *puFill = 0xffffffff;
+                puFill = puFill + 1;
+              }
             }
             param_1 = (uint *)((int)param_1 + 0x16);
             iVar7 = g_clientContext;
-            for (uVar5 = (uint)(ushort)*puVar4; g_clientContext = iVar7, uVar5 != 0; uVar5 = uVar5 - 1)
+            for (uVar5 = (uint)*(ushort *)puVar8; g_clientContext = iVar7, uVar5 != 0; uVar5 = uVar5 - 1)
             {
-              local_13c = *param_1;
-              local_138 = param_1[1];
-              local_134 = param_1[2];
-              local_158 = param_1[4];
-              local_154 = param_1[5];
-              local_150 = param_1[6];
-              local_12c = 0;
-              local_14c = 0;
-              StringMap_SetAt_CString(&local_158,&DAT_006aa41c + iVar7,&local_13c);
-              StringMap_SetAt_CString(&local_13c,&DAT_006aa44c + iVar7,&local_158);
-              local_144 = param_1[8];
-              local_148 = param_1[7];
-              local_140 = 0;
-              if (((int)local_144 < 0) && (-1 < (char)(local_144 >> 0x10))) {
-                local_144 = local_144 & 0xffffff;
+              /* 0x411c96-0x411cda: 12 chars of the 16-char id (its last
+               * dword is not written on this path), then the name. */
+              *(uint *)(local_13c + 0) = param_1[0];
+              *(uint *)(local_13c + 4) = param_1[1];
+              *(uint *)(local_13c + 8) = param_1[2];
+              *(uint *)(local_158 + 0) = param_1[4];
+              *(uint *)(local_158 + 4) = param_1[5];
+              *(uint *)(local_158 + 8) = param_1[6];
+              local_13c[0x10] = 0;
+              local_158[0xc] = 0;
+              StringMap_SetAt_CString(local_158,&DAT_006aa41c + iVar7,local_13c);
+              StringMap_SetAt_CString(local_13c,&DAT_006aa44c + iVar7,local_158);
+              *(uint *)(local_148 + 4) = param_1[8];
+              *(uint *)(local_148 + 0) = param_1[7];
+              local_148[8] = 0;
+              if ((local_148[7] < '\0') && (-1 < local_148[6])) {
+                local_148[7] = 0;
               }
-              puVar4 = param_1 + 9;
+              puVar8 = (undefined4 *)(param_1 + 9);
               param_1 = (uint *)((int)param_1 + 0x26);
-              UpsertDirectLinkBuddyNode((char *)&local_148,(int)&DAT_00e53e88,1,local_128,(short)*puVar4,
-                           (undefined4 *)local_108,(char *)&local_13c,(char *)&local_158);
+              UpsertDirectLinkBuddyNode(local_148,(int)&DAT_00e53e88,1,local_128,*(short *)puVar8,
+                           (undefined4 *)local_108,local_13c,local_158);
               iVar7 = g_clientContext;
             }
             local_128 = local_128 + 1;
@@ -186,16 +205,12 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2)
       }
     }
     else if (in_AX == 0xa101) {
-      *(uint *)local_108 = *(uint *)local_108 & 0xffffff00;
-      puVar8 = (undefined4 *)((int)local_108 + 1);
-      for (iVar7 = 0x3f; iVar7 != 0; iVar7 = iVar7 + -1) {
-        *puVar8 = 0;
-        puVar8 = puVar8 + 1;
+      /* 0x411e5d-0x411e78: the whole 0x100-byte line buffer zeroed. */
+      for (iVar7 = 0; iVar7 < 0x100; iVar7 = iVar7 + 1) {
+        local_108[iVar7] = 0;
       }
-      *(undefined2 *)puVar8 = 0;
       param_2 = param_2 + -4;
       iVar7 = 0;
-      *(undefined1 *)((int)puVar8 + 2) = 0;
       uVar6 = 4;
       if (0 < param_2) {
         param_1 = param_1 + 1;
@@ -225,26 +240,27 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2)
     }
   }
   else if (in_AX == 0xa2f0) {
-    local_13c = *param_1;
-    local_138 = param_1[1];
-    local_134 = param_1[2];
-    local_130 = param_1[3];
-    local_158 = param_1[4];
-    local_154 = param_1[5];
-    local_150 = param_1[6];
-    local_120 = param_1[7];
-    local_11c = param_1[8];
-    local_118 = param_1[9];
-    local_114 = param_1[10];
-    local_110 = (undefined2)param_1[0xb];
-    local_148 = *(undefined4 *)((int)param_1 + 0x2e);
-    local_144 = *(uint *)((int)param_1 + 0x32);
-    local_12c = 0;
-    local_14c = 0;
-    local_10e = 0;
-    local_140 = 0;
-    if (((int)local_144 < 0) && (-1 < (char)(local_144 >> 0x10))) {
-      local_144 = local_144 & 0xffffff;
+    /* 0x41202c-0x4120b1 */
+    *(uint *)(local_13c + 0) = param_1[0];
+    *(uint *)(local_13c + 4) = param_1[1];
+    *(uint *)(local_13c + 8) = param_1[2];
+    *(uint *)(local_13c + 0xc) = param_1[3];
+    *(uint *)(local_158 + 0) = param_1[4];
+    *(uint *)(local_158 + 4) = param_1[5];
+    *(uint *)(local_158 + 8) = param_1[6];
+    *(uint *)(local_120 + 0) = param_1[7];
+    *(uint *)(local_120 + 4) = param_1[8];
+    *(uint *)(local_120 + 8) = param_1[9];
+    *(uint *)(local_120 + 0xc) = param_1[10];
+    *(undefined2 *)(local_120 + 0x10) = (undefined2)param_1[0xb];
+    *(undefined4 *)(local_148 + 0) = *(undefined4 *)((int)param_1 + 0x2e);
+    *(uint *)(local_148 + 4) = *(uint *)((int)param_1 + 0x32);
+    local_13c[0x10] = 0;
+    local_158[0xc] = 0;
+    local_120[0x12] = 0;
+    local_148[8] = 0;
+    if ((local_148[7] < '\0') && (-1 < local_148[6])) {
+      local_148[7] = 0;
     }
     puVar8 = (undefined4 *)local_108;
     for (iVar7 = 0x20; iVar7 != 0; iVar7 = iVar7 + -1) {
@@ -252,41 +268,43 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2)
       puVar8 = puVar8 + 1;
     }
     uVar5 = (uint)*(ushort *)((int)param_1 + 0x36);
-    puVar4 = &local_13c;
+    puVar4 = local_13c;
     puVar9 = local_108;
-    uVar6 = FUN_00401ce0((int)&DAT_00e53e88,&local_120);
-    UpsertDirectLinkBuddyNode((char *)&local_148,(int)&DAT_00e53e88,1,uVar6,(short)uVar5,
-                 (undefined4 *)puVar9,(char *)puVar4,(char *)&local_158);
-    UpdateBuddyStatus((int)&DAT_00e53e88,(char *)&local_13c,(undefined1 *)((int)param_1 + 0x38));
+    uVar6 = FUN_00401ce0((int)&DAT_00e53e88,(byte *)local_120);
+    UpsertDirectLinkBuddyNode(local_148,(int)&DAT_00e53e88,1,uVar6,(short)uVar5,
+                 (undefined4 *)puVar9,puVar4,local_158);
+    UpdateBuddyStatus((int)&DAT_00e53e88,local_13c,(undefined1 *)((int)param_1 + 0x38));
   }
   else {
     if (in_AX == 0xa2f1) {
-      local_13c = *param_1;
-      local_138 = param_1[1];
-      local_134 = param_1[2];
-      local_130 = param_1[3];
-      local_158 = param_1[4];
-      local_150 = param_1[6];
-      local_154 = param_1[5];
-      local_12c = 0;
-      local_14c = 0;
-      RemoveDirectLinkBuddyNode(&DAT_00e53e88,(char *)&local_150);
+      /* 0x411fd8-0x412020 */
+      *(uint *)(local_13c + 0) = param_1[0];
+      *(uint *)(local_13c + 4) = param_1[1];
+      *(uint *)(local_13c + 8) = param_1[2];
+      *(uint *)(local_13c + 0xc) = param_1[3];
+      *(uint *)(local_158 + 0) = param_1[4];
+      *(uint *)(local_158 + 8) = param_1[6];
+      *(uint *)(local_158 + 4) = param_1[5];
+      local_13c[0x10] = 0;
+      local_158[0xc] = 0;
+      /* 0x41200a: lea eax,[esp+0x14] after the push = the name at esp+0x10. */
+      RemoveDirectLinkBuddyNode((int)&DAT_00e53e88,local_158);
       return;
     }
     if (in_AX == 0xa300) {
-      local_13c = *param_1;
-      local_138 = param_1[1];
-      local_134 = param_1[2];
-      local_130 = param_1[3];
-      local_158 = param_1[4];
-      local_154 = param_1[5];
-      local_150 = param_1[6];
-      local_12c = 0;
-      local_14c = 0;
-      UpdateBuddyStatus((int)&DAT_00e53e88,(char *)&local_158,(undefined1 *)((int)param_1 + 0x1c));
+      /* 0x411f80-0x411fcc */
+      *(uint *)(local_13c + 0) = param_1[0];
+      *(uint *)(local_13c + 4) = param_1[1];
+      *(uint *)(local_13c + 8) = param_1[2];
+      *(uint *)(local_13c + 0xc) = param_1[3];
+      *(uint *)(local_158 + 0) = param_1[4];
+      *(uint *)(local_158 + 4) = param_1[5];
+      *(uint *)(local_158 + 8) = param_1[6];
+      local_13c[0x10] = 0;
+      local_158[0xc] = 0;
+      UpdateBuddyStatus((int)&DAT_00e53e88,local_158,(undefined1 *)((int)param_1 + 0x1c));
       return;
     }
   }
   return;
 }
-

@@ -29,6 +29,14 @@
  * Left unfixed this read a garbage EDI, so [garbage+0x2004] yielded NULL
  * and the `+0x22c` deref faulted (read of 0x22d at rebuilt 0x44b086)
  * under the stricter (Lutris) wine.
+ *
+ * DispatchDirectLinkMessengerPacket ARGUMENTS RECOVERED (2026-10-30): both
+ * calls (0x405af5, 0x405b0c) pass the opcode in AX (`mov ax,[ecx]` at
+ * 0x405ab5, untouched by the compare chain, which works on EDX), the
+ * payload after it in ECX (`add ecx,2` at 0x405abb) and its length in
+ * EDX (`lea edx,[esi-2]`, esi = [conn + index*4 + 0x24640] loaded at
+ * 0x405a90 with the read index before it is advanced). The port passed
+ * nothing; it now passes (puVar1 + 1, length - 2, opcode).
  */
 #include "ghidra_types.h"
 
@@ -69,13 +77,15 @@ void DrainDirectLinkActionRing(int param_1)
       }
 LAB_00405aff:
       if (puVar1[1] == 0) {
-        DispatchDirectLinkMessengerPacket();
+        DispatchDirectLinkMessengerPacket((uint *)(puVar1 + 1),
+                                          *(int *)(iVar3 + 0x24640 + iVar4 * 4) - 2,uVar2);
       }
     }
     if (((uVar2 == 0xa211) || (uVar2 == 0xa001)) || (uVar2 == 0xa111)) goto LAB_00405aff;
     bVar6 = uVar2 == 0xa201;
 LAB_00405af0:
     if (bVar6) goto LAB_00405aff;
-    DispatchDirectLinkMessengerPacket();
+    DispatchDirectLinkMessengerPacket((uint *)(puVar1 + 1),
+                                      *(int *)(iVar3 + 0x24640 + iVar4 * 4) - 2,uVar2);
   } while( true );
 }
