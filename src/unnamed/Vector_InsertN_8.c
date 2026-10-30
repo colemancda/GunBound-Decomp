@@ -19,7 +19,7 @@
  * (Vector_UninitCopy_8 + Vector_CopyBackward_8 + fill). The stride is
  * pinned by the >>3 size computations and the param_3 * 8 stepping, and
  * the element type by the epilogue's two refcounted CString releases on
- * the by-value element's handles. Push-back wrapper: FUN_00502890
+ * the by-value element's handles. Push-back wrapper: Vector_PushBack_8
  * (insert 1 at end), itself sandwiched between the _34 and _1e
  * push-backs.
  *

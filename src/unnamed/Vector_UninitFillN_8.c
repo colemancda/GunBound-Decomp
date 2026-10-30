@@ -12,7 +12,7 @@
  * two in the binary (0x504160 / 0x504270). Serves the same slot in
  * Vector_InsertN_8's realloc and append arms that the _34 member
  * serves in Vector_InsertN_34's, plus the push-back wrapper
- * FUN_00502890.
+ * Vector_PushBack_8.
  */
 #include "ghidra_types.h"
 

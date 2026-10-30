@@ -276,7 +276,7 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
                    function's established frame key. */
                 AssignStringFromText(0,(char *)auStack_4868,(int)&local_4978);
                 AssignStringFromText(0,(char *)abStack_4768,(int)&iStack_4974);
-                FUN_00502890((undefined4)&local_4978,(int)local_4958);
+                Vector_PushBack_8((undefined4)&local_4978,(int)local_4958);
                 local_4984 = local_4984 - 1;
               } while (local_4984 != 0);
               local_4984 = 0;
