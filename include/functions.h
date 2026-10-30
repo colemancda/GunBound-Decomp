@@ -1730,7 +1730,7 @@ void __fastcall RenderReadyRoomChatRow();
 undefined4 __thiscall FUN_0050d7a0();
 void __fastcall RenderWorldListRow(int param_1, uint in_EAX);
 uint WorldListRowHitTest();
-void __fastcall FUN_0050dfd0();
+void __fastcall StaticText_Update();
 int ScrollListWidget_ThumbHeight();
 void __fastcall ScrollListWidget_DrawThumb();
 undefined4 __thiscall Widget_OnMouseUp();

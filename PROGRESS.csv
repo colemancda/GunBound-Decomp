@@ -1639,7 +1639,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050dc40,63,WorldListPanel_Draw,false,1,2,RAW-src
 0050dc80,690,RenderWorldListRow,false,1,7,RAW-src
 0050df40,144,WorldListRowHitTest,false,3,0,PARITY-cxx-Panel.cpp
-0050dfd0,118,FUN_0050dfd0,false,1,2,RAW-src
+0050dfd0,118,StaticText_Update,false,1,2,RAW-src
 0050e050,54,ScrollListWidget_ThumbHeight,false,4,0,PARITY-cxx-ScrollBar.cpp
 0050e090,380,ScrollListWidget_DrawThumb,false,1,5,RAW-src
 0050e2f0,90,Widget_ResetPressState,false,1,1,PARITY-cxx-Widget.cpp
