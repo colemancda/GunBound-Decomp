@@ -5,7 +5,7 @@
  * verbatim ports" section for status.
  *
  * ESI RECOVERED (2026-08-25): `lea esi,[esp+0x38]` at 0x501e1e in
- * FUN_00501770 = &local_4958 under that function's -0x4990 frame constant.
+ * CommP2POwner_ProcessPacket = &local_4958 under that function's -0x4990 frame constant.
  * ESI is the vector; ECX (param_1) is the 8-byte element pushed onto it.
  */
 #include "ghidra_types.h"

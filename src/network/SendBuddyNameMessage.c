@@ -31,7 +31,7 @@
  * 0x4fcec8/0x4fcecd) are the whole payload.
  *
  * - THE ARGUMENT IS A NAME, established at its source and at its sink.
- * Source: FUN_00501770's relay loop builds it as local_496c from record
+ * Source: CommP2POwner_ProcessPacket's relay loop builds it as local_496c from record
  * words [1..4] - 16 bytes - and writes local_495c = 0, the terminator at
  * byte 16, before handing it to DispatchP2PMessage as param_4.  (Ghidra
  * types that local `sockaddr` only because of a neighbouring recvfrom;
@@ -41,7 +41,7 @@
  * FUN_005027d0 with the container at this+0x17ac (0x50226e).
  *
  * - THE SESSION OBJECT IS A CBuddy2.  Our EBX is DispatchP2PMessage's
- * param_3 (`mov ebx,[ebp+8]` at 0x504ad5).  FUN_00501770 - one function,
+ * param_3 (`mov ebx,[ebp+8]` at 0x504ad5).  CommP2POwner_ProcessPacket - one function,
  * 0x501770-0x50249c - computes that same object as (its own this - 0x2f4)
  * both where it calls DispatchP2PMessage (`add ebx,-0x2f4` at 0x5021e3,
  * `call 0x504970` at 0x5021f3) and where it creates the window titled
@@ -56,7 +56,7 @@
  * names the owning class.
  * NOTE the offsets: relative to THIS object the window handle is +0x1ab4,
  * the handler is +0x1ab0, the timer id +0x1ab8, the clock +0x1abc, and
- * the name array +0x1aa0.  FUN_00501770 addresses the same fields off a
+ * the name array +0x1aa0.  CommP2POwner_ProcessPacket addresses the same fields off a
  * base 0x2f4 higher (+0x17c0, +0x17ac), so its literals differ by 0x2f4.
  *
  * - THE TYPE IS THE ONLY THING NOT BAKED IN.  FUN_004fda50 (vtable slot

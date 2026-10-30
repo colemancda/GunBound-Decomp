@@ -9,7 +9,7 @@
  * fails outright does it fall back to the hard
  * CommEngineCloseConnection (was FUN_004fe6a0). Named for the winsock
  * call it wraps, in contrast to the closesocket-based Close. Two
- * callers: CommEngineRecv's peer-closed path and FUN_00501770.
+ * callers: CommEngineRecv's peer-closed path and CommP2POwner_ProcessPacket.
  *
  *
  * DROPPED-REG FIX (2026-08-28): shuts down the node's socket and, when
@@ -19,7 +19,7 @@
  * vtable'd ENGINE object handed to FUN_004fe6a0. The `xor ecx,ecx` at
  * 0x4fddbc is this function's own, so the erase's first argument is a
  * literal 0. Two sites: CommEngineRecv passes its regEdi engine and its
- * param_1 node; FUN_00501770 passes param_1 - 0x2f0 (already spelled in
+ * param_1 node; CommP2POwner_ProcessPacket passes param_1 - 0x2f0 (already spelled in
  * its source) and the node at *(param_1 + 0x1780) (`mov esi,
  * [edi+0x1780]` at 0x501d0d, edi = its param_1).
  */

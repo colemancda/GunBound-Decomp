@@ -1,8 +1,26 @@
-/* FUN_00501770 - 0x00501770 in the original binary.
+/* CommP2POwner_ProcessPacket - 0x00501770 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-29, CERTAIN (was FUN_00501770).  The only real slot of
+ * vtable 0x5575a8, which ConstructCommP2POwner stamps at owner+0x2f4
+ * (`mov dword ptr [ebp+0x2f4], 0x5575a8` at 0x4fd147) over the base
+ * table 0x557594 stamped at 0x4fd128, whose slot 0 is __purecall
+ * (0x525acd) - so this is the owner's override of a pure "handle one
+ * packet" virtual.  Its invoker is CommP2POwner_ReassemblePackets
+ * (0x503c40), which calls `[vtbl+0]` with ECX = the same +0x2f4
+ * sub-object and (frame, frame length) on the stack once a complete
+ * ushort-length-prefixed frame has been gathered from the comm engine's
+ * recv() chunks.  Shape matches: __thiscall(pkt, len), `ret 8`
+ * (0x50249c), and it switches on the ushort type at pkt+2 (`mov cx,
+ * [eax+2]` at 0x50179e) with the body at pkt+4, len-4.  Many neighbour
+ * headers identify it as the CBuddy2 buddy-list packet handler.
+ *
+ * `this` is the owner+0x2f4 sub-object, not the owner itself: the
+ * engine-handler sub-object at owner+4 is this-0x2f0, which is what the
+ * CommEngineShutdownConnection call passes.
  *
  * StringMap_RemoveKey_1c CALL RECOVERED (2026-10-29): the 0x3fff arm's call
  * (orig 0x50243e) passed nothing; now passes the key local_48ba + 0x1c
@@ -14,7 +32,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
+undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int param_3)
 
 {
   ushort *puVar1;

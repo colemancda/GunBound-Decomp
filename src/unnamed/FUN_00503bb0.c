@@ -5,7 +5,7 @@
  * verbatim ports" section for status.
  *
  * EBX RECOVERED (2026-08-24): it is callerThis - 0x2c8.  Two independent
- * confirmations: the binary's `lea ebx,[edi-0x2c8]` with EDI = FUN_00501770's
+ * confirmations: the binary's `lea ebx,[edi-0x2c8]` with EDI = CommP2POwner_ProcessPacket's
  * entry ECX, and the caller's OWN source, which computes the same value into
  * a local on the line directly above the call:
  * `local_4970 = (undefined4 *)(param_1 + -0x2c8)`.

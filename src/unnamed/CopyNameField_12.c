@@ -11,7 +11,7 @@
  * dest+0x11 and a NUL at dest+len -- the buddy-list id field.  Bare ret and no
  * ESP-relative access, so zero stack parameters: an append, not a re-slot.
  *
- * All four call sites are in FUN_00501770: the 0x1011 record loop (dest
+ * All four call sites are in CommP2POwner_ProcessPacket: the 0x1011 record loop (dest
  * local_48f0, src pcVar12), the 0x2021 arm (dest local_4958, src
  * &local_4668), the 0x3001 arm (dest local_48f0, src &local_496c) and the
  * 0x4001 record loop (dest &local_4944, src iVar7).
@@ -42,7 +42,7 @@
  * record made of three of these fields end to end (18 + 22 + 10 + 2 =
  * 0x34), which is a third independent sighting of the layout.
  *
- * The trio's call sites are all in FUN_00501770, the CBuddy2 buddy-list
+ * The trio's call sites are all in CommP2POwner_ProcessPacket, the CBuddy2 buddy-list
  * packet handler, where the 18-byte field is the account id, the
  * 14-byte one the nickname and the 10-byte one the 8-character guild
  * field.

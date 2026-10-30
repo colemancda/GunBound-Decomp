@@ -4,7 +4,7 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * ESI and EDI RECOVERED (2026-08-25) from the single site in FUN_00501770, under the
+ * ESI and EDI RECOVERED (2026-08-25) from the single site in CommP2POwner_ProcessPacket, under the
  * -0x4990 frame constant that function's earlier recoveries established and
  * that four independent slots agree on: `lea esi,[esp+0xb2]` = &local_48de and
  * `lea edi,[esp+0x4c]` = &local_4944.

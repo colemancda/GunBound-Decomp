@@ -13,7 +13,7 @@
  * this+0x1af0: one branch is StringMap_SetAt_1c(id, 1) at 0x4fdc1c, the
  * other is this function at 0x4fdbe1 with `lea eax,[edi+0x1af0]` and the
  * same copied 16-char id in EDX - set the flag, or remove the key.  The
- * second site, 0x50243e in FUN_00501770, passes `lea eax,[edi+0x17fc]`
+ * second site, 0x50243e in CommP2POwner_ProcessPacket, passes `lea eax,[edi+0x17fc]`
  * and a 16-char id local (`lea edx,[esp+0xf2]`).
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
@@ -35,7 +35,7 @@
  * stack arguments (plain `ret`).  So the Ghidra __fastcall label was
  * wrong: the port is now a plain function taking the key (EDX) and the
  * map (EAX) as trailing register parameters, the repo's promotion idiom.
- * C site fixed: 0x50243e in FUN_00501770 (EAX = `lea eax,[edi+0x17fc]` at
+ * C site fixed: 0x50243e in CommP2POwner_ProcessPacket (EAX = `lea eax,[edi+0x17fc]` at
  * 0x502431, EDX = `lea edx,[esp+0xf2]` at 0x502437).  The other binary
  * site, 0x4fdbe1, is in the uncarved 0x4fdba0 and has no C counterpart.
  */

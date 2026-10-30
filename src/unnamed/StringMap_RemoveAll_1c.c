@@ -12,7 +12,7 @@
  * rehash arm calls StringMap_Rehash_1c (0x4ff08d), the rehash that
  * StringMap_Insert_1c and StringMap_FreeNode_1c share.  Its two
  * callers are DestroyCommP2POwner (0x4fd329, map at +0x1af0) and
- * FUN_00501770 (0x501862, map at +0x17fc).
+ * CommP2POwner_ProcessPacket (0x501862, map at +0x17fc).
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"

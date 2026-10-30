@@ -5,7 +5,7 @@
  * verbatim ports" section for status.
  *
  * EAX, EDI, EBX RECOVERED (2026-08-31, correcting the 2026-08-25 pass).  At
- * the one site, 0x502403 in FUN_00501770, THREE pushes are pending, so
+ * the one site, 0x502403 in CommP2POwner_ProcessPacket, THREE pushes are pending, so
  * `lea eax,[esp+0x30]` (0x5023fd) is esp_b+0x24 = &local_496c itself -- the
  * 16-char id the branch just assembled, the string FUN_004fe8d0's param_2
  * copy loop consumes -- not sa_data+10 (the 08-25 note missed the pushes).

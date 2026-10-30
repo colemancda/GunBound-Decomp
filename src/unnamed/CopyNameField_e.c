@@ -11,12 +11,12 @@
  * a NUL at dest+len (0x503e2b `mov [eax+esi],0`), and the length byte at
  * dest+0xd (0x503e25 `mov [esi+0xd],al`), so bytes 0..0xd inclusive.
  *
- * Every call site is in FUN_00501770, and the pairing is settled: VA order
+ * Every call site is in CommP2POwner_ProcessPacket, and the pairing is settled: VA order
  * matches source order and each site is separated by its own neighbouring
  * call (CopyNameField_12 before, StringMap_SetAt_28 or FUN_004fcd80
  * after, with distinct arguments).
  *
- * THE FRAME KEY for FUN_00501770, which cost the most to derive and is worth
+ * THE FRAME KEY for CommP2POwner_ProcessPacket, which cost the most to derive and is worth
  * keeping.  Despite the `and esp,0xfffffff8` alignment, Ghidra's names map
  * linearly onto esp:
  *
@@ -30,7 +30,7 @@
  * pending-push term is what makes the first two agree -- without it they
  * disagree by exactly 4.
  *
- * THE CALLER'S CURSOR.  The earlier note said Ghidra dropped FUN_00501770's
+ * THE CALLER'S CURSOR.  The earlier note said Ghidra dropped CommP2POwner_ProcessPacket's
  * whole EBX packet walk.  It did not.  EBX survives as a named local in every
  * branch that feeds these helpers -- `pcVar12` on the 0x1011 path, `iVar7` on
  * the 0x4001 path, plain `param_2` offsets on the 0x3001 path -- and only the

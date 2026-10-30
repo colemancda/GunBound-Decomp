@@ -10,7 +10,7 @@
  * on success, 0 when the node is unlisted, its socket is -1, or
  * getsockname fails.
  *
- * The one call site, 0x501be3 in FUN_00501770, passes the same
+ * The one call site, 0x501be3 in CommP2POwner_ProcessPacket, passes the same
  * node/container pair as the sibling's site in the same function
  * (*(callerThis+0x1780) and callerThis-0x2f0) and uses the outputs on
  * the handshake path right next to an EncodeHandshakeBlock call and a

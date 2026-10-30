@@ -4,7 +4,7 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * EAX and EDI RECOVERED (2026-08-25), both sites in FUN_00501770 under its
+ * EAX and EDI RECOVERED (2026-08-25), both sites in CommP2POwner_ProcessPacket under its
  * -0x4990 frame constant: EAX is &local_48f0 / &local_496c and EDI the value
  * at -0x4970 / iVar7 - 0x2c8.  The second site is pinned by the line above it,
  * `iVar7 = local_497c`, which is the very slot EBX is loaded from.

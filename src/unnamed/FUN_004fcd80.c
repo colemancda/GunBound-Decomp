@@ -12,7 +12,7 @@
  * the two declared stack parameters, so this is a clean APPEND, not a
  * re-slot. Promoted to a trailing regEax parameter; every one of the 6
  * call sites passes the base of a 0x284-byte context object. The size
- * comes from FUN_00501770, whose two contexts at param_1+0x182c and
+ * comes from CommP2POwner_ProcessPacket, whose two contexts at param_1+0x182c and
  * param_1+0x1ab0 are exactly 0x284 apart, and is corroborated by the
  * three callers that keep a SOCKET in the ENCLOSING object immediately
  * past the context, at ctx+0x284: param_2+0x288 in FUN_004feb00 and

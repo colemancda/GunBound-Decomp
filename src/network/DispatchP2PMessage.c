@@ -7,7 +7,7 @@
  *     (param_6 & 0xffff) - 16-bit message type codes (0xc011, 0xc018, ...) -
  *     copying the payload into a local buffer and invoking vtable slot 6
  *     (+0x18) with it.
- *   - its only caller (FUN_00501770) is the receive loop: it walks a packet
+ *   - its only caller (CommP2POwner_ProcessPacket) is the receive loop: it walks a packet
  *     stream advancing by `*(ushort *)(rec + 0x26) + 0x28` per record and
  *     calls this once per record.
  *   - [ctx + 0x1ab0] is the same session object whose +0x1a70/+0x1a74 flags

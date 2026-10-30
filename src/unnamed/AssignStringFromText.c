@@ -21,7 +21,7 @@
  * source short-circuited to an empty assignment. ECX is a PHANTOM (its
  * first touch is the write `mov cl,[eax]` in the strlen loop at
  * 0x4055d0); EDX is the declared param_2, the text. All three sites
- * pass the address of a handle variable: FUN_00501770's 0x1ffe arm
+ * pass the address of a handle variable: CommP2POwner_ProcessPacket's 0x1ffe arm
  * hands its two decode buffers to the two handles it seeded from the
  * (**(DAT_005b1444+0xc))() object, and FUN_00507660 hands a child
  * widget's +0x38 text to a handle in an 8-byte frame hole Ghidra left

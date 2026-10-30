@@ -25,11 +25,11 @@
  * in the byte at EAX+0x11 and write a NUL at EAX+length. The destination is
  * therefore an 18-byte record laid out as char name[17] followed by a length
  * byte. MSVC inlined this same routine twice inside the sole caller
- * FUN_00501770 (at 0x501f7c and 0x502443), and Ghidra rendered the second
+ * CommP2POwner_ProcessPacket (at 0x501f7c and 0x502443), and Ghidra rendered the second
  * copy as local_4914[i] / local_4903 = len / local_4914[len] = 0, which
  * independently fixes the +0x11 length slot.
  *
- * All four call sites are in FUN_00501770. Each was paired to its source
+ * All four call sites are in CommP2POwner_ProcessPacket. Each was paired to its source
  * statement by a witness rather than by position: at every site the same lea
  * expression that loads EAX or ESI is re-issued within a few instructions at
  * identical stack depth, and Ghidra named that second occurrence, so the

@@ -11,7 +11,7 @@
  * cannot alias param_1 that way without losing the key, so the hash gets a
  * local of its own and param_1 keeps meaning what it means at the entry.
  *
- * THE FRAME KEY for FUN_00501770, which cost the most to derive and is worth
+ * THE FRAME KEY for CommP2POwner_ProcessPacket, which cost the most to derive and is worth
  * keeping.  Despite the `and esp,0xfffffff8` alignment, Ghidra's names map
  * linearly onto esp:
  *
@@ -41,7 +41,7 @@
  * entry+0x1e. EAX and EBX are phantoms - both are written before any read
  * (0x503e39 lea eax,[esp+0xc] and 0x503e44 lea ebx,[esp+0x14]).
  *
- * All six call sites are in FUN_00501770 and every one of them passes the
+ * All six call sites are in CommP2POwner_ProcessPacket and every one of them passes the
  * map at param_1+0x17cc for EDI. Five of the six pass for ESI the exact
  * buffer that the immediately preceding CopyNameField_e call just filled
  * - that helper writes up to 12 characters, a NUL at dest+len and a
@@ -56,7 +56,7 @@
  * clean append, not a re-slot.
  *
  * THE CALLER'S CURSOR. The earlier note claimed Ghidra dropped
- * FUN_00501770's whole EBX packet walk. It did not. EBX survives as a named
+ * CommP2POwner_ProcessPacket's whole EBX packet walk. It did not. EBX survives as a named
  * local in every branch that feeds these helpers - pcVar12 on the 0x1011
  * path, iVar7 on the 0x4001 path, plain param_2 offsets on the 0x3001 path -
  * and only the incremental add ebx,N steps were folded into the offsets of
@@ -71,7 +71,7 @@
  * already-recovered regEbx argument; EBX is reloaded from local_4980 at
  * 0x50188b before the first helper call.
  *
- * WHAT THE CURSOR WALKS. FUN_00501770 is the CBuddy2 buddy-list packet
+ * WHAT THE CURSOR WALKS. CommP2POwner_ProcessPacket is the CBuddy2 buddy-list packet
  * handler - it creates the window titled CBuddy2 Timer Receiving Window at
  * 0x501a53. On the 0x1011 path the cursor reads a ushort result, a 4-byte
  * field echoed straight back by sendto, a 12-byte owner nick copied to the

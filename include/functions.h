@@ -1578,7 +1578,7 @@ void FUN_00501510(int regEsi);
 undefined4 * IntMap_Insert_14(undefined4 param_1,undefined4 param_2,int regEbx,int *regEsi);
 void FUN_00501600(int regEsi);
 void __fastcall CommP2POwner_OnConnectionClosed();
-undefined4 __thiscall FUN_00501770();
+undefined4 __thiscall CommP2POwner_ProcessPacket();
 uint FUN_005024a0();
 uint __fastcall FUN_00502500(uint param_1,undefined4 *param_2,ushort opcode,int regEbx);
 uint FUN_00502650();
@@ -1612,7 +1612,7 @@ void FUN_005039a0(int param_1,undefined4 param_2,int *param_3,undefined4 regEax,
 void FUN_00503a10(undefined4 regEax,undefined4 regEdi);
 void FUN_00503a50(undefined4 *param_1,int param_2);
 void FUN_00503bb0(int regEbx);
-undefined4 __thiscall FUN_00503c40();
+undefined4 __thiscall CommP2POwner_ReassemblePackets(undefined4 *param_1,ushort *param_2,uint param_3);
 void CopyNameField_e(int regEsi,int regEdi);
 void StringMap_SetAt_28(undefined4 param_1,undefined4 *regEsi,int *regEdi);
 void __fastcall FUN_00503eb0();

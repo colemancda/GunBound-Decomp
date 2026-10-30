@@ -15,7 +15,7 @@
  * Vector_InsertN_8 (0x503130) and whose range-destroy is
  * Vector_DestroyRange_8 (0x503110).
  *
- * EBX RECOVERED (2026-08-25) from the single site in FUN_00501770, under the
+ * EBX RECOVERED (2026-08-25) from the single site in CommP2POwner_ProcessPacket, under the
  * -0x4990 frame constant that function's earlier recoveries established and
  * that four independent slots agree on: `lea ebx,[esp+0x38]` = &local_4958.
  */

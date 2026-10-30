@@ -4,7 +4,7 @@
  * (strnicmp, 0x10 chars) of the 0x12-stride peer-name roster whose
  * begin/end pointers sit at session+0x1aa4/+0x1aa8; returns 1 when the
  * name is listed, 0 otherwise.  What that roster is comes from outside
- * this body: FUN_00501770's receive arms maintain it through the SAME
+ * this body: CommP2POwner_ProcessPacket's receive arms maintain it through the SAME
  * begin/end pair addressed 0x2f4 higher (+0x17b0/+0x17b4) - the 0x3001
  * arm inserts a peer (with nick and address info) via FUN_00502750 and
  * the 0x3003 arm erases one after the identical strnicmp-by-name walk

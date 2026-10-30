@@ -5,7 +5,7 @@
  * verbatim ports" section for status.
  *
  * EAX RECOVERED (2026-08-25): `lea eax,[esp+0xe8]` at 0x501afd, which under
- * FUN_00501770's -0x4990 frame constant is -0x48a8 -- a slot that function
+ * CommP2POwner_ProcessPacket's -0x4990 frame constant is -0x48a8 -- a slot that function
  * does not declare, because it is INSIDE one that it does: `char local_48ba
  * [82]` runs from -0x48ba to -0x4869, so -0x48a8 is local_48ba + 0x12.  That
  * array is a name key record (its +0x11 is the length byte the lines above

@@ -5,7 +5,7 @@
  * section for status.
  *
  * EAX RECOVERED (2026-08-25): `lea eax,[esp+0xa0]` at 0x5019e1 in
- * FUN_00501770, no push pending.  That caller's frame constant is -0x4990,
+ * CommP2POwner_ProcessPacket, no push pending.  That caller's frame constant is -0x4990,
  * pinned by three independent slots (esp+0x18 -> local_4978, esp+0x38 ->
  * local_4958, esp+0xa0 -> local_48f0), so EAX is the address of local_48f0,
  * the 0x34-byte element being appended.  ECX (param_1) is the vector.

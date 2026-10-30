@@ -5,7 +5,7 @@
  * verbatim ports" section for status.
  *
  * EBX and ESI RECOVERED (2026-08-25) from the single site 0x502278 in
- * FUN_00501770: `lea ebx,[esp+0x1c]` with one push pending = frame -0x4978 =
+ * CommP2POwner_ProcessPacket: `lea ebx,[esp+0x1c]` with one push pending = frame -0x4978 =
  * &local_4978, and `lea esi,[edi+0x17ac]` where EDI is that function's
  * param_1.  So this erases one 0x12-byte entry from the vector at
  * param_1 + 0x17ac and reports the removed key through EBX.

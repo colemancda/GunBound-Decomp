@@ -5,7 +5,7 @@
  * hand-verified. See src/README.md's "Raw/verbatim ports" section for
  * status.
  *
- * EAX RECOVERED (2026-08-25) from the single site in FUN_00501770, under the
+ * EAX RECOVERED (2026-08-25) from the single site in CommP2POwner_ProcessPacket, under the
  * -0x4990 frame constant that function's earlier recoveries established and
  * that four independent slots agree on: `lea eax,[esp+0x3c]` with no push
  * pending = &local_4954.

@@ -11,7 +11,7 @@
  * NUL at dest+len.  Bare ret and no ESP-relative access anywhere in the body,
  * so there are zero stack parameters and this is an append, not a re-slot.
  *
- * All four call sites are in FUN_00501770 under the frame key
+ * All four call sites are in CommP2POwner_ProcessPacket under the frame key
  * local_N = esp_base + (0x4990 - N).  Two take packet bytes -- the 8-byte
  * field at pcVar12 + 0x10 (orig 0x5018d1) and at the current pcVar12 inside
  * the buddy-record loop (orig 0x5019c4) -- and two take stack fields the

@@ -12,7 +12,7 @@
  *
  * What is proven is exactly that: "0x3010{peer name}, sent only for
  * peers the session does not know".  The 0x3010 type itself has no
- * inbound arm in FUN_00501770's dispatcher (the CBuddy2 type space is
+ * inbound arm in CommP2POwner_ProcessPacket's dispatcher (the CBuddy2 type space is
  * private to the messenger; the reference server has nothing to check
  * it against), so "Request...ByName" - ask the messenger server about a
  * peer we have no entry for - is the reading the guard shape supports,

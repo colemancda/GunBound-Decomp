@@ -1476,7 +1476,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00501560,158,IntMap_Insert_14,false,1,4,RAW-src
 00501600,59,FUN_00501600,false,2,1,RAW-src
 005016d0,120,CommP2POwner_OnConnectionClosed,false,1,2,RAW-src
-00501770,3372,FUN_00501770,false,1,42,RAW-src
+00501770,3372,CommP2POwner_ProcessPacket,false,1,42,RAW-src
 005024a0,85,FUN_005024a0,false,3,2,RAW-src
 00502500,140,FUN_00502500,false,12,3,RAW-src
 00502590,192,SendP2PNamedMessage,false,1,4,RAW-src
@@ -1511,7 +1511,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00503a10,61,FUN_00503a10,false,2,2,RAW-src
 00503a50,340,FUN_00503a50,false,2,3,RAW-src
 00503bb0,137,FUN_00503bb0,false,1,1,RAW-src
-00503c40,459,FUN_00503c40,false,2,2,RAW-src
+00503c40,459,CommP2POwner_ReassemblePackets,false,2,2,RAW-src
 00503e10,32,CopyNameField_e,false,5,0,RAW-src
 00503e30,120,StringMap_SetAt_28,false,6,4,RAW-src
 00503eb0,52,FUN_00503eb0,false,1,0,RAW-src
