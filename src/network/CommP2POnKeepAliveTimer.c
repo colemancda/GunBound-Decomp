@@ -33,10 +33,21 @@
  *      with the ATL RemoveAt bounds checks (ThrowCxxException(E_INVALIDARG)).
  * The scoping pass's alternative, SendP2PKeepAlives, would hide job 2.
  *
- * NOT FIXED: the slot-0 call at 0x500069 sets ECX = param_1 as `this`
- * (`mov ecx,[esp+0x58]` at 0x50004d); the port drops it.
+ * DISPATCH `this` RESTORED (2026-10-30): the slot-0 call at 0x500069
+ * sets ECX = param_1 as `this` (`mov ecx,[esp+0x58]` at 0x50004d: the
+ * frame is sub esp,0x44 plus esi/ebx/edi/ebp pushed, so +0x58 is the
+ * first stack argument); the port dropped it.  param_1 is the CCommP2P
+ * sub-object (vtable 0x5575ac); slot 0 is 0x504800 (read from .rdata),
+ * not carved, ret 0x18 - six stack arguments, matching the six pushes.
+ * Treated, as in RetransmitPendingP2PDatagrams, as a raw-C erased
+ * __thiscall: cdecl with `this` first (P2PDeliveryResultFn).
  */
 #include "ghidra_types.h"
+
+/* Slot 0 of the CCommP2P vtable 0x5575ac: the delivery-result callback
+ * 0x504800 (not carved, ret 0x18): erased __thiscall, cdecl `this` first. */
+typedef void (*P2PDeliveryResultFn)(undefined4 *self,int ok,char *node,uint seq,int addr,
+                                     uint port,int payload);
 
 
 void CommP2POnKeepAliveTimer(undefined4 *param_1)
@@ -130,9 +141,10 @@ LAB_005000d3:
           iVar7 = *(int *)(_Source + 0x94) + iVar6;
           _Var4 = FID_conflict___time32((__time32_t *)0x0);
           if (0x3c < _Var4 - *(int *)(iVar7 + 0x174c)) {
-            (**(code **)*param_1)
-                      (0,_Source,*(undefined2 *)(iVar7 + 0xc),iVar7 + 0x10,
-                       *(undefined2 *)(iVar7 + 0xe),iVar7);
+            /* 0x50004d: ECX = this, call [vtbl+0] at 0x500069 */
+            ((P2PDeliveryResultFn)*(code **)*param_1)
+                      (param_1,0,_Source,*(ushort *)(iVar7 + 0xc),iVar7 + 0x10,
+                       *(ushort *)(iVar7 + 0xe),iVar7);
             if (*(uint *)(_Source + 0x98) < local_44) goto LAB_005000d3;
             iVar7 = (*(uint *)(_Source + 0x98) - uVar3) + -1;
             if (iVar7 != 0) {

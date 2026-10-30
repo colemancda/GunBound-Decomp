@@ -25,8 +25,23 @@
  * When nothing is left pending it KillTimer's +0x2c0 and zeroes it, so
  * the next FUN_004fe110 send re-arms it.
  *
- * NOT FIXED: both owner-vtable calls (slot 1 at 0x4ffd2e, slot 0 at
- * 0x4ffd69) set ECX = EBX = param_1 as `this`; the port drops it.
+ * DISPATCH `this` RESTORED (2026-10-30): both owner-vtable calls set
+ * ECX = EBX = param_1 as `this` (`mov ecx,ebx` at 0x4ffd2c and 0x4ffd67;
+ * EBX = [esp+0x40] = param_1 at 0x4ffbf8 and again at 0x4ffd73); the
+ * port dropped it.  param_1 is the CCommP2P sub-object at owner+0x2c,
+ * whose vtable ConstructCommP2POwner stamps as 0x5575ac.  Read from the
+ * original's .rdata: slot 0 = 0x504800, slot 1 = 0x504880.
+ *   - slot 1 (call at 0x4ffd2e, one push: EBP = the peer node, whose
+ *     first 0x10 bytes are the peer name) is RequestP2PPeerByName,
+ *     ported as (char *name, int regEcx) with `this` as the trailing
+ *     regEcx (it reads regEcx - 0x2c = the owner).  The call goes
+ *     through P2PRequestPeerFn, that exact shape.
+ *   - slot 0 (call at 0x4ffd69, six pushes, ret 0x18 at 0x504853) is
+ *     not carved; like the session-handler slot in
+ *     CommP2POwner_OnConnectionClosed it is treated as a raw-C erased
+ *     __thiscall, cdecl with `this` first (P2PDeliveryResultFn).
+ * The vtable is still the placeholder PTR_LAB_005575ac, so neither path
+ * runs yet.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20): the 2 SendEncryptedP2PDatagram() calls here
  * (orig 0x4ffdec/0x4ffe24) were each missing the callee's leading
@@ -39,6 +54,14 @@
  * header for the callee-side evidence.
  */
 #include "ghidra_types.h"
+
+/* Slot 1 of the CCommP2P vtable 0x5575ac: RequestP2PPeerByName (0x504880),
+ * whose port takes the ECX `this` as its trailing regEcx. */
+typedef uint (*P2PRequestPeerFn)(char *name,int self);
+/* Slot 0 of the CCommP2P vtable 0x5575ac: the delivery-result callback
+ * 0x504800 (not carved, ret 0x18): erased __thiscall, cdecl `this` first. */
+typedef void (*P2PDeliveryResultFn)(int *self,int ok,int node,uint seq,void *addr,uint port,
+                                     void *payload);
 
 
 void RetransmitPendingP2PDatagrams(int *param_1)
@@ -183,15 +206,17 @@ LAB_004ffe2f:
         else {
           if ((*(char *)(puVar3 + 0x5d7) == '\0') &&
              ((*(char *)(iVar6 + 0x30) != '\0' ||
-              (cVar4 = (**(int (**)())(*param_1 + 4))(iVar6), cVar4 != '\0')))) {
+              (cVar4 = (char)((P2PRequestPeerFn)*(code **)(*param_1 + 4))((char *)iVar6,(int)param_1),
+               cVar4 != '\0')))) {
             puVar3[0x5d6] = 0;
             *(undefined1 *)(puVar3 + 0x5d7) = 1;
             *(undefined1 *)(iVar6 + 0x30) = 1;
             goto LAB_004ffe2f;
           }
-          (**(code **)*param_1)
-                    (0,iVar6,*(undefined2 *)(puVar3 + 4),puVar3 + 5,
-                     *(undefined2 *)((int)puVar3 + 0x12),puVar8);
+          /* 0x4ffd67: ECX = EBX = this, call [vtbl+0] */
+          ((P2PDeliveryResultFn)*(code **)*param_1)
+                    (param_1,0,iVar6,*(ushort *)(puVar3 + 4),puVar3 + 5,
+                     *(ushort *)((int)puVar3 + 0x12),puVar8);
           IntMap_RemoveKey_1768((int *)(iVar6 + 100),uVar1);
           puVar3 = local_2c;
         }

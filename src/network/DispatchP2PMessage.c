@@ -17,6 +17,19 @@
  * ret 0x10 = 4 stack arguments.  The single call site passes only the 4 stack
  * arguments, so the length and payload are currently dropped - see the
  * fastcall-decls audit.
+ * DISPATCH `this` RESTORED (2026-10-30): every one of the eight handler
+ * virtual calls loads ECX with the handler [param_3 + 0x1ab0] (`mov
+ * ecx,[eax+0x1ab0]` at 0x50498b for slot 0; `mov edx,[ecx]` / `mov
+ * ecx,[ebx+0x1ab0]` before 0x5049fd, 0x504a3c, 0x504a90 (+0x18, +0x18,
+ * +0x24) and 0x504aba, 0x504ae1, 0x504b1b, 0x504b33 (+0x28, +0x30,
+ * +0x1c, +0x20)), and the port dropped it.  The handler is the
+ * FUN_00401910 +8 sub-object with vtable 0x551cb8 (see
+ * CommP2POwner_OnConnectionClosed); its ported slots 7, 8 and 12
+ * (FUN_00403d20, FUN_00403f30, FUN_00404330) are raw-C erased
+ * __thiscall, cdecl with `this` first, and the uncarved ones are taken
+ * the same way, so each call now passes the handler as its first
+ * argument.  (FUN_00403d20's (this, name, a, b) matches the +0x1c call's
+ * three pushes exactly.)
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
@@ -45,7 +58,7 @@ DispatchP2PMessage(uint param_1,char *param_2,int param_3,undefined4 param_4,und
   
   uStack_c = 0x504980;
   uVar3 = param_6;
-  cVar2 = (**(code **)**(undefined4 **)(param_3 + 0x1ab0))(param_4,param_5,param_6,param_2,param_1);
+  cVar2 = (**(code **)**(undefined4 **)(param_3 + 0x1ab0))(*(undefined4 **)(param_3 + 0x1ab0),param_4,param_5,param_6,param_2,param_1);
   cVar7 = (char)uVar3;
   if (cVar2 != '\0') {
     switch(param_6 & 0xffff) {
@@ -63,7 +76,7 @@ DispatchP2PMessage(uint param_1,char *param_2,int param_3,undefined4 param_4,und
       }
       piVar1 = *(int **)(param_3 + 0x1ab0);
       acStack_178c[param_1] = '\0';
-      (**(code **)(*piVar1 + 0x18))(param_4,0,acStack_178c,param_5);
+      (**(code **)(*piVar1 + 0x18))(piVar1,param_4,0,acStack_178c,param_5);
       return;
     case 0xc018:
       pcVar5 = acStack_178c;
@@ -79,7 +92,7 @@ DispatchP2PMessage(uint param_1,char *param_2,int param_3,undefined4 param_4,und
       }
       piVar1 = *(int **)(param_3 + 0x1ab0);
       acStack_178c[param_1] = '\0';
-      (**(code **)(*piVar1 + 0x18))(param_4,1,acStack_178c,param_5);
+      (**(code **)(*piVar1 + 0x18))(piVar1,param_4,1,acStack_178c,param_5);
       return;
     case 0xc041:
       pcVar5 = param_2 + 8;
@@ -96,31 +109,31 @@ DispatchP2PMessage(uint param_1,char *param_2,int param_3,undefined4 param_4,und
       }
       piVar1 = *(int **)(param_3 + 0x1ab0);
       acStack_178c[param_1 - 8] = '\0';
-      (**(code **)(*piVar1 + 0x24))(param_4,&stack0xffffe868,acStack_178c);
+      (**(code **)(*piVar1 + 0x24))(piVar1,param_4,&stack0xffffe868,acStack_178c);
       return;
     case 0xc042:
       cVar2 = *param_2;
       acStack_178c[param_1 - 1] = '\0';
-      (**(code **)(**(int **)(param_3 + 0x1ab0) + 0x28))(param_4,cVar2 != '\0');
+      (**(code **)(**(int **)(param_3 + 0x1ab0) + 0x28))(*(int **)(param_3 + 0x1ab0),param_4,cVar2 != '\0');
       if (cVar7 != '\0') {
         FUN_004fcee0((char *)param_4,param_3);
         return;
       }
       break;
     case 0xc043:
-      (**(code **)(**(int **)(param_3 + 0x1ab0) + 0x30))(param_4);
+      (**(code **)(**(int **)(param_3 + 0x1ab0) + 0x30))(*(int **)(param_3 + 0x1ab0),param_4);
       SendBuddyNameMessage(0x3002,(char *)param_4,param_3);
       return;
     case 0xc051:
       uVar4 = (short)param_1 - 0x18;
       if (uVar4 < 0x81) {
         (param_2 + 0x18)[uVar4] = '\0';
-        (**(code **)(**(int **)(param_3 + 0x1ab0) + 0x1c))(param_4,param_2,param_2 + 0x18);
+        (**(code **)(**(int **)(param_3 + 0x1ab0) + 0x1c))(*(int **)(param_3 + 0x1ab0),param_4,param_2,param_2 + 0x18);
         return;
       }
       break;
     case 0xc053:
-      (**(code **)(**(int **)(param_3 + 0x1ab0) + 0x20))(param_4);
+      (**(code **)(**(int **)(param_3 + 0x1ab0) + 0x20))(*(int **)(param_3 + 0x1ab0),param_4);
     }
   }
   return;

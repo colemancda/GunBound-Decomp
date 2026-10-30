@@ -33,6 +33,18 @@
  * EBP pushed as FindP2PPeerRecord's map at 0x4ff925/0x4ff972.  The other
  * five arguments were already right: the id (&local_3188), then sin_addr
  * ([esp+0x30] = sa_data+2) and the port ([esp+0x2e] = sa_data+0) twice.
+ *
+ * DISPATCH `this` RESTORED (2026-10-30): both owner-vtable calls load
+ * ECX with param_1 and the port dropped it.  The slot-0 delivery
+ * callback at 0x4ff89d follows `mov ecx,ebp` (0x4ff89b; EBP = param_1,
+ * above); the slot-2 call at 0x4ffbce follows `mov ecx,[esp+0x31a4]`
+ * (0x4ffba0: the 0x3190 frame plus ebp/ebx/esi/edi pushed, so the first
+ * stack argument).  param_1 is the CCommP2P sub-object, vtable 0x5575ac;
+ * from .rdata, slot 0 = 0x504800 (ret 0x18, six pushes here) and slot 2
+ * = 0x5048d0, neither carved.  Both are treated as raw-C erased
+ * __thiscall - cdecl with `this` first - as the uncarved session-handler
+ * slot in CommP2POwner_OnConnectionClosed is.  The vtable is still the
+ * placeholder PTR_LAB_005575ac, so neither path runs yet.
  */
 #include "ghidra_types.h"
 
@@ -122,8 +134,9 @@ void CommP2PReceiveDatagram(int *param_1,int param_2)
         if (cVar2 != '\0') {
           iVar4 = IntMap_LookupPair_1768((int *)(local_3190 + 0x14),local_2e9a[0]);
           if (iVar4 != 0) {
+            /* 0x4ff89b: ECX = EBP = this, call [vtbl+0] */
             (**(code **)*param_1)
-                      (1,local_2eaa,*(undefined2 *)(iVar4 + 0x10),iVar4 + 0x14,
+                      (param_1,1,local_2eaa,*(undefined2 *)(iVar4 + 0x10),iVar4 + 0x14,
                        *(undefined2 *)(iVar4 + 0x12),iVar4 + 4);
             IntMap_RemoveKey_1768((int *)(local_3190 + 0x14),local_2e9a[0]);
           }
@@ -213,8 +226,9 @@ void CommP2PReceiveDatagram(int *param_1,int param_2)
                   }
                 }
               }
+              /* 0x4ffba0: ECX = this, call [vtbl+8] at 0x4ffbce */
               (**(code **)(*param_1 + 8))
-                        (&local_3188,CONCAT22(local_173e,uStack_1740),auStack_173c,
+                        (param_1,&local_3188,CONCAT22(local_173e,uStack_1740),auStack_173c,
                          CONCAT22(auStack_173c[0],local_173e),local_174c);
             }
           }
