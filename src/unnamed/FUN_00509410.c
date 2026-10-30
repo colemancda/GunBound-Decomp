@@ -9,6 +9,12 @@
  * parent in EBX and the child on the stack. At 0x5094ae/0x5094ce
  * EBX = the new panel (`mov ebx,eax` at 0x509431, `xor ebx,ebx` at 0x509454), puVar1 here;
  * each call now passes it as regEbx.
+ *
+ * SEH ARTIFACT STRIPPED (2026-10-30): 0x509410-0x50941e links a C++ EH
+ * frame (push -1 / push 0x53795b / mov eax,fs:[0] / push eax /
+ * mov fs:[0],esp) and the exit unlinks it (0x5094dd-0x5094e2). An earlier
+ * pass had removed the fs:[0] writes but left the frame's locals and the
+ * try-state stores; those are removed too, as in 7d662190.
  */
 #include "ghidra_types.h"
 
@@ -18,16 +24,8 @@ void FUN_00509410(undefined4 param_1,undefined4 param_2)
 {
   undefined4 *puVar1;
   undefined4 uVar2;
-  undefined4 local_c;
-  undefined1 *puStack_8;
-  undefined4 local_4;
-  
-  local_4 = 0xffffffff;
-  /* Windows SEH __try/__except frame setup stripped - handler body
-   * (LAB_0053795b) wasn't included in this function's own decompile.
-   * Same rationale as entry/InitGame.c - see src/README.md. */
+
   puVar1 = operator_new(0x90);
-  local_4 = 0;
   if (puVar1 == (undefined4 *)0x0) {
     puVar1 = (undefined4 *)0x0;
   }
@@ -35,7 +33,6 @@ void FUN_00509410(undefined4 param_1,undefined4 param_2)
     Panel_BaseConstructor(puVar1);
     *puVar1 = &PTR_LAB_00557d28;
   }
-  local_4 = 0xffffffff;
   puVar1[9] = 0x7531;
   puVar1[0x13] = 0;
   puVar1[0x11] = 800;
