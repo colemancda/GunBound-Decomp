@@ -1394,9 +1394,9 @@ vtable 0x557b94  installs=1  slots=10
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x5057f0  FUN_005057f0
+   7: 0x5057f0  ChatLogPanel_OnCommand
    8: 0x50e520  Widget_DrawChildren
-   9: 0x505890  FUN_00505890
+   9: 0x505890  ChatLogPanel_Update
 
 vtable 0x557bbc  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus
@@ -1418,7 +1418,7 @@ vtable 0x557be4  installs=1  slots=10  UNCARVED=3
    4: 0x505c90  UNCARVED
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x505d20  FUN_00505d20
+   7: 0x505d20  BuddyPanel_OnCommand
    8: 0x50e520  Widget_DrawChildren
    9: 0x505df0  UNCARVED
 
@@ -1444,7 +1444,7 @@ vtable 0x557c34  installs=1  slots=10  UNCARVED=1
    6: 0x50eab0  Widget_DispatchMouseToChildren
    7: 0x5065c0  UNCARVED
    8: 0x50e520  Widget_DrawChildren
-   9: 0x5068e0  FUN_005068e0
+   9: 0x5068e0  CreateRoomDialog_Update
 
 vtable 0x557c5c  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus
@@ -1490,9 +1490,9 @@ vtable 0x557cd4  installs=1  slots=10  UNCARVED=1
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x507660  FUN_00507660
+   7: 0x507660  LobbyChatPanel_OnCommand
    8: 0x50e520  Widget_DrawChildren
-   9: 0x5078f0  FUN_005078f0
+   9: 0x5078f0  LobbyChatPanel_Update
 
 vtable 0x557cfc  installs=1  slots=11  UNCARVED=2
    0: 0x507e10  FUN_00507e10
@@ -1613,7 +1613,7 @@ vtable 0x557e68  installs=1  slots=10
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x505700  FUN_00505700
+   7: 0x505700  AddBuddyDialog_OnCommand
    8: 0x50e520  Widget_DrawChildren
    9: 0x5054b0  Widget_DrawSelf
 
@@ -1634,11 +1634,11 @@ vtable 0x557eb8  installs=1  slots=10  UNCARVED=1
    1: 0x50a030  FUN_0050a030
    2: 0x50a1b0  FUN_0050a1b0
    3: 0x50a320  FUN_0050a320
-   4: 0x50a640  FUN_0050a640
+   4: 0x50a640  AvatarStorePanel_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x50a980  FUN_0050a980
-   8: 0x50a8f0  FUN_0050a8f0
+   7: 0x50a980  AvatarStorePanel_OnCommand
+   8: 0x50a8f0  AvatarStorePanel_Draw
    9: 0x50aa10  UNCARVED
 
 vtable 0x557ee0  installs=1  slots=10
@@ -1649,7 +1649,7 @@ vtable 0x557ee0  installs=1  slots=10
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x50d160  FUN_0050d160
+   7: 0x50d160  ReadyRoomChatPanel_OnCommand
    8: 0x50e520  Widget_DrawChildren
    9: 0x50d200  RenderReadyRoomChatRow
 
@@ -1675,7 +1675,7 @@ vtable 0x557f30  installs=1  slots=10
    6: 0x50eab0  Widget_DispatchMouseToChildren
    7: 0x50eb10  Widget_OnCommandDefault
    8: 0x50e520  Widget_DrawChildren
-   9: 0x50dfd0  FUN_0050dfd0
+   9: 0x50dfd0  StaticText_Update
 
 vtable 0x557f58  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus
