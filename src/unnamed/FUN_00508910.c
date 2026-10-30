@@ -4,6 +4,11 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * Widget_AddChild `this` RECOVERED (2026-10-30): 0x50e670 takes the
+ * parent in EBX and the child on the stack. At 0x5089e4/0x508a0f/0x508a2c
+ * EBX = the new panel (`mov ebx,eax` after operator new at 0x508955, `xor ebx,ebx` on failure at 0x50898f), puVar5 here;
+ * each call now passes it as regEbx.
  */
 #include "ghidra_types.h"
 
@@ -48,13 +53,13 @@ void FUN_00508910(int regEdi)
       puVar5[0xc] = 0x139;
       puVar5[0xd] = 0xa0;
       puVar3 = (undefined4 *)CreateTextEntryWidget(0,99,0x38,0xbe,0xc,4);
-      Widget_AddChild(puVar3);
+      Widget_AddChild((int)puVar3,(int)puVar5);
       PanelManager_ClearAllFocus(regEdi);
       (**(code **)*puVar3)(1);
       uVar4 = CreateLabelWidget(0,0x5dd,0xd5,0x76,0x52,0x22);
-      Widget_AddChild(uVar4);
+      Widget_AddChild(uVar4,(int)puVar5);
       uVar4 = CreateLabelWidget(1,0x5dc,0x80,0x76,0x52,0x22);
-      Widget_AddChild(uVar4);
+      Widget_AddChild(uVar4,(int)puVar5);
       PanelManager_Register(puVar5);
       *unaff_FS_OFFSET = puVar2;
       return;

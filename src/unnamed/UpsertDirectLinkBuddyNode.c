@@ -136,7 +136,8 @@ UpsertDirectLinkBuddyNode(char *param_1,int param_2,char param_3,undefined4 para
               return;
             }
           }
-          Widget_SetChildRange(iVar3,7);
+          /* EBX = [node+8] (mov ebx,ecx at 0x401e71), the buddy panel. */
+          Widget_SetChildRange(iVar3,7,piVar5[2]);
           return;
         }
       }

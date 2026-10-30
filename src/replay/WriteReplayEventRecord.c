@@ -406,7 +406,8 @@ LAB_004111c0:
     iVar12 = FUN_0050f000(0,0,(int)&g_uiPanelManager,0x232a);
     pbVar22 = param_3;
     if (iVar12 != 0) {
-      Widget_SetChildRange(*(undefined1 *)(iVar19 + 0x41344),7);
+      /* EBX = the FUN_0050f000 result (mov ebx,eax at 0x4111e9). */
+      Widget_SetChildRange(*(undefined1 *)(iVar19 + 0x41344),7,iVar12);
       pbVar22 = param_3;
     }
     goto switchD_004105f7_caseD_1022;

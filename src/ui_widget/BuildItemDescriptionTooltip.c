@@ -3,6 +3,11 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * Widget_AddChild `this` RECOVERED (2026-10-30): 0x50e670 takes the
+ * parent in EBX and the child on the stack. At 0x5096d0
+ * EBX = esi, the new panel (`mov esi,eax` at 0x509629, `mov ebx,esi` at 0x5096ce), puVar3 here;
+ * each call now passes it as regEbx.
  */
 #include "ghidra_types.h"
 
@@ -65,7 +70,7 @@ LAB_0050961f:
   uVar7 = 0xffff;
   uVar5 = FUN_0041eb80(g_clientContext,param_2);
   uVar5 = CreateStaticTextWidget(0x17,0x22,0x8c,0x4c,uVar5,uVar7);
-  Widget_AddChild(uVar5);
+  Widget_AddChild(uVar5,(int)puVar3);
   PanelManager_Register(puVar3);
   *unaff_FS_OFFSET = local_c;
   return;

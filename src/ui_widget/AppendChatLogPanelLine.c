@@ -141,7 +141,8 @@ void __fastcall AppendChatLogPanelLine(int param_1,char *param_2,char *param_3,u
   if (*(int *)(param_1 + 0x1048) == (iVar5 - iVar4) + -0xf) {
     *(int *)(param_1 + 0x1048) = *(int *)(param_1 + 0x1048) + iVar4;
   }
-  Widget_SetChildRange(iVar5,0xe);
+  /* EBX = this (mov ebx,ecx at 0x505915). */
+  Widget_SetChildRange(iVar5,0xe,param_1);
   uVar7 = Widget_FindChildIndex(param_1,0,4);
   if (uVar7 != 0xffffffff) {
     if (*(uint *)(param_1 + 0x10) <= uVar7) {

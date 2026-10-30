@@ -16,6 +16,11 @@
  * 0x508b74 reaching entry-0xc, the SEH fs:[0] slot the epilogue
  * restores from. The receiver is EDI = the CreateTextEntryWidget result
  * captured at 0x508b13, this source's puVar3.
+ *
+ * Widget_AddChild `this` RECOVERED (2026-10-30): 0x50e670 takes the
+ * parent in EBX and the child on the stack. At 0x508b16/0x508b4a/0x508b67
+ * EBX = the new panel (`mov ebx,eax` at 0x508aa3, `xor ebx,ebx` at 0x508ac6), puVar2 here;
+ * each call now passes it as regEbx.
  */
 #include "ghidra_types.h"
 
@@ -57,14 +62,14 @@ undefined4 FUN_00508a50(int param_1,char *param_2)
       puVar2[0xc] = 0xf3;
       puVar2[0xd] = 0xca;
       puVar3 = (undefined4 *)CreateTextEntryWidget(0,0x6a,0x48,0xb6,0xc,0x14);
-      Widget_AddChild(puVar3);
+      Widget_AddChild((int)puVar3,(int)puVar2);
       PanelManager_ClearAllFocus(param_1);
       (**(code **)*puVar3)(1);
       TextEntry_SetControlText(param_2,(int)puVar3);
       uVar4 = CreateLabelWidget(0,0x4ba,0xd5,0x76,0x52,0x22);
-      Widget_AddChild(uVar4);
+      Widget_AddChild(uVar4,(int)puVar2);
       uVar4 = CreateLabelWidget(1,0x4bb,0x80,0x76,0x52,0x22);
-      Widget_AddChild(uVar4);
+      Widget_AddChild(uVar4,(int)puVar2);
       PanelManager_Register(puVar2);
       break;
     }

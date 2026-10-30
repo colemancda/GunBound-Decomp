@@ -23,6 +23,11 @@
  * function's own now-recovered parameter holds) / `call 0x50eea0` -
  * manager and panel, matching PanelManager_Register's real two-parameter
  * signature (see that file's own header for the EAX/stack recovery).
+ *
+ * Widget_AddChild `this` RECOVERED (2026-10-30): 0x50e670 takes the
+ * parent in EBX and the child on the stack. At 0x509855/0x509883/0x5098a0/0x5098c0
+ * EBX = the new panel (`mov ebx,eax` at 0x5097ca, `xor ebx,ebx` at 0x5097ed), puVar2 here;
+ * each call now passes it as regEbx.
  */
 #include "ghidra_types.h"
 
@@ -57,15 +62,15 @@ void FUN_00509780(int esiArg)
       puVar2[0xd] = 0xf9;
       uVar3 = GetLocalizedString(&g_localizedStringTable,0x15e);
       uVar3 = CreateStaticTextWidget(0x14,0xf,0xd2,0xf,uVar3,uVar4);
-      Widget_AddChild(uVar3);
+      Widget_AddChild(uVar3,(int)puVar2);
       uVar4 = 0xffff;
       uVar3 = GetLocalizedString(&g_localizedStringTable,0x15f);
       uVar3 = CreateStaticTextWidget(0x14,0x32,0xce,0x8a,uVar3,uVar4);
-      Widget_AddChild(uVar3);
+      Widget_AddChild(uVar3,(int)puVar2);
       uVar3 = CreateLabelWidget(0,0x640,0x48,0xd0,0x51,0x21);
-      Widget_AddChild(uVar3);
+      Widget_AddChild(uVar3,(int)puVar2);
       uVar3 = CreateLabelWidget(1,0x641,0x9d,0xd0,0x51,0x21);
-      Widget_AddChild(uVar3);
+      Widget_AddChild(uVar3,(int)puVar2);
       PanelManager_Register((void *)esiArg, (int)puVar2);
       break;
     }

@@ -23,6 +23,11 @@
  * 0x22c, the exact expression Equip/UnequipAvatarSlot use - then tests
  * its high bits (& 0xe0000000).  The file name predates this
  * understanding and looks wrong for what it does; not renamed here.
+ *
+ * Widget_AddChild `this` RECOVERED (2026-10-30): 0x50e670 takes the
+ * parent in EBX and the child on the stack. At 0x50cf7d/0x50cfe0
+ * EBX = ebp = param_1 (`mov ebx,ebp` at 0x50cf7a and 0x50cfdd);
+ * each call now passes it as regEbx.
  */
 #include "ghidra_types.h"
 
@@ -63,7 +68,7 @@ void RefreshConnectionStatusLabel(int param_1)
       iVar2 = Widget_FindChildIndex(param_1,0,1);
       if (iVar2 == -1) {
         uVar4 = CreateLabelWidget(0,0x4b0,0xe,0x1fc,0x40,0x17);
-        Widget_AddChild(uVar4);
+        Widget_AddChild(uVar4,param_1);
       }
     }
     else {
@@ -79,7 +84,7 @@ void RefreshConnectionStatusLabel(int param_1)
       iVar2 = Widget_FindChildIndex(param_1,3,1);
       if (iVar2 == -1) {
         uVar4 = CreateLabelWidget(3,0x4b3,0xe,0x1fc,0x40,0x17);
-        Widget_AddChild(uVar4);
+        Widget_AddChild(uVar4,param_1);
         return;
       }
     }

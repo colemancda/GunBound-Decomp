@@ -41,6 +41,13 @@
  * (orig 0x44496b, 0x444dad, 0x444ddf) passed no iElement; each now passes
  * the PeekChecksumStateUnderLock result the original leaves in EAX (calls
  * at 0x444954, 0x444d96, 0x444dc8) - see the comments at the calls.
+ *
+ * Widget_SetChildRange EBX RECOVERED (2026-10-30): all five calls
+ * (0x4442fe, 0x44468d, 0x444b92, 0x444fbf, 0x44511f) load EBX from
+ * [this + 0x34784] just before the call (`mov ebx,[esi/ebx/edi+0x34784]`,
+ * with that base reloaded from the esp+0xc `this` spill at 0x4442be,
+ * 0x444653, 0x444b08 and 0x444f92, or still the prologue's edi), so each
+ * now passes *(int *)(this + 0x34784) as the panel.
  */
 #include "ghidra_types.h"
 #include "opcodes.h"
@@ -204,7 +211,8 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
             AtlArray_Add_450((int *)(g_clientContext + 0x44e40),(undefined4)&local_468);
             LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
-            Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
+            Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe,
+                                 *(int *)((int)this + 0x34784));
             pcVar19 = (code *)EnterCriticalSection;
 LAB_0044469b:
             local_c = 0xffffffff;
@@ -266,7 +274,8 @@ LAB_0044469b:
             LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
             FUN_0044b0b0(this);
-            Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
+            Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe,
+                                 *(int *)((int)this + 0x34784));
           }
           *(undefined1 *)(g_clientContext + 0x44bf8) = 1;
           return;
@@ -346,7 +355,8 @@ LAB_0044469b:
         QueueOutgoingPacketField(0xffffffff);
         LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,300000);
         FUN_0044b0b0(this);
-        Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
+        Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe,
+                                 *(int *)((int)this + 0x34784));
         QueueOutgoingPacketField(4);
         pcVar10 = (char *)GetLocalizedString(&g_localizedStringTable,0xea6a);
         pcVar7 = (char *)((int)this + 0x327d4);
@@ -468,7 +478,8 @@ switchD_004449fc_default:
             pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa8);
             _sprintf((char *)local_508,pcVar7,iVar4);
             FUN_00402900(&DAT_00e53e88,(int)this + 0x32ce3,(char *)local_508);
-            Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
+            Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe,
+                                 *(int *)((int)this + 0x34784));
           }
           else if (*payload == 0x6002) {
             ShowErrorDialog(0);
@@ -581,7 +592,8 @@ switchD_00444e7c_default:
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         EncodeOutgoingPacketField((void *)((int)this + 0x228), 0xffffffff);
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
+        Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe,
+                                 *(int *)((int)this + 0x34784));
       }
       else if (*payload == 0x6002) {
         ShowErrorDialog(0);

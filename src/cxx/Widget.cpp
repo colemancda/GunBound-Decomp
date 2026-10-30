@@ -463,14 +463,11 @@ void CWidget::v10(bool b)
  * directly (or been promoted to C++ itself) - tracked as follow-up work,
  * not done in this pass. See src/cxx/PLAN.md.
  *
- * AddChild forwards an argument that the ORIGINAL binary passes in a
- * register the raw C decompile never resolved (Ghidra's own `unaff_EBX`
- * artifact - see the deleted raw file's own comment, preserved in git
- * history). Rather than change every existing caller, its shim below
- * captures that register at function entry via inline asm, exactly replicating what the
- * callers already implicitly relied on - not a new assumption, just made
- * explicit. Verified via disassembly that the capture is the very first
- * instruction, before anything else can clobber the register.
+ * AddChild and FindChildIndex take arguments that the ORIGINAL binary
+ * passes in registers. Their raw C callers now pass those registers
+ * explicitly as trailing parameters; no shim reads a register with
+ * inline asm any more (that read whatever the MSVC-compiled caller had
+ * left there).
  */
 extern "C" {
 
@@ -479,9 +476,13 @@ void Widget_MoveBy(CWidget *this_, int dx, int dy)
     this_->MoveBy(dx, dy);
 }
 
-void Widget_SetEnabled(CWidget *this_, bool enabled)
+/* 0x50e7d0 is __thiscall (ECX = this, `mov esi,ecx` at 0x50e7d6) with one
+ * stack word, ret 4, of which only the low byte is used (`mov [esi+0x1c],bl`
+ * at 0x50e7de). The raw C callers pass `this` first, as erased-__thiscall
+ * cdecl. */
+void Widget_SetEnabled(CWidget *this_, int enabled)
 {
-    this_->SetEnabled(enabled);
+    this_->SetEnabled((unsigned char)enabled != 0);
 }
 
 
@@ -497,17 +498,15 @@ void Widget_OnCommandDefault(CWidget *this_, int evt, int id, int arg)
     this_->CWidget::OnCommand(evt, id, arg);
 }
 
-/* `this` arrives in EBX in the original (Widget_AddChild.c's own
- * `unaff_EBX` - the raw port never had `this` as a real parameter at
- * all). Captured here rather than changed at each of Widget_AddChild's
- * ~19 call sites. */
-void Widget_AddChild(CWidget *child)
+/* 0x50e670 takes `this` in EBX (`mov eax,[ebx+0x14]` at 0x50e670 and
+ * `lea esi,[ebx+0xc]` at 0x50e679, with no earlier write) and the child
+ * as its one stack word ([esp+8] after `push ebp` at 0x50e674). The raw C
+ * callers now pass the parent explicitly as the trailing regEbx. The old
+ * inline-asm capture of EBX read whatever the MSVC-compiled caller had
+ * left there. */
+void Widget_AddChild(CWidget *child, CWidget *regEbx)
 {
-    CWidget *self;
-    __asm {
-        mov self, ebx
-    }
-    self->AddChild(child);
+    regEbx->AddChild(child);
 }
 
 /* 0x50e620 takes `this` in ECX, the child id in ESI (compared with

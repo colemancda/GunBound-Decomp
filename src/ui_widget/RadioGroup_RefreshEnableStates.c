@@ -29,7 +29,8 @@ void RadioGroup_RefreshEnableStates(int param_1)
                     /* WARNING: Subroutine does not return */
         ThrowCxxException(0x80070057);
       }
-      Widget_SetEnabled(uVar2);
+      /* 0x50ce2f-0x50ce35: ECX = [ebp+0xc][eax*4], the found child. */
+      Widget_SetEnabled(*(int *)(*(int *)(param_1 + 0xc) + uVar1 * 4),uVar2);
     }
     iVar3 = iVar3 + 1;
     if (3 < iVar3) {

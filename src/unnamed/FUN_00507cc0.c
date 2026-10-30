@@ -38,7 +38,9 @@ void FUN_00507cc0(undefined4 param_1,int param_2,int regEbx)
     if (*(int *)(iVar1 + 0x10) != 0) {
       if (*(int *)(iVar1 + 0x10) == 0) break;
       do {
-        Widget_SetEnabled(param_1);
+        /* 0x507d1f-0x507d26: ECX = [edi+0xc][ebp*4], the child's own
+         * child; the pushed word is param_1. */
+        Widget_SetEnabled(*(int *)(*(int *)(iVar1 + 0xc) + uVar2 * 4),param_1);
         uVar2 = uVar2 + 1;
       } while (uVar2 < *(uint *)(iVar1 + 0x10));
     }

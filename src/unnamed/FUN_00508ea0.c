@@ -3,6 +3,11 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * Widget_AddChild `this` RECOVERED (2026-10-30): 0x50e670 takes the
+ * parent in EBX and the child on the stack. At 0x508f86/0x508fa3/0x509005
+ * EBX = esi, the new panel (`mov ebx,esi` at 0x508f84 and again at 0x509003 after the strlen reuses EBX), puVar3 here;
+ * each call now passes it as regEbx.
  */
 #include "ghidra_types.h"
 
@@ -48,9 +53,9 @@ joined_r0x00508ec8:
     puVar3[0xc] = 200;
     puVar3[0xd] = 0x8a;
     uVar4 = CreateLabelWidget(0,0x2ca,0x44,0x66,0x37,0x1a);
-    Widget_AddChild(uVar4);
+    Widget_AddChild(uVar4,(int)puVar3);
     uVar4 = CreateLabelWidget(1,0x2cb,0x82,0x66,0x37,0x1a);
-    Widget_AddChild(uVar4);
+    Widget_AddChild(uVar4,(int)puVar3);
     puVar5 = regEdi;
     if (regEdi != (uchar *)0x0) {
       do {
@@ -62,7 +67,7 @@ joined_r0x00508ec8:
     _Format = (char *)GetLocalizedString(&g_localizedStringTable,0xfa5);
     _sprintf(local_8c,_Format);
     uVar4 = CreateStaticTextWidget(0x17,0x2b,0x9a,0x33,local_8c,0xffff);
-    Widget_AddChild(uVar4);
+    Widget_AddChild(uVar4,(int)puVar3);
     PanelManager_Register(puVar3);
   }
   else {

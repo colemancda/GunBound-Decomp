@@ -82,7 +82,8 @@ void RemoveDirectLinkBuddyNode(int param_1,char *regEax)
           return;
         }
       }
-      Widget_SetChildRange(iVar3,7);
+      /* EBX = [node+8] (mov ebx,[ecx+8] at 0x401f76), the buddy panel. */
+      Widget_SetChildRange(iVar3,7,piVar4[2]);
     }
   }
   return;

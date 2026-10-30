@@ -3,15 +3,23 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-10-30): the radio panel arrives in EBX. 0x506840 never
+ * writes EBX; it reads it at `mov ecx,ebx` (0x506855, the
+ * Widget_FindChildIndex `this`) and for the [ebx+0x10]/[ebx+0xc]
+ * child-array reads, and ends in ret 4 with param_1 as its only stack
+ * word. Ghidra left it as unaff_EBX; it is now the trailing parameter
+ * regEbx. Its only callers are the four calls each inside the uncarved
+ * CCreateRoomDialog OnCommand body at 0x5065c0.
  */
 #include "ghidra_types.h"
 
 
-void RadioGroup_SelectLowChild(int param_1)
+void RadioGroup_SelectLowChild(int param_1,int regEbx)
 
 {
   uint uVar1;
-  int unaff_EBX;
+  int unaff_EBX = regEbx;
   int iVar2;
   
   iVar2 = 0;

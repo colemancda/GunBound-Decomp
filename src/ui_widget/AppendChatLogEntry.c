@@ -251,7 +251,8 @@ LAB_0041bac3:
         return;
       }
     }
-    Widget_SetChildRange(iVar9,local_98);
+    /* EBX = [node+8] (0x41bc52), the panel the walk found. */
+    Widget_SetChildRange(iVar9,local_98,iVar6);
     uVar8 = Widget_FindChildIndex(iVar6,0,4);
     if (uVar8 != 0xffffffff) {
       if (*(uint *)(iVar6 + 0x10) <= uVar8) {
