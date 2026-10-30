@@ -20,11 +20,10 @@
  * FIXED (2026-10-30): the Widget_OnCommandDefault calls now pass `this`
  * (ECX = esi = this at 0x50a9be and 0x50a9fd).
  *
- * Noted, not fixed: the EnqueueInputEvent
- * call drops its leading queue argument - EAX = 0x795070, the
- * g_inputEventRing base, at 0x50a9ec, with stack words (0, *this,
- * code). That dropped EAX is the open per-site recovery
- * EnqueueInputEvent.c tracks, shared with EnterRoomNumberDialog_OnCommand.
+ * FIXED (2026-10-30): the EnqueueInputEvent call now passes its EAX
+ * queue - `mov eax,0x795070` (g_inputEventRing) at 0x50a9ec - ahead of
+ * the stack words (0, *this, code). EnterRoomNumberDialog_OnCommand
+ * still drops it.
  *
  * WIRED (2026-10-30): src/cxx/Panel.cpp's CAvatarStorePanel::OnCommand now forwards here
  * (vtable 0x557eb8 slot 7).
@@ -54,7 +53,9 @@ void __thiscall AvatarStorePanel_OnCommand(undefined4 *param_1,int param_2,int p
       uVar2 = *param_1;
       uVar3 = 0x1a;
     }
-    EnqueueInputEvent(0,uVar2,uVar3);
+    /* 0x50a9ec-0x50a9f3: EAX = 0x795070 (g_inputEventRing), pushes
+       (0, *this, code) - ret 0xc in EnqueueInputEvent. */
+    EnqueueInputEvent((uint *)g_inputEventRing,0,uVar2,uVar3);
   }
   else if ((param_2 == 0x2000) && (param_3 == 0)) {
     *(undefined4 *)(g_gameStateVTableArray[7] + 0x454) = param_4;
