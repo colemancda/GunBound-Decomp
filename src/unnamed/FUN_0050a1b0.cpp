@@ -48,8 +48,11 @@ extern unsigned int g_stateChangeInProgress;
 unsigned int PeekPacketChecksumState(void *self);
 char PeekPacketChecksumBool(unsigned char *cell);
 /* Row-at-point helper; x/y recovered 2026-08-28 - see
- * AvatarListRowHitTest.c (was FUN_0050cdb0.c). */
-int AvatarListRowHitTest(int widget, int x, int y);
+ * AvatarListRowHitTest.c (was FUN_0050cdb0.c). It is __fastcall there
+ * (ECX widget, EDX x, ESI y at 0x50cdb0-0x50cdd0), so this declaration
+ * must be too: a cdecl one names _AvatarListRowHitTest, which nothing
+ * defines, instead of @AvatarListRowHitTest@12. */
+int __fastcall AvatarListRowHitTest(int widget, int x, int y);
 unsigned int QueueOutgoingPacketField(void *cell, unsigned int value);
 void RefreshConnectionStatusLabel(void *this_);
 void RadioGroup_RefreshEnableStates(int param_1, char regBl);
