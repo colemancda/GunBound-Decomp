@@ -23,8 +23,8 @@
  * TickActiveObjectRegistry.c idiom; __thiscall itself is erased by
  * ghidra_types.h).
  *
- * Noted, not fixed: Widget_DrawChildrenDeep (0x50ecf0) has the same
- * argless child call.
+ * Widget_DrawChildrenDeep (0x50ecf0) had the same argless child call;
+ * fixed the same way on 2026-10-30.
  *
  * WIRED (2026-10-30): src/cxx/Panel.cpp's CStaticText::Update now forwards here
  * (vtable 0x557f30 slot 9).
