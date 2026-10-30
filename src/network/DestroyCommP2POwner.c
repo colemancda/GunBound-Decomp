@@ -11,7 +11,7 @@
  * connection node at +0x1a74 (param_1[0x69d], the node
  * CommP2POwnerConnect stores), kills the timer, destroys the notify
  * windows, frees the buffers, and runs the base teardowns. Its lone
- * caller is FUN_004fd3c0, the ref-counted deleting wrapper in vtable
+ * caller is CommP2POwner_Release, the ref-counted deleting wrapper in vtable
  * 0x5575c8 slot 1 (`dec [this+0x1a6c]`, dtor + _free at zero). The
  * composite's original class name is unknown; "CommP2POwner" is the
  * tree's working handle - see ConstructCommP2POwner's header.

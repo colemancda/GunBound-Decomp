@@ -1378,7 +1378,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fd090,93,FUN_004fd090,false,1,2,RAW-src
 004fd0f0,320,ConstructCommP2POwner,false,1,4,RAW-src
 004fd230,382,DestroyCommP2POwner,false,1,12,RAW-src
-004fd3c0,28,FUN_004fd3c0,false,1,2,RAW-src
+004fd3c0,28,CommP2POwner_Release,false,1,2,RAW-src
 004fd3e0,128,FUN_004fd3e0,false,1,1,RAW-src
 004fd470,159,CommP2POwnerConnect,false,1,4,RAW-src
 004fd590,183,FUN_004fd590,false,1,2,RAW-src

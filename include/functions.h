@@ -1485,7 +1485,7 @@ undefined4 FUN_004fd030();
 undefined4 FUN_004fd090();
 undefined4 * ConstructCommP2POwner(undefined4 *param_1,undefined4 param_2);
 void DestroyCommP2POwner(undefined4 *param_1);
-void __fastcall FUN_004fd3c0();
+void __fastcall CommP2POwner_Release();
 undefined4 FUN_004fd3e0(int param_1,undefined4 *param_2,int regEcx);
 undefined4 __thiscall CommP2POwnerConnect(int param_1,undefined4 param_2,undefined4 param_3,char *param_4,char *param_5);
 uint __thiscall FUN_004fd590();

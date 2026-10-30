@@ -18,7 +18,7 @@
  * PRNG states and builds two CAtlMaps. The composite's original class
  * name is unknown; "CommP2POwner" is the tree's working handle for it.
  * Destructor: DestroyCommP2POwner (0x4fd230); deleting wrapper with
- * the +0x1a6c refcount: FUN_004fd3c0, vtable 0x5575c8 slot 1.
+ * the +0x1a6c refcount: CommP2POwner_Release, vtable 0x5575c8 slot 1.
  */
 #include "ghidra_types.h"
 
