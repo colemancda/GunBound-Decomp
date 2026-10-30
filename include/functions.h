@@ -1629,7 +1629,7 @@ void __fastcall Vector_UninitFillN_8();
 void __fastcall Vector_UninitFillN_1e(int param_1,undefined4 *param_2,undefined4 param_3,undefined4 *regEax);
 void __fastcall Vector_CopyBackward_12(undefined4 *param_1,undefined4 *param_2,undefined4 *regEax);
 int * Vector_CopyBackward_8();
-undefined4 FUN_00504420();
+undefined4 AtlList_NewNode_177c(undefined4 *param_1,undefined4 param_2,undefined4 param_3,int regEbx);
 undefined4 * StringMap_Insert_28(int param_1,undefined4 param_2,undefined4 *regEax,int *regEbx);
 undefined4 __fastcall Vector_UninitCopy_12(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4);
 int __fastcall Vector_UninitCopy_34(int param_1,undefined4 param_2,undefined4 param_3,int regEax,int regEbx);

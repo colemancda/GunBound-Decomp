@@ -1528,7 +1528,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00504270,117,Vector_UninitFillN_1e,false,3,0,RAW-src
 005042f0,55,Vector_CopyBackward_12,false,1,0,RAW-src
 00504330,229,Vector_CopyBackward_8,false,1,2,RAW-src
-00504420,89,FUN_00504420,false,1,1,RAW-src
+00504420,89,AtlList_NewNode_177c,false,1,1,RAW-src
 00504480,199,StringMap_Insert_28,false,1,4,RAW-src
 00504550,72,Vector_UninitCopy_12,false,4,0,RAW-src
 005045a0,44,Vector_UninitCopy_34,false,4,1,RAW-src

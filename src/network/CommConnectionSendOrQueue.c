@@ -18,10 +18,10 @@
  * completion; any error but WSAEWOULDBLOCK (WSAGetLastError == 0x2733)
  * is false. On WSAEWOULDBLOCK, or when sends are already queued (so
  * order is kept), the frame is copied into a 6000-byte buffer with its
- * length at +0x1770 and appended through FUN_00504420 to the list at
- * conn+0x20 - which copies buffer and length into a node's +8 / +0x1778
- * and increments the count at list+8 = conn+0x28 - with the tail link
- * fixed up at +0x24. The list has the head/tail/count/free-list (+0x10)
+ * length at +0x1770 and appended through AtlList_NewNode_177c to the
+ * list at conn+0x20 - which copies buffer and length into a node's
+ * +8 / +0x1778 and increments the count at list+8 = conn+0x28 - with
+ * the tail link fixed up at +0x24 (CAtlList::AddTail, inlined). The list has the head/tail/count/free-list (+0x10)
  * shape of CommConnectionList_Erase's list.
  *
  * Callers: the CBuddy2 frame writers FUN_00502500 ([len+4][opcode]
@@ -44,8 +44,15 @@ bool __fastcall CommConnectionSendOrQueue(uint param_1,char *param_2,int param_3
   int iVar2;
   uint uVar3;
   char *pcVar4;
-  char local_1780 [6000];
-  uint local_10;
+  /* COALESCED (2026-10-30): the queued element is ONE 0x1774-byte
+   * object - the 6000-byte frame with its length at +0x1770. The buffer
+   * is `lea edi,[esp+0x10]` and the length store `mov [esp+0x1780],edi`
+   * at 0x5038b8, 0x1770 apart, and AtlList_NewNode_177c's copy-ctor
+   * reads the length at element+0x1770. Ghidra had split it into
+   * local_1780[6000] and local_10, which MSVC need not place
+   * adjacently, so the node copied an unrelated stack word as its
+   * length. */
+  char local_1780 [6000 + 4];
   undefined4 uStack_c;
   
   uStack_c = 0x503850;
@@ -77,8 +84,9 @@ bool __fastcall CommConnectionSendOrQueue(uint param_1,char *param_2,int param_3
     param_2 = param_2 + 1;
     pcVar4 = pcVar4 + 1;
   }
-  local_10 = param_1;
-  iVar2 = FUN_00504420(local_1780,uVar1,0);
+  *(uint *)(local_1780 + 0x1770) = param_1;
+  /* 0x5038ca-0x5038d7: EBX = the list at conn+0x20 (`add ebx,0x20`) */
+  iVar2 = AtlList_NewNode_177c((undefined4 *)local_1780,uVar1,0,param_3 + 0x20);
   if (*(int **)(param_3 + 0x24) != (int *)0x0) {
     **(int **)(param_3 + 0x24) = iVar2;
     *(int *)(param_3 + 0x24) = iVar2;
