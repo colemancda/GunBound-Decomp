@@ -798,7 +798,7 @@ uint8_t DAT_00e9b810;
  * for which fields and why (this mirrors the g_uiPanelManager fix above).
  *
  * KNOWN DIVERGENCE (same pattern as g_uiPanelManager/DAT_00e53c44 above):
- * DAT_00e9be94/98/9c/DAT_00e9bea0/a4/a8 and DAT_00e9c104/08 are separately-
+ * DAT_00e9be94/98/9c/DAT_00e9bea4/a8 and DAT_00e9c104 are separately-
  * declared globals with their OWN storage, read directly by ~15 other
  * already-ported files - they do NOT alias into this array. Harmless
  * while these registries are never actually populated with real widgets
@@ -808,14 +808,16 @@ uint8_t g_activeObjectRegistry[0x20];
 uint32_t DAT_00e9be94;
 uint8_t DAT_00e9be98;
 uint8_t DAT_00e9be9c;
-uint8_t DAT_00e9bea0;
+/* DAT_00e9bea0 is g_activeObjectRegistry+0x10 (the ring pointer InitGame
+ * stores at 0x40ed16); no separate storage. */
 uint8_t DAT_00e9bea4;
 /* DAT_00e9bea8: moved to globals_sized.c (0x30-byte container-policy object
  * that HashMap_Construct constructs through it). */
 /* DAT_00e9bed8: moved to globals_sized.c (0x224 CValueGuard cell). */
 uint8_t g_activeObjectRegistry2[0x20];
 uint32_t DAT_00e9c104;
-uint8_t DAT_00e9c108;
+/* DAT_00e9c108 is g_activeObjectRegistry2+0xc (the ring pointer InitGame
+ * stores at 0x40ed1b); no separate storage. */
 /* Worker-thread control block for WorkerThread_Start/WorkerThreadProcThunk/WorkerThreadEventLoop:
  * +4 thread handle (uintptr_t), +8/+0xc two wait handles, +0x10 running flag.
  * Was completely undeclared (the raw ports take it via a dropped ESI

@@ -136,9 +136,18 @@ int InitGame(undefined4 param_1,undefined4 param_2)
         DAT_00e5285b = 0xcd;
         DAT_00e52e68 = 0x39;
         FUN_004f0100();
-        _DAT_00e9bea0 = &g_inputEventQueueWriteIndex;
-        _DAT_00e9c108 = &g_inputEventQueueWriteIndex;
-        _DAT_00e536e4 = &g_inputEventQueueWriteIndex;
+        /* 0x40ed0f-0x40ed20: eax = 0x795070 (the input-event ring) stored
+         * to three objects' queue fields. 0xe9bea0 is +0x10 of the first
+         * active-object registry (0xe9be90, ctor 0x405f00, 0x18 bytes);
+         * 0xe9c108 is +0xc of the text-box registry (0xe9c0fc, ctor
+         * 0x40cd40, 0x10 bytes - it has no +0xc cache slot, so its ring
+         * sits four bytes lower); 0xe536e4 is +0x4c of the DirectInput
+         * mouse singleton (0xe53698), the queue FUN_004ee320 reads as
+         * [esi+0x4c]. Ghidra split each into its own 1-byte global, so the
+         * pointer was truncated into storage nothing read. */
+        *(void **)(g_activeObjectRegistry + 0x10) = g_inputEventRing;
+        *(void **)(g_activeObjectRegistry2 + 0xc) = g_inputEventRing;
+        *(void **)(g_mouseDeviceTimerBlock + 0x4c) = g_inputEventRing;
         _DAT_00e5285c = &g_inputEventQueueWriteIndex;
         g_gameStateVTableArray[0] = operator_new(4);
         if ((undefined4 *)g_gameStateVTableArray[0] == (undefined4 *)0x0) {

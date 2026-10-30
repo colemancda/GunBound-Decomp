@@ -424,29 +424,14 @@ static void gb_startup_init(void)
     gb_init_widget_registry(g_activeObjectRegistry2, gb_registrySentinel[1]);
     gb_init_widget_registry(g_spriteRegistry, gb_registrySentinel[2]);   /* global sprite registry */
     gb_init_widget_registry(DAT_00e53e88, gb_registrySentinel[3]);   /* chat-log/replay object */
-    /* FIXED (2026-07-18): the two hit-test registries' +0x10 slot is the
-     * input-event RING POINTER (read by HandleActiveObjectMouseUp as the
-     * EnqueueInputEvent queue object), NOT a list link - only *layer* nodes use
-     * +0x10 as inner-next; the container never walks its own +0x10. The
-     * original set it via InitGame (`registry+0x10 = 0x795070`, the ring), but
-     * gb_init_widget_registry's generic self-init clobbered it, and our
-     * InitGame port writes the ring to `_DAT_00e9bea0` - a split-out global
-     * that is NOT the same memory as g_activeObjectRegistry[0x10] in this build. Point
-     * +0x10 at the real g_inputEventRing so a button release actually reaches
-     * ProcessInputEventQueue -> State OnCommand (this is what made a BUDDY/EXIT
-     * click a silent no-op even after the state gate started passing). */
-    *(void **)(g_activeObjectRegistry + 0x10) = g_inputEventRing;
+    /* The registries' input-event ring pointers (registry 1 +0x10, the
+     * text-box registry +0xc) used to be hand-set here because the InitGame
+     * port wrote them through split 1-byte globals. InitGame now stores
+     * both fields itself (orig 0x40ed16/0x40ed1b), and nothing reads them
+     * before it runs, so the hand-patches are gone. gb_init_widget_registry
+     * leaves both slots alone. The +0x10 store below has no counterpart in
+     * the original for this registry. */
     *(void **)(g_activeObjectRegistry2 + 0x10) = g_inputEventRing;
-    /* InitGame's block at 0x40ed0f stores the ring to 0xe9bea0
-     * (g_activeObjectRegistry+0x10) AND to 0xe9c108, which is
-     * g_activeObjectRegistry2+0x0c - not +0x10. The InitGame port writes
-     * both through split 1-byte globals (_DAT_00e9bea0/_DAT_00e9c108), so
-     * neither reaches the registries. FUN_0040d020 (the Tab/Enter/Escape
-     * handler WndProc runs on this registry) reads its queue from
-     * [ebp+0xc] (0x40d081/0x40d132), so set that slot too. The +0x10 write
-     * above has no counterpart in the original for this registry and is
-     * kept only because nothing has been proven to need its removal. */
-    *(void **)(g_activeObjectRegistry2 + 0x0c) = g_inputEventRing;
     gb_init_panel_manager(g_uiPanelManager);
     /* DAT_00e9be94 / DAT_00ea0e1c are Ghidra's split-out aliases of
      * registry+4, i.e. the SENTINEL pointer - not the container address. */
