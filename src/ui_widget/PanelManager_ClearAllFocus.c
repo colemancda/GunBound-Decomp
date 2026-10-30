@@ -4,6 +4,19 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * VERIFIED (2026-10-30), the slot-6 tail call: 0x50efe5-0x50efeb is
+ * `mov ecx,[esp+0x10]` (this) / `mov edx,[ecx]` / `call [edx+0x18]` with
+ * nothing pushed. Slot 6 of the manager's vtable 0x557cfc is 0x507ed0, a
+ * thunk (`push ecx / mov [esp],ecx / add esp,4 / jmp 0x507e30`) into a
+ * body that reads only globals, and the port's table (globals_sized.c)
+ * points it at the argless TextEntry_RestoreChatInput. So the argless
+ * dispatch is ABI-correct as it stands and is left alone.
+ *
+ * FIXED (2026-10-30): the child loop at 0x50efce-0x50efd4 is
+ * `mov eax,[esi+0xc] / mov ecx,[eax+edi*4] / call 0x50e790`, ESI = the
+ * panel. So Widget_ClearPressedRecursive takes child[i] in ECX. The port
+ * called it with nothing.
  */
 #include "ghidra_types.h"
 
@@ -30,7 +43,7 @@ void PanelManager_ClearAllFocus(int *param_1)
     } while (*(int *)(iVar2 + 0x10) == 0);
     if (*(int *)(iVar2 + 0x10) == 0) break;
     do {
-      Widget_ClearPressedRecursive();
+      Widget_ClearPressedRecursive(*(int *)(*(int *)(iVar2 + 0xc) + uVar3 * 4));
       uVar3 = uVar3 + 1;
     } while (uVar3 < *(uint *)(iVar2 + 0x10));
   }

@@ -4,6 +4,11 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * Widget_ClearPressedRecursive CHILD RECOVERED (2026-10-30): both loops
+ * (0x50f09e-0x50f0a4 and 0x50f11a-0x50f120) are `mov eax,[esi+0xc] /
+ * mov ecx,[eax+edi*4] / call 0x50e790`, ESI = the panel (piVar1), so each
+ * call takes child[i] in ECX. The port called it with nothing.
  */
 #include "ghidra_types.h"
 
@@ -47,7 +52,7 @@ char __thiscall FUN_0050f060(int param_1,undefined4 param_2,undefined4 param_3)
           if (piVar1[4] != 0) {
             if (piVar1[4] == 0) goto LAB_0050f13f;
             do {
-              Widget_ClearPressedRecursive();
+              Widget_ClearPressedRecursive(*(int *)(piVar1[3] + uVar6 * 4));
               uVar6 = uVar6 + 1;
             } while (uVar6 < (uint)piVar1[4]);
           }
@@ -76,7 +81,7 @@ char __thiscall FUN_0050f060(int param_1,undefined4 param_2,undefined4 param_3)
     } while (piVar1[4] == 0);
     if (piVar1[4] == 0) break;
     do {
-      Widget_ClearPressedRecursive();
+      Widget_ClearPressedRecursive(*(int *)(piVar1[3] + uVar6 * 4));
       uVar6 = uVar6 + 1;
     } while (uVar6 < (uint)piVar1[4]);
   }
