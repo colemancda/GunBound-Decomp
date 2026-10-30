@@ -22,9 +22,20 @@
  * of the same member.
  *
  * Calling convention: nNewSize in EAX and the array in ESI, plain `ret`.
- * The port still reads the array through an uninitialised unaff_ESI and
- * both C call sites pass only the size; that dropped register is a
- * separate fix, not part of this rename.
+ * The port read the array through an uninitialised unaff_ESI and both C
+ * call sites passed only the size (fixed below).
+ *
+ * ESI PROMOTED (2026-10-29): the array is now the trailing regEsi
+ * parameter, aliased to the old unaff_ESI name in the body the way
+ * AtlArray_GrowBuffer.c (0x50ed30) aliases its thisArray.  Both binary
+ * callers set ESI to the array before the call:
+ *   0x42ae56 in AtlArray_Add_450: `mov esi,ecx` (0x42ae46), ECX = that
+ *     function's param_1; witness `mov edi,[esi+4]` / `lea eax,[edi+1]`
+ *     (0x42ae4c/0x42ae53) is the port's `param_1[1] + 1` size argument.
+ *   0x44c838 in AtlArray_SetCount_450: ESI is the array its whole body
+ *     reads; witness `cmp edi,[esi+8]` (0x44c806) is the port's
+ *     `param_2[2] < param_1` test, and `mov eax,edi` (0x44c836) the
+ *     size param_1, so ESI = param_2.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -33,12 +44,12 @@
 #include "ghidra_types.h"
 
 
-undefined4 AtlArray_GrowBuffer_450(uint regEax)
+undefined4 AtlArray_GrowBuffer_450(uint regEax,int *regEsi)
 
 {
   void *pvVar1;
   uint uVar2;
-  int *unaff_ESI;
+  int *unaff_ESI = regEsi;
   
   if (regEax <= (uint)unaff_ESI[2]) {
     return 1;

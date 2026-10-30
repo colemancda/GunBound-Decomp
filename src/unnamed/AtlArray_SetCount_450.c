@@ -31,6 +31,11 @@
  * (A fourth binary call at 0x50d14a is an SEH unwind funclet past
  * AtlArray_InsertAt_450's 0x126 bytes, with no ported C counterpart --
  * 3 C sites against 4 binary sites is correct here.)
+ *
+ * GrowBuffer ARRAY PASSED (2026-10-29): the AtlArray_GrowBuffer_450 call
+ * at 0x44c838 dropped ESI, the array (param_2) - `cmp edi,[esi+8]`
+ * (0x44c806) is this port's `param_2[2] < param_1`, and EAX = `mov eax,edi`
+ * (0x44c836) the size param_1.  It now passes (param_1, param_2).
  */
 #include "ghidra_types.h"
 
@@ -62,7 +67,7 @@ undefined1 __fastcall AtlArray_SetCount_450(uint param_1,int *param_2,int growBy
     return 1;
   }
   if ((uint)param_2[2] < param_1) {
-    cVar1 = AtlArray_GrowBuffer_450(param_1);
+    cVar1 = AtlArray_GrowBuffer_450(param_1,param_2);
     if (cVar1 == '\0') {
       return 0;
     }

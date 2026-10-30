@@ -43,6 +43,11 @@
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
+ *
+ * GrowBuffer ARRAY PASSED (2026-10-29): the AtlArray_GrowBuffer_450 call
+ * at 0x42ae56 dropped ESI = `mov esi,ecx` (0x42ae46) = param_1, the same
+ * ESI whose +4 feeds the size (`mov edi,[esi+4]` / `lea eax,[edi+1]`,
+ * 0x42ae4c/0x42ae53).  It now passes (param_1[1] + 1, param_1).
  */
 #include "ghidra_types.h"
 
@@ -64,7 +69,7 @@ uint __thiscall AtlArray_Add_450(int *param_1,undefined4 param_2)
   *unaff_FS_OFFSET = &local_c;
   uVar1 = param_1[1];
   if ((uint)param_1[2] <= uVar1) {
-    cVar2 = AtlArray_GrowBuffer_450(uVar1 + 1);
+    cVar2 = AtlArray_GrowBuffer_450(uVar1 + 1,param_1);
     if (cVar2 == '\0') {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x8007000e);
