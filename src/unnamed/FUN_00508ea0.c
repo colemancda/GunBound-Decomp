@@ -8,6 +8,20 @@
  * parent in EBX and the child on the stack. At 0x508f86/0x508fa3/0x509005
  * EBX = esi, the new panel (`mov ebx,esi` at 0x508f84 and again at 0x509003 after the strlen reuses EBX), puVar3 here;
  * each call now passes it as regEbx.
+ *
+ * DROPPED ARGUMENTS RECOVERED (2026-10-30): the inline strlen at
+ * 0x508fa8-0x508fbf leaves the name's length in EAX and `mov ebx,eax` at
+ * 0x508fc3 passes it to AssignStringBuffer (0x4056c0, `test ebx,ebx` as
+ * its first instruction) as the dropped EBX length. `push edi` at
+ * 0x508fca, before the GetLocalizedString pushes, is the third argument
+ * of the sprintf at 0x508fe0 (`add esp,0xc` at 0x508fe5).
+ *
+ * SEH ARTIFACT STRIPPED (2026-10-30): 0x508ea0-0x508eb2 links a C++ EH
+ * frame (mov eax,fs:[0] / push -1 / push 0x53cf6e / push eax /
+ * mov fs:[0],esp), unlinked at 0x509017-0x509020. The handler
+ * LAB_0053cf6e is not part of this decompile, so the writes through the
+ * uninitialised unaff_FS_OFFSET and the try-state local are removed, as
+ * FUN_00508d00 already had them removed.
  */
 #include "ghidra_types.h"
 
@@ -21,21 +35,13 @@ void FUN_00508ea0(int param_1,uchar *regEdi)
   undefined4 uVar4;
   uchar *puVar5;
   char *_Format;
-  undefined4 *unaff_FS_OFFSET;
+  uint uVar6;
   char local_8c [128];
-  undefined4 local_c;
-  undefined1 *puStack_8;
-  undefined4 local_4;
-  
-  local_c = *unaff_FS_OFFSET;
-  local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053cf6e;
-  *unaff_FS_OFFSET = &local_c;
+
   puVar3 = *(undefined4 **)(param_1 + 4);
 joined_r0x00508ec8:
   if (puVar3 == (undefined4 *)0x0) {
     puVar3 = operator_new(0xa8);
-    local_4 = 0;
     if (puVar3 == (undefined4 *)0x0) {
       puVar3 = (undefined4 *)0x0;
     }
@@ -43,7 +49,6 @@ joined_r0x00508ec8:
       Panel_BaseConstructor(puVar3);
       *puVar3 = &PTR_LAB_00557e40;
     }
-    local_4 = 0xffffffff;
     puVar3[9] = 0x2712;
     puVar3[0x13] = 0;
     puVar3[0x11] = 0x2c6;
@@ -56,16 +61,22 @@ joined_r0x00508ec8:
     Widget_AddChild(uVar4,(int)puVar3);
     uVar4 = CreateLabelWidget(1,0x2cb,0x82,0x66,0x37,0x1a);
     Widget_AddChild(uVar4,(int)puVar3);
+    /* The inline strlen leaves the length in EAX (0 for a NULL name), and
+     * `mov ebx,eax` hands it to AssignStringBuffer as its EBX length. */
+    uVar6 = 0;
     puVar5 = regEdi;
     if (regEdi != (uchar *)0x0) {
       do {
         uVar1 = *puVar5;
         puVar5 = puVar5 + 1;
       } while (uVar1 != '\0');
+      uVar6 = (uint)(puVar5 - (regEdi + 1));
     }
-    AssignStringBuffer(puVar3 + 0x14,regEdi);
+    AssignStringBuffer(puVar3 + 0x14,regEdi,uVar6);
     _Format = (char *)GetLocalizedString(&g_localizedStringTable,0xfa5);
-    _sprintf(local_8c,_Format);
+    /* The name (EDI) is pushed before the GetLocalizedString call, so it
+     * is _sprintf's third argument. */
+    _sprintf(local_8c,_Format,regEdi);
     uVar4 = CreateStaticTextWidget(0x17,0x2b,0x9a,0x33,local_8c,0xffff);
     Widget_AddChild(uVar4,(int)puVar3);
     PanelManager_Register(puVar3);
@@ -78,7 +89,6 @@ joined_r0x00508ec8:
        (iVar2 = __mbsicmp(*(uchar **)(iVar2 + 0x50),regEdi), iVar2 != 0))
     goto joined_r0x00508ec8;
   }
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 

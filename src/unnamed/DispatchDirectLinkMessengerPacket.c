@@ -80,7 +80,10 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2)
       local_14c = 0;
       StringMap_SetAt_CString(&local_158,&DAT_006aa41c + g_clientContext,&local_13c);
       StringMap_SetAt_CString(&local_13c,&DAT_006aa44c + iVar7,&local_158);
-      FUN_00508d00(&g_uiPanelManager);
+      /* 0x411f59: lea edi,[esp+0x14] after the push is the same slot the
+       * second StringMap call took as [esp+0x10] (0x411f3f), i.e. the
+       * 12-byte name block local_158/154/150 + the NUL byte local_14c. */
+      FUN_00508d00((int)&g_uiPanelManager,(uchar *)&local_158);
       return;
     }
     if (in_AX < 0xa101) {

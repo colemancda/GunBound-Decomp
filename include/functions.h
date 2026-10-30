@@ -1695,7 +1695,7 @@ void __fastcall BuildEnterRoomNumberDialog();
 void FUN_00508910(int regEdi);
 undefined4 FUN_00508a50(int param_1,char *param_2);
 void FUN_00508b90(int regEdi);
-void FUN_00508d00();
+void FUN_00508d00(int param_1,uchar *regEdi);
 void FUN_00508ea0(int param_1,uchar *regEdi);
 void BuildItemTooltipPanel();
 undefined4 BuildBuddyPanel();
