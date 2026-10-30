@@ -26,7 +26,8 @@ void __thiscall FUN_00506cf0(undefined4 *param_1,int param_2,int param_3,undefin
   
   if (param_2 == 0) {
     if (param_3 == 0) {
-      EnqueueInputEvent(0,*param_1,0x1e);
+      /* 0x506d99-0x506da5: push 0x1e / push [esi] / push 0, eax = 0x795070. */
+      EnqueueInputEvent((uint *)g_inputEventRing,0,*param_1,0x1e);
     }
     else if (param_3 == 1) goto LAB_00506d7f;
   }

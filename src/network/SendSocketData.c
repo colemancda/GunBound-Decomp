@@ -53,7 +53,8 @@ LAB_004e5b94:
         return param_3;
       }
       if ((*(int *)(param_2 + 0x22c) != 1) && (*(int *)(param_2 + 0x20) != 0)) {
-        EnqueueInputEvent(0x65,*(undefined4 *)(param_2 + 0x1c),0);
+        /* 0x4e5b80-0x4e5b8f: eax = [edi+0x20], the connection's queue. */
+        EnqueueInputEvent(*(uint **)(param_2 + 0x20),0x65,*(undefined4 *)(param_2 + 0x1c),0);
       }
       goto LAB_004e5b94;
     }

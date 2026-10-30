@@ -109,12 +109,12 @@ void __thiscall HandleSocketEvent(uint param_1,int param_2)
       if (*(int *)(param_1 + 0x20) == 0) {
         return;
       }
-      EnqueueInputEvent(*(int *)(param_1 + 0x20),0x65,*(undefined4 *)(param_1 + 0x1c),0);
+      EnqueueInputEvent(*(uint **)(param_1 + 0x20),0x65,*(undefined4 *)(param_1 + 0x1c),0);
       return;
     }
     *(undefined4 *)(param_1 + 0x22c) = 2;
     if (*(int *)(param_1 + 0x20) != 0) {
-      EnqueueInputEvent(*(int *)(param_1 + 0x20),100,*(undefined4 *)(param_1 + 0x1c),0);
+      EnqueueInputEvent(*(uint **)(param_1 + 0x20),100,*(undefined4 *)(param_1 + 0x1c),0);
     }
     WSAEventSelect(*(undefined4 *)(param_1 + 0x24),*(undefined4 *)(param_1 + 0xc),0x23);
     return;

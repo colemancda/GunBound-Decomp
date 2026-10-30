@@ -24,7 +24,8 @@ void __thiscall EnterRoomNumberDialog_OnCommand(undefined4 *param_1,int param_2,
   
   if (param_2 == 0) {
     if (param_3 == 0) {
-      EnqueueInputEvent(0,*param_1,0x20);
+      /* 0x506bc9-0x506bd5: push 0x20 / push [esi] / push 0, eax = 0x795070. */
+      EnqueueInputEvent((uint *)g_inputEventRing,0,*param_1,0x20);
     }
     else if (param_3 == 1) goto LAB_00506baf;
   }

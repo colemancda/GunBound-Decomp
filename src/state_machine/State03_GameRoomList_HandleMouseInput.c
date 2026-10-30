@@ -49,7 +49,11 @@ void __fastcall State03_GameRoomList_HandleMouseInput(int param_1,int dummyEDX,u
       if (iVar3 != -1) {
         cVar2 = IsWidgetEnabled(0,0,(int)&g_activeObjectRegistry,5);
         if (cVar2 == '\x01') {
-          EnqueueInputEvent();
+          /* 0x428c3c-0x428c51: the incoming frame is overwritten with
+           * (edx = 0, edx = 0, 5) and `mov eax,0x795070 / jmp 0x4f2da0`
+           * tail-calls the push; EnqueueInputEvent's ret 0xc pops this
+           * function's own three stack words. */
+          EnqueueInputEvent((uint *)g_inputEventRing,0,0,5);
           return;
         }
       }

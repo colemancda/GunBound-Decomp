@@ -1398,7 +1398,7 @@ void FUN_004f2a10();
 int FUN_004f2d20();
 void FUN_004f2d40(int regEax);
 void FUN_004f2d60(int regEbx);
-void EnqueueInputEvent();
+void EnqueueInputEvent(uint *queueObj,uint param_1,uint param_2,uint param_3);
 void __fastcall FUN_004f2e10();
 void * __thiscall FUN_004f2e20();
 void ActiveObjectRegistry_BaseConstructor(undefined4 *regEsi);

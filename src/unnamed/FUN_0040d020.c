@@ -28,6 +28,13 @@
  * materialized in iVar2; the binary's second [ecx+0x15] recheck at
  * 0x40d0ea is dead (the 0x40d0dc test already proved it zero) and
  * Ghidra folded it out - left out here too.
+ *
+ * EnqueueInputEvent QUEUE RECOVERED (2026-10-30): both calls (0x40d088,
+ * 0x40d135) load EAX = [ebp+0xc] (0x40d081, 0x40d132) with ebp = param_2,
+ * the registry WndProc passes (0xe9c0fc). That slot is 0xe9c108, which
+ * InitGame sets to the ring 0x795070 at 0x40ed1b. The pushes are
+ * (ebx, ebx, 0xa) and (ebx, ebx, 0xb) with ebx = 0, so the words are
+ * (10 or 11, 0, 0) as the port already had.
  */
 #include "ghidra_types.h"
 
@@ -57,7 +64,7 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
         }
       }
       if (((iVar2 == iVar3) || (*(int *)(iVar2 + 8) == -1)) &&
-         (EnqueueInputEvent(10,0,0), *(int *)(param_2 + 8) != 0)) {
+         (EnqueueInputEvent(*(uint **)(param_2 + 0xc),10,0,0), *(int *)(param_2 + 8) != 0)) {
         CommitActiveTextInput();
         *(undefined4 *)(param_2 + 8) = 0;
       }
@@ -97,7 +104,7 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
         }
         uVar4 = 0xb;
       }
-      EnqueueInputEvent(uVar4,0,0);
+      EnqueueInputEvent(*(uint **)(param_2 + 0xc),uVar4,0,0);
       if (*(int *)(param_2 + 8) != 0) {
         CommitActiveTextInput();
         *(undefined4 *)(param_2 + 8) = 0;

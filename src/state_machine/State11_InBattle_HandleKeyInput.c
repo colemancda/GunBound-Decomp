@@ -134,7 +134,8 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     }
     cVar3 = IsWidgetEnabled(0,0,(int)&g_activeObjectRegistry,3);
     if (cVar3 == '\x01') {
-      EnqueueInputEvent(0,0,3);
+      /* 0x4b8310-0x4b8318: push esi(3) / push ebx / push ebx (0), eax = 0x795070. */
+      EnqueueInputEvent((uint *)g_inputEventRing,0,0,3);
       return;
     }
     return;

@@ -3,6 +3,12 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * EnqueueInputEvent QUEUE RECOVERED (2026-10-30): the three calls
+ * (0x4ee440, 0x4ee450, 0x4ee478) load EAX = [esi+0x4c] (0x4ee436,
+ * 0x4ee46f) with esi = param_1, and push [esi+0x5a0], [esi+0x59c] and
+ * edi+0x28 / edi+0x14 / edi+0x1e (edi = the slot index - 0xc, iVar4,
+ * so iVar2+0x1c / +8 / +0x12 as the port has). Each now passes the queue.
  */
 #include "ghidra_types.h"
 
@@ -75,19 +81,19 @@ void __fastcall FUN_004ee320(int param_1)
           if ((-1 < iVar4) && (iVar4 < 8)) {
             if (*pcVar6 < '\0') {
               if (*(int *)(param_1 + 0x68 + iVar4 * 4) == 0) {
-                EnqueueInputEvent(iVar2 + 8,*(undefined4 *)(param_1 + 0x59c),
+                EnqueueInputEvent(*(uint **)(param_1 + 0x4c),iVar2 + 8,*(undefined4 *)(param_1 + 0x59c),
                              *(undefined4 *)(param_1 + 0x5a0));
                 *(undefined4 *)(param_1 + 0x68 + iVar4 * 4) = *(undefined4 *)(param_1 + 0x50);
                 *(undefined1 *)(iVar2 + 0x54 + param_1) = 1;
               }
               else {
-                EnqueueInputEvent(iVar2 + 0x1c,*(undefined4 *)(param_1 + 0x59c),
+                EnqueueInputEvent(*(uint **)(param_1 + 0x4c),iVar2 + 0x1c,*(undefined4 *)(param_1 + 0x59c),
                              *(undefined4 *)(param_1 + 0x5a0));
                 *(undefined1 *)(iVar2 + 0x54 + param_1) = 1;
               }
             }
             else {
-              EnqueueInputEvent(iVar2 + 0x12,*(undefined4 *)(param_1 + 0x59c),
+              EnqueueInputEvent(*(uint **)(param_1 + 0x4c),iVar2 + 0x12,*(undefined4 *)(param_1 + 0x59c),
                            *(undefined4 *)(param_1 + 0x5a0));
             }
           }

@@ -437,6 +437,16 @@ static void gb_startup_init(void)
      * click a silent no-op even after the state gate started passing). */
     *(void **)(g_activeObjectRegistry + 0x10) = g_inputEventRing;
     *(void **)(g_activeObjectRegistry2 + 0x10) = g_inputEventRing;
+    /* InitGame's block at 0x40ed0f stores the ring to 0xe9bea0
+     * (g_activeObjectRegistry+0x10) AND to 0xe9c108, which is
+     * g_activeObjectRegistry2+0x0c - not +0x10. The InitGame port writes
+     * both through split 1-byte globals (_DAT_00e9bea0/_DAT_00e9c108), so
+     * neither reaches the registries. FUN_0040d020 (the Tab/Enter/Escape
+     * handler WndProc runs on this registry) reads its queue from
+     * [ebp+0xc] (0x40d081/0x40d132), so set that slot too. The +0x10 write
+     * above has no counterpart in the original for this registry and is
+     * kept only because nothing has been proven to need its removal. */
+    *(void **)(g_activeObjectRegistry2 + 0x0c) = g_inputEventRing;
     gb_init_panel_manager(g_uiPanelManager);
     /* DAT_00e9be94 / DAT_00ea0e1c are Ghidra's split-out aliases of
      * registry+4, i.e. the SENTINEL pointer - not the container address. */

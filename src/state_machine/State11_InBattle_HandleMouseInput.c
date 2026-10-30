@@ -683,7 +683,8 @@ LAB_004b9bb0:
           SyncChatTypingState(&DAT_006a647c + g_clientContext,0);
           return;
         }
-        EnqueueInputEvent(0,0,0);
+        /* 0x4b9cc3/0x4b9cdf/0x4b9ce1: three push 0, eax = 0x795070 (0x4b9ce3). */
+        EnqueueInputEvent((uint *)g_inputEventRing,0,0,0);
         return;
       }
       if (param_3 != 0x24) {
