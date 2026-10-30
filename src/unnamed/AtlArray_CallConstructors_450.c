@@ -30,12 +30,20 @@
  * bare `ret`; SetCount pops with `add esp,8` (0x44c85c), InsertAt folds
  * the 8 bytes into its `add esp,0x14` at 0x50d0cf.  The C port is
  * missing the catch block
- * (Ghidra did not decompile the funclet) and still registers SEH through
- * the uninitialised `unaff_FS_OFFSET`; neither is changed by this rename.
+ * (Ghidra did not decompile the funclet) and registered SEH through
+ * the uninitialised `unaff_FS_OFFSET` (the latter stripped below).
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
+ *
+ * SEH-PROLOGUE ARTIFACT STRIPPED (2026-10-29): the body registered an SEH
+ * frame through Ghidra's `unaff_FS_OFFSET`, an uninitialised local pointer,
+ * so every call read and wrote through garbage.  The original's
+ * `push 0x53ac45` / `mov eax,fs:[0]` / `mov fs:[0],esp` (0x44c875-0x44c881) is
+ * the compiler-generated EH registration, not program logic; stripped per
+ * the ConstructStringFromText.c / StringMap_Insert_Int.c idiom, including
+ * the unregister writes on each return path.
  */
 #include "ghidra_types.h"
 
@@ -45,15 +53,14 @@ void AtlArray_CallConstructors_450(int param_1,uint param_2)
 {
   int iVar1;
   uint uVar2;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 local_10;
   undefined1 *puStack_c;
   undefined1 local_8;
   undefined3 uStack_7;
   
-  puStack_c = &LAB_0053ac45;
-  local_10 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_10;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053ac45) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   uStack_7 = 0;
   for (uVar2 = 0; uVar2 < param_2; uVar2 = uVar2 + 1) {
     iVar1 = uVar2 * 0x450 + param_1;
@@ -62,7 +69,6 @@ void AtlArray_CallConstructors_450(int param_1,uint param_2)
       AtlArray_ConstructElement_450(iVar1);
     }
   }
-  *unaff_FS_OFFSET = local_10;
   return;
 }
 

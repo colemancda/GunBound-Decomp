@@ -17,12 +17,20 @@
  *
  * Promoted from a K&R prototype to (int *map, uint nBins) like
  * StringMap_Rehash_10; every C site already passed exactly those two
- * values, and the int-typed map register is cast.  The port still
- * carries Ghidra's unaff_FS_OFFSET SEH-frame artifact, left as is.
+ * values, and the int-typed map register is cast.  The port
+ * carried Ghidra's unaff_FS_OFFSET SEH-frame artifact (stripped below).
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
+ *
+ * SEH-PROLOGUE ARTIFACT STRIPPED (2026-10-29): the body registered an SEH
+ * frame through Ghidra's `unaff_FS_OFFSET`, an uninitialised local pointer,
+ * so every call read and wrote through garbage.  The original's
+ * `push 0x5377d0` / `mov eax,fs:[0]` / `mov fs:[0],esp` (0x500445-0x500451) is
+ * the compiler-generated EH registration, not program logic; stripped per
+ * the ConstructStringFromText.c / StringMap_Insert_Int.c idiom, including
+ * the unregister writes on each return path.
  */
 #include "ghidra_types.h"
 
@@ -36,22 +44,20 @@ void StringMap_Rehash_1c(int *param_1,uint param_2)
   uint uVar4;
   undefined4 *puVar5;
   uint uVar6;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 local_10;
   undefined1 *puStack_c;
   undefined4 local_8;
   
   local_8 = 0xffffffff;
-  puStack_c = &LAB_005377d0;
-  local_10 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_10;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_005377d0) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   if (param_2 == 0) {
     param_2 = HashMap_PickSize();
   }
   if (param_2 != param_1[2]) {
     if (*param_1 == 0) {
       HashMap_InitHashTable(param_1,param_2,0);
-      *unaff_FS_OFFSET = local_10;
       return;
     }
     local_8 = 0;
@@ -92,7 +98,6 @@ void StringMap_Rehash_1c(int *param_1,uint param_2)
       param_1[7] = 0;
     }
   }
-  *unaff_FS_OFFSET = local_10;
   return;
 }
 
