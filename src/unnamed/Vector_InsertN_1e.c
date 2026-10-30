@@ -89,7 +89,9 @@ void __thiscall Vector_InsertN_1e(uint param_1,int param_2,int param_3,undefined
         iVar1 = (*(int *)(param_2 + 8) - *(int *)(param_2 + 4)) / 0x1e;
       }
       if (uVar5 < iVar1 + param_1) {
-        iVar1 = FUN_00502ad0();
+        /* `this` restored: `mov ecx,esi` at 0x5034dd, ESI = [ebp+8] =
+         * param_2 (0x5033fd) - see Vector_Size_1e.c. */
+        iVar1 = Vector_Size_1e(param_2);
         uVar5 = iVar1 + param_1;
       }
       pvVar2 = operator_new(uVar5 * 0x1e);
