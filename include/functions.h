@@ -1650,7 +1650,7 @@ void FUN_00505580();
 void FUN_005056c0(char *param_1,int regEbx);
 void __thiscall FUN_00505700();
 undefined4 * Panel_BaseConstructor();
-void __thiscall FUN_005057f0();
+void __thiscall ChatLogPanel_OnCommand();
 void __fastcall FUN_00505890();
 void __fastcall AppendChatLogPanelLine(int param_1,char *param_2,char *param_3,uint param_4);
 void CChatLogPanel_SubmitWhisper(int param_1);

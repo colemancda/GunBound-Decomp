@@ -24,7 +24,7 @@
  * a direct-link, in-room relay, or server-mediated whisper - a private
  * send, not a channel broadcast. Either way it then clears the input
  * row's text buffer and the shared text-entry control. Its sole
- * callers (FUN_005057f0, this panel's OnCommand) invoke it on the
+ * callers (ChatLogPanel_OnCommand, 0x5057f0) invoke it on the
  * "Enter pressed" (evt 0, id 3) and evt 0x1000 command codes - the
  * same OnCommand-triggered shape as the already-named
  * CreateRoomDialog_SubmitCreateRoom /
