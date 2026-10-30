@@ -15,11 +15,20 @@
  * CAtlArrays at +0x44e20/+0x44e30/+0x44e40/+0x44e50, and whose element
  * size AtlArray_SetCount_450 and the 0x450-stride renderers confirm.
  *
- * Convention: ECX = the array, EAX = the index, plain `ret`.  All 30 C
- * call sites in FUN_00445450.c are still argless (they drop both
- * registers), and the definition still reads the index from an
- * uninitialised in_EAX local; recovering them is a separate fix.  The _450
+ * Convention: ECX = the array, EAX = the index, plain `ret`.  The _450
  * suffix follows AtlArray_SetCount_450 / AtlArray_RemoveAll_450.
+ *
+ * ARRAY AND INDEX PROMOTED (2026-10-29).  The definition read the index
+ * from an uninitialised in_EAX local and all 30 C sites in FUN_00445450.c
+ * were argless.  It is now (int *param_1, uint regEax) - the array first,
+ * the EAX index trailing, as AtlArray_RemoveAt_450 does; __fastcall is
+ * dropped because ECX here is an erased-__thiscall `this` and every caller
+ * is raw C.  At every binary site ECX is `mov ecx,[0x5b3484]` / `add
+ * ecx,0x44e20` (g_clientContext+0x44e20) and EAX is the result of the
+ * PeekChecksumStateUnderLock (0x40a4d0) call immediately before it, on
+ * this+0x3054c (the selected-item index guard; pushed as esi/ebx/edi,
+ * each `lea r,[ebp+0x3054c]`), with no EAX write in between.  Each site
+ * was checked individually; FUN_00445450.c's header lists the pairing.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -28,15 +37,13 @@
 #include "ghidra_types.h"
 
 
-int __fastcall AtlArray_GetAt_450(int *param_1)
+int AtlArray_GetAt_450(int *param_1,uint regEax)
 
 {
-  uint in_EAX;
-  
-  if ((uint)param_1[1] <= in_EAX) {
+  if ((uint)param_1[1] <= regEax) {
                     /* WARNING: Subroutine does not return */
     ThrowCxxException(0x80070057);
   }
-  return in_EAX * 0x450 + *param_1;
+  return regEax * 0x450 + *param_1;
 }
 

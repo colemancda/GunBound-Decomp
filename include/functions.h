@@ -472,7 +472,7 @@ int * __fastcall FUN_00426410();
 undefined4 __fastcall FUN_00426430();
 void Bitset_ThrowInvalidPosition();
 void __fastcall AtlArray_RemoveAt_CString(int param_1,int *regEbx,int regEsi);
-int __fastcall AtlArray_GetAt_450();
+int AtlArray_GetAt_450(int *param_1,uint regEax);
 int StringMap_FindOrInsert_10(char *regEax,int *regEsi);
 int __thiscall StringMap_SetAt_CString();
 void __fastcall AtlArray_CallDestructors_450(int param_1,int regEax);
