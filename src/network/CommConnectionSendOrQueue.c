@@ -28,11 +28,9 @@
  * [payload]) and FUN_005024a0 (a bare 4-byte [4][opcode] frame), both
  * passing the connection pointer at CBuddy2+0x1a74.
  *
- * functions.h keeps an EMPTY parameter list on purpose: FUN_005024a0's
- * port calls this with one argument (the connection), dropping the
- * length and frame it builds in the original - fixing that means giving
- * FUN_005024a0 its opcode parameter and ESI, which is outside this
- * rename. FUN_00502500's call already passes all three correctly.
+ * functions.h declares the real __fastcall(len, frame, conn) prototype
+ * (2026-10-30), now that FUN_005024a0 has its opcode and ESI and passes
+ * (4, &frame, conn); both callers pass all three.
  */
 #include "ghidra_types.h"
 

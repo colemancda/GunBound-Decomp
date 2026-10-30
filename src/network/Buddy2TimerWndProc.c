@@ -29,11 +29,11 @@
  * idle CBuddy2 connection gets an empty opcode-0 frame roughly every 510
  * seconds, checked once a minute.
  *
- * DROPPED REGISTER, NOT FIXED: the FUN_005024a0 call also passes ESI =
- * the GWL_USERDATA object (`mov esi,eax` at 0x4fdab6, unchanged to the
- * call at 0x4fdb11); FUN_005024a0's port reads ESI as an unaffected
- * register and has no parameter for it. Recovering it is a change to
- * FUN_005024a0's signature (and its other caller CommP2POwnerConnect).
+ * DROPPED REGISTER FIXED (2026-10-30): the FUN_005024a0 call also passes
+ * ESI = the GWL_USERDATA object (`mov esi,eax` at 0x4fdab6, unchanged to
+ * the call at 0x4fdb11 - ESI is callee-saved across the time() call).
+ * FUN_005024a0 now takes it as its trailing regEsi and this call passes
+ * LVar2.
  */
 #include "ghidra_types.h"
 
@@ -59,7 +59,9 @@ LRESULT __stdcall Buddy2TimerWndProc(HWND param_1,UINT param_2,WPARAM param_3,LP
       dVar1 = (double)(*(int *)(LVar2 + 0x1abc) + 600) - _DAT_00558048;
       _Var3 = FID_conflict___time32((__time32_t *)0x0);
       if (dVar1 < (double)_Var3) {
-        FUN_005024a0(0);
+        /* 0x4fdb0f: push 0 (opcode); ESI = LVar2, the GWL_USERDATA object
+         * (`mov esi,eax` at 0x4fdab6) */
+        FUN_005024a0(0,LVar2);
       }
     }
     return 0;

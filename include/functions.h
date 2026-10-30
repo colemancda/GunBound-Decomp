@@ -1579,7 +1579,7 @@ undefined4 * IntMap_Insert_14(undefined4 param_1,undefined4 param_2,int regEbx,i
 void FUN_00501600(int regEsi);
 void __fastcall CommP2POwner_OnConnectionClosed();
 undefined4 __thiscall CommP2POwner_ProcessPacket();
-uint FUN_005024a0();
+uint FUN_005024a0(ushort opcode,int regEsi);
 uint __fastcall FUN_00502500(uint param_1,undefined4 *param_2,ushort opcode,int regEbx);
 uint FUN_00502650();
 void __fastcall Vector_PushBack_12(int param_1,undefined4 regEax);
@@ -1605,7 +1605,7 @@ void __fastcall Vector_CopyElement_1e(undefined4 param_1,undefined4 *param_2,und
 void CopyNameField_16(int regEsi,int regEdi);
 void CopyNameField_a(int regEsi,int regEdi);
 void FUN_00503810(int regEsi,int regEax);
-bool __fastcall CommConnectionSendOrQueue();
+bool __fastcall CommConnectionSendOrQueue(uint param_1,char *param_2,int param_3); /* ECX = len, EDX = frame, stack = connection */
 undefined4 __fastcall GetConnectionSocketIfListed(undefined4 *param_1,int regEax);
 undefined4 __thiscall GetConnectionLocalAddressIfListed(undefined4 *param_1,char *param_2,char *param_3,int regEax);
 void FUN_005039a0(int param_1,undefined4 param_2,int *param_3,undefined4 regEax,undefined4 regEdi,undefined4 regEbx);
