@@ -9,8 +9,28 @@
  * parent in EBX and the child on the stack. At 0x5089e4/0x508a0f/0x508a2c
  * EBX = the new panel (`mov ebx,eax` after operator new at 0x508955, `xor ebx,ebx` on failure at 0x50898f), puVar5 here;
  * each call now passes it as regEbx.
+ *
+ * SEH ARTIFACT STRIPPED (2026-10-30): 0x508910-0x50891e links a C++ EH
+ * frame (push -1 / push 0x53795b / mov eax,fs:[0] / push eax /
+ * mov fs:[0],esp) and both exits unlink it (0x508980-0x508984 and
+ * 0x508a39-0x508a3f). Ghidra rendered that as writes through an
+ * uninitialised unaff_FS_OFFSET; the handler LAB_0053795b is not part of
+ * this decompile, so the link, the unlink and the try-state local are
+ * removed, as in 7d662190.
+ *
+ * SetFocus `this` RECOVERED (2026-10-30): 0x5089ef-0x5089f5 is
+ * `mov eax,[esi] / push 1 / mov ecx,esi / call [eax]`, ESI = the
+ * CreateTextEntryWidget result. That is a one-argument __thiscall on slot
+ * 0 of the new CEditBox (vtable 0x557c84, slot 0 = 0x506fb0, which ends
+ * in ret 4). CEditBox is a C++ class, so the call goes through a
+ * __fastcall pointer with a dummy EDX: ECX = this, the flag on the stack,
+ * callee-clean.
  */
 #include "ghidra_types.h"
+
+/* Slot 0 (+0x00) of a CWidget: SetFocus(bool), a one-argument __thiscall,
+ * dispatched as __fastcall with a dummy EDX - see the header. */
+typedef void (__fastcall *WidgetSetFocusFn)(void *thisPtr, int dummyEDX, int active);
 
 
 void FUN_00508910(int regEdi)
@@ -21,20 +41,11 @@ void FUN_00508910(int regEdi)
   undefined4 *puVar3;
   undefined4 uVar4;
   undefined4 *puVar5;
-  undefined4 *unaff_FS_OFFSET;
-  undefined4 local_c;
-  undefined1 *puStack_8;
-  undefined4 local_4;
-  
-  local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053795b;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
+
   puVar2 = *(undefined4 **)(regEdi + 4);
   do {
     if (puVar2 == (undefined4 *)0x0) {
       puVar2 = operator_new(0x90);
-      local_4 = 0;
       if (puVar2 == (undefined4 *)0x0) {
         puVar5 = (undefined4 *)0x0;
       }
@@ -43,7 +54,6 @@ void FUN_00508910(int regEdi)
         *puVar2 = &PTR_LAB_00557dc8;
         puVar5 = puVar2;
       }
-      local_4 = 0xffffffff;
       puVar5[9] = 2;
       puVar5[0x13] = 0;
       puVar5[0x11] = 0x2714;
@@ -55,20 +65,18 @@ void FUN_00508910(int regEdi)
       puVar3 = (undefined4 *)CreateTextEntryWidget(0,99,0x38,0xbe,0xc,4);
       Widget_AddChild((int)puVar3,(int)puVar5);
       PanelManager_ClearAllFocus(regEdi);
-      (**(code **)*puVar3)(1);
+      ((WidgetSetFocusFn)(*(void ***)puVar3)[0])(puVar3, 0, 1);
       uVar4 = CreateLabelWidget(0,0x5dd,0xd5,0x76,0x52,0x22);
       Widget_AddChild(uVar4,(int)puVar5);
       uVar4 = CreateLabelWidget(1,0x5dc,0x80,0x76,0x52,0x22);
       Widget_AddChild(uVar4,(int)puVar5);
       PanelManager_Register(puVar5);
-      *unaff_FS_OFFSET = puVar2;
       return;
     }
     piVar1 = puVar2 + 2;
     puVar2 = (undefined4 *)*puVar2;
   } while ((*(int *)(*piVar1 + 0x20) != 0) || (*(int *)(*piVar1 + 0x24) != 2));
   PanelManager_BringToFront();
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 

@@ -21,8 +21,20 @@
  * parent in EBX and the child on the stack. At 0x508b16/0x508b4a/0x508b67
  * EBX = the new panel (`mov ebx,eax` at 0x508aa3, `xor ebx,ebx` at 0x508ac6), puVar2 here;
  * each call now passes it as regEbx.
+ *
+ * SetFocus `this` RECOVERED (2026-10-30): 0x508b21-0x508b27 is
+ * `mov eax,[edi] / push 1 / mov ecx,edi / call [eax]`, EDI = the
+ * CreateTextEntryWidget result (0x508b13). That is a one-argument
+ * __thiscall on slot 0 of the new CEditBox (vtable 0x557c84, slot 0 =
+ * 0x506fb0, which ends in ret 4). CEditBox is a C++ class, so the call
+ * goes through a __fastcall pointer with a dummy EDX: ECX = this, the
+ * flag on the stack, callee-clean.
  */
 #include "ghidra_types.h"
+
+/* Slot 0 (+0x00) of a CWidget: SetFocus(bool), a one-argument __thiscall,
+ * dispatched as __fastcall with a dummy EDX - see the header. */
+typedef void (__fastcall *WidgetSetFocusFn)(void *thisPtr, int dummyEDX, int active);
 
 
 undefined4 FUN_00508a50(int param_1,char *param_2)
@@ -64,7 +76,7 @@ undefined4 FUN_00508a50(int param_1,char *param_2)
       puVar3 = (undefined4 *)CreateTextEntryWidget(0,0x6a,0x48,0xb6,0xc,0x14);
       Widget_AddChild((int)puVar3,(int)puVar2);
       PanelManager_ClearAllFocus(param_1);
-      (**(code **)*puVar3)(1);
+      ((WidgetSetFocusFn)(*(void ***)puVar3)[0])(puVar3, 0, 1);
       TextEntry_SetControlText(param_2,(int)puVar3);
       uVar4 = CreateLabelWidget(0,0x4ba,0xd5,0x76,0x52,0x22);
       Widget_AddChild(uVar4,(int)puVar2);
