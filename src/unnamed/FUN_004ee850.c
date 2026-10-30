@@ -4,8 +4,18 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * CloseXFSArchive ARCHIVE RECOVERED (2026-10-30): the FUN_004f0d70 call
+ * at 0x4ee98e is preceded by `mov esi,0xea0f50` (0x4ee989) - the sound
+ * archive singleton InitDirectSound opens (`esi=0xea0f50` at its
+ * OpenXFSArchive call, 0x4ee5ff).  The port called it with no archive.
+ * This tree has no object for 0xea0f50: InitDirectSound's port opens
+ * the shared bring-up archive g_xfsScratch in its place (see its
+ * comment at that call), so this close now passes &g_xfsScratch, the
+ * archive the matching open used.
  */
 #include "ghidra_types.h"
+#include "xfs.h"
 
 
 void FUN_004ee850(void)
@@ -72,7 +82,8 @@ void FUN_004ee850(void)
     (**(code **)(*g_directSound + 8))(g_directSound);
     g_directSound = (int *)0x0;
   }
-  FUN_004f0d70();
+  /* 0x4ee989: ESI = 0xea0f50, the sound archive (g_xfsScratch here) */
+  FUN_004f0d70(&g_xfsScratch);
   FreeLibrary(DAT_007935e8);
   return;
 }

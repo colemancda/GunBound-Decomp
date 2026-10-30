@@ -1355,8 +1355,8 @@ undefined4 __fastcall FUN_004f08a0(undefined4 param_1, int param_2, int stream);
 void __fastcall FUN_004f0960();
 int CompareXFSEntryName();
 void XFSArchive_Construct(int regEsi);
-void FUN_004f0a20();
-undefined4 FUN_004f0d70();
+void FUN_004f0a20(int regEax);
+undefined4 FUN_004f0d70(struct XFSArchive *archive); /* archive = ESI (CloseXFSArchive) */
 int __fastcall FUN_004f1020();
 uint FindXFSEntryIndex();
 uint FindOrInsertXFSEntry();
