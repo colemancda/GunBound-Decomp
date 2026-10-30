@@ -5,7 +5,8 @@
  * its inventory index, then refreshes the local preview via LoadAvatarSprites.
  * Peer of UnequipAvatarSlot (0x44b330, which sends the id=0 "Standard/none"
  * clear) and PreviewAvatarPart (0x44b460, a local try-on that does NOT send).
- * Dispatched from the store item-action handler (FUN_0050a640).
+ * Dispatched from the store item-action handler (AvatarStorePanel_HitTest,
+ * 0x50a640).
  *
  * Function IDENTITY is confirmed (Avatar-Store equip, transmits); the BODY is a
  * raw/near-verbatim Ghidra port, not hand-verified. See src/README.md's "Raw/

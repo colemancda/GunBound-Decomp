@@ -5,7 +5,7 @@
  * 0xffffffff index, then refreshes the local preview via LoadAvatarSprites.
  * Peer of EquipAvatarPart (0x44b170, which sends a real part code + index) and
  * PreviewAvatarPart (0x44b460, local try-on with no send). Dispatched from the
- * store item-action handler (FUN_0050a640).
+ * store item-action handler (AvatarStorePanel_HitTest, 0x50a640).
  *
  * Function IDENTITY is confirmed (Avatar-Store unequip, transmits); the BODY is
  * a raw/near-verbatim Ghidra port, not hand-verified. See src/README.md's "Raw/

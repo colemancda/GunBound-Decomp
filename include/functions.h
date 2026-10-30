@@ -1716,7 +1716,7 @@ void __fastcall PanelManager_ReleasePool(undefined4 *param_1);
 undefined4 __thiscall FUN_0050a030();
 uint __thiscall FUN_0050a1b0();
 undefined4 __thiscall FUN_0050a320();
-undefined4 __thiscall FUN_0050a640();
+undefined4 __thiscall AvatarStorePanel_HitTest();
 void __fastcall FUN_0050a8f0();
 void __thiscall FUN_0050a980();
 void __fastcall RenderAvatarListRow(int param_1,int regEax);
