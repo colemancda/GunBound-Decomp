@@ -1,13 +1,45 @@
-/* FUN_004ffe80 - 0x004ffe80 in the original binary.
+/* CommP2POnKeepAliveTimer - 0x004ffe80 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-30, LIKELY (was FUN_004ffe80).  The WM_TIMER handler
+ * CommP2PNotifyWndProc runs for the timer id stored at +0x2c4
+ * (param_1[0xb1]).  UpsertP2PPeerRecord arms that timer -
+ * SetTimer(hwnd, 0x14b, 50000, NULL) - once a peer record exists, and
+ * nothing in the tree kills it short of DestroyCommEngine's teardown, so
+ * it fires every 50 s for the life of the P2P layer.  Each firing does
+ * two unrelated jobs, which is why the name is the trigger rather than
+ * either job:
+ *   1. to every peer whose record+0x1c flag (node+0x30) is clear - the
+ *      flag RetransmitPendingP2PDatagrams sets when a peer exhausts its
+ *      retries - it sendto's a bare 0x26-byte header, no payload, with
+ *      the record's +0x18 counter (node+0x2c, post-incremented) as the
+ *      sequence word.  0x26 is the size CommP2PReceiveDatagram treats as
+ *      a header-only datagram: it checks the addressing, looks the
+ *      sender up, tries to retire that sequence from its pending map,
+ *      and then overwrites the sender's stored address with the
+ *      recvfrom source.  A periodic header-only send whose only lasting
+ *      effect on the far side is that address refresh is a keep-alive;
+ *      that reading is the LIKELY part.
+ *   2. it walks each record's +0x80 array (node+0x94/+0x98, stride
+ *      0x1750 - the datagrams FUN_004fe110 queues while a peer has no
+ *      address and UpsertP2PPeerRecord flushes) and expires entries whose
+ *      time() stamp at +0x174c is more than 60 s old (`cmp eax,0x3c;
+ *      jle` at 0x500048): each goes to the owner's slot-0 delivery
+ *      callback with a leading 0 (failure; RetransmitPendingP2PDatagrams
+ *      reports exhausted retries the same way) and is removed in place
+ *      with the ATL RemoveAt bounds checks (ThrowCxxException(E_INVALIDARG)).
+ * The scoping pass's alternative, SendP2PKeepAlives, would hide job 2.
+ *
+ * NOT FIXED: the slot-0 call at 0x500069 sets ECX = param_1 as `this`
+ * (`mov ecx,[esp+0x58]` at 0x50004d); the port drops it.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004ffe80(undefined4 *param_1)
+void CommP2POnKeepAliveTimer(undefined4 *param_1)
 
 {
   char *pcVar1;

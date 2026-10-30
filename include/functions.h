@@ -1537,7 +1537,7 @@ void FUN_004ff6d0();
 void CommConnectionList_Erase(int *regEax,int *regEdi);
 void CommP2PReceiveDatagram();
 void RetransmitPendingP2PDatagrams();
-void FUN_004ffe80();
+void CommP2POnKeepAliveTimer();
 int StringMap_FindOrInsert_ac(int *regEsi,char *regEdi);
 void StringMap_RemoveAll_ac(int *regEax);
 undefined4 CArray_Grow_1750(uint regEax,int *regEsi);

@@ -24,8 +24,8 @@
  * 0x1750-stride array at record+0x80, CArray_Add_1750's element size)
  * through FUN_004fe110, frees that array, and arms timer 0x14b (50 s,
  * id stored at +0x2c4, which CommP2PNotifyWndProc routes to
- * FUN_004ffe80).  The name covers the record write, not the flush;
- * LIKELY because FindP2PPeerRecord is itself only LIKELY and the
+ * CommP2POnKeepAliveTimer).  The name covers the record write, not the
+ * flush; LIKELY because FindP2PPeerRecord is itself only LIKELY and the
  * record layout rests on still-unnamed helpers.
  *
  * A STACK OBJECT GHIDRA SPLIT (2026-08-25).  Three calls here pass frame
