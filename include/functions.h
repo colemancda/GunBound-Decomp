@@ -648,9 +648,9 @@ void FUN_00443ba0();
 void FUN_00443be0(int regEax);
 void FUN_00443c00(int *regEax);
 undefined4 * FUN_00443c20();
-void * __thiscall FUN_00443da0();
+void * __thiscall State07_AvatarStore_Delete();
 void FUN_00443dc0();
-void __fastcall FUN_00443ed0();
+void __fastcall State07_AvatarStore_Destroy(undefined4 *param_1);
 void FUN_004452c0();  /* State07 vtable slot 4 - not yet ported, bring-up auto-stub */
 void __thiscall State07_AvatarStore_OnCommand();
 void __fastcall FUN_004475c0(void *thisPtr, int dummyEDX, uint msg, uint wParam, uint lParam); /* State07 vtable slot 6 - convention-correct stub, see FUN_004475c0.c */

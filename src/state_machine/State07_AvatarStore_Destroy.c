@@ -1,13 +1,25 @@
-/* FUN_00443ed0 - 0x00443ed0 in the original binary.
+/* State07_AvatarStore_Destroy - 0x00443ed0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-30, CERTAIN (was FUN_00443ed0).  The destructor body
+ * behind State07_AvatarStore_Delete (vtable 0x5555f8 slot 0), its only
+ * caller, which frees the object right after it returns.  Same shape
+ * as the named sibling State09_ReadyRoom_Destroy (0x4d3810): it
+ * re-stamps its own class vtable on entry (`mov [esi],0x5555f8` at
+ * 0x443ef1, the State07 table), tears the members down in reverse
+ * order under the SEH state counter, and finishes by installing the
+ * shared null-object base vtable (`mov [esi],0x553fb0` at 0x4440a0),
+ * the "poisoned after destroy" idiom ARCHITECTURE.md describes for
+ * CGameState_BaseDestructor.  `this` arrives in ECX (`mov esi,ecx` at
+ * 0x443eea).
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00443ed0(undefined4 *param_1)
+void __fastcall State07_AvatarStore_Destroy(undefined4 *param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;

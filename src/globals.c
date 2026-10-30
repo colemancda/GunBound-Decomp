@@ -1550,7 +1550,7 @@ void *vtable_State06_Logo2[32] = {
  * Slots 4/5/6/9/13/14 target not-yet-ported functions - declared as
  * externs so the bring-up link auto-stubs them (session-12 precedent). */
 void *vtable_State07_AvatarStore[32] = {
-  (void *)FUN_00443da0,                                     /* 0  dtor 0x443da0 */
+  (void *)State07_AvatarStore_Delete,                       /* 0  dtor 0x443da0 */
   (void *)State07_AvatarStore_ProcessPacket,                /* 1  0x4440c0 */
   (void *)CGameState_NoOpVirtual_B, (void *)CGameState_NoOpVirtual_B, /* 2-3 */
   (void *)FUN_004452c0,                                     /* 4  0x4452c0 (stub) */
