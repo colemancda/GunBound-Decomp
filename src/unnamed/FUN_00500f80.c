@@ -10,7 +10,7 @@
 void FUN_00500f80(void)
 
 {
-  FUN_004ff210();
+  DestroyP2PPeerRecord();
   return;
 }
 

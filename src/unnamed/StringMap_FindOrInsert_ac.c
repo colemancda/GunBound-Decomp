@@ -6,9 +6,10 @@
  * ESI, key in EDI); on a miss, if m_ppBins is still NULL run
  * HashMap_InitHashTable (0x50010a) and throw E_OUTOFMEMORY (0x8007000e)
  * if that fails, then CreateNode through StringMap_Insert_ac (0x50012b),
- * which constructs a default value at node+0x14 (FUN_004ff1a0).  No
- * value is written here - the caller does that - which is what separates
- * it from a SetAt such as StringMap_SetAt_1c.
+ * which constructs a default value at node+0x14
+ * (ConstructP2PPeerRecord).  No value is written here - the caller does
+ * that - which is what separates it from a SetAt such as
+ * StringMap_SetAt_1c.
  *
  * One difference from _10: this returns the NODE (EAX from the find, or
  * from the insert - nothing touches it before `ret`), not the value slot;

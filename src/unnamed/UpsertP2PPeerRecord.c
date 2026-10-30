@@ -28,6 +28,9 @@
  * flush; LIKELY because FindP2PPeerRecord is itself only LIKELY and the
  * record layout rests on still-unnamed helpers.
  *
+ * (In the note below, FUN_004ff1a0 is now ConstructP2PPeerRecord and
+ * FUN_004ff210 is DestroyP2PPeerRecord.)
+ *
  * A STACK OBJECT GHIDRA SPLIT (2026-08-25).  Three calls here pass frame
  * addresses through registers -- -0x9c, -0x7c and -0x4c -- and the offsets
  * between them are 0x20 and 0x50, exactly the offsets FUN_004ff210 uses on
@@ -108,7 +111,7 @@ UpsertP2PPeerRecord(undefined4 *param_1,int param_2,int param_3,short param_4,in
   cVar1 = FindP2PPeerRecord((undefined4)param_1,(int *)&local_b8,(char *)param_2);
   piVar8 = local_b8;
   if (cVar1 == '\0') {
-    FUN_004ff1a0((int)local_9c);
+    ConstructP2PPeerRecord((int)local_9c);
     local_4 = 0;
     uVar3 = 0;
     do {

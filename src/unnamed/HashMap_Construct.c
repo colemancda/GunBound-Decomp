@@ -109,10 +109,11 @@
  * FUN_0040d180 wrapper, plus sub-objects at +0x1bfc (lea at 0x401987),
  * +0x6aa41c and +0x6aa44c (0x41696c, 0x416996), +0x1ac0 and +0x1af0
  * (0x4fd19a, 0x4fd1ca), +0x290 (0x4fdf3c), and +0x20 and +0x50 of
- * FUN_004ff1a0's object (0x4ff1b0, 0x4ff1d1).  A StringMap_ or IntMap_
- * prefix would claim one of those owns it.  Every adjacent pair is
- * exactly 0x30 apart, and InitCommP2PNotifyWindow's next field write
- * after its map is edi+0x2c0 -- the object size again, from outside.
+ * ConstructP2PPeerRecord's object (0x4ff1b0, 0x4ff1d1).  A StringMap_
+ * or IntMap_ prefix would claim one of those owns it.  Every adjacent
+ * pair is exactly 0x30 apart, and InitCommP2PNotifyWindow's next field
+ * write after its map is edi+0x2c0 -- the object size again, from
+ * outside.
  *
  * ARGUMENTS RE-SLOTTED and ESI RECOVERED (2026-08-27, carried over from
  * the pre-naming header): Ghidra typed this __thiscall, so param_1 is

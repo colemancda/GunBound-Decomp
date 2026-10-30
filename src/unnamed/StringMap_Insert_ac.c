@@ -65,7 +65,7 @@ undefined4 * StringMap_Insert_ac(int param_1,undefined4 param_2,undefined4 *regE
     puVar7 = (undefined4 *)((int)puVar7 + 1);
   }
   *(undefined1 *)((uint)bVar1 + (int)puVar2) = 0;
-  FUN_004ff1a0((int)puVar2 + 0x14);
+  ConstructP2PPeerRecord((int)puVar2 + 0x14);
   puVar2[0x2a] = param_2;
   regEbx[1] = regEbx[1] + 1;
   puVar2[0x29] = *(undefined4 *)(*regEbx + param_1 * 4);
