@@ -13,7 +13,7 @@
  * One difference from _10: this returns the NODE (EAX from the find, or
  * from the insert - nothing touches it before `ret`), not the value slot;
  * _10 returns node+4.  The one binary caller adds the value offset itself.
- * FUN_004fe8d0 asks FindP2PPeerRecord for the peer's record in the P2P
+ * UpsertP2PPeerRecord asks FindP2PPeerRecord for the peer's record in the P2P
  * peer table at this+0x290 and, only when that misses, calls this on the same
  * table (`lea esi,[ebx+0x290]` at 0x4fe93b) with the copied 16-char id,
  * then `lea edi,[eax+0x14]` (0x4fe94f) and initialises the record there -
@@ -26,7 +26,7 @@
  * identity.
  *
  * RETURN VALUE RECOVERED (2026-10-29).  The port was declared void, so the
- * C caller could not see the node and FUN_004fe8d0 wrote through an
+ * C caller could not see the node and UpsertP2PPeerRecord wrote through an
  * uninitialised `iVar5`.  In the original EAX at `ret` (0x500134) is the
  * StringMap_Find_ac result on a hit (call 0x5000f5 -> `test eax,eax; jne
  * 0x500130`, straight to `pop ebx; add esp,0xc; ret`) or the
@@ -38,7 +38,7 @@
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
  *
- * ESI RECOVERED (2026-08-24): it is callerThis + 0x290, FUN_004fe8d0's
+ * ESI RECOVERED (2026-08-24): it is callerThis + 0x290, UpsertP2PPeerRecord's
  * __thiscall param_1 plus a fixed offset (`lea esi,[ebx+0x290]`, EBX never
  * written after the caller's entry).
  *

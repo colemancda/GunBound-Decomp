@@ -19,7 +19,7 @@
  * declared shape is CORRECT: genuinely __thiscall with param_1=ECX
  * ("this") plus 5 stack dwords (`ret 0x14` at the epilogue 0x4fe405 =
  * 0x14/4 = 5), matching all 6 existing formal parameters 1:1. All 3
- * callers (FUN_004fcf10.c, FUN_004fcf70.c, FUN_004fe8d0.c) were dropping
+ * callers (FUN_004fcf10.c, FUN_004fcf70.c, UpsertP2PPeerRecord.c) were dropping
  * the ECX argument entirely - and two of the three also had one
  * already-present stack argument wrong, a separate pre-existing bug
  * (see each caller's own header for its call-site evidence). Fixed by
@@ -31,10 +31,10 @@
  * `mov esi,[ebp+0xc]` = param_3 at 0x4fe134 and no path to any of the
  * three rewrites it (the next writes are 0x4fe18f/0x4fe267/0x4fe2f9/
  * 0x4fe3a0, all after the calls); witness: the same ESI is pushed as the
- * [edx+4] virtual's argument at 0x4fe148 and as FUN_004fe8d0's id at
+ * [edx+4] virtual's argument at 0x4fe148 and as UpsertP2PPeerRecord's id at
  * 0x4fe37d, both ported as param_3.
  *
- * FUN_004fe8d0 `this` RECOVERED (2026-10-29): the call at 0x4fe380 dropped
+ * UpsertP2PPeerRecord `this` RECOVERED (2026-10-29): the call at 0x4fe380 dropped
  * ECX = `mov ecx,ebx` (0x4fe37e), EBX = `mov ebx,[ebp+8]` (0x4fe131) = the
  * first stack argument, param_2 - the same EBX pushed as FindP2PPeerRecord's
  * map at 0x4fe13c and used as the [edx+4] virtual's `this` at 0x4fe149.
@@ -89,7 +89,7 @@ FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 para
       }
       cVar2 = FindP2PPeerRecord((undefined4)param_2,(int *)&local_2ecc,(char *)param_3);
       if (cVar2 == '\0') {
-        FUN_004fe8d0((undefined4 *)param_2,(int)param_3,0,0,0,0);
+        UpsertP2PPeerRecord((undefined4 *)param_2,(int)param_3,0,0,0,0);
         cVar2 = FindP2PPeerRecord((undefined4)param_2,(int *)&local_2ecc,(char *)param_3);
         if (cVar2 == '\0') {
           return 0;

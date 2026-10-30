@@ -1,8 +1,32 @@
-/* FUN_004fe8d0 - 0x004fe8d0 in the original binary.
+/* UpsertP2PPeerRecord - 0x004fe8d0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-29, LIKELY (was FUN_004fe8d0).  Insert-or-update of the
+ * peer record that FindP2PPeerRecord / HasP2PPeerRecord look up, keyed
+ * by the 16-char peer id (param_2):
+ *   - it asks FindP2PPeerRecord first (0x4fe8fe) and only on a miss
+ *     calls StringMap_FindOrInsert_ac on this+0x290 (0x4fe94a), the
+ *     id-keyed peer table InitCommP2PNotifyWindow builds; either way it
+ *     then writes the two (ip, port) pairs param_3/param_4 and
+ *     param_5/param_6 into the record at node+0x14 (the pointer
+ *     FindP2PPeerRecord returns) - the fields FUN_005039a0 compares
+ *     and FUN_004fe110 sends to;
+ *   - its callers supply those pairs from outside: CommP2PReceiveDatagram
+ *     passes the recvfrom sender address twice (0x4ff968) after a
+ *     FindP2PPeerRecord miss, FUN_005039a0 passes addresses parsed from
+ *     a CommP2POwner_ProcessPacket packet, and FUN_004fe110 /
+ *     FUN_00503a10 pass zeros to create an address-less record.
+ * After the write it clears the record's pending flag (record+0x1c),
+ * re-sends every datagram FUN_004fe110 had queued on the record (the
+ * 0x1750-stride array at record+0x80, CArray_Add_1750's element size)
+ * through FUN_004fe110, frees that array, and arms timer 0x14b (50 s,
+ * id stored at +0x2c4, which CommP2PNotifyWndProc routes to
+ * FUN_004ffe80).  The name covers the record write, not the flush;
+ * LIKELY because FindP2PPeerRecord is itself only LIKELY and the
+ * record layout rests on still-unnamed helpers.
  *
  * A STACK OBJECT GHIDRA SPLIT (2026-08-25).  Three calls here pass frame
  * addresses through registers -- -0x9c, -0x7c and -0x4c -- and the offsets
@@ -57,7 +81,7 @@
 
 
 void __thiscall
-FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param_5,short param_6)
+UpsertP2PPeerRecord(undefined4 *param_1,int param_2,int param_3,short param_4,int param_5,short param_6)
 
 {
   char cVar1;

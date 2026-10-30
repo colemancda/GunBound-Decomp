@@ -7,7 +7,7 @@
  * the CCommP2P sub-object inside InitCommP2PNotifyWindow (the `lea` at
  * 0x4fdf3c), and its 0xac-stride records hold the peer's two
  * address/port pairs - FUN_005039a0 compares an incoming (ip,port,
- * ip2,port2) against rec+0x14's fields and FUN_004fe8d0 (re)writes
+ * ip2,port2) against rec+0x14's fields and UpsertP2PPeerRecord (re)writes
  * them, feeding the P2P send path next to DispatchP2PMessage.  So the
  * map is the id-keyed P2P peer table and this predicate reports whether
  * a peer entry exists.  "LIKELY" because the sole caller (0x504800, see
