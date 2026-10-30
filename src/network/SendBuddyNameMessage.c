@@ -71,7 +71,7 @@
  * handler's vtable slot +0x30 on the peer name and then sends
  * 0x3002{name}.  The server answers 0x3003, whose arm erases that name
  * from the +0x1aa0 array (above), while the mirrored 0x3000/0x3001 arm
- * (cmp at 0x502035) inserts one through FUN_00502750.  So 0x3002 = "drop
+ * (cmp at 0x502035) inserts one through Vector_PushBack_12.  So 0x3002 = "drop
  * peer <name> from my session list".
  *
  * WHY NOT "Server" IN THE NAME: it would imply a transport contrast with the

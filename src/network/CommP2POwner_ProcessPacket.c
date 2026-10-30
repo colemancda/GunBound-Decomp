@@ -478,7 +478,7 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
             local_48be = *(undefined2 *)(pcVar12 + 8);
             pcVar12 = pcVar12 + 10;
             Vector_PushBack_34((int)local_4958,(undefined4)local_48f0);
-            FUN_00502750(local_497c + 0x17ac,(int)local_48f0);
+            Vector_PushBack_12(local_497c + 0x17ac,(int)local_48f0);
             FUN_00503a10((int)local_48f0,(int)local_4970);
             local_4980 = local_4980 + -1;
           } while (local_4980 != (char *)0x0);
@@ -599,7 +599,7 @@ LAB_00501b17:
       local_491c = 0;
       FUN_004fdc50((int)local_4914,(int)&local_496c);
       iVar7 = local_497c;
-      FUN_00502750(iVar7 + 0x17ac,(int)local_4914);
+      Vector_PushBack_12(iVar7 + 0x17ac,(int)local_4914);
       FUN_00503a10((int)&local_496c,iVar7 + -0x2c8);
       /* RECOVERED (2026-08-28), orig 0x502105 `mov edi,esi` and 0x502113
        * `lea edi,[esp+0x6c]`: both sources are stack fields this branch just

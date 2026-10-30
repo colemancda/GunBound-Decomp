@@ -26,7 +26,7 @@
  * the element, stack = vector, _Where, _Count, `ret 0xc`. Its one caller
  * Vector_Insert_12, the one-element insert, sets `mov ecx,[esp+0x18]` and
  * pushes 1, the position and the vector - insert()'s `_Insert_n(_Where,
- * 1, _Val)` - and is itself reached from the push_back FUN_00502750.
+ * 1, _Val)` - and is itself reached from the push_back Vector_PushBack_12.
  *
  * The two 2026-09-20 notes below predate the name and are kept
  * verbatim: their FUN_00504550 is Vector_UninitCopy_12, and their

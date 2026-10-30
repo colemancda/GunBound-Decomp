@@ -12,7 +12,7 @@
  *   0x5029f7-0x5029ff  _Insert_n(_P, 1, _X) = Vector_InsertN_12
  *   0x502a04-0x502a0d  *sret = _Myfirst + _O*0x12
  *   0x502a15           ret 0xc - sret, _P, _X
- * Its one caller is the push_back FUN_00502750, which reaches it as
+ * Its one caller is the push_back Vector_PushBack_12, which reaches it as
  * insert(end(), _X) when size() == capacity() - exactly where
  * Vector_PushBack_34/_1e call their own insert.
  *
@@ -22,7 +22,7 @@
  * Vector_InsertN_12's ECX. The caller was already pushing it (`push
  * ebx` at 0x5027bc) against a two-parameter declaration. EDI is the
  * vector - read at 0x5029bb (`mov esi,[edi+4]`) before anything writes
- * it, and FUN_00502750 holds the vector in EDI (`mov edi,ecx` at
+ * it, and Vector_PushBack_12 holds the vector in EDI (`mov edi,ecx` at
  * 0x502754) across the call - promoted to the trailing regEdi as in
  * Vector_Insert_1e. The Vector_InsertN_12 call now passes the element
  * where it had a 0 placeholder.

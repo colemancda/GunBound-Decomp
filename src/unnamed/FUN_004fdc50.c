@@ -41,7 +41,7 @@
  * the address of local_496c, witnessed by
  * StringMap_SetAt_28(local_48ba + 0x2e) at 0x5020a3. 0x5020e0 takes
  * local_4914 and the address of local_496c, witnessed by
- * FUN_00502750(..., local_4914) at 0x5020ef. 0x50242c takes
+ * Vector_PushBack_12(..., local_4914) at 0x5020ef. 0x50242c takes
  * local_48ba + 0x1c and the address of local_496c, witnessed by the
  * FUN_00503a50(local_4970, and local_496c) immediately before at 0x50241c
  * and by the [esp+0xd6] equals local_48ba base that Ghidra pinned at
