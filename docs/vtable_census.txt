@@ -1434,7 +1434,7 @@ vtable 0x557c0c  installs=1  slots=10
    8: 0x50e520  Widget_DrawChildren
    9: 0x5054b0  Widget_DrawSelf
 
-vtable 0x557c34  installs=1  slots=10  UNCARVED=1
+vtable 0x557c34  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus
    1: 0x50e3a0  Widget_OnDragMove
    2: 0x505430  HandlePanelMouseDown
@@ -1442,7 +1442,7 @@ vtable 0x557c34  installs=1  slots=10  UNCARVED=1
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x5065c0  UNCARVED
+   7: 0x5065c0  FUN_005065c0
    8: 0x50e520  Widget_DrawChildren
    9: 0x5068e0  CreateRoomDialog_Update
 
@@ -1470,7 +1470,7 @@ vtable 0x557c84  installs=1  slots=10  UNCARVED=2
    8: 0x507030  TextEntry_SyncFromControl
    9: 0x5071a0  FUN_005071a0
 
-vtable 0x557cac  installs=1  slots=10  UNCARVED=2
+vtable 0x557cac  installs=1  slots=10  UNCARVED=1
    0: 0x50e860  Widget_SetFocus
    1: 0x50e3a0  Widget_OnDragMove
    2: 0x5078d0  UNCARVED
@@ -1478,7 +1478,7 @@ vtable 0x557cac  installs=1  slots=10  UNCARVED=2
    4: 0x507310  ChannelUserListPanel_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x507460  UNCARVED
+   7: 0x507460  FUN_00507460
    8: 0x50e520  Widget_DrawChildren
    9: 0x5074a0  RenderChannelUserRow
 
@@ -1507,7 +1507,7 @@ vtable 0x557cfc  installs=1  slots=11  UNCARVED=2
    9: 0x50f290  FUN_0050f290
   10: 0x50f320  UNCARVED
 
-vtable 0x557d28  installs=1  slots=10  UNCARVED=1
+vtable 0x557d28  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus
    1: 0x50e3a0  Widget_OnDragMove
    2: 0x505430  HandlePanelMouseDown
@@ -1515,7 +1515,7 @@ vtable 0x557d28  installs=1  slots=10  UNCARVED=1
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x5061e0  UNCARVED
+   7: 0x5061e0  FUN_005061e0
    8: 0x50e520  Widget_DrawChildren
    9: 0x5054b0  Widget_DrawSelf
 
@@ -1581,7 +1581,7 @@ vtable 0x557df0  installs=1  slots=10
    8: 0x50e520  Widget_DrawChildren
    9: 0x5054b0  Widget_DrawSelf
 
-vtable 0x557e18  installs=1  slots=10  UNCARVED=1
+vtable 0x557e18  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus
    1: 0x50e3a0  Widget_OnDragMove
    2: 0x505430  HandlePanelMouseDown
@@ -1589,7 +1589,7 @@ vtable 0x557e18  installs=1  slots=10  UNCARVED=1
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x5061e0  UNCARVED
+   7: 0x5061e0  FUN_005061e0
    8: 0x50e520  Widget_DrawChildren
    9: 0x5054b0  Widget_DrawSelf
 

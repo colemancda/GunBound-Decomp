@@ -276,6 +276,10 @@ public:
 class CChannelUserListPanel : public CPanel {  /* vtable 0x557cac; builder 0x509d80 */
 public:
     CChannelUserListPanel();                   /* inlined in the builder */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x507460 - Panel.cpp forwards to the C
+                                                * FUN_00507460 (slot 7: scrollbar position
+                                                * to g_clientContext+0x5f2f3c, then the
+                                                * base handler) */
     virtual void Update();                     /* 0x5074a0 - ported as the C
                                                 * RenderChannelUserRow; without this
                                                 * override the port inherited
@@ -393,6 +397,10 @@ public:
 class CCreateRoomDialog : public CPanel {      /* vtable 0x557c34; builder 0x508190 */
 public:
     CCreateRoomDialog() { m_pinned = 1; }
+    virtual void OnCommand(int evt, int id, int arg); /* 0x5065c0 - Panel.cpp forwards to the C
+                                                * FUN_005065c0 (slot 7: the two radio
+                                                * groups, submit/cancel, then the base
+                                                * handler) */
     virtual void Update();                     /* 0x5068e0 - Panel.cpp forwards to the C
                                                 * CreateRoomDialog_Update (slot 9: frame via
                                                 * Widget_DrawSelf, then the mode sprite) */

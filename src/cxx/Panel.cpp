@@ -664,6 +664,26 @@ extern "C" int FUN_0050a030(CWidget *this_, int x, int y);
 extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y);
 extern "C" int FUN_0050a320(CWidget *this_, int x, int y);
 
+/* Two slot-7 bodies carved 2026-10-30 (vtable bytes: 0x557c34 +0x1c =
+ * 0x5065c0, 0x557cac +0x1c = 0x507460). Both are __thiscall with three
+ * stack words and ret 0xc (0x50664a etc., 0x50748f) and end in a direct
+ * `call 0x50eb10`, which is Widget_OnCommandDefault, i.e. the qualified
+ * CWidget::OnCommand. So the base handling runs once and does not
+ * re-enter these overrides. The C ports are erased-__thiscall cdecl
+ * with `this` first. */
+extern "C" void FUN_005065c0(void *this_, int evt, int id, int arg);
+extern "C" void FUN_00507460(int this_, int evt, int id, int arg);
+
+void CCreateRoomDialog::OnCommand(int evt, int id, int arg)
+{
+    FUN_005065c0(this, evt, id, arg);
+}
+
+void CChannelUserListPanel::OnCommand(int evt, int id, int arg)
+{
+    FUN_00507460((int)this, evt, id, arg);
+}
+
 bool CAvatarStorePanel::OnMouseMove(int x, int y)
 {
     return (unsigned char)FUN_0050a030(this, x, y) != 0;
