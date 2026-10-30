@@ -28,6 +28,10 @@
  * Not changed: the two manager vtable calls keep Ghidra's argument
  * lists (no `this`), matching the self-sufficient CAtlStringMgr
  * reconstruction in crt_shims_msvc.c, whose slots take no `this`.
+ * Every header that reconstruction creates now stores the manager
+ * (&DAT_005b1444, the object at 0x5b1444) at +0, and its Clone returns
+ * that same manager, so the two derefs at 0x43de13/0x43de15 reach the
+ * vtable and the shared path at 0x43de24 can match.
  */
 #include "ghidra_types.h"
 

@@ -324,7 +324,27 @@ static void gb_init_client_context(void)
  * (LoadLocalizedStrings is dropped for bring-up, see bringup_drop.txt), so
  * every GetLocalizedString() lookup takes the nil-string fallback. CStringData
  * layout (confirmed against FUN_0052009c.c's field writes): pStringMgr@+0,
- * nDataLength@+4, nAllocLength@+8, nRefs@+0xc, character data at +0x10. */
+ * nDataLength@+4, nAllocLength@+8, nRefs@+0xc, character data at +0x10.
+ *
+ * THE MANAGER OBJECT (fixed 2026-10-30). In the original, 0x5b1444 is the
+ * CAtlStringMgr object itself, not a vtable pointer. The .CRT$XCU
+ * initializer at 0x543179 does `push 0x5b1438 / mov ecx,0x5b1444 /
+ * call 0x520037`, and the constructor 0x520037 stores the vtable 0x544b38
+ * at +0, the IAtlMemMgr at +4, and builds the embedded nil string at +8
+ * (nRefs = 2 at +0x14, achNil at +0x18) whose pStringMgr is the manager
+ * itself (`mov [eax+8],eax` at 0x520060). The vtable 0x544b38 is
+ * Allocate 0x52009c, Free 0x520066, Reallocate 0x5200d6, GetNilString
+ * 0x52006e (AddRef [ecx+0x14], return ecx+8), Clone 0x52007c (`mov eax,ecx`,
+ * the manager itself) and the deleting dtor 0x52007f. So every
+ * CStringData's +0 field holds 0x5b1444, and code that reaches the
+ * manager through a header (FUN_0043de10 at 0x43de13: `mov ecx,[esi] /
+ * mov eax,[ecx] / call [eax+0x10]`, the CString release's Free at
+ * vtable +4) dereferences it once more to get the vtable. Here the
+ * scalar DAT_005b1444 plays the object's +0 word (its value is the
+ * vtable), so &DAT_005b1444 is the manager: every header this file
+ * creates stores &DAT_005b1444 at +0, and Clone returns it, which is what
+ * FUN_0043de10 compares against the header's manager at 0x43de24. The
+ * nil string stays a separate static; its own +0 is &DAT_005b1444 too. */
 static unsigned int g_atlNilStringData[4 + 2];  /* header + 2 zeroed WCHARs */
 static void *PTR_Allocate_00544b38[5];
 
@@ -333,7 +353,7 @@ static void *gb_atl_allocate(int nAllocLength, int nCharSize)
     unsigned int total = (unsigned int)(nAllocLength + 1) * (unsigned int)nCharSize;
     unsigned int *data = (unsigned int *)malloc(0x10 + total);
     if (data == NULL) return NULL;
-    data[0] = (unsigned int)(void *)g_atlNilStringData;   /* pStringMgr - informational only */
+    data[0] = (unsigned int)(void *)&DAT_005b1444;        /* pStringMgr: the manager object */
     data[1] = 0;                          /* nDataLength */
     data[2] = (unsigned int)nAllocLength; /* nAllocLength */
     data[3] = 1;                          /* nRefs */
@@ -363,7 +383,9 @@ static void *gb_atl_get_nil_string(void)
 
 static void *gb_atl_clone(void)
 {
-    return PTR_Allocate_00544b38;   /* single shared instance */
+    /* 0x52007c: `mov eax,ecx / ret` - Clone returns the manager itself
+     * (the object at 0x5b1444), not its vtable. */
+    return (void *)&DAT_005b1444;
 }
 
 static void gb_init_atl_string_mgr(void)
@@ -373,7 +395,7 @@ static void gb_init_atl_string_mgr(void)
     PTR_Allocate_00544b38[2] = (void *)gb_atl_reallocate;
     PTR_Allocate_00544b38[3] = (void *)gb_atl_get_nil_string;
     PTR_Allocate_00544b38[4] = (void *)gb_atl_clone;
-    g_atlNilStringData[0] = (unsigned int)(void *)g_atlNilStringData;
+    g_atlNilStringData[0] = (unsigned int)(void *)&DAT_005b1444;  /* 0x520060: nil.pStringMgr = this */
     g_atlNilStringData[3] = 2;   /* nRefs starts at 2, matching real ATL - see globals.c */
     DAT_005b1444 = (unsigned int)(void *)PTR_Allocate_00544b38;
 }

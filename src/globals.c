@@ -339,7 +339,11 @@ uint8_t DAT_0058bb04;
  * .text ever writes it - matches FUN_005439b1.c's own untouched
  * `DAT_005b1444 = &PTR_Allocate_00544b38;`, never called), so every
  * GetNilString() call faulted at NULL+0xc. Populated by
- * crt_shims_msvc.c's gb_init_atl_string_mgr, wired into gb_startup_init. */
+ * crt_shims_msvc.c's gb_init_atl_string_mgr, wired into gb_startup_init.
+ * In the original 0x5b1444 is the manager OBJECT (vtable 0x544b38 at +0,
+ * built by 0x520037 from the initializer at 0x543179), so this scalar is
+ * its +0 word and &DAT_005b1444 is the manager: every CStringData header's
+ * +0 must hold &DAT_005b1444 (see crt_shims_msvc.c). */
 uint32_t DAT_005b1444;
 uint32_t DAT_005b15ac;
 int *DAT_005b1c48;
