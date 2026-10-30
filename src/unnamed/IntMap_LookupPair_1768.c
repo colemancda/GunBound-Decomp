@@ -12,7 +12,7 @@
  * stem with only the stride suffix differing means one member at two
  * instantiations.  "Pair" is ATL's own word for what comes back (CPair).
  *
- * The one binary caller, FUN_004ff770 at 0x4ff871, uses it as a pointer
+ * The one binary caller, CommP2PReceiveDatagram at 0x4ff871, uses it as a pointer
  * lookup: map = peer-record+0x50 (`lea ebx,[esi+0x50]; mov ecx,ebx`),
  * key in EDI; `test eax,eax`, and on a hit it passes the pair's fields
  * (+0x10, +0x12, +0x14 and the value at +4 - m_key at +0, m_value from +4)
@@ -22,7 +22,7 @@
  * RETURN VALUE FIXED (2026-10-29).  The port used to discard the find's
  * result and `return 0`, on the stated belief that callers ignore it.
  * The caller tests it, so the port made every lookup look like a miss and
- * FUN_004ff770's hit branch - the slot-0 dispatch and the RemoveKey -
+ * CommP2PReceiveDatagram's hit branch - the slot-0 dispatch and the RemoveKey -
  * could never run.  It now returns IntMap_Find_1768's result, as the
  * original does; the older note below that it "throws the result away"
  * predates this fix.

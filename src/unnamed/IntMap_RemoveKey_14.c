@@ -13,7 +13,7 @@
  *
  * The instantiation is fixed by the named callees: the find and the
  * free are both the 0x14-node members, so the suffix follows them.  The
- * one binary caller, FUN_004ff770 at 0x4ffb93, removes the key EDI from
+ * one binary caller, CommP2PReceiveDatagram at 0x4ffb93, removes the key EDI from
  * the map at peer-record+0x20 inside its enumerate-and-expire loop
  * (FUN_00500b70 / FUN_00500ba0 walk the same map; an entry whose stored
  * FILETIME is more than 60000 ms old, `cmp eax,0xea60`, is removed) -

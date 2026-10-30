@@ -13,7 +13,7 @@
  * that header ties the table to the CCommP2P sub-object
  * (HashMap_Construct, InitCommP2PNotifyWindow).  What the record is
  * comes from the callers that use the pointer this returns:
- * FUN_004ff770 writes the sender's address and port into record+0/+4
+ * CommP2PReceiveDatagram writes the sender's address and port into record+0/+4
  * and keeps per-peer maps at record+0x20 (IntMap_Lookup_14 /
  * IntMap_SetAt_14) and record+0x50 (IntMap_LookupPair_1768 /
  * IntMap_RemoveKey_1768); FUN_004fe8d0 calls StringMap_FindOrInsert_ac
@@ -37,7 +37,7 @@
  *     the [edx+4] virtual and FUN_004fe8d0 between them preserve it);
  *   FUN_004fe8d0 0x4fe8fe: param_2 (`mov esi,[esp+0xc8]` at 0x4fe8ee, the
  *     first stack argument of the __thiscall);
- *   FUN_004ff770 0x4ff854, 0x4ff937, 0x4ff977: &local_3188 (`lea esi,
+ *   CommP2PReceiveDatagram 0x4ff854, 0x4ff937, 0x4ff977: &local_3188 (`lea esi,
  *     [esp+0x20]` with two pushes pending = the 17-byte id the caller just
  *     assembled from the packet at [esp+0x18..0x28]);
  *   FUN_005039a0 0x5039ae: regEax (`mov esi,eax` at 0x5039a6);

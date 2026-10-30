@@ -1273,7 +1273,7 @@ comes from `WndProc` mouse messages into the `g_cursorAnchorX/d110` anchor.)
    **Socket-level proof, found by tracing `recvfrom` callers forward.**
    There are two, and they're architecturally distinct, not just two
    code paths to the same dispatcher:
-   - `FUN_004ff770` — a simple, direct UDP handler: `recvfrom` a datagram,
+   - `CommP2PReceiveDatagram` — a simple, direct UDP handler: `recvfrom` a datagram,
      validate its embedded length field, decrypt/checksum it (a short
      block-based routine — packet size must be a multiple of 16 past a
      fixed prefix, checked via `(len & 0x8000000f) == 0`), then call

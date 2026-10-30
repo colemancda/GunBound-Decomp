@@ -11,7 +11,7 @@
  * __stdcall, confirmed by `ret 0x10` at every return in the original.
  * Ghidra emitted __cdecl, and the install site passed the literal
  * original-binary address instead of this symbol. Same bug class as
- * FUN_004fecb0.
+ * CommP2PNotifyWndProc.
  *
  * SPLIT-STACK-BUFFER FIX (2026-07-29): `local_88` (1 byte) and `local_87`
  * (4 bytes) are Ghidra's fragmentary view of ONE contiguous 0x7f-byte IME

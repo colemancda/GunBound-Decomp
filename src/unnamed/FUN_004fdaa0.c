@@ -13,7 +13,7 @@
  * __stdcall, confirmed by `ret 0x10` at every return in the original.
  * Ghidra emitted __cdecl, and the install site passed the literal
  * original-binary address instead of this symbol. Same bug class as
- * FUN_004fecb0. */
+ * CommP2PNotifyWndProc. */
 LRESULT __stdcall FUN_004fdaa0(HWND param_1,UINT param_2,WPARAM param_3,LPARAM param_4)
 
 {

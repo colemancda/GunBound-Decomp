@@ -16,7 +16,7 @@
  * param_1+0x1ab0 are exactly 0x284 apart, and is corroborated by the
  * three callers that keep a SOCKET in the ENCLOSING object immediately
  * past the context, at ctx+0x284: param_2+0x288 in FUN_004feb00 and
- * param_1[0xa2] in FUN_004ff770 / FUN_004ffe80, all three with
+ * param_1[0xa2] in CommP2PReceiveDatagram / FUN_004ffe80, all three with
  * ctx = base+4. Sibling FUN_004fcdf0 has the identical
  * EAX-is-the-context shape and was fixed the same way.
  */

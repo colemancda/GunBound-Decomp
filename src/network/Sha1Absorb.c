@@ -11,7 +11,7 @@
  * off the end and faulted (`movzx edx,[esi]` on a -1 buffer pointer during
  * the login handshake's credential hash). Promoted to an explicit third
  * parameter `length`; all 9 call sites across the 3 callers
- * (EncodeHandshakeBlock, FUN_004feb00, FUN_004ff770) recover it from their
+ * (EncodeHandshakeBlock, FUN_004feb00, CommP2PReceiveDatagram) recover it from their
  * own disassembly - each `mov eax,<len>` immediately before the call. NOTE
  * two of EncodeHandshakeBlock's calls ALSO dropped `param_2` (the buffer),
  * reading stack garbage - recovered there too. param_1/param_2 stay stack

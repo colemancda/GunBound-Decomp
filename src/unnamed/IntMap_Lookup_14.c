@@ -6,7 +6,7 @@
  * false (`xor al,al`), otherwise copy the 8-byte m_value at node+4/+8
  * out through EBX and return true (`mov al,1`).
  *
- * The one binary caller, FUN_004ff770 at 0x4ffa0b, looks up the packet's
+ * The one binary caller, CommP2PReceiveDatagram at 0x4ffa0b, looks up the packet's
  * key ([esp+0x306] in EDI) in the map at peer-record+0x20 (`add esi,
  * 0x20; mov ecx,esi`) with the out-value at `lea ebx,[esp+0x40]`, and
  * drops the packet when it is found (`jne 0x4ffbd1`, the exit).  Only on

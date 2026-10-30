@@ -10,7 +10,7 @@
  * value at node+4/+8.  The original returns the node in EAX (POSITION);
  * the port returns void, which its one caller does not notice.
  *
- * The callers fix the value type.  The only binary site, FUN_004ff770 at
+ * The callers fix the value type.  The only binary site, CommP2PReceiveDatagram at
  * 0x4ffb2c, has just called GetSystemTimeAsFileTime and passes that
  * FILETIME (`lea ecx,[esp+0x48]`) as the value, the map at
  * peer-record+0x20 (ESI) and the key in EAX; it then reads the map's

@@ -1,8 +1,23 @@
-/* FUN_004ff770 - 0x004ff770 in the original binary.
+/* CommP2PReceiveDatagram - 0x004ff770 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-29, CERTAIN (was FUN_004ff770).  The FD_READ half of the
+ * CCommP2P UDP socket, the datagram twin of CommEngineRecv.  Its only
+ * caller is CommP2PNotifyWndProc, on message 0x54d (the WSAAsyncSelect
+ * code CreateBoundSocket registers for the socket at +0x288) when wParam
+ * is that socket and the event is FD_READ (`cmp cx,1` at 0x4fecda); it
+ * is passed (obj, WSAGETSELECTERROR).  With a zero error it calls
+ * recvfrom(obj[0xa2] = the +0x288 socket, buf, 0x1770, 0, &from,
+ * &fromlen) (0x4ff7b8-0x4ff7d3, import 0x54433c = recvfrom) and then
+ * handles the datagram.  A 0x26-byte one is a bare header (the size of
+ * the header SendEncryptedP2PDatagram prepends) that retires a pending
+ * send from the peer record's +0x14 map; a longer one (over 0x35 bytes)
+ * is answered with a 0x26-byte header via sendto and then processed.
+ * `ret 8` (0x4ffbdb): callee-cleaned in the original;
+ * the port is cdecl on both sides, which is consistent within the tree.
  *
  * FindP2PPeerRecord ID RECOVERED (2026-10-29): all three calls (orig
  * 0x4ff854, 0x4ff937, 0x4ff977) dropped ESI, which each sets itself with
@@ -33,7 +48,7 @@ static uint gb_capped16_len(const char *s) {
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void FUN_004ff770(int *param_1,int param_2)
+void CommP2PReceiveDatagram(int *param_1,int param_2)
 
 {
   undefined4 *puVar1;

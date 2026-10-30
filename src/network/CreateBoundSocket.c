@@ -3,7 +3,7 @@
  * NAMED 2026-08-19 (was FUN_004fe060).  Creates a socket, bind()s it, and
  * registers it for asynchronous notification with WSAAsyncSelect.  There is no
  * listen() call, so this is the bound-but-not-listening socket the datagram
- * paths (sendto/recvfrom, FUN_004feb00 and FUN_004ff770) use rather than a
+ * paths (sendto/recvfrom, FUN_004feb00 and CommP2PReceiveDatagram) use rather than a
  * TCP server socket - named for what it does rather than for a role that is
  * not proven.
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -

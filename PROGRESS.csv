@@ -1414,7 +1414,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fe860,101,FindP2PPeerRecord,false,11,1,RAW-src
 004fe8d0,541,FUN_004fe8d0,false,4,10,RAW-src
 004feb00,424,FUN_004feb00,false,5,8,RAW-src
-004fecb0,130,FUN_004fecb0,false,1,5,RAW-src
+004fecb0,130,CommP2PNotifyWndProc,false,1,5,RAW-src
 004fed40,137,IntMap_SetAt_1768,false,1,5,RAW-src
 004fedd0,69,CArray_Add_1750,false,2,3,RAW-src
 004fee20,325,StringMap_RemoveAll_28,false,1,6,RAW-src
@@ -1433,7 +1433,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ff690,55,FUN_004ff690,false,1,1,RAW-src
 004ff6d0,74,FUN_004ff6d0,false,4,2,RAW-src
 004ff720,72,CommConnectionList_Erase,false,3,2,RAW-src
-004ff770,1134,FUN_004ff770,false,1,22,RAW-src
+004ff770,1134,CommP2PReceiveDatagram,false,1,22,RAW-src
 004ffbe0,662,FUN_004ffbe0,false,1,5,RAW-src
 004ffe80,605,FUN_004ffe80,false,1,6,RAW-src
 005000e0,85,StringMap_FindOrInsert_ac,false,1,4,RAW-src
