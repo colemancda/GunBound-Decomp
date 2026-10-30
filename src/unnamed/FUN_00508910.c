@@ -70,13 +70,16 @@ void FUN_00508910(int regEdi)
       Widget_AddChild(uVar4,(int)puVar5);
       uVar4 = CreateLabelWidget(1,0x5dc,0x80,0x76,0x52,0x22);
       Widget_AddChild(uVar4,(int)puVar5);
-      PanelManager_Register(puVar5);
+      /* 0x508a31-0x508a34: push ebx (the panel), mov eax,edi (the manager). */
+      PanelManager_Register((void *)regEdi,(int)puVar5);
       return;
     }
     piVar1 = puVar2 + 2;
     puVar2 = (undefined4 *)*puVar2;
   } while ((*(int *)(*piVar1 + 0x20) != 0) || (*(int *)(*piVar1 + 0x24) != 2));
-  PanelManager_BringToFront();
+  /* 0x508978-0x50897a: ECX = edi (the manager), EDX = the matched node's
+   * panel, loaded by `mov edx,[ecx+8]` at 0x508935. */
+  PanelManager_BringToFront(regEdi,*piVar1);
   return;
 }
 

@@ -1708,7 +1708,7 @@ void HideStoreItemTooltipPanel(int regEax);
 int PanelManager_FindByName(int regEax);
 void FUN_00509780(int esiArg);
 void FUN_005098e0(int, int);
-void __fastcall PanelManager_BringToFront();
+void __fastcall PanelManager_BringToFront(int param_1,int param_2);
 void FUN_005099b0();
 undefined4 * BuildWorldListPanel();
 undefined4 *CreateScrollListWidget(); /* returns the new widget object */
@@ -1750,7 +1750,7 @@ void __fastcall Widget_DrawChildrenDeep();
 undefined4 AtlArray_GrowBuffer();
 void * __thiscall FUN_0050ede0();
 void __fastcall FUN_0050ee00();
-void __stdcall PanelManager_Register();
+void __stdcall PanelManager_Register(void *manager,int param_1);
 undefined4 PanelManager_Unregister();
 void PanelManager_ClearAllFocus();
 int __fastcall FUN_0050f000(undefined4 param_1,int param_2,int regEax,int regEsi);

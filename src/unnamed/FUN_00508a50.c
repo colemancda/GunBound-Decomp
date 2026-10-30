@@ -82,7 +82,8 @@ undefined4 FUN_00508a50(int param_1,char *param_2)
       Widget_AddChild(uVar4,(int)puVar2);
       uVar4 = CreateLabelWidget(1,0x4bb,0x80,0x76,0x52,0x22);
       Widget_AddChild(uVar4,(int)puVar2);
-      PanelManager_Register(puVar2);
+      /* 0x508b6c-0x508b6f: push ebx (the panel), mov eax,ebp (param_1). */
+      PanelManager_Register((void *)param_1,(int)puVar2);
       break;
     }
     piVar1 = puVar2 + 2;

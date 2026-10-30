@@ -87,7 +87,8 @@ joined_r0x00508d28:
     _sprintf(local_8c,_Format,regEdi);
     uVar4 = CreateStaticTextWidget(0x17,0x2b,0x9a,0x33,local_8c,0xffff);
     Widget_AddChild(uVar4,(int)puVar3);
-    PanelManager_Register(puVar3);
+    /* 0x508e79-0x508e81: mov eax,[esp+0x9c] (param_1), push esi (the panel). */
+    PanelManager_Register((void *)param_1,(int)puVar3);
   }
   else {
     iVar2 = puVar3[2];

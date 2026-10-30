@@ -48,7 +48,8 @@ void FUN_00509410(undefined4 param_1,undefined4 param_2)
   Widget_AddChild(uVar2,(int)puVar1);
   uVar2 = CreateStaticTextWidget(0x16,0x27,0xbb,0x25,param_2,0xffff);
   Widget_AddChild(uVar2,(int)puVar1);
-  PanelManager_Register(puVar1);
+  /* 0x5094d3-0x5094d8: mov eax,[esp+0x18] (param_1), push ebx (the panel). */
+  PanelManager_Register((void *)param_1,(int)puVar1);
   return;
 }
 

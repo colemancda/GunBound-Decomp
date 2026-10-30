@@ -71,7 +71,8 @@ LAB_0050961f:
   uVar5 = FUN_0041eb80(g_clientContext,param_2);
   uVar5 = CreateStaticTextWidget(0x17,0x22,0x8c,0x4c,uVar5,uVar7);
   Widget_AddChild(uVar5,(int)puVar3);
-  PanelManager_Register(puVar3);
+  /* 0x5096d5-0x5096da: mov eax,[esp+0x1c] (param_1), push esi (the panel). */
+  PanelManager_Register((void *)param_1,(int)puVar3);
   *unaff_FS_OFFSET = local_c;
   return;
 }

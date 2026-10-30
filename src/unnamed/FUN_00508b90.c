@@ -74,13 +74,16 @@ void FUN_00508b90(int regEdi)
       uVar4 = GetLocalizedString(&g_localizedStringTable,4000);
       uVar4 = CreateStaticTextWidget(0x15,0x2d,200,0x1e,uVar4,uVar6);
       Widget_AddChild(uVar4,(int)puVar5);
-      PanelManager_Register(puVar5);
+      /* 0x508cd9-0x508cdc: push ebx (the panel), mov eax,edi (the manager). */
+      PanelManager_Register((void *)regEdi,(int)puVar5);
       return;
     }
     piVar1 = puVar2 + 2;
     puVar2 = (undefined4 *)*puVar2;
   } while ((*(int *)(*piVar1 + 0x20) != 0) || (*(int *)(*piVar1 + 0x24) != 10000));
-  PanelManager_BringToFront();
+  /* 0x508bf8-0x508bfa: ECX = edi (the manager), EDX = the matched node's
+   * panel, loaded by `mov edx,[ecx+8]` at 0x508bb5. */
+  PanelManager_BringToFront(regEdi,*piVar1);
   return;
 }
 

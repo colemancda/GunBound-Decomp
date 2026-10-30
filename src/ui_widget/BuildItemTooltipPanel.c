@@ -49,7 +49,8 @@ void BuildItemTooltipPanel(undefined4 param_1,undefined4 param_2)
   Widget_AddChild(uVar2,(int)puVar1);
   uVar2 = CreateStaticTextWidget(0x17,0x2b,0x9a,0x33,param_2,0xffff);
   Widget_AddChild(uVar2,(int)puVar1);
-  PanelManager_Register(puVar1);
+  /* 0x5090f3-0x5090f8: mov eax,[esp+0x18] (param_1), push ebx (the panel). */
+  PanelManager_Register((void *)param_1,(int)puVar1);
   *unaff_FS_OFFSET = local_c;
   return;
 }
