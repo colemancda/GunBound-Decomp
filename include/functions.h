@@ -1068,7 +1068,7 @@ void FUN_004b3e00(void *param_1);
 void FUN_004b3e60();
 undefined4 * FUN_004b3f90();
 void * __thiscall State11_InBattle_Delete();
-void __fastcall State11_InBattle_Destroy();
+void __fastcall State11_InBattle_Destroy(undefined4 *param_1);
 void __thiscall State11_InBattle_HandleKeyInput();
 void __fastcall State11_InBattle_HandleMouseInput(int*,int,unsigned int,int,unsigned int); /* State11 vtable slot 6 */
 void FUN_004b9cd2();
@@ -1116,7 +1116,7 @@ undefined4 __fastcall AppendToEncodedSocketBuffer(undefined4 param_1,uint param_
 void FlushEncodedSocketBuffer(int param_1);
 undefined4 * State09_ReadyRoom_Construct();
 void * __thiscall State09_ReadyRoom_Delete();
-void __fastcall State09_ReadyRoom_Destroy();
+void __fastcall State09_ReadyRoom_Destroy(undefined4 *param_1);
 void __thiscall State09_ReadyRoom_OnActivate();
 uint __thiscall State09_ReadyRoom_OnCommand();
 void __fastcall State09_ReadyRoom_OnTick();
