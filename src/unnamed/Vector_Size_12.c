@@ -9,7 +9,7 @@
  * _Mylast - _Myfirst`, with _Myfirst at +4 and _Mylast at +8 (the
  * allocator word at +0) - the layout the Vector_*_1e/_34/_8 family
  * already uses.  The /0x12 is the 0x38e38e39 multiply plus `sar edx,2`.
- * The operand shapes come from its one caller, FUN_00502b70, which is
+ * The operand shapes come from its one caller, Vector_InsertN_12, which is
  * that vector's _Insert_n: it checks n against max_size() - size() with
  * max_size = 0xe38e38e (0xffffffff / 0x12), inlines capacity() from +0xc
  * and size() from +8 with the same divide, and calls this function at

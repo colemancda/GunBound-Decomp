@@ -31,7 +31,7 @@ int * FUN_005029b0(int *param_1,int param_2)
   }
   iVar1 = 0;
 LAB_005029f7:
-  FUN_00502b70(/* TODO: unresolved argument - see file header */ (undefined4 *)0,unaff_EDI,
+  Vector_InsertN_12(/* TODO: unresolved argument - see file header */ (undefined4 *)0,unaff_EDI,
                param_2,1);
   *param_1 = *(int *)(unaff_EDI + 4) + iVar1 * 0x12;
   return param_1;

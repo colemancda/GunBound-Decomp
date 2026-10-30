@@ -1492,7 +1492,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00502a90,64,Vector_Tidy_8,false,1,2,RAW-src
 00502ad0,33,Vector_Size_1e,false,1,0,RAW-src
 00502b00,108,Vector_Insert_1e,false,1,1,RAW-src
-00502b70,653,FUN_00502b70,false,1,8,RAW-src
+00502b70,653,Vector_InsertN_12,false,1,8,RAW-src
 00502e20,615,Vector_InsertN_34,false,1,9,RAW-src
 005030a0,105,Vector_ThrowTooLong,false,4,3,RAW-src
 00503110,21,Vector_DestroyRange_8,false,1,1,RAW-src

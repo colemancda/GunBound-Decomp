@@ -11,7 +11,7 @@
  * start and stop pointer, ECX (param_1) the source end, EAX (regEax) the
  * destination end; bare ret.
  *
- * Its one caller is FUN_00502b70, the 0x12 vector's _Insert_n, at
+ * Its one caller is Vector_InsertN_12, the 0x12 vector's _Insert_n, at
  * 0x502dea in the shift arm: right after Vector_UninitCopy_12 has
  * constructed the last n elements one stride-block up and stored the new
  * _Mylast, it calls this with EDX = _Where, ECX = old _Mylast - n*0x12

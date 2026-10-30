@@ -17,9 +17,9 @@
  * _Uninit_fill_n, which is what fixes the name from outside:
  *   0x5027a6  FUN_00502750 (push_back) - count 1 at the old _Mylast,
  *             immediately followed by `add esi,0x12 / mov [edi+8],esi`
- *   0x502cb4  FUN_00502b70 (_Insert_n), realloc arm - n copies at the
+ *   0x502cb4  Vector_InsertN_12 (_Insert_n), realloc arm - n copies at the
  *             address the head Vector_UninitCopy_12 returned
- *   0x502daa  FUN_00502b70, append-overlap arm - the remainder
+ *   0x502daa  Vector_InsertN_12, append-overlap arm - the remainder
  *             n - (_Mylast - _Where)/0x12 at the old _Mylast
  *
  * REGISTER ARGUMENTS RECOVERED (2026-10-30). ECX = count (param_1), EDX

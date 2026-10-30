@@ -10,7 +10,7 @@
  * over a RANGE despite the family's FillN name, which this tree uses for
  * this slot; the suffix is the element size.
  *
- * The slot is fixed by its one caller, FUN_00502b70 (the 0x12 vector's
+ * The slot is fixed by its one caller, Vector_InsertN_12 (the 0x12 vector's
  * _Insert_n, max_size 0xe38e38e), which calls it at 0x502dfa as the
  * shared tail of the append-overlap and shift arms - the same
  * `fill(_Where, ..., _Tmp)` that ends Vector_InsertN_1e and

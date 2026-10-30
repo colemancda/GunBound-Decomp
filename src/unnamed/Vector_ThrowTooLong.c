@@ -13,7 +13,7 @@
  * Confirmed from outside: all four call sites that reach it
  * (Vector_InsertN_8.c, Vector_InsertN_1e.c, Vector_InsertN_34.c - already-
  * named instantiations of the same vector-insert template, one per node
- * stride - plus the still-unnamed FUN_00502b70.c, stride 0x12) guard the
+ * stride - plus Vector_InsertN_12.c, stride 0x12) guard the
  * call with `<capacity bound> - <current size> < <count>` (the bound
  * itself varies per instantiation - 0x1fffffff, 0x8888888, 0x4ec4ec4,
  * 0xe38e38e - exactly max_size() for that element stride), exactly

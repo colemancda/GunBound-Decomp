@@ -13,7 +13,7 @@
  * word (the allocator) at every call site.
  *
  * The element shapes come from outside. All four calls sit in
- * FUN_00502b70, the 0x12 vector's _Insert_n (max_size 0xe38e38e =
+ * Vector_InsertN_12, the 0x12 vector's _Insert_n (max_size 0xe38e38e =
  * 0xffffffff / 0x12, the Vector_Size_12 call at 0x502c74), in exactly
  * the slots the _34/_1e _Insert_n give their UninitCopy: the realloc
  * arm's head copy into the new operator_new block (0x502ca0) and tail
@@ -26,8 +26,9 @@
  * CopyNameField_12 before pushing them onto this vector (this+0x17ac).
  *
  * The 2026-09-20 note below predates the name and is kept verbatim;
- * its FUN_00504550 is this function, FUN_00502b70 the _Insert_n and
- * FUN_00504110 Vector_UninitFillN_12.
+ * its FUN_00504550 is this function, FUN_00502b70 is Vector_InsertN_12
+ * (the _Insert_n, file now src/unnamed/Vector_InsertN_12.c) and
+ * FUN_00504110 is Vector_UninitFillN_12.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20). Element-wise array-copy helper for a
  * container of 0x12-byte (18-byte) elements (element layout: a length byte

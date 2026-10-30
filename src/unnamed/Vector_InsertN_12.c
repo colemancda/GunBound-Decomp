@@ -1,17 +1,45 @@
-/* FUN_00502b70 - 0x00502b70 in the original binary.
+/* Vector_InsertN_12 - 0x00502b70 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
- * DROPPED-ARGUMENT FIX (2026-09-20): the 4 Vector_UninitCopy_12() calls here were
- * missing its dest argument (see Vector_UninitCopy_12.c's header) and, in two
+ * NAMED 2026-10-30, CERTAIN (was FUN_00502b70).  VC7.1's private
+ * vector<T>::_Insert_n(_Where, _Count, _Val) for the 0x12-byte element,
+ * the stride-0x12 sibling of Vector_InsertN_34 (0x502e20),
+ * Vector_InsertN_8 (0x503130) and Vector_InsertN_1e (0x5033e0), arm for
+ * arm:
+ *   0x502b8f  copy the by-value element into the local _Tmp at
+ *             [ebp-0x28] (the counted name copy, length byte at +0x11)
+ *   0x502c01  max_size() - size() < _Count -> Vector_ThrowTooLong, with
+ *             max_size 0xe38e38e = 0xffffffff / 0x12
+ *   0x502c39  1.5x regrow, Vector_Size_12 at 0x502c74 for the
+ *             size() + _Count floor, operator_new(cap * 0x12)
+ *   realloc   Vector_UninitCopy_12 head, Vector_UninitFillN_12 gap,
+ *             Vector_UninitCopy_12 tail, _free the old block
+ *   0x502d69  append-overlap: Vector_UninitCopy_12 the tail up,
+ *             Vector_UninitFillN_12 the remainder, then fill
+ *   0x502dc3  shift: Vector_UninitCopy_12 the last n up,
+ *             Vector_CopyBackward_12, then fill
+ *   0x502dfa  Vector_FillN_12(_Where, end, _Tmp)
+ * Calling convention as compiled (whole-program, not the _34 one): ECX =
+ * the element, stack = vector, _Where, _Count, `ret 0xc`. Its one caller
+ * FUN_005029b0, the one-element insert, sets `mov ecx,[esp+0x18]` and
+ * pushes 1, the position and the vector - insert()'s `_Insert_n(_Where,
+ * 1, _Val)` - and is itself reached from the push_back FUN_00502750.
+ *
+ * The two 2026-09-20 notes below predate the name and are kept
+ * verbatim: their FUN_00504550 is Vector_UninitCopy_12, and their
+ * FUN_005029b0 is this vector's one-element insert.
+ *
+ * DROPPED-ARGUMENT FIX (2026-09-20): the 4 FUN_00504550() calls here were
+ * missing its dest argument (see FUN_00504550.c's header) and, in two
  * cases, were passing the wrong begin/end operand entirely because the
  * `iVar3` local is recycled across this function for several unrelated
  * SSA values - the first call's true begin operand is a fresh
  * `*(param_2 + 4)` reread, not the (by-then-stale) `iVar3` C variable.
  * Reconstructed per-site from a capstone disassembly of 0x502b70..0x502e10
- * against the original binary; see Vector_UninitCopy_12.c for the ABI evidence.
+ * against the original binary; see FUN_00504550.c for the ABI evidence.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20, own callers): __thiscall with 4 real
  * params (ECX=`this` + ret 0xc = 3 stack dwords, disasm 0x502b70-
@@ -29,7 +57,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint param_4)
+void __thiscall Vector_InsertN_12(undefined4 *param_1,int param_2,int param_3,uint param_4)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
