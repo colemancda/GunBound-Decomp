@@ -17,7 +17,7 @@ void RadioGroup_RefreshEnableStates(int param_1)
   
   iVar3 = 0;
   do {
-    uVar1 = Widget_FindChildIndex();
+    uVar1 = Widget_FindChildIndex(param_1,iVar3,1);
     if (uVar1 != 0xffffffff) {
       if (((*(char *)(param_1 + 0x91) == '\0') && (unaff_BL != '\0')) && (iVar3 != 1)) {
         uVar2 = 1;

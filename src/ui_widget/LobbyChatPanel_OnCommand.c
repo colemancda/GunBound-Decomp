@@ -22,9 +22,10 @@
  * FIXED (2026-10-30): the Widget_OnCommandDefault call now passes `this`
  * (ECX = ebp = this at 0x50788c).
  *
- * Noted, not fixed: Widget_FindChildIndex is
- * called with none of its register arguments (open tree-wide, see
- * TextEntry_SetControlText.c). Panel.cpp declares no
+ * FIXED (2026-10-30): Widget_FindChildIndex gets ECX = ebp = this,
+ * ESI = 0, EDI = 2 (0x5076d9-0x5076e2).
+ *
+ * Noted, not fixed: Panel.cpp declares no
  * CLobbyChatPanel::OnCommand, so the C++ build never reaches this body.
  */
 #include "ghidra_types.h"
@@ -67,7 +68,7 @@ void __thiscall LobbyChatPanel_OnCommand(int param_1,int param_2,uint param_3,un
     }
   }
   else if (param_2 == 0x1000) {
-    uVar6 = Widget_FindChildIndex();
+    uVar6 = Widget_FindChildIndex(param_1,0,2);
     if (uVar6 != 0xffffffff) {
       cVar3 = PacketChecksumNotEquals(g_clientContext + 0x449c4,1);
       if (cVar3 != '\0') {

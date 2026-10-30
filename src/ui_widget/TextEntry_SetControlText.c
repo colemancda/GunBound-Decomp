@@ -45,10 +45,9 @@
  * `mov ecx,[esp+0x10]` at 0x508b74 landing on the SEH fs:[0] slot the
  * epilogue restores from.
  *
- * Still open next door: Widget_FindChildIndex (0x50e620) takes its
- * container in ECX and two more values in ESI and EDI (0 and 2 at this
- * site), and all 25 of its call sites are argless. Left alone here
- * rather than half-filled.
+ * Widget_FindChildIndex (0x50e620) takes its container in ECX and the
+ * id/type in ESI/EDI; its 25 C call sites pass all three since
+ * 2026-10-30.
  */
 #include "ghidra_types.h"
 

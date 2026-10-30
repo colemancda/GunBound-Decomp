@@ -78,7 +78,7 @@ joined_r0x00507384:
       goto LAB_00507427;
     }
   }
-  iVar4 = Widget_FindChildIndex();
+  iVar4 = Widget_FindChildIndex(*piVar1,0,2);
   if (iVar4 != -1) {
     /* DROPPED-REG FIX 2026-08-28: FUN_005056c0's EBX is the widget this
        function's list walk just found - `mov ebx,[ecx+8]` at 0x507388,

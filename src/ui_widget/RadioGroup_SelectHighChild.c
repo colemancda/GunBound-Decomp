@@ -16,7 +16,7 @@ void RadioGroup_SelectHighChild(int param_1)
   
   iVar2 = 4;
   do {
-    uVar1 = Widget_FindChildIndex();
+    uVar1 = Widget_FindChildIndex(unaff_EBX,iVar2,1);
     if (uVar1 != 0xffffffff) {
       if (*(uint *)(unaff_EBX + 0x10) <= uVar1) {
                     /* WARNING: Subroutine does not return */

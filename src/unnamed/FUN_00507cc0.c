@@ -25,7 +25,7 @@ void FUN_00507cc0(undefined4 param_1,int param_2,int regEbx)
   
   iVar3 = 0;
   while( true ) {
-    uVar2 = Widget_FindChildIndex();
+    uVar2 = Widget_FindChildIndex(regEbx,iVar3,1);
     if ((*(uint *)(regEbx + 0x10) <= uVar2) ||
        (*(bool *)(*(int *)(*(int *)(regEbx + 0xc) + uVar2 * 4) + 0x3a) = param_2 == iVar3,
        *(uint *)(regEbx + 0x10) <= uVar2)) break;

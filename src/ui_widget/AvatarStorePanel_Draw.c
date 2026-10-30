@@ -34,9 +34,9 @@
  *     now dispatched as __fastcall(this) (the
  *     TickActiveObjectRegistry.c idiom).
  *
- * Noted, not fixed: Widget_FindChildIndex is still called with none of
- * its register arguments - ECX = this (0x50a933), ESI = 0, EDI = 4
- * (the scrollbar type), open tree-wide per TextEntry_SetControlText.c.
+ * FIXED (2026-10-30): Widget_FindChildIndex now gets its register
+ * arguments - ECX = this (0x50a933), ESI = 0, EDI = 4 (the scrollbar
+ * type).
  * Panel.cpp declares no CAvatarStorePanel::Draw.
  */
 #include "ghidra_types.h"
@@ -61,7 +61,7 @@ void __fastcall AvatarStorePanel_Draw(int param_1)
     if (*(int *)(param_1 + 0x2c) + 0x156 < (int)g_cursorAnchorY) {
       dir = 1;
     }
-    uVar1 = Widget_FindChildIndex();
+    uVar1 = Widget_FindChildIndex(param_1,0,4);
     if (uVar1 != 0xffffffff) {
       if (*(uint *)(param_1 + 0x10) <= uVar1) goto LAB_0050a945;
       /* 0x50a94f-0x50a957: ECX = dir (EBP), EDX = the found child */

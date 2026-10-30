@@ -28,7 +28,7 @@ undefined4 EnterRoomNumberDialog_SubmitRoomNumber(undefined4 *param_1)
   int *piVar8;
   int iVar9;
   
-  uVar3 = Widget_FindChildIndex();
+  uVar3 = Widget_FindChildIndex((int)param_1,0,2);
   if (uVar3 != 0xffffffff) {
     if ((uint)param_1[4] <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -44,7 +44,7 @@ undefined4 EnterRoomNumberDialog_SubmitRoomNumber(undefined4 *param_1)
     }
     AssignStringBuffer(param_1 + 0x14,pcVar7);
   }
-  uVar3 = Widget_FindChildIndex();
+  uVar3 = Widget_FindChildIndex((int)param_1,1,2);
   if (uVar3 != 0xffffffff) {
     if ((uint)param_1[4] <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -76,7 +76,7 @@ undefined4 EnterRoomNumberDialog_SubmitRoomNumber(undefined4 *param_1)
   }
   if (*(int *)(param_1[0x14] + -0xc) == 0) {
 LAB_00506add:
-    uVar3 = Widget_FindChildIndex();
+    uVar3 = Widget_FindChildIndex((int)param_1,0,2);
     if (uVar3 != 0xffffffff) {
       if ((uint)param_1[4] <= uVar3) {
                     /* WARNING: Subroutine does not return */

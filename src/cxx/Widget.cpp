@@ -276,9 +276,10 @@ void CWidget::SetEnabled(bool enabled)
     }
 }
 
-/* 0x50e620. Index of the child matching (typeId, id); child count when
- * absent. The focus mover calls it with typeId 2 (text-entry) and the
- * id of the child that sent the focus event. */
+/* 0x50e620. Index of the child matching (typeId, id); -1 when absent
+ * (`or eax,0xffffffff` at 0x50e655 - every raw C caller tests the result
+ * against 0xffffffff). The focus mover calls it with typeId 2
+ * (text-entry) and the id of the child that sent the focus event. */
 int CWidget::FindChildIndex(int typeId, int id)
 {
     unsigned int count = (unsigned int)m_children.GetCount();
@@ -287,7 +288,7 @@ int CWidget::FindChildIndex(int typeId, int id)
             return (int)i;
         }
     }
-    return (int)count;
+    return -1;
 }
 
 /* 0x50eb10, vtable slot 7 - the leaf/base OnCommand default: the focus
@@ -462,12 +463,11 @@ void CWidget::v10(bool b)
  * directly (or been promoted to C++ itself) - tracked as follow-up work,
  * not done in this pass. See src/cxx/PLAN.md.
  *
- * A few of these (AddChild, FindChildIndex) forward arguments that the
- * ORIGINAL binary passes in registers the raw C decompile never resolved
- * (Ghidra's own `unaff_EBX`/`unaff_EDI`/`unaff_ESI` artifacts - see the
- * deleted raw files' own comments, preserved in git history). Rather than
- * change every existing caller, each shim below captures that same
- * register at function entry via inline asm, exactly replicating what the
+ * AddChild forwards an argument that the ORIGINAL binary passes in a
+ * register the raw C decompile never resolved (Ghidra's own `unaff_EBX`
+ * artifact - see the deleted raw file's own comment, preserved in git
+ * history). Rather than change every existing caller, its shim below
+ * captures that register at function entry via inline asm, exactly replicating what the
  * callers already implicitly relied on - not a new assumption, just made
  * explicit. Verified via disassembly that the capture is the very first
  * instruction, before anything else can clobber the register.
@@ -510,17 +510,16 @@ void Widget_AddChild(CWidget *child)
     self->AddChild(child);
 }
 
-/* `typeId`/`id` arrive in EDI/ESI in the original (Widget_FindChildIndex.c's
- * own `unaff_EDI`/`unaff_ESI`). Captured here rather than changed at each
- * of its ~13 call sites. */
-unsigned int Widget_FindChildIndex(CWidget *this_)
+/* 0x50e620 takes `this` in ECX, the child id in ESI (compared with
+ * child+0x24 at 0x50e64b) and the type id in EDI (compared with
+ * child+0x20 at 0x50e63b), and returns with a bare `ret`. The raw C
+ * callers now pass all three explicitly - `this` first, then the two
+ * registers as trailing parameters. The old inline-asm capture of ESI/EDI
+ * read whatever the MSVC-compiled caller had left there, and the callers
+ * passed no `this` at all. */
+unsigned int Widget_FindChildIndex(CWidget *this_, int regEsi, int regEdi)
 {
-    int typeId, id;
-    __asm {
-        mov typeId, edi
-        mov id, esi
-    }
-    return (unsigned int)this_->FindChildIndex(typeId, id);
+    return (unsigned int)this_->FindChildIndex(regEdi, regEsi);
 }
 
 } // extern "C"

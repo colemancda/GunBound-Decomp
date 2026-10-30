@@ -15,7 +15,7 @@ void Widget_SetChildRange(int param_1,undefined4 param_2)
   uint uVar2;
   int unaff_EBX;
   
-  uVar2 = Widget_FindChildIndex();
+  uVar2 = Widget_FindChildIndex(unaff_EBX,0,4);
   if (uVar2 != 0xffffffff) {
     if (*(uint *)(unaff_EBX + 0x10) <= uVar2) {
                     /* WARNING: Subroutine does not return */

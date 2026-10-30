@@ -838,11 +838,11 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
         SetRegistryButtonState(s_disable_00551e68);
         InvokeWidget(2, 0);
         int t = FindChildIndex(1, 0);
-        if (t != m_children.GetCount()) {
+        if (t != -1) {  /* cmp eax,-1 at 0x50da50/0x50da7b */
             ((CLabel *)m_children[(unsigned int)t])->m_tabSelected = 1;
         }
         t = FindChildIndex(1, 1);
-        if (t != m_children.GetCount()) {
+        if (t != -1) {
             ((CLabel *)m_children[(unsigned int)t])->m_tabSelected = 0;
         }
     } else if (evt == 0 && id == 1) {
@@ -891,11 +891,11 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
         }
         InvokeWidget(2, enable);
         int t = FindChildIndex(1, 0);
-        if (t != m_children.GetCount()) {
+        if (t != -1) {
             ((CLabel *)m_children[(unsigned int)t])->m_tabSelected = 0;
         }
         t = FindChildIndex(1, 1);
-        if (t != m_children.GetCount()) {
+        if (t != -1) {
             ((CLabel *)m_children[(unsigned int)t])->m_tabSelected = 1;
         }
     }

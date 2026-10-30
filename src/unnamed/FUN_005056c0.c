@@ -24,9 +24,8 @@
  * preceding list walk found - `mov ebx,[ecx+8]` at 0x507388, which is
  * that function's own `*piVar1`.
  *
- * Widget_FindChildIndex's own arguments stay dropped: its ECX is this
- * EBX, and it also reads ESI and EDI (0 and 2 here), but all 25 of its
- * call sites are argless and it needs its own pass.
+ * Widget_FindChildIndex gets ECX = this EBX, ESI = 0 and EDI = 2
+ * (0x5056c2-0x5056c9), recovered 2026-10-30.
  */
 #include "ghidra_types.h"
 
@@ -37,7 +36,7 @@ void FUN_005056c0(char *param_1,int regEbx)
   uint uVar1;
   int unaff_EBX = regEbx;
   
-  uVar1 = Widget_FindChildIndex();
+  uVar1 = Widget_FindChildIndex(unaff_EBX,0,2);
   if (uVar1 != 0xffffffff) {
     if (*(uint *)(unaff_EBX + 0x10) <= uVar1) {
                     /* WARNING: Subroutine does not return */

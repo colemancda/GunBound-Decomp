@@ -142,7 +142,7 @@ void __fastcall AppendChatLogPanelLine(int param_1,char *param_2,char *param_3,u
     *(int *)(param_1 + 0x1048) = *(int *)(param_1 + 0x1048) + iVar4;
   }
   Widget_SetChildRange(iVar5,0xe);
-  uVar7 = Widget_FindChildIndex();
+  uVar7 = Widget_FindChildIndex(param_1,0,4);
   if (uVar7 != 0xffffffff) {
     if (*(uint *)(param_1 + 0x10) <= uVar7) {
                     /* WARNING: Subroutine does not return */

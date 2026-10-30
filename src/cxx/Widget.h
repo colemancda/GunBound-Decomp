@@ -71,9 +71,9 @@ public:
                                            * arriving in EBX (custom-register family). */
     void SetEnabled(bool enabled);        /* 0x50e7d0 - promoted, Widget.cpp: recursive; clears the
                                            * +0x04 active flag when disabling */
-    int FindChildIndex(int typeId, int id); /* 0x50e620 - promoted, Widget.cpp. NOTE: Ghidra shows
-                                             * the args arriving in EDI/ESI (custom-register family);
-                                             * returns child count when not found. */
+    int FindChildIndex(int typeId, int id); /* 0x50e620 - promoted, Widget.cpp. NOTE: the original takes
+                                             * typeId in EDI, id in ESI (custom-register family);
+                                             * returns -1 when not found. */
     bool MouseDownChildren(int x, int y); /* 0x50e8e0 - promoted, Widget.cpp */
     bool MouseUpChildren(int x, int y);   /* 0x50e950 - promoted, Widget.cpp */
 

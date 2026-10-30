@@ -9,9 +9,10 @@
  * derivation). Confirmed via objdump (orig 0x50cf3d-0x50cf45 and
  * 0x50cfa7-0x50cfaf, both call sites the same shape): `this`=param_1,
  * `child`=`*(void**)(param_1[3] + index*4)` where index is the same
- * `uVar3` this file's own (still not itself fixed - separate,
- * pre-existing dropped-arg gap in Widget_FindChildIndex, out of scope
- * here) call just computed.
+ * `uVar3` this file's own Widget_FindChildIndex call just computed.
+ * Those four calls take ECX = EBP = param_1 and (ESI id, EDI 1): (3,1)
+ * then (0,1) on the je path at 0x50cf8e/0x50cfbd, (0,1) then (3,1) at
+ * 0x50cf24/0x50cf56; recovered 2026-10-30.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at all 3 argless Peeks.  This is ANOTHER store-catalog reader:
@@ -50,7 +51,7 @@ void RefreshConnectionStatusLabel(int param_1)
     uVar3 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(puVar1 + 0x454) + iVar2) * 0x450 + 0x22c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if ((uVar3 & 0xe0000000) == 0) {
-      uVar3 = Widget_FindChildIndex();
+      uVar3 = Widget_FindChildIndex(param_1,3,1);
       if (uVar3 != 0xffffffff) {
         if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -59,14 +60,14 @@ void RefreshConnectionStatusLabel(int param_1)
         Widget_RemoveChild((int *)param_1,
                            *(void **)(*(int *)(param_1 + 0xc) + uVar3 * 4));
       }
-      iVar2 = Widget_FindChildIndex();
+      iVar2 = Widget_FindChildIndex(param_1,0,1);
       if (iVar2 == -1) {
         uVar4 = CreateLabelWidget(0,0x4b0,0xe,0x1fc,0x40,0x17);
         Widget_AddChild(uVar4);
       }
     }
     else {
-      uVar3 = Widget_FindChildIndex();
+      uVar3 = Widget_FindChildIndex(param_1,0,1);
       if (uVar3 != 0xffffffff) {
         if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -75,7 +76,7 @@ void RefreshConnectionStatusLabel(int param_1)
         Widget_RemoveChild((int *)param_1,
                            *(void **)(*(int *)(param_1 + 0xc) + uVar3 * 4));
       }
-      iVar2 = Widget_FindChildIndex();
+      iVar2 = Widget_FindChildIndex(param_1,3,1);
       if (iVar2 == -1) {
         uVar4 = CreateLabelWidget(3,0x4b3,0xe,0x1fc,0x40,0x17);
         Widget_AddChild(uVar4);

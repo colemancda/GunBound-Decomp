@@ -27,7 +27,7 @@ undefined4 CreateRoomDialog_SubmitCreateRoom(undefined4 *param_1)
   char *pcVar4;
   char *pcVar5;
   
-  uVar3 = Widget_FindChildIndex();
+  uVar3 = Widget_FindChildIndex((int)param_1,0,2);
   if (uVar3 != 0xffffffff) {
     if ((uint)param_1[4] <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -43,7 +43,7 @@ undefined4 CreateRoomDialog_SubmitCreateRoom(undefined4 *param_1)
     }
     AssignStringBuffer(param_1 + 0x14,pcVar5);
   }
-  uVar3 = Widget_FindChildIndex();
+  uVar3 = Widget_FindChildIndex((int)param_1,1,2);
   if (uVar3 != 0xffffffff) {
     if ((uint)param_1[4] <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -60,7 +60,7 @@ undefined4 CreateRoomDialog_SubmitCreateRoom(undefined4 *param_1)
     AssignStringBuffer(param_1 + 0x15,pcVar5);
   }
   if (*(int *)(param_1[0x14] + -0xc) == 0) {
-    uVar3 = Widget_FindChildIndex();
+    uVar3 = Widget_FindChildIndex((int)param_1,0,2);
     if (uVar3 != 0xffffffff) {
       if ((uint)param_1[4] <= uVar3) {
                     /* WARNING: Subroutine does not return */

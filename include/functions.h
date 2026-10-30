@@ -1735,7 +1735,7 @@ int ScrollListWidget_ThumbHeight();
 void __fastcall ScrollListWidget_DrawThumb();
 undefined4 __thiscall Widget_OnMouseUp();
 void __fastcall WidgetChildArray_Destroy(undefined4 *param_1);
-uint __fastcall Widget_FindChildIndex();
+uint Widget_FindChildIndex(int this_,int regEsi,int regEdi);
 void Widget_AddChild();
 void Widget_RemoveChild(int *thisArray,void *child);
 void __thiscall Widget_MoveBy();
