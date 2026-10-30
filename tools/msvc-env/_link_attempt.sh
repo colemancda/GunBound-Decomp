@@ -20,8 +20,10 @@ mkdir -p "$OUT"
 # main tree (lzhuf included - DecodeLZHUFBlock/InitLZHUFTree are referenced)
 mapfile -t FILES < <(find src -name '*.c' ! -path 'src/unnamed/msvc_crt_atl/*' ! -name 'test_lzhuf.c' ! -name 'crt_shims_c.c' | sort)
 # C++ reconstruction layer. crt_shims.cpp stays out: it duplicates the
-# CRT forwards crt_shims_msvc.c already provides for this link.
-mapfile -t -O "${#FILES[@]}" FILES < <(find src/cxx -name '*.cpp' ! -name 'crt_shims.cpp' | sort)
+# CRT forwards crt_shims_msvc.c already provides for this link. The search
+# covers all of src, not just src/cxx: six ports outside it (the Avatar
+# Store mouse slots in src/unnamed among them) are .cpp too.
+mapfile -t -O "${#FILES[@]}" FILES < <(find src -name '*.cpp' ! -name 'crt_shims.cpp' | sort)
 # the CRT/ATL helpers the main code needs that DO compile clean
 for extra in FUN_00520380 FUN_005204f0 FUN_00525ea0 FUN_00525f26 FUN_00525fac \
              FUN_00527cb4 FUN_00527f34 FUN_00527ff4 FloatToInt64 FUN_005375c0; do
