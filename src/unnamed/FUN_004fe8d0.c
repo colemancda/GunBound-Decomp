@@ -39,6 +39,19 @@
  * ESI = `mov esi,[esp+0xc8]` (0x4fe8ee) - the first stack argument, i.e.
  * param_2, the same pointer the copy loop below reads via [ecx+esi] at
  * 0x4fe923.
+ *
+ * PROTOTYPE ADDED, `this` RESTORED AT 3 CALLERS (2026-10-29): there was no
+ * functions.h prototype, so three of the four callers compiled with five
+ * arguments and dropped ECX (this function's param_1; `mov ebx,ecx` at
+ * 0x4fe8fa).  callsite_regs.py on 0x4fe8d0:
+ *   0x4fe380 (FUN_004fe110): `mov ecx,ebx` (0x4fe37e), EBX = [ebp+8] = that
+ *     function's param_2;
+ *   0x4ff968 (FUN_004ff770): `mov ecx,ebp` (0x4ff966), EBP = its param_1;
+ *   0x503a2e (FUN_00503a10): `mov ecx,edi` (0x503a2c) = its regEdi;
+ *   0x5039f7 (FUN_005039a0): `mov ecx,edi`, already passed as regEdi.
+ * In every case the ECX value is also the map pushed to the neighbouring
+ * FindP2PPeerRecord call (witness).  Declared here as the erased-__thiscall
+ * cdecl shape (this first), matching the definition.
  */
 #include "ghidra_types.h"
 

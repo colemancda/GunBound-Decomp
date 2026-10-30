@@ -11,6 +11,13 @@
  * id + NUL (local_3188..local_3178) copied out of the packet just before.
  * Witness: FUN_004fe8d0 at 0x4ff968 is handed the same slot (`lea
  * ecx,[esp+0x28]` with four pushes pending), ported as &local_3188.
+ *
+ * FUN_004fe8d0 `this` RECOVERED (2026-10-29): the call at 0x4ff968 dropped
+ * ECX = `mov ecx,ebp` (0x4ff966), EBP = `mov ebp,[esp+0x3198]` (0x4ff7ac,
+ * one push after the 0x3190 frame) = the first argument, param_1 - the same
+ * EBP pushed as FindP2PPeerRecord's map at 0x4ff925/0x4ff972.  The other
+ * five arguments were already right: the id (&local_3188), then sin_addr
+ * ([esp+0x30] = sa_data+2) and the port ([esp+0x2e] = sa_data+0) twice.
  */
 #include "ghidra_types.h"
 
@@ -120,7 +127,7 @@ void FUN_004ff770(int *param_1,int param_2)
       local_3178 = 0;
       cVar2 = FindP2PPeerRecord((undefined4)param_1,(int *)&local_3190,(char *)&local_3188);
       if (cVar2 == '\0') {
-        FUN_004fe8d0(&local_3188,CONCAT22(SUBFIELD(local_3174.sa_data,4,undefined2),SUBFIELD(local_3174.sa_data,2,undefined2)),
+        FUN_004fe8d0((undefined4 *)param_1,(int)&local_3188,CONCAT22(SUBFIELD(local_3174.sa_data,4,undefined2),SUBFIELD(local_3174.sa_data,2,undefined2)),
                      CONCAT22(SUBFIELD(local_3174.sa_data,2,undefined2),SUBFIELD(local_3174.sa_data,0,undefined2)),
                      CONCAT22(SUBFIELD(local_3174.sa_data,4,undefined2),SUBFIELD(local_3174.sa_data,2,undefined2)),
                      CONCAT22(SUBFIELD(local_3174.sa_data,2,undefined2),SUBFIELD(local_3174.sa_data,0,undefined2)));

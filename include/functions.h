@@ -1514,6 +1514,7 @@ int ConnectToHostPort(undefined4 param_1,u_short param_2,int regEbx); /* narrow 
 void __fastcall CommEngineCloseConnection(undefined4 param_1,int *param_2,int *regEax);
 LRESULT __stdcall CommEngineNotifyWndProc(HWND, UINT, WPARAM, uint);
 undefined4 FindP2PPeerRecord(undefined4 param_1,int *param_2,char *regEsi);
+void __thiscall FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param_5,short param_6);
 bool __thiscall FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 param_5);
 LRESULT __stdcall FUN_004fecb0(HWND, UINT, WPARAM, uint);
 int IntMap_SetAt_1768(int *param_1,undefined1 *param_2,undefined4 regEax);
@@ -1609,7 +1610,7 @@ undefined4 __fastcall GetConnectionSocketIfListed(undefined4 *param_1,int regEax
 undefined4 __thiscall GetConnectionLocalAddressIfListed(undefined4 *param_1,char *param_2,char *param_3,int regEax);
 void FUN_005039a0(int param_1,undefined4 param_2,int *param_3,undefined4 regEax,undefined4 regEdi,undefined4 regEbx);
 void FUN_00503a10(undefined4 regEax,undefined4 regEdi);
-void FUN_00503a50();
+void FUN_00503a50(undefined4 *param_1,int param_2);
 void FUN_00503bb0(int regEbx);
 undefined4 __thiscall FUN_00503c40();
 void CopyNameField_e(int regEsi,int regEdi);

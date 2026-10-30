@@ -620,7 +620,10 @@ LAB_00501b17:
             param_1 = local_497c;
           }
           else {
-            FUN_00503a50(local_4970,&local_496c);
+            /* FUN_00503a50 PROTOTYPED (2026-10-29), orig 0x50241c: pushes
+             * eax = `lea eax,[esp+0x24]` (&local_496c, the id) then
+             * ecx = [esp+0x20] (local_4970); args already right, cast only. */
+            FUN_00503a50(local_4970,(int)&local_496c);
             FUN_004fdc50((int)(local_48ba + 0x1c),(int)&local_496c);
             /* RECOVERED (2026-10-29), orig 0x50243e: EDX = `lea edx,[esp+0xf2]`
              * (0x502437) - the same slot FUN_004fdc50 just filled from EAX at

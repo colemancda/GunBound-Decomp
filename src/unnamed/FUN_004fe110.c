@@ -33,6 +33,13 @@
  * 0x4fe3a0, all after the calls); witness: the same ESI is pushed as the
  * [edx+4] virtual's argument at 0x4fe148 and as FUN_004fe8d0's id at
  * 0x4fe37d, both ported as param_3.
+ *
+ * FUN_004fe8d0 `this` RECOVERED (2026-10-29): the call at 0x4fe380 dropped
+ * ECX = `mov ecx,ebx` (0x4fe37e), EBX = `mov ebx,[ebp+8]` (0x4fe131) = the
+ * first stack argument, param_2 - the same EBX pushed as FindP2PPeerRecord's
+ * map at 0x4fe13c and used as the [edx+4] virtual's `this` at 0x4fe149.
+ * The id push at 0x4fe37d is ESI = param_3 and four zero pushes follow, so
+ * the call is now (param_2, param_3, 0, 0, 0, 0).
  */
 #include "ghidra_types.h"
 
@@ -82,7 +89,7 @@ FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 para
       }
       cVar2 = FindP2PPeerRecord((undefined4)param_2,(int *)&local_2ecc,(char *)param_3);
       if (cVar2 == '\0') {
-        FUN_004fe8d0(param_3,0,0,0,0);
+        FUN_004fe8d0((undefined4 *)param_2,(int)param_3,0,0,0,0);
         cVar2 = FindP2PPeerRecord((undefined4)param_2,(int *)&local_2ecc,(char *)param_3);
         if (cVar2 == '\0') {
           return 0;

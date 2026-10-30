@@ -13,6 +13,11 @@
  * 0x503a39) dropped ESI = `mov esi,eax` (0x503a12) = regEax, preserved
  * across FUN_004fe8d0 (which saves/restores ESI); witness: the same ESI
  * is pushed as FUN_004fe8d0's id at 0x503a2b, ported as regEax.
+ *
+ * FUN_004fe8d0 `this` RECOVERED (2026-10-29): the call at 0x503a2e dropped
+ * ECX = `mov ecx,edi` (0x503a2c) = regEdi, the same EDI pushed as
+ * FindP2PPeerRecord's map at 0x503a19.  Pushes are ESI (= regEax, the id)
+ * then four zeros, so the call is now (regEdi, regEax, 0, 0, 0, 0).
  */
 #include "ghidra_types.h"
 
@@ -25,7 +30,7 @@ void FUN_00503a10(undefined4 regEax,undefined4 regEdi)
   
   cVar1 = FindP2PPeerRecord(regEdi,&local_4,(char *)regEax);
   if (cVar1 == '\0') {
-    FUN_004fe8d0(regEax,0,0,0,0);
+    FUN_004fe8d0((undefined4 *)regEdi,(int)regEax,0,0,0,0);
     cVar1 = FindP2PPeerRecord(regEdi,&local_4,(char *)regEax);
     if (cVar1 != '\0') {
       *(undefined1 *)(local_4 + 0x1c) = 1;

@@ -9,6 +9,10 @@
  * entry ECX, and the caller's OWN source, which computes the same value into
  * a local on the line directly above the call:
  * `local_4970 = (undefined4 *)(param_1 + -0x2c8)`.
+ *
+ * FUN_00503a50 PROTOTYPED (2026-10-29): the call at 0x503c2c pushes EBP
+ * (the id, iVar3) then EBX (regEbx, the engine object), matching the
+ * callee's two stack arguments (`ret 8` at 0x503b97); only a cast added.
  */
 #include "ghidra_types.h"
 
@@ -53,7 +57,7 @@ joined_r0x00503be3:
         }
       } while (iVar5 == 0);
     }
-    FUN_00503a50(regEbx,iVar3);
+    FUN_00503a50((undefined4 *)regEbx,iVar3);
     iVar3 = iVar5;
   } while( true );
 }

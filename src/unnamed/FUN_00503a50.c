@@ -12,6 +12,13 @@
  * ESI = `mov esi,ebx` (0x503a65) with EBX = `mov ebx,[esp+0x20]` (0x503a54)
  * = the second stack argument, param_2 - the same EBX the id copy loop
  * reads at 0x503b64 (ported off iVar7 = param_2).
+ *
+ * PROTOTYPE SETTLED (2026-10-29): two stack arguments and nothing else -
+ * `ret 8` at 0x503b97; EBX = [esp+0x20] (0x503a54) and EBP = [esp+0x20]
+ * after one more push (0x503a59) are both loaded from the stack, and ECX/
+ * EDX/EDI are written before any read.  Both binary callers (0x50241c in
+ * FUN_00501770, 0x503c2c in FUN_00503bb0) push exactly two dwords, so
+ * functions.h now declares (undefined4 *param_1, int param_2).
  */
 #include "ghidra_types.h"
 
