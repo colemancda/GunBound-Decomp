@@ -892,16 +892,6 @@ extern uint8_t DAT_00d9aa30;
 extern uint8_t DAT_00d9aa34;
 extern uint8_t DAT_00d9aa35;
 extern uint8_t DAT_00e525e8;
-extern int *DAT_00e52814; /* used dereferenced as a vtable-bearing ptr at call sites */
-extern uint32_t DAT_00e52838;
-extern uint32_t DAT_00e5283c;
-extern uint8_t DAT_00e52858;
-extern uint8_t DAT_00e52859;
-extern uint8_t DAT_00e5285a;
-extern uint8_t DAT_00e5285b;
-extern uint8_t DAT_00e52864;
-extern uint8_t DAT_00e52868;
-extern uint8_t DAT_00e52e68;
 /* The DirectInput mouse/cursor singleton at 0xe53698, COALESCED
  * (2026-09-01): one 0x5a8-byte object in globals_sized.c; the split-out
  * fields below are offset macros into it, so the constructor
@@ -918,7 +908,17 @@ extern uint8_t g_mouseDeviceTimerBlock[0x5a8];
 #define DAT_00e536e4 (*(uint8_t *)(g_mouseDeviceTimerBlock + 0x4c))
 #define _DAT_00e536e4 (*(uint32_t *)(g_mouseDeviceTimerBlock + 0x4c))
 #define DAT_00e536ec (*(uint8_t *)(g_mouseDeviceTimerBlock + 0x54))
-extern uint8_t g_keyboardDeviceTimerBlock[0x658];
+/* The DirectInput keyboard singleton at 0xe52810, COALESCED (2026-10-30):
+ * one 0xc5c-byte object. Layout from the ctor 0x4edd10 and the poll
+ * 0x4ede50: +0 vtable 0x55745c, +4 the IDirectInputDevice8, +8 its GUID,
+ * +0x28/+0x2c the fire-gesture axes (-1000/0/1000), +0x48..+0x4b the
+ * arrow scancodes, +0x4c the input ring, +0x50 the repeat delay,
+ * +0x54 acquired, +0x58 the 0x100-byte GetDeviceState buffer, +0x158
+ * the edge flags, +0x258 0x100 repeat timers, +0x658 the 0x100-byte
+ * key-binding table, +0x758 0x40 DIDEVICEOBJECTDATA records and +0xc58
+ * their count. The old split globals (DAT_00e52814/38/3c/58-5b/64/68,
+ * DAT_00e52e68) are gone; users address the fields. */
+extern uint8_t g_keyboardDeviceTimerBlock[0xc5c];
 extern uint8_t g_softwareCursorAnimBlock[0x38];
 #define DAT_00e53c24 (*(uint8_t *)(g_mouseDeviceTimerBlock + 0x58c))
 #define _DAT_00e53c24 (*(uint32_t *)(g_mouseDeviceTimerBlock + 0x58c))

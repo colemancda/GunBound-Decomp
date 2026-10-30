@@ -617,11 +617,14 @@ LAB_0040fd35:
     if (g_gameStateVTableArray[0xf] != (undefined *)0x0) {
       (*(code *)**(undefined4 **)g_gameStateVTableArray[0xf])(1);
     }
-    if (DAT_00e52814 != (int *)0x0) {
-      (**(code **)(*DAT_00e52814 + 0x20))(DAT_00e52814);
-      DAT_00e52864 = 0;
-      (**(code **)(*DAT_00e52814 + 8))(DAT_00e52814);
-      DAT_00e52814 = (int *)0x0;
+    /* 0x40fe0b-0x40fe2c: the keyboard singleton's (0xe52810) device
+     * interface at +4 is Unacquired (+0x20) and Released (+8), with the
+     * +0x54 acquired flag cleared in between - fields, not globals. */
+    if (*(int **)(g_keyboardDeviceTimerBlock + 4) != (int *)0x0) {
+      (**(code **)(**(int **)(g_keyboardDeviceTimerBlock + 4) + 0x20))(*(int **)(g_keyboardDeviceTimerBlock + 4));
+      g_keyboardDeviceTimerBlock[0x54] = 0;
+      (**(code **)(**(int **)(g_keyboardDeviceTimerBlock + 4) + 8))(*(int **)(g_keyboardDeviceTimerBlock + 4));
+      *(int **)(g_keyboardDeviceTimerBlock + 4) = (int *)0x0;
     }
     if (DAT_00e5369c != (int *)0x0) {
       (**(code **)(*DAT_00e5369c + 0x20))(DAT_00e5369c);

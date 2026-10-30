@@ -208,14 +208,15 @@ int  _rand(void);
 unsigned long timeGetTime2(void);   /* winmm timeGetTime; renamed to dodge the <mmsystem.h> proto */
 
 extern char g_chatInputActive;
-extern int  DAT_00e52838, DAT_00e5283c;   /* fire-gesture state (-1000 / 0 / 1000) */
+/* The DirectInput keyboard singleton at 0xe52810 (see globals.h). The
+ * fire-gesture state (-1000 / 0 / 1000) is its +0x28/+0x2c, the key-state
+ * buffer starts at +0x58 and the key-binding table at +0x658. */
+extern unsigned char g_keyboardDeviceTimerBlock[0xc5c];
 extern char DAT_007934c4;
 extern unsigned char DAT_006a6481;         /* ctx-indexed */
 extern unsigned char DAT_006a64a4, DAT_006a64a8, DAT_006a64ac; /* ctx bases */
 extern unsigned char DAT_005f2f40;         /* ctx-indexed */
 extern int  DAT_005b3438;                  /* _DAT_005b3438 */
-extern unsigned char DAT_00e52868;         /* indexed by DAT_00e52e68 */
-extern int  DAT_00e52e68;
 extern unsigned char DAT_00794bf0, DAT_00e9ba40; /* guard cells (address taken) */
 extern unsigned char DAT_00553bcc, DAT_00551cb1;
 extern unsigned char DAT_00e9aacd, DAT_00e9aace;
@@ -1078,7 +1079,7 @@ void CMobile::HandleFireInput()
     if (cVar9 != '\0' || (cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0x908), cVar9 == '\0') || g_chatInputActive == '\0')
         goto LAB_004619ff;
     bVar8 = false;
-    if (DAT_00e52838 == -1000) {
+    if (*(int *)(g_keyboardDeviceTimerBlock + 0x28) == -1000) {
         if (DAT_007934c4 == '\0') {
             cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0x8bb1);
             if (cVar9 == '\0') goto LAB_0045fdd7;
@@ -1167,7 +1168,7 @@ void CMobile::HandleFireInput()
     } else {
     LAB_0045fdd7:
         bVar7 = false; bVar6 = false; bVar5 = false;
-        if (DAT_00e52838 == 1000 && DAT_007934c4 == '\0' &&
+        if (*(int *)(g_keyboardDeviceTimerBlock + 0x28) == 1000 && DAT_007934c4 == '\0' &&
             (cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0x8bb1), cVar9 != '\0')) {
             cVar9 = PacketChecksumNotEquals(param_1 + 0x715, 1);
             if (cVar9 == '\0') {
@@ -1279,7 +1280,7 @@ void CMobile::HandleFireInput()
             }
         }
     }
-    if (DAT_00e52838 == 0 && DAT_007934c4 == '\0') {
+    if (*(int *)(g_keyboardDeviceTimerBlock + 0x28) == 0 && DAT_007934c4 == '\0') {
         iVar18 = param_1[9];
         if (iVar18 == 1 || iVar18 == 3 || iVar18 == 4) {
             uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x19d1, local_b40, 3);
@@ -1301,14 +1302,14 @@ void CMobile::HandleFireInput()
     if (cVar9 == '\x01' && (cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0x8bb1), cVar9 == '\x01') &&
         (cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0x8bbd), cVar9 == '\x01') &&
         (&DAT_006a6481)[g_clientContext] == '\0') {
-        if (DAT_00e5283c == -1000) {
+        if (*(int *)(g_keyboardDeviceTimerBlock + 0x2c) == -1000) {
             if (DAT_007934c4 != '\0') goto LAB_00460553;
             cVar9 = PacketChecksumGreaterThan(param_1 + 0x939, 0x5a);
             if (cVar9 == '\0') FUN_0040b030(param_1 + 0x1252);
             else EncodeDecrementedChecksum(param_1 + 0x1252);
             bVar5 = true;
         }
-        if (DAT_00e5283c == 1000 && DAT_007934c4 == '\0') {
+        if (*(int *)(g_keyboardDeviceTimerBlock + 0x2c) == 1000 && DAT_007934c4 == '\0') {
             cVar9 = PacketChecksumGreaterThan(param_1 + 0x939, 0x5a);
             if (cVar9 == '\0') EncodeDecrementedChecksum(param_1 + 0x1252);
             else FUN_0040b030(param_1 + 0x1252);
@@ -1473,7 +1474,7 @@ LAB_00460553:
         }
         *reinterpret_cast<unsigned char *>(g_sharedTextInputControl + 8) = 1;
     }
-    if (-1 < (char)(&DAT_00e52868)[DAT_00e52e68] ||
+    if (-1 < (char)g_keyboardDeviceTimerBlock[0x58 + g_keyboardDeviceTimerBlock[0x658]] ||
         (cVar9 = PacketChecksumNotEquals(reinterpret_cast<void *>(g_clientContext + 0x593b4), 0xffffffff), cVar9 != '\0')) {
         piVar19 = param_1 + 0x1e19;
         cVar9 = PacketChecksumNotEquals(piVar19, 0);
@@ -1655,7 +1656,7 @@ LAB_004613ad:
     if (DAT_005b3438 == 2) {
     LAB_004613b2:
         if (DAT_007934c4 != '\0') {
-            (&DAT_00e52868)[DAT_00e52e68] = 0;
+            g_keyboardDeviceTimerBlock[0x58 + g_keyboardDeviceTimerBlock[0x658]] = 0;
             EnterCriticalSection(&g_valueGuardLock);
             EncodeOutgoingPacketField((void *)(g_clientContext + 0x59190), 0xffffffff);
             LeaveCriticalSection(&g_valueGuardLock);
@@ -1675,7 +1676,7 @@ LAB_004613ad:
         *reinterpret_cast<int *>(&DAT_005f3768 + g_clientContext) != 1 &&
         *reinterpret_cast<int *>(&DAT_005f3768 + g_clientContext) != 2 &&
         bVar5 && DAT_007934c4 == '\0' &&
-        ((char)(&DAT_00e52868)[DAT_00e52e68] < '\0' ||
+        ((char)g_keyboardDeviceTimerBlock[0x58 + g_keyboardDeviceTimerBlock[0x658]] < '\0' ||
          ((cVar9 = PacketChecksumNotEquals(reinterpret_cast<void *>(g_clientContext + 0x59190), 0xffffffff), cVar9 != '\0') &&
           DAT_007934c4 == '\0'))) {
         QueueOutgoingPacketField(0xffffffff);

@@ -653,18 +653,9 @@ uint8_t DAT_00d9aa30;
 uint8_t DAT_00d9aa34;
 uint8_t DAT_00d9aa35;
 /* DAT_00e525e8: moved to globals_sized.c (0x224 CValueGuard cell). */
-int *DAT_00e52814;
-uint32_t DAT_00e52838;
-uint32_t DAT_00e5283c;
-uint8_t DAT_00e52858;
-uint8_t DAT_00e52859;
-uint8_t DAT_00e5285a;
-uint8_t DAT_00e5285b;
-/* DAT_00e5285c was keyboard +0x4c - InitGame stores into
- * g_keyboardDeviceTimerBlock + 0x4c directly now. */
-uint8_t DAT_00e52864;
-uint8_t DAT_00e52868;
-uint8_t DAT_00e52e68;
+/* DAT_00e52814/38/3c/58-5c/64/68 and DAT_00e52e68 were split fields of
+ * the keyboard singleton at 0xe52810 (+4, +0x28, +0x2c, +0x48..+0x4c,
+ * +0x54, +0x58, +0x658). Users address g_keyboardDeviceTimerBlock now. */
 /* DAT_00e5369c, g_cursorDeltaX/Y, DAT_00e536e4, DAT_00e536ec are fields
  * inside the coalesced g_mouseDeviceTimerBlock (offset macros in
  * globals.h; storage in globals_sized.c since 2026-09-01). */
@@ -689,8 +680,16 @@ uint8_t DAT_00e52e68;
  * 0x5a8: the full DirectInput mouse/cursor singleton, coalescing the
  * split fields around it; its constructor FUN_004ee120 now runs from
  * the startup hook. The KNOWN DIVERGENCE above is resolved for the
- * mouse object (keyboard/cursor-anim blocks unchanged). */
-uint8_t g_keyboardDeviceTimerBlock[0x658];
+ * mouse object, and (2026-10-30) for the keyboard object below; the
+ * cursor-anim block is unchanged. */
+/* Keyboard singleton, 0xe52810. 0xc5c is the proven extent: the poll
+ * 0x4ede50 reads its record count as [esi+0xc58] (0x4ede63/0x4edf65) and
+ * fills 0x40 x 0x14-byte records from +0x758 below it. The 4 bytes above,
+ * 0xe5346c, have no reference anywhere in the image, and 0xe53470 is the
+ * separate 0x224-byte CValueGuard cell DAT_00e53470 (WinMain guard slot 12,
+ * `mov edi,0xe53470` at 0x40da56/0x5410a3), so the object is not
+ * 0xe88 (the full gap to the mouse at 0xe53698). */
+uint8_t g_keyboardDeviceTimerBlock[0xc5c];
 uint8_t g_softwareCursorAnimBlock[0x38];
 /* DAT_00e53c24/28/2c/30 are the cursor-bound dwords at
  * g_mouseDeviceTimerBlock+0x58c..+0x598 - offset macros in globals.h. */

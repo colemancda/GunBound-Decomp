@@ -130,11 +130,15 @@ int InitGame(undefined4 param_1,undefined4 param_2)
         _DAT_00e53c28 = 799;
         _DAT_00e53c2c = 0;
         _DAT_00e53c30 = 599;
-        DAT_00e52858 = 200;
-        DAT_00e52859 = 0xd0;
-        DAT_00e5285a = 0xcb;
-        DAT_00e5285b = 0xcd;
-        DAT_00e52e68 = 0x39;
+        /* 0x40ece7-0x40ed03: byte stores into the keyboard singleton
+         * (0xe52810): +0x48..+0x4b = DIK_UP/DOWN/LEFT/RIGHT (0xc8, 0xd0,
+         * 0xcb, 0xcd), and +0x658, the first entry of the key-binding
+         * table 0x4ee080/0x4ee0a0 index through, = DIK_SPACE (0x39). */
+        g_keyboardDeviceTimerBlock[0x48] = 200;
+        g_keyboardDeviceTimerBlock[0x49] = 0xd0;
+        g_keyboardDeviceTimerBlock[0x4a] = 0xcb;
+        g_keyboardDeviceTimerBlock[0x4b] = 0xcd;
+        g_keyboardDeviceTimerBlock[0x658] = 0x39;
         FUN_004f0100();
         /* 0x40ed0f-0x40ed20: eax = 0x795070 (the input-event ring) stored
          * to three objects' queue fields. 0xe9bea0 is +0x10 of the first
