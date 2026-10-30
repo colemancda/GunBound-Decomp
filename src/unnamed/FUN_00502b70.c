@@ -122,7 +122,11 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
       puVar8 = (undefined4 *)
                Vector_UninitCopy_12(0,*(undefined4 **)(param_2 + 4),(undefined4 *)param_3,
                              (undefined4 *)pvVar4);
-      FUN_00504110(param_3);
+      /* Count n in ECX (`mov ecx,esi` at 0x502caf, ESI = [ebp+0x10]),
+       * destination = the head copy's return in EAX, element = the local
+       * copy in EBX (`lea ebx,[ebp-0x28]` at 0x502cac); the pushed
+       * [ebp+0xc] is the never-read allocator word. */
+      Vector_UninitFillN_12(param_4,0,param_3,puVar8,local_2c);
       Vector_UninitCopy_12(0,(undefined4 *)param_3,*(undefined4 **)(param_2 + 8),
                     (undefined4 *)((int)puVar8 + param_4 * 0x12));
       _Memory = *(void **)(param_2 + 4);
@@ -146,7 +150,11 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
       Vector_UninitCopy_12(0,(undefined4 *)param_3,(undefined4 *)iVar3,
                     (undefined4 *)(param_3 + param_4 * 0x12));
       local_8 = 2;
-      FUN_00504110(param_3);
+      /* Count = n - (_Mylast - _Where)/0x12 in ECX (0x502d86-0x502da8),
+       * destination = the not-yet-advanced _Mylast in EAX (0x502da1),
+       * element = the local copy in EBX (0x502da5). */
+      Vector_UninitFillN_12(param_4 - (uint)((iVar3 - param_3) / 0x12),0,param_3,
+                            (undefined4 *)iVar3,local_2c);
       *(uint *)(param_2 + 8) = *(int *)(param_2 + 8) + param_4 * 0x12;
     }
     else {

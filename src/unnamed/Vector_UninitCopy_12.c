@@ -26,7 +26,8 @@
  * CopyNameField_12 before pushing them onto this vector (this+0x17ac).
  *
  * The 2026-09-20 note below predates the name and is kept verbatim;
- * its FUN_00504550 is this function and its FUN_00502b70 the _Insert_n.
+ * its FUN_00504550 is this function, FUN_00502b70 the _Insert_n and
+ * FUN_00504110 Vector_UninitFillN_12.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20). Element-wise array-copy helper for a
  * container of 0x12-byte (18-byte) elements (element layout: a length byte

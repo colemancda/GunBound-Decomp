@@ -1522,7 +1522,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00504030,32,Vector_CopyBackward_1e,false,1,0,RAW-src
 00504050,125,StringMap_RemoveKey_ac,false,1,2,RAW-src
 005040d0,55,FUN_005040d0,false,1,0,RAW-src
-00504110,72,FUN_00504110,false,3,0,RAW-src
+00504110,72,Vector_UninitFillN_12,false,3,0,RAW-src
 00504160,38,Vector_UninitFillN_34,false,3,1,RAW-src
 00504190,135,Vector_UninitFillN_8,false,3,1,RAW-src
 00504270,117,Vector_UninitFillN_1e,false,3,0,RAW-src

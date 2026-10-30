@@ -1623,7 +1623,7 @@ void __fastcall Vector_FillN_1e(undefined4 param_1,undefined4 *param_2,undefined
 void __fastcall Vector_CopyBackward_1e(undefined4 param_1,undefined4 *param_2,undefined4 *regEax,undefined4 *regEbx);
 undefined4 StringMap_RemoveKey_ac(char *regEdx,int *regEax);
 void __fastcall FUN_005040d0(undefined4 *param_1,undefined4 *param_2,undefined4 *regEax);
-void __fastcall FUN_00504110();
+void __fastcall Vector_UninitFillN_12(int param_1,undefined4 param_2,undefined4 param_3,undefined4 *regEax,undefined4 *regEbx);
 void __fastcall Vector_UninitFillN_34(int param_1,undefined4 param_2,undefined4 param_3,int regEax,undefined4 *regEbx);
 void __fastcall Vector_UninitFillN_8();
 void __fastcall Vector_UninitFillN_1e(int param_1,undefined4 *param_2,undefined4 param_3,undefined4 *regEax);
