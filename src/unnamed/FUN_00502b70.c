@@ -4,14 +4,14 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * DROPPED-ARGUMENT FIX (2026-09-20): the 4 FUN_00504550() calls here were
- * missing its dest argument (see FUN_00504550.c's header) and, in two
+ * DROPPED-ARGUMENT FIX (2026-09-20): the 4 Vector_UninitCopy_12() calls here were
+ * missing its dest argument (see Vector_UninitCopy_12.c's header) and, in two
  * cases, were passing the wrong begin/end operand entirely because the
  * `iVar3` local is recycled across this function for several unrelated
  * SSA values - the first call's true begin operand is a fresh
  * `*(param_2 + 4)` reread, not the (by-then-stale) `iVar3` C variable.
  * Reconstructed per-site from a capstone disassembly of 0x502b70..0x502e10
- * against the original binary; see FUN_00504550.c for the ABI evidence.
+ * against the original binary; see Vector_UninitCopy_12.c for the ABI evidence.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20, own callers): __thiscall with 4 real
  * params (ECX=`this` + ret 0xc = 3 stack dwords, disasm 0x502b70-
@@ -120,10 +120,10 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
       pvVar4 = operator_new(local_18);
       local_8 = 0;
       puVar8 = (undefined4 *)
-               FUN_00504550(0,*(undefined4 **)(param_2 + 4),(undefined4 *)param_3,
+               Vector_UninitCopy_12(0,*(undefined4 **)(param_2 + 4),(undefined4 *)param_3,
                              (undefined4 *)pvVar4);
       FUN_00504110(param_3);
-      FUN_00504550(0,(undefined4 *)param_3,*(undefined4 **)(param_2 + 8),
+      Vector_UninitCopy_12(0,(undefined4 *)param_3,*(undefined4 **)(param_2 + 8),
                     (undefined4 *)((int)puVar8 + param_4 * 0x12));
       _Memory = *(void **)(param_2 + 4);
       if (_Memory == (void *)0x0) {
@@ -143,7 +143,7 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
     }
     iVar3 = *(int *)(param_2 + 8);
     if ((uint)((iVar3 - param_3) / 0x12) < param_4) {
-      FUN_00504550(0,(undefined4 *)param_3,(undefined4 *)iVar3,
+      Vector_UninitCopy_12(0,(undefined4 *)param_3,(undefined4 *)iVar3,
                     (undefined4 *)(param_3 + param_4 * 0x12));
       local_8 = 2;
       FUN_00504110(param_3);
@@ -151,7 +151,7 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
     }
     else {
       iVar2 = iVar3 + param_4 * -0x12;
-      uVar5 = FUN_00504550(0,(undefined4 *)iVar2,(undefined4 *)iVar3,(undefined4 *)iVar3);
+      uVar5 = Vector_UninitCopy_12(0,(undefined4 *)iVar2,(undefined4 *)iVar3,(undefined4 *)iVar3);
       *(undefined4 *)(param_2 + 8) = uVar5;
       FUN_005042f0((undefined4 *)iVar2,(undefined4 *)param_3,(undefined4 *)iVar3);
     }

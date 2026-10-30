@@ -1,8 +1,32 @@
-/* FUN_00504550 - 0x00504550 in the original binary.
+/* Vector_UninitCopy_12 - 0x00504550 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-30, CERTAIN (was FUN_00504550).  VC7.1's _Uninit_copy
+ * for the 0x12-byte element vector: copy-construct [EDX, [esp+4]) into
+ * raw storage at EAX, return the destination end. It is the 0x12 twin
+ * of Vector_UninitCopy_1e (0x5046b0) - same register convention (ECX
+ * phantom, EDX source, one stack bound, EAX destination and result),
+ * same placement-new null test on EAX, same never-read second stack
+ * word (the allocator) at every call site.
+ *
+ * The element shapes come from outside. All four calls sit in
+ * FUN_00502b70, the 0x12 vector's _Insert_n (max_size 0xe38e38e =
+ * 0xffffffff / 0x12, the Vector_Size_12 call at 0x502c74), in exactly
+ * the slots the _34/_1e _Insert_n give their UninitCopy: the realloc
+ * arm's head copy into the new operator_new block (0x502ca0) and tail
+ * copy past the filled gap (0x502cd0), the append-overlap arm's
+ * uninitialised copy of the tail (0x502d7a), and the shift arm's copy
+ * whose return is stored as the new _Mylast (0x502dd6). The per-element
+ * copy is a counted string - length byte at +0x11, that many bytes, a
+ * NUL at +len - which is the 18-byte name record CopyNameField_12
+ * writes, and CommP2POwner_ProcessPacket fills such records with
+ * CopyNameField_12 before pushing them onto this vector (this+0x17ac).
+ *
+ * The 2026-09-20 note below predates the name and is kept verbatim;
+ * its FUN_00504550 is this function and its FUN_00502b70 the _Insert_n.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20). Element-wise array-copy helper for a
  * container of 0x12-byte (18-byte) elements (element layout: a length byte
@@ -61,7 +85,7 @@
 
 
 undefined4 __fastcall
-FUN_00504550(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4)
+Vector_UninitCopy_12(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4)
 
 {
   byte bVar1;

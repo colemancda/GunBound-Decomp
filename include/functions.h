@@ -1631,7 +1631,7 @@ void __fastcall FUN_005042f0(undefined4 *param_1,undefined4 *param_2,undefined4 
 int * Vector_CopyBackward_8();
 undefined4 FUN_00504420();
 undefined4 * StringMap_Insert_28(int param_1,undefined4 param_2,undefined4 *regEax,int *regEbx);
-undefined4 __fastcall FUN_00504550(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4);
+undefined4 __fastcall Vector_UninitCopy_12(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4);
 int __fastcall Vector_UninitCopy_34(int param_1,undefined4 param_2,undefined4 param_3,int regEax,int regEbx);
 int * __thiscall Vector_UninitCopy_8(int param_1,int param_2,int *param_3);
 undefined4 __fastcall Vector_UninitCopy_1e(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 param_4,undefined4 *regEax);
