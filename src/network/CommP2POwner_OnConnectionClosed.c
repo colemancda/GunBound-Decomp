@@ -30,7 +30,7 @@
  * session handler ConstructCommP2POwner stores at owner+0x1ab0 (its
  * second stack argument, `mov [ebp+0x1ab0],eax` at 0x4fd18f; this is the
  * owner+4 sub-object, so this+0x1aac is that field).  Its only
- * constructor caller, FUN_004fd090 (0x401a26), is handed `lea
+ * constructor caller, CreateCommP2POwner (0x401a26), is handed `lea
  * eax,[ebp+8]` at 0x4019ed by FUN_00401910, whose +8 sub-object gets
  * vtable 0x551cb8 at 0x401948.  Slot 1 of 0x551cb8 is 0x403890 (read
  * from .rdata): `cmp [ecx+0x1bc8],0x2710; mov byte [ecx+0x1bc4],1; ...;

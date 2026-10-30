@@ -7,7 +7,7 @@
  * NAMED (2026-08-28): the constructor of the 0x2028-byte comm owner
  * object - "the CCommP2P owner", the term InitCommP2PNotifyWindow.c's
  * header already uses for exactly this function. Its lone caller is
- * the operator_new(0x2028) factory FUN_004fd090. It stamps the
+ * the operator_new(0x2028) factory CreateCommP2POwner. It stamps the
  * abstract-interface vtable 0x557610 (all sixteen slots are _purecall
  * 0x525acd) and then the four concrete vtables its destructor
  * re-installs in the same four slots - 0x5575c8 at +0, 0x5575b8 at +4

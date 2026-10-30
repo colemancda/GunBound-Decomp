@@ -1482,7 +1482,7 @@ void FUN_004fcee0(char *regEax,int regEbx);
 undefined4 FUN_004fcf10(undefined4 param_1,undefined4 param_2,undefined4 regEdi);
 void FUN_004fcf70(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,int regEbx,int *regEdi);
 undefined4 FUN_004fd030();
-undefined4 FUN_004fd090();
+undefined4 CreateCommP2POwner();
 undefined4 * ConstructCommP2POwner(undefined4 *param_1,undefined4 param_2);
 void DestroyCommP2POwner(undefined4 *param_1);
 void __fastcall CommP2POwner_Release();

@@ -68,7 +68,7 @@ undefined4 * FUN_00401910(undefined4 *param_1)
   param_1[0x6f6] = 0;
   param_1[0x6f7] = 0;
   param_1[0x6f8] = 0;
-  uVar1 = FUN_004fd090(param_1 + 2);
+  uVar1 = CreateCommP2POwner(param_1 + 2);
   param_1[0x6f7] = uVar1;
   *unaff_FS_OFFSET = local_c;
   return param_1;
