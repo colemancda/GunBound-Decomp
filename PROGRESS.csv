@@ -523,7 +523,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004440c0,4551,State07_AvatarStore_ProcessPacket,false,1,40,RAW-src
 004452c0,400,FUN_004452c0,false,1,7,TODO
 00445450,8366,State07_AvatarStore_OnCommand,false,1,54,RAW-src
-004475c0,414,FUN_004475c0,false,1,11,TODO
+004475c0,414,FUN_004475c0,false,1,11,RAW-src
 00447760,2284,State07_AvatarStore_OnEnter,false,1,22,RAW-src
 00448050,785,State07_AvatarStore_OnExit,false,1,2,RAW-src
 00448370,184,State07_AvatarStore_OnTick,false,1,5,RAW-src

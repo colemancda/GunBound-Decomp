@@ -17,10 +17,8 @@
  * 0x4b9d04, `mov esi,1` at 0x4d626c), all read individually off the
  * disassembly.
  *
- * There is a FIFTH binary site, 0x447671 in FUN_004475c0 with `mov esi,0xf`,
- * which has no C counterpart and should not: PROGRESS.csv marks
- * FUN_004475c0 TODO, i.e. not ported.  That is why count_call_args.py reports
- * four where callsite_regs.py reports five.
+ * There is a FIFTH binary site, 0x447671 in FUN_004475c0 with `mov esi,0xf`.
+ * Its C counterpart arrived when that body was ported on 2026-10-30.
  *
  * NAMED 2026-08-27 (was IsWidgetEnabled).  A pure predicate over the
  * active-object registry: it walks to the widget at (layer key EDX,
@@ -60,7 +58,7 @@
  * mouse-input slot (.data 0x555610, immediately
  * before its OnEnter at 0x555614, the same
  * relative slot State03, State09 and State11 use);
- * still TODO in PROGRESS.csv, hence no C call site
+ * ported 2026-10-30
  * 0x4b8303  id 3     State11_InBattle_HandleKeyInput (key 0x42)
  * 0x4b9d10  id 0x10  State11_InBattle_HandleMouseInput
  * 0x4d6278  id 1     State09_ReadyRoom_HandleChatInput (0x204)

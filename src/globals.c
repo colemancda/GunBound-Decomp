@@ -1561,7 +1561,7 @@ void *vtable_State07_AvatarStore[32] = {
   (void *)CGameState_NoOpVirtual_B, (void *)CGameState_NoOpVirtual_B, /* 2-3 */
   (void *)FUN_004452c0,                                     /* 4  0x4452c0 (stub) */
   (void *)State07_AvatarStore_OnCommand,                    /* 5  0x445450 */
-  (void *)FUN_004475c0,                                     /* 6  0x4475c0 (stub) */
+  (void *)FUN_004475c0,                                     /* 6  0x4475c0 */
   (void *)State07_AvatarStore_OnEnter,                      /* 7  0x447760 */
   (void *)State07_AvatarStore_OnExit,                       /* 8  0x448050 */
   (void *)State07_AvatarStore_OnTick,                       /* 9  0x448370 */
