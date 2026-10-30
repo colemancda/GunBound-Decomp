@@ -1495,7 +1495,7 @@ undefined4 __thiscall FUN_004fd880();
 void FUN_004fd8a2();
 undefined4 __thiscall FUN_004fd960();
 undefined4 __thiscall FUN_004fda50();
-LRESULT __stdcall FUN_004fdaa0(HWND, UINT, WPARAM, LPARAM);
+LRESULT __stdcall Buddy2TimerWndProc(HWND, UINT, WPARAM, LPARAM);
 bool FUN_004fdb40(int param_1,int regEcx);
 int __fastcall Vector_Size_12(int param_1);
 void FUN_004fdc50(int regEax,int regEsi);

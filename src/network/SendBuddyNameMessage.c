@@ -47,7 +47,7 @@
  * `call 0x504970` at 0x5021f3) and where it creates the window titled
  * "CBuddy2 Timer Receiving Window" (0x557b74, CreateWindowExA at
  * 0x501a53), passing that same pointer as the window's GWL_USERDATA
- * (0x501a73).  FUN_004fdaa0's WM_TIMER arm reads it back out of
+ * (0x501a73).  Buddy2TimerWndProc's WM_TIMER arm reads it back out of
  * GWL_USERDATA and compares [obj+0x1abc]+0x258 against time(0) - the
  * 600-second keepalive on the clock this send path stamps.  The two
  * neighbouring window titles, "CCommEngine Notify Window" (0x557b58) and

@@ -1390,7 +1390,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fd960,88,FUN_004fd960,false,1,2,RAW-src
 004fd9c0,133,FUN_004fd9c0,false,1,3,RAW-src
 004fda50,71,FUN_004fda50,false,1,2,RAW-src
-004fdaa0,150,FUN_004fdaa0,false,1,4,RAW-src
+004fdaa0,150,Buddy2TimerWndProc,false,1,4,RAW-src
 004fdb40,88,FUN_004fdb40,false,1,1,RAW-src
 004fdc30,31,Vector_Size_12,false,1,0,RAW-src
 004fdc50,35,FUN_004fdc50,false,4,0,RAW-src

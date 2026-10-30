@@ -491,7 +491,7 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
           *(HWND *)(param_1 + 0x17c0) = hWnd;
           if (hWnd != (HWND)0x0) {
             SetWindowLongA(hWnd,-0x15,param_1 + -0x2f4);
-            SetWindowLongA(*(HWND *)(param_1 + 0x17c0),-4,(LONG)FUN_004fdaa0);
+            SetWindowLongA(*(HWND *)(param_1 + 0x17c0),-4,(LONG)Buddy2TimerWndProc);
           }
         }
         if ((*(HWND *)(param_1 + 0x17c0) != (HWND)0x0) && (*(int *)(param_1 + 0x17c4) == 0)) {
