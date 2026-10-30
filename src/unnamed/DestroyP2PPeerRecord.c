@@ -14,20 +14,22 @@
  * basis as ConstructP2PPeerRecord: the role is certain, the "peer
  * record" handle is FindP2PPeerRecord's.
  *
- * NOT FIXED: the record arrives in EAX (`mov esi,eax` at 0x4ff211), read
- * here as in_EAX, and no ported caller supplies it - FUN_00500f80 and
- * thunk_FUN_00500f80 are both argless, and StringMap_FreeNode_ac calls
- * the thunk with nothing although it holds the node in EAX (`mov
- * edi,eax` at 0x500e81).  Recovering it means threading the node through
- * all three.
+ * RECORD RECOVERED (2026-10-30): the record arrives in EAX (`mov
+ * esi,eax` at 0x4ff211, read before any write), now the trailing
+ * parameter regEax.  The chain that supplies it: StringMap_FreeNode_ac
+ * holds the retiring node in EAX at its `call 0x500f70` (0x500e83, EAX
+ * untouched since entry - `mov edi,eax` at 0x500e81 only copies it);
+ * thunk_FUN_00500f80 (0x500f70) is a bare `jmp 0x500f80`; FUN_00500f80
+ * is `add eax,0x14; jmp 0x4ff210`.  So the record is node+0x14.  All
+ * three ports were argless; each now takes and passes EAX.
  */
 #include "ghidra_types.h"
 
 
-void DestroyP2PPeerRecord(void)
+void DestroyP2PPeerRecord(int regEax)
 
 {
-  int in_EAX;
+  int in_EAX = regEax;
   
   if (*(void **)(in_EAX + 0x80) != (void *)0x0) {
     _free(*(void **)(in_EAX + 0x80));

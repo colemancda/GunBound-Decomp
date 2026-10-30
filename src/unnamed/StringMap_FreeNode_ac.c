@@ -36,6 +36,10 @@
  * StringMap_Find_ac compares), 0xac total - and the suffix is that node
  * stride, matching StringMap_Find_ac and StringMap_Insert_ac.
  *
+ * NODE PASSED (2026-10-30): the value-destructor call at 0x500e83
+ * (thunk_FUN_00500f80) runs with EAX = the node, untouched since entry;
+ * it was called with nothing.
+ *
  * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x500ead
  * passed nothing.  FreeNode threshold arm: EAX = `mov eax,edx` after `dec
  * edx` (the decremented m_nElements, also stored to [map+4] - this port's
@@ -56,7 +60,7 @@ void StringMap_FreeNode_ac(int regEax,int regEsi)
   uint uVar3;
   int unaff_ESI = regEsi;
   
-  thunk_FUN_00500f80();
+  thunk_FUN_00500f80(in_EAX);
   *(undefined4 *)(in_EAX + 0xa4) = *(undefined4 *)(unaff_ESI + 0x2c);
   uVar3 = *(int *)(unaff_ESI + 4) - 1;
   *(int *)(unaff_ESI + 0x2c) = in_EAX;
