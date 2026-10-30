@@ -324,7 +324,7 @@ void __fastcall TextEntry_SetSelection(undefined4 param_1,WPARAM param_2,LPARAM 
 void TextEntry_FetchSelectionAndPlaceImeCaret(int param_1,LONG param_2,int param_3,int regEdi,undefined4 *regEax,int *regEsi);
 void * __thiscall DeletePoisonedBaseObject();
 void FUN_0040cc50();
-void CommitActiveTextInput();
+void CommitActiveTextInput(int thisObj);
 void FUN_0040cd40(undefined4 *regEax);
 void * __thiscall FUN_0040cd60();
 void FUN_0040cd80();

@@ -23,11 +23,14 @@
  * clears `this+0x448` (the "focused" flag). Every real call site still
  * calls this with zero args, reading uninitialised `unaff_EDI` and
  * writing 128 bytes + a dword through it - a genuine wild write whenever
- * reached. Only the one call site actually traced this pass
- * (HandleBackgroundActiveObjectMouseDown.c) is fixed; the other ~8 call
- * sites (FUN_0040cf80.c, FUN_0040d020.c x4, State09_ReadyRoom_
- * ProcessPacket.c, State09_ReadyRoom_OnCommand.c x2) each need their own
- * "this" traced and are deferred - functions.h stays K&R-empty.
+ * reached.
+ *
+ * ALL 9 CALL SITES NOW PASS EDI (2026-10-30): HandleBackgroundActiveObject
+ * MouseDown (0x40ce81), FUN_0040cf80 (0x40cfc6), FUN_0040d020 x4
+ * (0x40d094/0x40d0be/0x40d113/0x40d141), State09_ReadyRoom_ProcessPacket
+ * (0x4d39dd) and State09_ReadyRoom_OnCommand x2 (0x4d550a/0x4d55c9). Each
+ * loads EDI from the registry's +8 focus slot just before the call. The
+ * functions.h prototype is now the real `void CommitActiveTextInput(int)`.
  */
 #include "ghidra_types.h"
 

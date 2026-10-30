@@ -35,6 +35,13 @@
  * InitGame sets to the ring 0x795070 at 0x40ed1b. The pushes are
  * (ebx, ebx, 0xa) and (ebx, ebx, 0xb) with ebx = 0, so the words are
  * (10 or 11, 0, 0) as the port already had.
+ *
+ * CommitActiveTextInput EDI RECOVERED (2026-10-30): all four calls
+ * (0x40d094, 0x40d0be, 0x40d113, 0x40d141) are preceded by
+ * `mov edi,[ebp+8]` (0x40d08d, 0x40d0bb, 0x40d110, 0x40d13a), ebp =
+ * param_2, so EDI is the outgoing focused text box *(param_2 + 8). The
+ * callee's first use of EDI is `lea esi,[edi+0x48]` (0x40ccfb). The port
+ * passed nothing.
  */
 #include "ghidra_types.h"
 
@@ -65,13 +72,13 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
       }
       if (((iVar2 == iVar3) || (*(int *)(iVar2 + 8) == -1)) &&
          (EnqueueInputEvent(*(uint **)(param_2 + 0xc),10,0,0), *(int *)(param_2 + 8) != 0)) {
-        CommitActiveTextInput();
+        CommitActiveTextInput(*(int *)(param_2 + 8));
         *(undefined4 *)(param_2 + 8) = 0;
       }
       if ((*(int *)(param_2 + 8) != 0) &&
          (iVar3 = FindSpriteFrame(param_2,*(int *)(*(int *)(param_2 + 8) + 4),
                                   *(int *)(iVar2 + 8)), iVar3 != 0)) {
-        CommitActiveTextInput();
+        CommitActiveTextInput(*(int *)(param_2 + 8));
         *(int *)(param_2 + 8) = iVar3;
         FUN_0040cc50();
         return;
@@ -91,7 +98,7 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
           if (iVar3 == 0) {
             return;
           }
-          CommitActiveTextInput();
+          CommitActiveTextInput(*(int *)(param_2 + 8));
           *(int *)(param_2 + 8) = iVar3;
           FUN_0040cc50();
           return;
@@ -106,7 +113,7 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
       }
       EnqueueInputEvent(*(uint **)(param_2 + 0xc),uVar4,0,0);
       if (*(int *)(param_2 + 8) != 0) {
-        CommitActiveTextInput();
+        CommitActiveTextInput(*(int *)(param_2 + 8));
         *(undefined4 *)(param_2 + 8) = 0;
       }
     }

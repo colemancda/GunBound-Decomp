@@ -13,6 +13,11 @@
  * slot.  param_3 is the registry the tree walk starts from
  * (*(param_3 + 4) + 0x1c), which is what confirms the placement rather than
  * merely permitting it.
+ *
+ * CommitActiveTextInput EDI RECOVERED (2026-10-30): 0x40cfbf
+ * `mov edi,[ebp+8]` (ebp = param_3, loaded at 0x40cf81) then
+ * `test edi,edi; je; call 0x40ccf0` - EDI is the outgoing focused text box
+ * *(param_3 + 8). The port passed nothing.
  */
 #include "ghidra_types.h"
 
@@ -44,7 +49,7 @@ void __fastcall FUN_0040cf80(undefined4 param_1,uint param_2,int param_3,uint re
         }
       }
       if (*(int *)(param_3 + 8) != 0) {
-        CommitActiveTextInput();
+        CommitActiveTextInput(*(int *)(param_3 + 8));
       }
       *(int *)(param_3 + 8) = iVar2;
       FUN_0040cc50();
