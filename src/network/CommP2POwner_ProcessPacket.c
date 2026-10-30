@@ -469,7 +469,7 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
               uStack_4930 = 0;
               pcVar12 = pcVar12 + 0x30;
             }
-            FUN_005037d0((int)&local_48de,(int)&local_4944);
+            CopyNameField_16((int)&local_48de,(int)&local_4944);
             /* RECOVERED (2026-08-28), orig 0x5019c4 `mov edi,ebx`: EDI is the
              * cursor as the two branches above left it, which is exactly the
              * current pcVar12 - witnessed by 0x5019d2 `mov cx,[ebx+8]` being

@@ -1501,7 +1501,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00503680,134,Vector_CopyElement_34,false,3,0,RAW-src
 00503710,86,Vector_CopyElement_8,false,1,1,RAW-src
 00503770,93,Vector_CopyElement_1e,false,1,0,RAW-src
-005037d0,32,FUN_005037d0,false,1,0,RAW-src
+005037d0,32,CopyNameField_16,false,1,0,RAW-src
 005037f0,32,CopyNameField_a,false,4,0,RAW-src
 00503810,35,FUN_00503810,false,1,0,RAW-src
 00503840,201,FUN_00503840,false,2,4,RAW-src

@@ -1602,7 +1602,7 @@ void __thiscall Vector_InsertN_1e(uint param_1,int param_2,int param_3,undefined
 void __fastcall Vector_CopyElement_34(undefined4 param_1,undefined4 *param_2,undefined4 *regEax);
 int * Vector_CopyElement_8(int *param_1);
 void __fastcall Vector_CopyElement_1e(undefined4 param_1,undefined4 *param_2,undefined4 *regEax);
-void FUN_005037d0(int regEsi,int regEdi);
+void CopyNameField_16(int regEsi,int regEdi);
 void CopyNameField_a(int regEsi,int regEdi);
 void FUN_00503810(int regEsi,int regEax);
 bool __fastcall FUN_00503840();

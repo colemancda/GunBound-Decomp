@@ -30,7 +30,8 @@
  * writes 0xe = 14 (12 characters, length at +0xd) and CopyNameField_a
  * writes 0xa = 10 (8 characters, length at +9). Note the suffix is the
  * BYTE COUNT, not the character count - CopyNameField_e is the one that
- * takes 12 characters.
+ * takes 12 characters. A fourth width, CopyNameField_16 (0x5037d0, 0x16
+ * bytes, length at +0x15), was named 2026-10-30.
  *
  * The record shape is corroborated from outside these three functions.
  * Vector_CopyElement_1e (0x503770) already carries the same `char text[N]; byte
