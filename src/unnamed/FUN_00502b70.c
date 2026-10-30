@@ -164,7 +164,7 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
       iVar2 = iVar3 + param_4 * -0x12;
       uVar5 = Vector_UninitCopy_12(0,(undefined4 *)iVar2,(undefined4 *)iVar3,(undefined4 *)iVar3);
       *(undefined4 *)(param_2 + 8) = uVar5;
-      FUN_005042f0((undefined4 *)iVar2,(undefined4 *)param_3,(undefined4 *)iVar3);
+      Vector_CopyBackward_12((undefined4 *)iVar2,(undefined4 *)param_3,(undefined4 *)iVar3);
       /* fill end = _Where + n*0x12 (`lea ecx,[esi+ebx]` at 0x502def) */
       iFillEnd = param_3 + param_4 * 0x12;
     }
