@@ -435,11 +435,20 @@ functions by their C-linkage names.
 4. **Has callers, original decompile never resolved 1-2 register-passed
    arguments** (Ghidra's `unaff_EBX`/`unaff_EDI`/`unaff_ESI`, e.g.
    `Widget_AddChild`'s `this` in EBX, `Widget_FindChildIndex`'s `typeId`/`id`
-   in EDI/ESI) → same shim, but capture the register via MSVC inline
-   `__asm { mov local, ebx }` as the shim's first statement (verified via
-   disassembly that the `mov` compiles to literally the first instruction,
-   before anything else can clobber it) - replicates exactly what every
-   existing caller already implicitly relied on, no caller changes needed.
+   in EDI/ESI) → same shim, but the register becomes an explicit trailing
+   parameter (`regEbx`, `regEsi`/`regEdi`), and every raw C caller passes
+   the value the original loads into that register, read off each call
+   site's disassembly (verify with `tools/count_call_args.py`).
+   - **Superseded: the inline-asm capture.** These two shims used to read
+     the register with MSVC inline `__asm { mov local, ebx }` as their
+     first statement, on the theory that the callers already left the
+     right value there. That only holds for the original's code. An
+     MSVC-compiled raw C caller leaves whatever its own register allocation
+     put in EBX/ESI/EDI, so the shims got garbage parents and keys. Both
+     were rewritten to take the registers as parameters, with all callers
+     updated: `Widget_FindChildIndex` (this, regEsi, regEdi) in a1ca03bf,
+     25 call sites, and `Widget_AddChild` (child, regEbx) in 25a3478c,
+     27 call sites. Do not reintroduce the asm form.
 5. **Reducing shim count further** (optional follow-up, not required for
    correctness): port individual caller `.c` files to `.cpp` so they call
    the C++ method directly instead of through the shim. Do this for the
@@ -476,8 +485,10 @@ done - all shims added, and 7 of them (`Widget_DispatchKeyToChildren`,
 `Widget_DispatchMouseToChildren`, `Widget_OnDragMove`,
 `Widget_MouseMoveChildren`, `Widget_MouseDownChildren`,
 `Widget_MouseUpChildren`) have since had EVERY caller ported and the shim
-itself deleted - only `Widget_AddChild`/`Widget_FindChildIndex` (asm-based,
-20/18 callers) still have live shims. Along the way,
+itself deleted - only `Widget_AddChild`/`Widget_FindChildIndex` still
+have live shims. Both were originally asm-based; they now take the register
+arguments as explicit trailing parameters (27 and 25 callers as of
+2026-10-30, see step 4). Along the way,
 `ScrollListWidget_OnMouseDown`/`Widget_OnMouseDown` (`CScrollBar`/`CPanel`'s
 own raw duplicates) were also cleaned up per the "caller turns out to be a
 promoted method" case above.
