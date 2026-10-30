@@ -17,9 +17,11 @@
  * the third argument at ctx+0x5917c, line count at ctx+0x58b60 (shifted
  * through FUN_0041ee10 once it passes 8).
  *
- * ARCHITECTURE.md's State 11 vtable table calls this slot a "chat
- * character-input helper"; the body copies a whole NUL-terminated line
- * and bumps the line count, so that description is out of date.
+ * ARCHITECTURE.md's State 11 vtable table used to call this slot a
+ * "chat character-input helper"; the body copies a whole NUL-terminated
+ * line and bumps the line count.  Corrected there 2026-10-30, once the
+ * slot-10 dispatch fix (`this` first, cdecl) made the (this, text, type,
+ * n) call shape explicit at all 82 call sites.
  */
 #include "ghidra_types.h"
 

@@ -222,7 +222,7 @@ its role:
 | 7 | `0x4bb730` | `State11_InBattle_OnEnter` |
 | 8 | `0x4bcd00` | `State11_InBattle_OnExit` |
 | 9 | `0x4bd8b0` | Large (17KB decompiled, ~2,070 lines) function — this is the **same function** already documented elsewhere as `GameTick`'s unconditional per-tick hook (8-directional screen-edge cursor/camera-scroll bitmask, confirmed during the physics investigation). Only the first ~370 lines are the cursor/camera logic; the remaining ~1,700 lines (not previously read) include outgoing-packet field encoding, broadcast-event logging, an unconditional per-tick call to the active-object container's flagged-entry garbage collector (`FUN_004f3100`, see the generic-container note below), and what looks like turn-phase-adjacent bookkeeping (`0xc303` referenced as a literal). Still not fully mapped end to end — genuinely large and multi-purpose. |
-| 10 | `0x4c1b90` | **Chat character-input helper**: appends a typed character into a per-message buffer at `+0x58b64` (9-byte stride) and a secondary buffer at `+0x58c4a` (14-byte stride), with a literal control-character remap table (`'@'→0x0a`, `'#'→0x0b`, `'$'→0x0c`, `'%'→0x0d`, `'^'→0x0e`, `'&'→0x0f`, `'*'→0x10`) — almost certainly the mechanism behind GunBound's in-chat emoticon/special-character shortcuts (typing `^` or `&` inserting a small icon rather than the literal character) |
+| 10 | `0x4c1b90` | `State11_InBattle_AppendChatLine` — **appends a finished line to the in-battle chat history** (corrected: earlier described as a per-character input helper). Every caller dispatches it as `(this, text, type, n)` with a complete NUL-terminated string: `this` in ECX, three stack arguments, `ret 0xc`. The callers include GameTick (localized notices 9000 and 0x141, `(text, 2, 6)`), ParseChatSlashCommand, WriteReplayEventRecord and about ten other notice paths. Once the history passes 8 lines it shifts it via `FUN_0041ee10`. It then clears the line's `+0x58b64` (9-byte stride) and `+0x58bbe` (14-byte stride) fields, copies the whole string to `+0x58c54 + n*0x80`, stores the type byte at `+0x58c4a`, `this+0xc` + 300 at `+0x59154`, and the third argument at `+0x5917c`, and bumps the count at `+0x58b60`. For type 2 a leading `!` is dropped, and a leading `@ # $ % ^ & *` is dropped and turns the type into `0x0a`-`0x10`. Those are the per-line type values slot 15 maps to text colors, so the prefixes select a message type, not inline emoticons. States 03/10 fill this slot with `State10_Loading_AppendChatLine` and State 09 with `AppendReadyRoomStatusMessage`, both of which forward the line to `AppendChatLogEntry`. |
 | 11 | `0x4c1c90` | Small per-tick-looking helper (increments a counter at `this+8`, conditionally calls a couple of update functions) |
 | 12 | `0x4c1d10` | One-line delegate — calls `RenderWeatherHazards` on a fixed per-connection offset (`+0x6a7f88`), nothing else |
 | 13 | `0x4c1d30` | **Corrected — not a "special-weapon-effect render function."** Fully decompiled (was previously only skimmed for its string references): this is a **per-frame dynamic-texture clear pass**. It resolves ~24 named dynamic textures via `FindTextureCacheEntryByName` — not just `SpecialTexture1/2`, but the *entire* effect-texture roster (`AvataTexture1/2`, `AvataEffectTexture1/2`, `CharacterTexture1/2`, `TagTexture`, `CharEffectTexture1/2`, `BulletTexture1/2`, `FlameTexture1-4`, `RayonTexture1/2`, `SpecialTexture1/2`, `RiderTexture`, `YesooriTexture`, `JewelTexture`, `ThorTexture1/2`) — and for each one present, does a confirmed **`IDirectDrawSurface7::Lock` (vtable `+0x64`, `DDSURFACEDESC2` size `0x7c`=124 bytes) → zero-fill the entire locked surface → `Unlock` (vtable `+0x80`)** cycle. This clears every dynamic effect render-target to transparent/black once per frame, presumably right before that frame's actual sprite effects get composited into them elsewhere in the render pipeline. |
@@ -234,7 +234,7 @@ its role:
 This substantially resolves the original "input handlers? (untested)"
 open question for at least one state: slots 5/6 are confirmed input
 dispatchers (chat/keyboard and mouse respectively), slots 10/15 are a
-confirmed chat-input-append/display pair (**correction**: slot 15 is a
+confirmed chat-history append/display pair (**correction**: slot 15 is a
 display renderer, not a "finalize" step — see the dedicated chat pipeline
 writeup immediately below), and slot 13 is a per-frame
 dynamic-effect-texture clear pass (Lock/zero-fill/Unlock across the full
@@ -247,7 +247,7 @@ gameplay centrality.
 ### In-battle chat pipeline — traced from keystroke to history buffer
 
 Investigating chat functionality end to end (going beyond slot 10's
-already-documented character-append/emoticon-remap and slot 15's now-
+line-append/type-prefix remap and slot 15's now-
 corrected display-renderer role) found the actual **chat message
 queue/history functions**, located by searching the whole binary for
 every direct reference to the chat buffer offsets — only 5 functions
