@@ -7,6 +7,11 @@
  * StringMap_RemoveKey_ac CALL RECOVERED (2026-10-29): it was called with no
  * arguments; now passes the key (EDX, 0x503b87) and the peer table at
  * param_1+0x290 (EAX, 0x503b81) - see the comment at the call.
+ *
+ * FindP2PPeerRecord ID RECOVERED (2026-10-29): the call at 0x503a67 dropped
+ * ESI = `mov esi,ebx` (0x503a65) with EBX = `mov ebx,[esp+0x20]` (0x503a54)
+ * = the second stack argument, param_2 - the same EBX the id copy loop
+ * reads at 0x503b64 (ported off iVar7 = param_2).
  */
 #include "ghidra_types.h"
 
@@ -30,7 +35,7 @@ void FUN_00503a50(undefined4 *param_1,int param_2)
   
   iVar7 = param_2;
   puVar2 = param_1;
-  cVar4 = FindP2PPeerRecord(param_1,&param_1);
+  cVar4 = FindP2PPeerRecord((undefined4)param_1,(int *)&param_1,(char *)param_2);
   puVar3 = param_1;
   if (cVar4 != '\0') {
     puVar1 = param_1;

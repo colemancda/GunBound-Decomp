@@ -34,6 +34,11 @@
  * (node+0x14 / +0x18 zeroed) and `mov [edi+0x18],eax` (node+0x2c).  The
  * port had discarded the return and written through an uninitialised
  * `iVar5`; iVar5 is now the call's result.
+ *
+ * FindP2PPeerRecord ID RECOVERED (2026-10-29): the call at 0x4fe8fe dropped
+ * ESI = `mov esi,[esp+0xc8]` (0x4fe8ee) - the first stack argument, i.e.
+ * param_2, the same pointer the copy loop below reads via [ecx+esi] at
+ * 0x4fe923.
  */
 #include "ghidra_types.h"
 
@@ -63,7 +68,7 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
   /* Windows SEH __try/__except frame setup stripped - handler body
    * (LAB_00537aeb) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
-  cVar1 = FindP2PPeerRecord(param_1,&local_b8);
+  cVar1 = FindP2PPeerRecord((undefined4)param_1,(int *)&local_b8,(char *)param_2);
   piVar8 = local_b8;
   if (cVar1 == '\0') {
     FUN_004ff1a0((int)local_9c);

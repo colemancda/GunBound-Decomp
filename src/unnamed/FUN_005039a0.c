@@ -17,6 +17,10 @@
  * zero-extended WORD at record+0x1b, the port of the second address pair,
  * landing word-wide in FUN_004fe8d0's param_6.  Width settled: pass it as
  * (undefined4)*(ushort *)(rec + 0x1b).
+ *
+ * FindP2PPeerRecord ID RECOVERED (2026-10-29): the call at 0x5039ae dropped
+ * ESI = `mov esi,eax` (0x5039a6) = regEax; witness: the same ESI is pushed
+ * as FUN_004fe8d0's id at 0x5039f4, ported as regEax.
  */
 #include "ghidra_types.h"
 
@@ -29,7 +33,7 @@ void FUN_005039a0(int param_1,undefined4 param_2,int *param_3,undefined4 regEax,
   char cVar2;
   
   piVar1 = param_3;
-  cVar2 = FindP2PPeerRecord(regEdi,&param_3);
+  cVar2 = FindP2PPeerRecord(regEdi,(int *)&param_3,(char *)regEax);
   if ((((cVar2 != '\0') && (*param_3 != 0)) && (param_3[2] == param_1)) &&
      ((((short)param_3[3] == (short)param_2 && ((int *)param_3[4] == piVar1)) &&
       ((short)param_3[5] == (short)regEbx)))) {

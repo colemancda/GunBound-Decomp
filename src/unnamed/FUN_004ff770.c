@@ -3,6 +3,14 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FindP2PPeerRecord ID RECOVERED (2026-10-29): all three calls (orig
+ * 0x4ff854, 0x4ff937, 0x4ff977) dropped ESI, which each sets itself with
+ * `lea esi,[esp+0x20]` (0x4ff843, 0x4ff926, 0x4ff973) while two pushes
+ * are pending - pre-push esp+0x18 = &local_3188, the start of the 16-char
+ * id + NUL (local_3188..local_3178) copied out of the packet just before.
+ * Witness: FUN_004fe8d0 at 0x4ff968 is handed the same slot (`lea
+ * ecx,[esp+0x28]` with four pushes pending), ported as &local_3188.
  */
 #include "ghidra_types.h"
 
@@ -88,7 +96,7 @@ void FUN_004ff770(int *param_1,int param_2)
         local_3180 = local_2eb2;
         local_317c = local_2eae;
         local_3178 = 0;
-        cVar2 = FindP2PPeerRecord(param_1,&local_3190);
+        cVar2 = FindP2PPeerRecord((undefined4)param_1,(int *)&local_3190,(char *)&local_3188);
         if (cVar2 != '\0') {
           iVar4 = IntMap_LookupPair_1768((int *)(local_3190 + 0x14),local_2e9a[0]);
           if (iVar4 != 0) {
@@ -110,13 +118,13 @@ void FUN_004ff770(int *param_1,int param_2)
       local_3180 = local_2eb2;
       local_317c = local_2eae;
       local_3178 = 0;
-      cVar2 = FindP2PPeerRecord(param_1,&local_3190);
+      cVar2 = FindP2PPeerRecord((undefined4)param_1,(int *)&local_3190,(char *)&local_3188);
       if (cVar2 == '\0') {
         FUN_004fe8d0(&local_3188,CONCAT22(SUBFIELD(local_3174.sa_data,4,undefined2),SUBFIELD(local_3174.sa_data,2,undefined2)),
                      CONCAT22(SUBFIELD(local_3174.sa_data,2,undefined2),SUBFIELD(local_3174.sa_data,0,undefined2)),
                      CONCAT22(SUBFIELD(local_3174.sa_data,4,undefined2),SUBFIELD(local_3174.sa_data,2,undefined2)),
                      CONCAT22(SUBFIELD(local_3174.sa_data,2,undefined2),SUBFIELD(local_3174.sa_data,0,undefined2)));
-        cVar2 = FindP2PPeerRecord(param_1,&local_3190);
+        cVar2 = FindP2PPeerRecord((undefined4)param_1,(int *)&local_3190,(char *)&local_3188);
         if (cVar2 == '\0') {
           return;
         }

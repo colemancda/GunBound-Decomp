@@ -26,25 +26,35 @@
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
  *
- * THE ID POINTER IS STILL DROPPED - LEFT UNFIXED (2026-10-29).  The copy
- * loop reads the id through ESI (`mov dl,[ecx+esi]` at 0x4fe868), which
- * the port reads as the undeclared `unaff_ESI`, and functions.h still
- * declares this K&R `()`.  ESI is the caller's at every one of the 11
- * binary sites and no C site passes it; recovering it means a trailing
- * id parameter (as HasP2PPeerRecord's regEsi) and a per-site value, read
- * with tools/callsite_regs.py 0x4fe860 and checked against the
- * disassembly - several sites inherit ESI from earlier in the caller.
+ * ID POINTER PROMOTED (2026-10-29).  The copy loop reads the id through
+ * ESI (`mov dl,[ecx+esi]` at 0x4fe868; ESI is never written in the body),
+ * which the port read as the undeclared `regEsi`, and functions.h
+ * declared this K&R `()`.  It is now the trailing `regEsi` parameter with
+ * a real prototype, and every one of the 11 binary sites
+ * (tools/callsite_regs.py 0x4fe860) was resolved individually:
+ *   FUN_004fe110 0x4fe13d, 0x4fe179, 0x4fe38b: param_3 (`mov esi,[ebp+0xc]`
+ *     at 0x4fe134; ESI is not rewritten on any path to the later two -
+ *     the [edx+4] virtual and FUN_004fe8d0 between them preserve it);
+ *   FUN_004fe8d0 0x4fe8fe: param_2 (`mov esi,[esp+0xc8]` at 0x4fe8ee, the
+ *     first stack argument of the __thiscall);
+ *   FUN_004ff770 0x4ff854, 0x4ff937, 0x4ff977: &local_3188 (`lea esi,
+ *     [esp+0x20]` with two pushes pending = the 17-byte id the caller just
+ *     assembled from the packet at [esp+0x18..0x28]);
+ *   FUN_005039a0 0x5039ae: regEax (`mov esi,eax` at 0x5039a6);
+ *   FUN_00503a10 0x503a1a, 0x503a39: regEax (`mov esi,eax` at 0x503a12,
+ *     preserved across FUN_004fe8d0);
+ *   FUN_00503a50 0x503a67: param_2 (`mov ebx,[esp+0x20]` at 0x503a54,
+ *     `mov esi,ebx` at 0x503a65).
  */
 #include "ghidra_types.h"
 
 
-undefined4 FindP2PPeerRecord(undefined4 param_1,int *param_2)
+undefined4 FindP2PPeerRecord(undefined4 param_1,int *param_2,char *regEsi)
 
 {
   byte bVar1;
   uint uVar2;
   int iVar3;
-  int unaff_ESI;
   undefined1 local_1c [10];
   char local_12 [17];
   byte local_1;
@@ -52,9 +62,9 @@ undefined4 FindP2PPeerRecord(undefined4 param_1,int *param_2)
   uVar2 = 0;
   do {
     bVar1 = (byte)uVar2;
-    if (*(char *)(uVar2 + unaff_ESI) == '\0') break;
+    if (*(regEsi + uVar2) == '\0') break;
     bVar1 = bVar1 + 1;
-    local_12[uVar2] = *(char *)(uVar2 + unaff_ESI);
+    local_12[uVar2] = *(regEsi + uVar2);
     uVar2 = (uint)bVar1;
   } while (bVar1 < 0x10);
   local_1 = bVar1;

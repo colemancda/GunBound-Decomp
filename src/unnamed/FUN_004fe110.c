@@ -25,6 +25,14 @@
  * (see each caller's own header for its call-site evidence). Fixed by
  * adding a real functions.h prototype and, at each call site, passing
  * the correct `this` value.
+ *
+ * FindP2PPeerRecord ID RECOVERED (2026-10-29): all three calls (orig
+ * 0x4fe13d, 0x4fe179, 0x4fe38b) dropped the ESI id pointer.  ESI is
+ * `mov esi,[ebp+0xc]` = param_3 at 0x4fe134 and no path to any of the
+ * three rewrites it (the next writes are 0x4fe18f/0x4fe267/0x4fe2f9/
+ * 0x4fe3a0, all after the calls); witness: the same ESI is pushed as the
+ * [edx+4] virtual's argument at 0x4fe148 and as FUN_004fe8d0's id at
+ * 0x4fe37d, both ported as param_3.
  */
 #include "ghidra_types.h"
 
@@ -64,7 +72,7 @@ FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 para
   
   uStack_c = 0x4fe120;
   if ((ushort)param_6 < 0x173b) {
-    cVar2 = FindP2PPeerRecord(param_2,&local_2ecc);
+    cVar2 = FindP2PPeerRecord((undefined4)param_2,(int *)&local_2ecc,(char *)param_3);
     uStack_2eaa = (ushort)param_6;
     if (cVar2 == '\0') {
       (**(code **)(*param_2 + 4))(param_3);
@@ -72,10 +80,10 @@ FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 para
         (**(code **)*param_2)(0,param_3,param_4,param_5,param_6,param_1);
         return 1;
       }
-      cVar2 = FindP2PPeerRecord(param_2,&local_2ecc);
+      cVar2 = FindP2PPeerRecord((undefined4)param_2,(int *)&local_2ecc,(char *)param_3);
       if (cVar2 == '\0') {
         FUN_004fe8d0(param_3,0,0,0,0);
-        cVar2 = FindP2PPeerRecord(param_2,&local_2ecc);
+        cVar2 = FindP2PPeerRecord((undefined4)param_2,(int *)&local_2ecc,(char *)param_3);
         if (cVar2 == '\0') {
           return 0;
         }
