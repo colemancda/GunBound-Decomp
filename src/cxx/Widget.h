@@ -185,8 +185,8 @@ public:
     virtual bool OnMouseDown(int x, int y);  /* slot 2: 0x506fd0 - carved, EditBox.cpp: a click
                                               * inside the rect focuses the field */
     virtual bool DispatchKey(int key);       /* slot 5: 0x507090 - EditBox.cpp forwards to the C
-                                              * FUN_00507090 (focused field: Tab/Shift+Tab/Enter/
-                                              * Escape report 0x1102/0x1101/0x1100/0x1001 to the
+                                              * TextEntry_DispatchKey (focused field:
+                                              * Tab/Shift+Tab/Enter/Escape report 0x1102/0x1101/0x1100/0x1001 to the
                                               * parent's OnCommand) */
     virtual bool DispatchMouse(int msg);     /* slot 6: 0x507170 - body in FUN_00507170.cpp:
                                               * non-virtual CWidget::DispatchKey when focused, then

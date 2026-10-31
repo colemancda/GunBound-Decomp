@@ -1,8 +1,19 @@
-/* FUN_00507090 - 0x00507090 in the original binary.
+/* TextEntry_DispatchKey - 0x00507090 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_00507090). The word at 0x557c98,
+ * slot 5 (+0x14) of vtable 0x557c84, is 0x507090. That vtable is stored
+ * only by CreateTextEntryWidget (at 0x507f9f), and slot 5 is
+ * CWidget::DispatchKey(key) in src/cxx/Widget.h, the slot whose base
+ * body is Widget_DispatchKeyToChildren (0x50ea50). The prefix is the
+ * one this class's C functions already carry: slot 8 of the same vtable
+ * is TextEntry_SyncFromControl, and TextEntry_SetControlText /
+ * TextEntry_FetchSelectionAndPlaceImeCaret operate on the same object.
+ * (The C++ class in src/cxx is CEditBox; no C function uses an EditBox_
+ * prefix.)
  *
  * CEditBox (vtable 0x557c84) slot 5, DispatchKey (2026-10-30). The vtable
  * word at 0x557c98 is 0x507090; CEditBox::DispatchKey in
@@ -30,7 +41,7 @@ typedef void (__fastcall *ParentOnCommandFn)(void *thisPtr, int dummyEDX,
       *(void **)((self) + 8), 0, (evt), *(int *)((self) + 0x24), 0)
 
 
-undefined4 __thiscall FUN_00507090(int param_1,int param_2)
+undefined4 __thiscall TextEntry_DispatchKey(int param_1,int param_2)
 
 {
   SHORT SVar1;

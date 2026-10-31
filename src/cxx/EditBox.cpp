@@ -20,7 +20,7 @@ void ActivateLegacyTextInputField(int thisObj);
 /* 0x507090, slot 5. __thiscall in the original; ghidra_types.h erases
  * that to cdecl in the C definition, so `this` is the first stack
  * argument here. */
-unsigned int FUN_00507090(int this_, int key);
+unsigned int TextEntry_DispatchKey(int this_, int key);
 /* 0x5071a0, slot 9. __fastcall(int) in C: `this` in ECX, as in the
  * original (`mov ebx,ecx` at 0x5071a4, plain ret). */
 void __fastcall FUN_005071a0(int this_);
@@ -31,7 +31,7 @@ void __fastcall FUN_005071a0(int this_);
  * forward does not call the base either. The result is AL. */
 bool CEditBox::DispatchKey(int key)
 {
-    return (FUN_00507090((int)this, key) & 0xff) != 0;
+    return (TextEntry_DispatchKey((int)this, key) & 0xff) != 0;
 }
 
 /* 0x5071a0, vtable 0x557c84 slot 9 (word at 0x557ca8). Draws the field
