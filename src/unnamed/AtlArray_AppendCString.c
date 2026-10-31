@@ -5,6 +5,7 @@
  * section for status.
  *
  * (FUN_00425840, mentioned in a note below, is now AddMuteListEntry.)
+ * (FUN_00509780 below is now BuildAvatarShopIpConfirmDialog.)
  *
  * RENAMED (2026-10-26): this is a single shared/generic ATL-array-append
  * template instantiation - grows the array via AtlArray_GrowBuffer if

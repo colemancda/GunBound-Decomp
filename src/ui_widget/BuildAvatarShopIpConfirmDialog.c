@@ -1,7 +1,32 @@
-/* FUN_00509780 - 0x00509780 in the original binary. Reached from
- * State03_GameRoomList_OnCommand's AVATAR button case when the inventory-
- * loaded checksum is already set: finds (or builds) a small "please wait /
- * loading" style panel (key 50000) and registers it.
+/* BuildAvatarShopIpConfirmDialog - 0x00509780 in the original binary.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-31 (was FUN_00509780). Reached from
+ * State03_GameRoomList_OnCommand's AVATAR button case (3) when the
+ * +0x449c4 checksum cell equals 2, instead of the 0x6000 avatar
+ * request. It finds (typeId 0, id 50000) or builds that panel: vtable
+ * 0x557d78 (0x5097e5), two CStaticTexts from Language.txt 350 "Gaining entry to
+ * the avatar shop." and 351 "The Current IP is out of your normally
+ * used IP range and you need to confirm this IP to gain entry to the
+ * avatar shop. ... To confirm this IP click on "YES" ..." (push 0x15e at
+ * 0x5097fc, push 0x15f at 0x50985f), and labels 0 and 1 drawn with
+ * sprites 0x640/0x641, which State03_GameRoomList_OnEnter loads as
+ * b_gamelist_yes.img / b_gamelist_no.img. The vtable's slot 7
+ * (0x506e10) sends opcode 0x1078 on label 0 (YES) and closes on either.
+ * The header note below that called this a "please wait / loading"
+ * panel is superseded by those strings.
+ *
+ * NOTE: the port still installs the placeholder `&PTR_LAB_00557d78` (a
+ * lone global) as the vtable, not the original's 10 slots - the same gap
+ * BuildBuddyRequestDialog and BuildDeleteBuddyConfirmDialog note.
+ *
+ * Earlier note, kept: reached from State03_GameRoomList_OnCommand's
+ * AVATAR button case when the inventory-loaded checksum is already set:
+ * finds (or builds) a small "please wait / loading" style panel (key
+ * 50000) and registers it.
  *
  * DROPPED-`ESI` FIX (2026-07-29): `unaff_ESI` was an uninitialised
  * register - confirmed via objdump at the sole call site
@@ -32,7 +57,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00509780(int esiArg)
+void BuildAvatarShopIpConfirmDialog(int esiArg)
 
 {
   int *piVar1;
