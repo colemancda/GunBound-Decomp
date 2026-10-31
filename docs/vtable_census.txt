@@ -1543,10 +1543,10 @@ vtable 0x557d78  installs=1  slots=10
    8: 0x50e520  Widget_DrawChildren
    9: 0x5054b0  Widget_DrawSelf
 
-vtable 0x557da0  installs=8  slots=10  UNCARVED=2
+vtable 0x557da0  installs=8  slots=10  UNCARVED=1
    0: 0x50e860  Widget_SetFocus
    1: 0x50e210  FUN_0050e210
-   2: 0x50e280  UNCARVED
+   2: 0x50e280  FUN_0050e280
    3: 0x5052e0  Label_OnMouseDown
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren

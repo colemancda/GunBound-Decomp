@@ -122,7 +122,39 @@ bool CLabel::OnMouseMove(int x, int y)
     return MouseMoveChildren(x, y) || m_unk39 != 0;
 }
 
-/* 0x5052e0, vtable slot 2. If the point lands in the rect and both
+/* 0x50e280, vtable slot 2 (word at 0x557da8). CARVED 2026-10-30. 100
+ * bytes, ret 8, the press twin of OnMouseMove:
+ *
+ *   0x50e287 mov cl,[esi+0x1e] / xor al,al / test cl,cl / jne 0x50e2b9
+ *   0x50e295 cmp/jge against +0x28 / +0x28+0x30 / +0x2c / +0x2c+0x34
+ *   0x50e2b6 mov al,1                    ; strictly inside, not hidden
+ *   0x50e2b9 push edx / push edi / mov ecx,esi
+ *   0x50e2bd mov [esi+0x38],al / mov [esi+4],al
+ *   0x50e2c3 call 0x50e8e0               ; MouseDownChildren(x, y), direct
+ *   0x50e2c8 test al,al / jne -> 1
+ *   0x50e2cc mov al,[esi+0x38] / test al,al / jne -> 1, else 0
+ *
+ * A press inside the label arms +0x38 (and m_focused); outside, it
+ * disarms both. find_vtable_refs.py finds 0x50e280 only in 0x557da0;
+ * no direct calls. */
+bool CLabel::OnMouseDown(int x, int y)
+{
+    u8 inside = (u8)(!m_hidden && m_x < x && x < m_x + m_width &&
+                     m_y < y && y < m_y + m_height);
+    m_unk38 = inside;
+    m_focused = inside;
+    return MouseDownChildren(x, y) || m_unk38 != 0;
+}
+
+/* 0x5052e0, vtable slot 3 (word at 0x557dac), NOT slot 2: the vtable
+ * dump puts 0x50e280 at +0x08 and 0x5052e0 at +0x0c, and the child
+ * mouse-up broadcast 0x50e950 dispatches `call [eax+0xc]`. PROGRESS.csv
+ * still calls it Label_OnMouseDown. Until 2026-10-30 this body was
+ * declared as CLabel::OnMouseDown, so it ran on the press with +0x38
+ * never armed (nothing set it), the click report below never fired, and
+ * the release reached only the inherited child broadcast.
+ *
+ * If the point lands in the rect and both
  * gate flags (+0x1c base, +0x38 label) are set, report the click
  * through the OnCommand spine: evt 0 ("clicked"), this widget's id.
  * The call goes through this object's OWN slot 7 - the leaf default
@@ -141,7 +173,7 @@ bool CLabel::OnMouseMove(int x, int y)
  * || inside;` shares one epilogue with the tail, matching the original
  * (same idiom already used by ResetPressState/OnDragMove elsewhere in
  * this file). */
-bool CLabel::OnMouseDown(int x, int y)
+bool CLabel::OnMouseUp(int x, int y)
 {
     if (!m_hidden && m_x < x && x < m_x + m_width &&
         m_y < y && y < m_y + m_height) {

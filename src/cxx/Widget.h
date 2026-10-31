@@ -134,7 +134,12 @@ public:
     virtual bool OnMouseMove(int x, int y);  /* slot 1: 0x50e210 - carved, Label.cpp: the
                                               * +0x39 hover flag from the rect test, then the
                                               * child move broadcast */
-    virtual bool OnMouseDown(int x, int y);  /* 0x5052e0 - promoted, Label.cpp */
+    virtual bool OnMouseDown(int x, int y);  /* slot 2: 0x50e280 - carved, Label.cpp: arms
+                                              * +0x38 and m_focused from the rect test, then
+                                              * the child down broadcast */
+    virtual bool OnMouseUp(int x, int y);    /* slot 3: 0x5052e0 (PROGRESS name
+                                              * Label_OnMouseDown) - promoted, Label.cpp: the
+                                              * click report, then ResetPressState */
     virtual void Draw();                     /* 0x50e350 - promoted, Label.cpp: reports evt 1 upward
                                               * (the parent panel blits for it), then child broadcast */
     virtual void Update();                   /* 0x505380 - promoted, Label.cpp: THE label sprite draw -
@@ -143,9 +148,11 @@ public:
                                               * frame=state of sprite set m_spriteId at (m_x,m_y),
                                               * then child Update broadcast (orig tail-jmp 0x50ecf0) */
 
-    u8  m_unk38;                     /* +0x38: armed/held flag - gates click AND the per-frame
-                                      * evt-1 reports from Draw (the scrollbar arrows' auto-
-                                      * repeat rides on this); cleared by ResetPressState */
+    u8  m_unk38;                     /* +0x38: armed/held flag - set by OnMouseDown (0x50e280)
+                                      * on a press inside the rect; gates the click in
+                                      * OnMouseUp AND the per-frame evt-1 reports from Draw
+                                      * (the scrollbar arrows' auto-repeat rides on this);
+                                      * cleared by ResetPressState */
     u8  m_unk39;                     /* +0x39: hover flag - OnMouseMove (0x50e210) sets it
                                       * to "point inside the rect"; Update draws state 1/2
                                       * from it */
