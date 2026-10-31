@@ -5,7 +5,9 @@
  * roomId) and returns early if the client is already in that room. If a
  * per-room flag (+0x449ae) is clear it emits the fixed 8-byte 0x2110 packet
  * (room number from the room-id table, u32 payload from _DAT_00551cb1);
- * otherwise it routes to FUN_00508910 (an "already joined"/error path):
+ * otherwise it opens the room-password prompt, BuildRoomPasswordDialog
+ * (0x508910, call at 0x429bab; the 0x2110 then goes out from
+ * SendJoinRoomSelected with the typed password as its u32 payload):
  *   [u16 opcode=0x2110][u16 roomNumber][u32 payload]
  *
  * Raw/near-verbatim port of Ghidra's decompiler output. Calls to unnamed
@@ -66,7 +68,7 @@ void SendJoinRoomChecked(int regEax)
     SendOutgoingPacket(iVar1);
     return;
   }
-  FUN_00508910((int)&g_uiPanelManager);
+  BuildRoomPasswordDialog((int)&g_uiPanelManager);
   return;
 }
 

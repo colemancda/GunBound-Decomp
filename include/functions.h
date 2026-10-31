@@ -1697,7 +1697,7 @@ void TextEntry_RestoreChatInput();
 char PanelManager_DispatchMouseDown(int uiPanelManager,undefined4 param_1,undefined4 param_2);
 void BuildCreateRoomDialog();
 void __fastcall BuildEnterRoomNumberDialog();
-void FUN_00508910(int regEdi);
+void BuildRoomPasswordDialog(int regEdi);
 undefined4 FUN_00508a50(int param_1,char *param_2);
 void FUN_00508b90(int regEdi);
 void FUN_00508d00(int param_1,uchar *regEdi);

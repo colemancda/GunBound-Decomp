@@ -909,17 +909,29 @@ static CPanelListNode *ManagerListHead(void *manager)
     return *(CPanelListNode **)((unsigned char *)manager + 4);
 }
 
-/* 0x508910 - FUN_00508910, the room-password dialog. The manager is in
- * EDI. 0x508926-0x508948 walk it for (typeId 0, id 2) and BringToFront the
- * match (0x508978, ECX = manager, EDX = panel). Otherwise:
+/* 0x508910 - BuildRoomPasswordDialog, the room-password dialog. The
+ * manager is in EDI. 0x508926-0x508948 walk it for (typeId 0, id 2) and
+ * BringToFront the match (0x508978, ECX = manager, EDX = panel). Otherwise:
  * operator new(0x90), CPanel ctor, vtable 0x557dc8 (0x508970), then
  * id 2, +0x4c 0, frame 0x2714/0, rect (0xf3, 0xca, 0x139, 0xa0)
  * (0x5089a8-0x5089d5), the edit box (0, 0x63, 0x38, 0xbe, 0xc, 4)
  * (0x5089dc), the focus sweep `push edi / call 0x50efa0`, SetFocus(1)
  * through its slot 0 (0x5089f5), labels (0, 0x5dd) and (1, 0x5dc) at
  * (0xd5|0x80, 0x76, 0x52, 0x22), and `push ebx / mov eax,edi /
- * call 0x50eea0`. */
-extern "C" void FUN_00508910(int regEdi)
+ * call 0x50eea0`.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_00508910). Vtable 0x557dc8 is
+ * stored only here (the mov at 0x508970). Its one caller, SendJoinRoomChecked, opens
+ * it at 0x429bab instead of sending the 0x2110 join when the room's
+ * +0x449ae flag is set. The dialog's submit (FUN_00506bf0, via its
+ * slot-7 FUN_00506cf0) copies the edit text to m_strings[0] (+0x50) and
+ * queues event 0x1f, which State03_GameRoomList_OnCommand routes to
+ * SendJoinRoomSelected: that finds the (typeId 0, id 2) panel
+ * (0x429fee), copies its +0x50 string, sends 0x2110 with it as the u32
+ * payload, and unregisters panel 2. The server's JoinRoomRequest
+ * (GunBoundProtocol/Packets/JoinRoomRequest.swift) names that fixed
+ * 4-byte field `password`, and the edit box here is 4 chars. */
+extern "C" void BuildRoomPasswordDialog(int regEdi)
 {
     void *manager = (void *)regEdi;
     for (CPanelListNode *n = ManagerListHead(manager); n != 0; n = n->m_next) {
