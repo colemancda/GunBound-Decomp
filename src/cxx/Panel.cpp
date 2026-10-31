@@ -700,14 +700,23 @@ void CAvatarStorePanel::Draw()
  * 0x50a030 and 0x50a320 run the non-virtual child move/up broadcasts
  * themselves, and 0x50a1b0 calls CPanel::OnMouseDown directly
  * (`call 0x505430` at 0x50a290). So each forward replaces the inherited
- * slot outright. Slot 9 (0x50aa10) is carved as the C FUN_0050aa10 but
- * is not forwarded yet, so CPanel::Update stays inherited. Its row
- * renderers RenderAvatarListRow/RenderAvatarListDragRow still make
- * 4-argument BlitSpriteText calls that would dereference a string pointer
- * of 2. See FUN_0050aa10.c. */
+ * slot outright.
+ *
+ * Slot 9, the word at 0x557eb8+0x24, is 0x50aa10 (FUN_0050aa10,
+ * __fastcall(this): `mov ebp,ecx` at 0x50aa17, plain ret). It calls
+ * Widget_DrawSelf (0x5054b0) directly, so it replaces CPanel::Update and
+ * never re-enters a virtual. Its row renderers RenderAvatarListRow and
+ * RenderAvatarListDragRow were rewritten from the disassembly with all
+ * seven BlitSpriteText arguments before this was wired. */
 extern "C" int FUN_0050a030(CWidget *this_, int x, int y);
 extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y);
 extern "C" int FUN_0050a320(CWidget *this_, int x, int y);
+extern "C" void __fastcall FUN_0050aa10(int this_);
+
+void CAvatarStorePanel::Update()
+{
+    FUN_0050aa10((int)this);
+}
 
 /* Two slot-7 bodies carved 2026-10-30 (vtable bytes: 0x557c34 +0x1c =
  * 0x5065c0, 0x557cac +0x1c = 0x507460). Both are __thiscall with three

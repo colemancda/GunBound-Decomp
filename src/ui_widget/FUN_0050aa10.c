@@ -51,15 +51,16 @@
  * 40-tick cycle (20 on, 20 off) unless bit 0x10 of the guarded flags at
  * ctx+0x4111c is set.
  *
- * NOT WIRED (2026-10-30). CAvatarStorePanel (src/cxx/Widget.h) still
- * inherits CPanel::Update, which draws the frame only. Forwarding slot 9
- * here would make the two row renderers live for the first time, and
- * they are not ready. RenderAvatarListRow (0x50ae40) and
- * RenderAvatarListDragRow (0x50be20) still pass BlitSpriteText 4 of its 7
- * arguments, for example `BlitSpriteText(0x28,local_80,2,6)`, with x,
- * EBX = y and ESI = charset dropped. The value 2 then lands in the string
- * pointer slot. They also read unaff_EBX/unaff_ESI/stack0x artifacts
- * (32 and 28 of them). Wire this body once those two are recovered.
+ * WIRED (2026-10-31) as CAvatarStorePanel::Update in src/cxx/Panel.cpp.
+ * It was held back on 2026-10-30 because RenderAvatarListRow (0x50ae40)
+ * and RenderAvatarListDragRow (0x50be20) passed BlitSpriteText 4 of its
+ * 7 arguments and read unaff_ register artifacts. Both were rewritten
+ * from the disassembly first. Every callee this makes live was checked:
+ * Widget_DrawSelf, BlitSpriteText, FindSpriteFrame, BlitSprite16bpp,
+ * BlitSpriteClipped, BlitRLESprite (and its glyph plotters FUN_004eaeb0
+ * and BlitFontGlyphClipped), PeekPacketChecksumState and the two row
+ * renderers all take their register arguments as parameters, and
+ * tools/dropped_reg_backlog.py lists none of them.
  *
  * The two format strings are written as literals. The original reads
  * them from .data, "%3d" at 0x551ecc and "%02d" at 0x555654, but the

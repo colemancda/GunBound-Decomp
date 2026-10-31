@@ -35,495 +35,162 @@
  * pointer (0x50b4cc etc.), so all four get the same cell; the C's
  * `local_8c = ...`/`local_90 = local_88 + 0xe84c` lines are Ghidra's
  * garbled rendering of that pointer store and were left alone.
+ *
+ * REWRITTEN FROM THE DISASSEMBLY (2026-10-31). From 0x50b1bb on, Ghidra
+ * lost the stack frame: the seven stat blocks read unaff_EBX/unaff_EBP/
+ * unaff_ESI/unaff_EDI and a stack0x artifact, and every BlitSpriteText
+ * call passed 4 of its 7 arguments (`BlitSpriteText(0x28,local_80,2,6)`,
+ * so 2 landed in the string-pointer slot).  None of those registers is a
+ * live-in: EBX/EBP/ESI/EDI are all written in the prologue
+ * (0x50ae4a-0x50ae5c), so there was nothing to promote; the fix is the
+ * frame.  After the four pushes the frame is
+ *   [esp+0x10] rowY = m_y + 0x68 + row*0x11       (0x50ae77)
+ *   [esp+0x14] col, the stat-column counter       (2 at 0x50b1c3)
+ *   [esp+0x1c] x0   = m_x + 0x13                   (0x50ae73)
+ *   [esp+0x20] state, rebased by row*0x17e4        (0x50b1b2)
+ *   [esp+0x24] the sprintf buffer
+ * and every BlitSpriteText site sets ECX/EBX/ESI before `call 0x4ed9f0`:
+ *   0x50b32c  ECX = x0+0xa2, EBX = rowY+4, ESI = 0x1f4, (0x28, buf, 2, 6)
+ *   0x50b4a5 0x50b639 0x50b7cb 0x50b954 0x50bae6 0x50bc78 0x50be01
+ *             ECX = x0 + col*0x19 + 0x70, EBX = rowY+4, ESI = 0x1f4,
+ *             (0x28, buf, 2, 6)
+ * The stat blocks: state+0xe1e0 (setle at 0x50b207: frame 9 and the
+ * negated value, else 8, sprite at x0+0x99) sets col = 1; then
+ * state+0xf0dc, 0xe628, 0xe84c, 0xea70, 0xec94, 0xe404, 0xeeb8 in that
+ * order, each drawn only when non-zero and col < 3 (`cmp ...,3 / jge`),
+ * frame 0xa/0xc/0xe/0x10/0x12/0x14/0x16 when negative (setl) and the next
+ * frame otherwise, sprite at (x0 + col*0x19 + 0x67, rowY+2), then
+ * `dec` col.  All sprites use set 0x2713.  The part-code frame's +1
+ * test is `test bh,bh / js` at 0x50b09d, bit 15 of the second peek; the
+ * old C read an uninitialised extraout_AH there.
  */
-#include "ghidra_types.h"
 
+#include "ghidra_types.h"
+#include <windows.h>
+
+
+static void RenderAvatarListRow_Blit(int frame,int x,int y,int key)
+{
+  int sprite;
+
+  if ((g_screenSurface != 0) &&
+      (sprite = FindSpriteFrame((int)&g_spriteRegistry,key,frame), sprite != 0)) {
+    if (*(char *)(sprite + 0x18) == '\x01') {
+      BlitSprite16bpp(frame,x,y,key);
+    }
+    else {
+      BlitSpriteClipped(frame,x,y,key);
+    }
+  }
+}
+
+static int RenderAvatarListRow_Peek(void *cell)
+{
+  int value;
+
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  value = (int)PeekPacketChecksumState(cell);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  return value;
+}
 
 void __fastcall RenderAvatarListRow(int param_1,int regEax)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xffffff64;
-  undefined *puVar1;
-  char extraout_AH;
-  int iVar2;
-  undefined *puVar3;
-  int unaff_EBX;
-  int iVar4;
-  int unaff_EBP;
-  int unaff_ESI;
-  uint uVar5;
-  uint uVar6;
-  code *pcVar7;
-  undefined *unaff_EDI;
-  undefined *puVar8;
-  undefined *puVar9;
-  undefined *local_94;
-  int local_90;
-  undefined *local_8c;
-  int local_88;
-  undefined *local_84;
-  char local_80 [128];
-  
-  local_94 = (undefined *)(*(int *)(regEax + 0x2c) + 0x68 + param_1 * 0x11);
-  iVar4 = *(int *)(regEax + 0x28) + 0x13;
-  local_84 = g_gameStateVTableArray[7];
-  local_88 = iVar4;
-  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  iVar2 = PeekPacketChecksumState((void *)(local_84 + 0x228));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  if (((param_1 == iVar2) && (g_screenSurface != 0)) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2712,1), iVar2 != 0)) {
-    if (*(char *)(iVar2 + 0x18) == '\x01') {
-      BlitSprite16bpp(1,iVar4,local_94,0x2712);
-    }
-    else {
-      BlitSpriteClipped(1,iVar4,local_94,0x2712);
-    }
+  static const int statOffset[7] = {0xf0dc,0xe628,0xe84c,0xea70,0xec94,0xe404,0xeeb8};
+  static const int statFrame[7] = {0xa,0xc,0xe,0x10,0x12,0x14,0x16};
+  char *state;
+  int rowY;
+  int x0;
+  int index;
+  int off;
+  int value;
+  int frame;
+  int col;
+  int colX;
+  int i;
+  int negative;
+  uint key;
+  char buf[0x80];
+
+  rowY = *(int *)(regEax + 0x2c) + 0x68 + param_1 * 0x11;
+  x0 = *(int *)(regEax + 0x28) + 0x13;
+  state = g_gameStateVTableArray[7];
+  /* 0x50ae7b-0x50aeda: the selection highlight */
+  if (param_1 == RenderAvatarListRow_Peek(state + 0x228)) {
+    RenderAvatarListRow_Blit(1,x0,rowY,0x2712);
   }
-  if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(local_84 + 0x454) + param_1)) {
+  if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(state + 0x454) + param_1)) {
     return;
   }
-  local_90 = 0;
-LAB_0050af10:
-  iVar2 = *(int *)(local_84 + 0x454);
-  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  iVar4 = PeekPacketChecksumState((void *)(g_clientContext + local_90 + 0x5f4ab8));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  if ((iVar4 == iVar2 + param_1) && (g_screenSurface != 0)) {
-    iVar2 = *(int *)(DAT_00ea0e1c + 0x1c);
-    uVar5 = *(uint *)(iVar2 + 4);
-    while (uVar5 < 0x2714) {
-      if (uVar5 == 0x2713) {
-        iVar2 = *(int *)(iVar2 + 0x10);
-        uVar5 = *(uint *)(iVar2 + 8);
-        if (uVar5 < 8) goto LAB_0050af95;
-        break;
-      }
-      iVar2 = *(int *)(iVar2 + 0x1c);
-      uVar5 = *(uint *)(iVar2 + 4);
+  /* 0x50af10-0x50afe4: the equipped marker, four 0x224-stride cells */
+  for (off = 0; off < 0x890; off = off + 0x224) {
+    index = *(int *)(state + 0x454) + param_1;
+    if (RenderAvatarListRow_Peek((void *)(g_clientContext + off + 0x5f4ab8)) == index) {
+      RenderAvatarListRow_Blit(7,x0,rowY + 4,0x2713);
     }
   }
-  goto LAB_0050afd2;
-  while( true ) {
-    iVar2 = *(int *)(iVar2 + 0x10);
-    uVar5 = *(uint *)(iVar2 + 8);
-    if (7 < uVar5) break;
-LAB_0050af95:
-    if (uVar5 == 7) {
-      if (*(char *)(iVar2 + 0x18) == '\x01') {
-        BlitSprite16bpp(7,local_88,local_94 + 4,0x2713);
-      }
-      else {
-        BlitSpriteClipped(7,local_88,local_94 + 4,0x2713);
-      }
-      break;
-    }
-  }
-LAB_0050afd2:
-  puVar3 = local_84;
-  local_90 = local_90 + 0x224;
-  if (0x88f < local_90) goto code_r0x0050afea;
-  goto LAB_0050af10;
-code_r0x0050afea:
-  if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(local_84 + 0x454) + param_1)) {
-                    /* WARNING: Subroutine does not return */
+  /* 0x50afea-0x50b11c: the part-code frame */
+  index = *(int *)(state + 0x454) + param_1;
+  if (*(uint *)(g_clientContext + 0x44e24) <= (uint)index) {
     ThrowCxxException(0x80070057);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  iVar2 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(local_84 + 0x454) + param_1) * 0x450 + 0x22c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  uVar5 = iVar2 >> 0x10 & 0xf;
-  uVar6 = uVar5 * 2;
-  if (uVar5 != 3) {
-    if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar3 + 0x454) + param_1)) {
-                    /* WARNING: Subroutine does not return */
+  value = RenderAvatarListRow_Peek((void *)(*(int *)(g_clientContext + 0x44e20) + index * 0x450 + 0x22c));
+  frame = (value >> 0x10 & 0xf) * 2;
+  if (frame != 6) {
+    index = *(int *)(state + 0x454) + param_1;
+    if (*(uint *)(g_clientContext + 0x44e24) <= (uint)index) {
       ThrowCxxException(0x80070057);
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(puVar3 + 0x454) + param_1) * 0x450 + 0x22c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    if (-1 < extraout_AH) {
-      uVar6 = uVar6 + 1;
+    value = RenderAvatarListRow_Peek((void *)(*(int *)(g_clientContext + 0x44e20) + index * 0x450 + 0x22c));
+    if ((value & 0x8000) == 0) {
+      frame = frame + 1;
     }
   }
-  if (g_screenSurface != 0) {
-    iVar2 = *(int *)(DAT_00ea0e1c + 0x1c);
-    uVar5 = *(uint *)(iVar2 + 4);
-    while (uVar5 < 0x2714) {
-      if (uVar5 == 0x2713) {
-        iVar2 = *(int *)(iVar2 + 0x10);
-        uVar5 = *(uint *)(iVar2 + 8);
-        if (uVar5 <= uVar6) goto LAB_0050b0e6;
-        break;
+  if (-1 < frame) {
+    RenderAvatarListRow_Blit(frame,x0 + 6,rowY + 2,0x2713);
+  }
+  /* 0x50b11f-0x50b1b6: the item name */
+  index = *(int *)(state + 0x454) + param_1;
+  if (*(uint *)(g_clientContext + 0x44e24) <= (uint)index) {
+    ThrowCxxException(0x80070057);
+  }
+  value = RenderAvatarListRow_Peek((void *)(*(int *)(g_clientContext + 0x44e20) + index * 0x450 + 0x22c));
+  state = state + param_1 * 0x17e4;
+  key = (-(uint)((value & 0x20000000) != 0x20000000) & 0x480d) + 0xb7f2;
+  BlitRLESprite(x0 + 0x18,rowY + 3,key,(byte *)(state + 0xdd80));
+  /* 0x50b1be-0x50b334: the first stat */
+  col = 2;
+  if (RenderAvatarListRow_Peek(state + 0xe1e0) != 0) {
+    if (RenderAvatarListRow_Peek(state + 0xe1e0) <= 0) {
+      RenderAvatarListRow_Blit(9,x0 + 0x99,rowY + 2,0x2713);
+      value = -RenderAvatarListRow_Peek(state + 0xe1e0);
+    }
+    else {
+      RenderAvatarListRow_Blit(8,x0 + 0x99,rowY + 2,0x2713);
+      value = RenderAvatarListRow_Peek(state + 0xe1e0);
+    }
+    _sprintf(buf,(char *)&DAT_00555654,value);
+    BlitSpriteText(x0 + 0xa2,0x28,(int)buf,2,6,rowY + 4,0x1f4);
+    col = 1;
+  }
+  /* 0x50b33c-0x50be06: the other seven stats, right to left */
+  for (i = 0; i < 7; i = i + 1) {
+    if ((RenderAvatarListRow_Peek(state + statOffset[i]) != 0) && (col < 3)) {
+      negative = RenderAvatarListRow_Peek(state + statOffset[i]) < 0;
+      colX = col * 0x19 + x0;
+      if (negative) {
+        RenderAvatarListRow_Blit(statFrame[i],colX + 0x67,rowY + 2,0x2713);
+        value = -RenderAvatarListRow_Peek(state + statOffset[i]);
       }
-      iVar2 = *(int *)(iVar2 + 0x1c);
-      uVar5 = *(uint *)(iVar2 + 4);
+      else {
+        RenderAvatarListRow_Blit(statFrame[i] + 1,colX + 0x67,rowY + 2,0x2713);
+        value = RenderAvatarListRow_Peek(state + statOffset[i]);
+      }
+      _sprintf(buf,(char *)&DAT_00555654,value);
+      BlitSpriteText(colX + 0x70,0x28,(int)buf,2,6,rowY + 4,0x1f4);
+      col = col - 1;
     }
   }
-  goto LAB_0050b11f;
-  while( true ) {
-    iVar2 = *(int *)(iVar2 + 0x10);
-    uVar5 = *(uint *)(iVar2 + 8);
-    if (uVar6 < uVar5) break;
-LAB_0050b0e6:
-    if (uVar5 == uVar6) {
-      if (*(char *)(iVar2 + 0x18) == '\x01') {
-        BlitSprite16bpp(uVar6,local_88 + 6,local_94 + 2,0x2713);
-      }
-      else {
-        BlitSpriteClipped(uVar6,local_88 + 6,local_94 + 2,0x2713);
-      }
-      break;
-    }
-  }
-LAB_0050b11f:
-  if ((uint)(*(int *)(local_84 + 0x454) + param_1) < *(uint *)(g_clientContext + 0x44e24)) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    uVar5 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(local_84 + 0x454) + param_1) * 0x450 + 0x22c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    local_84 = local_84 + param_1 * 0x17e4;
-    /* BlitRLESprite's dropped args recovered via objdump at 0x50b1a8/0x50b1af
-     * (orig 0x50b1b6 call): ECX = local_88+0x18 (this), EAX = local_84+0xdd80
-     * (rleData) - local_84 here is already the UPDATED value from the line
-     * above (edi held param_1*0x17e4 + local_84 at the call site). */
-    BlitRLESprite(local_88 + 0x18,local_94 + 3,
-                  (-(uint)((uVar5 & 0x20000000) != 0x20000000) & 0x480d) + 0xb7f2,
-                  local_84 + 0xdd80);
-    local_90 = 2;
-    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe1e0));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    if (iVar2 != 0) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe1e0));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      if (iVar2 < 1) {
-        iVar2 = local_88 + 0x99;
-        if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,9), iVar4 != 0)) {
-          if (*(char *)(iVar4 + 0x18) == '\x01') {
-            BlitSprite16bpp(9,iVar2,local_94 + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(9,iVar2,local_94 + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe1e0));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = -iVar2;
-      }
-      else {
-        iVar2 = local_88 + 0x99;
-        if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,8), iVar4 != 0)) {
-          if (*(char *)(iVar4 + 0x18) == '\x01') {
-            BlitSprite16bpp(8,iVar2,local_94 + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(8,iVar2,local_94 + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe1e0));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      }
-      _sprintf(local_80,&DAT_00555654,iVar2);
-      BlitSpriteText(0x28,local_80,2,6);
-      local_90 = 1;
-    }
-    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xf0dc));
-    pcVar7 = (code *)LeaveCriticalSection;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    if ((iVar2 != 0) && (local_90 < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xf0dc));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      local_8c = (undefined *)(local_90 * 0x19 + local_88);
-      puVar3 = local_8c + 0x67;
-      if (iVar2 < 0) {
-        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xa), iVar2 != 0)) {
-          if (*(char *)(iVar2 + 0x18) == '\x01') {
-            BlitSprite16bpp(10,puVar3,local_94 + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(10,puVar3,local_94 + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xf0dc));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = -iVar2;
-      }
-      else {
-        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xb), iVar2 != 0)) {
-          if (*(char *)(iVar2 + 0x18) == '\x01') {
-            BlitSprite16bpp(0xb,puVar3,local_94 + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0xb,puVar3,local_94 + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xf0dc));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      }
-      _sprintf(local_80,&DAT_00555654,iVar2);
-      BlitSpriteText(0x28,local_80,2,6);
-      local_90 = local_90 + -1;
-      pcVar7 = (code *)LeaveCriticalSection;
-    }
-    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    local_8c = local_84 + 0xe628;
-    iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe628));
-    puVar9 = &g_valueGuardLock;
-    (*pcVar7)(&g_valueGuardLock);
-    puVar3 = local_94;
-    if ((iVar2 != 0) && ((int)local_94 < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe628));
-      (*pcVar7)(&g_valueGuardLock);
-      if (iVar2 < 0) {
-        puVar3 = local_8c + (int)puVar3 * 0x19 + 0x67;
-        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xc), iVar2 != 0)) {
-          if (*(char *)(iVar2 + 0x18) == '\x01') {
-            BlitSprite16bpp(0xc,puVar3,unaff_EBX + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0xc,puVar3,unaff_EBX + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe628));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = -iVar2;
-      }
-      else {
-        puVar3 = local_8c + (int)puVar3 * 0x19 + 0x67;
-        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xd), iVar2 != 0)) {
-          if (*(char *)(iVar2 + 0x18) == '\x01') {
-            BlitSprite16bpp(0xd,puVar3,unaff_EBX + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0xd,puVar3,unaff_EBX + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe628));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      }
-      _sprintf((char *)&local_84,&DAT_00555654,iVar2);
-      BlitSpriteText(0x28,&local_84,2,6);
-      local_94 = local_94 + -1;
-      pcVar7 = (code *)LeaveCriticalSection;
-    }
-    puVar3 = local_94;
-    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    local_90 = local_88 + 0xe84c;
-    iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe84c));
-    (*pcVar7)(&g_valueGuardLock);
-    if ((iVar2 != 0) && ((int)puVar3 < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe84c));
-      (*pcVar7)(&g_valueGuardLock);
-      if (iVar2 < 0) {
-        iVar2 = (int)puVar3 * 0x19 + local_90;
-        if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xe), iVar4 != 0)) {
-          if (*(char *)(iVar4 + 0x18) == '\x01') {
-            BlitSprite16bpp(0xe,iVar2 + 0x67,unaff_EBP + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0xe,iVar2 + 0x67,unaff_EBP + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe84c));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = -iVar2;
-      }
-      else {
-        iVar2 = (int)puVar3 * 0x19 + local_90;
-        if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xf), iVar4 != 0)) {
-          if (*(char *)(iVar4 + 0x18) == '\x01') {
-            BlitSprite16bpp(0xf,iVar2 + 0x67,unaff_EBP + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0xf,iVar2 + 0x67,unaff_EBP + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe84c));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      }
-      _sprintf((char *)&local_88,&DAT_00555654,iVar2);
-      BlitSpriteText(0x28,&local_88,2,6);
-      puVar3 = (undefined *)(unaff_EBX + -1);
-      pcVar7 = (code *)LeaveCriticalSection;
-    }
-    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    local_94 = local_8c + 0xea70;
-    iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xea70));
-    puVar8 = &g_valueGuardLock;
-    (*pcVar7)(&g_valueGuardLock);
-    if ((iVar2 != 0) && ((int)puVar3 < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xea70));
-      (*pcVar7)(&g_valueGuardLock);
-      if (iVar2 < 0) {
-        puVar3 = local_94 + (int)puVar3 * 0x19 + 0x67;
-        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x10), iVar2 != 0)) {
-          if (*(char *)(iVar2 + 0x18) == '\x01') {
-            BlitSprite16bpp(0x10,puVar3,unaff_ESI + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0x10,puVar3,unaff_ESI + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xea70));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = -iVar2;
-      }
-      else {
-        puVar3 = local_94 + (int)puVar3 * 0x19 + 0x67;
-        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x11), iVar2 != 0)) {
-          if (*(char *)(iVar2 + 0x18) == '\x01') {
-            BlitSprite16bpp(0x11,puVar3,unaff_ESI + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0x11,puVar3,unaff_ESI + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xea70));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      }
-      _sprintf((char *)&local_8c,&DAT_00555654,iVar2);
-      BlitSpriteText(0x28,&local_8c,2,6);
-      puVar3 = (undefined *)(unaff_EBP + -1);
-      pcVar7 = (code *)LeaveCriticalSection;
-    }
-    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar2 = local_90 + 0xec94;
-    iVar4 = PeekPacketChecksumState((void *)(local_84 + 0xec94));
-    (*pcVar7)(&g_valueGuardLock);
-    if ((iVar4 != 0) && ((int)puVar3 < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      iVar4 = PeekPacketChecksumState((void *)(local_84 + 0xec94));
-      (*pcVar7)(&g_valueGuardLock);
-      if (iVar4 < 0) {
-        if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x12), iVar4 != 0)) {
-          if (*(char *)(iVar4 + 0x18) == '\x01') {
-            BlitSprite16bpp(0x12,(int)puVar3 * 0x19 + iVar2 + 0x67,unaff_EDI + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0x12,(int)puVar3 * 0x19 + iVar2 + 0x67,unaff_EDI + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xec94));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = -iVar2;
-      }
-      else {
-        if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x13), iVar4 != 0)) {
-          if (*(char *)(iVar4 + 0x18) == '\x01') {
-            BlitSprite16bpp(0x13,(int)puVar3 * 0x19 + iVar2 + 0x67,unaff_EDI + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0x13,(int)puVar3 * 0x19 + iVar2 + 0x67,unaff_EDI + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xec94));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      }
-      _sprintf((char *)&local_90,&DAT_00555654,iVar2);
-      BlitSpriteText(0x28,&local_90,2,6);
-      puVar3 = (undefined *)(unaff_ESI + -1);
-      pcVar7 = (code *)LeaveCriticalSection;
-    }
-    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    puVar1 = local_94;
-    iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe404));
-    (*pcVar7)(&g_valueGuardLock);
-    if ((iVar2 != 0) && ((int)puVar3 < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe404));
-      (*pcVar7)(&g_valueGuardLock);
-      if (iVar2 < 0) {
-        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x14), iVar2 != 0)) {
-          if (*(char *)(iVar2 + 0x18) == '\x01') {
-            BlitSprite16bpp(0x14,puVar1 + (int)puVar3 * 0x19 + 0xe46b,puVar9 + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0x14,puVar1 + (int)puVar3 * 0x19 + 0xe46b,puVar9 + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe404));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = -iVar2;
-      }
-      else {
-        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x15), iVar2 != 0)) {
-          if (*(char *)(iVar2 + 0x18) == '\x01') {
-            BlitSprite16bpp(0x15,puVar1 + (int)puVar3 * 0x19 + 0xe46b,puVar9 + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0x15,puVar1 + (int)puVar3 * 0x19 + 0xe46b,puVar9 + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe404));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      }
-      _sprintf((char *)&local_94,&DAT_00555654,iVar2);
-      BlitSpriteText(0x28,&local_94,2,6);
-      puVar3 = unaff_EDI + -1;
-      pcVar7 = (code *)LeaveCriticalSection;
-      unaff_EDI = puVar3;
-    }
-    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xeeb8));
-    (*pcVar7)(&g_valueGuardLock);
-    if ((iVar2 != 0) && ((int)puVar3 < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xeeb8));
-      (*pcVar7)(&g_valueGuardLock);
-      if (iVar2 < 0) {
-        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x16), iVar2 != 0)) {
-          if (*(char *)(iVar2 + 0x18) == '\x01') {
-            BlitSprite16bpp(0x16,unaff_EDI + (int)puVar3 * 0x19 + 0x67,puVar8 + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0x16,unaff_EDI + (int)puVar3 * 0x19 + 0x67,puVar8 + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xeeb8));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = -iVar2;
-      }
-      else {
-        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x17), iVar2 != 0)) {
-          if (*(char *)(iVar2 + 0x18) == '\x01') {
-            BlitSprite16bpp(0x17,unaff_EDI + (int)puVar3 * 0x19 + 0x67,puVar8 + 2,0x2713);
-          }
-          else {
-            BlitSpriteClipped(0x17,unaff_EDI + (int)puVar3 * 0x19 + 0x67,puVar8 + 2,0x2713);
-          }
-        }
-        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xeeb8));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      }
-      _sprintf(&stack0xffffff64,&DAT_00555654,iVar2);
-      BlitSpriteText(0x28,&stack0xffffff64,2,6);
-    }
-    return;
-  }
-                    /* WARNING: Subroutine does not return */
-  ThrowCxxException(0x80070057);
+  return;
 }
-
