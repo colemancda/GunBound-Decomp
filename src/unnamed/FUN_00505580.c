@@ -4,6 +4,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_00402ad0 below is now SendBuddyRequestByNickname.)
+ *
  * FUN_00401bb0 CALL SITE RECOVERED (2026-10-27), part of naming that
  * function FindDirectLinkBuddyNode: at 0x5055ec the only stack push is
  * the literal container `&DAT_00e53e88`, and EBX - the lookup-key
@@ -49,7 +51,7 @@ void FUN_00505580(int param_1)
     if (iVar3 == 0) {
       iVar3 = __mbsicmp(*(uchar **)(param_1 + 0x50),(uchar *)(g_clientContext + 0x23330));
       if (iVar3 != 0) {
-        FUN_00402ad0(&DAT_00e53e88,&DAT_0054b460,*(char **)(param_1 + 0x50));
+        SendBuddyRequestByNickname(&DAT_00e53e88,&DAT_0054b460,*(char **)(param_1 + 0x50));
         goto LAB_0050566b;
       }
       pcVar4 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa7);

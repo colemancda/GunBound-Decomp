@@ -173,7 +173,7 @@ void EnsureChatLogPanelForPeer(undefined4 param_1,char *param_2);
 void FUN_004026a0(undefined4 param_1,undefined4 *param_2,uint param_3,char *regEax,int regEbx,char regCl);
 void SendWhisperByNickname();
 void FUN_00402900(int param_1,char *param_2,char *regEax);
-void FUN_00402ad0(int param_1,char *param_2,char *regEax);
+void SendBuddyRequestByNickname(int param_1,char *param_2,char *regEax);
 void DeleteBuddyByNickname(int param_1,char *regEdi);
 void AnswerBuddyRequestByNickname(int param_1,undefined4 param_2,char *regEax);
 void __thiscall ProcessUserLookupResponse(ushort *param_1,undefined4 param_2,short regAx);

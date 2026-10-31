@@ -1,8 +1,22 @@
-/* FUN_00402ad0 - 0x00402ad0 in the original binary.
+/* SendBuddyRequestByNickname - 0x00402ad0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31 (was FUN_00402ad0). Its sole caller is the add-buddy
+ * dialog's submit (0x505580, reached from AddBuddyDialog_OnCommand),
+ * after it has ruled out a name already on the list (Language.txt 4004)
+ * and the player's own name (4007); the name goes in EAX. Over the
+ * direct link it sends 0xa200 [16-byte user id][20 zero bytes]
+ * (0x402b2b); with the link down but the peer known it notifies the
+ * +0x1bdc listener (slot +0x20) and shows 4006, "You asked to add '%s'
+ * to the list.\nWaiting for his/her permission." (push 0xfa6 at
+ * 0x402be9); on a nickname-lookup miss it parks action 1 through
+ * FUN_004026a0 (0x402cd4). DispatchDirectLinkPacket's action-1 arm
+ * replays it as the same 0xa200 send or the same 4006 notice.
+ * "ByNickname" follows SendWhisperByNickname, the same
+ * FindUserIdByNickname + direct-link / 0x1020 fallback shape.
  *
  * FIXED (2026-07-14): the trailing SendSocketData call only passed 2 of
  * its 3 real args and dropped the buffer ("this") entirely - same bug as
@@ -17,7 +31,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00402ad0(int param_1,char *param_2,char *regEax)
+void SendBuddyRequestByNickname(int param_1,char *param_2,char *regEax)
 
 {
   undefined2 *puVar1;

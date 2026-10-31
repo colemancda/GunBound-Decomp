@@ -6,6 +6,7 @@
  * verbatim ports" section for status.
  *
  * (FUN_00402720 in the SITE MAP below is now SendWhisperByNickname.)
+ * (FUN_00402ad0 below is now SendBuddyRequestByNickname.)
  * (FUN_00402cf0 below is now DeleteBuddyByNickname.)
  * (FUN_00402e60 below is now AnswerBuddyRequestByNickname.)
  *
