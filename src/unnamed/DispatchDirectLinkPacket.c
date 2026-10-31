@@ -198,7 +198,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
     case 0x2000:
       /* 0x40366f-0x403674: EDI = this function's EAX (`mov edi,eax` at
        * 0x4032d2), the buddy name, untouched on the way to the 0x2000 arm. */
-      FUN_00508d00((int)&g_uiPanelManager,(uchar *)regEax);
+      BuildBuddyRequestDialog((int)&g_uiPanelManager,(uchar *)regEax);
       return;
     case 0x2001:
       pcVar6 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa3 - (uint)(*(char *)(param_1 + 8) != '\0'));

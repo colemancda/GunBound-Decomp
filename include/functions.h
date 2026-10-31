@@ -1700,7 +1700,7 @@ void __fastcall BuildEnterRoomNumberDialog();
 void BuildRoomPasswordDialog(int regEdi);
 uint BuildRoomTitleDialog(int param_1,char *param_2);
 void BuildAddBuddyDialog(int regEdi);
-void FUN_00508d00(int param_1,uchar *regEdi);
+void BuildBuddyRequestDialog(int param_1,uchar *regEdi);
 void FUN_00508ea0(int param_1,uchar *regEdi);
 void BuildItemTooltipPanel();
 undefined4 BuildBuddyPanel();

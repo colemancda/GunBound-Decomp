@@ -1,9 +1,26 @@
-/* FUN_00508d00 - 0x00508d00 in the original binary.
+/* BuildBuddyRequestDialog - 0x00508d00 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_00508d00). The text it shows is
+ * localized string 0xfa1 (push at 0x508e3a), sprintf'd with the name in
+ * EDI. The reference client's Language.txt (inside graphics.xfs) gives
+ * 4001 as "'%s'asks for your permission.\nDo you accept?", between 4000
+ * (the add-buddy prompt BuildAddBuddyDialog shows) and 4002/4003
+ * ("'%s'agreed." / "'%s'rejected your request."), which the 0x2001 arm
+ * of DispatchDirectLinkPacket shows right after this 0x2000 arm. The
+ * dialog's slot 7 in the original vtable 0x557d50 is 0x5063e0, which
+ * answers through FUN_00402e60 with 1 for label 0 and 0 for label 1
+ * (push 1 / push 0 at 0x5063ff / 0x5063fb), i.e. accept or reject.
+ * Callers: the 0x2000 arm of DispatchDirectLinkPacket (0x403674), the
+ * 0xa250 arm of DispatchDirectLinkMessengerPacket (0x411f5d), and a
+ * third site at 0x403e5a inside an uncarved function at 0x403e10 that
+ * has no PROGRESS.csv row.
+ *
+ * NOTE: the port still installs the placeholder `&PTR_LAB_00557d50` (a
+ * lone null in globals.c) as the vtable, not the original's 10 slots.
  *
  * Widget_AddChild `this` RECOVERED (2026-10-30): 0x50e670 takes the
  * parent in EBX and the child on the stack. At 0x508df5/0x508e12/0x508e74
@@ -23,7 +40,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00508d00(int param_1,uchar *regEdi)
+void BuildBuddyRequestDialog(int param_1,uchar *regEdi)
 
 {
   uchar uVar1;

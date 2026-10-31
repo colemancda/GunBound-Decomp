@@ -21,7 +21,7 @@
  * mov fs:[0],esp), unlinked at 0x509017-0x509020. The handler
  * LAB_0053cf6e is not part of this decompile, so the writes through the
  * uninitialised unaff_FS_OFFSET and the try-state local are removed, as
- * FUN_00508d00 already had them removed.
+ * BuildBuddyRequestDialog already had them removed.
  */
 #include "ghidra_types.h"
 

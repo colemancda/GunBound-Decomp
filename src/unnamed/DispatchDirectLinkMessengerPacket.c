@@ -39,7 +39,7 @@
  *             (zeroed as 1+0x3f*4+2+1 bytes, 0x411e5f-0x411e78) and the
  *             0x80-byte 0xff fill (0x411c6a, 0x4120c6)
  * Each is passed by address as a string (StringMap_SetAt_CString,
- * FUN_00508d00, UpsertDirectLinkBuddyNode, UpdateBuddyStatus, ...), so
+ * BuildBuddyRequestDialog, UpsertDirectLinkBuddyNode, UpdateBuddyStatus, ...), so
  * separate locals that MSVC may reorder are wrong. local_108 was even
  * declared as 3 bytes and then written for 0x100. Each is now one char
  * array, named after its first Ghidra local. The `x & 0xffffff` on the
@@ -97,7 +97,7 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2,usho
       /* 0x411f59: lea edi,[esp+0x14] after the push is the same slot the
        * second StringMap call took as [esp+0x10] (0x411f3f), i.e. the
        * 12-byte name. */
-      FUN_00508d00((int)&g_uiPanelManager,(uchar *)local_158);
+      BuildBuddyRequestDialog((int)&g_uiPanelManager,(uchar *)local_158);
       return;
     }
     if (in_AX < 0xa101) {
