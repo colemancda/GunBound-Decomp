@@ -726,7 +726,7 @@ void CAvatarStorePanel::Update()
  * re-enter these overrides. The C ports are erased-__thiscall cdecl
  * with `this` first. */
 extern "C" void FUN_005065c0(void *this_, int evt, int id, int arg);
-extern "C" void FUN_00507460(int this_, int evt, int id, int arg);
+extern "C" void ChannelUserListPanel_OnCommand(int this_, int evt, int id, int arg);
 
 void CCreateRoomDialog::OnCommand(int evt, int id, int arg)
 {
@@ -735,7 +735,7 @@ void CCreateRoomDialog::OnCommand(int evt, int id, int arg)
 
 void CChannelUserListPanel::OnCommand(int evt, int id, int arg)
 {
-    FUN_00507460((int)this, evt, id, arg);
+    ChannelUserListPanel_OnCommand((int)this, evt, id, arg);
 }
 
 /* CEnterRoomNumberDialog's slot 7: the word at 0x557df0+0x1c is 0x506b20

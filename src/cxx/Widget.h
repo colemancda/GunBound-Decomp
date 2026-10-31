@@ -338,8 +338,9 @@ public:
                                                 * click opens a whisper, then the own-rect
                                                 * test; no child broadcast) */
     virtual void OnCommand(int evt, int id, int arg); /* 0x507460 - Panel.cpp forwards to the C
-                                                * FUN_00507460 (slot 7: scrollbar position
-                                                * to g_clientContext+0x5f2f3c, then the
+                                                * ChannelUserListPanel_OnCommand (slot 7:
+                                                * scrollbar position to
+                                                * g_clientContext+0x5f2f3c, then the
                                                 * base handler) */
     virtual void Update();                     /* 0x5074a0 - ported as the C
                                                 * RenderChannelUserRow; without this
