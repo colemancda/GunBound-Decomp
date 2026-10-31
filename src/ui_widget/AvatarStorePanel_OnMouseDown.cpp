@@ -1,8 +1,16 @@
-/* FUN_0050a1b0 - 0x0050a1b0 in the original binary.
+/* AvatarStorePanel_OnMouseDown - 0x0050a1b0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_0050a1b0). The word at
+ * 0x557eb8+0x8 is 0x50a1b0, and vtable 0x557eb8 is stored only by
+ * BuildAvatarStorePanel (at 0x509ea5); slots 4, 7 and 8 there are the
+ * already-named AvatarStorePanel_HitTest / _OnCommand / _Draw. Slot 2
+ * is CWidget::OnMouseDown(x, y) in src/cxx/Widget.h, and the body's
+ * direct `call 0x505430` at 0x50a290 reaches the base CPanel::OnMouseDown
+ * non-virtually, as an override of that slot would.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at the one argless PeekPacketChecksumState() call (0x50a1d2): it is
@@ -59,7 +67,7 @@ void RadioGroup_RefreshEnableStates(int param_1, char regBl);
 unsigned char __fastcall Widget_HitTestSelf(int param_1, int regEsi, int regEdi);
 }
 
-extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y)
+extern "C" unsigned int AvatarStorePanel_OnMouseDown(CPanel *this_, int x, int y)
 
 {
   unsigned char *puVar1;

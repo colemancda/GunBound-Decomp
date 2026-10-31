@@ -4,7 +4,7 @@
  * after the WorldListRowHitTest (0x50df40) / RoomCardHitTest (0x42ada0)
  * pattern.  The list identity comes from the callers, not the geometry:
  * its only two call sites are the store widget's mouse handlers
- * (FUN_0050a1b0 mouse-down, FUN_0050a320 mouse-up), which key every
+ * (AvatarStorePanel_OnMouseDown mouse-down, FUN_0050a320 mouse-up), which key every
  * branch off g_gameStateVTableArray[7] - the State07 Avatar Store object
  * - and use the returned row as pageBase (+0x454) + row, bounds-checked
  * against the avatar-catalog count at g_clientContext+0x44e24: the same
@@ -23,7 +23,7 @@
  * first row top at +0x2c+0x68, 0x11 pixels per row), param_2 the X, and
  * ESI - now regEsi - the Y; returns 0..13 or -1. Both call sites are
  * C++ ports carrying their own file-local K&R externs, both fixed:
- * FUN_0050a1b0 passes its own (x,y) mouse args, and FUN_0050a320 asks
+ * AvatarStorePanel_OnMouseDown passes its own (x,y) mouse args, and FUN_0050a320 asks
  * which row sits at an in-bounds probe X of widget-left + 0x14 and the
  * incoming y (`mov edx,[ebp+0x28] / add edx,0x14` at 0x50a360, ebp =
  * this via `mov ebp,ecx` at 0x50a33d, ECX unwritten to the call).

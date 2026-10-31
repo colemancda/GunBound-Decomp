@@ -7,7 +7,7 @@
  * the test is the same strict-inequality rect check Widget_HitTest and
  * CLabel::OnMouseDown (src/cxx/Label.cpp) apply, minus Widget_HitTest's
  * child broadcast.  Named on the Draw / Widget_DrawSelf pattern already
- * in the tree.  The one call site, 0x50a283 in FUN_0050a1b0 (the Avatar
+ * in the tree.  The one call site, 0x50a283 in AvatarStorePanel_OnMouseDown (the Avatar
  * Store panel's mouse-down handler), uses it as "did the click land on
  * this panel at all" alongside the row-level AvatarListRowHitTest.
  *

@@ -56,7 +56,7 @@
  * and + 0x398c4 (C142).  C189 (0x44884b) is `lea eax,[edi + 0x325b0]` with
  * EDI reloaded from [esp + 0x10]; that slot is where the prologue spilled
  * ECX at 0x44844f (as [esp + 8], before the later push ebx / push ebp), so
- * it is the __fastcall `this` -- param_1 + 0x325b0.  Same cell FUN_0050a1b0
+ * it is the __fastcall `this` -- param_1 + 0x325b0.  Same cell AvatarStorePanel_OnMouseDown
  * reads off g_gameStateVTableArray[7], which is this very object.
  */
 #include "ghidra_types.h"

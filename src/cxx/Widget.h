@@ -397,8 +397,9 @@ public:
                                                 * the child move
                                                 * broadcast and rect test) */
     virtual bool OnMouseDown(int x, int y);    /* 0x50a1b0 - Panel.cpp forwards to the C++
-                                                * FUN_0050a1b0 (slot 2: row pick, then
-                                                * CPanel::OnMouseDown non-virtually) */
+                                                * AvatarStorePanel_OnMouseDown (slot 2: row
+                                                * pick, then CPanel::OnMouseDown
+                                                * non-virtually) */
     virtual bool OnMouseUp(int x, int y);      /* 0x50a320 - Panel.cpp forwards to the C++
                                                 * FUN_0050a320 (slot 3: the drag reorder,
                                                 * then the child up broadcast and rect test) */

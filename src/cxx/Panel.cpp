@@ -709,7 +709,7 @@ void CAvatarStorePanel::Draw()
  * RenderAvatarListDragRow were rewritten from the disassembly with all
  * seven BlitSpriteText arguments before this was wired. */
 extern "C" int AvatarStorePanel_OnMouseMove(CWidget *this_, int x, int y);
-extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y);
+extern "C" unsigned int AvatarStorePanel_OnMouseDown(CPanel *this_, int x, int y);
 extern "C" int FUN_0050a320(CWidget *this_, int x, int y);
 extern "C" void __fastcall FUN_0050aa10(int this_);
 
@@ -759,7 +759,7 @@ bool CAvatarStorePanel::OnMouseMove(int x, int y)
 
 bool CAvatarStorePanel::OnMouseDown(int x, int y)
 {
-    return (unsigned char)FUN_0050a1b0(this, x, y) != 0;
+    return (unsigned char)AvatarStorePanel_OnMouseDown(this, x, y) != 0;
 }
 
 bool CAvatarStorePanel::OnMouseUp(int x, int y)
