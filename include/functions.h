@@ -1722,6 +1722,7 @@ undefined4 __thiscall AvatarStorePanel_HitTest();
 void __fastcall AvatarStorePanel_Draw();
 void __thiscall AvatarStorePanel_OnCommand();
 void __fastcall RenderAvatarListRow(int param_1,int regEax);
+void __fastcall FUN_0050aa10(int this_);
 void RenderAvatarListDragRow();
 int __fastcall AvatarListRowHitTest(int param_1,int param_2,int regEsi);
 void RadioGroup_RefreshEnableStates(int param_1, char regBl);

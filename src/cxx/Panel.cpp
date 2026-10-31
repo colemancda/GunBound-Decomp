@@ -695,7 +695,11 @@ void CAvatarStorePanel::Draw()
  * 0x50a030 and 0x50a320 run the non-virtual child move/up broadcasts
  * themselves, and 0x50a1b0 calls CPanel::OnMouseDown directly
  * (`call 0x505430` at 0x50a290). So each forward replaces the inherited
- * slot outright. Slot 9 (0x50aa10) has no port and stays inherited. */
+ * slot outright. Slot 9 (0x50aa10) is carved as the C FUN_0050aa10 but
+ * is not forwarded yet, so CPanel::Update stays inherited. Its row
+ * renderers RenderAvatarListRow/RenderAvatarListDragRow still make
+ * 4-argument BlitSpriteText calls that would dereference a string pointer
+ * of 2. See FUN_0050aa10.c. */
 extern "C" int FUN_0050a030(CWidget *this_, int x, int y);
 extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y);
 extern "C" int FUN_0050a320(CWidget *this_, int x, int y);

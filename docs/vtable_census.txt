@@ -1629,7 +1629,7 @@ vtable 0x557e90  installs=1  slots=10
    8: 0x50f660  ScrollListWidget_Draw
    9: 0x50e090  ScrollListWidget_DrawThumb
 
-vtable 0x557eb8  installs=1  slots=10  UNCARVED=1
+vtable 0x557eb8  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus
    1: 0x50a030  FUN_0050a030
    2: 0x50a1b0  FUN_0050a1b0
@@ -1639,7 +1639,7 @@ vtable 0x557eb8  installs=1  slots=10  UNCARVED=1
    6: 0x50eab0  Widget_DispatchMouseToChildren
    7: 0x50a980  AvatarStorePanel_OnCommand
    8: 0x50a8f0  AvatarStorePanel_Draw
-   9: 0x50aa10  UNCARVED
+   9: 0x50aa10  FUN_0050aa10
 
 vtable 0x557ee0  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus

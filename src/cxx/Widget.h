@@ -400,8 +400,12 @@ public:
     virtual bool OnMouseUp(int x, int y);      /* 0x50a320 - Panel.cpp forwards to the C++
                                                 * FUN_0050a320 (slot 3: the drag reorder,
                                                 * then the child up broadcast and rect test) */
-                                               /* slot 9 (0x50aa10, 1071 bytes, uncarved) is
-                                                * not wired; Update is inherited */
+                                               /* slot 9 (0x50aa10) is carved as the C
+                                                * FUN_0050aa10 but NOT wired yet: its row
+                                                * callees RenderAvatarListRow/DragRow still
+                                                * make 4-argument BlitSpriteText calls (see
+                                                * FUN_0050aa10.c). Update stays inherited
+                                                * (CPanel::Update, the frame only) */
     virtual bool HitTest(int x, int y);        /* 0x50a640 - Panel.cpp forwards to the C
                                                 * AvatarStorePanel_HitTest (slot 4; no
                                                 * child broadcast, unlike the base) */
@@ -414,7 +418,7 @@ public:
     u8  m_unk91;                               /* +0x91 */
     u8  m_pad92[2];                            /* +0x92 */
     int m_unk94;                               /* +0x94: builder inits to -1 */
-    int m_unk98;                               /* +0x98 */
+    int m_unk98;                               /* +0x98: the slot-9 blink counter, mod 0x28 */
 };
 
 /* g_uiPanelManager's doubly-linked list node (allocated by 0x50f350,
