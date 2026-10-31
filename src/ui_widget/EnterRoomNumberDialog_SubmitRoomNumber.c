@@ -11,8 +11,21 @@
  * Raw/near-verbatim port of Ghidra's decompiler output otherwise, not
  * hand-verified. See src/README.md's "Raw/verbatim ports" section for
  * status.
+ *
+ * SetFocus `this` RECOVERED (2026-10-30): the refocus at LAB_00506add is
+ * `mov edx,[ebp+0xc] / mov eax,[edx+eax*4] / mov edx,[eax] / push 1 /
+ * mov ecx,eax / call [edx]` (0x506aff-0x506b0b): slot 0 of the room-number
+ * CEditBox, SetFocus(1), with the child in ECX. The raw `code *` call
+ * pushed only the flag and left ECX unset; it now uses the __fastcall +
+ * dummy-EDX idiom.
  */
 #include "ghidra_types.h"
+
+/* Slot 0 (+0x00) of a CWidget: SetFocus(bool), a one-argument __thiscall.
+ * The child found here is a CEditBox (type id 2), a C++ class whose slot 0
+ * (0x506fb0) takes `this` in ECX and ends in ret 4, so the call goes
+ * through a __fastcall pointer with a dummy EDX. */
+typedef void (__fastcall *WidgetSetFocusFn)(void *thisPtr, int dummyEDX, int active);
 
 
 undefined4 EnterRoomNumberDialog_SubmitRoomNumber(undefined4 *param_1)
@@ -82,7 +95,8 @@ LAB_00506add:
                     /* WARNING: Subroutine does not return */
         ThrowCxxException(0x80070057);
       }
-      (**(code **)**(undefined4 **)(param_1[3] + uVar3 * 4))(1);
+      ((WidgetSetFocusFn)(*(void ***)*(void **)(param_1[3] + uVar3 * 4))[0])
+          (*(void **)(param_1[3] + uVar3 * 4),0,1);
     }
     return 1;
   }
