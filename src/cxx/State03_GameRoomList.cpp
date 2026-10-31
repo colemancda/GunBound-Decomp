@@ -51,7 +51,7 @@
 
 extern "C" {
 extern unsigned int g_screenSurface;         /* "sprites loaded" gate */
-extern void *PTR_DAT_00551ecc;            /* the "%d" room-number format string */
+extern const char PTR_DAT_00551ecc[];     /* the "%3d" room-number format string */
 extern const char s__s__3d__3d__005536b8[]; /* "%s[%3d/%3d]" scoreboard/banner format */
 extern unsigned char g_localizedStringTable; /* localized-string table base */
 extern CRITICAL_SECTION g_valueGuardLock;     /* the value-guard lock */

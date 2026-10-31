@@ -551,7 +551,7 @@ extern "C" void BuildCreateRoomDialog(void *manager, int arg2, int arg3, char *r
  * child Update), then two buddy-count numbers and up to 7 buddy rows.
  *
  * DEFERRED (both empty offline, so not drawn here): the count text (two
- * "%3d"-formatted values - PTR_DAT_00551ecc, another zeroed .data format string
+ * "%3d"-formatted values - PTR_DAT_00551ecc, the .data format string at 0x551ecc
  * - at (m_x+31, m_y+13) and (m_x+31, m_y+63)) and the 7-row buddy loop
  * (FindBuddyNode 0x401c10 -> RenderBuddyRow 0x505f10) both route through
  * BlitSpriteText (0x4ed9f0), whose own header documents unrecovered dropped

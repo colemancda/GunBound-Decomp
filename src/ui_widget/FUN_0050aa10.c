@@ -62,9 +62,10 @@
  * renderers all take their register arguments as parameters, and
  * tools/dropped_reg_backlog.py lists none of them.
  *
- * The two format strings are written as literals. The original reads
- * them from .data, "%3d" at 0x551ecc and "%02d" at 0x555654, but the
- * port's storage for both (PTR_DAT_00551ecc, DAT_00555654) is zeroed.
+ * The two format strings are the original's .data strings, "%3d" at
+ * 0x551ecc (PTR_DAT_00551ecc) and "%02d" at 0x555654 (DAT_00555654).
+ * Until 2026-10-31 the port's storage for both was zeroed, so this body
+ * used literals.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -92,7 +93,7 @@ void __fastcall FUN_0050aa10(int this_)
   }
   state = (int)g_gameStateVTableArray[7];
   Widget_DrawSelf(this_);
-  _sprintf(buf,"%3d",*(int *)(g_clientContext + 0x44e24));
+  _sprintf(buf,PTR_DAT_00551ecc,*(int *)(g_clientContext + 0x44e24));
   BlitSpriteText(*(int *)(this_ + 0x28) + 0xc1,0,(int)buf,3,8,*(int *)(this_ + 0x2c) + 0xb,0x1f4);
   for (i = 0; i < 8; i = i + 1) {
     x = *(int *)(this_ + 0x28) + tabX[i];
@@ -127,7 +128,7 @@ void __fastcall FUN_0050aa10(int this_)
     if (count < 0) {
       count = -count;
     }
-    _sprintf(buf,"%02d",count);
+    _sprintf(buf,DAT_00555654,count);
     BlitSpriteText(x + 0x14,0x28,(int)buf,2,6,y,0x1f4);
   }
   for (i = 0; i < 0xe; i = i + 1) {

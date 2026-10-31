@@ -179,7 +179,7 @@ extern uint8_t DAT_0055207c;
 extern const char DAT_00552084[];  /* "edit" - Win32 EDIT-control class name, see globals.c */
 extern uint8_t DAT_00552218;
 extern uint8_t DAT_00552728;
-extern uint8_t DAT_0055275c;
+extern const char DAT_0055275c[];  /* "%02x" */
 extern const char s_Port_00552890[];
 extern const char s_IP_00552898[];
 extern uint32_t DAT_00552c70;
@@ -280,7 +280,7 @@ extern uint8_t DAT_00555c90;
 extern uint8_t DAT_00556770;
 extern uint32_t DAT_00556ae0;
 extern uint16_t DAT_00556ae4;
-extern uint8_t DAT_00557234;
+extern const char DAT_00557234[];  /* "%s%d" */
 extern uint32_t DAT_00557258;
 extern uint8_t DAT_0055725c;
 extern GUID DAT_005573c8; /* IID_IDirectInput8A - see globals.c */
@@ -1400,14 +1400,14 @@ extern void *g_aesTe4_1;
  * removed rather than left where a future port could pick the null one.
  * PTR_DAT_00551ecc, for instance, is a "%3d" format string that _sprintf is
  * called with in three files. */
-extern void *PTR_DAT_00551ecc;
-extern void *PTR_DAT_00551ed0;
+extern const char PTR_DAT_00551ecc[];  /* "%3d" */
+extern const char PTR_DAT_00551ed0[];  /* "%5d" */
 extern void *PTR_DAT_00552788;
 extern void *PTR_DAT_005535c0;
 extern void *PTR_DAT_00553c9c;
 extern void *PTR_DAT_00553ca8;
-extern void *PTR_DAT_00555500;
-extern void *PTR_DAT_00555650;
+extern const char PTR_DAT_00555500[];  /* "p%s" */
+extern const char PTR_DAT_00555650[];  /* "%8d" */
 extern void *PTR_DAT_00555cc8;
 extern void *PTR_DAT_00555e2c;
 extern char *PTR_DAT_00563b40; /* char *, not void *: call sites do byte-offset arithmetic on it (see the g_pD3DDevice7 comment) */
@@ -1882,7 +1882,7 @@ extern uint32_t DAT_00551b79;
 extern uint32_t DAT_00551b7c;
 extern uint32_t DAT_00551e2c;
 extern uint32_t DAT_00551e30;
-extern uint32_t DAT_00551ec4;
+extern const char DAT_00551ec4[];  /* "%+5d" */
 extern uint32_t g_rowIndexFormat;    /* was DAT_00551ed4 - "%d" world-list row index format */
 extern uint32_t DAT_00552c68;
 extern uint32_t DAT_00553b90;
@@ -1898,7 +1898,7 @@ extern uint32_t DAT_00553c94;
 extern uint32_t DAT_00553c98;
 extern uint32_t DAT_00553ca0;
 extern uint32_t DAT_00553ca4;
-extern uint32_t DAT_00555654;
+extern const char DAT_00555654[];  /* "%02d" */
 extern char DAT_00555b4c[8];     /* "look" state name - see globals.c */
 extern uint32_t DAT_00556980;
 extern uint32_t DAT_00557318;

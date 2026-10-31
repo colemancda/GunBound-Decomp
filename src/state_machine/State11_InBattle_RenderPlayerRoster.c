@@ -827,7 +827,7 @@ LAB_00409561:
         iVar13 = ComputeTurnDelay(*(int *)(g_clientContext + 0x621e0));
         iVar13 = iVar13 / 10;
       }
-      _Format = &PTR_DAT_00551ed0;
+      _Format = (undefined **)&PTR_DAT_00551ed0;
     }
     else {
       uVar11 = (uint)((ulonglong)uVar7 * 0xcccccccd >> 0x20);

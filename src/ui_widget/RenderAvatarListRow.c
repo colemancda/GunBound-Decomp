@@ -170,7 +170,7 @@ void __fastcall RenderAvatarListRow(int param_1,int regEax)
       RenderAvatarListRow_Blit(8,x0 + 0x99,rowY + 2,0x2713);
       value = RenderAvatarListRow_Peek(state + 0xe1e0);
     }
-    _sprintf(buf,(char *)&DAT_00555654,value);
+    _sprintf(buf,DAT_00555654,value);
     BlitSpriteText(x0 + 0xa2,0x28,(int)buf,2,6,rowY + 4,0x1f4);
     col = 1;
   }
@@ -187,7 +187,7 @@ void __fastcall RenderAvatarListRow(int param_1,int regEax)
         RenderAvatarListRow_Blit(statFrame[i] + 1,colX + 0x67,rowY + 2,0x2713);
         value = RenderAvatarListRow_Peek(state + statOffset[i]);
       }
-      _sprintf(buf,(char *)&DAT_00555654,value);
+      _sprintf(buf,DAT_00555654,value);
       BlitSpriteText(colX + 0x70,0x28,(int)buf,2,6,rowY + 4,0x1f4);
       col = col - 1;
     }

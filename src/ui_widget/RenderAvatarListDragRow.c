@@ -157,7 +157,7 @@ void RenderAvatarListDragRow(int param_1,int param_2,int param_3)
       RenderAvatarListDragRow_Blit(8,param_2 + 0x99,param_3 + 2,0x2713);
       value = RenderAvatarListDragRow_Peek(state + 0x33624);
     }
-    _sprintf(buf,(char *)&DAT_00555654,value);
+    _sprintf(buf,DAT_00555654,value);
     BlitSpriteText(param_2 + 0xa2,0x28,(int)buf,2,6,param_3 + 4,0x1f4);
     col = 1;
   }
@@ -174,7 +174,7 @@ void RenderAvatarListDragRow(int param_1,int param_2,int param_3)
         RenderAvatarListDragRow_Blit(statFrame[i] + 1,colX + 0x67,param_3 + 2,0x2713);
         value = RenderAvatarListDragRow_Peek(state + statOffset[i]);
       }
-      _sprintf(buf,(char *)&DAT_00555654,value);
+      _sprintf(buf,DAT_00555654,value);
       BlitSpriteText(colX + 0x70,0x28,(int)buf,2,6,param_3 + 4,0x1f4);
       col = col - 1;
     }

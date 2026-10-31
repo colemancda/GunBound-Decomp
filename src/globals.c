@@ -45,7 +45,7 @@ uint8_t DAT_0055207c;
 const char DAT_00552084[] = "edit"; /* Win32 EDIT-control class name for the hidden global chat-input control (FUN_0040c670's CreateWindowExA) - was a zeroed 1-byte global (orig .rdata 0x552084), same class of bug as DAT_00551e78 above. With the class name reading as an empty string, CreateWindowExA silently failed (ERROR_CANNOT_FIND_WND_CLASS -> NULL HWND), so the control never existed: SetFocus/SetWindowLongA/ImmDisableIME in FUN_0040c670 all silently no-op'd on a NULL HWND, keyboard focus stayed on the main window instead of the (nonexistent) edit control, and chat typing never worked. */
 uint8_t DAT_00552218;
 uint8_t DAT_00552728;
-uint8_t DAT_0055275c;
+const char DAT_0055275c[] = "%02x"; /* orig .data 0x55275c (WinMain sscanf format), was a zeroed 1-byte global */
 /* 0x00552788: real storage is PTR_DAT_00552788 below - see globals.h. */
 /* Registry value-name strings for the broker "IP"/"Port" settings
  * (HKCU\Software\Softnyx\GunBound) - were 1-byte placeholders (Ghidra
@@ -162,7 +162,7 @@ uint8_t DAT_00555c90;
 uint8_t DAT_00556770;
 uint32_t DAT_00556ae0;
 uint16_t DAT_00556ae4;
-uint8_t DAT_00557234;
+const char DAT_00557234[] = "%s%d"; /* orig .data 0x557234, was a zeroed 1-byte global */
 uint32_t DAT_00557258;
 uint8_t DAT_0055725c;
 /* IID_IDirectInput8A. Passed as the REFIID to DirectInput8Create but was
@@ -1134,14 +1134,14 @@ const char s_wnormal_00553618[] = "wnormal";
 const char s_yaong2_00553318[] = "yaong2";
 const char s_yesoori_005533c8[] = "yesoori";
 
-void *PTR_DAT_00551ecc;
-void *PTR_DAT_00551ed0;
+const char PTR_DAT_00551ecc[] = "%3d"; /* orig .data 0x551ecc, was a zeroed void * */
+const char PTR_DAT_00551ed0[] = "%5d"; /* orig .data 0x551ed0, was a zeroed void * */
 void *PTR_DAT_00552788;
 void *PTR_DAT_005535c0;
 void *PTR_DAT_00553c9c;
 void *PTR_DAT_00553ca8;
-void *PTR_DAT_00555500;
-void *PTR_DAT_00555650;
+const char PTR_DAT_00555500[] = "p%s"; /* orig .data 0x555500, was a zeroed void * */
+const char PTR_DAT_00555650[] = "%8d"; /* orig .data 0x555650, was a zeroed void * */
 void *PTR_DAT_00555cc8;
 void *PTR_DAT_00555e2c;
 char *PTR_DAT_00563b40;
@@ -1721,7 +1721,7 @@ uint32_t DAT_00551b79;
 uint32_t DAT_00551b7c;
 uint32_t DAT_00551e2c;
 uint32_t DAT_00551e30;
-uint32_t DAT_00551ec4;
+const char DAT_00551ec4[] = "%+5d"; /* orig .data 0x551ec4, was a zeroed uint32_t */
 /* "%d" - the row-index sprintf format in RenderWorldListRow (the world
  * list's per-row number prefix, rendered via BlitSpriteText). Zeroed by our
  * extraction like the .epa/.xtf extension constants, so the number formatted
@@ -1744,7 +1744,7 @@ uint32_t DAT_00553c94;
 uint32_t DAT_00553c98;
 uint32_t DAT_00553ca0;
 uint32_t DAT_00553ca4;
-uint32_t DAT_00555654;
+const char DAT_00555654[] = "%02d"; /* orig .data 0x555654, was a zeroed uint32_t */
 /* "look" - the avatar-preview widget's blink/idle state name (orig .data
  * 0x555b4c; sat immediately after the 0x555b38 vtable). Was a bare
  * 4-byte uint32_t: as a string, "look" needs 5 bytes - the NUL was
