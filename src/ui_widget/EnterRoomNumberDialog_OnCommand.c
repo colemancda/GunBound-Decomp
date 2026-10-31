@@ -12,6 +12,10 @@
  * Raw/near-verbatim port of Ghidra's decompiler output otherwise, not
  * hand-verified. See src/README.md's "Raw/verbatim ports" section for
  * status.
+ *
+ * WIRED (2026-10-30): src/cxx/Panel.cpp's CEnterRoomNumberDialog::OnCommand
+ * now forwards here (vtable 0x557df0 slot 7), passing `this` as the first
+ * stack argument, the erased-__thiscall shape this definition has.
  */
 #include "ghidra_types.h"
 

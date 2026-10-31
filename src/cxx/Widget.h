@@ -433,6 +433,8 @@ struct CPanelListNode {
 class CEnterRoomNumberDialog : public CPanel { /* vtable 0x557df0; builder 0x5087b0 */
 public:
     CEnterRoomNumberDialog() {}                /* base defaults only */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x506b20 - Panel.cpp forwards to the C
+                                                * EnterRoomNumberDialog_OnCommand (slot 7) */
 };
 
 /* The shared buddy list (lobby / ready room / WndProc). A SINGLETON

@@ -720,6 +720,20 @@ void CChannelUserListPanel::OnCommand(int evt, int id, int arg)
     FUN_00507460((int)this, evt, id, arg);
 }
 
+/* CEnterRoomNumberDialog's slot 7: the word at 0x557df0+0x1c is 0x506b20
+ * (EnterRoomNumberDialog_OnCommand). It is __thiscall in the original
+ * (`mov esi,ecx` at 0x506b30, ret 0xc at 0x506ba2/0x506bc6/0x506beb) and
+ * every exit calls 0x50eb10 directly with ECX = this, which is
+ * Widget_OnCommandDefault, i.e. the qualified CWidget::OnCommand. So the
+ * base handling runs once and does not re-enter this override. The C port
+ * is erased-__thiscall cdecl with `this` first. */
+extern "C" void EnterRoomNumberDialog_OnCommand(void *this_, int evt, int id, int arg);
+
+void CEnterRoomNumberDialog::OnCommand(int evt, int id, int arg)
+{
+    EnterRoomNumberDialog_OnCommand(this, evt, id, arg);
+}
+
 bool CAvatarStorePanel::OnMouseMove(int x, int y)
 {
     return (unsigned char)FUN_0050a030(this, x, y) != 0;
