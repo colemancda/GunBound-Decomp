@@ -1688,7 +1688,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050efa0,94,PanelManager_ClearAllFocus,false,7,2,RAW-src
 0050f000,31,FUN_0050f000,false,2,0,RAW-src
 0050f020,54,PanelManager_DispatchMouseMove,false,3,0,RAW-src
-0050f060,233,FUN_0050f060,false,2,2,RAW-src
+0050f060,233,PanelManager_BaseDispatchMouseDown,false,2,2,RAW-src
 0050f150,84,PanelManager_DispatchRightMouseUp,false,3,0,RAW-src
 0050f1b0,54,PanelManager_DispatchMouseUp,false,3,0,RAW-src
 0050f1f0,54,PanelManager_DispatchRightMouseDown,false,3,0,RAW-src

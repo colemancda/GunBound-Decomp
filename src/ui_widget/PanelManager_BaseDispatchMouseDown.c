@@ -1,9 +1,21 @@
-/* FUN_0050f060 - 0x0050f060 in the original binary.
+/* PanelManager_BaseDispatchMouseDown - 0x0050f060 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31 (was FUN_0050f060). Slot 2 of the base panel-manager
+ * vtable 0x557f80 - the one PanelManager_BaseDestructor stores - whose
+ * other slots are the PanelManager_Dispatch* family (1 MouseMove,
+ * 3 MouseUp, 4 RightMouseDown, 5 RightMouseUp, 7 KeyDown, 8 KeyUp).
+ * g_uiPanelManager's own vtable 0x557cfc overrides slot 2 with
+ * PanelManager_DispatchMouseDown (0x507ea0), which calls this
+ * (0x507eab) and falls back to TextEntry_RestoreChatInput when it
+ * returns 0 - the derived override wrapping its base member. "Base"
+ * marks that relation, as in PanelManager_BaseDestructor and the
+ * tree's CMobile_BaseDestructor; the body offers the click to each
+ * managed panel's slot 2 (CWidget::OnMouseDown) and moves the panel
+ * that takes it to the list head when its +5 byte is set.
  *
  * Widget_ClearPressedRecursive CHILD RECOVERED (2026-10-30): both loops
  * (0x50f09e-0x50f0a4 and 0x50f11a-0x50f120) are `mov eax,[esi+0xc] /
@@ -24,7 +36,7 @@
 typedef char (__fastcall *WidgetMouseDownFn)(void *thisPtr, int dummyEDX,
                                              undefined4 x, undefined4 y);
 
-char __thiscall FUN_0050f060(int param_1,undefined4 param_2,undefined4 param_3)
+char __thiscall PanelManager_BaseDispatchMouseDown(int param_1,undefined4 param_2,undefined4 param_3)
 
 {
   int *piVar1;

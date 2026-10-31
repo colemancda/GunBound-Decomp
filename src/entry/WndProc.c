@@ -25,6 +25,8 @@
  * 0x410190 (f230), 0x41022d (f020), 0x41032b (f1b0), 0x410369 (f1f0),
  * 0x41037f (f150). Passed explicitly now.
  *
+ * (FUN_0050f060 below is now PanelManager_BaseDispatchMouseDown.)
+ *
  * FIXED (2026-07-14): PanelManager_DispatchMouseDown (the 0x201/WM_LBUTTONDOWN handler) was
  * NOT actually an exception to the above - the previous note ("genuinely
  * takes 2 stack args and no `this`") only checked PanelManager_DispatchMouseDown's OWN entry,

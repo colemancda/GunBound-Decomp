@@ -6,6 +6,8 @@
  * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_0050f060 below is now PanelManager_BaseDispatchMouseDown.)
+ *
  * DROPPED REGISTER ARGUMENT (2026-07-14): this function's own entry never
  * touches ECX (confirmed via objdump at 0x507ea0: only `mov eax,[esp+8]` /
  * `mov edx,[esp+4]` before pushing them and calling FUN_0050f060), so an
@@ -31,7 +33,7 @@ char PanelManager_DispatchMouseDown(int uiPanelManager,undefined4 param_1,undefi
 {
   char cVar1;
 
-  cVar1 = FUN_0050f060(uiPanelManager,param_1,param_2);
+  cVar1 = PanelManager_BaseDispatchMouseDown(uiPanelManager,param_1,param_2);
   if (cVar1 == '\0') {
     TextEntry_RestoreChatInput();
   }
