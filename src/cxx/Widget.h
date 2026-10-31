@@ -459,7 +459,7 @@ class CRoomPasswordDialog : public CPanel {    /* vtable 0x557dc8; builder 0x508
 public:
     CRoomPasswordDialog() {}                   /* base defaults only */
     virtual void OnCommand(int evt, int id, int arg); /* 0x506cf0 - Panel.cpp forwards to the C
-                                                * FUN_00506cf0 (slot 7) */
+                                                * RoomPasswordDialog_OnCommand (slot 7) */
 };
 
 /* State 9's room-title dialog: one 20-char CEditBox seeded with the room

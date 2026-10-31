@@ -7,9 +7,10 @@
  * NAMED 2026-10-31 (was FUN_00506bf0). The submit helper of the
  * room-password dialog (vtable 0x557dc8, CRoomPasswordDialog, built by
  * BuildRoomPasswordDialog with dedup id 2); its sole caller is that
- * dialog's slot-7 handler at 0x506cf0, on label 1 or evt 0x1000 (call
- * at 0x506d80). It copies the edit box into +0x50 and posts input event
- * 0x1f, or 0x1e when the text is empty (stores at 0x506cd4 / 0x506c8d).
+ * dialog's slot-7 RoomPasswordDialog_OnCommand, on label 1 or evt
+ * 0x1000 (call at 0x506d80). It copies the edit box into +0x50 and
+ * posts input event 0x1f, or 0x1e when the text is empty (stores at
+ * 0x506cd4 / 0x506c8d).
  * State03_GameRoomList_OnCommand routes 0x1f to SendJoinRoomSelected,
  * which finds panel id 2, copies its +0x50 string into the u32 payload
  * of the 0x2110 join - the field the reference server's JoinRoomRequest
@@ -18,7 +19,7 @@
  * EnterRoomNumberDialog_SubmitRoomNumber, the same shape on a sibling
  * dialog.
  *
- * (FUN_00506cf0 below is the slot-7 handler above.)
+ * (FUN_00506cf0 below is now RoomPasswordDialog_OnCommand.)
  * Earlier note, kept: the "submit" push-helper called by FUN_00506cf0
  * (that file's own header has the full vtable-family derivation for
  * their shared unnamed dialog class, vtable 0x557dc8). If the single

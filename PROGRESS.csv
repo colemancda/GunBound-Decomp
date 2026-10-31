@@ -1577,7 +1577,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00506950,454,EnterRoomNumberDialog_SubmitRoomNumber,false,1,4,RAW-src
 00506b20,206,EnterRoomNumberDialog_OnCommand,false,1,3,RAW-src
 00506bf0,252,RoomPasswordDialog_SubmitPassword,false,1,3,RAW-src
-00506cf0,206,FUN_00506cf0,false,1,3,RAW-src
+00506cf0,206,RoomPasswordDialog_OnCommand,false,1,3,RAW-src
 00506dc0,68,FUN_00506dc0,false,1,3,RAW-src
 00506e10,85,FUN_00506e10,false,1,2,RAW-src
 00506e70,182,ActivateLegacyTextInputField,false,2,4,RAW-src

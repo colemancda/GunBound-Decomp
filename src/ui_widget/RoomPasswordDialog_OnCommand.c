@@ -1,19 +1,30 @@
-/* FUN_00506cf0 - 0x00506cf0 in the original binary.
+/* RoomPasswordDialog_OnCommand - 0x00506cf0 in the original binary.
  *
- * NOT YET NAMED - CWidget::OnCommand override (vtable slot 7, +0x1c)
- * for an UNNAMED single-text-field dialog class (constructor at
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-31 (was FUN_00506cf0). Slot 7 (OnCommand, +0x1c) of
+ * vtable 0x557dc8, which only BuildRoomPasswordDialog installs (the
+ * store at 0x508970); CRoomPasswordDialog::OnCommand in src/cxx/Panel.cpp
+ * forwards here. Label 1 or evt 0x1000 runs
+ * RoomPasswordDialog_SubmitPassword (0x506d80), whose event 0x1f
+ * State03_GameRoomList_OnCommand turns into the 0x2110 join carrying the
+ * typed password; label 0 and evt 0x1001 post event 0x1e, which only
+ * closes the dialog. Named after the class, like
+ * EnterRoomNumberDialog_OnCommand and AddBuddyDialog_OnCommand.
+ *
+ * (FUN_00506bf0 below is now RoomPasswordDialog_SubmitPassword.)
+ * Earlier note, kept: CWidget::OnCommand override (vtable slot 7, +0x1c)
+ * for a single-text-field dialog class (constructor at
  * 0x508910, `this->vtable = &PTR_LAB_00557dc8`, object size 0x90,
- * sprite outer/inner key 0x2714/0, labels string IDs 0x5dc/0x5dd -
- * unresolved without the localized string table). Confirmed via the
+ * sprite outer/inner key 0x2714/0, labels string IDs 0x5dc/0x5dd).
+ * Confirmed via the
  * same Ghidra xref/PTR_LAB vtable-family derivation documented in
  * src/ui_widget/EnterRoomNumberDialog_OnCommand.c's header. This
  * class's PanelManager dedup "type id" (constructor's puVar5[9]) is a
  * fixed literal 2, sequential with CCreateRoomDialog(0)/
- * CEnterRoomNumberDialog(1) - plausibly another room-list-family
- * dialog (e.g. an enter-password prompt) but NOT confirmed, don't
- * assume. Calls FUN_00506bf0 on evt==0x1000/id==1. Raw/near-verbatim
- * port of Ghidra's decompiler output otherwise, not hand-verified.
- * See src/README.md's "Raw/verbatim ports" section for status.
+ * CEnterRoomNumberDialog(1). Calls FUN_00506bf0 on evt==0x1000/id==1.
  *
  * WIRED (2026-10-30): the builder 0x508910 now lives in src/cxx/Panel.cpp
  * and builds a C++ CRoomPasswordDialog (vtable 0x557dc8) whose OnCommand
@@ -24,7 +35,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00506cf0(undefined4 *param_1,int param_2,int param_3,undefined4 param_4)
+void __thiscall RoomPasswordDialog_OnCommand(undefined4 *param_1,int param_2,int param_3,undefined4 param_4)
 
 {
   undefined4 uVar1;

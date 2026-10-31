@@ -864,7 +864,7 @@ extern "C" void __fastcall BuildEnterRoomNumberDialog(int arg)
  * original, &g_uiPanelManager at every call site). It is passed on to
  * PanelManager_ClearAllFocus, which reads it from the stack (`mov ecx,
  * [esp+4]` at 0x50efa0). */
-extern "C" void FUN_00506cf0(void *this_, int evt, int id, int arg);
+extern "C" void RoomPasswordDialog_OnCommand(void *this_, int evt, int id, int arg);
 extern "C" void RoomTitleDialog_OnCommand(void *this_, int evt, int id, int arg);
 extern "C" void AddBuddyDialog_OnCommand(int this_, int evt, int id, int arg);
 extern "C" void FUN_005061e0(int this_, int evt, int id, int arg);
@@ -876,7 +876,7 @@ extern "C" char *FUN_0041eb80(int ctx, int itemId);
 
 void CRoomPasswordDialog::OnCommand(int evt, int id, int arg)
 {
-    FUN_00506cf0(this, evt, id, arg);
+    RoomPasswordDialog_OnCommand(this, evt, id, arg);
 }
 
 void CRoomTitleDialog::OnCommand(int evt, int id, int arg)
@@ -920,7 +920,8 @@ static CPanelListNode *ManagerListHead(void *manager)
  * (0xd5|0x80, 0x76, 0x52, 0x22), and `push ebx / mov eax,edi /
  * call 0x50eea0`.
  *
- * (FUN_00506bf0 below is now RoomPasswordDialog_SubmitPassword.)
+ * (FUN_00506bf0 / FUN_00506cf0 below are now
+ * RoomPasswordDialog_SubmitPassword / RoomPasswordDialog_OnCommand.)
  * NAMED 2026-10-31, CERTAIN (was FUN_00508910). Vtable 0x557dc8 is
  * stored only here (the mov at 0x508970). Its one caller, SendJoinRoomChecked, opens
  * it at 0x429bab instead of sending the 0x2110 join when the room's
