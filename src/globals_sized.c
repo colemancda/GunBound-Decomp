@@ -203,7 +203,7 @@ unsigned char g_chatInputText[0x100];
  * BuildLobbyChatPanel.
  *
  * Slot -> original address -> ported symbol:
- *   0  0x507e10  FUN_00507e10
+ *   0  0x507e10  PanelManager_ScalarDtor
  *   1  0x50f020  PanelManager_DispatchMouseMove
  *   2  0x507ea0  PanelManager_DispatchMouseDown
  *   3  0x50f1b0  PanelManager_DispatchMouseUp
@@ -215,7 +215,7 @@ unsigned char g_chatInputText[0x100];
  *   7  0x50f230  PanelManager_DispatchKeyDown
  * Declared here with minimal prototypes and cast to void * - this TU
  * deliberately does not include globals.h/functions.h. */
-extern void *FUN_00507e10();
+extern void *PanelManager_ScalarDtor();
 extern void  PanelManager_DispatchMouseMove();
 extern void  PanelManager_DispatchMouseDown();
 extern void  PanelManager_DispatchMouseUp();
@@ -225,7 +225,7 @@ extern void  TextEntry_RestoreChatInput();
 extern void  PanelManager_DispatchKeyDown();
 
 void *PTR_FUN_00557cfc[8] = {
-    (void *)&FUN_00507e10,
+    (void *)&PanelManager_ScalarDtor,
     (void *)&PanelManager_DispatchMouseMove,
     (void *)&PanelManager_DispatchMouseDown,
     (void *)&PanelManager_DispatchMouseUp,
