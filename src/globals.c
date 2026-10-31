@@ -1163,7 +1163,12 @@ uint8_t g_abItemRecords[2492];  /* one record; array is up to 100 x 0x9bc, see F
 void *PTR_FUN_00544b5c;
 void *PTR_FUN_00544b68;
 void *PTR_FUN_00544b74;
-void *PTR_FUN_00551cb4;
+/* The direct-link roster node's vtable (orig .data 0x551cb4): one slot,
+ * 0x40ca00 (DeletePoisonedBaseObject); 0x551cb8 right after it is a
+ * separately installed vtable (`mov [ebp+8],0x551cb8` at 0x401948).
+ * UpsertDirectLinkBuddyNode (0x401d9d) and EnsureChatLogPanelForPeer
+ * (0x402636) stamp it. Was a lone NULL, so slot 0 called null. */
+void *PTR_FUN_00551cb4 = (void *)DeletePoisonedBaseObject;
 void *PTR_FUN_00551cf0;
 void *PTR_FUN_00551e88;
 /* The text box's vtable (orig .data 0x55208c, 5 slots; InitTextBoxWidget

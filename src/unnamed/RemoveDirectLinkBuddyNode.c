@@ -36,8 +36,17 @@
  *   FUN_00404330 (1)   &local_20, a 32-byte buffer FUN_00426090 fills
  *   FUN_00411b40 (1)   &local_150, the record the source assembles from
  *                      param_1[6] on the lines above
+ *
+ * FIXED (2026-10-31), the node's free: 0x401f4f-0x401f55 is
+ * `mov edx,[ebx] / push 1 / mov ecx,ebx / call [edx]`, ECX = the node.
+ * The port called `(**(code **)*puVar2)(1)`, dropping `this`. The node
+ * is a roster node with vtable 0x551cb4, whose slot 0 is 0x40ca00
+ * (DeletePoisonedBaseObject, raw-C cdecl), so it is the cdecl (node, 1)
+ * ListNodeVirtualFn form, the same as EnsureChatLogPanelForPeer's.
  */
 #include "ghidra_types.h"
+
+typedef void (*ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
 
 
 void RemoveDirectLinkBuddyNode(int param_1,char *regEax)
@@ -69,7 +78,7 @@ void RemoveDirectLinkBuddyNode(int param_1,char *regEax)
     }
     *(undefined4 *)(puVar2[3] + 0x10) = puVar2[4];
     *(undefined4 *)(puVar2[4] + 0xc) = puVar2[3];
-    (**(code **)*puVar2)(1);
+    (*(ListNodeVirtualFn *)*puVar2)(puVar2, 1);
     iVar3 = *(int *)(param_1 + 0xc10) + -1;
     *(int *)(param_1 + 0xc10) = iVar3;
     piVar4 = DAT_00e53c44;

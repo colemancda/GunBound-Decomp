@@ -16,8 +16,18 @@
  * node (vtable slot 0, `delete[]` flag 1) if it was newly allocated here
  * rather than found. So: ensure a chat-log panel exists for this peer,
  * building both the roster entry and the panel on first contact.
+ *
+ * FIXED (2026-10-31), the throwaway node's free: 0x402687-0x40268d is
+ * `mov eax,[esi] / push 1 / mov ecx,esi / call [eax]`, so ECX is the node
+ * and the flag is pushed. The port called `(**(code **)*puVar4)(1)`, which
+ * drops `this`. The node's vtable is 0x551cb4 (stamped at 0x402636), whose
+ * only slot is 0x40ca00, DeletePoisonedBaseObject: a raw-C port with
+ * __thiscall erased to cdecl. So the call is the cdecl (node, 1) form,
+ * the ListNodeVirtualFn idiom of the State OnExit walks.
  */
 #include "ghidra_types.h"
+
+typedef void (*ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
 
 
 void EnsureChatLogPanelForPeer(undefined4 param_1,char *param_2)
@@ -62,7 +72,7 @@ void EnsureChatLogPanelForPeer(undefined4 param_1,char *param_2)
     }
     BuildChatLogPanel(&g_uiPanelManager,puVar4);
     if ((bVar2) && (puVar4 != (undefined4 *)0x0)) {
-      (**(code **)*puVar4)(1);
+      (*(ListNodeVirtualFn *)*puVar4)(puVar4, 1);
     }
   }
   return;
