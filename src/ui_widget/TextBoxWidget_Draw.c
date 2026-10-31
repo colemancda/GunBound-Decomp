@@ -1,4 +1,4 @@
-/* FUN_0040ca20 - 0x0040ca20 in the original binary.
+/* TextBoxWidget_Draw - 0x0040ca20 in the original binary.
  *
  * The text box's draw: slot 3 of its vtable 0x55208c (words 0x40ca00
  * 0x461c60 0x429800 0x40ca20 0x429800). Ghidra never carved it, so this
@@ -47,11 +47,20 @@
  * DrawHLine (EDX length, stack colour, regEax x, regEdi y), DrawVLine
  * (ECX length, regEax y, regEbx colour, regEdi x) and BlitRLESprite
  * (rleData = EAX).
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_0040ca20). Vtable 0x55208c is
+ * stored only by InitTextBoxWidget (at 0x40c9f0); its slot 0 adapter is
+ * the already-named TextBoxWidget_ScalarDelete. Slot 3 is the draw slot
+ * of this five-slot active-object family: DrawActiveObjectRegistry
+ * dispatches `call [eax+0xc]` (0x4062e4) over the registry these boxes
+ * live in, and the sibling vtable 0x551e44 (CButtonWidget) holds
+ * DrawButtonWidget in the same slot. The prefix pairs it with
+ * TextBoxWidget_ScalarDelete.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0040ca20(int this_)
+void __fastcall TextBoxWidget_Draw(int this_)
 
 {
   char *text;

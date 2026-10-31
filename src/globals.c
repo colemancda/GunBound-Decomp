@@ -1182,7 +1182,7 @@ void *PTR_FUN_00551e88;
  *   1 0x461c60 ResolveNamedState - AvatarWidget_SetNamedState, the same
  *              adapter PTR_FUN_00555b38 uses for this target
  *   2 0x429800 NoOpMethod
- *   3 0x40ca20 the text box's draw, FUN_0040ca20 (carved 2026-10-31,
+ *   3 0x40ca20 the text box's draw, TextBoxWidget_Draw (carved 2026-10-31,
  *              __fastcall(this), the shape DrawActiveObjectRegistry
  *              dispatches)
  *   4 0x429800 NoOpMethod */
@@ -1190,7 +1190,7 @@ void *PTR_FUN_0055208c[5] = {
   (void *)TextBoxWidget_ScalarDelete,
   (void *)AvatarWidget_SetNamedState,
   (void *)NoOpMethod,
-  (void *)FUN_0040ca20,
+  (void *)TextBoxWidget_Draw,
   (void *)NoOpMethod,
 };
 void *PTR_FUN_005520a0;
