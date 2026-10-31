@@ -702,7 +702,7 @@ void CAvatarStorePanel::Draw()
  * (`call 0x505430` at 0x50a290). So each forward replaces the inherited
  * slot outright.
  *
- * Slot 9, the word at 0x557eb8+0x24, is 0x50aa10 (FUN_0050aa10,
+ * Slot 9, the word at 0x557eb8+0x24, is 0x50aa10 (AvatarStorePanel_Update,
  * __fastcall(this): `mov ebp,ecx` at 0x50aa17, plain ret). It calls
  * Widget_DrawSelf (0x5054b0) directly, so it replaces CPanel::Update and
  * never re-enters a virtual. Its row renderers RenderAvatarListRow and
@@ -711,11 +711,11 @@ void CAvatarStorePanel::Draw()
 extern "C" int AvatarStorePanel_OnMouseMove(CWidget *this_, int x, int y);
 extern "C" unsigned int AvatarStorePanel_OnMouseDown(CPanel *this_, int x, int y);
 extern "C" int AvatarStorePanel_OnMouseUp(CWidget *this_, int x, int y);
-extern "C" void __fastcall FUN_0050aa10(int this_);
+extern "C" void __fastcall AvatarStorePanel_Update(int this_);
 
 void CAvatarStorePanel::Update()
 {
-    FUN_0050aa10((int)this);
+    AvatarStorePanel_Update((int)this);
 }
 
 /* Two slot-7 bodies carved 2026-10-30 (vtable bytes: 0x557c34 +0x1c =

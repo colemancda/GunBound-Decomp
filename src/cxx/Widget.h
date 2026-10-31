@@ -405,9 +405,9 @@ public:
                                                 * drag reorder, then the child up
                                                 * broadcast and rect test) */
     virtual void Update();                     /* 0x50aa10 - Panel.cpp forwards to the C
-                                                * FUN_0050aa10 (slot 9: frame, catalog
-                                                * count, category tabs, the 14 rows and
-                                                * the drag ghost) */
+                                                * AvatarStorePanel_Update (slot 9: frame,
+                                                * catalog count, category tabs, the 14
+                                                * rows and the drag ghost) */
     virtual bool HitTest(int x, int y);        /* 0x50a640 - Panel.cpp forwards to the C
                                                 * AvatarStorePanel_HitTest (slot 4; no
                                                 * child broadcast, unlike the base) */

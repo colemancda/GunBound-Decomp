@@ -1,4 +1,4 @@
-/* FUN_0050aa10 - 0x0050aa10 in the original binary.
+/* AvatarStorePanel_Update - 0x0050aa10 in the original binary.
  *
  * CAvatarStorePanel's slot 9 (Update): the word at 0x557eb8+0x24 is
  * 0x50aa10, in place of CPanel's Widget_DrawSelf (0x5054b0).
@@ -66,12 +66,19 @@
  * 0x551ecc (PTR_DAT_00551ecc) and "%02d" at 0x555654 (DAT_00555654).
  * Until 2026-10-31 the port's storage for both was zeroed, so this body
  * used literals.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_0050aa10). The vtable word above
+ * is the evidence: 0x557eb8 is stored only by BuildAvatarStorePanel (at
+ * 0x509ea5), its slots 4, 7 and 8 are the already-named
+ * AvatarStorePanel_HitTest / _OnCommand / _Draw, and slot 9 is
+ * CWidget::Update. Same <Panel>_Update form as ChatLogPanel_Update and
+ * CreateRoomDialog_Update.
  */
 #include "ghidra_types.h"
 #include <windows.h>
 
 
-void __fastcall FUN_0050aa10(int this_)
+void __fastcall AvatarStorePanel_Update(int this_)
 
 {
   static const int tabX[8] = {0x78,0x78,0x78,0xb1,0x78,0xb1,0xb1,0xb1};
