@@ -1560,6 +1560,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00505c10,114,FUN_00505c10,false,1,2,PARITY-cxx-Panel.cpp
 00505c90,140,FUN_00505c90,false,1,5,PARITY-cxx-Panel.cpp
 00505d20,194,BuddyPanel_OnCommand,false,1,4,RAW-src
+00505df0,201,FUN_00505df0,false,1,5,PARITY-cxx-Panel.cpp
 00505ec0,72,FUN_00505ec0,false,2,0,RAW-src
 00505f10,711,RenderBuddyRow,false,1,7,RAW-src
 005061e0,37,FUN_005061e0,false,2,1,RAW-src
