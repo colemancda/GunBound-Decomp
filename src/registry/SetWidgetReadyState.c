@@ -47,8 +47,22 @@
  * and State09_ReadyRoom_OnCommand passes param_4 from inside
  * `if (param_4 < 100) return 0; if (param_4 < 0x72)`, i.e. the same
  * 0x64..0x71 band.
+ *
+ * SetState DISPATCH FIXED (2026-10-30): both state changes are slot-1
+ * calls with the found node in ECX:
+ *   0x4063cb mov edx,[esi] / push 0x551e80 / mov ecx,esi / call [edx+4]
+ *   0x4063e0 mov eax,[esi] / push 0x551e58 / mov ecx,esi / call [eax+4]
+ * EAX is 0xe9be90 (g_activeObjectRegistry) at all 13 call sites, so the
+ * node is a C++ CButtonWidget and SetState is __thiscall with ret 4. The
+ * raw `code *` calls pushed only the name and left ECX unset; they now use
+ * the __fastcall + dummy-EDX idiom.
  */
 #include "ghidra_types.h"
+
+/* Slot 1 of a registry node: CButtonWidget::SetState(const char *),
+ * __thiscall with one stack word and ret 4 - the WidgetSetModeNameFn idiom
+ * InvokeWidget.c and ConnectToSelectedServer.c already use. */
+typedef void (__fastcall *WidgetSetStateFn)(void *thisPtr, int dummyEDX, const char *name);
 
 
 undefined4 __fastcall SetWidgetReadyState(undefined4 param_1,uint param_2,int param_3,int regEax,uint regEdi)
@@ -95,7 +109,7 @@ undefined4 __fastcall SetWidgetReadyState(undefined4 param_1,uint param_2,int pa
          but the cast costs nothing and removes the trap. */
       if ((char)param_3 == '\0') {
         if (piVar3[9] != 3) {
-          (**(code **)(*piVar3 + 4))(s_ready_00551e80);
+          (*(WidgetSetStateFn *)(*piVar3 + 4))(piVar3,0,s_ready_00551e80);
           /* Ghidra emitted a bare `return;` in a value-returning function;
            * MSVC falls through with whatever's in EAX, gcc 14 rejects it
            * (-Wreturn-mismatch). This path's result is unused by callers -
@@ -104,7 +118,7 @@ undefined4 __fastcall SetWidgetReadyState(undefined4 param_1,uint param_2,int pa
         }
       }
       else if (piVar3[9] != 3) {
-        (**(code **)(*piVar3 + 4))(s_active_00551e58);
+        (*(WidgetSetStateFn *)(*piVar3 + 4))(piVar3,0,s_active_00551e58);
         *(undefined1 *)(piVar3 + 0x13) = 1;
       }
     }

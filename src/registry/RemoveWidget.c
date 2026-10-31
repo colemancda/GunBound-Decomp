@@ -171,8 +171,22 @@
  * one widget of a group and removes that group's other members - create key
  * 10 removes 11,12,13; create 20 removes 21,22,23; and so on in groups of
  * four (0xa-0xd, 0x14-0x17, 0x1e-0x21, 0x32-0x35, 0x3c-0x3e, 0x46-0x49).
- * Scanned register data is cached in tools/removewidget_regs.json. */
+ * Scanned register data is cached in tools/removewidget_regs.json. *
+ * DELETE DISPATCH FIXED (2026-10-30): the tail frees the evicted node
+ * through its slot 0 with the node in ECX:
+ *   0x406011 mov edx,[eax] / push 1 / mov ecx,eax / call [edx]
+ * The container is g_activeObjectRegistry, whose nodes in the port are
+ * all C++ CButtonWidgets (CreateButtonWidget is the only RegisterActiveObject
+ * caller that targets it), and CButtonWidget::Delete is __thiscall with
+ * ret 4. The raw `code *` call pushed only the flag and left ECX unset. It
+ * now uses the same __fastcall + dummy-EDX form SweepActiveObjectRegistry
+ * uses for the same slot.
+ */
 #include "ghidra_types.h"
+
+/* Slot 0 of a registry node: CButtonWidget::Delete(int), __thiscall with
+ * one stack word and ret 4 (see the 2026-10-30 note in the header). */
+typedef void *(__fastcall *WidgetDeleteFn)(void *thisPtr, int dummyEDX, int freeFlag);
 
 
 void RemoveWidget(int container,uint outerKey,uint innerKey)
@@ -214,7 +228,7 @@ LAB_00405fe3:
   if (puVar3 != (undefined4 *)0x0) {
     *(undefined4 *)(puVar3[3] + 0x10) = puVar3[4];
     *(undefined4 *)(puVar3[4] + 0xc) = puVar3[3];
-    (**(code **)*puVar3)(1);
+    (*(WidgetDeleteFn *)*puVar3)(puVar3,0,1);
   }
   return;
 }
