@@ -25,6 +25,7 @@
  * shape anyway. */
 #include "Widget.h"
 #include "GameState.h"
+#include "ButtonWidget.h"
 
 extern "C" {
 /* g_uiPanelManager's list-insert (0x50eea0): allocates a link node and
@@ -988,9 +989,9 @@ bool CWorldListPanel::OnMouseDown(int x, int y)
             (rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), rec[2] == 0) &&
             (rec[9] == 3 || rec[9] == -1)) {
             if ((char)rec[0x13] == 1) {
-                ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(s_active_00551e58);
+                ((CButtonWidget *)rec)->SetState(s_active_00551e58);
             } else {
-                ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(s_ready_00551e80);
+                ((CButtonWidget *)rec)->SetState(s_ready_00551e80);
             }
         }
         if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
@@ -1000,9 +1001,9 @@ bool CWorldListPanel::OnMouseDown(int x, int y)
                 if (k == 1) {
                     if (rec[9] == 3 || rec[9] == -1) {
                         if ((char)rec[0x13] == 1) {
-                            ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(s_active_00551e58);
+                            ((CButtonWidget *)rec)->SetState(s_active_00551e58);
                         } else {
-                            ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(s_ready_00551e80);
+                            ((CButtonWidget *)rec)->SetState(s_ready_00551e80);
                         }
                     }
                     break;
@@ -1019,20 +1020,28 @@ bool CWorldListPanel::OnMouseDown(int x, int y)
 /* Set the flat-registry connect button (bucket entries keyed 0 and 1
  * in DAT_00e9be94) to a named state via its vtable slot 1 - the shared
  * shape all the world-list handlers repeat; kept literal pending the
- * flat-ButtonWidget reconstruction (PLAN.md Phase 1.6). */
+ * flat-ButtonWidget reconstruction (PLAN.md Phase 1.6).
+ *
+ * The registry nodes are CButtonWidgets, so slot 1 is SetState, a
+ * __thiscall with the node in ECX (`mov ecx,eax / call [edx+4]` at
+ * 0x50d9e4-0x50d9e6). Every call in this file used to go through a
+ * `void (__cdecl *)(const char *)` cast, which dropped the node and left
+ * the name for the callee's ret 4 and the caller to pop twice; they now
+ * call ((CButtonWidget *)rec)->SetState(name), which is that exact
+ * virtual dispatch. */
 static void SetRegistryButtonState(const char *stateName)
 {
     int *rec;
     if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0 &&
         (rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), rec[2] == 0)) {
-        ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(stateName);
+        ((CButtonWidget *)rec)->SetState(stateName);
     }
     if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
         rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10);
         unsigned int k = (unsigned int)rec[2];
         while (k < 2) {
             if (k == 1) {
-                ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(stateName);
+                ((CButtonWidget *)rec)->SetState(stateName);
                 break;
             }
             rec = (int *)rec[4];
@@ -1102,7 +1111,7 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
             if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0 &&
                 (rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), rec[2] == 0) &&
                 (rec[9] == 3 || rec[9] == -1)) {
-                ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(
+                ((CButtonWidget *)rec)->SetState(
                     (char)rec[0x13] == 1 ? s_active_00551e58 : s_ready_00551e80);
             }
             if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
@@ -1111,7 +1120,7 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
                 while (k < 2) {
                     if (k == 1) {
                         if (rec[9] == 3 || rec[9] == -1) {
-                            ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(
+                            ((CButtonWidget *)rec)->SetState(
                                 (char)rec[0x13] == 1 ? s_active_00551e58 : s_ready_00551e80);
                         }
                         break;

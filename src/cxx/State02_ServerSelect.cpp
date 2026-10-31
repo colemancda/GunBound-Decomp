@@ -9,6 +9,7 @@
 #include "GameState.h"
 #include "Widget.h"
 #include "ActiveObjects.h"
+#include "ButtonWidget.h"
 
 class CWorldListPanel;
 
@@ -213,14 +214,17 @@ void CState02ServerSelect::OnExit()
 /* Reflect the local player record onto the flat-registry connect
  * button: "active" while the record flag is set, else "ready"
  * (entries keyed 0 and 1, state 3/-1 only) - the same walk the
- * WorldListPanel handlers repeat; literal pending Phase 1.6. */
+ * WorldListPanel handlers repeat; literal pending Phase 1.6. The node is
+ * a CButtonWidget, so slot 1 is its __thiscall SetState (node in ECX, as at
+ * 0x4e19f5/0x4e1a01 in State02_ServerSelect_OnTick); it is called as a
+ * virtual, not through a cdecl cast that drops the node. */
 static void ConnectButtonFromPlayerRecord()
 {
     int *rec;
     if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0 &&
         (rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), rec[2] == 0) &&
         (rec[9] == 3 || rec[9] == -1)) {
-        ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(
+        ((CButtonWidget *)rec)->SetState(
             (char)rec[0x13] == 1 ? s_active_00551e58 : s_ready_00551e80);
     }
     if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
@@ -229,7 +233,7 @@ static void ConnectButtonFromPlayerRecord()
         while (k < 2) {
             if (k == 1) {
                 if (rec[9] == 3 || rec[9] == -1) {
-                    ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(
+                    ((CButtonWidget *)rec)->SetState(
                         (char)rec[0x13] == 1 ? s_active_00551e58 : s_ready_00551e80);
                 }
                 break;
