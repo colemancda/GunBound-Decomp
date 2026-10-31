@@ -188,7 +188,8 @@ public:
                                               * TextEntry_DispatchKey (focused field:
                                               * Tab/Shift+Tab/Enter/Escape report 0x1102/0x1101/0x1100/0x1001 to the
                                               * parent's OnCommand) */
-    virtual bool DispatchMouse(int msg);     /* slot 6: 0x507170 - body in FUN_00507170.cpp:
+    virtual bool DispatchMouse(int msg);     /* slot 6: 0x507170 - body in
+                                              * src/ui_widget/TextEntry_DispatchMouse.cpp:
                                               * non-virtual CWidget::DispatchKey when focused, then
                                               * CWidget::DispatchMouse (both direct calls) */
     virtual void Draw();             /* 0x507030 TextEntry_SyncFromControl - promoted, EditBox.cpp */

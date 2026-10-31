@@ -1,9 +1,18 @@
-/* FUN_00507170 - 0x00507170 in the original binary.
+/* TextEntry_DispatchMouse - 0x00507170 in the original binary.
  *
  * CEditBox (vtable 0x557c84) slot 6: the word at 0x557c9c is 0x507170.
  * Written directly as CEditBox::DispatchMouse (2026-10-30). Before this,
- * the file defined a free extern "C" FUN_00507170 that nothing called, and
- * the C++ CEditBox inherited CWidget::DispatchMouse instead.
+ * the file defined a free extern "C" FUN_00507170 that nothing called,
+ * and the C++ CEditBox inherited CWidget::DispatchMouse instead.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_00507170). The name is the file's
+ * and PROGRESS.csv's; the code itself is the member above, so no C
+ * symbol carries it. Vtable 0x557c84 is stored only by
+ * CreateTextEntryWidget (at 0x507f9f), and slot 6 is
+ * CWidget::DispatchMouse, whose base body is
+ * Widget_DispatchMouseToChildren (0x50eab0). The TextEntry_ prefix is the
+ * one this class's C functions carry (slot 8 is TextEntry_SyncFromControl,
+ * slot 5 TextEntry_DispatchKey).
  *
  * Disassembly (34 bytes, ret 4):
  *   push esi / mov esi,ecx          ; this
