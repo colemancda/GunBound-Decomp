@@ -20,8 +20,21 @@
  * globals 0x796aa0 / 0xe9ba40.  One chained return: the discarded
  * EncodeChecksumDeltaDiv result at 0x4cd28c (`mov edi,eax` -> `mov eax,
  * edi; call Peek`) is captured in pvDelta.
+ *
+ * SetState DISPATCH FIXED (2026-10-30): the call here is
+ * `mov reg,[node] / push <name> / call [reg+4]` with the node in ECX (at
+ * 0x4cdbbd). The node is the key-0x12 button it has just created, found by walking
+ * [0xe9be94] (g_activeObjectRegistry's layer list) - a C++ CButtonWidget in
+ * the port, whose SetState is __thiscall with ret 4. The raw `code *` call
+ * pushed only the name and left ECX unset; it now uses the __fastcall +
+ * dummy-EDX idiom.
  */
 #include "ghidra_types.h"
+
+/* Slot 1 of a g_activeObjectRegistry node: CButtonWidget::SetState(const
+ * char *), __thiscall with one stack word and ret 4, dispatched through a
+ * __fastcall pointer with a dummy EDX (the InvokeWidget.c idiom). */
+typedef void (__fastcall *WidgetSetStateFn)(void *thisPtr, int dummyEDX, const char *name);
 
 
 /* WARNING: Removing unreachable block (ram,0x004cdb8e) */
@@ -484,7 +497,7 @@ LAB_004cd6de:
         uVar8 = piVar2[2];
         while (uVar8 < 0x13) {
           if (uVar8 == 0x12) {
-            (**(code **)(*piVar2 + 4))(s_disable_00551e68);
+            (*(WidgetSetStateFn *)(*piVar2 + 4))(piVar2,0,s_disable_00551e68);
             break;
           }
           piVar2 = (int *)piVar2[4];

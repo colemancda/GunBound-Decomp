@@ -15,8 +15,21 @@
  * this function's body (same "unused-but-ABI-real" shape as
  * State02_ServerSelect_HandleKeyInput's 3rd parameter). Added as `param_3` (unused) so the
  * generated `ret N` matches what vtable slot-3 callers actually push.
+ *
+ * SetState DISPATCH FIXED (2026-10-30): the 4 calls here are
+ * `mov reg,[node] / push <name> / call [reg+4]` with the node in ECX (at
+ * 0x4e126f, 0x4e127b, 0x4e12cf and 0x4e12db). The node is the connect button (keys 0 and 1), found by walking
+ * [0xe9be94] (g_activeObjectRegistry's layer list) - a C++ CButtonWidget in
+ * the port, whose SetState is __thiscall with ret 4. The raw `code *` calls
+ * pushed only the name and left ECX unset; they now use the __fastcall +
+ * dummy-EDX idiom.
  */
 #include "ghidra_types.h"
+
+/* Slot 1 of a g_activeObjectRegistry node: CButtonWidget::SetState(const
+ * char *), __thiscall with one stack word and ret 4, dispatched through a
+ * __fastcall pointer with a dummy EDX (the InvokeWidget.c idiom). */
+typedef void (__fastcall *WidgetSetStateFn)(void *thisPtr, int dummyEDX, const char *name);
 
 
 /* WARNING: Removing unreachable block (ram,0x004e1232) */
@@ -62,10 +75,10 @@ void __thiscall State02_ServerSelect_OnTopButton(int param_1,int param_2,int par
         (piVar3 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar3[2] == 0)) &&
        ((piVar3[9] == 3 || (piVar3[9] == -1)))) {
       if ((char)piVar3[0x13] == '\x01') {
-        (**(code **)(*piVar3 + 4))(s_active_00551e58);
+        (*(WidgetSetStateFn *)(*piVar3 + 4))(piVar3,0,s_active_00551e58);
       }
       else {
-        (**(code **)(*piVar3 + 4))(s_ready_00551e80);
+        (*(WidgetSetStateFn *)(*piVar3 + 4))(piVar3,0,s_ready_00551e80);
       }
     }
     if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
@@ -75,10 +88,10 @@ void __thiscall State02_ServerSelect_OnTopButton(int param_1,int param_2,int par
         if (uVar4 == 1) {
           if ((piVar3[9] == 3) || (piVar3[9] == -1)) {
             if ((char)piVar3[0x13] == '\x01') {
-              (**(code **)(*piVar3 + 4))(s_active_00551e58);
+              (*(WidgetSetStateFn *)(*piVar3 + 4))(piVar3,0,s_active_00551e58);
             }
             else {
-              (**(code **)(*piVar3 + 4))(s_ready_00551e80);
+              (*(WidgetSetStateFn *)(*piVar3 + 4))(piVar3,0,s_ready_00551e80);
             }
           }
           break;

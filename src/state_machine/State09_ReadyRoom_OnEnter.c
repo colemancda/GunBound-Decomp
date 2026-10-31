@@ -14,8 +14,21 @@
  * C130/C131 are the adjacent tick-clock pair 0x4d6e78 / 0x4d6e81
  * (+ 0x3b6c4 and + 0x3b49c) and C250/C292 are 0x4d72a2 / 0x4d7418, both
  * the room-slot count + 0x44efc.
+ *
+ * SetState DISPATCH FIXED (2026-10-30): the call here is
+ * `mov reg,[node] / push <name> / call [reg+4]` with the node in ECX (at
+ * 0x4d70e1). The node is the key-0x72 button, found by walking
+ * [0xe9be94] (g_activeObjectRegistry's layer list) - a C++ CButtonWidget in
+ * the port, whose SetState is __thiscall with ret 4. The raw `code *` call
+ * pushed only the name and left ECX unset; it now uses the __fastcall +
+ * dummy-EDX idiom.
  */
 #include "ghidra_types.h"
+
+/* Slot 1 of a g_activeObjectRegistry node: CButtonWidget::SetState(const
+ * char *), __thiscall with one stack word and ret 4, dispatched through a
+ * __fastcall pointer with a dummy EDX (the InvokeWidget.c idiom). */
+typedef void (__fastcall *WidgetSetStateFn)(void *thisPtr, int dummyEDX, const char *name);
 #include <windows.h>
 
 
@@ -168,7 +181,7 @@ void __fastcall State09_ReadyRoom_OnEnter(int param_1)
       if (uVar2 == 0x72) {
         *(undefined1 *)(piVar11 + 0x13) = 0;
         if (piVar11[9] != 3) {
-          (**(code **)(*piVar11 + 4))(s_active_00551e58);
+          (*(WidgetSetStateFn *)(*piVar11 + 4))(piVar11,0,s_active_00551e58);
           *(undefined1 *)(piVar11 + 0x13) = 1;
         }
         break;

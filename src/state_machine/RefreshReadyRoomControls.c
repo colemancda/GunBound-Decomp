@@ -23,8 +23,21 @@
  * Ghidra-decompiler confusion, not real data flow; dropped the capture
  * rather than invent one, matching the same pattern already applied to
  * FUN_00449250.c and State09_ReadyRoom_OnCommand.c.
+ *
+ * SetState DISPATCH FIXED (2026-10-30): the 2 calls here are
+ * `mov reg,[node] / push <name> / call [reg+4]` with the node in ECX (at
+ * 0x4da4b1 and 0x4da4bd). The node is the key-3 button, found by walking
+ * [0xe9be94] (g_activeObjectRegistry's layer list) - a C++ CButtonWidget in
+ * the port, whose SetState is __thiscall with ret 4. The raw `code *` calls
+ * pushed only the name and left ECX unset; they now use the __fastcall +
+ * dummy-EDX idiom.
  */
 #include "ghidra_types.h"
+
+/* Slot 1 of a g_activeObjectRegistry node: CButtonWidget::SetState(const
+ * char *), __thiscall with one stack word and ret 4, dispatched through a
+ * __fastcall pointer with a dummy EDX (the InvokeWidget.c idiom). */
+typedef void (__fastcall *WidgetSetStateFn)(void *thisPtr, int dummyEDX, const char *name);
 
 
 /* WARNING: Removing unreachable block (ram,0x004da471) */
@@ -64,10 +77,10 @@ undefined4 RefreshReadyRoomControls(int param_1,undefined4 param_2,uint param_3)
       if (uVar6 == 3) {
         if ((piVar1[9] == 3) || (piVar1[9] == -1)) {
           if ((char)piVar1[0x13] == '\x01') {
-            (**(code **)(*piVar1 + 4))(s_active_00551e58);
+            (*(WidgetSetStateFn *)(*piVar1 + 4))(piVar1,0,s_active_00551e58);
           }
           else {
-            (**(code **)(*piVar1 + 4))(s_ready_00551e80);
+            (*(WidgetSetStateFn *)(*piVar1 + 4))(piVar1,0,s_ready_00551e80);
           }
         }
         break;

@@ -26,8 +26,21 @@
  * `uVar7 = uVar5 >> 8`) was already reading undefined data in the
  * shipped binary. Left as-is (now genuinely uninitialized) rather than
  * inventing a value.
+ *
+ * SetState DISPATCH FIXED (2026-10-30): the 3 calls here are
+ * `mov reg,[node] / push <name> / call [reg+4]` with the node in ECX (at
+ * 0x4492dc, 0x4492e8 and 0x44939d). The node is the key-2 and key-0xe buttons, found by walking
+ * [0xe9be94] (g_activeObjectRegistry's layer list) - a C++ CButtonWidget in
+ * the port, whose SetState is __thiscall with ret 4. The raw `code *` calls
+ * pushed only the name and left ECX unset; they now use the __fastcall +
+ * dummy-EDX idiom.
  */
 #include "ghidra_types.h"
+
+/* Slot 1 of a g_activeObjectRegistry node: CButtonWidget::SetState(const
+ * char *), __thiscall with one stack word and ret 4, dispatched through a
+ * __fastcall pointer with a dummy EDX (the InvokeWidget.c idiom). */
+typedef void (__fastcall *WidgetSetStateFn)(void *thisPtr, int dummyEDX, const char *name);
 
 
 /* WARNING: Removing unreachable block (ram,0x0044929c) */
@@ -69,10 +82,10 @@ LAB_00449285:
       if (uVar2 == 2) {
         if ((piVar1[9] == 3) || (piVar1[9] == -1)) {
           if ((char)piVar1[0x13] == '\x01') {
-            (**(code **)(*piVar1 + 4))(s_active_00551e58);
+            (*(WidgetSetStateFn *)(*piVar1 + 4))(piVar1,0,s_active_00551e58);
           }
           else {
-            (**(code **)(*piVar1 + 4))(s_ready_00551e80);
+            (*(WidgetSetStateFn *)(*piVar1 + 4))(piVar1,0,s_ready_00551e80);
           }
         }
         break;
@@ -92,7 +105,7 @@ LAB_00449285:
       uVar2 = piVar1[2];
       while (uVar2 < 0xf) {
         if (uVar2 == 0xe) {
-          (**(code **)(*piVar1 + 4))(s_disable_00551e68);
+          (*(WidgetSetStateFn *)(*piVar1 + 4))(piVar1,0,s_disable_00551e68);
           break;
         }
         piVar1 = (int *)piVar1[4];
