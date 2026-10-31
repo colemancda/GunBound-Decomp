@@ -47,7 +47,7 @@ void __thiscall BuddyPanel_OnCommand(int param_1,int param_2,int param_3,undefin
            tests against -1. */
         iVar1 = FindActiveObjectByIndex((int)&DAT_00e53e88,*(int *)(param_1 + 0x90));
         if (iVar1 != 0) {
-          FUN_00508ea0(&g_uiPanelManager,(uchar *)(iVar1 + 0x21));
+          BuildDeleteBuddyConfirmDialog(&g_uiPanelManager,(uchar *)(iVar1 + 0x21));
           Widget_OnCommandDefault(param_1,0,2,param_4);
           return;
         }

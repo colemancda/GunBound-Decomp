@@ -30,8 +30,9 @@
  * EDI RECOVERED (2026-10-30): the body reads EDI (the buddy name) with no
  * earlier write - `push edi` for __mbsicmp at 0x508d4d, `test edi,edi` at
  * 0x508e17 - and ends in ret 4 with only the manager on the stack. It is
- * now the trailing parameter regEdi, like FUN_00508ea0's. The inline
- * strlen at 0x508e17-0x508e2e leaves the length in EAX and `mov ebx,eax`
+ * now the trailing parameter regEdi, like BuildDeleteBuddyConfirmDialog's.
+ * The inline strlen at 0x508e17-0x508e2e leaves the length in EAX and
+ * `mov ebx,eax`
  * at 0x508e32 passes it to AssignStringBuffer (0x4056c0, `test ebx,ebx`
  * as its first instruction) as the dropped EBX length. `push edi` at
  * 0x508e39, before the GetLocalizedString pushes, is the third argument

@@ -1,8 +1,21 @@
-/* FUN_00508ea0 - 0x00508ea0 in the original binary.
+/* BuildDeleteBuddyConfirmDialog - 0x00508ea0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_00508ea0). Its one caller is
+ * BuddyPanel_OnCommand on the buddy panel's "Del" label, id 2 (call at
+ * 0x505d90), with EDI = the selected buddy's name (roster entry +0x21).
+ * The text it shows is localized string 0xfa5 (push at 0x508fcb),
+ * sprintf'd with that name; the reference client's Language.txt (inside
+ * graphics.xfs) gives 4005 as "You are about to remove '%s' from buddy
+ * list.\nAre you sure?". In the original vtable this builder stores
+ * (0x557e40), slot 7 is 0x506430: label 0 calls FUN_00402cf0 with the
+ * stored name (0x506456) and closes, label 1 only closes.
+ *
+ * NOTE: the port still installs the placeholder `&PTR_LAB_00557e40` (a
+ * lone null in globals.c) as the vtable, not the original's 10 slots.
  *
  * Widget_AddChild `this` RECOVERED (2026-10-30): 0x50e670 takes the
  * parent in EBX and the child on the stack. At 0x508f86/0x508fa3/0x509005
@@ -26,7 +39,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00508ea0(int param_1,uchar *regEdi)
+void BuildDeleteBuddyConfirmDialog(int param_1,uchar *regEdi)
 
 {
   uchar uVar1;
