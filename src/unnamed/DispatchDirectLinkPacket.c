@@ -7,6 +7,7 @@
  * arguments, regEax a 16-byte name record used as the key for case 0x1002.
  *
  * (FUN_00403000 below is now ProcessUserLookupResponse.)
+ * (FUN_00402cf0 below is now DeleteBuddyByNickname.)
  *
  * RE-SLOTTED AND EAX RECOVERED (2026-08-24).  `ret 8`: param_1 is ECX (the
  * packet: [esi+4] is the opcode dispatched on), param_2/param_3 the two

@@ -30,7 +30,8 @@
  * eax` where eax=the just-computed new cursor (length, param_3 - already
  * held in iVar5).
  *
- * (FUN_005063e0 below is now BuddyRequestDialog_OnCommand.)
+ * (FUN_005063e0 below is now BuddyRequestDialog_OnCommand, and
+ * FUN_00402cf0 is DeleteBuddyByNickname.)
  * DROPPED REGISTER RECOVERED (2026-08-24): EAX is *(callerThis + 0x50) --
  * the exact analogue of FUN_00402cf0's EDI, in the sibling caller
  * FUN_005063e0.  Same evidence: `mov eax,[esi+0x50]` with ESI = the caller's

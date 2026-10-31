@@ -1,8 +1,22 @@
-/* FUN_00402cf0 - 0x00402cf0 in the original binary.
+/* DeleteBuddyByNickname - 0x00402cf0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31 (was FUN_00402cf0). Its sole caller is slot 7 of
+ * vtable 0x557e40, the confirm dialog BuildDeleteBuddyConfirmDialog
+ * raises from the buddy panel's Del label (Language.txt 4005, "You are
+ * about to remove '%s' from buddy list.\nAre you sure?"); label 0 calls
+ * it with the stored name (0x506456). Over the direct link it sends
+ * 0xa210 [16-byte user id] (0x402d27) and then RemoveDirectLinkBuddyNode
+ * (0x402d72); with the link down but the peer known it notifies the
+ * +0x1bdc listener (slot +0x28) and removes the node the same way; on a
+ * nickname-lookup miss it parks action 0x2004 through FUN_004026a0
+ * (0x402e3e). DispatchDirectLinkPacket's 0x2004 arm replays that as the
+ * same 0xa210 send followed by RemoveDirectLinkBuddyNode. "ByNickname"
+ * follows SendWhisperByNickname, the same FindUserIdByNickname +
+ * direct-link / 0x1020 fallback shape.
  *
  * FIXED (2026-07-14): the trailing SendSocketData call only passed 2 of
  * its 3 real args and dropped the buffer ("this") entirely - same bug as
@@ -22,7 +36,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00402cf0(int param_1,char *regEdi)
+void DeleteBuddyByNickname(int param_1,char *regEdi)
 
 {
   undefined2 *puVar1;

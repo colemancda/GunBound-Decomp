@@ -5,6 +5,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_00402cf0 below is now DeleteBuddyByNickname.)
+ *
  * DROPPED REGISTER RECOVERED (2026-08-27): EBX is the name-keyed lookup
  * tree this function searches - the container that lives at (owner object
  * base + 0x1be4).  It is read before any write: 0x404b00 `mov

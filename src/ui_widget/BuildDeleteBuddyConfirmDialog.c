@@ -4,6 +4,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_00402cf0 below is now DeleteBuddyByNickname.)
+ *
  * NAMED 2026-10-31, CERTAIN (was FUN_00508ea0). Its one caller is
  * BuddyPanel_OnCommand on the buddy panel's "Del" label, id 2 (call at
  * 0x505d90), with EDI = the selected buddy's name (roster entry +0x21).

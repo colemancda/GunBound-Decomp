@@ -40,7 +40,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00402720,472,SendWhisperByNickname,false,2,7,RAW-src
 00402900,453,FUN_00402900,false,1,7,RAW-src
 00402ad0,539,FUN_00402ad0,false,1,9,RAW-src
-00402cf0,358,FUN_00402cf0,false,1,7,RAW-src
+00402cf0,358,DeleteBuddyByNickname,false,1,7,RAW-src
 00402e60,401,AnswerBuddyRequestByNickname,false,1,7,RAW-src
 00403000,354,ProcessUserLookupResponse,false,2,2,RAW-src
 00403170,244,FUN_00403170,false,2,5,RAW-src

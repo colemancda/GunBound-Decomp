@@ -4,6 +4,8 @@
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
  *
+ * (FUN_00402cf0 below is now DeleteBuddyByNickname.)
+ *
  * NAMED (2026-10-26), HIGH. The delete counterpart of
  * UpsertDirectLinkBuddyNode: looks the node up by name
  * (FindDirectLinkBuddyNode, FUN_00401c50), compacts a parallel 0x7f-entry
