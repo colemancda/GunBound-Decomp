@@ -1667,7 +1667,7 @@ void __thiscall FUN_005061e0(int param_1,int param_2,int param_3,int param_4);
 undefined4 RoomTitleDialog_SubmitTitle();
 void __thiscall RoomTitleDialog_OnCommand();
 void __thiscall BuddyRequestDialog_OnCommand();
-void __thiscall FUN_00506430();
+void __thiscall DeleteBuddyConfirmDialog_OnCommand();
 undefined4 CreateRoomDialog_SubmitCreateRoom();
 void __thiscall CreateRoomDialog_OnCommand(undefined4 *param_1,int param_2,int param_3,int param_4);
 void RadioGroup_SelectLowChild(int param_1,int regEbx);

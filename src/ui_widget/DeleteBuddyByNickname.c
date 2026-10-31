@@ -28,6 +28,7 @@
  * eax` where eax=the just-computed new cursor (length, param_3 - already
  * held in iVar5).
  *
+ * (FUN_00506430 below is now DeleteBuddyConfirmDialog_OnCommand.)
  * DROPPED REGISTER RECOVERED (2026-08-24): EDI is *(callerThis + 0x50),
  * where callerThis is FUN_00506430's own __thiscall param_1 -- the binary
  * loads `mov edi,[esi+0x50]` with ESI never written after entry, so ESI IS
