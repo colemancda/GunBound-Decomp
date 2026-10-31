@@ -1,10 +1,27 @@
-/* FUN_0050ee00 - 0x0050ee00 in the original binary.
+/* PanelManager_BaseDestructor - 0x0050ee00 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * (FUN_0050f290 below is now PanelManager_Update.)
+ * NAMED 2026-10-31 (was FUN_0050ee00). The destructor of the panel
+ * manager's base class: it stores the base vtable 0x557f80 (0x50ee1d),
+ * the table whose slots are the PanelManager_Dispatch* family, then
+ * drains the panel list - WidgetChildArray_Destroy and free on each
+ * panel - and releases the node pool with PanelManager_ReleasePool.
+ * Its callers are the base scalar-deleting destructor 0x50ede0 (slot 0
+ * of 0x557f80, `call 0x50ee00` at 0x50ede3) and, through the
+ * `jmp 0x50ee00` thunk at 0x40d150, the derived one 0x507e10 (slot 0 of
+ * g_uiPanelManager's 0x557cfc) and the atexit stub 0x543250, which is
+ * `mov ecx,0xe53c40` (&g_uiPanelManager) / `jmp 0x40d150` and which the
+ * static initializer at 0x540dc0 registers (push 0x543250 at 0x540dca)
+ * right after constructing g_uiPanelManager with 0x507dc0. The
+ * <Class>_BaseDestructor form follows CMobile_BaseDestructor and
+ * CGameState_BaseDestructor.
+ *
+ * (FUN_0050f290 below is now PanelManager_Update. The
+ * `thunk_FUN_0040d150` below means thunk_FUN_0050ee00, the 0x40d150
+ * thunk.)
  *
  * CI COMPILE-ERR FIX (2026-07-30): PanelManager_ReleasePool/
  * WidgetChildArray_Destroy were given real 1-param prototypes in an
@@ -21,7 +38,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0050ee00(undefined4 *param_1)
+void __fastcall PanelManager_BaseDestructor(undefined4 *param_1)
 
 {
   int *piVar1;

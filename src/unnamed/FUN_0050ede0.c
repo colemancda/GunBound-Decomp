@@ -10,7 +10,7 @@
 void * __thiscall FUN_0050ede0(void *param_1,int param_2)
 
 {
-  FUN_0050ee00();
+  PanelManager_BaseDestructor();
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }
