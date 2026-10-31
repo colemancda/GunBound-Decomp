@@ -21,7 +21,7 @@
  *
  * (FUN_0050f290 below is now PanelManager_Update. The
  * `thunk_FUN_0040d150` below means thunk_FUN_0050ee00, the 0x40d150
- * thunk.)
+ * thunk, now PanelManager_BaseDestructorThunk.)
  *
  * CI COMPILE-ERR FIX (2026-07-30): PanelManager_ReleasePool/
  * WidgetChildArray_Destroy were given real 1-param prototypes in an

@@ -10,7 +10,7 @@
 void * __thiscall FUN_00507e10(void *param_1,int param_2)
 
 {
-  thunk_FUN_0050ee00();
+  PanelManager_BaseDestructorThunk();
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

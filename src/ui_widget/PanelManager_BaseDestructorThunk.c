@@ -1,19 +1,33 @@
-/* FUN_0040d150 - 0x0040d150 in the original binary.
+/* PanelManager_BaseDestructorThunk - 0x0040d150 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
+ * NAMED 2026-10-31 (was thunk_FUN_0050ee00). The bare `jmp 0x50ee00`
+ * forward to PanelManager_BaseDestructor. Its two callers are the
+ * derived panel manager's scalar-deleting destructor 0x507e10 (call at
+ * 0x507e13) and the g_uiPanelManager atexit stub 0x543250 (jmp at
+ * 0x543255). Thunk-suffix naming per CStringPair_DestroyThunk and
+ * WorkerThreadProcThunk.
+ *
+ * (thunk_FUN_0050ee00 / FUN_0050ee00 below are now this function /
+ * PanelManager_BaseDestructor.)
  * `thunk_FUN_0050ee00` - confirmed via objdump this is a PURE
  * `jmp 0x50ee00` tail-jump (no logic of its own at all), so it's byte-
  * for-byte the same function as FUN_0050ee00. See that file's own
  * header for the CI COMPILE-ERR FIX (2026-07-30) applied identically
  * here.
+ *
+ * NOTE (2026-10-31, not fixed here): this port inlines the target's
+ * body instead of forwarding, and it still carries the SEH prologue
+ * write through the uninitialised `unaff_FS_OFFSET` that
+ * PanelManager_BaseDestructor's copy has had stripped.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall thunk_FUN_0050ee00(undefined4 *param_1)
+void __fastcall PanelManager_BaseDestructorThunk(undefined4 *param_1)
 
 {
   int *piVar1;

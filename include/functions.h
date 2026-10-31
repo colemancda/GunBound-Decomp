@@ -336,7 +336,7 @@ void __fastcall FUN_0040cf30(undefined4 param_1,uint param_2,int param_3,int reg
 void __fastcall FUN_0040cf80(undefined4 param_1,uint param_2,int param_3,uint regEsi);
 int __fastcall GetWidgetChildText(undefined4 param_1,uint widgetId,int regEax,uint childId);
 void __thiscall FUN_0040d020(int param_1, int param_2, int message);
-void __fastcall thunk_FUN_0050ee00();
+void __fastcall PanelManager_BaseDestructorThunk();
 undefined4 * FUN_0040d160(undefined4 *regEsi);
 void thunk_FUN_004154e0();
 void FUN_0040d180(undefined4 *regEax);

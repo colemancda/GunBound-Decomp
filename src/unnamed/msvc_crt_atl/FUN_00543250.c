@@ -10,7 +10,7 @@
 void FUN_00543250(void)
 
 {
-  thunk_FUN_0050ee00();
+  PanelManager_BaseDestructorThunk();
   return;
 }
 
