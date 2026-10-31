@@ -46,8 +46,8 @@ scrollbar (`0x557e90`), and panel (`0x557f08`) vtables:
 |---|---|---|
 | 0 (`+0x00`) | **SetFocus(bool)** — **confirmed by decompiling `0x50e860`** (headless Ghidra export; the function is vtable-only-referenced so no raw port existed): its whole body is `this->+0x04 = arg`. The base slot-7 focus mover (`0x50eb10`) calls it with `0`/`1` on the focus loser/gainer; `CEditBox`'s `+0x04` flag is the state it toggles. | `0x50e860` |
 | 1 (`+0x04`) | mouse-move | per-class; base drag = `Widget_OnDragMove` (slot 11 in some) |
-| 2 (`+0x08`) | mouse-down | per-class (e.g. label `Label_OnMouseDown`, scrollbar `ScrollListWidget_OnMouseDown`) |
-| 3 (`+0x0c`) | mouse-up | per-class |
+| 2 (`+0x08`) | mouse-down | per-class (e.g. label `0x50e280`, which arms the label's `+0x38` press flag; scrollbar `ScrollListWidget_OnMouseDown`) |
+| 3 (`+0x0c`) | mouse-up | per-class (e.g. label `0x5052e0`, still named `Label_OnMouseDown` in PROGRESS.csv, which reports the click) |
 | 4 (`+0x10`) | **hit-test** | `Widget_HitTest` — rect test (`+0x28`/`+0x2c`/`+0x30`/`+0x34`) then broadcast to children |
 | 5 (`+0x14`) | keyboard input | `Widget_DispatchKeyToChildren` — broadcast to children's slot 5 |
 | 6 (`+0x18`) | mouse input | `Widget_DispatchMouseToChildren` — broadcast to children's slot 6 |
@@ -62,9 +62,13 @@ This is the spine of the whole system. When a leaf widget is activated it calls
 its **parent's** slot-7 method (`parent.vtable[+0x1c]`) with
 `(eventType, widgetId, extra)`:
 
-- **Label / button click** → `Label_OnMouseDown` (mouse-down) fires
-  `parent[+0x1c](0, id, 0)` — event type **0** = "clicked", `id` = the widget's
-  `+0x24`.
+- **Label / button click** → the press (slot 2, `0x50e280`) arms the label's
+  `+0x38` flag, and the release (slot 3, `0x5052e0`, still named
+  `Label_OnMouseDown` in PROGRESS.csv) fires `parent[+0x1c](0, id, 0)` if the
+  point is still inside, `+0x38` is armed and the label is enabled (`+0x1c`).
+  It reports through the label's own slot 7 (`call [eax+0x1c]` at `0x50532e`),
+  whose default `0x50eb10` forwards event 0 to the parent — event type **0** = "clicked",
+  `id` = the widget's `+0x24`.
 - **Scrollbar change** → fires `parent[+0x1c](0x2000, id, newScrollPos)`.
 - **Text-entry / dialog commit / cancel** → event types **10** / **0xb**.
 - **Focus navigation** → the leaf slot-7 default (`0x50eb10`) handles
@@ -110,9 +114,11 @@ panel-builder catalog below.
 
 ### Label / small button — `CreateLabelWidget` (`0x557da0`, 0x40 bytes)
 A sprite/text cell. Constructor `(id, spriteOrMsgId, x, y, w, h)` → stores
-`id`→`+0x24`, `spriteId`→`+0x3c`, rect→`+0x28..+0x34`. Mouse-down
-(`Label_OnMouseDown`) hit-tests and fires `parent[+0x1c](0, id, 0)` on click — this
-is how menu/tab/grid cells report clicks. Used for tabs, icons, grid cells
+`id`→`+0x24`, `spriteId`→`+0x3c`, rect→`+0x28..+0x34`. Mouse-down (slot 2,
+`0x50e280`) hit-tests and arms `+0x38` (a press outside disarms it); mouse-up (slot 3, `0x5052e0`, still named
+`Label_OnMouseDown` in PROGRESS.csv) hit-tests again and, if `+0x38` is armed and
+`+0x1c` (enabled) is set, fires `parent[+0x1c](0, id, 0)`, then clears `+0x38` either way (`0x50e2f0`) — this is how menu/tab/grid
+cells report clicks, on release rather than on press. Used for tabs, icons, grid cells
 (e.g. the Ready Room character grid, the Avatar Store category tabs).
 
 ### Text entry — `CreateTextEntryWidget` (`0x557c84`, 0x140 bytes)
@@ -350,7 +356,10 @@ protected:
 // Clickable sprite/text cell, 0x40 bytes.
 class CLabel : public CWidget {          // vtable 0x557da0, ctor CreateLabelWidget(id, sprite, x,y,w,h)
     int m_spriteId;   // +0x3c
-    // OnMouseDown (Label_OnMouseDown): if hit, m_parent->OnCommand(0, m_id, 0)
+    // OnMouseDown (slot 2, 0x50e280): if hit, arm +0x38
+    // OnMouseUp (slot 3, 0x5052e0, PROGRESS name Label_OnMouseDown):
+    //   if hit, +0x38 armed and +0x1c enabled, OnCommand(0, m_id, 0)
+    //   (forwarded to m_parent by the default slot 7), then disarm
     // Draw (FUN_0050e350): blit sprite via FindSpriteFrame
 };
 

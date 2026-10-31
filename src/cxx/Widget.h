@@ -41,7 +41,7 @@ public:
      * dtor slot at all. */
     virtual void SetFocus(bool active);                 /* slot 0  +0x00: 0x50e860 - promoted, Widget.cpp */
     virtual bool OnMouseMove(int x, int y);             /* slot 1  +0x04: per-class */
-    virtual bool OnMouseDown(int x, int y);             /* slot 2  +0x08: per-class (Label_OnMouseDown, scrollbar 0x50f500) */
+    virtual bool OnMouseDown(int x, int y);             /* slot 2  +0x08: per-class (label 0x50e280, scrollbar 0x50f500) */
     virtual bool OnMouseUp(int x, int y);               /* slot 3  +0x0c: per-class */
     virtual bool HitTest(int x, int y);                 /* slot 4  +0x10: Widget_HitTest - rect test then child broadcast */
     virtual bool DispatchKey(int key);                  /* slot 5  +0x14: Widget_DispatchKeyToChildren */
