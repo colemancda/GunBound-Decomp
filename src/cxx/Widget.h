@@ -138,7 +138,7 @@ public:
                                               * +0x38 and m_focused from the rect test, then
                                               * the child down broadcast */
     virtual bool OnMouseUp(int x, int y);    /* slot 3: 0x5052e0 (PROGRESS name
-                                              * Label_OnMouseDown) - promoted, Label.cpp: the
+                                              * Label_OnMouseUp) - promoted, Label.cpp: the
                                               * click report, then ResetPressState */
     virtual void Draw();                     /* 0x50e350 - promoted, Label.cpp: reports evt 1 upward
                                               * (the parent panel blits for it), then child broadcast */

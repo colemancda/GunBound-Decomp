@@ -1547,7 +1547,7 @@ vtable 0x557da0  installs=8  slots=10  UNCARVED=1
    0: 0x50e860  Widget_SetFocus
    1: 0x50e210  FUN_0050e210
    2: 0x50e280  FUN_0050e280
-   3: 0x5052e0  Label_OnMouseDown
+   3: 0x5052e0  Label_OnMouseUp
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren

@@ -1,5 +1,5 @@
 /* CLabel methods - promoted from the raw C port
- * src/ui_widget/Label_OnMouseDown.c (0x5052e0). See src/cxx/README.md. */
+ * src/ui_widget/Label_OnMouseUp.c (0x5052e0). See src/cxx/README.md. */
 #include "Widget.h"
 
 /* Sprite-lookup/blit primitives - the same recovered shapes Panel.cpp
@@ -149,7 +149,7 @@ bool CLabel::OnMouseDown(int x, int y)
 /* 0x5052e0, vtable slot 3 (word at 0x557dac), NOT slot 2: the vtable
  * dump puts 0x50e280 at +0x08 and 0x5052e0 at +0x0c, and the child
  * mouse-up broadcast 0x50e950 dispatches `call [eax+0xc]`. PROGRESS.csv
- * still calls it Label_OnMouseDown. Until 2026-10-30 this body was
+ * names it Label_OnMouseUp. Until 2026-10-30 this body was
  * declared as CLabel::OnMouseDown, so it ran on the press with +0x38
  * never armed (nothing set it), the click report below never fired, and
  * the release reached only the inherited child broadcast.
