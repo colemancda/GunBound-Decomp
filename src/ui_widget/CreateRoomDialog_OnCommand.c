@@ -1,4 +1,4 @@
-/* FUN_005065c0 - 0x005065c0 in the original binary.
+/* CreateRoomDialog_OnCommand - 0x005065c0 in the original binary.
  *
  * CCreateRoomDialog's OnCommand (vtable 0x557c34 slot 7, +0x1c), the
  * create-room dialog's two radio groups plus its OK/cancel paths.
@@ -33,11 +33,18 @@
  * __thiscall in the original, erased to cdecl here (`this` first), like
  * the sibling OnCommand ports. Wired as CCreateRoomDialog::OnCommand in
  * src/cxx/Panel.cpp.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_005065c0). The word at
+ * 0x557c34+0x1c is 0x5065c0, and 0x557c34 is stored only by
+ * BuildCreateRoomDialog (at 0x5081ef). Slot 9 of the same vtable is the
+ * already-named CreateRoomDialog_Update, and the evt-0 id-9 / evt-0x1000
+ * arms call the already-named CreateRoomDialog_SubmitCreateRoom. Slot 7
+ * is the CWidget::OnCommand(evt, id, arg) slot.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_005065c0(undefined4 *param_1,int param_2,int param_3,int param_4)
+void __thiscall CreateRoomDialog_OnCommand(undefined4 *param_1,int param_2,int param_3,int param_4)
 
 {
   int iVar1;

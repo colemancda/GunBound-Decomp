@@ -725,12 +725,12 @@ void CAvatarStorePanel::Update()
  * CWidget::OnCommand. So the base handling runs once and does not
  * re-enter these overrides. The C ports are erased-__thiscall cdecl
  * with `this` first. */
-extern "C" void FUN_005065c0(void *this_, int evt, int id, int arg);
+extern "C" void CreateRoomDialog_OnCommand(void *this_, int evt, int id, int arg);
 extern "C" void ChannelUserListPanel_OnCommand(int this_, int evt, int id, int arg);
 
 void CCreateRoomDialog::OnCommand(int evt, int id, int arg)
 {
-    FUN_005065c0(this, evt, id, arg);
+    CreateRoomDialog_OnCommand(this, evt, id, arg);
 }
 
 void CChannelUserListPanel::OnCommand(int evt, int id, int arg)

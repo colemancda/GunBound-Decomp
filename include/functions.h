@@ -1669,7 +1669,7 @@ void __thiscall FUN_00506310();
 void __thiscall FUN_005063e0();
 void __thiscall FUN_00506430();
 undefined4 CreateRoomDialog_SubmitCreateRoom();
-void __thiscall FUN_005065c0(undefined4 *param_1,int param_2,int param_3,int param_4);
+void __thiscall CreateRoomDialog_OnCommand(undefined4 *param_1,int param_2,int param_3,int param_4);
 void RadioGroup_SelectLowChild(int param_1,int regEbx);
 void RadioGroup_SelectHighChild(int param_1,int regEbx);
 void __fastcall CreateRoomDialog_Update();

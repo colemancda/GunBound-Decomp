@@ -546,8 +546,8 @@ class CCreateRoomDialog : public CPanel {      /* vtable 0x557c34; builder 0x508
 public:
     CCreateRoomDialog() { m_pinned = 1; }
     virtual void OnCommand(int evt, int id, int arg); /* 0x5065c0 - Panel.cpp forwards to the C
-                                                * FUN_005065c0 (slot 7: the two radio
-                                                * groups, submit/cancel, then the base
+                                                * CreateRoomDialog_OnCommand (slot 7: the
+                                                * two radio groups, submit/cancel, then the base
                                                 * handler) */
     virtual void Update();                     /* 0x5068e0 - Panel.cpp forwards to the C
                                                 * CreateRoomDialog_Update (slot 9: frame via
