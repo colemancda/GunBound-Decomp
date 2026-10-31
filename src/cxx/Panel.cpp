@@ -960,6 +960,54 @@ bool CChannelUserListPanel::HitTest(int x, int y)
     return (unsigned char)ChannelUserListPanel_HitTest((int)this, x, y) != 0;
 }
 
+/* CWorldListPanel slot 4 (+0x10, word at 0x557f18) is 0x50d710, in place
+ * of Widget_HitTest (0x50e9c0). CARVED 2026-10-30 - it was UNCARVED and
+ * the class inherited CWidget::HitTest. 130 bytes, `mov eax,ecx` at
+ * entry, ret 8 at 0x50d78f, result in BL -> AL:
+ *
+ *   0x50d712 mov cl,[eax+0x1e] / xor bl,bl / test cl,cl / jne 0x50d78c
+ *   0x50d71c cmp/jge against +0x28 / +0x28+0x30 / +0x2c / +0x2c+0x34
+ *   0x50d746 push ecx(y) / mov bl,1 / call 0x50df40   ; EAX = this,
+ *                                     ; EDI = x: WorldListRowHitTest
+ *   0x50d74e mov ecx,[0x5b3484]       ; g_clientContext
+ *   0x50d754 mov dl,[ecx+eax+0x3f809] ; the row's online flag
+ *   0x50d75d mov esi,[0x5b3400]       ; g_gameStateVTableArray[2]
+ *   0x50d765 mov dl,[esi+0x24]        ; m_inputEnabled
+ *   0x50d76c mov dx,[ecx+eax*2+0x410ca]
+ *   0x50d774 cmp dx,[ecx+eax*2+0x410ea] / jae skip   ; row not full
+ *   0x50d77e push esi / mov edi,eax / call 0x4e1bf0  ; ConnectToSelectedServer
+ *   0x50d786 mov byte [esi+6],0       ; m_uiDirty = 0
+ *
+ * So a hit inside the panel on an online row that is not full, with the
+ * screen's input enabled, connects to that server. Like the
+ * ChannelUserListPanel and AvatarStorePanel overrides there is no child
+ * broadcast, and the result is only the own-rect test. The panel-level
+ * caller is PanelManager_DispatchRightMouseDown (0x50f1f0), whose
+ * `call [eax+0x10]` at 0x50f210 sends slot 4 to every managed panel.
+ * The row index is used unchecked, as in the original (a miss gives -1).
+ * ConnectToSelectedServer is a raw-C port that takes the state object and
+ * the row as plain cdecl arguments (ConnectToSelectedServer.c). */
+extern "C" void ConnectToSelectedServer(int param_1, int serverIndex);
+
+bool CWorldListPanel::HitTest(int x, int y)
+{
+    bool hit = false;
+    if (!m_hidden && m_x < x && x < m_x + m_width &&
+        m_y < y && y < m_y + m_height) {
+        hit = true;
+        int row = RowHitTest(x, y);
+        unsigned char *ctx = (unsigned char *)g_clientContext;
+        CState02ServerSelect *st = (CState02ServerSelect *)g_gameStateVTableArray[2];
+        if (ctx[0x3f809 + row] != 0 && st->m_inputEnabled != 0 &&
+            *(unsigned short *)(ctx + 0x410ca + row * 2) <
+                *(unsigned short *)(ctx + 0x410ea + row * 2)) {
+            ConnectToSelectedServer((int)st, row);
+            st->m_uiDirty = 0;
+        }
+    }
+    return hit;
+}
+
 /* WorldListPanel_OnMouseDown - the row-selection handler. Runs the
  * CPanel default first (a DIRECT 0x505430 call in the original, not
  * virtual); outside the panel that result stands. Inside, resolve the

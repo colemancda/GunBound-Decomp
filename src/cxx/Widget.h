@@ -308,6 +308,10 @@ public:
 
     virtual bool OnMouseDown(int x, int y);           /* WorldListPanel_OnMouseDown - port pending on the
                                                        * CPanel mouse-down default chain (0x505430) */
+    virtual bool HitTest(int x, int y);               /* slot 4: 0x50d710 (word at 0x557f18) - carved,
+                                                       * Panel.cpp: own-rect test; on an online,
+                                                       * non-full row with input enabled it calls
+                                                       * ConnectToSelectedServer. No child broadcast. */
     virtual void OnCommand(int evt, int id, int arg); /* 0x50d810 WorldListPanel_OnCommand - port pending */
     virtual void Update();  /* 0x50dc40 - promoted, Panel.cpp: draws the panel's own
                              * background sprite (m_unk44/m_unk48 as FindSpriteFrame's

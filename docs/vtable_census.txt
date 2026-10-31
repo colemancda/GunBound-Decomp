@@ -1653,12 +1653,12 @@ vtable 0x557ee0  installs=1  slots=10
    8: 0x50e520  Widget_DrawChildren
    9: 0x50d200  RenderReadyRoomChatRow
 
-vtable 0x557f08  installs=1  slots=10  UNCARVED=1
+vtable 0x557f08  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus
    1: 0x50d7a0  FUN_0050d7a0
    2: 0x50d5a0  WorldListPanel_OnMouseDown
    3: 0x50e4c0  Widget_OnMouseUp
-   4: 0x50d710  UNCARVED
+   4: 0x50d710  FUN_0050d710
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
    7: 0x50d810  WorldListPanel_OnCommand
