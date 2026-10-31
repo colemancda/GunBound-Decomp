@@ -33,7 +33,7 @@
  *                 C++ twin's signature was missing. Its raw-C caller
  *                 OpenCreateRoomDialog already passes it: DAT_005b3368,
  *                 the "GameName" default.
- *   FUN_00508a50  0x508b2d  EDI = the CreateTextEntryWidget result;
+ *   BuildRoomTitleDialog 0x508b2d  EDI = the CreateTextEntryWidget result;
  *                 ESI = [esp+0x24] at esp = entry-0x1c, i.e. entry+8 =
  *                 a SECOND stack parameter that `ret 8` accounts for.
  *                 State09_ReadyRoom_OnCommand already passes it as
@@ -41,8 +41,8 @@
  *
  * Both frame models are confirmed independently: BuildCreateRoomDialog's
  * by `mov eax,[esp+0x24] / mov ecx,[esp+0x28]` at 0x508213, which land
- * on the arg2/arg3 the C++ twin already names, and FUN_00508a50's by
- * `mov ecx,[esp+0x10]` at 0x508b74 landing on the SEH fs:[0] slot the
+ * on the arg2/arg3 the C++ twin already names, and BuildRoomTitleDialog's
+ * by `mov ecx,[esp+0x10]` at 0x508b74 landing on the SEH fs:[0] slot the
  * epilogue restores from.
  *
  * Widget_FindChildIndex (0x50e620) takes its container in ECX and the

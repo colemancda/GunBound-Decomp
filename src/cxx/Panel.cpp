@@ -959,7 +959,8 @@ extern "C" void BuildRoomPasswordDialog(int regEdi)
     PanelManager_Register(manager, p);
 }
 
-/* 0x508a50 - FUN_00508a50, the room-title dialog (ret 8: manager, text).
+/* 0x508a50 - BuildRoomTitleDialog, the room-title dialog (ret 8:
+ * manager, text).
  * 0x508a6b-0x508a97 walk for (typeId 0, id 3); a match jumps straight to
  * the exit (0x508a8f -> 0x508b74), with no BringToFront. Otherwise:
  * operator new(0x90), CPanel ctor, vtable 0x557c0c and +0x38 = 1
@@ -970,8 +971,18 @@ extern "C" void BuildRoomPasswordDialog(int regEdi)
  * 0x506f60 seeds its EDIT control with the text (EDI = the box,
  * ESI = [esp+0x24], the text). Then labels (0, 0x4ba) and (1, 0x4bb) and
  * the Register. The original returns whatever EAX holds. The raw port
- * returned 0, and so does this. */
-extern "C" unsigned int FUN_00508a50(int param_1, char *param_2)
+ * returned 0, and so does this.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_00508a50). Its one caller is case 8
+ * of State09_ReadyRoom_OnCommand (call at 0x4d59ea), which seeds it with
+ * the room title at g_clientContext+0x44e64. The same case, on the next
+ * press, finds the (typeId 0, id 3) panel (0x4d593f), copies its +0x50
+ * string and sends opcode 0x3104 (0x4d5968), GB_OP_ROOM_SET_TITLE_COMMAND
+ * in include/opcodes.h - the reference server's RoomSetTitleCommand.
+ * Vtable 0x557c0c is stored only here (the mov at 0x508aba).
+ * include/functions.h now declares the return as uint, the same type as
+ * the definition below and as the caller's uVar3. */
+extern "C" unsigned int BuildRoomTitleDialog(int param_1, char *param_2)
 {
     void *manager = (void *)param_1;
     for (CPanelListNode *n = ManagerListHead(manager); n != 0; n = n->m_next) {

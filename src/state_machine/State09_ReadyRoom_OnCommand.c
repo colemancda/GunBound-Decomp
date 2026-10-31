@@ -352,7 +352,7 @@ LAB_004d588d:
     }
     *(undefined1 *)(param_1 + 0x62c) = 1;
     InvokeWidget(8,0);
-    uVar3 = FUN_00508a50(&g_uiPanelManager,g_clientContext + 0x44e64);
+    uVar3 = BuildRoomTitleDialog(&g_uiPanelManager,g_clientContext + 0x44e64);
     return uVar3;
   case 9:
     InvokeWidget(8,1);

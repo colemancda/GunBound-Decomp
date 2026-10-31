@@ -1698,7 +1698,7 @@ char PanelManager_DispatchMouseDown(int uiPanelManager,undefined4 param_1,undefi
 void BuildCreateRoomDialog();
 void __fastcall BuildEnterRoomNumberDialog();
 void BuildRoomPasswordDialog(int regEdi);
-undefined4 FUN_00508a50(int param_1,char *param_2);
+uint BuildRoomTitleDialog(int param_1,char *param_2);
 void FUN_00508b90(int regEdi);
 void FUN_00508d00(int param_1,uchar *regEdi);
 void FUN_00508ea0(int param_1,uchar *regEdi);
