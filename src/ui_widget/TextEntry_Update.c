@@ -1,8 +1,16 @@
-/* FUN_005071a0 - 0x005071a0 in the original binary.
+/* TextEntry_Update - 0x005071a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_005071a0). The word at 0x557ca8,
+ * slot 9 (+0x24) of vtable 0x557c84, is 0x5071a0. That vtable is stored
+ * only by CreateTextEntryWidget (at 0x507f9f), and slot 9 is
+ * CWidget::Update in src/cxx/Widget.h; CEditBox::Update in
+ * src/cxx/EditBox.cpp forwards here. Same <Class>_Update form as
+ * ChatLogPanel_Update and StaticText_Update, and the TextEntry_ prefix
+ * of the slot-8 TextEntry_SyncFromControl in the same vtable.
  *
  * BlitRLESprite's dropped param_1 (this, ECX)/rleData (4th arg, in_EAX)
  * were recovered via objdump at this function's two call sites
@@ -25,7 +33,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_005071a0(int param_1)
+void __fastcall TextEntry_Update(int param_1)
 
 {
   char cVar1;

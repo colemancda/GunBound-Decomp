@@ -25,7 +25,7 @@
  *     [esp+0x18] as local_1024).
  *   - State09_ReadyRoom_RenderStatusOverlay: the same buffer pins frame+0x20
  *     = aCStack_80, giving frame+0x18 = iStack_88 and frame+0x14 = iStack_8c.
- *   - FUN_005071a0: `mov esi,[esp+0xc]` right after the call is that file's
+ *   - TextEntry_Update: `mov esi,[esp+0xc]` right after the call is that file's
  *     `iVar3 = local_8`, which fixes the pair as local_8 and local_4.
  * In all three the ESI local is the one the source then tests against -1,
  * which is the selection-start check.
@@ -64,11 +64,11 @@
  * 0x52021c are the ImmGetContext/ImmSetCompositionWindow thunks). At
  * three of the four sites param_1/param_2 are exactly where the caller
  * draws that field's text - State11_InBattle_RenderPlayerRoster passes
- * (0xca,0x21b) and blits at BlitRLESprite(0xca,0x21b,...), FUN_005071a0
+ * (0xca,0x21b) and blits at BlitRLESprite(0xca,0x21b,...), TextEntry_Update
  * passes its widget's +0x28/+0x2c and blits at (+0x28 - scroll, +0x2c) -
  * and 6 is the same fixed glyph advance each caller uses for its own
  * caret rectangle (State11: FUN_004eb7a0(start * 6 + 0xca,
- * (end - start) * 6 + 2, 0xc); FUN_005071a0: start * 6 - scroll + x).
+ * (end - start) * 6 + 2, 0xc); TextEntry_Update: start * 6 - scroll + x).
  * The point given to the IMM API is therefore the character cell the
  * caller is about to paint the caret in, which is what puts an inline
  * composition string over the game's chat line instead of at the
@@ -83,7 +83,7 @@
  *
  * TWO ORIGINAL QUIRKS, ported faithfully. First, param_3 is subtracted
  * BEFORE the *6, i.e. used as a character index, while the two
- * text-widget callers pass a scroll offset held in PIXELS (FUN_005071a0's
+ * text-widget callers pass a scroll offset held in PIXELS (TextEntry_Update's
  * +0x13c and the uncarved 0x40ca20's +0x454 are both assigned selStart*6
  * within a few instructions of the call); it cancels at the two
  * state-machine sites, which pass 0. Second,
@@ -95,7 +95,7 @@
  * The fourth binary site, 0x40cab2, sits in an uncarved function at
  * 0x40ca20 - an address gap in PROGRESS.csv between
  * DeletePoisonedBaseObject and FUN_0040cc50 - that is a third text-field
- * draw of the same shape as FUN_005071a0: SetClipRect first, string at
+ * draw of the same shape as TextEntry_Update: SetClipRect first, string at
  * +0x48, scroll at +0x454. count_call_args.py reports 3 sites where
  * callsite_regs.py reports 4.
  *
@@ -105,7 +105,7 @@
  * sites, never a load), each anchored to its caller's frame by that
  * caller's own GetWindowTextA buffer. They are adjacent at only two of
  * them - frame+0x14/+0x18 in State09_ReadyRoom_RenderStatusOverlay and
- * frame+0xc/+0x10 in FUN_005071a0. The State11 pair is frame+0x18 and
+ * frame+0xc/+0x10 in TextEntry_Update. The State11 pair is frame+0x18 and
  * frame+0x24 (Ghidra's local_1024 and local_1018), 0xc apart. The
  * callee never writes -1 through either pointer - it writes EM_GETSEL's
  * values, or 0 on failure and when the control is not ready - so each

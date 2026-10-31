@@ -194,8 +194,8 @@ public:
                                               * CWidget::DispatchMouse (both direct calls) */
     virtual void Draw();             /* 0x507030 TextEntry_SyncFromControl - promoted, EditBox.cpp */
     virtual void Update();                   /* slot 9: 0x5071a0 - EditBox.cpp forwards to the C
-                                              * FUN_005071a0 (clip to the rect, draw the text and
-                                              * the selection/caret). No child Update broadcast in
+                                              * TextEntry_Update (clip to the rect, draw the
+                                              * text and the selection/caret). No child Update broadcast in
                                               * the original. */
 
     char m_text[0x100];              /* +0x38: synced from the EDIT control */

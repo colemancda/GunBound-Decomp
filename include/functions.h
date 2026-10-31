@@ -1683,7 +1683,7 @@ void ActivateLegacyTextInputField(int thisObj);
 void FUN_00506f30(int regEsi);
 void TextEntry_SetControlText(char *regEsi,int regEdi);
 undefined4 __thiscall TextEntry_DispatchKey(int param_1,int param_2);
-void __fastcall FUN_005071a0(int param_1);
+void __fastcall TextEntry_Update(int param_1);
 undefined4 __thiscall ChannelUserListPanel_HitTest(int param_1,int param_2,int param_3);
 void __thiscall ChannelUserListPanel_OnCommand(int param_1,int param_2,int param_3,int param_4);
 void __fastcall RenderChannelUserRow(int thisPtr);

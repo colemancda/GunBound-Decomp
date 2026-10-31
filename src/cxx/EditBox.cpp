@@ -23,7 +23,7 @@ void ActivateLegacyTextInputField(int thisObj);
 unsigned int TextEntry_DispatchKey(int this_, int key);
 /* 0x5071a0, slot 9. __fastcall(int) in C: `this` in ECX, as in the
  * original (`mov ebx,ecx` at 0x5071a4, plain ret). */
-void __fastcall FUN_005071a0(int this_);
+void __fastcall TextEntry_Update(int this_);
 }
 
 /* 0x507090, vtable 0x557c84 slot 5 (word at 0x557c98). The body
@@ -40,7 +40,7 @@ bool CEditBox::DispatchKey(int key)
  * 0x50730f), so the forward does not add CWidget::Update. */
 void CEditBox::Update()
 {
-    FUN_005071a0((int)this);
+    TextEntry_Update((int)this);
 }
 
 /* 0x506fb0, vtable 0x557c84 slot 0 (SetFocus). Carved 2026-10-30 from
