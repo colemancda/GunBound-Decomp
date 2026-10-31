@@ -98,6 +98,30 @@ void CLabel::Update()
     CWidget::Update();
 }
 
+/* 0x50e210, vtable slot 1 (word at 0x557da4). CARVED 2026-10-30 - it was
+ * UNCARVED, so CLabel inherited CWidget::OnMouseMove, the bare child
+ * broadcast, and the +0x39 hover flag that Update (0x505380) reads for
+ * visual states 1 and 2 was never set. 97 bytes, ret 8:
+ *
+ *   0x50e217 mov al,[esi+0x1e] / xor cl,cl / test al,al / jne 0x50e249
+ *   0x50e225 ... cmp/jge against +0x28/+0x30 and +0x2c/+0x34 ...
+ *   0x50e246 mov cl,1                    ; strictly inside the rect
+ *   0x50e249 push edx / mov [esi+0x39],cl / push edi / mov ecx,esi
+ *   0x50e250 call 0x50e870               ; MouseMoveChildren(x, y), direct
+ *   0x50e255 test al,al / jne -> return 1
+ *   0x50e259 mov al,[esi+0x39] / test al,al / jne -> return 1 / else 0
+ *
+ * The broadcast is a direct call to the base body, so it is the
+ * non-virtual MouseMoveChildren here, not a virtual OnMouseMove.
+ * find_vtable_refs.py puts 0x50e210 only in CLabel's vtable 0x557da0, and
+ * callsite_regs.py finds no direct calls. */
+bool CLabel::OnMouseMove(int x, int y)
+{
+    m_unk39 = (u8)(!m_hidden && m_x < x && x < m_x + m_width &&
+                   m_y < y && y < m_y + m_height);
+    return MouseMoveChildren(x, y) || m_unk39 != 0;
+}
+
 /* 0x5052e0, vtable slot 2. If the point lands in the rect and both
  * gate flags (+0x1c base, +0x38 label) are set, report the click
  * through the OnCommand spine: evt 0 ("clicked"), this widget's id.

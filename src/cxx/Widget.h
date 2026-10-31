@@ -131,6 +131,9 @@ public:
      * the factory then pokes id/sprite/rect UNGUARDED - see Label.cpp. */
     CLabel() : m_unk38(0), m_unk39(0) { m_typeId = 1; m_tabSelected = 0; }
 
+    virtual bool OnMouseMove(int x, int y);  /* slot 1: 0x50e210 - carved, Label.cpp: the
+                                              * +0x39 hover flag from the rect test, then the
+                                              * child move broadcast */
     virtual bool OnMouseDown(int x, int y);  /* 0x5052e0 - promoted, Label.cpp */
     virtual void Draw();                     /* 0x50e350 - promoted, Label.cpp: reports evt 1 upward
                                               * (the parent panel blits for it), then child broadcast */
@@ -143,7 +146,9 @@ public:
     u8  m_unk38;                     /* +0x38: armed/held flag - gates click AND the per-frame
                                       * evt-1 reports from Draw (the scrollbar arrows' auto-
                                       * repeat rides on this); cleared by ResetPressState */
-    u8  m_unk39;                     /* +0x39: (base drag flag slot per docs/widgets.md) */
+    u8  m_unk39;                     /* +0x39: hover flag - OnMouseMove (0x50e210) sets it
+                                      * to "point inside the rect"; Update draws state 1/2
+                                      * from it */
     u8  m_tabSelected;               /* +0x3a: tab/radio selected flag - WorldListPanel's
                                       * OnCommand flips it between the View All/Friends
                                       * labels, and the builder pre-sets the default tab */
