@@ -14,8 +14,9 @@
  * avatar shop. ... To confirm this IP click on "YES" ..." (push 0x15e at
  * 0x5097fc, push 0x15f at 0x50985f), and labels 0 and 1 drawn with
  * sprites 0x640/0x641, which State03_GameRoomList_OnEnter loads as
- * b_gamelist_yes.img / b_gamelist_no.img. The vtable's slot 7
- * (0x506e10) sends opcode 0x1078 on label 0 (YES) and closes on either.
+ * b_gamelist_yes.img / b_gamelist_no.img. The vtable's slot 7,
+ * AvatarShopIpConfirmDialog_OnCommand, sends opcode 0x1078 on label 0
+ * (YES) and closes on either.
  * The header note below that called this a "please wait / loading"
  * panel is superseded by those strings.
  *
