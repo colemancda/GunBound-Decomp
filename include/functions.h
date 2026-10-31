@@ -1675,7 +1675,7 @@ void RadioGroup_SelectHighChild(int param_1,int regEbx);
 void __fastcall CreateRoomDialog_Update();
 undefined4 EnterRoomNumberDialog_SubmitRoomNumber();
 void __thiscall EnterRoomNumberDialog_OnCommand();
-undefined4 FUN_00506bf0();
+undefined4 RoomPasswordDialog_SubmitPassword();
 void __thiscall FUN_00506cf0();
 void __fastcall FUN_00506dc0();
 void __thiscall FUN_00506e10();

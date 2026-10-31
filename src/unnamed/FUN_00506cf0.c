@@ -40,7 +40,7 @@ void __thiscall FUN_00506cf0(undefined4 *param_1,int param_2,int param_3,undefin
   else {
     if (param_2 == 0x1000) {
 LAB_00506d7f:
-      FUN_00506bf0(param_1);
+      RoomPasswordDialog_SubmitPassword(param_1);
       Widget_OnCommandDefault((int)param_1,param_2,param_3,param_4);
       return;
     }

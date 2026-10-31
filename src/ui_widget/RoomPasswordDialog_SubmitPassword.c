@@ -1,17 +1,34 @@
-/* FUN_00506bf0 - 0x00506bf0 in the original binary.
+/* RoomPasswordDialog_SubmitPassword - 0x00506bf0 in the original binary.
  *
- * NOT YET NAMED - the "submit" push-helper called by FUN_00506cf0
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-31 (was FUN_00506bf0). The submit helper of the
+ * room-password dialog (vtable 0x557dc8, CRoomPasswordDialog, built by
+ * BuildRoomPasswordDialog with dedup id 2); its sole caller is that
+ * dialog's slot-7 handler at 0x506cf0, on label 1 or evt 0x1000 (call
+ * at 0x506d80). It copies the edit box into +0x50 and posts input event
+ * 0x1f, or 0x1e when the text is empty (stores at 0x506cd4 / 0x506c8d).
+ * State03_GameRoomList_OnCommand routes 0x1f to SendJoinRoomSelected,
+ * which finds panel id 2, copies its +0x50 string into the u32 payload
+ * of the 0x2110 join - the field the reference server's JoinRoomRequest
+ * calls `password` - and closes the dialog; 0x1e goes to FUN_00429fb0,
+ * which only unregisters panel 2. "SubmitPassword" follows
+ * EnterRoomNumberDialog_SubmitRoomNumber, the same shape on a sibling
+ * dialog.
+ *
+ * (FUN_00506cf0 below is the slot-7 handler above.)
+ * Earlier note, kept: the "submit" push-helper called by FUN_00506cf0
  * (that file's own header has the full vtable-family derivation for
  * their shared unnamed dialog class, vtable 0x557dc8). If the single
  * text-entry child is empty, pushes a queued event with param2=0x1e;
- * otherwise param2=0x1f. Raw/near-verbatim port of Ghidra's decompiler
- * output otherwise, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * otherwise param2=0x1f.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00506bf0(undefined4 *param_1)
+undefined4 RoomPasswordDialog_SubmitPassword(undefined4 *param_1)
 
 {
   char cVar1;

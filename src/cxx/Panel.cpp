@@ -920,6 +920,7 @@ static CPanelListNode *ManagerListHead(void *manager)
  * (0xd5|0x80, 0x76, 0x52, 0x22), and `push ebx / mov eax,edi /
  * call 0x50eea0`.
  *
+ * (FUN_00506bf0 below is now RoomPasswordDialog_SubmitPassword.)
  * NAMED 2026-10-31, CERTAIN (was FUN_00508910). Vtable 0x557dc8 is
  * stored only here (the mov at 0x508970). Its one caller, SendJoinRoomChecked, opens
  * it at 0x429bab instead of sending the 0x2110 join when the room's
