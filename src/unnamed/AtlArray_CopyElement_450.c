@@ -9,7 +9,7 @@
  *
  * REGISTERS PROMOTED (2026-08-27).  Both bases were dropped and all three
  * call sites passed nothing.  The record is 0x450 bytes -- fixed
- * independently by FUN_0050a320.cpp's own `unsigned char local_45c[1104]`,
+ * independently by AvatarStorePanel_OnMouseUp.cpp's own `unsigned char local_45c[1104]`,
  * which is the destination at one of those sites -- and every caller walks
  * an array of them with an `add esi,0x450` stride.
  *
@@ -19,7 +19,7 @@
  * *)param_1` and derives EBX from it by a constant delta; AtlArray_InsertAt_450 sets
  * ESI from its own loop counter over `*param_1` and takes EBX straight
  * from param_3; and
- * FUN_0050a320 points ESI at the local_45c scratch record and EBX at
+ * AvatarStorePanel_OnMouseUp points ESI at the local_45c scratch record and EBX at
  * `this->[0x94]*0x450 + *(g_clientContext + 0x44e20)`.
  *
  * The assignment operator of the 0x450-byte element held by the four
@@ -54,7 +54,7 @@
  * AtlArray_ConstructElement_450 at 0x450 stride) over the vacated hole.
  * BOTH arms fall into `for (i = iElement; i < iElement + nCount; i++)
  * m_pData[i] = element` -- that last loop is this function.
- * - 0x50a411, in FUN_0050a320 (the Avatar-Store reorder) uses it directly
+ * - 0x50a411, in AvatarStorePanel_OnMouseUp (the Avatar-Store reorder) uses it directly
  * as `E temp; temp = m_pData[dragIndex];`: AtlArray_ConstructElement_450
  * default-constructs the 0x450 scratch local_45c[1104] above it, this
  * copies the record in, RemoveAt + InsertAt move it, and

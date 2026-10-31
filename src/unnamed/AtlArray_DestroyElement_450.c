@@ -14,7 +14,7 @@
  *   0x419858, 0x419891) and AtlArray_InsertAt_450 (0x50d066);
  * - and at scope end on a stack temporary built by
  *   AtlArray_ConstructElement_450 (0x428550) in State03/State07's packet
- *   handlers and in FUN_0050a320 - temporaries that are filled and then
+ *   handlers and in AvatarStorePanel_OnMouseUp - temporaries that are filled and then
  *   pushed into these arrays (CAtlArray::Add, 0x42ae30, or InsertAt).
  *
  * The body releases the record's two CValueGuard table handles, at +0x240

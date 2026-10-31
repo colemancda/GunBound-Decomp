@@ -4,7 +4,7 @@
  * call site, 0x50ad3c in the store panel's uncarved slot-9 Update at
  * 0x50aa10, runs right after the 14-row loop and ONLY while the panel's
  * +0x94 slot is not -1 - the catalog index of the row being dragged,
- * which the mouse-up handler FUN_0050a320 consumes as the source of its
+ * which the mouse-up handler AvatarStorePanel_OnMouseUp consumes as the source of its
  * catalog-record reorder and resets to -1.  Call shape at
  * 0x50ad25-0x50ad3c: RenderAvatarListDragRow(panel, panel->m_x + 0x13,
  * [0x56d110]) - and 0x56d110 is g_cursorAnchorY, the live cursor Y.  So

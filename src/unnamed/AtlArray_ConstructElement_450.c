@@ -9,7 +9,7 @@
  * these arrays and destroyed with AtlArray_DestroyElement_450 at scope
  * end: State03_GameRoomList_ProcessPacket (0x428368) and
  * State07_AvatarStore_ProcessPacket (0x444218, 0x444444, 0x445057) feed
- * it to CAtlArray::Add (0x42ae30), and FUN_0050a320 (0x50a3cf) to
+ * it to CAtlArray::Add (0x42ae30), and AvatarStorePanel_OnMouseUp (0x50a3cf) to
  * AtlArray_CopyElement_450 and InsertAt.
  *
  * The body initialises the record's guarded bool at +0 (InitGuardedBool)

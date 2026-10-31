@@ -14,7 +14,7 @@
  * as a member of this one instantiation.  Four stack arguments (`ret
  * 0x10`): the array, then iElement, element, nElements.
  *
- * The one caller, FUN_0050a320 (the Avatar-Store reorder, 0x50a44b),
+ * The one caller, AvatarStorePanel_OnMouseUp (the Avatar-Store reorder, 0x50a44b),
  * pushes (g_clientContext + 0x44e20, an index, the scratch record it
  * just copied out with AtlArray_CopyElement_450, 1) right after calling
  * AtlArray_RemoveAt_450 (0x44c6a0) - the RemoveAt that

@@ -401,8 +401,9 @@ public:
                                                 * pick, then CPanel::OnMouseDown
                                                 * non-virtually) */
     virtual bool OnMouseUp(int x, int y);      /* 0x50a320 - Panel.cpp forwards to the C++
-                                                * FUN_0050a320 (slot 3: the drag reorder,
-                                                * then the child up broadcast and rect test) */
+                                                * AvatarStorePanel_OnMouseUp (slot 3: the
+                                                * drag reorder, then the child up
+                                                * broadcast and rect test) */
     virtual void Update();                     /* 0x50aa10 - Panel.cpp forwards to the C
                                                 * FUN_0050aa10 (slot 9: frame, catalog
                                                 * count, category tabs, the 14 rows and

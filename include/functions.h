@@ -1723,7 +1723,7 @@ undefined4 * BuildAvatarStorePanel();
 void __fastcall PanelManager_ReleasePool(undefined4 *param_1);
 undefined4 __thiscall AvatarStorePanel_OnMouseMove();
 uint __thiscall AvatarStorePanel_OnMouseDown();
-undefined4 __thiscall FUN_0050a320();
+undefined4 __thiscall AvatarStorePanel_OnMouseUp();
 undefined4 __thiscall AvatarStorePanel_HitTest();
 void __fastcall AvatarStorePanel_Draw();
 void __thiscall AvatarStorePanel_OnCommand();

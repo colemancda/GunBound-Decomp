@@ -1,11 +1,17 @@
-/* FUN_0050a320 - 0x0050a320 in the original binary.
+/* AvatarStorePanel_OnMouseUp - 0x0050a320 in the original binary.
  *
- * No confirmed real name/purpose - some CWidget-derived class's own
- * OnMouseUp override, tied to the Avatar Store state
- * (g_gameStateVTableArray[7]) via fields at this+0x90/+0x91/+0x94; not
- * yet attributed to a specific promoted C++ class or struct. Raw/near-
- * verbatim port of Ghidra's decompiler output, not hand-verified. See
- * src/README.md's "Raw/verbatim ports" section for status.
+ * CAvatarStorePanel's OnMouseUp override, tied to the Avatar Store state
+ * (g_gameStateVTableArray[7]) via fields at this+0x90/+0x91/+0x94.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_0050a320). The word at
+ * 0x557eb8+0xc is 0x50a320, and vtable 0x557eb8 is stored only by
+ * BuildAvatarStorePanel (at 0x509ea5); slots 4, 7 and 8 there are the
+ * already-named AvatarStorePanel_HitTest / _OnCommand / _Draw. Slot 3
+ * is CWidget::OnMouseUp(x, y) in src/cxx/Widget.h, which
+ * CAvatarStorePanel::OnMouseUp in src/cxx/Panel.cpp forwards here.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 7 argless sites in the 0x224-stride loop.  Every one of them
@@ -68,7 +74,7 @@ void EncodeOutgoingPacketField(void *self, unsigned int field);
 void ThrowCxxException(long hr);
 }
 
-extern "C" int FUN_0050a320(CWidget *this_, int x, int y)
+extern "C" int AvatarStorePanel_OnMouseUp(CWidget *this_, int x, int y)
 
 {
   unsigned int uVar1;

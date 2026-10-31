@@ -15,7 +15,7 @@
  * esi,esi,0x450`; and all four binary callers pass one of the arrays the
  * rest of the family serves, with nElements = 1 (EDI): State07's
  * avatar-store handler at 0x44496b and 0x444dad (g_clientContext +
- * 0x44e20) and 0x444ddf (+0x44e30), and FUN_0050a320's Avatar-Store
+ * 0x44e20) and 0x444ddf (+0x44e30), and AvatarStorePanel_OnMouseUp's Avatar-Store
  * reorder at 0x50a42e (+0x44e20), which follows it with
  * AtlArray_InsertAt_450 on the same array.  The unsuffixed
  * AtlArray_RemoveAt (0x415470, POD 4-byte elements) and
@@ -29,8 +29,8 @@
  *   0x44496b, 0x444dad, 0x444ddf (State07): the PeekChecksumStateUnderLock
  *     (0x40a4d0) result of the call just before each - 0x444954, 0x444d96,
  *     0x444dc8 - on this+0x3054c, EAX untouched up to the call;
- *   0x50a42e (FUN_0050a320): `mov eax,[ebp+0x94]` at 0x50a41c, EBP = this.
- * FUN_0050a320.cpp carries its own extern declaration, updated to match.
+ *   0x50a42e (AvatarStorePanel_OnMouseUp): `mov eax,[ebp+0x94]` at 0x50a41c, EBP = this.
+ * AvatarStorePanel_OnMouseUp.cpp carries its own extern declaration, updated to match.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
