@@ -4,6 +4,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_00402e60 below is now AnswerBuddyRequestByNickname.)
+ *
  * NAMED 2026-10-31, CERTAIN (was FUN_00508d00). The text it shows is
  * localized string 0xfa1 (push at 0x508e3a), sprintf'd with the name in
  * EDI. The reference client's Language.txt (inside graphics.xfs) gives

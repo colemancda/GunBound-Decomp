@@ -6,6 +6,7 @@
  * verbatim ports" section for status.
  *
  * (FUN_00402720 in the SITE MAP below is now SendWhisperByNickname.)
+ * (FUN_00402e60 below is now AnswerBuddyRequestByNickname.)
  *
  * DROPPED REGISTERS RECOVERED (2026-08-28).  There are THREE, not the two
  * the backlog tracked, and one of them takes a dropped STORE with it:

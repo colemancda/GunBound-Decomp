@@ -1,8 +1,24 @@
-/* FUN_00402e60 - 0x00402e60 in the original binary.
+/* AnswerBuddyRequestByNickname - 0x00402e60 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31 (was FUN_00402e60). Its sole caller is slot 7 of
+ * vtable 0x557d50, the dialog BuildBuddyRequestDialog raises for an
+ * incoming request (Language.txt 4001: "'%s'asks for your
+ * permission.\nDo you accept?"): label 0 passes 1, label 1 passes 0
+ * (push 1 / push 0 at 0x5063ff / 0x5063fb), with the requester's name
+ * from the dialog's +0x50 in EAX. With the direct link up it sends
+ * 0xa251 (0x402e9b) as [16-byte user id][byte flag != 0]; with no link
+ * it parks the answer through FUN_004026a0 as action 0x2002 for 1 and
+ * 0x2003 for 0 (0x402fcd). DispatchDirectLinkPacket replays exactly
+ * those two arms as 0xa251 with the byte 1 and 0 respectively, and
+ * 0x2001 - the arm beside them - shows 4002/4003 "'%s'agreed." /
+ * "'%s'rejected your request.". On accept (param_2 == 1) it also calls
+ * FUN_00404700 with the name (0x402fe2). "ByNickname" follows
+ * SendWhisperByNickname, the same FindUserIdByNickname + direct-link /
+ * 0x1020 fallback shape.
  *
  * FIXED (2026-07-14): the trailing SendSocketData call only passed 2 of
  * its 3 real args and dropped the buffer ("this") entirely - same bug as
@@ -22,7 +38,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00402e60(int param_1,undefined4 param_2,char *regEax)
+void AnswerBuddyRequestByNickname(int param_1,undefined4 param_2,char *regEax)
 
 {
   undefined2 *puVar1;
