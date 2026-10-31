@@ -109,11 +109,11 @@ vtable 0x551e44  installs=1  slots=5
    3: 0x405ea0  DrawButtonWidget
    4: 0x429800  NoOpMethod
 
-vtable 0x55208c  installs=1  slots=5  UNCARVED=1
+vtable 0x55208c  installs=1  slots=5
    0: 0x40ca00  DeletePoisonedBaseObject
    1: 0x461c60  ResolveNamedState
    2: 0x429800  NoOpMethod
-   3: 0x40ca20  UNCARVED
+   3: 0x40ca20  FUN_0040ca20
    4: 0x429800  NoOpMethod
 
 vtable 0x5520a4  installs=2  slots=2

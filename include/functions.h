@@ -492,6 +492,8 @@ void __fastcall AvatarWidget_SetNamedState(void *thisPtr, int dummyEDX, const ch
 /* Slot-0 adapter for the text-box vtable 0x55208c (DeletePoisonedBaseObject
  * taking `this` in ECX) - see its .c header. */
 void * __fastcall TextBoxWidget_ScalarDelete(void *thisPtr, int dummyEDX, int freeFlag);
+/* The text box's draw, slot 3 of 0x55208c (`this` in ECX, plain ret). */
+void __fastcall FUN_0040ca20(int this_);
 void __fastcall FUN_004d3750(int *param_1);
 void __fastcall NoOpMethodStdcall1();
 void SendJoinRoomChecked(int regEax);
