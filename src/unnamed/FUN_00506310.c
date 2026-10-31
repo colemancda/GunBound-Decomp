@@ -1,5 +1,7 @@
 /* FUN_00506310 - 0x00506310 in the original binary.
  *
+ * (FUN_00506210 below is now RoomTitleDialog_SubmitTitle.)
+ *
  * NOT YET NAMED - CWidget::OnCommand override (vtable slot 7, +0x1c)
  * for an UNNAMED single-text-field dialog class (constructor at
  * 0x508a7d, `this->vtable = &PTR_LAB_00557c0c`, object size 0x90,
@@ -39,7 +41,7 @@ void __thiscall FUN_00506310(undefined4 *param_1,int param_2,int param_3,undefin
   else {
     if (param_2 == 0x1000) {
 LAB_0050639f:
-      FUN_00506210(param_1);
+      RoomTitleDialog_SubmitTitle(param_1);
       Widget_OnCommandDefault((int)param_1,param_2,param_3,param_4);
       return;
     }

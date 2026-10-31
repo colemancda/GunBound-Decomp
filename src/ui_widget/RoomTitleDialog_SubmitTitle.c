@@ -1,17 +1,32 @@
-/* FUN_00506210 - 0x00506210 in the original binary.
+/* RoomTitleDialog_SubmitTitle - 0x00506210 in the original binary.
  *
- * NOT YET NAMED - the "submit" push-helper called by FUN_00506310
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-31 (was FUN_00506210). The submit helper of the
+ * room-title dialog (vtable 0x557c0c, CRoomTitleDialog, built by
+ * BuildRoomTitleDialog with dedup id 3); its sole caller is that
+ * dialog's slot-7 RoomTitleDialog_OnCommand, on label 1 or on evt
+ * 0x1000 (call at 0x5063a0). It copies the dialog's edit-box text into +0x50
+ * and posts input event 8, or 9 when the text is empty (stores at
+ * 0x5062f4 / 0x5062ad). Both codes land in State09_ReadyRoom_OnCommand:
+ * case 8 finds panel id 3 through the panel manager, copies its +0x50
+ * string and sends it as opcode 0x3104 (GB_OP_ROOM_SET_TITLE_COMMAND,
+ * SVC_ROOM_CHANGE_TITLE) before unregistering the dialog; case 9 only
+ * unregisters it. "SubmitTitle" follows EnterRoomNumberDialog_
+ * SubmitRoomNumber, the same shape on a sibling dialog.
+ *
+ * Earlier note, kept: the "submit" push-helper called by FUN_00506310
  * (that file's own header has the full vtable-family derivation for
  * their shared unnamed dialog class, vtable 0x557c0c). If the single
  * text-entry child is empty, pushes a queued event with param2=9;
- * otherwise param2=8. Raw/near-verbatim port of Ghidra's decompiler
- * output otherwise, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * otherwise param2=8.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00506210(undefined4 *param_1)
+undefined4 RoomTitleDialog_SubmitTitle(undefined4 *param_1)
 
 {
   char cVar1;

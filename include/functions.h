@@ -1664,7 +1664,7 @@ void __thiscall BuddyPanel_OnCommand();
 int __fastcall FUN_00505ec0(int param_1, int param_2, int regEsi);
 void __thiscall RenderBuddyRow(int param_1,int param_2,int regEax);
 void __thiscall FUN_005061e0(int param_1,int param_2,int param_3,int param_4);
-undefined4 FUN_00506210();
+undefined4 RoomTitleDialog_SubmitTitle();
 void __thiscall FUN_00506310();
 void __thiscall FUN_005063e0();
 void __thiscall FUN_00506430();
