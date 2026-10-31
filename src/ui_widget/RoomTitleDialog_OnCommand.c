@@ -1,21 +1,31 @@
-/* FUN_00506310 - 0x00506310 in the original binary.
+/* RoomTitleDialog_OnCommand - 0x00506310 in the original binary.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-31 (was FUN_00506310). Slot 7 (OnCommand, +0x1c) of
+ * vtable 0x557c0c, which only BuildRoomTitleDialog installs (the store
+ * at 0x508aba); CRoomTitleDialog::OnCommand in src/cxx/Panel.cpp
+ * forwards here. Label 1 or evt 0x1000 runs RoomTitleDialog_SubmitTitle
+ * (0x5063a0), whose events 8/9 State09_ReadyRoom_OnCommand turns into the
+ * 0x3104 room-title change or a plain close; label 0 posts event 8 and
+ * evt 0x1001 posts event 9 directly. Named after the class, like
+ * EnterRoomNumberDialog_OnCommand and AddBuddyDialog_OnCommand.
  *
  * (FUN_00506210 below is now RoomTitleDialog_SubmitTitle.)
- *
- * NOT YET NAMED - CWidget::OnCommand override (vtable slot 7, +0x1c)
- * for an UNNAMED single-text-field dialog class (constructor at
+ * Earlier note, kept: CWidget::OnCommand override (vtable slot 7, +0x1c)
+ * for a single-text-field dialog class (constructor at
  * 0x508a7d, `this->vtable = &PTR_LAB_00557c0c`, object size 0x90,
- * sprite outer/inner key 10000/8, labels string IDs 0x4ba/0x4bb -
- * unresolved without the localized string table). Confirmed via the
+ * sprite outer/inner key 10000/8, labels string IDs 0x4ba/0x4bb).
+ * Confirmed via the
  * same Ghidra xref/PTR_LAB vtable-family derivation documented in
  * src/ui_widget/EnterRoomNumberDialog_OnCommand.c's header. Distinctive:
  * unlike the sibling dialogs, this class's PanelManager dedup "type id"
  * (constructor's puVar2[9]) is a caller-supplied PARAMETER, not a fixed
  * literal - i.e. this is a REUSABLE dialog template instantiated for
  * more than one purpose, not a singleton. Calls FUN_00506210 on
- * evt==0x1000/id==1. Raw/near-verbatim port of Ghidra's decompiler
- * output otherwise, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * evt==0x1000/id==1.
  *
  * WIRED (2026-10-30): the builder 0x508a50 now lives in src/cxx/Panel.cpp
  * and builds a C++ CRoomTitleDialog (vtable 0x557c0c) whose OnCommand
@@ -25,7 +35,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00506310(undefined4 *param_1,int param_2,int param_3,undefined4 param_4)
+void __thiscall RoomTitleDialog_OnCommand(undefined4 *param_1,int param_2,int param_3,undefined4 param_4)
 
 {
   undefined4 uVar1;

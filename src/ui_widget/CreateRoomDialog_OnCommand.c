@@ -1,5 +1,7 @@
 /* CreateRoomDialog_OnCommand - 0x005065c0 in the original binary.
  *
+ * (FUN_00506310 below is now RoomTitleDialog_OnCommand.)
+ *
  * CCreateRoomDialog's OnCommand (vtable 0x557c34 slot 7, +0x1c), the
  * create-room dialog's two radio groups plus its OK/cancel paths.
  * Carved 2026-10-30 from the disassembly: 596 bytes of code

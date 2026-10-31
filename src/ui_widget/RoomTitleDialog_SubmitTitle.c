@@ -17,6 +17,7 @@
  * unregisters it. "SubmitTitle" follows EnterRoomNumberDialog_
  * SubmitRoomNumber, the same shape on a sibling dialog.
  *
+ * (FUN_00506310 below is now RoomTitleDialog_OnCommand.)
  * Earlier note, kept: the "submit" push-helper called by FUN_00506310
  * (that file's own header has the full vtable-family derivation for
  * their shared unnamed dialog class, vtable 0x557c0c). If the single

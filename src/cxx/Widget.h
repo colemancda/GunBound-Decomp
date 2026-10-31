@@ -469,7 +469,7 @@ class CRoomTitleDialog : public CPanel {       /* vtable 0x557c0c; builder 0x508
 public:
     CRoomTitleDialog() { m_pinned = 1; }
     virtual void OnCommand(int evt, int id, int arg); /* 0x506310 - Panel.cpp forwards to the C
-                                                * FUN_00506310 (slot 7) */
+                                                * RoomTitleDialog_OnCommand (slot 7) */
 };
 
 /* The add-buddy dialog (docs/widgets.md "Add-buddy dialog"): a 12-char

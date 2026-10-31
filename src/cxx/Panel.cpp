@@ -865,7 +865,7 @@ extern "C" void __fastcall BuildEnterRoomNumberDialog(int arg)
  * PanelManager_ClearAllFocus, which reads it from the stack (`mov ecx,
  * [esp+4]` at 0x50efa0). */
 extern "C" void FUN_00506cf0(void *this_, int evt, int id, int arg);
-extern "C" void FUN_00506310(void *this_, int evt, int id, int arg);
+extern "C" void RoomTitleDialog_OnCommand(void *this_, int evt, int id, int arg);
 extern "C" void AddBuddyDialog_OnCommand(int this_, int evt, int id, int arg);
 extern "C" void FUN_005061e0(int this_, int evt, int id, int arg);
 extern "C" void __fastcall FUN_00506dc0(int this_);
@@ -881,7 +881,7 @@ void CRoomPasswordDialog::OnCommand(int evt, int id, int arg)
 
 void CRoomTitleDialog::OnCommand(int evt, int id, int arg)
 {
-    FUN_00506310(this, evt, id, arg);
+    RoomTitleDialog_OnCommand(this, evt, id, arg);
 }
 
 void CAddBuddyDialog::OnCommand(int evt, int id, int arg)
