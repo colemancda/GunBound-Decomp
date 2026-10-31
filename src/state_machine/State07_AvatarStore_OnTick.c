@@ -18,8 +18,23 @@
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at the file's one argless PeekPacketChecksumState() call
  * ((void *)(param_1 + 0x325b0)), from tools/guard_cell_resolve.py.
+ *
+ * WIDGET TICK `this` RECOVERED (2026-10-30): the first thing the tick does
+ * is `mov esi,ecx / mov eax,[esi+0x30bbc] / lea ecx,[esi+0x30bbc] /
+ * call [eax+8]` (0x448372-0x448380): slot 2 of the avatar-preview widget
+ * embedded at +0x30bbc, with that sub-object's ADDRESS in ECX. Slot 2 of
+ * its vtable 0x555b38 is 0x44fcb0, which starts `push esi / mov esi,ecx`
+ * and is ported as FUN_0044fcb0, a genuine __fastcall(int *) that the port's
+ * PTR_FUN_00555b38 table points at directly. The raw `code *` call passed
+ * nothing, so the tick advanced whatever ECX held. It now passes
+ * param_1 + 0x30bbc through a __fastcall pointer (no dummy EDX: the callee
+ * takes no stack arguments).
  */
 #include "ghidra_types.h"
+
+/* Slot 2 of the embedded avatar-preview widget (vtable PTR_FUN_00555b38,
+ * slot 2 = FUN_0044fcb0): a real __fastcall(int *this) in the port. */
+typedef void (__fastcall *AvatarWidgetTickFn)(int *thisPtr);
 
 
 void __fastcall State07_AvatarStore_OnTick(int param_1)
@@ -28,7 +43,7 @@ void __fastcall State07_AvatarStore_OnTick(int param_1)
   char cVar1;
   int iVar2;
   
-  (**(code **)(*(int *)(param_1 + 0x30bbc) + 8))();
+  (*(AvatarWidgetTickFn *)(*(int *)(param_1 + 0x30bbc) + 8))((int *)(param_1 + 0x30bbc));
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x325b0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
