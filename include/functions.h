@@ -1767,7 +1767,7 @@ undefined1 __thiscall PanelManager_DispatchMouseUp();
 undefined1 __thiscall PanelManager_DispatchRightMouseDown();
 undefined1 __thiscall PanelManager_DispatchKeyDown();
 undefined1 __thiscall PanelManager_DispatchKeyUp();
-void __fastcall FUN_0050f290(int *param_1);
+void __fastcall PanelManager_Update(int *param_1);
 undefined4 PanelManager_PrependNode();
 void PanelManager_GrowNodePool();
 uint FUN_0050f3f0(int,int);

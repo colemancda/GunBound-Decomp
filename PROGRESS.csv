@@ -1694,7 +1694,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050f1f0,54,PanelManager_DispatchRightMouseDown,false,3,0,RAW-src
 0050f230,47,PanelManager_DispatchKeyDown,false,3,0,RAW-src
 0050f260,47,PanelManager_DispatchKeyUp,false,3,0,RAW-src
-0050f290,141,FUN_0050f290,false,4,3,RAW-src
+0050f290,141,PanelManager_Update,false,4,3,RAW-src
 0050f350,49,PanelManager_PrependNode,false,2,1,RAW-src
 0050f390,80,PanelManager_GrowNodePool,false,3,2,RAW-src
 0050f3f0,111,FUN_0050f3f0,false,1,0,RAW-src

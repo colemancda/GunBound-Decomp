@@ -4,6 +4,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_0050f290 below is now PanelManager_Update.)
+ *
  * CI COMPILE-ERR FIX (2026-07-30): PanelManager_ReleasePool/
  * WidgetChildArray_Destroy were given real 1-param prototypes in an
  * earlier pass (see FUN_0050f290.c's header) but this file's three call

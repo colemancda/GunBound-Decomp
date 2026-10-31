@@ -11,7 +11,7 @@
  * accept?"). Label 0 calls AnswerBuddyRequestByNickname with 1, label 1
  * with 0 (push 1 / push 0 at 0x5063ff / 0x5063fb), each with the
  * requester's name from +0x50, then sets the +0x1d close flag that
- * the panel manager's per-tick sweep (0x50f290) destroys panels on. Named
+ * PanelManager_Update's per-tick sweep destroys panels on. Named
  * after the builder, like AddBuddyDialog_OnCommand.
  */
 #include "ghidra_types.h"

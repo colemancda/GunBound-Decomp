@@ -1,6 +1,27 @@
-/* FUN_0050f290 - 0x0050f290 in the original binary.
+/* PanelManager_Update - 0x0050f290 in the original binary.
  *
- * No confirmed real name/purpose - the panel manager's per-tick pending-
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * NAMED 2026-10-31 (was FUN_0050f290), LIKELY. Slot 9 of both panel-
+ * manager vtables, 0x557cfc (g_uiPanelManager's, see globals_sized.c)
+ * and its base 0x557f80, between PanelManager_DispatchKeyUp (slot 8)
+ * and an uncarved slot 10. GameTick calls it once per frame on
+ * &g_uiPanelManager (0x41329f), next to TickActiveObjectRegistry, and
+ * State03_GameRoomList_OnEnter calls it once (0x429336). For every
+ * managed panel it calls slot 8, CWidget::Draw (Widget.h), and then
+ * reaps the panel if its +0x1d byte is set - the byte each panel's
+ * OnCommand sets on its close label (AddBuddyDialog_OnCommand calls it
+ * the close flag). "Update" is the tree's word for a once-per-frame
+ * draw-side hook (LobbyChatPanel_Update, CreateRoomDialog_Update); it
+ * is LIKELY rather than certain because the manager's vtable is not
+ * CWidget's, so slot 9 here does not inherit CWidget::Update's name.
+ * The +4/+8 pair the note below reads as two lists is the head and tail
+ * of one list: the unlink resets +4 when the node was the head and +8
+ * when it was the tail.
+ *
+ * Earlier note, kept: the panel manager's per-tick pending-
  * destroy sweep: walks a list rooted at param_1+4 (a widget "free/destroy
  * queue" separate from the manager's main panel list at param_1+8), and
  * for any entry with its destroy flag (+0x1d) set, unlinks it from both
@@ -54,7 +75,7 @@
 typedef void (__fastcall *VtableSlot8Fn)(void *thisPtr, int dummyEDX);
 typedef void (__fastcall *VtableSlot6Fn)(void *thisPtr, int dummyEDX);
 
-void __fastcall FUN_0050f290(int *param_1)
+void __fastcall PanelManager_Update(int *param_1)
 
 {
   int *piVar1;

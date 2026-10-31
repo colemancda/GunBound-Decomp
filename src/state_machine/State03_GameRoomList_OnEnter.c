@@ -161,13 +161,14 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   /* RECOVERED (2026-07-20), orig 0x42931d: `mov eax,0xe53c40` (&g_uiPanelManager)
    * immediately before the call - EAX was a dropped register argument. */
   FUN_005093e0((int)&g_uiPanelManager);
-  /* CI COMPILE-ERR FIX (2026-07-30): FUN_0050f290 was given a real
+  /* (FUN_0050f290 below is now PanelManager_Update.)
+   * CI COMPILE-ERR FIX (2026-07-30): FUN_0050f290 was given a real
    * 1-param prototype in an earlier pass but this call site was never
    * updated. Confirmed via objdump (orig 0x429331-0x429336):
    * `mov ecx,0xe53c40; call 0x50f290` - same &g_uiPanelManager already
    * used one line above, matching GameTick.c's own already-fixed call
    * to this same function. */
-  FUN_0050f290((int *)&g_uiPanelManager);
+  PanelManager_Update((int *)&g_uiPanelManager);
   BuildBuddyPanel();
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));

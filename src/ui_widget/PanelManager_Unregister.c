@@ -5,6 +5,8 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * (FUN_0050f290 below is now PanelManager_Update.)
+ *
  * DROPPED-REGISTER-ARG FIX (2026-08-19).  The original takes TWO register
  * arguments besides its stack one, and the body is what gives them away: it
  * scans the manager's list for the entry whose
