@@ -29,6 +29,16 @@
  * State01_Title_HandleKeyInput / State06_Logo2_HandleKeyInput /
  * State02_ServerSelect_HandleKeyInput. The original's `ret 0xc` now
  * matches (3 stack args, callee-cleaned).
+ *
+ * FUN_00507d50's PANEL RECOVERED (2026-10-30): the WM_LBUTTONDOWN path
+ * ends `mov ecx,[ebx+0x28c] / mov [ebx+0x124],-1 / call 0x507d50`
+ * (0x428bea-0x428bfa), EBX = this (`mov ebx,ecx` at 0x428b9b).
+ * callsite_regs.py finds this as the only call to 0x507d50, and
+ * 0x507d50 reads its panel from ECX (`[ecx+0x10]` child count, `[ecx+0xc]`
+ * child array). State03_GameRoomList_OnEnter stores BuildLobbyChatPanel's
+ * result at param_1[0xa3] (+0x28c), so the argument is the lobby chat
+ * panel. The port called FUN_00507d50() with nothing, so the edit-box
+ * scan walked whatever ECX held.
  */
 #include "ghidra_types.h"
 
@@ -65,7 +75,7 @@ void __fastcall State03_GameRoomList_HandleMouseInput(int param_1,int dummyEDX,u
         InvokeWidget(5,1);
       }
       *(undefined4 *)(param_1 + 0x124) = 0xffffffff;
-      FUN_00507d50();
+      FUN_00507d50(*(int *)(param_1 + 0x28c));
       return;
     }
   }
