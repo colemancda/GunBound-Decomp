@@ -11,6 +11,19 @@
 #include "ghidra_types.h"
 #include <windows.h>
 
+/* DESTRUCTOR DISPATCH FIXED (2026-10-30): each g_spriteRegistry layer walk
+ * called slot 0 as `(*(code *)*obj)(1)` with obj = the node's VTABLE value,
+ * so `this` was dropped and the vtable was passed in its place. The
+ * original loads the layer from [0xea0e1c] and walks it as
+ * `mov ecx,[layer+0x10]` / loop { mov edx,[ecx] / mov edi,[ecx+0x10] /
+ * push 1 / call [edx] / mov ecx,edi }: ECX is the node itself and the
+ * flag is pushed. Sites: 0x443467 (layer 10000).
+ * The nodes are sprite frames (vtable 0x557524) whose slot 0 is
+ * FUN_004f14c0, a raw-C port with __thiscall erased to cdecl, so `this`
+ * and the flag both go on the stack - the same idiom as
+ * State06_Logo2_OnExit.c (commits 4ac78dd1, 4cce0728). */
+typedef void (*ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
+
 
 void State05_Logo1_OnExit(void)
 
@@ -58,9 +71,9 @@ void State05_Logo1_OnExit(void)
   }
   puVar2 = (undefined4 *)puVar5[4];
   while (puVar2 != puVar5) {
-    puVar3 = (undefined4 *)*puVar2;
+    puVar3 = puVar2;
     puVar2 = (undefined4 *)puVar2[4];
-    (*(code *)*puVar3)(1);
+    (*(ListNodeVirtualFn *)*puVar3)(puVar3, 1);
   }
   puVar5[3] = puVar5;
   puVar5[4] = puVar5;

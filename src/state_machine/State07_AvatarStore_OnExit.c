@@ -11,6 +11,20 @@
 #include "ghidra_types.h"
 #include <windows.h>
 
+/* DESTRUCTOR DISPATCH FIXED (2026-10-30): each g_spriteRegistry layer walk
+ * called slot 0 as `(*(code *)*obj)(1)` with obj = the node's VTABLE value,
+ * so `this` was dropped and the vtable was passed in its place. The
+ * original loads the layer from [0xea0e1c] and walks it as
+ * `mov ecx,[layer+0x10]` / loop { mov edx,[ecx] / mov edi,[ecx+0x10] /
+ * push 1 / call [edx] / mov ecx,edi }: ECX is the node itself and the
+ * flag is pushed. Sites: 0x448097, 0x4480d7, 0x448117, 0x448157, 0x448197,
+ * 0x4481eb, 0x44822e, 0x44826d, 0x4482ff, 0x44834b.
+ * The nodes are sprite frames (vtable 0x557524) whose slot 0 is
+ * FUN_004f14c0, a raw-C port with __thiscall erased to cdecl, so `this`
+ * and the flag both go on the stack - the same idiom as
+ * State06_Logo2_OnExit.c (commits 4ac78dd1, 4cce0728). */
+typedef void (*ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
+
 
 void State07_AvatarStore_OnExit(void)
 
@@ -36,9 +50,9 @@ LAB_00448075:
       if (uVar2 != uVar1) goto code_r0x00448077;
       puVar3 = (undefined4 *)puVar8[4];
       while (puVar3 != puVar8) {
-        puVar4 = (undefined4 *)*puVar3;
+        puVar4 = puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(ListNodeVirtualFn *)*puVar4)(puVar4, 1);
       }
       puVar8[3] = puVar8;
       puVar8[4] = puVar8;
@@ -51,9 +65,9 @@ LAB_004480b4:
       if (uVar1 != uVar5) goto code_r0x004480b6;
       puVar3 = (undefined4 *)puVar8[4];
       while (puVar3 != puVar8) {
-        puVar4 = (undefined4 *)*puVar3;
+        puVar4 = puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(ListNodeVirtualFn *)*puVar4)(puVar4, 1);
       }
       puVar8[3] = puVar8;
       puVar8[4] = puVar8;
@@ -67,9 +81,9 @@ LAB_004480f7:
       if (uVar2 != uVar1) goto code_r0x004480f9;
       puVar3 = (undefined4 *)puVar8[4];
       while (puVar3 != puVar8) {
-        puVar4 = (undefined4 *)*puVar3;
+        puVar4 = puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(ListNodeVirtualFn *)*puVar4)(puVar4, 1);
       }
       puVar8[3] = puVar8;
       puVar8[4] = puVar8;
@@ -83,9 +97,9 @@ LAB_0044813a:
       if (uVar2 != uVar1) goto code_r0x0044813c;
       puVar3 = (undefined4 *)puVar8[4];
       while (puVar3 != puVar8) {
-        puVar4 = (undefined4 *)*puVar3;
+        puVar4 = puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(ListNodeVirtualFn *)*puVar4)(puVar4, 1);
       }
       puVar8[3] = puVar8;
       puVar8[4] = puVar8;
@@ -99,9 +113,9 @@ LAB_0044817a:
       if (uVar2 != uVar1) goto code_r0x0044817c;
       puVar3 = (undefined4 *)puVar8[4];
       while (puVar3 != puVar8) {
-        puVar4 = (undefined4 *)*puVar3;
+        puVar4 = puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(ListNodeVirtualFn *)*puVar4)(puVar4, 1);
       }
       puVar8[3] = puVar8;
       puVar8[4] = puVar8;
@@ -120,9 +134,9 @@ LAB_004481cf:
       if (uVar1 != uVar5) goto code_r0x004481d1;
       puVar3 = (undefined4 *)puVar8[4];
       while (puVar3 != puVar8) {
-        puVar4 = (undefined4 *)*puVar3;
+        puVar4 = puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(ListNodeVirtualFn *)*puVar4)(puVar4, 1);
       }
       puVar8[3] = puVar8;
       puVar8[4] = puVar8;
@@ -138,9 +152,9 @@ LAB_0044820f:
     if (uVar5 != 30000) goto code_r0x00448211;
     puVar3 = (undefined4 *)puVar8[4];
     while (puVar3 != puVar8) {
-      puVar4 = (undefined4 *)*puVar3;
+      puVar4 = puVar3;
       puVar3 = (undefined4 *)puVar3[4];
-      (*(code *)*puVar4)(1);
+      (*(ListNodeVirtualFn *)*puVar4)(puVar4, 1);
     }
     puVar8[3] = puVar8;
     puVar8[4] = puVar8;
@@ -153,9 +167,9 @@ LAB_0044824e:
     if (uVar5 != 40000) goto code_r0x00448250;
     puVar3 = (undefined4 *)puVar8[4];
     while (puVar3 != puVar8) {
-      puVar4 = (undefined4 *)*puVar3;
+      puVar4 = puVar3;
       puVar3 = (undefined4 *)puVar3[4];
-      (*(code *)*puVar4)(1);
+      (*(ListNodeVirtualFn *)*puVar4)(puVar4, 1);
     }
     puVar8[3] = puVar8;
     puVar8[4] = puVar8;
@@ -191,9 +205,9 @@ LAB_0044827b:
   }
   puVar3 = (undefined4 *)puVar8[4];
   while (puVar3 != puVar8) {
-    puVar4 = (undefined4 *)*puVar3;
+    puVar4 = puVar3;
     puVar3 = (undefined4 *)puVar3[4];
-    (*(code *)*puVar4)(1);
+    (*(ListNodeVirtualFn *)*puVar4)(puVar4, 1);
   }
   puVar8[3] = puVar8;
   puVar8[4] = puVar8;
@@ -213,9 +227,9 @@ LAB_0044830d:
     }
     puVar3 = (undefined4 *)puVar8[4];
     while (puVar3 != puVar8) {
-      puVar4 = (undefined4 *)*puVar3;
+      puVar4 = puVar3;
       puVar3 = (undefined4 *)puVar3[4];
-      (*(code *)*puVar4)(1);
+      (*(ListNodeVirtualFn *)*puVar4)(puVar4, 1);
     }
     puVar8[3] = puVar8;
     puVar8[4] = puVar8;

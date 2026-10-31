@@ -78,10 +78,13 @@ void CState05Logo1::OnExit()
         }
         unsigned int **node = (unsigned int **)bucket[4];
         while (node != bucket) {
-            unsigned int **obj = (unsigned int **)*node;
+            /* 0x443460-0x443467: mov edx,[ecx] / mov edi,[ecx+0x10] / push 1 /
+             * call [edx], with ECX = the node itself. Slot 0 is FUN_004f14c0
+             * (vtable 0x557524), a raw-C port with __thiscall erased to cdecl,
+             * so the node and the free flag both go on the stack. */
+            unsigned int **obj = node;
             node = (unsigned int **)node[4];
-            ((void (__cdecl *)(int))*obj)(1); /* scalar-deleting dtor, free=1 (true
-                                               * convention __thiscall; see Title) */
+            ((void (__cdecl *)(void *, int))*obj)(obj, 1);
         }
         bucket[3] = (unsigned int *)bucket;
         bucket[4] = (unsigned int *)bucket;
