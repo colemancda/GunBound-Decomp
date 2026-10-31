@@ -1,8 +1,17 @@
-/* FUN_00506dc0 - 0x00506dc0 in the original binary.
+/* ItemDescriptionTooltip_Update - 0x00506dc0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31 (was FUN_00506dc0). Slot 9 (Update, +0x24) of vtable
+ * 0x557c5c, which only BuildItemDescriptionTooltip installs; slot 9 is
+ * the one every other panel class fills with Widget_DrawSelf or its own
+ * *_Update (LobbyChatPanel_Update, CreateRoomDialog_Update), and this
+ * body opens with that same Widget_DrawSelf call before drawing the
+ * string at +0x90 - the item name BuildItemDescriptionTooltip copies
+ * there from FindItemRecordByIcon. CItemDescriptionTooltip::Update in
+ * src/cxx/Panel.cpp forwards here.
  *
  * BlitRLESprite's 4th arg (rleData) and 1st arg (this/param_1) were
  * dropped in the raw port (in_EAX and a bare `0` respectively). objdump
@@ -27,7 +36,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00506dc0(int param_1)
+void __fastcall ItemDescriptionTooltip_Update(int param_1)
 
 {
   Widget_DrawSelf(param_1);

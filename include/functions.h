@@ -1677,7 +1677,7 @@ undefined4 EnterRoomNumberDialog_SubmitRoomNumber();
 void __thiscall EnterRoomNumberDialog_OnCommand();
 undefined4 RoomPasswordDialog_SubmitPassword();
 void __thiscall RoomPasswordDialog_OnCommand();
-void __fastcall FUN_00506dc0();
+void __fastcall ItemDescriptionTooltip_Update();
 void __thiscall FUN_00506e10();
 void ActivateLegacyTextInputField(int thisObj);
 void FUN_00506f30(int regEsi);

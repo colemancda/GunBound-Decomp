@@ -511,7 +511,7 @@ class CItemDescriptionTooltip : public CPanel { /* vtable 0x557c5c; builder
 public:
     CItemDescriptionTooltip() { m_pinned = 1; }
     virtual void Update();                     /* 0x506dc0 - Panel.cpp forwards to the C
-                                                * FUN_00506dc0 (slot 9: frame via
+                                                * ItemDescriptionTooltip_Update (slot 9: frame via
                                                 * Widget_DrawSelf, then the name) */
     char m_itemName[0x80];                     /* +0x90: copied from FindItemRecordByIcon */
 };

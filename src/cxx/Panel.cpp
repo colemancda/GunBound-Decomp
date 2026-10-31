@@ -868,7 +868,7 @@ extern "C" void RoomPasswordDialog_OnCommand(void *this_, int evt, int id, int a
 extern "C" void RoomTitleDialog_OnCommand(void *this_, int evt, int id, int arg);
 extern "C" void AddBuddyDialog_OnCommand(int this_, int evt, int id, int arg);
 extern "C" void FUN_005061e0(int this_, int evt, int id, int arg);
-extern "C" void __fastcall FUN_00506dc0(int this_);
+extern "C" void __fastcall ItemDescriptionTooltip_Update(int this_);
 extern "C" void *GetLocalizedString(void *table, int id);
 extern "C" unsigned char g_localizedStringTable;
 extern "C" int FindItemRecordByIcon(int ctx, int itemId);
@@ -901,7 +901,7 @@ void CMessageBoxPanel::OnCommand(int evt, int id, int arg)
 
 void CItemDescriptionTooltip::Update()
 {
-    FUN_00506dc0((int)this);
+    ItemDescriptionTooltip_Update((int)this);
 }
 
 static CPanelListNode *ManagerListHead(void *manager)
