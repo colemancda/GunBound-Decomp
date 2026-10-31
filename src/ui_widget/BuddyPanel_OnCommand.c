@@ -13,7 +13,7 @@
  * `this` in ECX, ending in the base slot-7 body Widget_OnCommandDefault.
  * The ids it handles are the three labels BuildBuddyPanel creates
  * (Panel.cpp): id 0 close-X sets the +0x1d close flag, id 1 "Add"
- * opens the add-buddy dialog (FUN_00508b90, the only installer of
+ * opens the add-buddy dialog (BuildAddBuddyDialog, the only installer of
  * vtable 0x557e68), and id 2 "Del" acts on the buddy selected at
  * +0x90. Same `<Panel>_OnCommand` form as WorldListPanel_OnCommand.
  *
@@ -37,7 +37,7 @@ void __thiscall BuddyPanel_OnCommand(int param_1,int param_2,int param_3,undefin
     }
     else {
       if (param_3 == 1) {
-        FUN_00508b90((int)&g_uiPanelManager);
+        BuildAddBuddyDialog((int)&g_uiPanelManager);
         Widget_OnCommandDefault(param_1,0,1,param_4);
         return;
       }

@@ -10,11 +10,11 @@
  * (evt, id, arg); `this` arrives in ECX (`mov esi,ecx` at 0x505710),
  * every exit is `ret 0xc`, and both paths end in the base slot-7 body
  * Widget_OnCommandDefault. Vtable 0x557e68 is stored only by
- * FUN_00508b90 (0x508bf2), whose one caller is BuddyPanel_OnCommand on
+ * BuildAddBuddyDialog (0x508bf2), whose one caller is BuddyPanel_OnCommand on
  * the buddy panel's "Add" label (id 1, 0x505daf) - the "add buddy ID"
  * dialog of docs/widgets.md ("Add-buddy dialog - 0x557e68, id 10000",
  * runtime-confirmed). The ids handled match that dialog's children as
- * FUN_00508b90 builds them: label id 0 (ADD) or the edit box's Enter
+ * BuildAddBuddyDialog builds them: label id 0 (ADD) or the edit box's Enter
  * (evt 0x1000) runs the submit FUN_00505580; label id 1 (CLOSE), or
  * evt 0x1001, sets the +0x1d close flag. There is no C++ class for
  * this dialog yet, so the prefix follows the docs' name for it.
@@ -22,7 +22,7 @@
  * FIXED (2026-10-30): the Widget_OnCommandDefault calls now pass `this`
  * (ECX = esi = this at 0x505732 and 0x50574c).
  *
- * WIRED (2026-10-30): FUN_00508b90 now lives in src/cxx/Panel.cpp and
+ * WIRED (2026-10-30): BuildAddBuddyDialog now lives in src/cxx/Panel.cpp and
  * builds a C++ CAddBuddyDialog (vtable 0x557e68) whose OnCommand forwards
  * here with `this` first.
  */

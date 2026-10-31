@@ -1011,7 +1011,7 @@ extern "C" unsigned int BuildRoomTitleDialog(int param_1, char *param_2)
     return 0;
 }
 
-/* 0x508b90 - FUN_00508b90, the add-buddy dialog. Manager in EDI;
+/* 0x508b90 - BuildAddBuddyDialog, the add-buddy dialog. Manager in EDI;
  * 0x508ba6-0x508bc8 walk for (typeId 0, id 10000) and BringToFront the
  * match (0x508bfa). Otherwise: operator new(0xa8), CPanel ctor, vtable
  * 0x557e68 (0x508bf0), id 10000, +0x4c 0, frame 0x2c6/1, rect (0x119, 0xce,
@@ -1019,8 +1019,16 @@ extern "C" unsigned int BuildRoomTitleDialog(int param_1, char *param_2)
  * 0xc), the focus sweep, SetFocus(1), labels (0, 0x2c8) and (1, 0x2c9) at
  * (0x42|0x97, 0x6b, 0x4a, 0x1a), then the CStaticText (0x15, 0x2d, 200,
  * 0x1e, GetLocalizedString(0x796eec, 4000), 0xffff) (0x508cae-0x508cce)
- * and the Register. */
-extern "C" void FUN_00508b90(int regEdi)
+ * and the Register.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_00508b90). Its one caller is
+ * BuddyPanel_OnCommand's "Add" label, id 1 (call at 0x505daf). Vtable
+ * 0x557e68 is stored only here (the mov at 0x508bf0), and its slot 7 is
+ * the already-named AddBuddyDialog_OnCommand. The prompt it shows,
+ * Language.txt string 4000 (graphics.xfs of the reference client), reads
+ * "To add your friends' ID, click his/her ID in the channel." Same
+ * Build<Dialog> form as BuildCreateRoomDialog and BuildBuddyPanel. */
+extern "C" void BuildAddBuddyDialog(int regEdi)
 {
     void *manager = (void *)regEdi;
     for (CPanelListNode *n = ManagerListHead(manager); n != 0; n = n->m_next) {
