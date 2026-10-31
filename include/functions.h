@@ -1754,7 +1754,7 @@ void FUN_0050e820(int regEbx,int regEdi);
 void Widget_OnCommandDefault(int this_,int evt,int id,int arg);
 void __fastcall Widget_DrawChildrenDeep();
 undefined4 AtlArray_GrowBuffer();
-void * __thiscall FUN_0050ede0();
+void * __thiscall PanelManager_BaseScalarDtor();
 void __fastcall PanelManager_BaseDestructor();
 void __stdcall PanelManager_Register(void *manager,int param_1);
 undefined4 PanelManager_Unregister();
