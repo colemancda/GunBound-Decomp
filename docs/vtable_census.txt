@@ -1430,7 +1430,7 @@ vtable 0x557c0c  installs=1  slots=10
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x506310  FUN_00506310
+   7: 0x506310  RoomTitleDialog_OnCommand
    8: 0x50e520  Widget_DrawChildren
    9: 0x5054b0  Widget_DrawSelf
 
@@ -1456,7 +1456,7 @@ vtable 0x557c5c  installs=1  slots=10
    6: 0x50eab0  Widget_DispatchMouseToChildren
    7: 0x50eb10  Widget_OnCommandDefault
    8: 0x50e520  Widget_DrawChildren
-   9: 0x506dc0  FUN_00506dc0
+   9: 0x506dc0  ItemDescriptionTooltip_Update
 
 vtable 0x557c84  installs=1  slots=10
    0: 0x506fb0  FUN_00506fb0
@@ -1495,7 +1495,7 @@ vtable 0x557cd4  installs=1  slots=10
    9: 0x5078f0  LobbyChatPanel_Update
 
 vtable 0x557cfc  installs=1  slots=11  UNCARVED=2
-   0: 0x507e10  FUN_00507e10
+   0: 0x507e10  PanelManager_ScalarDtor
    1: 0x50f020  PanelManager_DispatchMouseMove
    2: 0x507ea0  PanelManager_DispatchMouseDown
    3: 0x50f1b0  PanelManager_DispatchMouseUp
@@ -1504,7 +1504,7 @@ vtable 0x557cfc  installs=1  slots=11  UNCARVED=2
    6: 0x507ed0  UNCARVED
    7: 0x50f230  PanelManager_DispatchKeyDown
    8: 0x50f260  PanelManager_DispatchKeyUp
-   9: 0x50f290  FUN_0050f290
+   9: 0x50f290  PanelManager_Update
   10: 0x50f320  UNCARVED
 
 vtable 0x557d28  installs=1  slots=10
@@ -1527,7 +1527,7 @@ vtable 0x557d50  installs=1  slots=10
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x5063e0  FUN_005063e0
+   7: 0x5063e0  BuddyRequestDialog_OnCommand
    8: 0x50e520  Widget_DrawChildren
    9: 0x5054b0  Widget_DrawSelf
 
@@ -1539,7 +1539,7 @@ vtable 0x557d78  installs=1  slots=10
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x506e10  FUN_00506e10
+   7: 0x506e10  AvatarShopIpConfirmDialog_OnCommand
    8: 0x50e520  Widget_DrawChildren
    9: 0x5054b0  Widget_DrawSelf
 
@@ -1563,7 +1563,7 @@ vtable 0x557dc8  installs=1  slots=8
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x506cf0  FUN_00506cf0
+   7: 0x506cf0  RoomPasswordDialog_OnCommand
 
 vtable 0x557de8  installs=1  slots=2
    0: 0x50e520  Widget_DrawChildren
@@ -1601,7 +1601,7 @@ vtable 0x557e40  installs=1  slots=10
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
-   7: 0x506430  FUN_00506430
+   7: 0x506430  DeleteBuddyConfirmDialog_OnCommand
    8: 0x50e520  Widget_DrawChildren
    9: 0x5054b0  Widget_DrawSelf
 
@@ -1690,16 +1690,16 @@ vtable 0x557f58  installs=1  slots=10
    9: 0x50ecf0  Widget_DrawChildrenDeep
 
 vtable 0x557f80  installs=1  slots=11  UNCARVED=1
-   0: 0x50ede0  FUN_0050ede0
+   0: 0x50ede0  PanelManager_BaseScalarDtor
    1: 0x50f020  PanelManager_DispatchMouseMove
-   2: 0x50f060  FUN_0050f060
+   2: 0x50f060  PanelManager_BaseDispatchMouseDown
    3: 0x50f1b0  PanelManager_DispatchMouseUp
    4: 0x50f1f0  PanelManager_DispatchRightMouseDown
    5: 0x50f150  PanelManager_DispatchRightMouseUp
    6: 0x429800  NoOpMethod
    7: 0x50f230  PanelManager_DispatchKeyDown
    8: 0x50f260  PanelManager_DispatchKeyUp
-   9: 0x50f290  FUN_0050f290
+   9: 0x50f290  PanelManager_Update
   10: 0x50f320  UNCARVED
 
 vtable 0x5627e8  installs=1  slots=64  UNCARVED=64
