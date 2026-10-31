@@ -1655,7 +1655,7 @@ void __fastcall ChatLogPanel_Update();
 void __fastcall AppendChatLogPanelLine(int param_1,char *param_2,char *param_3,uint param_4);
 void CChatLogPanel_SubmitWhisper(int param_1);
 void __thiscall BuddyPanel_OnCommand();
-int __fastcall FUN_00505ec0();
+int __fastcall FUN_00505ec0(int param_1, int param_2, int regEsi);
 void __thiscall RenderBuddyRow(int param_1,int param_2,int regEax);
 void __thiscall FUN_005061e0(int param_1,int param_2,int param_3,int param_4);
 undefined4 FUN_00506210();

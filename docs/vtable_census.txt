@@ -1410,12 +1410,12 @@ vtable 0x557bbc  installs=1  slots=10
    8: 0x50e520  Widget_DrawChildren
    9: 0x5054b0  Widget_DrawSelf
 
-vtable 0x557be4  installs=1  slots=10  UNCARVED=3
+vtable 0x557be4  installs=1  slots=10  UNCARVED=1
    0: 0x50e860  Widget_SetFocus
    1: 0x50e3a0  Widget_OnDragMove
-   2: 0x505c10  UNCARVED
+   2: 0x505c10  FUN_00505c10
    3: 0x50e4c0  Widget_OnMouseUp
-   4: 0x505c90  UNCARVED
+   4: 0x505c90  FUN_00505c90
    5: 0x50ea50  Widget_DispatchKeyToChildren
    6: 0x50eab0  Widget_DispatchMouseToChildren
    7: 0x505d20  BuddyPanel_OnCommand

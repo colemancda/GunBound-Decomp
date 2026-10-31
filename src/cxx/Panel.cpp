@@ -974,6 +974,88 @@ bool CChannelUserListPanel::HitTest(int x, int y)
     return (unsigned char)ChannelUserListPanel_HitTest((int)this, x, y) != 0;
 }
 
+/* CBuddyPanel slots 2 and 4 (words at 0x557bec and 0x557bf4) are 0x505c10
+ * and 0x505c90, in place of CPanel::OnMouseDown (0x505430) and
+ * Widget_HitTest (0x50e9c0). CARVED 2026-10-30 - both were UNCARVED and
+ * the class inherited the base slots. find_vtable_refs.py finds each
+ * only in this vtable, and callsite_regs.py finds no direct calls.
+ *
+ * Both locate the buddy row under the point with 0x505ec0 (FUN_00505ec0:
+ * ECX = x, EDX = this, ESI = y). It returns the list's scroll base
+ * (DAT_00e54da8, [0xe54da8]) plus the band index, or -1, and itself
+ * stores a hit into +0x90. The rows are seven 0x1d-pixel bands inside
+ * x in (m_x+0xe, m_x+0xae).
+ *
+ * 0x505c10 (OnMouseDown, 0x72 bytes, ret 8 at 0x505c76/0x505c7f):
+ *   0x505c1c push y / push x / mov edi,ecx / call 0x505430   ; CPanel::
+ *             OnMouseDown, direct; result kept in BL
+ *   0x505c25 mov ecx,ebp(x) / mov edx,edi / call 0x505ec0    ; ESI = y
+ *   0x505c30 cmp eax,-1 / je / mov [edi+0x90],eax
+ *   0x505c3b m_hidden / rect test (+0x28/+0x30, +0x2c/+0x34): inside ->
+ *             return BL
+ *   0x505c62 outside: return BL if set, else m_unk90 = -1 and return 0
+ *
+ * 0x505c90 (HitTest, 0x8c bytes, ret 8 at 0x505d19, result in AL):
+ *   0x505c9d mov edx,ebp(this) / call 0x505ec0                ; ECX = x,
+ *             ESI = y
+ *   0x505ca9 mov edi,eax / mov eax,0xe53e88 / call 0x401c10   ;
+ *             FindActiveObjectByIndex(DAT_00e53e88, EDI = row)
+ *   0x505cbc lea ebx,[edi+0x21] / mov eax,0xe53c40 / call 0x509730 ;
+ *             PanelManager_FindByName(g_uiPanelManager, EBX = name)
+ *   0x505cce found: mov edx,eax / mov ecx,0xe53c40 / call 0x509960 ;
+ *             PanelManager_BringToFront
+ *   0x505cdc else:  push node / push 0xe53c40 / call 0x509260 ;
+ *             BuildChatLogPanel(manager, node)
+ *   0x505ce7 m_hidden-gated own-rect test -> AL
+ *
+ * So a press on a buddy row selects it, and a press outside the panel that
+ * nothing else took clears the selection. The slot-4 pass (sent to every
+ * panel by PanelManager_DispatchRightMouseDown, `call [eax+0x10]` at
+ * 0x50f210) opens or raises the whisper window for the row under the
+ * point. Like the other panel HitTest overrides there is no child
+ * broadcast. Neither body calls a virtual of its own object: the CPanel
+ * press is a direct call, so the forward qualifies it. */
+extern "C" int __fastcall FUN_00505ec0(int x, int panel, int regEsi);
+extern "C" int FindActiveObjectByIndex(int regEax, int regEdi);
+extern "C" int PanelManager_FindByName(int regEax, char *regEbx);
+
+bool CBuddyPanel::OnMouseDown(int x, int y)
+{
+    bool took = CPanel::OnMouseDown(x, y);
+    int row = FUN_00505ec0(x, (int)this, y);
+    if (row != -1) {
+        m_unk90 = row;
+    }
+    if (!m_hidden && m_x < x && x < m_x + m_width &&
+        m_y < y && y < m_y + m_height) {
+        return took;
+    }
+    if (took) {
+        return took;
+    }
+    m_unk90 = -1;
+    return false;
+}
+
+bool CBuddyPanel::HitTest(int x, int y)
+{
+    int row = FUN_00505ec0(x, (int)this, y);
+    if (row != -1) {
+        int node = FindActiveObjectByIndex((int)DAT_00e53e88, row);
+        if (node != 0) {
+            int panel = PanelManager_FindByName((int)&g_uiPanelManager,
+                                                (char *)(node + 0x21));
+            if (panel != 0) {
+                PanelManager_BringToFront(&g_uiPanelManager, (CPanel *)panel);
+            } else {
+                BuildChatLogPanel((int)&g_uiPanelManager, node);
+            }
+        }
+    }
+    return !m_hidden && m_x < x && x < m_x + m_width &&
+           m_y < y && y < m_y + m_height;
+}
+
 /* CWorldListPanel slot 4 (+0x10, word at 0x557f18) is 0x50d710, in place
  * of Widget_HitTest (0x50e9c0). CARVED 2026-10-30 - it was UNCARVED and
  * the class inherited CWidget::HitTest. 130 bytes, `mov eax,ecx` at

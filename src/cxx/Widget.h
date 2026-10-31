@@ -444,6 +444,14 @@ public:
 class CBuddyPanel : public CPanel {            /* vtable 0x557be4; builder 0x509110 */
 public:
     CBuddyPanel() { m_unk90 = -1; }            /* base defaults + the +0x90 slot */
+    virtual bool OnMouseDown(int x, int y);    /* slot 2: 0x505c10 - carved, Panel.cpp: the
+                                                * CPanel press, then select the buddy row
+                                                * under the point (+0x90); a miss outside
+                                                * the panel clears it */
+    virtual bool HitTest(int x, int y);        /* slot 4: 0x505c90 - carved, Panel.cpp: open
+                                                * or raise the whisper panel for the row
+                                                * under the point, then the own-rect test
+                                                * (no child broadcast) */
     virtual void OnCommand(int evt, int id, int arg); /* 0x505d20 - Panel.cpp forwards to the C
                                                 * BuddyPanel_OnCommand (slot 7) */
     virtual void Update();                     /* 0x505df0 - Panel.cpp: draws the panel's own
@@ -451,7 +459,8 @@ public:
                                                 * buddy-count text and rows. Slot 9; without this
                                                 * override the panel inherited CWidget::Update's
                                                 * child-broadcast-only no-op and drew no frame. */
-    int m_unk90;                               /* +0x90 */
+    int m_unk90;                               /* +0x90: selected buddy ordinal, -1 = none
+                                                * (set by 0x505ec0 / slot 2) */
 };
 
 /* State 3's Create Room dialog: room-name (maxLen 20) and password
