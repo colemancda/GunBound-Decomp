@@ -460,7 +460,10 @@ extern "C" void BuildChatLogPanel(int arg1, int partnerRecord)
     p->AddChild(CreateLabelWidget(0, 0x2c7, 0xdf, 7, 0x16, 0x14));
     CEditBox *input = CreateTextEntryWidget(0, 0x13, 0x109, 0xd3, 0xc, 0x50);
     p->AddChild(input);
-    PanelManager_ClearAllFocus(0 /* g_uiPanelManager; receiver convention unresolved */);
+    /* 0x509357: `mov eax,[esp+0x24] / push eax / call 0x50efa0`, the
+     * builder's first argument (the manager). 0x50efa0 reads it from the
+     * stack (`mov ecx,[esp+4]`) and dereferences it at once, so 0 faulted. */
+    PanelManager_ClearAllFocus((void *)arg1);
     if (g_currentGameState != 0xb) {
         input->SetFocus(true);
     }
@@ -509,7 +512,9 @@ extern "C" void BuildCreateRoomDialog(void *manager, int arg2, int arg3, char *r
     CEditBox *roomName = CreateTextEntryWidget(0, 0x60, 0x2c, 0xbe, 0xc, 0x14);
     p->AddChild(roomName);
     TextEntry_SetControlText(roomNameText, roomName);
-    PanelManager_ClearAllFocus(0 /* g_uiPanelManager; receiver convention unresolved */);
+    /* 0x508282: `mov edx,[esp+0x24] / push edx / call 0x50efa0`, the
+     * manager argument. 0x50efa0 dereferences it at once, so 0 faulted. */
+    PanelManager_ClearAllFocus(manager);
     roomName->SetFocus(true);
     p->AddChild(CreateTextEntryWidget(1, 0x60, 0x46, 0xbe, 0xc, 4));
     int i = 0;
@@ -809,7 +814,10 @@ extern "C" void __fastcall BuildEnterRoomNumberDialog(int arg)
     p->m_height = 0xa0;
     CEditBox *roomNo = CreateTextEntryWidget(0, 99, 0x32, 0xb4, 0xc, 4);
     p->AddChild(roomNo);
-    PanelManager_ClearAllFocus(0 /* g_uiPanelManager; receiver convention unresolved */);
+    /* 0x50888b: `push edi / call 0x50efa0`, EDI = the manager this builder
+     * walks (`mov eax,[edi+4]` at 0x5087c6), g_uiPanelManager. 0x50efa0
+     * dereferences it at once, so 0 faulted. */
+    PanelManager_ClearAllFocus(&g_uiPanelManager);
     roomNo->SetFocus(true);
     p->AddChild(CreateTextEntryWidget(1, 99, 0x54, 0xb4, 0xc, 4));
     p->AddChild(CreateLabelWidget(0, 0x579, 0xd5, 0x76, 0x52, 0x22));
