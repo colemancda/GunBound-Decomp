@@ -1,8 +1,20 @@
-/* FUN_00505580 - 0x00505580 in the original binary.
+/* AddBuddyDialog_SubmitBuddyName - 0x00505580 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31 (was FUN_00505580). Its sole caller is
+ * AddBuddyDialog_OnCommand (call at 0x50573e), on the ADD label or the
+ * edit box's Enter. It copies the edit box into +0x50, then: a name
+ * FindDirectLinkBuddyNode already finds gets Language.txt 4004, "'%s'is
+ * already registered." (push 0xfa4 at 0x50563f); the player's own
+ * nickname (g_clientContext+0x23330) gets 4007, "You cannot add your
+ * name to your  list." (push 0xfa7 at 0x505615); anything else goes to
+ * SendBuddyRequestByNickname (0x505634). It then clears the edit box.
+ * "SubmitBuddyName" follows EnterRoomNumberDialog_SubmitRoomNumber and
+ * RoomTitleDialog_SubmitTitle: the dialog prefix plus the field it
+ * submits.
  *
  * (FUN_00402ad0 below is now SendBuddyRequestByNickname.)
  *
@@ -17,7 +29,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00505580(int param_1)
+void AddBuddyDialog_SubmitBuddyName(int param_1)
 
 {
   char cVar1;

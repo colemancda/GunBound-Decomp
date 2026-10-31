@@ -1652,7 +1652,7 @@ void __fastcall FUN_005051e0(int param_1,int param_2,char *src);
 undefined1 __fastcall Widget_HitTestSelf(int param_1,int regEsi,int regEdi);
 void __fastcall Widget_DrawSelf(int param_1);
 void Widget_SetChildRange(int param_1,undefined4 param_2,int regEbx);
-void FUN_00505580();
+void AddBuddyDialog_SubmitBuddyName();
 void FUN_005056c0(char *param_1,int regEbx);
 void __thiscall AddBuddyDialog_OnCommand();
 undefined4 * Panel_BaseConstructor();

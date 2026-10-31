@@ -5,7 +5,7 @@
  * verbatim ports" section for status.
  *
  * NAMED 2026-10-31 (was FUN_00402ad0). Its sole caller is the add-buddy
- * dialog's submit (0x505580, reached from AddBuddyDialog_OnCommand),
+ * dialog's submit, AddBuddyDialog_SubmitBuddyName (call at 0x505634),
  * after it has ruled out a name already on the list (Language.txt 4004)
  * and the player's own name (4007); the name goes in EAX. Over the
  * direct link it sends 0xa200 [16-byte user id][20 zero bytes]

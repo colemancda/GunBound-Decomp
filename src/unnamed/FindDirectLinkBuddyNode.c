@@ -4,6 +4,8 @@
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
  *
+ * (FUN_00505580 below is now AddBuddyDialog_SubmitBuddyName.)
+ *
  * NAMED AND KEY ARGUMENT RECOVERED (2026-10-27), HIGH. Walks the
  * doubly-linked list at param_1+4/+0x1c (the usual intrusive-list head
  * shape in this tree) and __stricmp's each live entry's +0x21 field

@@ -15,9 +15,10 @@
  * dialog of docs/widgets.md ("Add-buddy dialog - 0x557e68, id 10000",
  * runtime-confirmed). The ids handled match that dialog's children as
  * BuildAddBuddyDialog builds them: label id 0 (ADD) or the edit box's Enter
- * (evt 0x1000) runs the submit FUN_00505580; label id 1 (CLOSE), or
- * evt 0x1001, sets the +0x1d close flag. There is no C++ class for
- * this dialog yet, so the prefix follows the docs' name for it.
+ * (evt 0x1000) runs the submit AddBuddyDialog_SubmitBuddyName; label
+ * id 1 (CLOSE), or evt 0x1001, sets the +0x1d close flag. There is no
+ * C++ class for this dialog yet, so the prefix follows the docs' name
+ * for it.
  *
  * FIXED (2026-10-30): the Widget_OnCommandDefault calls now pass `this`
  * (ECX = esi = this at 0x505732 and 0x50574c).
@@ -39,7 +40,7 @@ void __thiscall AddBuddyDialog_OnCommand(int param_1,int param_2,int param_3,und
     iVar1 = param_2 + -0x1000;
   }
   if (iVar1 == 0) {
-    FUN_00505580(param_1);
+    AddBuddyDialog_SubmitBuddyName(param_1);
   }
   else if (iVar1 == 1) {
     *(undefined1 *)(param_1 + 0x1d) = 1;
