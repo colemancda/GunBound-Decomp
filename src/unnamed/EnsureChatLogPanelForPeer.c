@@ -28,7 +28,7 @@ void EnsureChatLogPanelForPeer(undefined4 param_1,char *param_2)
   int iVar3;
   undefined4 *puVar4;
   
-  iVar3 = PanelManager_FindByName((int)&g_uiPanelManager);
+  iVar3 = PanelManager_FindByName((int)&g_uiPanelManager,param_2);
   if (iVar3 == 0) {
     puVar4 = (undefined4 *)FindDirectLinkBuddyNode(param_1, param_2);
     bVar2 = false;

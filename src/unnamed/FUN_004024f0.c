@@ -83,10 +83,10 @@ void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax)
     pcVar8 = pcVar8 + 1;
   }
   FUN_00426120(local_80);
-  iVar3 = PanelManager_FindByName((int)&g_uiPanelManager);
+  iVar3 = PanelManager_FindByName((int)&g_uiPanelManager,(char *)regEax);
   if (iVar3 == 0) {
     EnsureChatLogPanelForPeer(param_1,regEax);
-    iVar3 = PanelManager_FindByName((int)&g_uiPanelManager);
+    iVar3 = PanelManager_FindByName((int)&g_uiPanelManager,(char *)regEax);
     if (iVar3 == 0) {
       return;
     }

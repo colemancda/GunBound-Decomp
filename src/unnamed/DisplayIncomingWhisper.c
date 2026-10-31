@@ -91,10 +91,10 @@ void DisplayIncomingWhisper(undefined4 param_1,char *param_2,uint param_3,char *
     }
     pcVar4[(int)(local_200 + (param_3 - (int)(local_200 + 1)))] = '\0';
     FUN_00426120(local_200);
-    iVar3 = PanelManager_FindByName((int)&g_uiPanelManager);
+    iVar3 = PanelManager_FindByName((int)&g_uiPanelManager,in_EAX);
     if (iVar3 == 0) {
       EnsureChatLogPanelForPeer(param_1,in_EAX);
-      iVar3 = PanelManager_FindByName((int)&g_uiPanelManager);
+      iVar3 = PanelManager_FindByName((int)&g_uiPanelManager,in_EAX);
       if (iVar3 == 0) {
         return;
       }

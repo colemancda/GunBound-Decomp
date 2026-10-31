@@ -1704,7 +1704,7 @@ void FUN_00509410();
 undefined4 * BuildReadyRoomChatPanel();
 void BuildItemDescriptionTooltip();
 void HideStoreItemTooltipPanel(int regEax);
-int PanelManager_FindByName(int regEax);
+int PanelManager_FindByName(int regEax, char *regEbx);
 void FUN_00509780(int esiArg);
 void FUN_005098e0(int, int);
 void __fastcall PanelManager_BringToFront(int param_1,int param_2);
