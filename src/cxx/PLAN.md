@@ -469,7 +469,7 @@ functions by their C-linkage names.
      almost certainly reads garbage off the stack for the missing arg. This
      is a latent bug in the ORIGINAL raw port, not something introduced by
      porting; passing `this_` explicitly in the C++ port is the correct
-     fix, found and applied in `FUN_0050d7a0.cpp`/`AvatarStorePanel_OnMouseMove.cpp`.
+     fix, found and applied in `WorldListPanel_OnMouseMove.cpp`/`AvatarStorePanel_OnMouseMove.cpp`.
    - **Watch for a caller file that turns out to itself be a full,
      already-promoted method's raw duplicate** (discovered twice this
      session: `Widget_OnMouseDown.c` was actually `CPanel::HandlePress`'s

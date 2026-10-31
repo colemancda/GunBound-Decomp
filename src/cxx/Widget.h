@@ -303,7 +303,8 @@ public:
     CWorldListPanel();                    /* inlined in the builder */
 
     virtual bool OnMouseMove(int x, int y);           /* slot 1: 0x50d7a0 (word at 0x557f0c) -
-                                                       * Panel.cpp forwards to FUN_0050d7a0: row
+                                                       * Panel.cpp forwards to
+                                                       * WorldListPanel_OnMouseMove: row
                                                        * hover, then the drag move */
 
     virtual bool OnMouseDown(int x, int y);           /* WorldListPanel_OnMouseDown - port pending on the

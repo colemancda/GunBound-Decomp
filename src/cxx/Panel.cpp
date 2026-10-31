@@ -100,13 +100,13 @@ bool CPanel::OnMouseUp(int x, int y)
 /* 0x50d7a0, CWorldListPanel's slot 1 (word at 0x557f0c): the row
  * hit-test into State02's highlighted slot, then a direct
  * `call 0x50e3a0` (the drag move) and the rect report. The C++ body is
- * FUN_0050d7a0.cpp, a free extern "C" function with `this` as its first
+ * WorldListPanel_OnMouseMove.cpp, a free extern "C" function with `this` as its first
  * stack argument. */
-extern "C" int FUN_0050d7a0(CWorldListPanel *this_, int x, int y);
+extern "C" int WorldListPanel_OnMouseMove(CWorldListPanel *this_, int x, int y);
 
 bool CWorldListPanel::OnMouseMove(int x, int y)
 {
-    return FUN_0050d7a0(this, x, y) != 0;
+    return WorldListPanel_OnMouseMove(this, x, y) != 0;
 }
 
 void CPanel::Update()
@@ -1636,9 +1636,9 @@ extern "C" CWorldListPanel * BuildWorldListPanel(void *manager)
  * port of this exact function (CWorldListPanel::RowHitTest) - deleted in
  * favor of this shim. Unlike most shims in this file, this one has a
  * clean explicit (this, x, y) signature rather than needing inline-asm
- * register capture: its only remaining caller (src/unnamed/
- * FUN_0050d7a0.cpp) is already a ported .cpp file under this project's
- * control, so the call site itself was updated to pass all three
+ * register capture: its only remaining caller (src/ui_widget/
+ * WorldListPanel_OnMouseMove.cpp) is already a ported .cpp file under
+ * this project's control, so the call site itself was updated to pass all three
  * arguments explicitly instead of relying on the original's register-
  * passed this/x (which a raw C caller can't safely be changed to do,
  * but an already-ported C++ caller can). REMOVE once nothing calls this

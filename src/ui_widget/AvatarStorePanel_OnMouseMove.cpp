@@ -31,7 +31,7 @@
  * Ported to C++ (2026-07-11) to call CWidget::MouseMoveChildren directly
  * instead of through the now-removed Widget_MouseMoveChildren shim - see
  * src/cxx/PLAN.md's "deduplicate C++-promoted functions" section. Same
- * pre-existing bug as FUN_0050d7a0.cpp: the raw C call site was passing
+ * pre-existing bug as WorldListPanel_OnMouseMove.cpp: the raw C call site was passing
  * only 2 of the 3 real arguments (dropping `this`), tolerated only because
  * C's unprototyped calls don't check argument counts - passing `this_`
  * explicitly here is the correct behavior. Everything else (checksum

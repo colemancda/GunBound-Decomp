@@ -1,8 +1,18 @@
-/* FUN_0050d7a0 - 0x0050d7a0 in the original binary.
+/* WorldListPanel_OnMouseMove - 0x0050d7a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_0050d7a0). The word at 0x557f0c,
+ * slot 1 (+0x4) of vtable 0x557f08, is 0x50d7a0. That vtable is stored
+ * only by BuildWorldListPanel (at 0x509a15), and slot 1 is
+ * CWidget::OnMouseMove(x, y) in src/cxx/Widget.h; the slot-3 word beside
+ * it is the base Widget_OnMouseUp (0x50e4c0) and slot 6 the base
+ * Widget_DispatchMouseToChildren (0x50eab0), which pins the slot
+ * numbering. The word at 0x557f04 (0x50d200) is not part of it: it is
+ * slot 9 of the preceding vtable 0x557ee0, CReadyRoomChatPanel's Update,
+ * so a slot count started there is off by one.
  *
  * Ported to C++ (2026-07-11) to call CWidget::OnDragMove and
  * CWorldListPanel::RowHitTest directly instead of through the now-removed
@@ -29,7 +39,7 @@
 
 extern "C" int g_gameStateVTableArray[16];
 
-extern "C" int FUN_0050d7a0(CWorldListPanel *this_, int x, int y)
+extern "C" int WorldListPanel_OnMouseMove(CWorldListPanel *this_, int x, int y)
 
 {
   unsigned int uVar2;
