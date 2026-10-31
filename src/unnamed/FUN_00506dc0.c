@@ -19,6 +19,10 @@
  * draws a label string at a fixed widget-relative position via
  * DrawFontString, then blits an RLE glyph/icon using the same string
  * pointer and cursor position immediately after.
+ *
+ * WIRED (2026-10-30): slot 9 of vtable 0x557c5c. BuildItemDescriptionTooltip
+ * now lives in src/cxx/Panel.cpp and builds a C++ CItemDescriptionTooltip,
+ * whose Update forwards here with `this` in ECX.
  */
 #include "ghidra_types.h"
 

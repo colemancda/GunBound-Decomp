@@ -441,6 +441,77 @@ public:
                                                 * EnterRoomNumberDialog_OnCommand (slot 7) */
 };
 
+/* The six panels below were built by raw-C builders that installed a
+ * placeholder global (`*p = &PTR_LAB_00557xxx`, a single null void *) as
+ * the vtable, so every PanelManager dispatch on them read past it. Their
+ * original vtables (read from .data) are CPanel's 0x557bbc slot for slot
+ * except where noted, and their builders now live in Panel.cpp. */
+
+/* State 3's room-password prompt: one 4-char CEditBox + OK (sprite 0x5dd)
+ * / Cancel (0x5dc) labels. SINGLETON keyed 2 (brought to front when it
+ * already exists). Opened by SendJoinRoomChecked instead of the 0x2110
+ * join when the room's +0x449ae private/password flag is set. */
+class CRoomPasswordDialog : public CPanel {    /* vtable 0x557dc8; builder 0x508910, size 0x90 */
+public:
+    CRoomPasswordDialog() {}                   /* base defaults only */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x506cf0 - Panel.cpp forwards to the C
+                                                * FUN_00506cf0 (slot 7) */
+};
+
+/* State 9's room-title dialog: one 20-char CEditBox seeded with the room
+ * title (g_clientContext+0x44e64) + two labels (0x4ba / 0x4bb). Keyed 3;
+ * the builder does nothing when one already exists. Pinned. */
+class CRoomTitleDialog : public CPanel {       /* vtable 0x557c0c; builder 0x508a50, size 0x90 */
+public:
+    CRoomTitleDialog() { m_pinned = 1; }
+    virtual void OnCommand(int evt, int id, int arg); /* 0x506310 - Panel.cpp forwards to the C
+                                                * FUN_00506310 (slot 7) */
+};
+
+/* The add-buddy dialog (docs/widgets.md "Add-buddy dialog"): a 12-char
+ * CEditBox, ADD (0x2c8) / CLOSE (0x2c9) labels and the localized prompt
+ * 4000 as a CStaticText. SINGLETON keyed 10000. */
+class CAddBuddyDialog : public CPanel {        /* vtable 0x557e68; builder 0x508b90, size 0xa8 */
+public:
+    CAddBuddyDialog() {}                       /* base defaults only */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x505700 - Panel.cpp forwards to the C
+                                                * AddBuddyDialog_OnCommand (slot 7) */
+    u8  m_unk90[0x18];                         /* +0x90: allocated (0xa8), never touched */
+};
+
+/* A one-button message box: OK label (0x2ca) + a CStaticText with the
+ * caller's text. Keyed 0x2713, not a singleton. */
+class CItemTooltipPanel : public CPanel {      /* vtable 0x557e18; builder BuildItemTooltipPanel
+                                                * 0x509030, size 0x90 */
+public:
+    CItemTooltipPanel() {}                     /* base defaults only */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x5061e0 - Panel.cpp forwards to the C
+                                                * FUN_005061e0 (slot 7: child 0 sets +0x1d) */
+};
+
+/* The same message-box shape keyed 0x7531 (label 0x323), opened by
+ * WriteReplayEventRecord on opcode 0x5001 with localized string 0x1004. */
+class CMessageBoxPanel : public CPanel {       /* vtable 0x557d28; builder 0x509410, size 0x90 */
+public:
+    CMessageBoxPanel() {}                      /* base defaults only */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x5061e0 - Panel.cpp forwards to the C
+                                                * FUN_005061e0 (slot 7, shared with 0x557e18) */
+};
+
+/* State 9's item description tooltip: the item's name at +0x90 drawn by
+ * slot 9, and its description as a CStaticText. Keyed 40000; an existing
+ * one only gets its +0x1d flag set and a new one is built regardless.
+ * Pinned. Slot 7 is CWidget::OnCommand (0x50eb10), as in CPanel. */
+class CItemDescriptionTooltip : public CPanel { /* vtable 0x557c5c; builder
+                                                * BuildItemDescriptionTooltip 0x5095d0, size 0x110 */
+public:
+    CItemDescriptionTooltip() { m_pinned = 1; }
+    virtual void Update();                     /* 0x506dc0 - Panel.cpp forwards to the C
+                                                * FUN_00506dc0 (slot 9: frame via
+                                                * Widget_DrawSelf, then the name) */
+    char m_itemName[0x80];                     /* +0x90: copied from FindItemRecordByIcon */
+};
+
 /* The shared buddy list (lobby / ready room / WndProc). A SINGLETON
  * keyed 20000: re-opening sets the existing panel's +0x1d flag
  * instead of rebuilding or refocusing. Close-X / Add / Del labels +

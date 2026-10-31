@@ -14,6 +14,12 @@
  * assume. Calls FUN_00506bf0 on evt==0x1000/id==1. Raw/near-verbatim
  * port of Ghidra's decompiler output otherwise, not hand-verified.
  * See src/README.md's "Raw/verbatim ports" section for status.
+ *
+ * WIRED (2026-10-30): the builder 0x508910 now lives in src/cxx/Panel.cpp
+ * and builds a C++ CRoomPasswordDialog (vtable 0x557dc8) whose OnCommand
+ * forwards here with `this` first. SendJoinRoomChecked opens it instead
+ * of the 0x2110 join when the room's +0x449ae private/password flag is
+ * set, which makes it the room-password prompt.
  */
 #include "ghidra_types.h"
 

@@ -21,6 +21,10 @@
  *
  * FIXED (2026-10-30): the Widget_OnCommandDefault calls now pass `this`
  * (ECX = esi = this at 0x505732 and 0x50574c).
+ *
+ * WIRED (2026-10-30): FUN_00508b90 now lives in src/cxx/Panel.cpp and
+ * builds a C++ CAddBuddyDialog (vtable 0x557e68) whose OnCommand forwards
+ * here with `this` first.
  */
 #include "ghidra_types.h"
 

@@ -19,9 +19,9 @@
  * through to the base Widget_OnCommandDefault. __thiscall in the original, erased to cdecl
  * here (`this` first), like the sibling OnCommand ports.
  *
- * NOT WIRED: neither vtable has a C++ class. Both builders are raw C and
- * install the placeholder global PTR_LAB_00557d28/PTR_LAB_00557e18,
- * which has no slots.
+ * WIRED (2026-10-30): both builders now live in src/cxx/Panel.cpp and build
+ * C++ classes, CMessageBoxPanel (0x557d28) and CItemTooltipPanel
+ * (0x557e18), whose OnCommand forwards here with `this` first.
  */
 #include "ghidra_types.h"
 

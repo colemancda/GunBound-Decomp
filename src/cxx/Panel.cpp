@@ -817,6 +817,282 @@ extern "C" void __fastcall BuildEnterRoomNumberDialog(int arg)
     PanelManager_Register(&g_uiPanelManager, p);
 }
 
+/* The builders of six panels that were raw C and installed a placeholder
+ * vtable: a lone null `void *` global (PTR_LAB_00557dc8, _00557c0c,
+ * _00557e68, _00557e18, _00557d28, _00557c5c). PanelManager's dispatchers
+ * call every managed panel's slots C++-style (`this` in ECX), so any
+ * dispatch on these panels read past that global and called whatever lay
+ * beyond it. Each original vtable, read from .data, is CPanel's (0x557bbc)
+ * slot for slot except for:
+ *
+ *   0x557dc8 CRoomPasswordDialog     slot 7 0x506cf0
+ *   0x557c0c CRoomTitleDialog        slot 7 0x506310
+ *   0x557e68 CAddBuddyDialog         slot 7 0x505700
+ *   0x557e18 CItemTooltipPanel       slot 7 0x5061e0
+ *   0x557d28 CMessageBoxPanel        slot 7 0x5061e0
+ *   0x557c5c CItemDescriptionTooltip slot 9 0x506dc0
+ *
+ * So each builder is ported here and builds its panel as a C++ class,
+ * the same move BuildEnterRoomNumberDialog and the other Build* panels
+ * made. The bodies are the raw ports' bodies, checked against the
+ * disassembly cited at each. Every slot-7 target is __thiscall with
+ * ret 0xc (`mov esi,ecx` at 0x506d00, 0x506320, 0x505710, and 0x5061e0
+ * uses ECX directly) and ends in a direct `call 0x50eb10`, which is
+ * Widget_OnCommandDefault, the non-virtual CWidget::OnCommand. The C ports
+ * are erased-__thiscall cdecl with `this` first. Slot 9 0x506dc0 is
+ * `mov esi,ecx` with a plain ret, ported __fastcall(this). It opens with
+ * `call 0x5054b0` (Widget_DrawSelf), so it covers CPanel::Update.
+ *
+ * The manager is a parameter here (EDI or the first stack word in the
+ * original, &g_uiPanelManager at every call site). It is passed on to
+ * PanelManager_ClearAllFocus, which reads it from the stack (`mov ecx,
+ * [esp+4]` at 0x50efa0). */
+extern "C" void FUN_00506cf0(void *this_, int evt, int id, int arg);
+extern "C" void FUN_00506310(void *this_, int evt, int id, int arg);
+extern "C" void AddBuddyDialog_OnCommand(int this_, int evt, int id, int arg);
+extern "C" void FUN_005061e0(int this_, int evt, int id, int arg);
+extern "C" void __fastcall FUN_00506dc0(int this_);
+extern "C" void *GetLocalizedString(void *table, int id);
+extern "C" unsigned char g_localizedStringTable;
+extern "C" int FindItemRecordByIcon(int ctx, int itemId);
+extern "C" char *FUN_0041eb80(int ctx, int itemId);
+
+void CRoomPasswordDialog::OnCommand(int evt, int id, int arg)
+{
+    FUN_00506cf0(this, evt, id, arg);
+}
+
+void CRoomTitleDialog::OnCommand(int evt, int id, int arg)
+{
+    FUN_00506310(this, evt, id, arg);
+}
+
+void CAddBuddyDialog::OnCommand(int evt, int id, int arg)
+{
+    AddBuddyDialog_OnCommand((int)this, evt, id, arg);
+}
+
+void CItemTooltipPanel::OnCommand(int evt, int id, int arg)
+{
+    FUN_005061e0((int)this, evt, id, arg);
+}
+
+void CMessageBoxPanel::OnCommand(int evt, int id, int arg)
+{
+    FUN_005061e0((int)this, evt, id, arg);
+}
+
+void CItemDescriptionTooltip::Update()
+{
+    FUN_00506dc0((int)this);
+}
+
+static CPanelListNode *ManagerListHead(void *manager)
+{
+    return *(CPanelListNode **)((unsigned char *)manager + 4);
+}
+
+/* 0x508910 - FUN_00508910, the room-password dialog. The manager is in
+ * EDI. 0x508926-0x508948 walk it for (typeId 0, id 2) and BringToFront the
+ * match (0x508978, ECX = manager, EDX = panel). Otherwise:
+ * operator new(0x90), CPanel ctor, vtable 0x557dc8 (0x508970), then
+ * id 2, +0x4c 0, frame 0x2714/0, rect (0xf3, 0xca, 0x139, 0xa0)
+ * (0x5089a8-0x5089d5), the edit box (0, 0x63, 0x38, 0xbe, 0xc, 4)
+ * (0x5089dc), the focus sweep `push edi / call 0x50efa0`, SetFocus(1)
+ * through its slot 0 (0x5089f5), labels (0, 0x5dd) and (1, 0x5dc) at
+ * (0xd5|0x80, 0x76, 0x52, 0x22), and `push ebx / mov eax,edi /
+ * call 0x50eea0`. */
+extern "C" void FUN_00508910(int regEdi)
+{
+    void *manager = (void *)regEdi;
+    for (CPanelListNode *n = ManagerListHead(manager); n != 0; n = n->m_next) {
+        CPanel *q = n->m_panel;
+        if (q->m_typeId == 0 && q->m_id == 2) {
+            PanelManager_BringToFront(manager, q);
+            return;
+        }
+    }
+    CRoomPasswordDialog *p = new CRoomPasswordDialog();
+    p->m_id = 2;
+    p->m_unk4c = 0;
+    p->m_unk44 = 0x2714;
+    p->m_unk48 = 0;
+    p->m_x = 0xf3;
+    p->m_y = 0xca;
+    p->m_width = 0x139;
+    p->m_height = 0xa0;
+    CEditBox *entry = CreateTextEntryWidget(0, 0x63, 0x38, 0xbe, 0xc, 4);
+    p->AddChild(entry);
+    PanelManager_ClearAllFocus(manager);
+    entry->SetFocus(true);
+    p->AddChild(CreateLabelWidget(0, 0x5dd, 0xd5, 0x76, 0x52, 0x22));
+    p->AddChild(CreateLabelWidget(1, 0x5dc, 0x80, 0x76, 0x52, 0x22));
+    PanelManager_Register(manager, p);
+}
+
+/* 0x508a50 - FUN_00508a50, the room-title dialog (ret 8: manager, text).
+ * 0x508a6b-0x508a97 walk for (typeId 0, id 3); a match jumps straight to
+ * the exit (0x508a8f -> 0x508b74), with no BringToFront. Otherwise:
+ * operator new(0x90), CPanel ctor, vtable 0x557c0c and +0x38 = 1
+ * (0x508aba/0x508ac0), id 3, +0x4c 0, frame 0x2710/8, and the rect
+ * stored as +0x28 0x139, +0x2c 0xa0, +0x30 0xf3, +0x34 0xca
+ * (0x508af2-0x508b07, as the original orders them). The edit box is
+ * (0, 0x6a, 0x48, 0xb6, 0xc, 0x14). After the focus sweep and SetFocus(1),
+ * 0x506f60 seeds its EDIT control with the text (EDI = the box,
+ * ESI = [esp+0x24], the text). Then labels (0, 0x4ba) and (1, 0x4bb) and
+ * the Register. The original returns whatever EAX holds. The raw port
+ * returned 0, and so does this. */
+extern "C" unsigned int FUN_00508a50(int param_1, char *param_2)
+{
+    void *manager = (void *)param_1;
+    for (CPanelListNode *n = ManagerListHead(manager); n != 0; n = n->m_next) {
+        CPanel *q = n->m_panel;
+        if (q->m_typeId == 0 && q->m_id == 3) {
+            return 0;
+        }
+    }
+    CRoomTitleDialog *p = new CRoomTitleDialog();
+    p->m_id = 3;
+    p->m_unk4c = 0;
+    p->m_unk44 = 0x2710;
+    p->m_unk48 = 8;
+    p->m_x = 0x139;
+    p->m_y = 0xa0;
+    p->m_width = 0xf3;
+    p->m_height = 0xca;
+    CEditBox *entry = CreateTextEntryWidget(0, 0x6a, 0x48, 0xb6, 0xc, 0x14);
+    p->AddChild(entry);
+    PanelManager_ClearAllFocus(manager);
+    entry->SetFocus(true);
+    TextEntry_SetControlText(param_2, entry);
+    p->AddChild(CreateLabelWidget(0, 0x4ba, 0xd5, 0x76, 0x52, 0x22));
+    p->AddChild(CreateLabelWidget(1, 0x4bb, 0x80, 0x76, 0x52, 0x22));
+    PanelManager_Register(manager, p);
+    return 0;
+}
+
+/* 0x508b90 - FUN_00508b90, the add-buddy dialog. Manager in EDI;
+ * 0x508ba6-0x508bc8 walk for (typeId 0, id 10000) and BringToFront the
+ * match (0x508bfa). Otherwise: operator new(0xa8), CPanel ctor, vtable
+ * 0x557e68 (0x508bf0), id 10000, +0x4c 0, frame 0x2c6/1, rect (0x119, 0xce,
+ * 0xf1, 0x94) (0x508c28-0x508c55), the edit box (0, 0x32, 0x58, 0x8c, 0xc,
+ * 0xc), the focus sweep, SetFocus(1), labels (0, 0x2c8) and (1, 0x2c9) at
+ * (0x42|0x97, 0x6b, 0x4a, 0x1a), then the CStaticText (0x15, 0x2d, 200,
+ * 0x1e, GetLocalizedString(0x796eec, 4000), 0xffff) (0x508cae-0x508cce)
+ * and the Register. */
+extern "C" void FUN_00508b90(int regEdi)
+{
+    void *manager = (void *)regEdi;
+    for (CPanelListNode *n = ManagerListHead(manager); n != 0; n = n->m_next) {
+        CPanel *q = n->m_panel;
+        if (q->m_typeId == 0 && q->m_id == 10000) {
+            PanelManager_BringToFront(manager, q);
+            return;
+        }
+    }
+    CAddBuddyDialog *p = new CAddBuddyDialog();
+    p->m_id = 10000;
+    p->m_unk4c = 0;
+    p->m_unk44 = 0x2c6;
+    p->m_unk48 = 1;
+    p->m_x = 0x119;
+    p->m_y = 0xce;
+    p->m_width = 0xf1;
+    p->m_height = 0x94;
+    CEditBox *entry = CreateTextEntryWidget(0, 0x32, 0x58, 0x8c, 0xc, 0xc);
+    p->AddChild(entry);
+    PanelManager_ClearAllFocus(manager);
+    entry->SetFocus(true);
+    p->AddChild(CreateLabelWidget(0, 0x2c8, 0x42, 0x6b, 0x4a, 0x1a));
+    p->AddChild(CreateLabelWidget(1, 0x2c9, 0x97, 0x6b, 0x4a, 0x1a));
+    p->AddChild(CreateStaticTextWidget(0x15, 0x2d, 200, 0x1e,
+        (const char *)GetLocalizedString(&g_localizedStringTable, 4000), 0xffff));
+    PanelManager_Register(manager, p);
+}
+
+/* 0x509030 - BuildItemTooltipPanel (ret 8: manager, text). Not a
+ * singleton: operator new(0x90), CPanel ctor, vtable 0x557e18
+ * (0x50906c), id 0x2713, +0x4c 0, frame 0x2c6/2, rect (0x12d, 0xd9, 200,
+ * 0x8a) (0x509090-0x5090c1), the label (0, 0x2ca, 0x82, 0x66, 0x37, 0x1a),
+ * the CStaticText (0x17, 0x2b, 0x9a, 0x33, text, 0xffff), and the Register
+ * with EAX = [esp+0x18], the manager. */
+extern "C" void BuildItemTooltipPanel(void *manager, const char *text)
+{
+    CItemTooltipPanel *p = new CItemTooltipPanel();
+    p->m_id = 0x2713;
+    p->m_unk4c = 0;
+    p->m_unk44 = 0x2c6;
+    p->m_unk48 = 2;
+    p->m_x = 0x12d;
+    p->m_y = 0xd9;
+    p->m_width = 200;
+    p->m_height = 0x8a;
+    p->AddChild(CreateLabelWidget(0, 0x2ca, 0x82, 0x66, 0x37, 0x1a));
+    p->AddChild(CreateStaticTextWidget(0x17, 0x2b, 0x9a, 0x33, text, 0xffff));
+    PanelManager_Register(manager, p);
+}
+
+/* 0x509410 - FUN_00509410 (ret 8: manager, text), the same message-box
+ * shape: vtable 0x557d28 (0x50944c), id 0x7531, +0x4c 0, frame 0x320/1,
+ * rect (0x11d, 0xdf, 0xe7, 0x72) (0x509470-0x5094a1), the label (0, 0x323,
+ * 0x9a, 0x55, 0x3d, 0x17), the CStaticText (0x16, 0x27, 0xbb, 0x25, text,
+ * 0xffff), and the Register. */
+extern "C" void FUN_00509410(void *manager, const char *text)
+{
+    CMessageBoxPanel *p = new CMessageBoxPanel();
+    p->m_id = 0x7531;
+    p->m_unk4c = 0;
+    p->m_unk44 = 0x320;
+    p->m_unk48 = 1;
+    p->m_x = 0x11d;
+    p->m_y = 0xdf;
+    p->m_width = 0xe7;
+    p->m_height = 0x72;
+    p->AddChild(CreateLabelWidget(0, 0x323, 0x9a, 0x55, 0x3d, 0x17));
+    p->AddChild(CreateStaticTextWidget(0x16, 0x27, 0xbb, 0x25, text, 0xffff));
+    PanelManager_Register(manager, p);
+}
+
+/* 0x5095d0 - BuildItemDescriptionTooltip (ret 8: manager, item id).
+ * 0x5095e9-0x509619 walk for (typeId 0, id 40000); a match only gets
+ * +0x1d = 1 (0x50961b) and falls through to the build. operator new(0x110),
+ * CPanel ctor, vtable 0x557c5c and +0x38 = 1 (0x509640/0x509646), id 40000,
+ * +0x4c 0, frame 0x2710/10, rect (0x156, 0x17d, 0xab, 0x8b)
+ * (0x50965e-0x50968b). The name returned by 0x41eb10 (FindItemRecordByIcon,
+ * pushed ctx and id) is copied to +0x90 (0x509697-0x5096a8). The
+ * description from 0x41eb80 (FUN_0041eb80, the same two arguments) becomes
+ * the CStaticText (0x17, 0x22, 0x8c, 0x4c, desc, 0xffff), followed by the
+ * Register. The raw port also wrote through an uninitialised
+ * unaff_FS_OFFSET (the SEH link at 0x5095d0-0x5095e2), which this port
+ * does not reproduce. */
+extern "C" void BuildItemDescriptionTooltip(void *manager, int itemId)
+{
+    for (CPanelListNode *n = ManagerListHead(manager); n != 0; n = n->m_next) {
+        CPanel *q = n->m_panel;
+        if (q->m_typeId == 0 && q->m_id == 40000) {
+            q->m_unk1d = 1;
+            break;
+        }
+    }
+    CItemDescriptionTooltip *p = new CItemDescriptionTooltip();
+    p->m_id = 40000;
+    p->m_unk4c = 0;
+    p->m_unk44 = 10000;
+    p->m_unk48 = 10;
+    p->m_x = 0x156;
+    p->m_y = 0x17d;
+    p->m_width = 0xab;
+    p->m_height = 0x8b;
+    {
+        const char *src = (const char *)FindItemRecordByIcon(g_clientContext, itemId);
+        char *dst = p->m_itemName;
+        while ((*dst++ = *src++) != 0) {}
+    }
+    p->AddChild(CreateStaticTextWidget(0x17, 0x22, 0x8c, 0x4c,
+        FUN_0041eb80(g_clientContext, itemId), 0xffff));
+    PanelManager_Register(manager, p);
+}
+
 /* 0x50e420 - the panel press core (bound as the panel-family slot-2
  * default). Pressed-state (+0x04) follows the rect test; children get
  * the mouse-down broadcast; a miss on both drops focus (a real virtual

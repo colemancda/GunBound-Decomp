@@ -14,6 +14,11 @@
  * evt==0x1000/id==1. Raw/near-verbatim port of Ghidra's decompiler
  * output otherwise, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * WIRED (2026-10-30): the builder 0x508a50 now lives in src/cxx/Panel.cpp
+ * and builds a C++ CRoomTitleDialog (vtable 0x557c0c) whose OnCommand
+ * forwards here with `this` first. The dedup id is the literal 3
+ * (`mov edi,3` at 0x508a74), not a parameter as said above.
  */
 #include "ghidra_types.h"
 
