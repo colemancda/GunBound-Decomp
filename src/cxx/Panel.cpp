@@ -708,7 +708,7 @@ void CAvatarStorePanel::Draw()
  * never re-enters a virtual. Its row renderers RenderAvatarListRow and
  * RenderAvatarListDragRow were rewritten from the disassembly with all
  * seven BlitSpriteText arguments before this was wired. */
-extern "C" int FUN_0050a030(CWidget *this_, int x, int y);
+extern "C" int AvatarStorePanel_OnMouseMove(CWidget *this_, int x, int y);
 extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y);
 extern "C" int FUN_0050a320(CWidget *this_, int x, int y);
 extern "C" void __fastcall FUN_0050aa10(int this_);
@@ -754,7 +754,7 @@ void CEnterRoomNumberDialog::OnCommand(int evt, int id, int arg)
 
 bool CAvatarStorePanel::OnMouseMove(int x, int y)
 {
-    return (unsigned char)FUN_0050a030(this, x, y) != 0;
+    return (unsigned char)AvatarStorePanel_OnMouseMove(this, x, y) != 0;
 }
 
 bool CAvatarStorePanel::OnMouseDown(int x, int y)

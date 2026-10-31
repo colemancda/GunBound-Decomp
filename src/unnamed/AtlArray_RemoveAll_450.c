@@ -89,7 +89,7 @@
  * inside the GB_OP_BUY_RESPONSE success arm; +0x44e50 the merged list the
  * 0x6004 request is built from. The element is the avatar-item record
  * already characterised elsewhere: EquipAvatarPart, UnequipAvatarSlot,
- * RefreshConnectionStatusLabel, FUN_0050a030, RenderAvatarListRow, RenderAvatarListDragRow and
+ * RefreshConnectionStatusLabel, AvatarStorePanel_OnMouseMove, RenderAvatarListRow, RenderAvatarListDragRow and
  * FUN_00424400 all index *(g_clientContext + 0x44e20) by 0x450 and read the
  * guarded part-code cell at +0x22c, bounds-checked against the count at
  * +0x44e24 -- the m_pData/m_nSize pair at +0/+4 of the struct this function

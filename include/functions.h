@@ -1721,7 +1721,7 @@ undefined4 * BuildLobbyChatPanel(int *panelManager,int selectedTab);
 undefined4 * BuildChannelUserListPanel();
 undefined4 * BuildAvatarStorePanel();
 void __fastcall PanelManager_ReleasePool(undefined4 *param_1);
-undefined4 __thiscall FUN_0050a030();
+undefined4 __thiscall AvatarStorePanel_OnMouseMove();
 uint __thiscall FUN_0050a1b0();
 undefined4 __thiscall FUN_0050a320();
 undefined4 __thiscall AvatarStorePanel_HitTest();

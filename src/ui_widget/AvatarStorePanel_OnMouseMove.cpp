@@ -1,8 +1,16 @@
-/* FUN_0050a030 - 0x0050a030 in the original binary.
+/* AvatarStorePanel_OnMouseMove - 0x0050a030 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NAMED 2026-10-31, CERTAIN (was FUN_0050a030). The word at
+ * 0x557eb8+0x4 is 0x50a030, and vtable 0x557eb8 is stored only by
+ * BuildAvatarStorePanel (at 0x509ea5). Slots 4, 7 and 8 of the same
+ * vtable are the already-named AvatarStorePanel_HitTest,
+ * AvatarStorePanel_OnCommand and AvatarStorePanel_Draw; slot 1 is
+ * CWidget::OnMouseMove(x, y) in src/cxx/Widget.h, which
+ * CAvatarStorePanel::OnMouseMove in src/cxx/Panel.cpp forwards here.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 4 argless sites.  EDI is set once before 0x50a073 to
@@ -47,7 +55,7 @@ void ThrowCxxException(long hr);
 unsigned int FUN_004240c0(unsigned int ctx, int a, int b, unsigned int c, int outRecord);
 }
 
-extern "C" int FUN_0050a030(CWidget *this_, int x, int y)
+extern "C" int AvatarStorePanel_OnMouseMove(CWidget *this_, int x, int y)
 
 {
   unsigned char *puVar1;

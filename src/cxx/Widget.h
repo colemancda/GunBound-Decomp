@@ -392,8 +392,9 @@ class CAvatarStorePanel : public CPanel {      /* vtable 0x557eb8; builder 0x509
 public:
     CAvatarStorePanel();                       /* inlined in the builder */
     virtual bool OnMouseMove(int x, int y);    /* 0x50a030 - Panel.cpp forwards to the C++
-                                                * FUN_0050a030 (slot 1: commits a pending
-                                                * row selection, then the child move
+                                                * AvatarStorePanel_OnMouseMove (slot 1:
+                                                * commits a pending row selection, then
+                                                * the child move
                                                 * broadcast and rect test) */
     virtual bool OnMouseDown(int x, int y);    /* 0x50a1b0 - Panel.cpp forwards to the C++
                                                 * FUN_0050a1b0 (slot 2: row pick, then
