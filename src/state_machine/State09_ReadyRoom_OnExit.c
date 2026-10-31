@@ -25,6 +25,16 @@
  * and the flag both go on the stack - the same idiom as
  * State06_Logo2_OnExit.c (commits 4ac78dd1, 4cce0728). */
 typedef void (*ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
+/* ROOM-SLOT DESTRUCTORS FIXED (2026-10-30): the final loop frees the
+ * room-slot pair at state+0x6fc/+0x700 through slot 0,
+ *   0x4d7af6 mov ecx,[esi-4] / mov eax,[ecx] / push 1 / call [eax]
+ *   0x4d7b03 mov ecx,[esi]   / mov edx,[ecx] / push 1 / call [edx]
+ * with ESI = state+0x700 + slot*8. The raw calls passed only the flag,
+ * with no `this`. The slot-0 targets are
+ * DeletePoisonedBaseObject (vtable 0x556a40) and FUN_0044fc90 (0x555b38),
+ * both raw-C ports with __thiscall erased to cdecl, so the object and the
+ * flag go on the stack through the same ListNodeVirtualFn as the sprite
+ * walks above. */
 
 
 void __fastcall State09_ReadyRoom_OnExit(int param_1)
@@ -322,10 +332,10 @@ LAB_004d7a8d:
   iVar7 = 8;
   do {
     if ((undefined4 *)piVar6[-1] != (undefined4 *)0x0) {
-      (*(code *)**(undefined4 **)piVar6[-1])(1);
+      (*(ListNodeVirtualFn *)*(undefined4 *)piVar6[-1])((void *)piVar6[-1], 1);
     }
     if ((undefined4 *)*piVar6 != (undefined4 *)0x0) {
-      (*(code *)**(undefined4 **)*piVar6)(1);
+      (*(ListNodeVirtualFn *)*(undefined4 *)*piVar6)((void *)*piVar6, 1);
     }
     piVar6[-1] = 0;
     *piVar6 = 0;

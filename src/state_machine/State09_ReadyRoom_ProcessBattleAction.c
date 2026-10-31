@@ -12,6 +12,17 @@
 #include "opcodes.h"
 #include <windows.h>
 
+/* Slot 1 of the room-slot pair at state+0x6fc/+0x700 (vtables 0x556a40 and
+ * 0x555b38, both slot 1 = 0x461c60): __thiscall(name) with one callee-cleaned
+ * stack argument. Both port tables point it at AvatarWidget_SetNamedState,
+ * so the call is __fastcall + dummy EDX. */
+typedef void (__fastcall *VtableSlot1StrFn)(void *thisPtr, int dummyEDX, const char *str);
+/* ROOM-SLOT DISPATCH FIXED (2026-10-30): the six slot-1 calls on
+ * state+0x6fc/+0x700 + slot*8 passed only the name. Original, ECX = the
+ * object each time: 0x4d51e6/0x4d51ef and 0x4d51f2/0x4d5202,
+ * 0x4d5442/0x4d5450 and 0x4d5453/0x4d5463, 0x4d5489/0x4d5497 and
+ * 0x4d549a/0x4d54a8. */
+
 
 void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,int packetLen)
 
@@ -59,8 +70,8 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
           pcVar6 = s_normal_00552230;
         }
         *(undefined4 *)(*(int *)((int)this + uVar7 * 8 + 0x6fc) + 0x1c) = uVar5;
-        (**(code **)(**(int **)((int)this + uVar7 * 8 + 0x6fc) + 4))(pcVar6);
-        (**(code **)(**(int **)((int)this + uVar7 * 8 + 0x700) + 4))(s_normal_00552230);
+        (*(VtableSlot1StrFn *)(**(int **)((int)this + uVar7 * 8 + 0x6fc) + 4))(*(void **)((int)this + uVar7 * 8 + 0x6fc),0,pcVar6);
+        (*(VtableSlot1StrFn *)(**(int **)((int)this + uVar7 * 8 + 0x700) + 4))(*(void **)((int)this + uVar7 * 8 + 0x700),0,s_normal_00552230);
         return;
       }
       if (uVar2 < 0x8003 /* switch-ladder split, not a match on GB_ACT_CHAT_BUFFER_UPDATE */) {
@@ -219,14 +230,14 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         _sprintf(local_488,s_tank_d_00553fa0,cVar3 + 1);
         uVar5 = FindPreloadedTextureByName(local_488);
         *(undefined4 *)(*(int *)((int)this + uVar9 * 8 + 0x6fc) + 0x1c) = uVar5;
-        (**(code **)(**(int **)((int)this + uVar9 * 8 + 0x6fc) + 4))(s_normal_00552230);
-        (**(code **)(**(int **)((int)this + uVar9 * 8 + 0x700) + 4))(s_normal_00552230);
+        (*(VtableSlot1StrFn *)(**(int **)((int)this + uVar9 * 8 + 0x6fc) + 4))(*(void **)((int)this + uVar9 * 8 + 0x6fc),0,s_normal_00552230);
+        (*(VtableSlot1StrFn *)(**(int **)((int)this + uVar9 * 8 + 0x700) + 4))(*(void **)((int)this + uVar9 * 8 + 0x700),0,s_normal_00552230);
         return;
       }
       uVar5 = FindPreloadedTextureByName(s_rider_00553f98);
       *(undefined4 *)(*(int *)((int)this + uVar9 * 8 + 0x6fc) + 0x1c) = uVar5;
-      (**(code **)(**(int **)((int)this + uVar9 * 8 + 0x6fc) + 4))(&DAT_00553f90);
-      (**(code **)(**(int **)((int)this + uVar9 * 8 + 0x700) + 4))(s_normal_00552230);
+      (*(VtableSlot1StrFn *)(**(int **)((int)this + uVar9 * 8 + 0x6fc) + 4))(*(void **)((int)this + uVar9 * 8 + 0x6fc),0,(const char *)&DAT_00553f90);
+      (*(VtableSlot1StrFn *)(**(int **)((int)this + uVar9 * 8 + 0x700) + 4))(*(void **)((int)this + uVar9 * 8 + 0x700),0,s_normal_00552230);
     }
     else if (((uVar2 == GB_ACT_GAME_START_COUNTDOWN) && (*(char *)((int)this + 0x4cc) == '\0')) &&
             (*(int *)((int)this + 0x4d4) == -1)) {

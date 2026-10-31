@@ -1422,7 +1422,7 @@ extern void *PTR_FUN_00544b74;
 extern void *PTR_FUN_00551cb4;
 extern void *PTR_FUN_00551cf0;
 extern void *PTR_FUN_00551e88;
-extern void *PTR_FUN_0055208c;
+extern void *PTR_FUN_0055208c[5]; /* text-box vtable - see globals.c */
 extern void *PTR_FUN_005520a0;
 extern void *PTR_FUN_00555aa4;
 extern void *PTR_FUN_00555ac4;
@@ -1521,7 +1521,7 @@ extern void *PTR_FUN_00556660;
 extern void *PTR_FUN_00556680;
 extern void *PTR_FUN_005566a0;
 extern void *PTR_FUN_005566c0;
-extern void *PTR_FUN_00556a40;
+extern void *PTR_FUN_00556a40[5]; /* State09 room-slot object vtable - see globals.c */
 extern void *PTR_FUN_005572dc;
 extern void *PTR_FUN_005572e8[2];
 extern void *PTR_FUN_005572f0;

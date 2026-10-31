@@ -11,6 +11,16 @@
  */
 #include "ghidra_types.h"
 
+/* Slot 2 (the per-frame tick) of the room-slot pair at state+0x6fc/+0x700:
+ * FUN_004d3750 (vtable 0x556a40) and FUN_0044fcb0 (0x555b38), both ported
+ * __fastcall(int *this) with no stack arguments.
+ * ROOM-SLOT DISPATCH FIXED (2026-10-30): the loop at 0x4d7d05-0x4d7d0f is
+ * `mov eax,[esi] / test / je / mov ecx,eax / mov eax,[ecx] / call [eax+8]`
+ * over both pointers of each pair. The raw `code *` call passed nothing,
+ * and the 0x6fc objects' vtable was a null placeholder until
+ * PTR_FUN_00556a40 got its slots. */
+typedef void (__fastcall *RoomSlotTickFn)(int *thisPtr);
+
 
 void __fastcall State09_ReadyRoom_OnTick(int param_1)
 
@@ -90,7 +100,7 @@ LAB_004d7cd2:
     iVar4 = 2;
     do {
       if ((int *)*piVar5 != (int *)0x0) {
-        (**(code **)(*(int *)*piVar5 + 8))();
+        (*(RoomSlotTickFn *)(*(int *)*piVar5 + 8))((int *)*piVar5);
       }
       piVar5 = piVar5 + 1;
       iVar4 = iVar4 + -1;

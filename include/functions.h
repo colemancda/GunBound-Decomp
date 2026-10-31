@@ -489,6 +489,10 @@ void NoOpMethod();
 /* State07 avatar-widget vtable slot 1 adapter (no-op; the real target
  * ResolveNamedState stays a bring-up bypass) - see the .c's header. */
 void __fastcall AvatarWidget_SetNamedState(void *thisPtr, int dummyEDX, const char *name);
+/* Slot-0 adapter for the text-box vtable 0x55208c (DeletePoisonedBaseObject
+ * taking `this` in ECX) - see its .c header. */
+void * __fastcall TextBoxWidget_ScalarDelete(void *thisPtr, int dummyEDX, int freeFlag);
+void __fastcall FUN_004d3750(int *param_1);
 void __fastcall NoOpMethodStdcall1();
 void SendJoinRoomChecked(int regEax);
 void __fastcall OpenCreateRoomDialog();

@@ -1166,7 +1166,28 @@ void *PTR_FUN_00544b74;
 void *PTR_FUN_00551cb4;
 void *PTR_FUN_00551cf0;
 void *PTR_FUN_00551e88;
-void *PTR_FUN_0055208c;
+/* The text box's vtable (orig .data 0x55208c, 5 slots; InitTextBoxWidget
+ * stamps it). Was a lone NULL `void *`, so every slot read past it. Its
+ * objects are the only nodes of g_activeObjectRegistry2, whose dispatchers
+ * call C++-style (`this` in ECX): SweepActiveObjectRegistry slot 0
+ * __fastcall(this, dummy, flag), DrawActiveObjectRegistry slot 3
+ * __fastcall(this), RemoveTextBoxWidget slot 0. Slots from the original:
+ *   0 0x40ca00 DeletePoisonedBaseObject - via the ECX adapter
+ *              TextBoxWidget_ScalarDelete
+ *   1 0x461c60 ResolveNamedState - AvatarWidget_SetNamedState, the same
+ *              adapter PTR_FUN_00555b38 uses for this target
+ *   2 0x429800 NoOpMethod
+ *   3 0x40ca20 the text box's draw - UNCARVED (832 bytes, a word-wrapping
+ *              text renderer). Left null: no port exists and no base body
+ *              is provable for it.
+ *   4 0x429800 NoOpMethod */
+void *PTR_FUN_0055208c[5] = {
+  (void *)TextBoxWidget_ScalarDelete,
+  (void *)AvatarWidget_SetNamedState,
+  (void *)NoOpMethod,
+  (void *)0,
+  (void *)NoOpMethod,
+};
 void *PTR_FUN_005520a0;
 void *PTR_FUN_00555aa4;
 void *PTR_FUN_00555ac4;
@@ -1278,7 +1299,26 @@ void *PTR_FUN_00556660;
 void *PTR_FUN_00556680;
 void *PTR_FUN_005566a0;
 void *PTR_FUN_005566c0;
-void *PTR_FUN_00556a40;
+/* The room-slot objects' vtable (orig .data 0x556a40, 5 slots; stamped
+ * by State09_ReadyRoom_OnEnter on the 0x38-byte objects at state+0x6fc,
+ * one per room slot). Was a lone NULL `void *`. These objects are only
+ * dispatched by State09's own loops, which dispatch the paired avatar
+ * widget at +0x700 (PTR_FUN_00555b38) in the same statements, so each
+ * slot here takes the convention of the matching 0x555b38 slot:
+ *   0 0x40ca00 DeletePoisonedBaseObject (cdecl this, flag - like
+ *              FUN_0044fc90; State09_ReadyRoom_OnExit 0x4d7b01)
+ *   1 0x461c60 ResolveNamedState - AvatarWidget_SetNamedState
+ *              (__fastcall + dummy EDX)
+ *   2 0x4d3750 FUN_004d3750 (__fastcall this - like FUN_0044fcb0;
+ *              State09_ReadyRoom_OnTick 0x4d7d0f)
+ *   3 0x429800 NoOpMethod
+ *   4 0x429800 NoOpMethod */
+void *PTR_FUN_00556a40[5] = {
+  (void *)DeletePoisonedBaseObject,
+  (void *)AvatarWidget_SetNamedState,
+  (void *)FUN_004d3750,
+  (void *)NoOpMethod, (void *)NoOpMethod,
+};
 void *PTR_FUN_005572dc;
 /* Connection object's 2-entry vtable {HandleSocketEvent, NoOpMethod} -
  * decoded byte-for-byte from orig .data 0x5572e8-0x5572ef (values

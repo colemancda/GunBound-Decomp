@@ -1189,10 +1189,10 @@ vtable 0x5569f8  installs=2  slots=18
   16: 0x429800  NoOpMethod
   17: 0x429800  NoOpMethod
 
-vtable 0x556a40  installs=1  slots=5  UNCARVED=1
+vtable 0x556a40  installs=1  slots=5
    0: 0x40ca00  DeletePoisonedBaseObject
    1: 0x461c60  ResolveNamedState
-   2: 0x4d3750  UNCARVED
+   2: 0x4d3750  FUN_004d3750
    3: 0x429800  NoOpMethod
    4: 0x429800  NoOpMethod
 

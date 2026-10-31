@@ -31,6 +31,21 @@
 typedef void (__fastcall *WidgetSetStateFn)(void *thisPtr, int dummyEDX, const char *name);
 #include <windows.h>
 
+/* Slot 1 of the room-slot pair at state+0x6fc/+0x700 (vtables 0x556a40 and
+ * 0x555b38, both slot 1 = 0x461c60): __thiscall(name) with one callee-cleaned
+ * stack argument. Both port tables point it at AvatarWidget_SetNamedState,
+ * so the call is __fastcall + dummy EDX. */
+typedef void (__fastcall *VtableSlot1StrFn)(void *thisPtr, int dummyEDX, const char *str);
+/* ROOM-SLOT DISPATCH FIXED (2026-10-30): the four slot-1 calls on the
+ * room-slot objects passed only the name and no `this`. Original:
+ *   0x4d7240 mov ecx,[ebx] / ... / mov edx,[ecx] / push 0x553f90 / call [edx+4]
+ *   0x4d725c mov eax,[ecx] / push 0x552230 / call [eax+4]   (ECX = [ebx])
+ *   0x4d75a3 mov ecx,[ebx] / mov eax,[ecx] / call [eax+4]   (+0x6fc object)
+ *   0x4d75aa mov ecx,[ebx+4] / mov edx,[ecx] / push 0x552230 / call [edx+4]
+ *                                                         (+0x700 widget)
+ * EBX walks state+0x6fc in steps of 8. The 0x6fc objects now get a real
+ * vtable (PTR_FUN_00556a40, globals.c). */
+
 
 /* WARNING: Removing unreachable block (ram,0x004d70a8) */
 /* WARNING: Removing unreachable block (ram,0x004d70b2) */
@@ -257,10 +272,10 @@ LAB_004d722d:
     iVar4 = g_clientContext;
     *(undefined **)(puVar10[1] + 0x1c) = puVar3;
     if (*(char *)(iStack_94 + iVar4) == -1) {
-      (**(code **)(*(int *)*puVar10 + 4))(&DAT_00553f90);
+      (*(VtableSlot1StrFn *)(*(int *)*puVar10 + 4))((void *)*puVar10,0,(const char *)&DAT_00553f90);
     }
     else {
-      (**(code **)(*(int *)*puVar10 + 4))(s_normal_00552230);
+      (*(VtableSlot1StrFn *)(*(int *)*puVar10 + 4))((void *)*puVar10,0,s_normal_00552230);
     }
     iStack_94 = iVar5 + 2;
     puVar10 = puVar10 + 2;
@@ -380,8 +395,8 @@ LAB_004d7599:
     }
 LAB_004d759e:
     *(undefined **)(*piVar11 + 0x1c) = puVar3;
-    (**(code **)(*(int *)*piVar11 + 4))(pcVar9);
-    (**(code **)(*(int *)piVar11[1] + 4))(s_normal_00552230);
+    (*(VtableSlot1StrFn *)(*(int *)*piVar11 + 4))((void *)*piVar11,0,pcVar9);
+    (*(VtableSlot1StrFn *)(*(int *)piVar11[1] + 4))((void *)piVar11[1],0,s_normal_00552230);
     iStack_94 = iStack_94 + 2;
     pvStack_90 = (void *)((int)pvStack_90 + 1);
     piVar11 = piVar11 + 2;

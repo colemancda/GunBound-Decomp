@@ -51,6 +51,16 @@ typedef void (*ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
  * __thiscall with ret 4. */
 typedef void *(__fastcall *WidgetDeleteFn)(void *thisPtr, int dummyEDX, int freeFlag);
 
+/* Slot 1 of the room-slot pair at state+0x6fc/+0x700 (vtables 0x556a40 and
+ * 0x555b38, both slot 1 = 0x461c60): __thiscall(name) with one callee-cleaned
+ * stack argument. Both port tables point it at AvatarWidget_SetNamedState,
+ * so the call is __fastcall + dummy EDX. */
+typedef void (__fastcall *VtableSlot1StrFn)(void *thisPtr, int dummyEDX, const char *str);
+/* ROOM-SLOT DISPATCH FIXED (2026-10-30): the slot-1 pair in the room
+ * reset loop passed only the name. Original: 0x4d4cd0 mov ecx,[edi] /
+ * mov edx,[ecx] / push 0x552230 / call [edx+4], then 0x4d4cdc
+ * mov ecx,[edi+4] / ... / call [eax+4], with EDI = state+0x6fc + slot*8. */
+
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -810,8 +820,8 @@ LAB_004d49a5:
 LAB_004d4cc7:
           piVar24 = piStack_990;
           *(undefined **)(*piStack_990 + 0x1c) = puVar23;
-          (**(code **)(*(int *)*piStack_990 + 4))(s_normal_00552230);
-          (**(code **)(*(int *)piVar24[1] + 4))(s_normal_00552230);
+          (*(VtableSlot1StrFn *)(*(int *)*piStack_990 + 4))((void *)*piStack_990,0,s_normal_00552230);
+          (*(VtableSlot1StrFn *)(*(int *)piVar24[1] + 4))((void *)piVar24[1],0,s_normal_00552230);
           iVar17 = g_clientContext;
         }
         iVar19 = iVar19 + 0x448;

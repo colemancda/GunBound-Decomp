@@ -1001,6 +1001,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d34a0,65,FUN_004d34a0,false,1,0,RAW-src
 004d34f0,56,AppendToEncodedSocketBuffer,false,2,0,RAW-src
 004d3530,533,FlushEncodedSocketBuffer,false,2,11,RAW-src
+004d3750,27,FUN_004d3750,false,1,1,RAW-src
 004d3770,121,State09_ReadyRoom_Construct,false,1,1,RAW-src
 004d37f0,30,State09_ReadyRoom_Delete,false,1,2,RAW-src
 004d3810,163,State09_ReadyRoom_Destroy,false,1,2,RAW-src

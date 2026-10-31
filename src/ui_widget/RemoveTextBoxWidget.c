@@ -168,6 +168,16 @@
  */
 #include "ghidra_types.h"
 
+/* Slot 0 of a g_activeObjectRegistry2 node (a text box, vtable 0x55208c):
+ * TextBoxWidget_ScalarDelete in the port's table, __fastcall(this, dummy
+ * EDX, flag), the convention SweepActiveObjectRegistry uses on the same
+ * registry.
+ * DELETE DISPATCH FIXED (2026-10-30): the tail is `mov edx,[eax] / push 1 /
+ * mov ecx,eax / call [edx]`, with ECX = the found node. The raw `code *`
+ * call pushed only the flag, and the vtable it read through was a null
+ * placeholder until PTR_FUN_0055208c got its slots. */
+typedef void *(__fastcall *TextBoxDeleteFn)(void *thisPtr, int dummyEDX, int freeFlag);
+
 
 void __fastcall RemoveTextBoxWidget(undefined4 param_1,uint param_2,uint regEsi,int regEdi)
 
@@ -207,7 +217,7 @@ LAB_0040ce23:
   if (puVar3 != (undefined4 *)0x0) {
     *(undefined4 *)(puVar3[3] + 0x10) = puVar3[4];
     *(undefined4 *)(puVar3[4] + 0xc) = puVar3[3];
-    (**(code **)*puVar3)(1);
+    (*(TextBoxDeleteFn *)*puVar3)(puVar3,0,1);
   }
   return;
 }
