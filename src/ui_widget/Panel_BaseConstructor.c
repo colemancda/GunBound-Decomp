@@ -40,7 +40,7 @@ undefined4 * Panel_BaseConstructor(undefined4 *param_1)
   *(undefined1 *)(param_1 + 0xe) = 0;
   *(undefined1 *)((int)param_1 + 5) = 1;
   *param_1 = &PTR_LAB_00557bbc;
-  _eh_vector_constructor_iterator_(param_1 + 0x14,4,0x10,FUN_00426410,CString_Destruct);
+  _eh_vector_constructor_iterator_(param_1 + 0x14,4,0x10,CString_Construct,CString_Destruct);
   return param_1;
 }
 

@@ -476,7 +476,7 @@ void FUN_004261d0(int regEsi);
 void FUN_00426210();
 void FUN_00426230(int ctx);
 void SyncOutgoingChecksumField(void *self,int param_1,undefined4 param_2);
-int * __fastcall FUN_00426410();
+int * __fastcall CString_Construct();
 undefined4 __fastcall FUN_00426430();
 void Bitset_ThrowInvalidPosition();
 void __fastcall AtlArray_RemoveAt_CString(int param_1,int *regEbx,int regEsi);

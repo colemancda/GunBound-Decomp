@@ -1,4 +1,5 @@
 /* CPanel base + CWorldListPanel construction - promoted from the raw C
+ * (Historical notes below: FUN_00426410 is now CString_Construct.)
  * ports src/unnamed/Panel_BaseConstructor.c (the out-of-line CPanel ctor,
  * 0x505760) and src/ui_widget/BuildWorldListPanel.c (0x5099d0).
  * See src/cxx/README.md.
@@ -147,7 +148,7 @@ extern "C" CEditBox *CreateTextEntryWidget(int id, int x, int y, int w, int h, i
  * and CDeleteBuddyConfirmDialog storing the name) read header fields at
  * NULL-0xc and faulted.  FUN_00426410 (that ctor, now repaired) is called
  * per slot. */
-extern "C" int * __fastcall FUN_00426410(int *param_1);
+extern "C" int * __fastcall CString_Construct(int *param_1);
 CPanel::CPanel()
 {
     m_typeId = 0;
@@ -155,7 +156,7 @@ CPanel::CPanel()
     m_pinned = 0;
     m_unk05[0] = 1;
     for (int i = 0; i < 16; ++i) {
-        FUN_00426410((int *)&m_strings[i]);
+        CString_Construct((int *)&m_strings[i]);
     }
 }
 
