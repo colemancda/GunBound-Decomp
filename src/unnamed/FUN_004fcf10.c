@@ -1,5 +1,20 @@
 /* FUN_004fcf10 - 0x004fcf10 in the original binary.
  *
+ * FIX (2026-11-03): the two STILL-DROPPED registers below are now trailing
+ * parameters, regEax (the session object: `mov esi,eax` at 0x4fcf16, the
+ * first read of EAX) and regEbx (the 16-byte peer name: pushed at 0x4fcf1a,
+ * stored over the param_2 stack slot at 0x4fcf42).  All seven binary call
+ * sites set both in the calling block (EAX = `this` of the calling slot
+ * function, EBX = its first stack argument: 0x4fd639 `mov ebx,[ebp+8]` +
+ * `mov eax,[esp+0xc]` (saved ECX); 0x4fd7a9 `mov ebx,[ebp+8]` +
+ * `mov eax,[esp+0x14]`; 0x4fd7e7 `mov ebx,[esp+0xc]` + `mov eax,esi`
+ * (ESI = ECX); and the four in the carved siblings 0x4fd510/0x4fd650/
+ * 0x4fd810).  The relay-branch FUN_00502650 call also took the wrong
+ * payload: after the virtual call's `ret 4` the frame is back to
+ * entry-8, so `mov ecx,[esp+0xc]` at 0x4fcf4b is param_1 (the payload),
+ * not an `unaff_retaddr`, and `lea edx,[esp+0x18]` is the address of the
+ * param_2 slot that 0x4fcf42 filled with EBX, i.e. a one-entry name array.
+ *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
@@ -69,17 +84,17 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004fcf10(undefined4 param_1,undefined4 param_2,undefined4 regEdi)
+undefined4 FUN_004fcf10(undefined4 param_1,undefined4 param_2,undefined4 regEdi,int *regEax,
+                        undefined4 regEbx)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
-  undefined stack0x00000004;
+  undefined4 nameSlot = regEbx;   /* 0x4fcf42: EBX stored over the param_2 slot */
   char cVar1;
-  int *in_EAX;
-  undefined4 unaff_EBX;
+  int *in_EAX = regEax;
+  undefined4 unaff_EBX = regEbx;
   undefined4 unaff_EDI = regEdi;
-  undefined4 unaff_retaddr;
   
   cVar1 = (**(code **)(*in_EAX + 0x3c))();
   if (cVar1 != '\0') {
@@ -92,7 +107,7 @@ undefined4 FUN_004fcf10(undefined4 param_1,undefined4 param_2,undefined4 regEdi)
     return 0;
   }
   FUN_004fd030();
-  FUN_00502650(in_EAX,1,&stack0x00000004,unaff_retaddr,param_2);
+  FUN_00502650(in_EAX,1,&nameSlot,param_1,param_2);
   /* Ghidra emitted a bare `return;` in a value-returning function;
    * MSVC falls through with whatever's in EAX, gcc 14 rejects it
    * (-Wreturn-mismatch). This path's result is unused by callers -
