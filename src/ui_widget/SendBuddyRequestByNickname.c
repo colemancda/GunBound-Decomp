@@ -27,6 +27,14 @@
  * `push eax` where eax=[obj+0x2004] (connection object, param_2) / `push
  * eax` where eax=the just-computed new cursor (length, param_3 - already
  * held in iVar6).
+ *
+ * FIX (2026-11-03): the 4006 notice's sprintf dropped its %s argument.
+ * 0x402ae6 `mov edi,eax` keeps the name (regEax) in EDI; 0x402be8 `push
+ * edi` is pushed before `push 0xfa6 / push 0x796eec / call 0x43dc70`
+ * (GetLocalizedString), then `push eax / push &buf / call 0x5255de`
+ * (_sprintf) and `add esp,0xc` at 0x402c03 pops three arguments: (buf,
+ * format, name). The port passed only (buf, format), so %s read whatever
+ * followed on the stack; it now passes regEax.
  */
 #include "ghidra_types.h"
 
@@ -87,7 +95,9 @@ void SendBuddyRequestByNickname(int param_1,char *param_2,char *regEax)
     if (*(int **)(param_1 + 0x1bdc) != (int *)0x0) {
       (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x20))(&local_a0,g_clientContext + 0x23313,param_2);
       pcVar4 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa6);
-      _sprintf(acStack_8c,pcVar4);
+      /* 0x402be8 `push edi` (EDI = the name) before the string lookup:
+       * the %s argument. */
+      _sprintf(acStack_8c,pcVar4,regEax);
       BuildItemTooltipPanel(&g_uiPanelManager,acStack_8c);
       return;
     }
