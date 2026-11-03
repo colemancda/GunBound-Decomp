@@ -182,6 +182,8 @@ bool __fastcall HasPendingDirectLinkRecord(int param_1,int param_2,char *regEax)
 void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 param_3,undefined4 *regEax);
 void __thiscall FUN_00403ae0();
 void __thiscall FUN_00403d20(int param_1,char *param_2,undefined4 param_3,undefined4 param_4);
+/* Slot 9 of the 0x551cb8 notify interface (carved 2026-11-03). */
+void __thiscall FUN_00403e10(int param_1,char *param_2,undefined4 param_3,char *param_4);
 void __thiscall FUN_00403f30();
 void __thiscall FUN_00404330();
 void FUN_00404410();
