@@ -82,19 +82,19 @@ vtable 0x550378  installs=4  slots=1  UNCARVED=1
 vtable 0x551cb4  installs=2  slots=1
    0: 0x40ca00  DeletePoisonedBaseObject
 
-vtable 0x551cb8  installs=2  slots=14  UNCARVED=6
-   0: 0x403880  UNCARVED
-   1: 0x403890  UNCARVED
+vtable 0x551cb8  installs=2  slots=14
+   0: 0x403880  FUN_00403880
+   1: 0x403890  FUN_00403890
    2: 0x4038b0  NoOpMethodStdcall1
-   3: 0x4038c0  UNCARVED
+   3: 0x4038c0  FUN_004038c0
    4: 0x4038b0  NoOpMethodStdcall1
    5: 0x403ae0  FUN_00403ae0
-   6: 0x403c00  UNCARVED
+   6: 0x403c00  FUN_00403c00
    7: 0x403d20  FUN_00403d20
    8: 0x403f30  FUN_00403f30
    9: 0x403e10  FUN_00403e10
-  10: 0x403ff0  UNCARVED
-  11: 0x404140  UNCARVED
+  10: 0x403ff0  FUN_00403ff0
+  11: 0x404140  FUN_00404140
   12: 0x404330  FUN_00404330
   13: 0x4038b0  NoOpMethodStdcall1
 
@@ -1394,24 +1394,24 @@ vtable 0x5575b8  installs=2  slots=4  UNCARVED=2
    2: 0x5016d0  CommP2POwner_OnConnectionClosed
    3: 0x4fdef0  CGameState_NoOpVirtual_B
 
-vtable 0x5575c8  installs=2  slots=17  UNCARVED=5
-   0: 0x4fd3b0  UNCARVED
+vtable 0x5575c8  installs=2  slots=17
+   0: 0x4fd3b0  FUN_004fd3b0
    1: 0x4fd3c0  CommP2POwner_Release
    2: 0x4fd3e0  FUN_004fd3e0
    3: 0x4fd470  CommP2POwnerConnect
-   4: 0x4fd510  UNCARVED
+   4: 0x4fd510  FUN_004fd510
    5: 0x4fd680  FUN_004fd680
    6: 0x4fd590  FUN_004fd590
-   7: 0x4fd650  UNCARVED
+   7: 0x4fd650  FUN_004fd650
    8: 0x4fd730  FUN_004fd730
    9: 0x4fd7c0  FUN_004fd7c0
-  10: 0x4fd810  UNCARVED
+  10: 0x4fd810  FUN_004fd810
   11: 0x4fd880  FUN_004fd880
   12: 0x4fd960  FUN_004fd960
   13: 0x4fda50  FUN_004fda50
   14: 0x4fd9c0  FUN_004fd9c0
   15: 0x4fdb40  FUN_004fdb40
-  16: 0x4fdba0  UNCARVED
+  16: 0x4fdba0  FUN_004fdba0
 
 vtable 0x557610  installs=1  slots=17
    0: 0x525acd  __purecall

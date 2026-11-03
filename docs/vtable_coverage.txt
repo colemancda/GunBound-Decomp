@@ -82,9 +82,11 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
    3946b  0x555fdc  5 ( 5/ 5)     0     ~DeleteJewel
    3745b  0x557eb8 10 (10/10)     0     ~AvatarStorePanel_OnMouseMove
    3372b  0x5575a8  1 ( 1/ 1)     0     ~CommP2POwner_ProcessPacket
+   2869b  0x551cb8 14 (12/12)     0     ~NoOpMethodStdcall1
    2260b  0x555b54  5 ( 5/ 5)     0     ~DeletePoisonedBaseObject
    2105b  0x557cd4 10 (10/10)     0     ~LobbyChatPanel_OnCommand
    2043b  0x557f08 10 (10/10)     0     ~WorldListPanel_OnMouseDown
+   1723b  0x5575c8 17 (17/17)     0     ~CommP2POwner_Release
    1693b  0x557ee0 10 (10/10)     0     ~ReadyRoomChatPanel_OnCommand
    1623b  0x557c84 10 (10/10)     0     ~TextEntry_SyncFromControl
    1524b  0x555edc  5 ( 5/ 5)     0     ~DeleteFirewallHazard
@@ -92,14 +94,12 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
    1505b  0x5565e4  5 ( 5/ 5)     0     ~DeleteTornadoHazard
    1403b  0x557c34 10 (10/10)     0     ~CreateRoomDialog_OnCommand
    1354b  0x556510  5 ( 4/ 5)     1     ~ResolveNamedState
-   1299b  0x5575c8 17 (12/17)     5     ~CommP2POwner_Release
    1293b  0x557e90 10 ( 8/10)     0     ~ScrollListWidget_DrawThumb
    1288b  0x557cac 10 (10/10)     0     ~ChannelUserListPanel_HitTest
    1273b  0x557bbc 10 (10/10)     0     ~Widget_OnCommandDefault
    1247b  0x557f30 10 (10/10)     0     ~StaticText_Update
    1234b  0x557c5c 10 (10/10)     0     ~ItemDescriptionTooltip_Update
    1210b  0x557da0 10 ( 9/10)     1     ~Label_OnMouseUp
-   1205b  0x551cb8 14 ( 6/12)     6     ~NoOpMethodStdcall1
    1185b  0x557f58 10 (10/10)     0     ~Widget_DrawChildrenDeep
    1168b  0x5574cc  5 ( 3/ 5)     2     ~DecodeSoundBufferChunk
    1091b  0x557be4 10 (10/10)     0     ~BuddyPanel_OnCommand
