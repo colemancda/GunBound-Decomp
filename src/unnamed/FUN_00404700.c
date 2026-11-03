@@ -1,5 +1,10 @@
 /* FUN_00404700 - 0x00404700 in the original binary.
  *
+ * FIX (2026-11-03): the slot +0x18 dispatch at 0x4047cc dropped `this`.
+ * `mov eax,[ebp+0x1bdc]` / `mov ecx,eax` (0x4047ab-0x4047b9) puts the owner
+ * in ECX and three words are pushed (0x551cb1, [esp+8], [esp+0x3c]), so it
+ * is (owner, id, blob, text) - FUN_004fd590's `ret 0xc`.
+ *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -70,6 +75,10 @@
  */
 #include "ghidra_types.h"
 
+/* The +0x1bdc listener is the CommP2P owner (vtable 0x5575c8, slot 6 =
+ * FUN_004fd590, `ret 0xc`: id, blob, text).  Erased __thiscall: this first. */
+typedef char (*DLNoticeFn)(int self,void *userId,void *blob,char *text);
+
 
 void FUN_00404700(int param_1,undefined4 *regEdi)
 
@@ -99,7 +108,8 @@ void FUN_00404700(int param_1,undefined4 *regEdi)
   cVar2 = FindUserIdByNickname(local_20,(char *)regEdi,(int)g_clientContext);
   if (cVar2 == '\x01') {
     if (*(int **)(param_1 + 0x1bdc) != (int *)0x0) {
-      (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x18))(local_20,local_50,&DAT_00551cb1);
+      (*(DLNoticeFn *)(**(int **)(param_1 + 0x1bdc) + 0x18))
+        (*(int *)(param_1 + 0x1bdc),local_20,local_50,(char *)&DAT_00551cb1);
       return;
     }
   }

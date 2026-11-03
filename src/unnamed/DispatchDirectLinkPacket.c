@@ -1,5 +1,21 @@
 /* DispatchDirectLinkPacket - 0x004032c0 in the original binary.
  *
+ * FIX (2026-11-03): the six listener dispatches through the CommP2P owner
+ * at ctx+0x1bdc (vtable 0x5575c8, now defined) dropped `this` and the
+ * payload.  Per call site, args pushed right-to-left, ECX = owner:
+ *   0x40351b +0x10  push esi+8 / push 0 / push edi   -> (owner, id, 0, text)
+ *   0x403440 +0x20  push esi+8 / push ctx+0x23313 / push edi
+ *                                                    -> (owner, id, ownName, text)
+ *   0x403725 +0x24  push 1 / push edi                -> (owner, id, 1)
+ *   0x4037a8 +0x24  push 0 / push edi                -> (owner, id, 0)
+ *   0x40381f +0x28  push edi                         -> (owner, id)
+ *   0x403858 +0x18  push 0x551cb1 / push esi+8 / push edi
+ *                                                    -> (owner, id, packet+8, .data 0x551cb1 = lone NUL)
+ * EDI is this function's regEax (mov edi,eax at 0x4032d2), ESI the packet
+ * (mov esi,ecx at 0x4032d0).  Slot arities match the callee `ret N`s:
+ * 0x4fd510 ret 0xc, 0x4fd730 ret 0xc, 0x4fd7c0 ret 8, 0x4fd810 ret 4,
+ * 0x4fd590 ret 0xc.
+ *
  * Dispatches one direct-link packet by its opcode word at packet+4 --
  * 0x1001 / 0x1002 / 0x1004 / 0x2005 and the small-numbered replies -- to the
  * per-opcode handlers, sending through g_directLinkConnection where a reply
@@ -32,6 +48,14 @@
  * FindDirectLinkBuddyNode call site uses.
  */
 #include "ghidra_types.h"
+
+/* The +0x1bdc listener is the CommP2P owner; its vtable 0x5575c8 is now
+ * defined (globals.c), slots called this-first (erased __thiscall). */
+typedef char (*DLTextFn)(int self,void *userId,int mode,char *text);        /* slot 4  FUN_004fd510 */
+typedef char (*DLNoticeFn)(int self,void *userId,undefined4 *blob,char *text); /* slot 6  FUN_004fd590 */
+typedef int (*DLRequestFn)(int self,void *userId,char *ownName,char *text);  /* slot 8  FUN_004fd730 */
+typedef char (*DLFlagFn)(int self,void *userId,int flag);                    /* slot 9  FUN_004fd7c0 */
+typedef char (*DLDeleteFn)(int self,void *userId);                           /* slot 10 FUN_004fd810 */
 
 
 void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 param_3,undefined4 *regEax)
@@ -79,7 +103,8 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
       if (uVar2 == 0) {
         if (g_directLinkConnection == 0) {
           if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
-            (**(code **)(**(int **)(param_2 + 0x1bdc) + 0x10))();
+            (*(DLTextFn *)(**(int **)(param_2 + 0x1bdc) + 0x10))
+              (*(int *)(param_2 + 0x1bdc),regEax,0,(char *)(param_1 + 8));
           }
           FUN_004024f0(param_2,param_1 + 8,param_3);
           return;
@@ -129,7 +154,8 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
           return;
         }
         if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
-          (**(code **)(**(int **)(param_2 + 0x1bdc) + 0x20))();
+          (*(DLRequestFn *)(**(int **)(param_2 + 0x1bdc) + 0x20))
+              (*(int *)(param_2 + 0x1bdc),regEax,(char *)(g_clientContext + 0x23313),(char *)(param_1 + 8));
           pcVar6 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa6);
           _sprintf(local_10c,pcVar6,uStack_4);
           BuildItemTooltipPanel(&g_uiPanelManager,local_10c);
@@ -226,7 +252,7 @@ LAB_0040377c:
         return;
       }
       if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
-        (**(code **)(**(int **)(param_2 + 0x1bdc) + 0x24))();
+        (*(DLFlagFn *)(**(int **)(param_2 + 0x1bdc) + 0x24))(*(int *)(param_2 + 0x1bdc),regEax,1);
         return;
       }
       break;
@@ -244,14 +270,14 @@ LAB_0040377c:
         goto LAB_0040377c;
       }
       if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
-        (**(code **)(**(int **)(param_2 + 0x1bdc) + 0x24))();
+        (*(DLFlagFn *)(**(int **)(param_2 + 0x1bdc) + 0x24))(*(int *)(param_2 + 0x1bdc),regEax,0);
         return;
       }
       break;
     case 0x2004:
       if (g_directLinkConnection == 0) {
         if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
-          (**(code **)(**(int **)(param_2 + 0x1bdc) + 0x28))();
+          (*(DLDeleteFn *)(**(int **)(param_2 + 0x1bdc) + 0x28))(*(int *)(param_2 + 0x1bdc),regEax);
         }
         RemoveDirectLinkBuddyNode(param_2,(char *)param_3 + 1);
         return;
@@ -268,7 +294,8 @@ LAB_0040377c:
       return;
     case 0x2005:
       if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
-        (**(code **)(**(int **)(param_2 + 0x1bdc) + 0x18))();
+        (*(DLNoticeFn *)(**(int **)(param_2 + 0x1bdc) + 0x18))
+              (*(int *)(param_2 + 0x1bdc),regEax,(undefined4 *)(param_1 + 8),(char *)&DAT_00551cb1);
         return;
       }
     }
