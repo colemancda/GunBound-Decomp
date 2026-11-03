@@ -1,6 +1,10 @@
-/* FUN_004f2ea0 - 0x004f2ea0 in the original binary.
+/* ActiveObjectRegistry_BaseScalarDtor - 0x004f2ea0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * NAMING (batch 22, was FUN_004f2ea0): Slot 0 of vtable 0x557534, the
+ * vtable ActiveObjectRegistry_BaseConstructor (0x4f2e40) stamps; destroys
+ * the sentinel layer node it hung at +4 and frees on the delete flag.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
@@ -20,7 +24,7 @@
 typedef void *(*LayerNodeDeleteFn)(void *self,int flags);
 
 
-undefined4 * __thiscall FUN_004f2ea0(undefined4 *param_1,int param_2)
+undefined4 * __thiscall ActiveObjectRegistry_BaseScalarDtor(undefined4 *param_1,int param_2)
 
 {
   *param_1 = &PTR_FUN_00557534;

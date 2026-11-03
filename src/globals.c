@@ -1387,7 +1387,7 @@ void *PTR_FUN_00557484;
 void *PTR_FUN_00557524 = (void *)FUN_004f14c0;
 void *PTR_FUN_00557528 = (void *)FUN_004f3960;   /* see 0x551cf0 above */
 void *PTR_FUN_00557530 = (void *)FUN_004f2e20;
-void *PTR_FUN_00557534 = (void *)FUN_004f2ea0;
+void *PTR_FUN_00557534 = (void *)ActiveObjectRegistry_BaseScalarDtor;
 void *PTR_FUN_00557538;
 void *PTR_FUN_00557550 = (void *)FUN_004f3960;   /* see 0x551cf0 above */
 void *PTR_FUN_005575a8 = (void *)CommP2POwner_ProcessPacket;   /* see 0x557594 */

@@ -1418,7 +1418,7 @@ void * __thiscall FUN_004f2df0(void *param_1,int param_2);
 void __fastcall FUN_004f2e10();
 void * __thiscall FUN_004f2e20();
 void ActiveObjectRegistry_BaseConstructor(undefined4 *regEsi);
-undefined4 * __thiscall FUN_004f2ea0();
+undefined4 * __thiscall ActiveObjectRegistry_BaseScalarDtor();
 void __fastcall FUN_004f2ee0();
 /* K&R-empty deliberately (like FindSpriteFrame): only RegisterActiveObject.c's
  * call site passes the real 2nd arg (layerKey) - the other 2 callers
