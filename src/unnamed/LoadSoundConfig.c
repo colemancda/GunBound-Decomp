@@ -1,4 +1,5 @@
 /* LoadSoundConfig - 0x004e3500 in the original binary.
+ * (Historical notes below: FUN_004f0d70 is now CloseXFSArchive.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -83,7 +84,7 @@ undefined4 LoadSoundConfig(undefined4 param_1)
      (readState = ReadXFSEntry(pvVar4,*(HANDLE *)(g_xfsScratch.bytes + 0x1040),1,iVar6,
                                 g_xfsScratch.bytes + 0x1048), readState == 0)) {
     if (local_f710 != -1) {
-      FUN_004f0d70(&g_xfsScratch);
+      CloseXFSArchive(&g_xfsScratch);
     }
     local_3c = &PTR_FUN_005572dc;
     DeleteCriticalSection(&local_38);
@@ -97,7 +98,7 @@ undefined4 LoadSoundConfig(undefined4 param_1)
     if (iVar5 == 0) {
       CloseSpriteReadState(readState,(int)&g_xfsScratch);
       if (local_f710 != -1) {
-        FUN_004f0d70(&g_xfsScratch);
+        CloseXFSArchive(&g_xfsScratch);
       }
       local_3c = &PTR_FUN_005572dc;
       DeleteCriticalSection(&local_38);

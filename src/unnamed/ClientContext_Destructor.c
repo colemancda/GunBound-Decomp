@@ -1,4 +1,5 @@
 /* ClientContext_Destructor - 0x00418dc0 in the original binary.
+ * (Historical notes below: FUN_004f0d70 is now CloseXFSArchive.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -76,7 +77,7 @@ void ClientContext_Destructor(int param_1)
   local_4 = 0x5f;
   g_clientContext = 0;
   /* ESI = `lea esi,[edi+0xf6e8]` at 0x418de8, call at 0x418df8 */
-  FUN_004f0d70((XFSArchive *)(param_1 + 0xf6e8));
+  CloseXFSArchive((XFSArchive *)(param_1 + 0xf6e8));
   if (*(int *)(&DAT_006aa8b4 + param_1) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(&DAT_006aa8b4 + param_1),&g_valueGuardKeyTable);
     TreeInsert(local_14,&g_valueGuardMap);
@@ -465,7 +466,7 @@ void ClientContext_Destructor(int param_1)
   }
   if (*(int *)(param_1 + 0x10728) != -1) {
     /* ESI = `lea esi,[edi+0xf6e8]` at 0x419cda, call at 0x419ce0 */
-    FUN_004f0d70((XFSArchive *)(param_1 + 0xf6e8));
+    CloseXFSArchive((XFSArchive *)(param_1 + 0xf6e8));
   }
   *(undefined ***)(param_1 + 0x1fdfc) = &PTR_FUN_005572dc;
   DeleteCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x1fe00));

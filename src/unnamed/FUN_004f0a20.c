@@ -1,4 +1,5 @@
 /* FUN_004f0a20 - 0x004f0a20 in the original binary.
+ * (Historical notes below: FUN_004f0d70 is now CloseXFSArchive.)
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -25,7 +26,7 @@ void FUN_004f0a20(int regEax)
   int in_EAX = regEax;
   
   if (*(int *)(in_EAX + 0x1040) != -1) {
-    FUN_004f0d70((XFSArchive *)in_EAX);
+    CloseXFSArchive((XFSArchive *)in_EAX);
   }
   *(undefined ***)(in_EAX + 0x10714) = &PTR_FUN_005572dc;
   DeleteCriticalSection((LPCRITICAL_SECTION)(in_EAX + 0x10718));

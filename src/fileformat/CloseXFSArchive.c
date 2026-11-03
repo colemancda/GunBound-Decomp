@@ -1,9 +1,17 @@
-/* FUN_004f0d70 - 0x004f0d70 in the original binary.
+/* CloseXFSArchive - 0x004f0d70 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): counterpart of OpenXFSArchive (0x4f0a50).
+ * Callers ShutdownDirectDraw, ClientContext_Destructor,
+ * LoadLocalizedStrings and the other loaders call it after reading from an
+ * archive, and XFSArchive_Destruct (0x4f0a20) calls it when the file
+ * handle at +0x1040 is still open. The body already carried a
+ * CloseXFSArchive description in its inline comment and in
+ * include/functions.h prose. No other symbol of this name existed in src/
+ * or include/ before the rename.
  */
 #include "ghidra_types.h"
 #include "xfs.h"
@@ -16,7 +24,7 @@
  * (archive+0x1040) and marks it XFS_CLOSED. The archive `this` pointer arrived
  * in ESI in the original (a dropped register arg in Ghidra's `(void)` port);
  * promoted to an explicit parameter so callers can pass it. */
-undefined4 FUN_004f0d70(XFSArchive *archive)
+undefined4 CloseXFSArchive(XFSArchive *archive)
 
 {
   undefined4 uVar1;

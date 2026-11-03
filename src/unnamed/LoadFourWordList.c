@@ -1,4 +1,5 @@
 /* LoadFourWordList - 0x00415900 in the original binary.
+ * (Historical notes below: FUN_004f0d70 is now CloseXFSArchive.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -124,7 +125,7 @@ undefined4 LoadFourWordList(void)
      (readState = ReadXFSEntry(pvVar2,*(HANDLE *)(g_xfsScratch.bytes + 0x1040),1,iVar4,
                                 g_xfsScratch.bytes + 0x1048), readState == 0)) {
     if (local_f710 != -1) {
-      FUN_004f0d70(&g_xfsScratch);
+      CloseXFSArchive(&g_xfsScratch);
     }
     local_3c = &PTR_FUN_005572dc;
     DeleteCriticalSection(&local_38);
@@ -137,7 +138,7 @@ undefined4 LoadFourWordList(void)
     if (iVar3 == 0) {
       CloseSpriteReadState(readState,(int)&g_xfsScratch);
       if (local_f710 != -1) {
-        FUN_004f0d70(&g_xfsScratch);
+        CloseXFSArchive(&g_xfsScratch);
       }
       local_3c = &PTR_FUN_005572dc;
       DeleteCriticalSection(&local_38);

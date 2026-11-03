@@ -1,4 +1,5 @@
 /* LoadLocalizedStrings - 0x0043da00 in the original binary.
+ * (Historical notes below: FUN_004f0d70 is now CloseXFSArchive.)
  *
  * Builds the localized UI-string table (g_localizedStringTable, param_1)
  * that GetLocalizedString later indexes. Opens graphics.xfs, finds the
@@ -104,7 +105,7 @@ undefined4 LoadLocalizedStrings(undefined4 param_1)
      (uStack_10f54 = ReadXFSEntry(pvVar2,*(HANDLE *)(g_xfsScratch.bytes + 0x1040),1,iVar5,
                                    g_xfsScratch.bytes + 0x1048), uStack_10f54 == 0)) {
     if (local_f710 != -1) {
-      FUN_004f0d70(&g_xfsScratch);
+      CloseXFSArchive(&g_xfsScratch);
     }
     local_3c = &PTR_FUN_005572dc;
     DeleteCriticalSection(&local_38);
@@ -119,7 +120,7 @@ undefined4 LoadLocalizedStrings(undefined4 param_1)
     if (iVar3 == 0) {
       CloseSpriteReadState(uStack_10f54,(int)&g_xfsScratch);
       if (local_f710 != -1) {
-        FUN_004f0d70(&g_xfsScratch);
+        CloseXFSArchive(&g_xfsScratch);
       }
       local_3c = &PTR_FUN_005572dc;
       DeleteCriticalSection(&local_38);

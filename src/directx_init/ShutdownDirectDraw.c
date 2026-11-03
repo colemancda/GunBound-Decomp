@@ -1,4 +1,5 @@
 /* ShutdownDirectDraw - 0x004eff90 in the original binary.
+ * (Historical notes below: FUN_004f0d70 is now CloseXFSArchive.)
  *
  * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
  * verified against documented behavior beyond what's already in
@@ -28,7 +29,7 @@ void ShutdownDirectDraw(void)
   } while (iVar1 < 0x1000);
   /* Original set ESI=&g_graphicsArchive before this call (dropped by Ghidra);
    * FUN_004f0d70 (CloseXFSArchive) flushes and closes the graphics archive. */
-  FUN_004f0d70(&g_graphicsArchive);
+  CloseXFSArchive(&g_graphicsArchive);
   FUN_004f3e70();
   FUN_004f3a30();
   /* Container passed in EBX by the original (`mov ebx,0xeb1bd8` immediately

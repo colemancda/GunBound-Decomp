@@ -1,4 +1,5 @@
 /* FUN_004ee850 - 0x004ee850 in the original binary.
+ * (Historical notes below: FUN_004f0d70 is now CloseXFSArchive.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -83,7 +84,7 @@ void FUN_004ee850(void)
     g_directSound = (int *)0x0;
   }
   /* 0x4ee989: ESI = 0xea0f50, the sound archive (g_xfsScratch here) */
-  FUN_004f0d70(&g_xfsScratch);
+  CloseXFSArchive(&g_xfsScratch);
   FreeLibrary(DAT_007935e8);
   return;
 }
