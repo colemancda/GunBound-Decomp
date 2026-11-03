@@ -26,9 +26,12 @@
  * DISPATCH `this` RESTORED (2026-10-29): both vtbl[0] calls (0x503c97,
  * 0x503dad) load ECX = EBX = this; the port called through `code` with
  * only (buf, len).  The target is a raw-C port, so the erased __thiscall
- * is cdecl with `this` first - see CommP2PPacketHandlerFn.  Note the
- * vtable stamped by ConstructCommP2POwner is still the placeholder
- * global PTR_FUN_005575a8, so this path is not yet reachable at runtime.
+ * is cdecl with `this` first - see CommP2PPacketHandlerFn.
+ *
+ * FIX (2026-11-03): the vtable ConstructCommP2POwner stamps,
+ * PTR_FUN_005575a8, was a NULL placeholder, so this dispatch called null.
+ * It now holds CommP2POwner_ProcessPacket, its one slot in the original
+ * .data (0x5575a8 = 0x501770); see src/globals.c.
  */
 #include "ghidra_types.h"
 

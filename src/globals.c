@@ -1373,7 +1373,7 @@ void *PTR_FUN_00557530 = (void *)FUN_004f2e20;
 void *PTR_FUN_00557534 = (void *)FUN_004f2ea0;
 void *PTR_FUN_00557538;
 void *PTR_FUN_00557550 = (void *)FUN_004f3960;   /* see 0x551cf0 above */
-void *PTR_FUN_005575a8;
+void *PTR_FUN_005575a8 = (void *)CommP2POwner_ProcessPacket;   /* see 0x557594 */
 /* PTR_FUN_00557cfc: moved to src/globals_sized.c - it is the CPanelManager
  * VTABLE (8 slots), not a lone pointer. See that file. */
 void *PTR_FUN_00557f80;
@@ -1468,7 +1468,15 @@ void *PTR_LAB_005574e8[5] = {
  * lone NULL. Filled 2026-11-03. */
 void *PTR_LAB_0055752c = (void *)FUN_004f2df0;
 void *PTR_LAB_0055755c;
-void *PTR_LAB_00557594;
+/* The CommP2P owner's +0x2f4 packet-handler sub-object: base vtable
+ * 0x557594 (stamped at 0x4fd128) and derived 0x5575a8 (stamped over it at
+ * 0x4fd147, again in the destructor at 0x4fd26c). One slot each in the
+ * original .data: 0x525acd (_purecall, the MSVC CRT's pure-virtual trap)
+ * and 0x501770 (CommP2POwner_ProcessPacket). CommP2POwner_ReassemblePackets
+ * already dispatches the slot as cdecl (this, frame, len). Both were lone
+ * NULLs; filled 2026-11-03. */
+int __cdecl _purecall(void);
+void *PTR_LAB_00557594 = (void *)_purecall;
 void *PTR_LAB_00557598;
 void *PTR_LAB_005575ac;
 void *PTR_LAB_005575b8;
