@@ -1723,9 +1723,12 @@ undefined4 * BuildLobbyChatPanel(int *panelManager,int selectedTab);
 undefined4 * BuildChannelUserListPanel();
 undefined4 * BuildAvatarStorePanel();
 void __fastcall PanelManager_ReleasePool(undefined4 *param_1);
-undefined4 __thiscall AvatarStorePanel_OnMouseMove();
-uint __thiscall AvatarStorePanel_OnMouseDown();
-undefined4 __thiscall AvatarStorePanel_OnMouseUp();
+/* Defined extern "C" in src/ui_widget/AvatarStorePanel_*.cpp and
+ * WorldListPanel_OnMouseMove.cpp with `this` first (the C++ class pointer
+ * is void * here); the old K&R-empty __thiscall prototypes hid the arity. */
+int AvatarStorePanel_OnMouseMove(void *this_, int x, int y);
+uint AvatarStorePanel_OnMouseDown(void *this_, int x, int y);
+int AvatarStorePanel_OnMouseUp(void *this_, int x, int y);
 undefined4 __thiscall AvatarStorePanel_HitTest();
 void __fastcall AvatarStorePanel_Draw();
 void __thiscall AvatarStorePanel_OnCommand();
@@ -1738,7 +1741,8 @@ void RefreshConnectionStatusLabel();
 void AtlArray_InsertAt_450(int *param_1,uint param_2,undefined4 param_3,int param_4);
 void __thiscall ReadyRoomChatPanel_OnCommand();
 void __fastcall RenderReadyRoomChatRow();
-undefined4 __thiscall WorldListPanel_OnMouseMove();
+/* Defined extern "C" in src/ui_widget/WorldListPanel_OnMouseMove.cpp. */
+int WorldListPanel_OnMouseMove(void *this_, int x, int y);
 void __fastcall RenderWorldListRow(int param_1, uint in_EAX);
 uint WorldListRowHitTest();
 void __fastcall StaticText_Update();
