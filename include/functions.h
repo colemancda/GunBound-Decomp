@@ -190,7 +190,7 @@ void MessengerNotify_OnWhisper(int param_1,char *param_2,int param_3,char *param
 void MessengerNotify_OnBuddyAnswer(int param_1,char *param_2,char param_3);
 void FUN_00404140(int param_1,char *param_2);
 void __thiscall MessengerNotify_OnBuddyRequest(int param_1,char *param_2,undefined4 param_3,char *param_4);
-void __thiscall FUN_00403f30();
+void __thiscall MessengerNotify_OnStatusQuery();
 void __thiscall MessengerNotify_OnBuddyDelete();
 void FUN_00404410();
 void FUN_00404700(int param_1,undefined4 *regEdi);

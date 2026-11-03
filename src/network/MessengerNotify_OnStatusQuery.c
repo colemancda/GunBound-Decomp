@@ -1,13 +1,18 @@
-/* FUN_00403f30 - 0x00403f30 in the original binary.
+/* MessengerNotify_OnStatusQuery - 0x00403f30 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * NAMING (batch 22, was FUN_00403f30): Slot 8 (+0x20) of the notify
+ * interface 0x551cb8; DispatchP2PMessage calls it for the empty type
+ * 0xc053 (CommP2POwner_SendStatusQuery) and it replies through owner slot
+ * 6 (CommP2POwner_SendBuddyStatus, type 0xc051) with a status record.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00403f30(int param_1,undefined4 param_2)
+void __thiscall MessengerNotify_OnStatusQuery(int param_1,undefined4 param_2)
 
 {
   undefined2 local_18 [4];

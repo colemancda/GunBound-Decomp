@@ -54,7 +54,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00403c00,273,MessengerNotify_OnWhisper,false,1,5,RAW-src
 00403d20,231,MessengerNotify_OnBuddyStatus,false,1,5,RAW-src
 00403e10,277,MessengerNotify_OnBuddyRequest,false,1,6,RAW-src
-00403f30,186,FUN_00403f30,false,1,0,RAW-src
+00403f30,186,MessengerNotify_OnStatusQuery,false,1,0,RAW-src
 00403ff0,326,MessengerNotify_OnBuddyAnswer,false,1,8,RAW-src
 00404140,487,FUN_00404140,false,1,8,RAW-src
 00404330,223,MessengerNotify_OnBuddyDelete,false,1,5,RAW-src
