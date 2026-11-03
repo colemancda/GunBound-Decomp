@@ -1,4 +1,6 @@
 /* FUN_00404b00 - 0x00404b00 in the original binary.
+ * (Historical notes below: FUN_00405040 is now
+ * RBTree_IteratorIncrement.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -104,10 +106,10 @@ undefined4 * FUN_00404b00(uchar *param_1,int *regEbx)
     } while (puVar2 != (undefined4 *)unaff_EBX[5]);
     if (puVar4 != (undefined4 *)0x0) {
 LAB_00404b4b:
-      puVar2 = (undefined4 *)FUN_00405040(unaff_EBX,puVar4);
+      puVar2 = (undefined4 *)RBTree_IteratorIncrement(unaff_EBX,puVar4);
       while ((puVar3 = puVar2, puVar3 != (undefined4 *)0x0 &&
              (iVar1 = __mbsicmp(param_1,(uchar *)*puVar3), iVar1 == 0))) {
-        puVar2 = (undefined4 *)FUN_00405040(unaff_EBX,puVar3);
+        puVar2 = (undefined4 *)RBTree_IteratorIncrement(unaff_EBX,puVar3);
         puVar4 = puVar3;
       }
       return puVar4;
