@@ -1,4 +1,9 @@
-/* FUN_00403e10 - 0x00403e10 in the original binary.
+/* MessengerNotify_OnBuddyRequest - 0x00403e10 in the original binary.
+ *
+ * NAMING (batch 22, was FUN_00403e10): Slot 9 (+0x24) of the notify
+ * interface 0x551cb8; DispatchP2PMessage calls it for type 0xc041, the one
+ * CommP2POwner_SendBuddyRequest sends; it ends in BuildBuddyRequestDialog
+ * or parks action 0x2000.
  *
  * CARVED (2026-11-03). Never carved by Ghidra: its only reference is a
  * VTABLE SLOT, 0x551cdc = slot 9 of 0x551cb8, the notify interface the
@@ -40,14 +45,13 @@
  *                      DispatchDirectLinkPacket's 0x2000 arm can open the
  *                      dialog once the nickname arrives.
  * So: the incoming buddy-request notification for a sender known only by
- * user id. Left unnamed like its slot-5/7/12 twins.
- *
+ * user id. *
  * WIRED (2026-11-03): slot 9 of PTR_LAB_00551cb8, now a defined 14-slot table.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00403e10(int param_1,char *param_2,undefined4 param_3,char *param_4)
+void __thiscall MessengerNotify_OnBuddyRequest(int param_1,char *param_2,undefined4 param_3,char *param_4)
 
 {
   undefined4 *puVar1;
