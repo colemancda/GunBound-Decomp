@@ -138,11 +138,16 @@ extern "C" CEditBox *CreateTextEntryWidget(int id, int x, int y, int w, int h, i
  * vtable). Panel type id 0; +0x05 insert-at-front defaults ON (the
  * builder for the world list flips it off).
  *
- * DEFERRED: the original then runs _eh_vector_constructor_iterator_
- * over the 16 CString slots at +0x50 (each ctor allocates a nil
- * string through the manager at DAT_005b1444). Reconstructing ATL
- * CString is its own work item; the slots are nulled here instead -
- * revisit when the string class lands. */
+ * FIX (2026-11-03): the original runs _eh_vector_constructor_iterator_
+ * (0x5057a5-0x5057c1: count 0x10, element size 4, ctor 0x426410, dtor
+ * 0x405320) over the 16 CString slots at +0x50; each ctor stores the
+ * manager's nil string (GetNilString + 0x10) so the slot is a valid EMPTY
+ * CString whose header +0 is the manager &DAT_005b1444.  The slots were
+ * nulled here, so the first AssignStringBuffer on one (CBuddyRequestDialog
+ * and CDeleteBuddyConfirmDialog storing the name) read header fields at
+ * NULL-0xc and faulted.  FUN_00426410 (that ctor, now repaired) is called
+ * per slot. */
+extern "C" int * __fastcall FUN_00426410(int *param_1);
 CPanel::CPanel()
 {
     m_typeId = 0;
@@ -150,7 +155,7 @@ CPanel::CPanel()
     m_pinned = 0;
     m_unk05[0] = 1;
     for (int i = 0; i < 16; ++i) {
-        m_strings[i] = 0;
+        FUN_00426410((int *)&m_strings[i]);
     }
 }
 
