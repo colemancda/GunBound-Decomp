@@ -4,8 +4,21 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+  *
+ * FIX (2026-11-03): the two layer-flush loops (0x4e4299-0x4e42ad for layer
+ * 60000, 0x4e42fd-0x4e4311 for the 1000-layer sweep) called
+ * `(*(code *)*vtbl)(1)`, dropping `this`.  The asm is `mov ecx,[esi+0x10]`
+ * (first node), `mov edx,[ecx]` (its vtable), `mov edi,[ecx+0x10]` (next
+ * node), `push 1`, `call [edx]` with ECX still the node; the port had
+ * advanced past the node and kept only its vtable.  Now the node is kept
+ * and passed as `this`.
  */
 #include "ghidra_types.h"
+
+/* Node destructor: `mov edx,[ecx] / push 1 / call [edx]` - ECX is the node,
+ * the flag is pushed.  Targets are raw C ports (erased __thiscall = cdecl,
+ * this first), as in State01_Title_OnExit. */
+typedef void (*ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
 
 
 void FUN_004e4220(int param_1)
@@ -45,9 +58,9 @@ void FUN_004e4220(int param_1)
   }
   puVar2 = (undefined4 *)puVar6[4];
   while (puVar2 != puVar6) {
-    puVar3 = (undefined4 *)*puVar2;
+    puVar3 = puVar2;
     puVar2 = (undefined4 *)puVar2[4];
-    (*(code *)*puVar3)(1);
+    (*(ListNodeVirtualFn *)*puVar3)(puVar3, 1);
   }
   puVar6[3] = puVar6;
   puVar6[4] = puVar6;
@@ -74,9 +87,9 @@ LAB_004e42ef:
   if (uVar1 != uVar5) goto code_r0x004e42f1;
   puVar2 = (undefined4 *)puVar6[4];
   while (puVar2 != puVar6) {
-    puVar3 = (undefined4 *)*puVar2;
+    puVar3 = puVar2;
     puVar2 = (undefined4 *)puVar2[4];
-    (*(code *)*puVar3)(1);
+    (*(ListNodeVirtualFn *)*puVar3)(puVar3, 1);
   }
   puVar6[3] = puVar6;
   puVar6[4] = puVar6;
