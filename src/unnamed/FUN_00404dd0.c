@@ -1,4 +1,5 @@
 /* FUN_00404dd0 - 0x00404dd0 in the original binary.
+ * (Historical notes below: FUN_00405360 is now RBTree_BuyNode.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -24,7 +25,7 @@ undefined4 __thiscall FUN_00404dd0(int *param_1,uchar *param_2,int regEax)
   undefined4 *puVar3;
   undefined4 *puVar4;
   
-  iVar1 = FUN_00405360(param_2,regEax,(undefined4 *)param_1);
+  iVar1 = RBTree_BuyNode(param_2,regEax,(undefined4 *)param_1);
   puVar4 = (undefined4 *)0x0;
   puVar3 = (undefined4 *)*param_1;
   if ((undefined4 *)*param_1 != (undefined4 *)param_1[5]) {

@@ -1,9 +1,18 @@
-/* FUN_00405360 - 0x00405360 in the original binary.
+/* RBTree_BuyNode - 0x00405360 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body, LIKELY): sole caller FUN_00404dd0 is the
+ * key-descent half of RBTree_Insert and takes the new node from here
+ * before descending. It lazily allocates the 0x114-byte nil head, refills
+ * a node pool in blocks of tree+0x10 nodes, takes a node off the free list
+ * at tree+8, constructs the key CString (ConstructStringFromText) and
+ * copies the 0x100-byte key, sets nil children and bumps the count at
+ * tree+4, which is std::_Tree::_Buynode with the pool allocator. Sibling
+ * of Tree_Buynode_18, whose naming it follows (that one is the zero-
+ * argument head overload).
  *
  * EBX RECOVERED (2026-08-25): `mov ebx,ecx` at 0x404dd9, and its caller
  * FUN_00404dd0 is __thiscall, so ECX is that function's param_1.  The two
@@ -14,7 +23,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_00405360(undefined4 param_1,undefined4 *param_2,undefined4 *regEbx)
+undefined4 * RBTree_BuyNode(undefined4 param_1,undefined4 *param_2,undefined4 *regEbx)
 
 {
   undefined4 *puVar1;
