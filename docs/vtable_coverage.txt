@@ -82,11 +82,11 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
    3946b  0x555fdc  5 ( 5/ 5)     0     ~DeleteJewel
    3745b  0x557eb8 10 (10/10)     0     ~AvatarStorePanel_OnMouseMove
    3372b  0x5575a8  1 ( 1/ 1)     0     ~CommP2POwner_ProcessPacket
-   2869b  0x551cb8 14 (12/12)     0     ~NoOpMethodStdcall1
+   2869b  0x551cb8 14 (12/12)     0     ~MessengerNotify_AcceptMessage
    2260b  0x555b54  5 ( 5/ 5)     0     ~DeletePoisonedBaseObject
    2105b  0x557cd4 10 (10/10)     0     ~LobbyChatPanel_OnCommand
    2043b  0x557f08 10 (10/10)     0     ~WorldListPanel_OnMouseDown
-   1723b  0x5575c8 17 (17/17)     0     ~CommP2POwner_Release
+   1723b  0x5575c8 17 (17/17)     0     ~CommP2POwner_AddRef
    1693b  0x557ee0 10 (10/10)     0     ~ReadyRoomChatPanel_OnCommand
    1623b  0x557c84 10 (10/10)     0     ~TextEntry_SyncFromControl
    1524b  0x555edc  5 ( 5/ 5)     0     ~DeleteFirewallHazard
@@ -127,7 +127,7 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
     450b  0x555590 18 ( 8/ 9)     1     ~State05_Logo1_OnEnter
     418b  0x5564bc  5 ( 5/ 5)     0     CRiderEffect
     416b  0x555ef0  5 ( 5/ 5)     0     CFlameEffect
-    375b  0x557538  6 ( 5/ 6)     1     ~SceneNode_UpdateTransform
+    375b  0x557538  6 ( 5/ 6)     1     ~SceneNode_ScalarDtor
     368b  0x5560bc  5 ( 5/ 5)     0     CSuperFlameEffect
     296b  0x55745c 10 ( 5/10)     5     ~CInputDevice_ScalarDeletingDestructor
     260b  0x557278 18 ( 8/ 9)     1     ~State01_Title_OnEnter
@@ -153,7 +153,7 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
      95b  0x5565cc  5 ( 3/ 5)     2     ~ResolveNamedState
      89b  0x5520ac  2 ( 2/ 2)     0     ~NoOpMethodStdcall1
      79b  0x5575ac  3 ( 1/ 3)     2     ~RequestP2PPeerByName
-     50b  0x557534  1 ( 1/ 1)     0     (all FUN_/uncarved)
+     50b  0x557534  1 ( 1/ 1)     0     ~ActiveObjectRegistry_BaseScalarDtor
      41b  0x5572dc  1 ( 1/ 1)     0     (all FUN_/uncarved)
      32b  0x551cb4  1 ( 1/ 1)     0     ~DeletePoisonedBaseObject
      31b  0x55752c  1 ( 1/ 1)     0     (all FUN_/uncarved)

@@ -83,19 +83,19 @@ vtable 0x551cb4  installs=2  slots=1
    0: 0x40ca00  DeletePoisonedBaseObject
 
 vtable 0x551cb8  installs=2  slots=14
-   0: 0x403880  FUN_00403880
-   1: 0x403890  FUN_00403890
+   0: 0x403880  MessengerNotify_AcceptMessage
+   1: 0x403890  MessengerNotify_OnSessionClosed
    2: 0x4038b0  NoOpMethodStdcall1
    3: 0x4038c0  FUN_004038c0
    4: 0x4038b0  NoOpMethodStdcall1
    5: 0x403ae0  FUN_00403ae0
-   6: 0x403c00  FUN_00403c00
-   7: 0x403d20  FUN_00403d20
-   8: 0x403f30  FUN_00403f30
-   9: 0x403e10  FUN_00403e10
-  10: 0x403ff0  FUN_00403ff0
+   6: 0x403c00  MessengerNotify_OnWhisper
+   7: 0x403d20  MessengerNotify_OnBuddyStatus
+   8: 0x403f30  MessengerNotify_OnStatusQuery
+   9: 0x403e10  MessengerNotify_OnBuddyRequest
+  10: 0x403ff0  MessengerNotify_OnBuddyAnswer
   11: 0x404140  FUN_00404140
-  12: 0x404330  FUN_00404330
+  12: 0x404330  MessengerNotify_OnBuddyDelete
   13: 0x4038b0  NoOpMethodStdcall1
 
 vtable 0x551cf0  installs=2  slots=1
@@ -1352,10 +1352,10 @@ vtable 0x557530  installs=2  slots=1
    0: 0x4f2e20  FUN_004f2e20
 
 vtable 0x557534  installs=9  slots=1
-   0: 0x4f2ea0  FUN_004f2ea0
+   0: 0x4f2ea0  ActiveObjectRegistry_BaseScalarDtor
 
 vtable 0x557538  installs=2  slots=6  UNCARVED=1
-   0: 0x4f3390  FUN_004f3390
+   0: 0x4f3390  SceneNode_ScalarDtor
    1: 0x4038b0  NoOpMethodStdcall1
    2: 0x429800  NoOpMethod
    3: 0x4f37b0  SceneNode_UpdateTransform
@@ -1395,17 +1395,17 @@ vtable 0x5575b8  installs=2  slots=4  UNCARVED=2
    3: 0x4fdef0  CGameState_NoOpVirtual_B
 
 vtable 0x5575c8  installs=2  slots=17
-   0: 0x4fd3b0  FUN_004fd3b0
+   0: 0x4fd3b0  CommP2POwner_AddRef
    1: 0x4fd3c0  CommP2POwner_Release
    2: 0x4fd3e0  FUN_004fd3e0
    3: 0x4fd470  CommP2POwnerConnect
-   4: 0x4fd510  FUN_004fd510
+   4: 0x4fd510  CommP2POwner_SendText
    5: 0x4fd680  FUN_004fd680
-   6: 0x4fd590  FUN_004fd590
-   7: 0x4fd650  FUN_004fd650
-   8: 0x4fd730  FUN_004fd730
-   9: 0x4fd7c0  FUN_004fd7c0
-  10: 0x4fd810  FUN_004fd810
+   6: 0x4fd590  CommP2POwner_SendBuddyStatus
+   7: 0x4fd650  CommP2POwner_SendStatusQuery
+   8: 0x4fd730  CommP2POwner_SendBuddyRequest
+   9: 0x4fd7c0  CommP2POwner_SendBuddyAnswer
+  10: 0x4fd810  CommP2POwner_SendBuddyDelete
   11: 0x4fd880  FUN_004fd880
   12: 0x4fd960  FUN_004fd960
   13: 0x4fda50  FUN_004fda50
