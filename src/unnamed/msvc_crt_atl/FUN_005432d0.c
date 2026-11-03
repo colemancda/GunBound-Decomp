@@ -1,4 +1,5 @@
 /* FUN_005432d0 - 0x005432d0 in the original binary.
+ * (Historical notes below: FUN_004f0a20 is now XFSArchive_Destruct.)
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -18,7 +19,7 @@ extern unsigned char DAT_00796f10[];  /* static XFSArchive, 0x10740 bytes */
 void FUN_005432d0(void)
 
 {
-  FUN_004f0a20((int)DAT_00796f10);
+  XFSArchive_Destruct((int)DAT_00796f10);
   return;
 }
 

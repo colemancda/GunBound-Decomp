@@ -1276,7 +1276,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f0960,48,FUN_004f0960,false,2,1,RAW-src
 004f0990,58,CompareXFSEntryName,false,3,0,RAW-src
 004f09d0,66,XFSArchive_Construct,false,3,1,RAW-src
-004f0a20,42,FUN_004f0a20,false,3,2,RAW-src
+004f0a20,42,XFSArchive_Destruct,false,3,2,RAW-src
 004f0a50,795,OpenXFSArchive,false,7,8,RAW-src
 004f0d70,686,CloseXFSArchive,false,13,8,RAW-src
 004f1020,240,FUN_004f1020,false,2,3,RAW-src

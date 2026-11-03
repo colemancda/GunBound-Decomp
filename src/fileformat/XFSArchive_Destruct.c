@@ -1,9 +1,16 @@
-/* FUN_004f0a20 - 0x004f0a20 in the original binary.
+/* XFSArchive_Destruct - 0x004f0a20 in the original binary.
  * (Historical notes below: FUN_004f0d70 is now CloseXFSArchive.)
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): reverse of XFSArchive_Construct (0x4f09d0).
+ * Its three callers are the CRT atexit thunks in msvc_crt_atl
+ * (FUN_00543910, FUN_00543900, FUN_005432d0), each loading one global
+ * archive into EAX (0xf11dd0 g_graphicsArchive, 0xea0f50, 0x796f10) and
+ * jumping here, i.e. the static-object destructor registered by the
+ * constructor.
  *
  * ARCHIVE RECOVERED (2026-10-30): the XFSArchive destructor - it closes
  * the file if open, re-stamps the base vtable 0x5572dc at +0x10714 and
@@ -20,7 +27,7 @@
 #include "xfs.h"
 
 
-void FUN_004f0a20(int regEax)
+void XFSArchive_Destruct(int regEax)
 
 {
   int in_EAX = regEax;

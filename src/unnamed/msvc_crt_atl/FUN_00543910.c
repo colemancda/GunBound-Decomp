@@ -1,4 +1,5 @@
 /* FUN_00543910 - 0x00543910 in the original binary.
+ * (Historical notes below: FUN_004f0a20 is now XFSArchive_Destruct.)
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -15,7 +16,7 @@
 void FUN_00543910(void)
 
 {
-  FUN_004f0a20((int)&g_graphicsArchive);
+  XFSArchive_Destruct((int)&g_graphicsArchive);
   return;
 }
 
