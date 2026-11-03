@@ -1,4 +1,10 @@
-/* FUN_00403ff0 - 0x00403ff0 in the original binary.
+/* MessengerNotify_OnBuddyAnswer - 0x00403ff0 in the original binary.
+ *
+ * NAMING (batch 22, was FUN_00403ff0): Slot 10 (+0x28) of the notify
+ * interface 0x551cb8; DispatchP2PMessage calls it for type 0xc042 as
+ * (listener, id, acceptFlag != 0), the one CommP2POwner_SendBuddyAnswer
+ * sends; the flag selects language string 4002 (agreed) or 4003 (rejected)
+ * via 0xfa2 + (flag != 1), otherwise parks action 0x2001.
  *
  * CARVED (2026-11-03). Never carved by Ghidra: its only reference is the
  * .data word at 0x551ce0, SLOT 10 of the messenger's notify interface
@@ -31,13 +37,12 @@
  *                      EBX = ctx, CL = 0) - `push 1 / push &param_3 /
  *                      push 0x2001`, parking the flag byte as action
  *                      0x2001.
- * Purpose beyond this is not proven (the flag selects between two
- * localized strings 0xfa2/0xfa3). Left unnamed. Erased __thiscall: `this` is the first cdecl argument.
+ * Erased __thiscall: `this` is the first cdecl argument.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00403ff0(int param_1,char *param_2,char param_3)
+void MessengerNotify_OnBuddyAnswer(int param_1,char *param_2,char param_3)
 
 {
   undefined4 *puVar1;
