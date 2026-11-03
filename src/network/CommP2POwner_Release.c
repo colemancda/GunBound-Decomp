@@ -13,11 +13,17 @@
  * - the COM-style AddRef/Release pair, so the original member name is
  * used.  Unlike COM's Release it returns nothing (no EAX is set; `ret`
  * with no stack cleanup, ECX = this).
+  *
+ * FIX (2026-11-03): was __fastcall. It is SLOT 1 of the owner vtable 0x5575c8
+ * (.data 0x5575cc = 0x4fd3c0; `dec dword ptr [..+0x1a6c]` on ECX, no stack
+ * arguments, plain `ret` at 0x4fd3db), and every C dispatch of that table
+ * passes `this` as the first cdecl argument (erased __thiscall), so a
+ * __fastcall body read garbage from ECX. Raw-C port: cdecl, this first.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall CommP2POwner_Release(void *param_1)
+void CommP2POwner_Release(void *param_1)
 
 {
   int *piVar1;

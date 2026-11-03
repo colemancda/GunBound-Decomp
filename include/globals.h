@@ -1566,7 +1566,7 @@ extern void *PTR_LAB_00557594;
 extern void *PTR_LAB_00557598;
 extern void *PTR_LAB_005575ac;
 extern void *PTR_LAB_005575b8;
-extern void *PTR_LAB_005575c8;
+extern void *PTR_LAB_005575c8[17];
 extern void *PTR_LAB_00557610;
 extern void *PTR_LAB_00557654;
 extern void *PTR_LAB_00557b94;

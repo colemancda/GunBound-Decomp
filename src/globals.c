@@ -1490,7 +1490,23 @@ void *PTR_LAB_00557594 = (void *)_purecall;
 void *PTR_LAB_00557598;
 void *PTR_LAB_005575ac;
 void *PTR_LAB_005575b8;
-void *PTR_LAB_005575c8;
+/* The CommP2P owner's primary vtable (orig .data 0x5575c8, 17 slots, read
+ * from the original; was a lone NULL). ConstructCommP2POwner/Destroy stamp
+ * it at owner+0 and the client context's +0x1bdc listener calls through
+ * it. All slots are __thiscall (erased to cdecl, this first in raw C):
+ *  0 AddRef 4fd3b0   1 Release 4fd3c0      2 4fd3e0 (map find)
+ *  3 4fd470 Connect  4 4fd510 text sender  5 4fd680   6 4fd590
+ *  7 4fd650          8 4fd730 (+0x20)      9 4fd7c0 (+0x24)
+ * 10 4fd810 (+0x28) 11 4fd880  12 4fd960  13 4fda50  14 4fd9c0
+ * 15 4fdb40         16 4fdba0.  Filled 2026-11-03. */
+void *PTR_LAB_005575c8[17] = {
+  (void *)FUN_004fd3b0, (void *)CommP2POwner_Release, (void *)FUN_004fd3e0,
+  (void *)CommP2POwnerConnect, (void *)FUN_004fd510, (void *)FUN_004fd680,
+  (void *)FUN_004fd590, (void *)FUN_004fd650, (void *)FUN_004fd730,
+  (void *)FUN_004fd7c0, (void *)FUN_004fd810, (void *)FUN_004fd880,
+  (void *)FUN_004fd960, (void *)FUN_004fda50, (void *)FUN_004fd9c0,
+  (void *)FUN_004fdb40, (void *)FUN_004fdba0,
+};
 void *PTR_LAB_00557610;
 void *PTR_LAB_00557654;
 void *PTR_LAB_00557b94;
