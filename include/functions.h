@@ -220,7 +220,7 @@ void CString_Empty(int *regEsi);
 void CString_PrepareWrite2(int *param_1,int regEax);
 void CString_Fork(int *param_1,int regEax);
 void CString_Reallocate(int *regEsi,int regEdi);
-void FUN_004058b0();
+void AtlThrowOutOfMemory();
 void FUN_004058c0(void *, undefined4, undefined4);
 void CloseAndFreeConnection(int connOwner);
 void CloseDirectLinkSocket(int param_1);

@@ -65,7 +65,7 @@ undefined4 CString_CloneData(int *regEax)
   iVar3 = (**(code **)*puVar2)(in_EAX[1],1);
   if (iVar3 == 0) {
     /* 0x43de45: jmp 0x4058b0, which does not return. */
-    FUN_004058b0();
+    AtlThrowOutOfMemory();
     return 0;
   }
   *(int *)(iVar3 + 4) = in_EAX[1];

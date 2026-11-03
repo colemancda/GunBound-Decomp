@@ -30,7 +30,7 @@ void CString_Reallocate(int *regEsi,int regEdi)
 
   iVar1 = (**(code **)(**(int **)(*regEsi + -0x10) + 8))(*regEsi + -0x10,regEdi,1);
   if (iVar1 == 0) {
-    FUN_004058b0();
+    AtlThrowOutOfMemory();
     return;
   }
   *regEsi = iVar1 + 0x10;

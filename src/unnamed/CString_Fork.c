@@ -49,7 +49,7 @@ void CString_Fork(int *param_1,int regEax)
   piVar4 = (int *)(**(code **)(*(int *)*piVar6 + 0x10))();
   piVar5 = (int *)(**(code **)*(int *)piVar4)(regEax,1);
   if (piVar5 == (int *)0x0) {
-    FUN_004058b0();
+    AtlThrowOutOfMemory();
   }
   iVar9 = regEax;
   if (iVar2 < iVar9) {
