@@ -3,8 +3,15 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+  *
+ * FIX (2026-11-03): the child-list delete dropped the node. 0x4f3410-0x4f341a
+ * is `mov eax,[ecx] / mov esi,[ecx+0xd8] / push 1 / call [eax]` with ECX =
+ * the node (first node [this+0xd4]); it is now (node, 1) through the cdecl
+ * ListNodeVirtualFn (erased __thiscall).
  */
 #include "ghidra_types.h"
+
+typedef void (*ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
 
 
 void __fastcall FUN_004f33b0(undefined4 *param_1)
@@ -29,9 +36,9 @@ void __fastcall FUN_004f33b0(undefined4 *param_1)
   puVar1 = (undefined4 *)param_1[0x35];
   *(undefined1 *)(param_1 + 0x82) = 0;
   while (puVar1 != (undefined4 *)0x0) {
-    puVar2 = (undefined4 *)*puVar1;
+    puVar2 = puVar1;
     puVar1 = (undefined4 *)puVar1[0x36];
-    (*(code *)*puVar2)(1);
+    (*(ListNodeVirtualFn *)*puVar2)(puVar2,1);
   }
   *param_1 = &PTR_LAB_0055752c;
   return;

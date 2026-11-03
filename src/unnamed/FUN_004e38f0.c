@@ -15,6 +15,16 @@
  * now passes (node, 1) through LayerNodeDeleteFn. The +0x30 member delete
  * at 0x4e3911-0x4e391c drops `this` the same way, but its class is not
  * identified, so it is left alone.
+  *
+ * FIX (2026-11-03, second pass): the +0x30 member delete is now resolved.
+ * The member is the 0x308-byte object FUN_004e3810 allocates and stamps
+ * with vtable 0x557300 (`mov [edx],0x557300` at 0x4e3879; stored to
+ * [edi+0x30] at 0x4e38d6), whose slot 0 (.data 0x557300) is 0x4e9b80, the
+ * scalar deleting destructor (`mov esi,ecx`, `test byte [esp+8],1`, `ret 4`),
+ * a raw-C port. 0x4e3911-0x4e391c is `mov ecx,[esi+0x30] / mov eax,[ecx] /
+ * push 1 / call [eax]`, so it is (member, 1) through the same cdecl
+ * LayerNodeDeleteFn form. PTR_FUN_00557300 had been a NULL placeholder; its
+ * slot 0 is now wired.
  */
 #include "ghidra_types.h"
 
@@ -36,7 +46,8 @@ void FUN_004e38f0(int param_1)
   *unaff_FS_OFFSET = &uStack_c;
   local_4 = 0;
   if (*(undefined4 **)(param_1 + 0x30) != (undefined4 *)0x0) {
-    (**(code **)**(undefined4 **)(param_1 + 0x30))(1);
+    (*(LayerNodeDeleteFn *)**(undefined4 **)(param_1 + 0x30))
+        (*(void **)(param_1 + 0x30),1);
     *(undefined4 *)(param_1 + 0x30) = 0;
   }
   if (*(void **)(param_1 + 0x34) != (void *)0x0) {

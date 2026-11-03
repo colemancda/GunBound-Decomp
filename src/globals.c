@@ -1367,7 +1367,14 @@ void *PTR_FUN_005572dc = (void *)FUN_004e5430;
  * function-pointer array instead of a lone null placeholder. */
 void *PTR_FUN_005572e8[2] = { (void *)HandleSocketEvent, (void *)NoOpMethod };
 void *PTR_FUN_005572f0;
-void *PTR_FUN_00557300;
+/* Vtable of the 0x308-byte scene-node subclass FUN_004e3810 allocates for
+ * the stage registry's +0x30 member (and FUN_004e9b30 / the 0xe9b1e0 static
+ * stamp). Slots read from the original .data 0x557300: 0 0x4e9b80 (scalar
+ * deleting dtor), 1 0x4e9bb0 (uncarved), 2 0x429800 (NoOpMethod), 3
+ * 0x4e9cc0 SceneNode_UpdateTransformAndCamera, 4 0x4f38a0
+ * SceneNode_UpdateWorldViewProjection, 5 0x4f3910. Only slot 0 is wired so
+ * far (FUN_004e38f0 deletes through it); was a lone NULL. 2026-11-03. */
+void *PTR_FUN_00557300 = (void *)FUN_004e9b80;
 void *PTR_FUN_0055745c;
 void *PTR_FUN_00557484;
 /* LoadSpriteSet's per-entry sprite-object vtable slot 0 (dtor, called
