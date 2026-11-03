@@ -60,6 +60,21 @@
  * for the shared clip at 0x44af57;  0x8b8 tail 0x44b05e/0x44b00e frames
  * 7/4, x = iVar4 + 0x57 / + 0x83, y = local_108 + 0x6e, same iVar2/iVar3
  * parking (assigned before FindSpriteFrame clobbers iVar4).
+ *
+ * BlitSpriteText FIX (2026-11-03): all eight number draws (0x44a459,
+ * 0x44a5c4, 0x44a72b, 0x44a892, 0x44a9f9, 0x44ab60, 0x44acc7, 0x44ae32)
+ * pass all seven arguments. Each is pushes (0x28, buf, 2, 6) with ECX =
+ * ebp + 0x7b = iVar4 + 0x90 (EBP is iVar4 + 0x15), ESI = 0x1f4 and EBX =
+ * local_108 + row * 0x12 + 0x23 (`add ebx,0x23` on the row's y, or `mov
+ * ebx,[esp+0x24]` = local_108 for the first row, or `lea ebx,[edi+0x23]`
+ * at 0x44ae27). The buffer is [esp+0x20] = local_100 at every site (`lea
+ * edx,[esp+0x28]` for the _sprintf with two words pushed, `lea
+ * eax,[esp+0x28]` for the BlitSpriteText likewise), so the _sprintf
+ * targets Ghidra mis-aliased (&local_108 - which clobbered the y base -
+ * &uStack_110 and four stack0x artifacts) are local_100 too. The value
+ * printed is PeekChecksumStateUnderLock's return, negated on the lower-
+ * frame path (`neg eax` at 0x44a3cb, 0x44a530, 0x44a697, ..., 0x44ad9c);
+ * the first, second and last rows dropped it and now capture it.
  */
 #include "ghidra_types.h"
 
@@ -208,7 +223,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(8,iVar4 + 0x7d,local_108 + 0x22,0x2713);
           }
         }
-        PeekChecksumStateUnderLock(local_10c);
+        iVar1 = PeekChecksumStateUnderLock(local_10c);
       }
       else {
         if ((g_screenSurface != 0) &&
@@ -220,10 +235,11 @@ LAB_0044a1b2:
             BlitSpriteClipped(9,iVar4 + 0x7d,local_108 + 0x22,0x2713);
           }
         }
-        PeekChecksumStateUnderLock(local_10c);
+        iVar1 = PeekChecksumStateUnderLock(local_10c);
+        iVar1 = -iVar1;   /* 0x44a3cb neg eax on the frame-9 path */
       }
-      _sprintf(local_100,&DAT_00555654);
-      BlitSpriteText();
+      _sprintf(local_100,&DAT_00555654,iVar1);
+      BlitSpriteText(iVar4 + 0x90,0x28,(int)local_100,2,6,local_108 + uVar7 * 0x12 + 0x23,0x1f4);
       uVar7 = 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -249,7 +265,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(0xb,iVar4 + 0x7d,local_108 + uVar7 * 0x12 + 0x22,0x2713);
           }
         }
-        PeekChecksumStateUnderLock(local_104 + 0x19d8);
+        iVar1 = PeekChecksumStateUnderLock(local_104 + 0x19d8);
       }
       else {
         if ((g_screenSurface != 0) &&
@@ -261,10 +277,11 @@ LAB_0044a1b2:
             BlitSpriteClipped(0xa,iVar4 + 0x7d,local_108 + uVar7 * 0x12 + 0x22,0x2713);
           }
         }
-        PeekChecksumStateUnderLock(local_104 + 0x19d8);
+        iVar1 = PeekChecksumStateUnderLock(local_104 + 0x19d8);
+        iVar1 = -iVar1;   /* 0x44a530 neg eax on the frame-0xa path */
       }
-      _sprintf((char *)&local_108,&DAT_00555654);
-      BlitSpriteText(0x28,&local_108);
+      _sprintf(local_100,&DAT_00555654,iVar1);
+      BlitSpriteText(iVar4 + 0x90,0x28,(int)local_100,2,6,local_108 + uVar7 * 0x12 + 0x23,0x1f4);
       uVar7 = uVar7 + 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -306,8 +323,8 @@ LAB_0044a1b2:
         iVar2 = PeekChecksumStateUnderLock(uVar8);
         iVar2 = -iVar2;
       }
-      _sprintf((char *)&uStack_110,&DAT_00555654,iVar2);
-      BlitSpriteText(0x28,&uStack_110,2,6);
+      _sprintf(local_100,&DAT_00555654,iVar2);
+      BlitSpriteText(iVar4 + 0x90,0x28,(int)local_100,2,6,local_108 + uVar7 * 0x12 + 0x23,0x1f4);
       uVar7 = uVar7 + 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -347,8 +364,8 @@ LAB_0044a1b2:
         iVar2 = PeekChecksumStateUnderLock(uVar8);
         iVar2 = -iVar2;
       }
-      _sprintf(&stack0xfffffee8,&DAT_00555654,iVar2);
-      BlitSpriteText(0x28,&stack0xfffffee8,2,6);
+      _sprintf(local_100,&DAT_00555654,iVar2);
+      BlitSpriteText(iVar4 + 0x90,0x28,(int)local_100,2,6,local_108 + uVar7 * 0x12 + 0x23,0x1f4);
       uVar7 = uVar7 + 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -390,8 +407,8 @@ LAB_0044a1b2:
         iVar2 = PeekChecksumStateUnderLock(uVar8);
         iVar2 = -iVar2;
       }
-      _sprintf(&stack0xfffffee0,&DAT_00555654,iVar2);
-      BlitSpriteText(0x28,&stack0xfffffee0,2,6);
+      _sprintf(local_100,&DAT_00555654,iVar2);
+      BlitSpriteText(iVar4 + 0x90,0x28,(int)local_100,2,6,local_108 + uVar7 * 0x12 + 0x23,0x1f4);
       uVar7 = uVar7 + 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -431,8 +448,8 @@ LAB_0044a1b2:
         iVar2 = PeekChecksumStateUnderLock(uVar8);
         iVar2 = -iVar2;
       }
-      _sprintf(&stack0xfffffed8,&DAT_00555654,iVar2);
-      BlitSpriteText(0x28,&stack0xfffffed8,2,6);
+      _sprintf(local_100,&DAT_00555654,iVar2);
+      BlitSpriteText(iVar4 + 0x90,0x28,(int)local_100,2,6,local_108 + uVar7 * 0x12 + 0x23,0x1f4);
       uVar7 = uVar7 + 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -469,8 +486,8 @@ LAB_0044a1b2:
         iVar1 = PeekChecksumStateUnderLock(uVar8);
         iVar1 = -iVar1;
       }
-      _sprintf(&stack0xfffffed0,&DAT_00555654,iVar1);
-      BlitSpriteText(0x28,&stack0xfffffed0,2,6);
+      _sprintf(local_100,&DAT_00555654,iVar1);
+      BlitSpriteText(iVar4 + 0x90,0x28,(int)local_100,2,6,local_108 + uVar7 * 0x12 + 0x23,0x1f4);
       uVar7 = uVar7 + 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -492,7 +509,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(0x17,iVar4 + 0x7d,local_108 + uVar7 * 0x12 + 0x22,0x2713);
           }
         }
-        PeekChecksumStateUnderLock(local_104 + 0x17b4);
+        iVar1 = PeekChecksumStateUnderLock(local_104 + 0x17b4);
       }
       else {
         if ((g_screenSurface != 0) &&
@@ -504,10 +521,11 @@ LAB_0044a1b2:
             BlitSpriteClipped(0x16,iVar4 + 0x7d,local_108 + uVar7 * 0x12 + 0x22,0x2713);
           }
         }
-        PeekChecksumStateUnderLock(local_104 + 0x17b4);
+        iVar1 = PeekChecksumStateUnderLock(local_104 + 0x17b4);
+        iVar1 = -iVar1;   /* 0x44ad9c neg eax on the frame-0x16 path */
       }
-      _sprintf(local_100,&DAT_00555654);
-      BlitSpriteText();
+      _sprintf(local_100,&DAT_00555654,iVar1);
+      BlitSpriteText(iVar4 + 0x90,0x28,(int)local_100,2,6,local_108 + uVar7 * 0x12 + 0x23,0x1f4);
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
     }

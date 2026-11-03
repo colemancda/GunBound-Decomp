@@ -61,7 +61,10 @@ void BlitSprite16bpp(int frame, int x, int y, int outerKey);  /* hardware blit *
 void BlitSpriteClipped(int frame, int x, int y, int outerKey); /* software blit */
 void BlitRLESprite(int x, int color);
 int  _sprintf(char *buf, const char *fmt, ...);
-void BlitSpriteText(int x, const char *text, int a, int b); /* text prep */
+/* 0x4ed9f0: x in ECX, y in EBX and the charset key in ESI, promoted to
+ * the first and two trailing parameters (see src/rendering/BlitSpriteText.c). */
+void BlitSpriteText(int x, int glyphBase, const char *text, int count, int advance,
+                    int y, int charsetKey);
 void SetClipRect(int x1, int x2, int y1, int y2); /* text draw step */
 int  PeekPacketChecksumState(void *self); /* decode one value-guarded field */
 void *GetLocalizedString(void *table, int id);
@@ -194,7 +197,10 @@ void CState03GameRoomList::RenderRoomCard(int slot)
 
     /* room number text (local room-card id + 1) */
     _sprintf(numText, (const char *)&PTR_DAT_00551ecc, Ctx_roomCardIds(ctx)[slot * 2] + 1);
-    BlitSpriteText(0x14, numText, 3, 0xb);
+    /* 0x42a598-0x42a5a3: EBX = edi + 0xb = yBand + 0x45 (EDI is
+     * yBand + 0x3a), ECX = ebp + 0x11 = xBand + 0x11, ESI = 0x1f4 - the
+     * same seven arguments RenderRoomCard.c passes. */
+    BlitSpriteText(xBand + 0x11, 0x14, numText, 3, 0xb, yBand + 0x45, 0x1f4);
     /* FIXED (2026-07-15): both SetClipRect calls were dropping their 4
      * corner args - see the raw-C sibling RenderRoomCard.c's own
      * recovery comments for the full derivation (xBand/yBand here =

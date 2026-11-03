@@ -1306,7 +1306,7 @@ void __thiscall BuildScaledSpriteQuad(int param_1,int param_2,int param_3,char p
 void BuildSizedSpriteQuad(int param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6,int regEax,int regEbx);
 void __thiscall FUN_004ecee0(int param_1,int param_2,int param_3,int regEax);
 undefined4 __thiscall QueueSpriteFrameSpans(int param_1,int param_2,int regEax,int regEdx);
-void __thiscall BlitSpriteText();
+void __thiscall BlitSpriteText(int param_1,int param_2,int param_3,int param_4,int param_5,int y,int charsetKey);
 void __thiscall FUN_004ed300(int param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6,int param_7);
 void FUN_004edaa0(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,undefined4 color);
 void DrawBattleFadeOverlay(int param_1,int param_2,int param_3,int param_4,int param_5);

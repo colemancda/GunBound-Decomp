@@ -58,6 +58,14 @@
  * seven args. Left it faulting before this: RenderWorldListRow passed
  * the string LENGTH where param_3 (the string pointer) belongs, so the
  * `*(char*)(param_3+i)` read hit a near-null address.
+ *
+ * FIX (2026-11-03): every call site now passes all seven arguments
+ * (tools/count_call_args.py: 22 of 22), so functions.h's K&R-empty
+ * prototype is replaced by the full (x, glyphBase, string, count, advance,
+ * y, charsetKey) one. The last 13 short sites were RenderBuddyRow
+ * (0x5060e3, 0x506113), State09_ReadyRoom_RenderRosterAndItems (0x4d7e6f,
+ * 0x4d8660), State03_GameRoomList.cpp's room number (0x42a5a3) and
+ * FUN_0044a000 (eight, 0x44a459-0x44ae32).
  */
 #include "ghidra_types.h"
 

@@ -81,6 +81,14 @@
  *    0x4d87c7: twin item-slot overlays at (local_a4c=EDI, 0x16c).
  *  - LAB_004d8ac2 (turn label, key 0x2712, 0x4d8ad4): B16 0x4d8ae5 /
  *    CLP 0x4d8afa at (0x17a,0x186).
+ *
+ * FIX (2026-11-03): both BlitSpriteText calls pass all seven arguments.
+ * 0x4d7e60-0x4d7e6f: `mov esi,0x1f4 / mov ebx,0xf / mov ecx,0x2f` with
+ * pushes (0x46, buf, 3, 0xb) - x 0x2f, y 0xf. 0x4d8655-0x4d8660: `add
+ * ebx,0x22 / lea ecx,[edi+0x30] / mov esi,0x1f4` with pushes (0x7d, buf,
+ * 3, 5), where EDI = (slot % 3) * 0x46 + 0x210 and EBX = (slot / 3) * 0x2d
+ * + 0x193 (set unconditionally at 0x4d85b4/0x4d85c2 and not written again
+ * on any path to the call). The port passed only the four pushed values.
  */
 #include "ghidra_types.h"
 
@@ -142,7 +150,8 @@ void __fastcall State09_ReadyRoom_RenderRosterAndItems(int param_1)
     }
   }
   _sprintf(local_928,(char *)&PTR_DAT_00551ecc,*(int *)(g_clientContext + 0x44e60) + 1);
-  BlitSpriteText(0x46,local_928,3,0xb);
+  /* 0x4d7e60-0x4d7e6f: ESI = 0x1f4, EBX = 0xf (y), ECX = 0x2f (x). */
+  BlitSpriteText(0x2f,0x46,(int)local_928,3,0xb,0xf,0x1f4);
   SetClipRect(0x5c, 0x112, 0x257, 0);
   iVar3 = g_clientContext;
   /* BlitRLESprite's this/param_1 and rleData (4th arg) were dropped in the
@@ -441,7 +450,11 @@ LAB_004d85fe:
 LAB_004d862d:
   uVar7 = GetItemQuantityByIcon(g_clientContext,(uint)uVar1);
   _sprintf(local_a28,(char *)&PTR_DAT_00551ecc,uVar7);
-  BlitSpriteText(0x7d,local_a28,3,5);
+  /* 0x4d8655-0x4d8660: EBX = y + 0x22 and ECX = x + 0x30, where x/y
+   * (EDI/EBX, 0x4d85b4/0x4d85c2) are this slot's grid position; ESI =
+   * 0x1f4. */
+  BlitSpriteText(((int)local_a4c % 3) * 0x46 + 0x210 + 0x30,0x7d,(int)local_a28,3,5,
+                 ((int)local_a4c / 3) * 0x2d + 0x193 + 0x22,0x1f4);
   local_a4c = local_a4c + 1;
   if (8 < (int)local_a4c) goto LAB_004d867a;
   goto LAB_004d8540;

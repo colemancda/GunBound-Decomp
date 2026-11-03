@@ -34,6 +34,14 @@
  *    byte); all three share x=iVar4+0x77, y=iVar1 and the single CLP
  *    at 0x5061c2 (LAB_005061be) whose frame the C already routes as
  *    uVar6.
+ *
+ * FIX (2026-11-03): both BlitSpriteText calls pass all seven arguments.
+ * 0x5060d1-0x5060e3 is `add ebp,0x82 / lea ebx,[edi+0xe] / mov esi,0x1f4 /
+ * mov ecx,ebp` with pushes (0x28, buf, 3, 6); EBP was iVar4 + 0x14 (`add
+ * ebp,0x14` at 0x505f37; the path through 0x506054 skips the 0x506007 `add
+ * ebp,0x63`) and EDI is iVar1, so x = iVar4 + 0x96 and y = iVar1 + 0xe.
+ * 0x50610f-0x506113 is `mov ebx,edi / mov ecx,ebp`: the same x, y = iVar1.
+ * The port passed only the four pushed values.
  */
 #include "ghidra_types.h"
 
@@ -113,9 +121,14 @@ void __thiscall RenderBuddyRow(int param_1,int param_2,int regEax)
           uVar3 = *(ushort *)(param_2 + 0x33);
         }
         _sprintf(local_80,(char *)&PTR_DAT_00551ecc,uVar3 + 1);
-        BlitSpriteText(0x28,local_80,3,6);
+        /* 0x5060d1-0x5060e3: ECX = ebp + 0x82 = iVar4 + 0x96 (ebp is
+         * iVar4 + 0x14 from 0x505f37), EBX = edi + 0xe = iVar1 + 0xe,
+         * ESI = 0x1f4. */
+        BlitSpriteText(iVar4 + 0x96,0x28,(int)local_80,3,6,iVar1 + 0xe,0x1f4);
         _sprintf(local_80,(char *)&PTR_DAT_00551ecc,*(ushort *)(param_2 + 0x31) + 1);
-        BlitSpriteText(0x28,local_80,3,6);
+        /* 0x50610f-0x506113: EBX = edi = iVar1, ECX = ebp (still iVar4 +
+         * 0x96), ESI still 0x1f4. */
+        BlitSpriteText(iVar4 + 0x96,0x28,(int)local_80,3,6,iVar1,0x1f4);
         return;
       }
       if (*(short *)(param_2 + 0x31) != -1) {
