@@ -1,15 +1,14 @@
-# Per-class port coverage, ranked (tools/vtable_census.py --coverage, 2026-08-19)
+# Per-class port coverage, ranked (tools/vtable_census.py --coverage, 2026-11-03)
 # ported = summed PROGRESS.csv bytes of this vtable's distinct slots with
 # status RAW-src/PARITY-*; slots = raw count (ported/distinct); uncarved =
 # distinct slots Ghidra never carved.  ~name = synthesized from the
 # vtable's most distinctive named slot.
 ported    vtable slots       uncarved class (~ = named from its most distinctive slot)
-ported    vtable slots       uncarved class (~ = named from its most distinctive slot)
   93564b  0x5566d8 18 (17/17)     0     ~State11_InBattle_Delete
   27201b  0x5569f8 18 (15/15)     0     ~State09_ReadyRoom_Delete
   23854b  0x556264  8 ( 8/ 8)     0     ~Mobile04_MainAction
   20659b  0x555f18  8 ( 8/ 8)     0     ~Mobile12_MainAction
-  19804b  0x5555f8 18 (11/13)     0     ~State07_AvatarStore_ProcessPacket
+  20218b  0x5555f8 18 (12/13)     0     ~State07_AvatarStore_Delete
   19630b  0x555e54  8 ( 8/ 8)     0     ~Mobile13_MainAction
   18999b  0x556448  8 ( 8/ 8)     0     ~Mobile06_MainAction
   18979b  0x555c14  8 ( 8/ 8)     0     ~Mobile05_MainAction
@@ -44,14 +43,14 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
   12145b  0x553670 18 (11/11)     0     ~State03_GameRoomList_ProcessPacket
   11924b  0x555bf0  9 ( 8/ 9)     1     ~DetonateSuperShot_Bullet6
   11913b  0x555e88  8 ( 8/ 8)     0     ~DeleteShot1_Bullet9_16
-  11699b  0x55656c  8 ( 7/ 7)     0     ~DetonateProjectile
+  11699b  0x55656c  8 ( 7/ 7)     0     ~BlastEffect_ScalarDtor
   11639b  0x555f58  9 ( 9/ 9)     0     ~ExplodeSuperShot_Bullet11
   11469b  0x55658c  8 ( 7/ 8)     1     ~DetonateProjectile
   11463b  0x555e0c  8 ( 8/ 8)     0     ~PublishProjectileTrackingStateFacing
   11433b  0x55631c  9 ( 9/ 9)     0     ~DetonateSuperShot_Bullet3_5_14
-  11428b  0x555fbc  8 ( 7/ 8)     1     ~DetonateProjectile
+  11428b  0x555fbc  8 ( 7/ 8)     1     ~ItemCase_ScalarDtor
   11387b  0x555c34  8 ( 8/ 8)     0     CProjectile (base)
-  11325b  0x556008  8 ( 8/ 8)     0     ~DetonateProjectile
+  11325b  0x556008  8 ( 8/ 8)     0     ~KnightFlameShot_ScalarDtor
   11276b  0x5562c8  9 ( 9/ 9)     0     ~ExplodeSuperShot_Bullet2
   11259b  0x5563a8  8 ( 8/ 8)     0     ~DeleteShot2_Bullet3
   11258b  0x555ac4  9 ( 9/ 9)     0     ~DetonateSuperShot_Bullet1
@@ -78,55 +77,57 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
    9280b  0x556058  8 ( 8/ 8)     0     ~DeletePrimaryShot_Bullet15
    9059b  0x555dcc  8 ( 8/ 8)     0     ~AnimateProjectileTick
    8197b  0x555f9c  8 ( 8/ 8)     0     ~DeleteItemShot
-   8174b  0x555dec  8 ( 8/ 8)     0     ~PublishProjectileTrackingState
+   8174b  0x555dec  8 ( 8/ 8)     0     ~DropCaseProjectile_ScalarDtor
    5649b  0x5570f0 18 ( 9/12)     0     ~State02_ServerSelect_ProcessPacket
    3946b  0x555fdc  5 ( 5/ 5)     0     ~DeleteJewel
-   2674b  0x557eb8 10 ( 9/10)     1     ~Widget_SetFocus
+   3745b  0x557eb8 10 (10/10)     0     ~AvatarStorePanel_OnMouseMove
+   3372b  0x5575a8  1 ( 1/ 1)     0     ~CommP2POwner_ProcessPacket
    2260b  0x555b54  5 ( 5/ 5)     0     ~DeletePoisonedBaseObject
-   2085b  0x557cd4 10 ( 9/10)     1     ~Widget_OnDragMove
-   1913b  0x557f08 10 ( 9/10)     1     ~WorldListPanel_OnMouseDown
-   1693b  0x557ee0 10 (10/10)     0     ~RenderReadyRoomChatRow
+   2105b  0x557cd4 10 (10/10)     0     ~LobbyChatPanel_OnCommand
+   2043b  0x557f08 10 (10/10)     0     ~WorldListPanel_OnMouseDown
+   1693b  0x557ee0 10 (10/10)     0     ~ReadyRoomChatPanel_OnCommand
+   1623b  0x557c84 10 (10/10)     0     ~TextEntry_SyncFromControl
    1524b  0x555edc  5 ( 5/ 5)     0     ~DeleteFirewallHazard
-   1514b  0x557c84 10 ( 8/10)     2     ~TextEntry_SyncFromControl
    1506b  0x555e74  5 ( 5/ 5)     0     ~DeleteLightningHazard
    1505b  0x5565e4  5 ( 5/ 5)     0     ~DeleteTornadoHazard
+   1403b  0x557c34 10 (10/10)     0     ~CreateRoomDialog_OnCommand
    1354b  0x556510  5 ( 4/ 5)     1     ~ResolveNamedState
-   1299b  0x5575c8 17 (12/17)     5     (all FUN_/uncarved)
+   1299b  0x5575c8 17 (12/17)     5     ~CommP2POwner_Release
    1293b  0x557e90 10 ( 8/10)     0     ~ScrollListWidget_DrawThumb
+   1288b  0x557cac 10 (10/10)     0     ~ChannelUserListPanel_HitTest
    1273b  0x557bbc 10 (10/10)     0     ~Widget_OnCommandDefault
-   1247b  0x557f30 10 (10/10)     0     ~Widget_MouseDownChildren
-   1234b  0x557c5c 10 (10/10)     0     ~Widget_OnCommandDefault
-   1218b  0x557cac 10 ( 8/10)     2     ~RenderChannelUserRow
+   1247b  0x557f30 10 (10/10)     0     ~StaticText_Update
+   1234b  0x557c5c 10 (10/10)     0     ~ItemDescriptionTooltip_Update
+   1210b  0x557da0 10 ( 9/10)     1     ~Label_OnMouseUp
+   1205b  0x551cb8 14 ( 6/12)     6     ~NoOpMethodStdcall1
    1185b  0x557f58 10 (10/10)     0     ~Widget_DrawChildrenDeep
    1168b  0x5574cc  5 ( 3/ 5)     2     ~DecodeSoundBufferChunk
+   1091b  0x557be4 10 (10/10)     0     ~BuddyPanel_OnCommand
    1059b  0x556194  5 ( 4/ 5)     1     ~ResolveNamedState
-   1018b  0x5572f0  4 ( 3/ 3)     0     ~NoOpMethod
+   1018b  0x5572f0  4 ( 3/ 3)     0     ~ReplayContext_ScalarDeletingDestructor
    1014b  0x557df0 10 (10/10)     0     ~EnterRoomNumberDialog_OnCommand
-   1014b  0x557c0c 10 (10/10)     0     ~Widget_DrawSelf
-   1013b  0x557da0 10 ( 7/10)     3     ~Label_OnMouseDown
-    947b  0x557b94 10 (10/10)     0     ~HandlePanelMouseDown
-    928b  0x551cb8 14 ( 5/12)     7     ~NoOpMethodArg1
-    895b  0x557e68 10 (10/10)     0     ~Widget_DrawSelf
-    893b  0x557d78 10 (10/10)     0     ~Widget_DrawSelf
-    878b  0x557d50 10 (10/10)     0     ~Widget_DrawSelf
-    876b  0x557e40 10 (10/10)     0     ~Widget_DrawSelf
-    858b  0x557dc8  8 ( 8/ 8)     0     ~HandlePanelMouseDown
-    808b  0x557e18 10 ( 9/10)     1     ~Widget_DrawSelf
-    808b  0x557d28 10 ( 9/10)     1     ~Widget_DrawSelf
-    807b  0x557c34 10 ( 9/10)     1     ~HandlePanelMouseDown
+   1014b  0x557c0c 10 (10/10)     0     ~RoomTitleDialog_OnCommand
+    947b  0x557b94 10 (10/10)     0     ~ChatLogPanel_OnCommand
+    895b  0x557e68 10 (10/10)     0     ~AddBuddyDialog_OnCommand
+    893b  0x557d78 10 (10/10)     0     ~AvatarShopIpConfirmDialog_OnCommand
+    878b  0x557d50 10 (10/10)     0     ~BuddyRequestDialog_OnCommand
+    876b  0x557e40 10 (10/10)     0     ~DeleteBuddyConfirmDialog_OnCommand
+    858b  0x557dc8  8 ( 8/ 8)     0     ~RoomPasswordDialog_OnCommand
+    845b  0x557e18 10 (10/10)     0     ~Widget_DrawSelf
+    845b  0x557d28 10 (10/10)     0     ~Widget_DrawSelf
     806b  0x557484 10 ( 6/ 9)     3     ~CInputDevice_ScalarDeletingDestructor
-    745b  0x557f80 11 (10/11)     1     ~PanelManager_DispatchMouseMove
-    636b  0x557be4 10 ( 7/10)     3     ~Widget_OnDragMove
-    556b  0x557300  6 ( 4/ 6)     2     ~NoOpMethod
-    546b  0x5574e8  5 ( 3/ 5)     2     ~NoOpMethodArg1
-    544b  0x557cfc 11 ( 9/11)     2     ~PanelManager_DispatchMouseDown
+    745b  0x557f80 11 (10/11)     1     ~PanelManager_BaseScalarDtor
+    643b  0x55208c  5 ( 4/ 4)     0     ~TextBoxWidget_Draw
+    556b  0x557300  6 ( 4/ 6)     2     ~SceneNode_UpdateTransformAndCamera
+    546b  0x5574e8  5 ( 3/ 5)     2     ~NoOpMethodStdcall1
+    544b  0x557cfc 11 ( 9/11)     2     ~PanelManager_ScalarDtor
     512b  0x556250  5 ( 4/ 5)     1     ~DeletePoisonedBaseObject
     505b  0x556544  5 ( 4/ 5)     1     ~DeletePoisonedBaseObject
     491b  0x5572e8  2 ( 2/ 2)     0     ~HandleSocketEvent
     450b  0x555590 18 ( 8/ 9)     1     ~State05_Logo1_OnEnter
     418b  0x5564bc  5 ( 5/ 5)     0     CRiderEffect
     416b  0x555ef0  5 ( 5/ 5)     0     CFlameEffect
-    375b  0x557538  6 ( 5/ 6)     1     ~NoOpMethodArg1
+    375b  0x557538  6 ( 5/ 6)     1     ~SceneNode_UpdateTransform
     368b  0x5560bc  5 ( 5/ 5)     0     CSuperFlameEffect
     296b  0x55745c 10 ( 5/10)     5     ~CInputDevice_ScalarDeletingDestructor
     260b  0x557278 18 ( 8/ 9)     1     ~State01_Title_OnEnter
@@ -137,7 +138,8 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
     171b  0x556488  5 ( 4/ 5)     1     ~DeletePoisonedBaseObject
     167b  0x555ec8  5 ( 4/ 5)     1     ~DeletePoisonedBaseObject
     156b  0x557de8  2 ( 2/ 2)     0     ~Widget_DrawSelf
-    123b  0x5575b8  4 ( 2/ 4)     2     ~CGameState_NoOpVirtual_B
+    123b  0x556a40  5 ( 4/ 4)     0     ~DeletePoisonedBaseObject
+    123b  0x5575b8  4 ( 2/ 4)     2     ~CommP2POwner_OnConnectionClosed
     103b  0x556558  5 ( 4/ 5)     1     ~TickButtonAnimation
      96b  0x5566c0  5 ( 3/ 5)     2     ~DeletePoisonedBaseObject
      96b  0x556308  5 ( 3/ 5)     2     ~DeletePoisonedBaseObject
@@ -147,21 +149,32 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
      96b  0x555d98  5 ( 3/ 5)     2     ~DeletePoisonedBaseObject
      96b  0x555ccc  5 ( 3/ 5)     2     ~DeletePoisonedBaseObject
      96b  0x555c54  5 ( 3/ 5)     2     ~DeletePoisonedBaseObject
-     96b  0x556a40  5 ( 3/ 4)     1     ~DeletePoisonedBaseObject
-     96b  0x55208c  5 ( 3/ 4)     1     ~DeletePoisonedBaseObject
      96b  0x555b68  5 ( 3/ 3)     0     ~DeletePoisonedBaseObject
      95b  0x5565cc  5 ( 3/ 5)     2     ~ResolveNamedState
-     89b  0x5520ac  2 ( 2/ 2)     0     ~NoOpMethodArg1
-     79b  0x5575ac  3 ( 1/ 3)     2     (all FUN_/uncarved)
+     89b  0x5520ac  2 ( 2/ 2)     0     ~NoOpMethodStdcall1
+     79b  0x5575ac  3 ( 1/ 3)     2     ~RequestP2PPeerByName
+     50b  0x557534  1 ( 1/ 1)     0     (all FUN_/uncarved)
+     41b  0x5572dc  1 ( 1/ 1)     0     (all FUN_/uncarved)
+     32b  0x551cb4  1 ( 1/ 1)     0     ~DeletePoisonedBaseObject
+     31b  0x55752c  1 ( 1/ 1)     0     (all FUN_/uncarved)
+     31b  0x5520a0  1 ( 1/ 1)     0     (all FUN_/uncarved)
+     31b  0x551e88  1 ( 1/ 1)     0     (all FUN_/uncarved)
+     31b  0x551cf0  1 ( 1/ 1)     0     (all FUN_/uncarved)
+     30b  0x557550  1 ( 1/ 1)     0     (all FUN_/uncarved)
+     30b  0x557530  1 ( 1/ 1)     0     (all FUN_/uncarved)
+     30b  0x557528  1 ( 1/ 1)     0     (all FUN_/uncarved)
+     30b  0x557524  1 ( 1/ 1)     0     (all FUN_/uncarved)
+     30b  0x555b7c  1 ( 1/ 1)     0     (all FUN_/uncarved)
       7b  0x553fb0 18 ( 3/ 4)     1     ~CGameState_NoOpVirtual_A
       4b  0x557434 10 ( 2/ 5)     3     ~CGameState_NoOpVirtual_B
-      4b  0x5574e0  2 ( 2/ 2)     0     ~NoOpMethodArg1
-      4b  0x5572e0  2 ( 2/ 2)     0     ~NoOpMethodArg1
-      4b  0x553ff8  2 ( 2/ 2)     0     ~NoOpMethodArg1
-      4b  0x5520a4  2 ( 2/ 2)     0     ~NoOpMethodArg1
-      3b  0x554000  2 ( 1/ 2)     1     ~NoOpMethodArg1
+      4b  0x5574e0  2 ( 2/ 2)     0     ~NoOpMethodStdcall1
+      4b  0x5572e0  2 ( 2/ 2)     0     ~NoOpMethodStdcall1
+      4b  0x553ff8  2 ( 2/ 2)     0     ~NoOpMethodStdcall1
+      4b  0x5520a4  2 ( 2/ 2)     0     ~NoOpMethodStdcall1
+      3b  0x554000  2 ( 1/ 2)     1     ~NoOpMethodStdcall1
       3b  0x557598  4 ( 1/ 2)     0     ~__purecall
       1b  0x55755c  4 ( 1/ 3)     1     ~__purecall
       0b  0x557654  3 ( 0/ 1)     0     ~__purecall
       0b  0x557610 17 ( 0/ 1)     0     ~__purecall
+      0b  0x557594  1 ( 0/ 1)     0     ~__purecall
       0b  0x551cf4 14 ( 0/ 1)     0     ~__purecall

@@ -82,7 +82,7 @@ vtable 0x550378  installs=4  slots=1  UNCARVED=1
 vtable 0x551cb4  installs=2  slots=1
    0: 0x40ca00  DeletePoisonedBaseObject
 
-vtable 0x551cb8  installs=2  slots=14  UNCARVED=7
+vtable 0x551cb8  installs=2  slots=14  UNCARVED=6
    0: 0x403880  UNCARVED
    1: 0x403890  UNCARVED
    2: 0x4038b0  NoOpMethodStdcall1
@@ -92,7 +92,7 @@ vtable 0x551cb8  installs=2  slots=14  UNCARVED=7
    6: 0x403c00  UNCARVED
    7: 0x403d20  FUN_00403d20
    8: 0x403f30  FUN_00403f30
-   9: 0x403e10  UNCARVED
+   9: 0x403e10  FUN_00403e10
   10: 0x403ff0  UNCARVED
   11: 0x404140  UNCARVED
   12: 0x404330  FUN_00404330
