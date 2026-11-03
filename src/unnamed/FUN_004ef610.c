@@ -97,7 +97,7 @@ void __thiscall FUN_004ef610(int param_1,int param_2)
             do {
               iVar3 = iVar3 + uVar4;
               uVar8 = uVar8 - uVar4;
-              FUN_004f0960();
+              RewindXFSEntryStream();
               ReadXFSEntryByte(*(undefined4 *)(param_1 + 0x14),&stack0xffffffd0);
               uVar4 = ReadXFSEntryByte(*(undefined4 *)(param_1 + 0x14),(int)pLVar1 + iVar3);
             } while (uVar4 != uVar8);

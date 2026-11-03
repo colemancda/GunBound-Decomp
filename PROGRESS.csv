@@ -1273,7 +1273,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f0650,108,FUN_004f0650,false,1,2,RAW-src
 004f06c0,471,ReadXFSEntryByte,false,66,3,RAW-src
 004f08a0,181,SkipXFSEntryBytes,false,7,2,RAW-src
-004f0960,48,FUN_004f0960,false,2,1,RAW-src
+004f0960,48,RewindXFSEntryStream,false,2,1,RAW-src
 004f0990,58,CompareXFSEntryName,false,3,0,RAW-src
 004f09d0,66,XFSArchive_Construct,false,3,1,RAW-src
 004f0a20,42,XFSArchive_Destruct,false,3,2,RAW-src

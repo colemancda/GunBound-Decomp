@@ -78,7 +78,7 @@ LAB_004ef344:
                 puVar9 = (undefined4 *)((int)puVar9 + 1);
                 puVar10 = (undefined4 *)((int)puVar10 + 1);
               }
-              FUN_004f0960();
+              RewindXFSEntryStream();
               *(undefined4 *)(param_1 + 0xa4) = 0;
               cVar1 = FUN_004eec70();
               if (cVar1 != '\0') {

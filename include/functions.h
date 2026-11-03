@@ -1366,7 +1366,7 @@ uint FUN_004f0650();
  * (orig callers set EAX to the open stream, EDX to the byte count;
  * ECX/param_1 is garbage). Recovered 2026-08-11. */
 undefined4 __fastcall SkipXFSEntryBytes(undefined4 param_1, int param_2, int stream);
-void __fastcall FUN_004f0960();
+void __fastcall RewindXFSEntryStream();
 int CompareXFSEntryName();
 void XFSArchive_Construct(int regEsi);
 void XFSArchive_Destruct(int regEax);
