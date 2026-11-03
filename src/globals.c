@@ -1398,7 +1398,24 @@ void *PTR_FUN_0056d0f0;
 void *PTR_LAB_0054b450;
 void *PTR_LAB_0054b458;
 void *PTR_LAB_00550378;
-void *PTR_LAB_00551cb8;
+/* The messenger's notify interface (orig .data 0x551cb8, 14 slots, read
+ * from the original; was a lone NULL). The messenger object stamps it at
+ * +8 (0x401948) and hands it to CreateCommP2POwner, which stores it as
+ * the session handler the owner dispatches to (DispatchP2PMessage,
+ * CommP2POwner_OnConnectionClosed). All slots __thiscall (erased: this
+ * first). Slots 2, 4 and 13 are the original's shared `ret 4` stub
+ * 0x4038b0; the port uses the cdecl no-op NoOpMethod instead because the
+ * C callers are cdecl (a `ret 4` stdcall callee would unbalance them).
+ *  0 403880 (always true, ret 0x14)  1 403890  2 4038b0  3 4038c0
+ *  4 4038b0  5 403ae0  6 403c00  7 403d20  8 403f30  9 403e10
+ * 10 403ff0 11 404140 12 404330 13 4038b0. Filled 2026-11-03. */
+void *PTR_LAB_00551cb8[14] = {
+  (void *)FUN_00403880, (void *)FUN_00403890, (void *)NoOpMethod,
+  (void *)FUN_004038c0, (void *)NoOpMethod, (void *)FUN_00403ae0,
+  (void *)FUN_00403c00, (void *)FUN_00403d20, (void *)FUN_00403f30,
+  (void *)FUN_00403e10, (void *)FUN_00403ff0, (void *)FUN_00404140,
+  (void *)FUN_00404330, (void *)NoOpMethod,
+};
 void *PTR_LAB_00551cf4;
 void *PTR_LAB_005520a4;
 void *PTR_LAB_005520ac;

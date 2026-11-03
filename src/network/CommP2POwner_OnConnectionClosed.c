@@ -40,8 +40,8 @@
  * __thiscall, i.e. cdecl with `this` first, so the call now goes
  * through CommP2PSessionClosedFn with the handler as its only argument,
  * as CommP2POwner_ReassemblePackets does for its slot-0 dispatch.  The
- * vtable is still the placeholder global PTR_LAB_00551cb8, so this path
- * is not reachable at runtime yet.
+ * vtable PTR_LAB_00551cb8 is now defined (2026-11-03; slot 1 =
+ * FUN_00403890, carved).
  */
 #include "ghidra_types.h"
 

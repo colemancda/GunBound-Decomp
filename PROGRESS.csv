@@ -46,11 +46,17 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00403170,244,FUN_00403170,false,2,5,RAW-src
 00403270,75,HasPendingDirectLinkRecord,false,1,1,RAW-src
 004032c0,1447,DispatchDirectLinkPacket,false,1,13,RAW-src
+00403880,5,FUN_00403880,false,1,0,RAW-src
+00403890,29,FUN_00403890,false,1,0,RAW-src
 004038b0,3,NoOpMethodStdcall1,false,14,0,RAW-src
+004038c0,544,FUN_004038c0,false,1,8,RAW-src
 00403ae0,285,FUN_00403ae0,false,1,6,RAW-src
+00403c00,273,FUN_00403c00,false,1,5,RAW-src
 00403d20,231,FUN_00403d20,false,1,5,RAW-src
 00403e10,277,FUN_00403e10,false,1,6,RAW-src
 00403f30,186,FUN_00403f30,false,1,0,RAW-src
+00403ff0,326,FUN_00403ff0,false,1,8,RAW-src
+00404140,487,FUN_00404140,false,1,8,RAW-src
 00404330,223,FUN_00404330,false,1,5,RAW-src
 00404410,726,FUN_00404410,false,11,7,RAW-src
 00404700,392,FUN_00404700,false,3,5,RAW-src

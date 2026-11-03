@@ -42,8 +42,7 @@
  * So: the incoming buddy-request notification for a sender known only by
  * user id. Left unnamed like its slot-5/7/12 twins.
  *
- * NOT YET WIRED: the 0x551cb8 table (PTR_LAB_00551cb8) is still a NULL
- * placeholder in src/globals.c, as it is for the twins.
+ * WIRED (2026-11-03): slot 9 of PTR_LAB_00551cb8, now a defined 14-slot table.
  */
 #include "ghidra_types.h"
 

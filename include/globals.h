@@ -1548,7 +1548,7 @@ extern void *PTR_FUN_0056d0f0;
 extern void *PTR_LAB_0054b450;
 extern void *PTR_LAB_0054b458;
 extern void *PTR_LAB_00550378;
-extern void *PTR_LAB_00551cb8;
+extern void *PTR_LAB_00551cb8[14];
 extern void *PTR_LAB_00551cf4;
 extern void *PTR_LAB_005520a4;
 extern void *PTR_LAB_005520ac;

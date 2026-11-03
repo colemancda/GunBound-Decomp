@@ -23,11 +23,20 @@
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
+  *
+ * FIX (2026-11-03): the declaration was __fastcall (ECX, EDX, then stack),
+ * which does not match the binary.  `ret 4` at 0x4032b8 is ONE stack word;
+ * `mov ebx,[esp+0x20]` at 0x40329a (depth 0x1c after sub 0x18 + push ebx)
+ * is entry+4 = the context whose +0x1be4 tree FUN_00404b00 searches; the
+ * flag is CL (`mov bl,cl` at 0x403274) and the name EAX.  Re-declared
+ * cdecl: stack word first, then the register values as trailing
+ * parameters.  The only (unported) binary caller, 0x403c80, is now
+ * FUN_00403c00; the port had no callers.
  */
 #include "ghidra_types.h"
 
 
-bool __fastcall HasPendingDirectLinkRecord(int param_1,int param_2,char *regEax)
+bool HasPendingDirectLinkRecord(int param_2,char param_1,char *regEax)
 
 {
   char cVar1;
