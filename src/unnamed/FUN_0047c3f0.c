@@ -163,7 +163,7 @@ void FUN_0047c3f0(int param_1,int param_2,int *regEsi)
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar5 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
     (*pcVar8)(&g_valueGuardLock);
-    puVar6 = &DAT_00553f90 + *(int *)(&g_nCameraBoundY + g_clientContext);
+    puVar6 = (undefined *)DAT_00553f90 + *(int *)(&g_nCameraBoundY + g_clientContext);
   }
   else {
     EncodeChecksumDeltaSub(iVar3,auStack_684,400);
@@ -171,7 +171,7 @@ void FUN_0047c3f0(int param_1,int param_2,int *regEsi)
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar5 = PeekPacketChecksumState((void *)(auStack_684));
     (*pcVar8)(&g_valueGuardLock);
-    puVar6 = &DAT_00553f90;
+    puVar6 = (undefined *)DAT_00553f90;
   }
   EncodeChecksumDeltaSub(iVar3,auStack_8ac,puVar6);
   uStack_14 = 4;

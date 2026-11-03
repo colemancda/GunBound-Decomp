@@ -171,7 +171,7 @@ extern uint32_t g_buttonDefExt;      /* was DAT_00551cac - ".epa" button-def XFS
 extern uint8_t g_buttonDefExtNul;    /* was DAT_00551cb0 - its trailing NUL */
 extern uint8_t DAT_00551cb1;
 #define _DAT_00551cb1 DAT_00551cb1
-extern uint8_t DAT_00551e24;
+extern const char DAT_00551e24[];  /* EUC-KR "operator team" name, see globals.c */
 extern uint16_t DAT_00551e34;
 extern uint8_t DAT_00551e36;
 extern const char DAT_00551e78[];  /* "push" - mouse-press state name */
@@ -261,13 +261,13 @@ extern uint16_t DAT_00553624;
 extern uint8_t DAT_00553626;
 extern uint32_t DAT_00553628;
 extern uint8_t DAT_00553648;
-extern uint32_t DAT_00553b68;
-extern uint16_t DAT_00553b6c;
-extern uint32_t DAT_00553b70;
-extern uint16_t DAT_00553b74;
+extern const char DAT_00553b68[8];  /* "fire1" - see globals.c */
+#define DAT_00553b6c (*(const uint16_t *)(DAT_00553b68 + 4))
+extern const char DAT_00553b70[8];  /* "fire2" */
+#define DAT_00553b74 (*(const uint16_t *)(DAT_00553b70 + 4))
 extern uint8_t DAT_00553b88;
 extern uint8_t DAT_00553bcc;
-extern uint8_t DAT_00553f90;
+extern const char DAT_00553f90[];  /* "move" */
 extern uint8_t DAT_00554060;
 extern uint32_t DAT_005554f8;
 extern uint8_t DAT_005554fc;

@@ -20,7 +20,7 @@ void FUN_00425700(int regEsi)
   int iVar1;
   DWORD DVar2;
   
-  iVar1 = __stricmp((char *)(g_clientContext + 0x23313),&DAT_00551e24);
+  iVar1 = __stricmp((char *)(g_clientContext + 0x23313),DAT_00551e24);
   if (iVar1 != 0) {
     iVar1 = __stricmp((char *)(g_clientContext + 0x23313),&DAT_00552c68);
     if ((iVar1 != 0) && (*(int *)(&DAT_0067e3c8 + regEsi) < 0x20)) {

@@ -146,7 +146,7 @@ void AppendChatLogEntry(int param_1,char param_2,char *param_3,char *param_4,cha
   if (param_3 != (char *)0x0) {
     iVar9 = 7;
     bVar13 = true;
-    pcVar3 = &DAT_00551e24;
+    pcVar3 = (char *)DAT_00551e24;
     do {
       if (iVar9 == 0) break;
       iVar9 = iVar9 + -1;

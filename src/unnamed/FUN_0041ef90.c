@@ -54,7 +54,7 @@ FUN_0041ef90(int param_1,undefined1 param_2,byte param_3,undefined4 param_4,int 
     iVar4 = 7;
     bVar10 = true;
     pcVar7 = pcVar2;
-    pcVar8 = &DAT_00551e24;
+    pcVar8 = (char *)DAT_00551e24;
     do {
       if (iVar4 == 0) break;
       iVar4 = iVar4 + -1;

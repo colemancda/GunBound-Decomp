@@ -36,7 +36,11 @@ uint8_t DAT_0054b438;
 uint32_t g_buttonDefExt = 0x6170652e; /* ".epa" little-endian */
 uint8_t g_buttonDefExtNul = 0x00;        /* trailing NUL */
 uint8_t DAT_00551cb1;
-uint8_t DAT_00551e24;
+/* 0x551e24: the 6-byte EUC-KR string bf ee bf b5 c6 c0 ("운영팀", the
+ * operator team) + NUL, copied from the original .data. AppendChatLogEntry
+ * and FUN_0041ef90 compare 7 bytes against it (`mov edi,0x551e24` at
+ * 0x41ba1b / 0x41effe); the 0x403c0e.. sites push it. Was a zeroed byte. */
+const char DAT_00551e24[] = "\xbf\xee\xbf\xb5\xc6\xc0";
 uint16_t DAT_00551e34;
 uint8_t DAT_00551e36;
 const char DAT_00551e78[] = "push"; /* mouse-press state name; was a zeroed 1-byte global (orig .data 0x551e78) */
@@ -142,13 +146,19 @@ uint16_t DAT_00553624;
 uint8_t DAT_00553626;
 uint32_t DAT_00553628;
 uint8_t DAT_00553648;
-uint32_t DAT_00553b68;
-uint16_t DAT_00553b6c;
-uint32_t DAT_00553b70;
-uint16_t DAT_00553b74;
+/* 0x553b68 "fire1" and 0x553b70 "fire2": mobile state names, pushed as
+ * pointers (push 0x553b68 at 0x47ceaa, mov eax,0x553b70 at 0x45ee45, ...).
+ * Were zeroed uint32_t + uint16_t pairs; Ghidra split each string where
+ * inlined strcpys read it as a dword and a word (0x43d109/0x43d111,
+ * 0x4b7965/0x4b796c), so DAT_00553b6c / DAT_00553b74 are now views into
+ * these arrays (globals.h). Bytes copied from the original .data. */
+const char DAT_00553b68[8] = "fire1";
+const char DAT_00553b70[8] = "fire2";
 uint8_t DAT_00553b88;
 uint8_t DAT_00553bcc;
-uint8_t DAT_00553f90;
+/* 0x553f90 "move": a mobile state name, pushed as a pointer (push 0x553f90
+ * at 0x42bb8b and 11 more). Was a zeroed byte; bytes from the original. */
+const char DAT_00553f90[] = "move";
 uint8_t DAT_00554060;
 uint32_t DAT_005554f8;
 uint8_t DAT_005554fc;

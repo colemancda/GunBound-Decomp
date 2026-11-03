@@ -62,7 +62,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         cVar3 = *(char *)(g_clientContext + 0x458fc + uVar7 * 2);
         if ((cVar3 == -1) || ('\x10' < cVar3)) {
           uVar5 = FindPreloadedTextureByName(s_rider_00553f98);
-          pcVar6 = &DAT_00553f90;
+          pcVar6 = (char *)DAT_00553f90;
         }
         else {
           _sprintf(local_488,s_tank_d_00553fa0,cVar3 + 1);

@@ -111,9 +111,9 @@ LAB_0045f2b4:
     cVar1 = FUN_004067c0((byte *)param_1 + 0xbfbe,(byte *)param_1 + 0xbfc1);
     if (cVar1 != '\0') {
       cVar1 = PeekPacketChecksumBool();
-      puVar3 = &DAT_00553b70;
+      puVar3 = (undefined4 *)DAT_00553b70;
       if (cVar1 != '\x01') {
-        puVar3 = &DAT_00553b68;
+        puVar3 = (undefined4 *)DAT_00553b68;
       }
 LAB_0045ef56:
       (**(code **)(*param_1 + 4))(puVar3);
@@ -152,9 +152,9 @@ LAB_0045f039:
     cVar1 = FUN_004067c0((byte *)param_1 + 0xbfbe,(byte *)param_1 + 0xbfc1);
     if (cVar1 != '\0') {
       cVar1 = PeekPacketChecksumBool();
-      puVar3 = &DAT_00553b68;
+      puVar3 = (undefined4 *)DAT_00553b68;
       if (cVar1 != '\x01') {
-        puVar3 = &DAT_00553b70;
+        puVar3 = (undefined4 *)DAT_00553b70;
       }
       goto LAB_0045ef56;
     }

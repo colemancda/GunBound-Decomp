@@ -370,7 +370,7 @@ LAB_004d722d:
       }
       puVar3 = (undefined *)0x0;
 LAB_004d7599:
-      pcVar9 = &DAT_00553f90;
+      pcVar9 = (char *)DAT_00553f90;
     }
     else {
       _sprintf(acStack_8c,s_tank_d_00553fa0,cVar1 + 1);

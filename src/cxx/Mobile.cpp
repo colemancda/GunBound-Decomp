@@ -189,7 +189,8 @@ extern unsigned char DAT_007a7644[0x1c];/* animated cursor object (address taken
 extern unsigned char g_abBroadcastEventBuffer;
 extern unsigned int  g_dwBroadcastEventCursor;
 extern const char s_normal_00552230[], s_wnormal_00553618[], s_wmove_00555ca0[];
-extern unsigned char DAT_00553f90, DAT_00555c90;
+extern const char DAT_00553f90[];   /* "move" - see src/globals.c */
+extern unsigned char DAT_00555c90;
 
 /* HandleFireInput's additional dependencies. */
 void EncodeOutgoingPacketField(void *self, unsigned int v);
