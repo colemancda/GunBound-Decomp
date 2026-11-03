@@ -1,4 +1,5 @@
 /* ClearMuteList - 0x00425960 in the original binary.
+ * (Historical notes below: FUN_00405320 is now CString_Destruct.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -30,7 +31,7 @@ void ClearMuteList(int regEbx)
   
   if (*(int *)(&DAT_0067ec60 + regEbx) != 0) {
     for (iVar1 = *(int *)(&DAT_0067ec64 + regEbx); iVar1 != 0; iVar1 = iVar1 + -1) {
-      FUN_00405320();
+      CString_Destruct();
     }
     _free(*(void **)(&DAT_0067ec60 + regEbx));
     *(undefined4 *)(&DAT_0067ec60 + regEbx) = 0;

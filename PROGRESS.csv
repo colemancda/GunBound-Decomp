@@ -76,7 +76,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00405290,102,HashMap_FreeNode_2c,false,1,4,RAW-src
 00405300,5,thunk_FUN_00405320,true,4,0,RAW-src
 00405310,5,thunk_FUN_00405320,true,1,0,RAW-src
-00405320,29,FUN_00405320,false,10,0,RAW-src
+00405320,29,CString_Destruct,false,10,0,RAW-src
 00405360,352,FUN_00405360,false,1,3,RAW-src
 004054c0,72,FUN_004054c0,false,4,2,RAW-src
 00405510,149,ConstructStringFromText,false,5,3,RAW-src

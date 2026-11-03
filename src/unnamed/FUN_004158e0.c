@@ -10,7 +10,7 @@
 void thunk_FUN_004158f0(void)
 
 {
-  FUN_00405320();
+  CString_Destruct();
   return;
 }
 

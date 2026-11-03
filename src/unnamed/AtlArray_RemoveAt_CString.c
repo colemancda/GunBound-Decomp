@@ -1,4 +1,5 @@
 /* AtlArray_RemoveAt_CString - 0x004264d0 in the original binary.
+ * (Historical notes below: FUN_00405320 is now CString_Destruct.)
  *
  * Named below; still a raw/near-verbatim port of Ghidra's decompiler
  * output rather than a hand-verified reconstruction.  See src/README.md's
@@ -135,7 +136,7 @@ void __fastcall AtlArray_RemoveAt_CString(int param_1,int *regEbx,int regEsi)
   }
   iVar1 = (unaff_EBX[1] - param_1) - unaff_ESI;
   for (iVar2 = unaff_ESI; iVar2 != 0; iVar2 = iVar2 + -1) {
-    FUN_00405320();
+    CString_Destruct();
   }
   if (iVar1 != 0) {
     _memmove((void *)(*unaff_EBX + param_1 * 4),(void *)(*unaff_EBX + (param_1 + unaff_ESI) * 4),

@@ -1,4 +1,5 @@
 /* CStringPair_Destroy - 0x00415890 in the original binary.
+ * (Historical notes below: FUN_00405320 is now CString_Destruct.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -33,8 +34,8 @@
 void CStringPair_Destroy(int regEsi)
 
 {
-  FUN_00405320(regEsi + 4);
-  FUN_00405320(regEsi);
+  CString_Destruct(regEsi + 4);
+  CString_Destruct(regEsi);
   return;
 }
 

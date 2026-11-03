@@ -15,7 +15,7 @@ void FUN_00543870(void)
   iVar1 = DAT_00e9c9e0;
   if (DAT_00e9c9dc != (void *)0x0) {
     for (; iVar1 != 0; iVar1 = iVar1 + -1) {
-      FUN_00405320();
+      CString_Destruct();
     }
     _free(DAT_00e9c9dc);
   }

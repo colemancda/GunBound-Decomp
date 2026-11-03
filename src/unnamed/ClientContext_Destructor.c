@@ -87,7 +87,7 @@ void ClientContext_Destructor(int param_1)
     TreeInsert(local_14,&g_valueGuardMap);
   }
   SUBFIELD(local_4,0,undefined1) = 0x5d;
-  _eh_vector_destructor_iterator_(&DAT_006aa630 + param_1,4,10,FUN_00405320);
+  _eh_vector_destructor_iterator_(&DAT_006aa630 + param_1,4,10,CString_Destruct);
   /* DROPPED-REG FIX 2026-08-28: `lea eax,[edi+0x6aa44c]` at 0x418e76 and
      `lea eax,[edi+0x6aa41c]` at 0x418e81 - ADDRESSES of two arena-offset
      maps, with edi = param_1. Written numerically because 0x6aa41c has

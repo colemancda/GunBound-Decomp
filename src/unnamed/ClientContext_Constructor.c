@@ -608,7 +608,7 @@ int ClientContext_Constructor(int param_1)
   InitGuardedBool((byte *)&DAT_006aa625 + param_1);
   InitGuardedBool((byte *)&DAT_006aa628 + param_1);
   InitGuardedBool((byte *)&DAT_006aa62b + param_1);
-  _eh_vector_constructor_iterator_(&DAT_006aa630 + param_1,4,10,FUN_00426410,FUN_00405320);
+  _eh_vector_constructor_iterator_(&DAT_006aa630 + param_1,4,10,FUN_00426410,CString_Destruct);
   SUBFIELD(local_4,0,undefined1) = 0x5e;
   InitGuardedBool((byte *)&DAT_006aa678 + param_1);
   (&DAT_006aa89c)[param_1] = 0;
