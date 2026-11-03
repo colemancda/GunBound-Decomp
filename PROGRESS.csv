@@ -599,7 +599,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00450eb0,364,FUN_00450eb0,false,24,4,RAW-src
 00451030,180,FindTornadoHazardAt,false,21,3,RAW-src
 004510f0,180,FindFirewallHazardAt,false,19,3,RAW-src
-004511b0,180,FUN_004511b0,false,19,3,RAW-src
+004511b0,180,FindLightningHazardAt,false,19,3,RAW-src
 00451270,261,FUN_00451270,false,2,5,RAW-src
 00451380,32,FUN_00451380,false,1,2,RAW-src
 004513a0,13,FUN_004513a0,false,1,1,RAW-src

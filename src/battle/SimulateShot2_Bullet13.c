@@ -285,7 +285,7 @@ LAB_0049ea8b:
         }
         pbVar11 = (byte *)(iVar4 + 0x3918);
         cVar2 = PeekPacketChecksumBool();
-        if ((cVar2 == '\0') && (iVar5 = FUN_004511b0(local_15ac,(int)(&DAT_006a7f88 + g_clientContext)), iVar5 != 0)) {
+        if ((cVar2 == '\0') && (iVar5 = FindLightningHazardAt(local_15ac,(int)(&DAT_006a7f88 + g_clientContext)), iVar5 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar5 = _rand();
           *pbVar11 = (byte)iVar5;
@@ -541,7 +541,7 @@ LAB_0049f398:
         }
         pbVar11 = (byte *)(iVar4 + 0x3918);
         cVar2 = PeekPacketChecksumBool();
-        if ((cVar2 == '\0') && (iVar5 = FUN_004511b0(local_15c4,(int)(&DAT_006a7f88 + g_clientContext)), iVar5 != 0)) {
+        if ((cVar2 == '\0') && (iVar5 = FindLightningHazardAt(local_15c4,(int)(&DAT_006a7f88 + g_clientContext)), iVar5 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar5 = _rand();
           *pbVar11 = (byte)iVar5;

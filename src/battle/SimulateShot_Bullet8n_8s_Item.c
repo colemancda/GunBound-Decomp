@@ -296,7 +296,7 @@ LAB_004a7499:
         pbVar19 = (byte *)(iVar13 + 0x3918);
         local_15ac[0] = pbVar19;
         cVar10 = PeekPacketChecksumBool();
-        if ((cVar10 == '\0') && (iVar18 = FUN_004511b0(local_15c4,(int)(&DAT_006a7f88 + g_clientContext)), iVar18 != 0)) {
+        if ((cVar10 == '\0') && (iVar18 = FindLightningHazardAt(local_15c4,(int)(&DAT_006a7f88 + g_clientContext)), iVar18 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar18 = _rand();
           *pbVar19 = (byte)iVar18;
@@ -530,7 +530,7 @@ LAB_004a7c59:
         pbVar19 = (byte *)(iVar13 + 0x3918);
         local_15ac[0] = pbVar19;
         cVar10 = PeekPacketChecksumBool();
-        if ((cVar10 == '\0') && (iVar18 = FUN_004511b0(local_15b4,(int)(&DAT_006a7f88 + g_clientContext)), iVar18 != 0)) {
+        if ((cVar10 == '\0') && (iVar18 = FindLightningHazardAt(local_15b4,(int)(&DAT_006a7f88 + g_clientContext)), iVar18 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar18 = _rand();
           *pbVar19 = (byte)iVar18;

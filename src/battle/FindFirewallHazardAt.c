@@ -1,4 +1,5 @@
 /* FindFirewallHazardAt - 0x004510f0 in the original binary.
+ * (Historical notes below: FUN_004511b0 is now FindLightningHazardAt.)
  * (Historical notes below: FUN_00451030 is now FindTornadoHazardAt.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler

@@ -736,7 +736,7 @@ void __thiscall FUN_00450eb0(int param_1,undefined4 param_2,undefined4 param_3,u
 undefined4 HitTestMobilesAndJewels(int param_1,int regEax,int regEbx);
 int FindTornadoHazardAt(int param_1, int regEax);
 int FindFirewallHazardAt(int param_1,int regEax);
-int FUN_004511b0(int param_1, int regEax);
+int FindLightningHazardAt(int param_1, int regEax);
 undefined4 * FUN_00451270();
 void * __thiscall FUN_00451380();
 void FUN_004513a0(undefined4 *regEax);

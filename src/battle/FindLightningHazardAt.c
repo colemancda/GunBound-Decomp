@@ -1,10 +1,17 @@
-/* FUN_004511b0 - 0x004511b0 in the original binary.
+/* FindLightningHazardAt - 0x004511b0 in the original binary.
  * (Historical notes below: FUN_004510f0 is now FindFirewallHazardAt.)
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): the layer key 0x1f6 is the one
+ * SpawnLightningHazard stamps and RenderWeatherHazards maps to the
+ * lightning texture. EAX is the projectile registry (&DAT_006a7f88 +
+ * g_clientContext) at every call site; callers (the Simulate*Bullet* and
+ * SimulateProjectileFrame family, plus the hazard spawner) pass a
+ * coordinate and get the matching hazard object or NULL; the match is a
+ * window around the object's guarded position cell.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at both argless PeekPacketChecksumState() calls: FUN_004510f0's twin, same two cells.
@@ -12,7 +19,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_004511b0(int param_1,int regEax)
+int FindLightningHazardAt(int param_1,int regEax)
 
 {
   uint uVar1;

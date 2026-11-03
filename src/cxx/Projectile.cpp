@@ -1,4 +1,5 @@
 /* CProjectile methods - promoted from the raw C ports under src/battle/
+ * (Historical notes below: FUN_004511b0 is now FindLightningHazardAt.)
  * (Historical notes below: FUN_004510f0 is now FindFirewallHazardAt.)
  * (Historical notes below: FUN_00451030 is now FindTornadoHazardAt.)
  * (DestroyProjectile 0x455570, AnimateProjectileTick 0x48f1c0). See
@@ -288,7 +289,7 @@ unsigned int EncodeChecksumDeltaAdd(void *cell, void *out, int delta);
 char DecodeGuardedBool(unsigned char *cell);
 int  FindFirewallHazardAt(int x, int regEax);
 int  FindTornadoHazardAt(int x, int regEax);
-int  FUN_004511b0(int x, int regEax);
+int  FindLightningHazardAt(int x, int regEax);
 void FUN_00436dc0(int a, int b, unsigned int c);
 void FUN_00436bd0(int a, int b, unsigned int c);
 void FUN_00436ec0(int a, int b);
@@ -1122,7 +1123,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 }
             }
             cVar8 = PeekPacketChecksumBool(pCVar17->m_pad3d + 0x38db);
-            if (cVar8 == '\0' && (iVar12 = FUN_004511b0(local_15a4,(int)(&DAT_006a7f88 + g_clientContext)), iVar12 != 0)) {
+            if (cVar8 == '\0' && (iVar12 = FindLightningHazardAt(local_15a4,(int)(&DAT_006a7f88 + g_clientContext)), iVar12 != 0)) {
                 EnterCriticalSection(&g_valueGuardLock);
                 iVar12 = _rand();
                 pCVar17->m_pad3d[0x38db] = (unsigned char)iVar12;
@@ -1324,7 +1325,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 }
                 pbVar18 = pCVar17->m_pad3d + 0x38db;
                 cVar8 = PeekPacketChecksumBool(pCVar17->m_pad3d + 0x38db);
-                if (cVar8 == '\0' && (iVar13 = FUN_004511b0(local_15b8,(int)(&DAT_006a7f88 + g_clientContext)), iVar13 != 0)) {
+                if (cVar8 == '\0' && (iVar13 = FindLightningHazardAt(local_15b8,(int)(&DAT_006a7f88 + g_clientContext)), iVar13 != 0)) {
                     EnterCriticalSection(&g_valueGuardLock);
                     iVar13 = _rand();
                     *pbVar18 = (unsigned char)iVar13;
