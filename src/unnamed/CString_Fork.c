@@ -1,10 +1,16 @@
-/* FUN_00405810 - 0x00405810 in the original binary.
+/* CString_Fork - 0x00405810 in the original binary.
  * (Historical notes below: FUN_004057c0 is now CString_PrepareWrite2.)
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): sole caller is the shared (refcount above
+ * 1) arm of CString_PrepareWrite2 (0x4057d8). It allocates a new header of
+ * the requested capacity through the manager, copies min(length,
+ * capacity)+1 characters, keeps the old length, releases one reference on
+ * the old header (Free when last) and stores the new data pointer into the
+ * CString, which is ATL7 CSimpleStringT::Fork(nLength).
  *
  * FIX (2026-11-03): rebuilt from the disassembly (the raw port read an
  * uninitialised puVar3/iVar4 and lost the EAX argument).  Caller: the one
@@ -25,7 +31,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00405810(int *param_1,int regEax)
+void CString_Fork(int *param_1,int regEax)
 
 {
   int *piVar1;

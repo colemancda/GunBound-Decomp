@@ -41,7 +41,7 @@ void CString_PrepareWrite2(int *param_1,int regEax)
     regEax = *(int *)(iVar1 + -0xc);
   }
   if (1 < *(int *)(iVar1 + -4)) {
-    FUN_00405810(param_1,regEax);
+    CString_Fork(param_1,regEax);
     return;
   }
   iVar2 = *(int *)(iVar1 + -8);
