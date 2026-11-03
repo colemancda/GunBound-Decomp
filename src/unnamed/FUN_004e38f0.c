@@ -25,6 +25,13 @@
  * push 1 / call [eax]`, so it is (member, 1) through the same cdecl
  * LayerNodeDeleteFn form. PTR_FUN_00557300 had been a NULL placeholder; its
  * slot 0 is now wired.
+  *
+ * FIX (2026-11-03): the SEH frame artifacts are stripped. `unaff_FS_OFFSET` was
+ * an unassigned pointer (the decompiler's stand-in for fs:[0]) that the
+ * prologue/epilogue dereferenced and wrote through - a certain crash.
+ * Prologue `mov eax,fs:0` / `push handler` / `mov fs:0,esp` is the MSVC
+ * try-frame and is dropped here as in PanelManager_BaseDestructor and
+ * WidgetChildArray_Destroy.
  */
 #include "ghidra_types.h"
 
@@ -36,15 +43,10 @@ typedef void *(*LayerNodeDeleteFn)(void *self,int flags);
 void FUN_004e38f0(int param_1)
 
 {
-  undefined4 *unaff_FS_OFFSET;
-  undefined4 uStack_c;
-  undefined1 *puStack_8;
-  undefined4 local_4;
   
-  uStack_c = *unaff_FS_OFFSET;
-  puStack_8 = &LAB_0053776e;
-  *unaff_FS_OFFSET = &uStack_c;
-  local_4 = 0;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053776e) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   if (*(undefined4 **)(param_1 + 0x30) != (undefined4 *)0x0) {
     (*(LayerNodeDeleteFn *)**(undefined4 **)(param_1 + 0x30))
         (*(void **)(param_1 + 0x30),1);
@@ -66,14 +68,12 @@ void FUN_004e38f0(int param_1)
     _free(*(void **)(param_1 + 0x44));
     *(undefined4 *)(param_1 + 0x44) = 0;
   }
-  local_4 = 0xffffffff;
   *(undefined4 *)(param_1 + 0x85c) = &PTR_FUN_00557534;
   FUN_004f3060((undefined4 *)(param_1 + 0x85c));
   if (*(undefined4 **)(param_1 + 0x860) != (undefined4 *)0x0) {
     (*(LayerNodeDeleteFn *)**(undefined4 **)(param_1 + 0x860))
         (*(void **)(param_1 + 0x860),1);
   }
-  *unaff_FS_OFFSET = uStack_c;
   return;
 }
 

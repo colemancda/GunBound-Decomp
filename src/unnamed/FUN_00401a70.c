@@ -12,6 +12,13 @@
  * 4`), a raw-C port of a __thiscall scalar-deleting destructor, so `this`
  * is its first cdecl argument. The port called `(*(code *)slot0)(1)`,
  * dropping the node; it now passes (node, 1) through LayerNodeDeleteFn.
+  *
+ * FIX (2026-11-03): the SEH frame artifacts are stripped. `unaff_FS_OFFSET` was
+ * an unassigned pointer (the decompiler's stand-in for fs:[0]) that the
+ * prologue/epilogue dereferenced and wrote through - a certain crash.
+ * Prologue `mov eax,fs:0` / `push handler` / `mov fs:0,esp` is the MSVC
+ * try-frame and is dropped here as in PanelManager_BaseDestructor and
+ * WidgetChildArray_Destroy.
  */
 #include "ghidra_types.h"
 
@@ -29,17 +36,12 @@ void FUN_00401a70(undefined4 *param_1)
   void *_Memory;
   undefined4 *puVar4;
   int iVar5;
-  undefined4 *unaff_FS_OFFSET;
-  undefined4 uStack_c;
-  undefined1 *puStack_8;
-  uint local_4;
   
-  uStack_c = *unaff_FS_OFFSET;
-  puStack_8 = &LAB_00537922;
-  *unaff_FS_OFFSET = &uStack_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00537922) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   *param_1 = &PTR_FUN_00551cf0;
   param_1[2] = &PTR_LAB_00551cb8;
-  local_4 = 2;
   puVar4 = param_1 + 0x56b;
   iVar5 = 0x80;
   do {
@@ -54,7 +56,6 @@ void FUN_00401a70(undefined4 *param_1)
   }
   param_1[0x6f7] = 0;
   HashMap_RemoveAll_2c((int *)(param_1 + 0x6ff));
-  local_4 = local_4 & 0xffffff00;
   piVar2 = (int *)param_1[0x6f9];
   if (piVar2 != (int *)param_1[0x6fe]) {
     FUN_004054c0(piVar2[0x42]);
@@ -86,13 +87,11 @@ void FUN_00401a70(undefined4 *param_1)
   if (_Memory != (void *)0x0) {
     _free(_Memory);
   }
-  local_4 = 0xffffffff;
   *param_1 = &PTR_FUN_00557534;
   FUN_004f3060(param_1);
   if ((undefined4 *)param_1[1] != (undefined4 *)0x0) {
     (*(LayerNodeDeleteFn *)*(undefined4 **)param_1[1])((void *)param_1[1],1);
   }
-  *unaff_FS_OFFSET = uStack_c;
   return;
 }
 
