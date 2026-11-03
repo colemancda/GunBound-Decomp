@@ -1371,7 +1371,7 @@ int CompareXFSEntryName();
 void XFSArchive_Construct(int regEsi);
 void XFSArchive_Destruct(int regEax);
 undefined4 CloseXFSArchive(struct XFSArchive *archive); /* archive = ESI (CloseXFSArchive) */
-int __fastcall FUN_004f1020();
+int __fastcall XFSArchive_ComputeChecksum();
 uint FindXFSEntryIndex();
 uint FindOrInsertXFSEntry();
 /* All callers now pass the real 4 args (archive, name, findExisting,

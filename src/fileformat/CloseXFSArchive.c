@@ -61,7 +61,7 @@ LAB_004f0fac:
     *(undefined4 *)(unaff_ESI + 0xc) = 0;
   }
   else {
-    uVar1 = FUN_004f1020();
+    uVar1 = XFSArchive_ComputeChecksum();
     *(undefined4 *)(unaff_ESI + 0xc) = uVar1;
   }
   DVar2 = SetFilePointer(*(HANDLE *)(unaff_ESI + 0x1040),*(LONG *)(unaff_ESI + 0x10),(PLONG)0x0,0);

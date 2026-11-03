@@ -28,7 +28,7 @@ int FUN_00419d30(void)
   uVar3 = extraout_var;
   if (iVar2 == iVar1) {
     if (*(char *)(unaff_EBX + 0x1fe18) != '\0') {
-      iVar2 = FUN_004f1020();
+      iVar2 = XFSArchive_ComputeChecksum();
       uVar3 = (uint3)((uint)iVar2 >> 8);
       if (*(int *)(unaff_EBX + 0xf6f4) != iVar2) goto LAB_00419d7f;
     }

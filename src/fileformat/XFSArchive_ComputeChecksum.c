@@ -1,16 +1,22 @@
-/* FUN_004f1020 - 0x004f1020 in the original binary.
+/* XFSArchive_ComputeChecksum - 0x004f1020 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): CloseXFSArchive (0x4f0d70) stores its
+ * result at archive+0xc when the checksum flag at +0x10730 is set, and the
+ * avatar verifier (VerifyAvatarArchiveIntegrity, 0x419d30) compares it
+ * against the stored value at archive+0xc (ctx+0xf6f4). It rereads the
+ * archive file from offset 0 and sums the first archive+0x10 bytes (the
+ * data length, footer excluded) as dwords.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-int __fastcall FUN_004f1020(int param_1)
+int __fastcall XFSArchive_ComputeChecksum(int param_1)
 
 {
   int *piVar1;
