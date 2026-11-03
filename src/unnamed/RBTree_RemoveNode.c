@@ -1,4 +1,6 @@
 /* RBTree_RemoveNode - 0x004048e0 in the original binary.
+ * (Historical notes below: FUN_004050a0 is now
+ * RBTree_IteratorDecrement.)
  *
  * The erase half of the custom red-black tree whose insert half is the
  * already-named RBTree_Insert (0x4049a0): same node layout throughout -
@@ -37,7 +39,7 @@ uint RBTree_RemoveNode(int *regEax,int regEbx)
     iVar1 = regEax[5];
     iVar2 = regEbx;
     if ((*(int *)(regEbx + 0x108) != iVar1) && (*(int *)(regEbx + 0x10c) != iVar1)) {
-      iVar2 = FUN_004050a0(regEax,regEbx);
+      iVar2 = RBTree_IteratorDecrement(regEax,regEbx);
     }
     iVar3 = *(int *)(iVar2 + 0x108);
     if (iVar3 == iVar1) {

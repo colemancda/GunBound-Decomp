@@ -1,14 +1,18 @@
-/* FUN_004050a0 - 0x004050a0 in the original binary.
+/* RBTree_IteratorDecrement - 0x004050a0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): exact mirror of RBTree_IteratorIncrement
+ * (0x405040) with +0x108 and +0x10c swapped, on the same 0x114-byte node
+ * tree used by RBTree_Insert and RBTree_RemoveNode; this is
+ * std::_Tree::_Dec. Its caller is RBTree_RemoveNode.
  */
 #include "ghidra_types.h"
 
 
-int FUN_004050a0(int param_1,int regEax)
+int RBTree_IteratorDecrement(int param_1,int regEax)
 
 {
   int iVar1;

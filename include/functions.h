@@ -205,7 +205,7 @@ void __fastcall TreeReplaceNode(int param_1,int *param_2,int regEax);
 undefined4 __thiscall FUN_00404dd0(int *param_1,uchar *param_2,int regEax);
 void FUN_00404e60();
 int RBTree_IteratorIncrement(int param_1,int regEax);
-int FUN_004050a0(int param_1,int regEax);
+int RBTree_IteratorDecrement(int param_1,int regEax);
 void HashMap_Rehash_2c(int *map,uint nBins);
 void HashMap_FreeNode_2c(int regEax,int regEsi);
 void __fastcall CString_DestructThunk();
