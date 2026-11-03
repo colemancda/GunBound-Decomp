@@ -1,6 +1,11 @@
-/* FUN_00403d20 - 0x00403d20 in the original binary.
+/* MessengerNotify_OnBuddyStatus - 0x00403d20 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * NAMING (batch 22, was FUN_00403d20): Slot 7 (+0x1c) of the notify
+ * interface 0x551cb8; DispatchP2PMessage calls it for type 0xc051 (the one
+ * CommP2POwner_SendBuddyStatus sends) and the resolved path calls
+ * UpdateBuddyStatus.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
@@ -53,7 +58,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00403d20(int param_1,char *param_2,undefined4 param_3,undefined4 param_4)
+void __thiscall MessengerNotify_OnBuddyStatus(int param_1,char *param_2,undefined4 param_3,undefined4 param_4)
 
 {
   undefined4 *puVar1;

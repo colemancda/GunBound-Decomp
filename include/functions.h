@@ -181,7 +181,7 @@ void FUN_00403170(int param_1,uchar *param_2,undefined4 param_3);
 bool HasPendingDirectLinkRecord(int param_2,char param_1,char *regEax);
 void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 param_3,undefined4 *regEax);
 void __thiscall FUN_00403ae0();
-void __thiscall FUN_00403d20(int param_1,char *param_2,undefined4 param_3,undefined4 param_4);
+void __thiscall MessengerNotify_OnBuddyStatus(int param_1,char *param_2,undefined4 param_3,undefined4 param_4);
 /* Slot 9 of the 0x551cb8 notify interface (carved 2026-11-03). */
 char MessengerNotify_AcceptMessage(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5,undefined4 param_6);
 void MessengerNotify_OnSessionClosed(int param_1);
