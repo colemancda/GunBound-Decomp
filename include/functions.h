@@ -211,7 +211,7 @@ void HashMap_FreeNode_2c(int regEax,int regEsi);
 void __fastcall CString_DestructThunk();
 void __fastcall CString_Destruct();
 undefined4 * FUN_00405360(undefined4 param_1,undefined4 *param_2,undefined4 *regEbx);
-void __thiscall FUN_004054c0();
+void __thiscall RBTree_EraseSubtree();
 int * __thiscall ConstructStringFromText();
 void __fastcall AssignStringFromText(undefined4 param_1,char *param_2,int regEdi);
 undefined4 __thiscall CString_LoadStringFromInstance(HMODULE param_1,int *param_2,uint regEax);

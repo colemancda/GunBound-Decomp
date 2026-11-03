@@ -58,8 +58,8 @@ void FUN_00401a70(undefined4 *param_1)
   HashMap_RemoveAll_2c((int *)(param_1 + 0x6ff));
   piVar2 = (int *)param_1[0x6f9];
   if (piVar2 != (int *)param_1[0x6fe]) {
-    FUN_004054c0(piVar2[0x42]);
-    FUN_004054c0(piVar2[0x43]);
+    RBTree_EraseSubtree(piVar2[0x42]);
+    RBTree_EraseSubtree(piVar2[0x43]);
     puVar4 = (undefined4 *)(*piVar2 + -0x10);
     piVar1 = (int *)(*piVar2 + -4);
     LOCK();

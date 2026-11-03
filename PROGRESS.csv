@@ -78,7 +78,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00405310,5,CString_DestructThunk2,true,1,0,RAW-src
 00405320,29,CString_Destruct,false,10,0,RAW-src
 00405360,352,FUN_00405360,false,1,3,RAW-src
-004054c0,72,FUN_004054c0,false,4,2,RAW-src
+004054c0,72,RBTree_EraseSubtree,false,4,2,RAW-src
 00405510,149,ConstructStringFromText,false,5,3,RAW-src
 004055b0,56,AssignStringFromText,false,3,1,RAW-src
 004055f0,201,CString_LoadStringFromInstance,false,1,6,RAW-src
