@@ -63,7 +63,7 @@ uint RBTree_RemoveNode(int *regEax,int regEbx)
     if (*regEax != 0) {
       *(int *)(*regEax + 0x110) = regEax[5];
     }
-    thunk_FUN_00405320();
+    CString_DestructThunk();
     iVar1 = regEax[2];
     *(int *)(regEbx + 0x108) = iVar1;
     regEax[1] = regEax[1] + -1;

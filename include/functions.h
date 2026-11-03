@@ -208,7 +208,7 @@ int FUN_00405040(int param_1,int regEax);
 int FUN_004050a0(int param_1,int regEax);
 void HashMap_Rehash_2c(int *map,uint nBins);
 void HashMap_FreeNode_2c(int regEax,int regEsi);
-void __fastcall thunk_FUN_00405320();
+void __fastcall CString_DestructThunk();
 void __fastcall CString_Destruct();
 undefined4 * FUN_00405360(undefined4 param_1,undefined4 *param_2,undefined4 *regEbx);
 void __thiscall FUN_004054c0();

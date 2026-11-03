@@ -36,7 +36,7 @@ void HashTable_OnNodeRemoved(int regEax,int regEsi)
   undefined4 uVar2;
   int *_Memory;
   uint uVar3;
-  thunk_FUN_00405320();
+  CString_DestructThunk();
   *(undefined4 *)(regEax + 8) = *(undefined4 *)(regEsi + 0x2c);
   uVar3 = *(int *)(regEsi + 4) - 1;
   *(int *)(regEsi + 0x2c) = regEax;

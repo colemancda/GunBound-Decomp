@@ -34,7 +34,7 @@ void HashMap_FreeNode_2c(int regEax,int regEsi)
   int *_Memory;
   uint uVar3;
   
-  thunk_FUN_00405320();
+  CString_DestructThunk();
   *(undefined4 *)(regEax + 0x24) = *(undefined4 *)(regEsi + 0x2c);
   uVar3 = *(int *)(regEsi + 4) - 1;
   *(int *)(regEsi + 0x2c) = regEax;
