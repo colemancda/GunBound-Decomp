@@ -136,7 +136,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
   *(undefined1 *)(param_1 + 0x32f91) = 0;
   NoOpMethod();
-  cVar3 = FUN_00419d30();
+  cVar3 = VerifyAvatarArchiveIntegrity();
   if (cVar3 == '\0') {
     ShowErrorDialog(1);
   }

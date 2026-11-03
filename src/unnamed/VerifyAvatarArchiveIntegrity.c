@@ -1,9 +1,16 @@
-/* FUN_00419d30 - 0x00419d30 in the original binary.
+/* VerifyAvatarArchiveIntegrity - 0x00419d30 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): callers State07_AvatarStore_OnEnter and
+ * State09_ReadyRoom_ProcessPacket call it with EBX = g_clientContext and
+ * raise ShowErrorDialog(1) when it returns 0. It compares the avatar
+ * archive's (ctx+0xf6e8) field at +0xf6ec (archive+4) with the guard-
+ * protected expected value and, when the checksum flag at +0x1fe18 is set,
+ * XFSArchive_ComputeChecksum (0x4f1020) with the stored checksum at
+ * +0xf6f4.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at the file's one argless PeekPacketChecksumState() call
@@ -12,7 +19,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_00419d30(void)
+int VerifyAvatarArchiveIntegrity(void)
 
 {
   int iVar1;

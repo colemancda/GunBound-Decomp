@@ -409,7 +409,7 @@ void __fastcall DestroyItemRecord();
 int __fastcall FUN_00418a10();
 void __fastcall FUN_00418b90();
 void ClientContext_Destructor();
-int FUN_00419d30();
+int VerifyAvatarArchiveIntegrity();
 uint __fastcall WrapChatLineText(undefined4 param_1,int param_2,int param_3,int param_4,int param_5,char *regEax);
 int RenderWrappedText();
 void RebuildChannelUserIndex(int clientContext);

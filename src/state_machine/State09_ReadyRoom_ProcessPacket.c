@@ -331,7 +331,7 @@ LAB_004d3fb0:
       uVar11 = PeekPacketChecksumState((void *)(g_clientContext + 0x4557c));
       EncodeOutgoingPacketField((void *)(g_clientContext + 0x475c8), uVar11);
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      cVar10 = FUN_00419d30();
+      cVar10 = VerifyAvatarArchiveIntegrity();
       if (cVar10 == '\0') {
         ShowErrorDialog(1);
       }
