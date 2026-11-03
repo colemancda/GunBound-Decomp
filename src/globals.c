@@ -1170,8 +1170,23 @@ void *PTR_FUN_00544b74;
  * UpsertDirectLinkBuddyNode (0x401d9d) and EnsureChatLogPanelForPeer
  * (0x402636) stamp it. Was a lone NULL, so slot 0 called null. */
 void *PTR_FUN_00551cb4 = (void *)DeletePoisonedBaseObject;
-void *PTR_FUN_00551cf0;
-void *PTR_FUN_00551e88;
+/* One-slot vtables of the active-object registry container family (orig
+ * .data, all filled 2026-11-03; each was a lone NULL `void *`). Every one
+ * is the class's scalar-deleting destructor, a raw-C port of a __thiscall
+ * (this first, then the delete flag):
+ *   0x551cf0 -> 0x401a50  (derived; ctor 0x401910 stamps it at 0x401941)
+ *   0x551e88 -> 0x405f20  (g_activeObjectRegistry; ctor 0x405f00, 0x405f13)
+ *   0x5520a0 -> 0x40cd60  (g_activeObjectRegistry2; ctor 0x40cd40, 0x40cd48)
+ *   0x555b7c -> 0x4f3960  (battle entity registry; 0x416865, 0x4e3837)
+ *   0x557528 -> 0x4f3960  (g_spriteRegistry; ctor 0x4f1750, 0x4f1758)
+ *   0x557534 -> 0x4f2ea0  (the base; ActiveObjectRegistry_BaseConstructor)
+ *   0x557550 -> 0x4f3960  (DAT_00eb168c; ctor 0x4f3940, 0x4f3948)
+ *   0x557530 -> 0x4f2e20  (the layer node; 0x4f2e68 and 0x4f2f23)
+ * The containers are globals or embedded members, destroyed by direct
+ * calls, so only the layer node's slot is dispatched (the container
+ * destructors and FUN_004f3060 delete layers through it with `this`). */
+void *PTR_FUN_00551cf0 = (void *)FUN_00401a50;
+void *PTR_FUN_00551e88 = (void *)FUN_00405f20;
 /* The text box's vtable (orig .data 0x55208c, 5 slots; InitTextBoxWidget
  * stamps it). Was a lone NULL `void *`, so every slot read past it. Its
  * objects are the only nodes of g_activeObjectRegistry2, whose dispatchers
@@ -1194,7 +1209,7 @@ void *PTR_FUN_0055208c[5] = {
   (void *)TextBoxWidget_Draw,
   (void *)NoOpMethod,
 };
-void *PTR_FUN_005520a0;
+void *PTR_FUN_005520a0 = (void *)FUN_0040cd60;   /* see 0x551cf0 above */
 void *PTR_FUN_00555aa4;
 void *PTR_FUN_00555ac4;
 void *PTR_FUN_00555af8;
@@ -1215,7 +1230,7 @@ void *PTR_FUN_00555b38[5] = {
 };
 void *PTR_FUN_00555b54;
 void *PTR_FUN_00555b68;
-void *PTR_FUN_00555b7c;
+void *PTR_FUN_00555b7c = (void *)FUN_004f3960;   /* see 0x551cf0 above */
 void *PTR_FUN_00555bd0;
 void *PTR_FUN_00555bf0;
 void *PTR_FUN_00555c14;
@@ -1345,11 +1360,11 @@ void *PTR_FUN_00557484;
  * elsewhere (FUN_004f1750.c/ActiveObjectRegistry_BaseConstructor.c/FUN_004f2f00.c) - left
  * untouched, not part of this one. */
 void *PTR_FUN_00557524 = (void *)FUN_004f14c0;
-void *PTR_FUN_00557528;
-void *PTR_FUN_00557530;
-void *PTR_FUN_00557534;
+void *PTR_FUN_00557528 = (void *)FUN_004f3960;   /* see 0x551cf0 above */
+void *PTR_FUN_00557530 = (void *)FUN_004f2e20;
+void *PTR_FUN_00557534 = (void *)FUN_004f2ea0;
 void *PTR_FUN_00557538;
-void *PTR_FUN_00557550;
+void *PTR_FUN_00557550 = (void *)FUN_004f3960;   /* see 0x551cf0 above */
 void *PTR_FUN_005575a8;
 /* PTR_FUN_00557cfc: moved to src/globals_sized.c - it is the CPanelManager
  * VTABLE (8 slots), not a lone pointer. See that file. */

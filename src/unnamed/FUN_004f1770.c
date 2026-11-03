@@ -52,8 +52,21 @@
  * before jumping - three further confirmations of the argument register.
  * Nothing in the image holds 0x4f1770 as data, so the function is in no
  * vtable and has no indirect callers.
+ *
+ * FIX (2026-11-03): sentinel delete passes `this`. 0x4f177c-0x4f1787 is
+ * `mov ecx,[esi+4] / mov eax,[ecx] / push 1 / call [eax]`, so ECX is the
+ * sentinel layer node ActiveObjectRegistry_BaseConstructor (0x4f2e40)
+ * hangs at +4, stamped with the layer vtable 0x557530 at 0x4f2e68. That
+ * vtable's only slot is 0x4f2e20 (FUN_004f2e20, `mov esi,ecx` ... `ret
+ * 4`), a raw-C port of a __thiscall scalar-deleting destructor, so `this`
+ * is its first cdecl argument. The port called `(*(code *)slot0)(1)`,
+ * dropping the node; it now passes (node, 1) through LayerNodeDeleteFn.
  */
 #include "ghidra_types.h"
+
+/* Slot 0 of the layer-node vtable 0x557530: FUN_004f2e20, a raw-C port of
+ * a __thiscall scalar-deleting destructor, so `this` is the first arg. */
+typedef void *(*LayerNodeDeleteFn)(void *self,int flags);
 
 
 void FUN_004f1770(undefined4 *regEsi)
@@ -64,7 +77,7 @@ void FUN_004f1770(undefined4 *regEsi)
   *unaff_ESI = &PTR_FUN_00557534;
   FUN_004f3060(unaff_ESI);
   if ((undefined4 *)unaff_ESI[1] != (undefined4 *)0x0) {
-    (*(code *)**(undefined4 **)unaff_ESI[1])(1);
+    (*(LayerNodeDeleteFn *)*(undefined4 **)unaff_ESI[1])((void *)unaff_ESI[1],1);
   }
   return;
 }

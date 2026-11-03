@@ -40,9 +40,23 @@
  *     (XFSArchive *)(param_1 + 0xf6e8).  The archive is the context's
  *     embedded 0x10740-byte XFS object at +0xf6e8; the second call's
  *     `cmp [edi+0x10728],-1` guard reads its handle at +0x1040.
+ *
+ * FIX (2026-11-03): the battle entity registry's sentinel delete passes
+ * `this`. 0x418fd7-0x418fe4 is `mov ebx,[ebx+4] / mov edx,[ebx] / push 1 /
+ * mov ecx,ebx / call [edx]` (EBX = context+0x6a7f88), so ECX is the
+ * sentinel layer node ActiveObjectRegistry_BaseConstructor (0x4f2e40)
+ * hangs at +4, stamped with the layer vtable 0x557530 at 0x4f2e68. That
+ * vtable's only slot is 0x4f2e20 (FUN_004f2e20, `mov esi,ecx` ... `ret
+ * 4`), a raw-C port of a __thiscall scalar-deleting destructor, so `this`
+ * is its first cdecl argument. The port called `(*(code *)slot0)(1)`,
+ * dropping the node; it now passes (node, 1) through LayerNodeDeleteFn.
  */
 #include "xfs.h"
 #include "ghidra_types.h"
+
+/* Slot 0 of the layer-node vtable 0x557530: FUN_004f2e20, a raw-C port of
+ * a __thiscall scalar-deleting destructor, so `this` is the first arg. */
+typedef void *(*LayerNodeDeleteFn)(void *self,int flags);
 
 
 void ClientContext_Destructor(int param_1)
@@ -113,7 +127,8 @@ void ClientContext_Destructor(int param_1)
   *(undefined ***)(&DAT_006a7f88 + param_1) = &PTR_FUN_00557534;
   FUN_004f3060(&DAT_006a7f88 + param_1);
   if (*(undefined4 **)(&DAT_006a7f8c + param_1) != (undefined4 *)0x0) {
-    (**(code **)**(undefined4 **)(&DAT_006a7f8c + param_1))(1);
+    (*(LayerNodeDeleteFn *)**(undefined4 **)(&DAT_006a7f8c + param_1))
+        (*(void **)(&DAT_006a7f8c + param_1),1);
   }
   if (*(void **)(&DAT_006a7f78 + param_1) != (void *)0x0) {
     _free(*(void **)(&DAT_006a7f78 + param_1));
