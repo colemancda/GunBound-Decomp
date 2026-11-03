@@ -1,9 +1,16 @@
-/* FUN_004057c0 - 0x004057c0 in the original binary.
+/* CString_PrepareWrite2 - 0x004057c0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): callers AssignStringBuffer and
+ * CString_LoadStringFromInstance pass (CString*, required length) before
+ * writing into the buffer. Callees are the shared-buffer arm CString_Fork
+ * (0x405810) and the grow arm CString_Reallocate (0x405890). The sequence
+ * is ATL7 CSimpleStringT::PrepareWrite2: raise nLength to the current
+ * length, Fork if the data is shared, else grow with the 1024 / double
+ * policy and Reallocate.
  *
  * FIX (2026-11-03): ECX and EAX were both dropped, and the growth policy
  * was missing.  The two binary callers set them in the calling block:
@@ -23,7 +30,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004057c0(int *param_1,int regEax)
+void CString_PrepareWrite2(int *param_1,int regEax)
 
 {
   int iVar1;

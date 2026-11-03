@@ -1,4 +1,5 @@
 /* FUN_00405810 - 0x00405810 in the original binary.
+ * (Historical notes below: FUN_004057c0 is now CString_PrepareWrite2.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's

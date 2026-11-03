@@ -44,7 +44,7 @@ void AssignStringBuffer(int *param_1,undefined4 *param_2,uint length)
     iVar1 = *param_1;
     uVar2 = *(uint *)(iVar1 + -0xc);
     if ((int)(1U - *(int *)(iVar1 + -4) | *(int *)(iVar1 + -8) - unaff_EBX) < 0) {
-      FUN_004057c0(param_1,(int)unaff_EBX);
+      CString_PrepareWrite2(param_1,(int)unaff_EBX);
     }
     _Dst = (undefined4 *)*param_1;
     if (uVar2 < (uint)((int)param_2 - iVar1)) {

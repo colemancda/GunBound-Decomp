@@ -217,7 +217,7 @@ void __fastcall AssignStringFromText(undefined4 param_1,char *param_2,int regEdi
 undefined4 __thiscall CString_LoadStringFromInstance(HMODULE param_1,int *param_2,uint regEax);
 void AssignStringBuffer();
 void CString_Empty(int *regEsi);
-void FUN_004057c0(int *param_1,int regEax);
+void CString_PrepareWrite2(int *param_1,int regEax);
 void FUN_00405810(int *param_1,int regEax);
 void FUN_00405890(int *regEsi,int regEdi);
 void FUN_004058b0();

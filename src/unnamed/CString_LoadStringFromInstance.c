@@ -47,7 +47,7 @@ undefined4 __thiscall CString_LoadStringFromInstance(HMODULE param_1,int *param_
       UVar4 = (*(code *)PTR_FUN_0056d0f0)();
       iVar7 = WideCharToMultiByte(UVar4,DVar5,lpWideCharStr,uVar3,pCVar6,iVar7,pCVar8,pBVar9);
       if ((int)(1U - *(int *)(*param_2 + -4) | *(int *)(*param_2 + -8) - iVar7) < 0) {
-        FUN_004057c0(param_2,iVar7);
+        CString_PrepareWrite2(param_2,iVar7);
       }
       pCVar6 = (LPSTR)*param_2;
       uVar3 = (uint)*puVar2;

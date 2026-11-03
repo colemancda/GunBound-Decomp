@@ -84,7 +84,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004055f0,201,CString_LoadStringFromInstance,false,1,6,RAW-src
 004056c0,152,AssignStringBuffer,false,21,4,RAW-src
 00405760,92,CString_Empty,false,1,1,RAW-src
-004057c0,73,FUN_004057c0,false,2,2,RAW-src
+004057c0,73,CString_PrepareWrite2,false,2,2,RAW-src
 00405810,122,FUN_00405810,false,1,1,RAW-src
 00405890,32,FUN_00405890,false,1,1,RAW-src
 004058b0,10,FUN_004058b0,false,3,1,RAW-src
