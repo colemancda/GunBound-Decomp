@@ -55,7 +55,7 @@ void CString_PrepareWrite2(int *param_1,int regEax)
     if (iVar2 < regEax) {
       iVar2 = regEax;
     }
-    FUN_00405890(param_1,iVar2);
+    CString_Reallocate(param_1,iVar2);
   }
   return;
 }

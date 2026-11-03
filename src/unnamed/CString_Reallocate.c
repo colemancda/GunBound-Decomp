@@ -1,10 +1,15 @@
-/* FUN_00405890 - 0x00405890 in the original binary.
+/* CString_Reallocate - 0x00405890 in the original binary.
  * (Historical notes below: FUN_004057c0 is now CString_PrepareWrite2.)
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): sole caller is the unshared grow arm of
+ * CString_PrepareWrite2 (0x405801), ESI = the CString, EDI = the new
+ * capacity. It calls the header manager's Reallocate (vtable +8), throws
+ * via AtlThrowOutOfMemory on NULL and stores the new data pointer, which
+ * is ATL7 CSimpleStringT::Reallocate(nLength).
  *
  * FIX (2026-11-03): ESI and EDI were dropped.  One binary caller, 0x405801
  * in FUN_004057c0: ESI = the CString* (FUN_004057c0's `mov esi,ecx`,
@@ -18,7 +23,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00405890(int *regEsi,int regEdi)
+void CString_Reallocate(int *regEsi,int regEdi)
 
 {
   int iVar1;
