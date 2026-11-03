@@ -1505,7 +1505,7 @@ void CommP2POwner_Release(void *param_1);
 void CommP2POwner_AddRef(int param_1);
 char CommP2POwner_SendText(int param_1,undefined4 param_2,int param_3,char *param_4);
 char FUN_004fd650(int param_1,undefined4 param_2);
-char FUN_004fd810(int param_1,char *param_2);
+char CommP2POwner_SendBuddyDelete(int param_1,char *param_2);
 void FUN_004fdba0(int param_1,char *param_2,char param_3);
 undefined4 FUN_004fd3e0(int regEcx,int param_1,undefined4 *param_2);
 undefined4 __thiscall CommP2POwnerConnect(int param_1,undefined4 param_2,undefined4 param_3,char *param_4,char *param_5);

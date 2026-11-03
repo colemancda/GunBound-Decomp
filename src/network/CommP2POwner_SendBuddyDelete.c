@@ -1,4 +1,9 @@
-/* FUN_004fd810 - 0x004fd810 in the original binary.
+/* CommP2POwner_SendBuddyDelete - 0x004fd810 in the original binary.
+ *
+ * NAMING (batch 22, was FUN_004fd810): Slot 10 of vtable 0x5575c8, reached
+ * by DeleteBuddyByNickname; sends 0x3002 to the server then relays type
+ * 0xc043, whose receiver is MessengerNotify_OnBuddyDelete
+ * (RemoveDirectLinkBuddyNode).
  *
  * CARVED (2026-11-03). Never carved by Ghidra: its only reference is the
  * .data word at 0x5575f0 = SLOT 10 of the CommP2P owner vtable 0x5575c8
@@ -21,7 +26,7 @@
 #include "ghidra_types.h"
 
 
-char FUN_004fd810(int param_1,char *param_2)
+char CommP2POwner_SendBuddyDelete(int param_1,char *param_2)
 
 {
   char cVar1;
