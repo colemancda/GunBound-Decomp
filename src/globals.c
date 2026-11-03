@@ -1524,7 +1524,7 @@ void *PTR_LAB_005575b8;
  * 10 4fd810 (+0x28) 11 4fd880  12 4fd960  13 4fda50  14 4fd9c0
  * 15 4fdb40         16 4fdba0.  Filled 2026-11-03. */
 void *PTR_LAB_005575c8[17] = {
-  (void *)FUN_004fd3b0, (void *)CommP2POwner_Release, (void *)FUN_004fd3e0,
+  (void *)CommP2POwner_AddRef, (void *)CommP2POwner_Release, (void *)FUN_004fd3e0,
   (void *)CommP2POwnerConnect, (void *)FUN_004fd510, (void *)FUN_004fd680,
   (void *)FUN_004fd590, (void *)FUN_004fd650, (void *)FUN_004fd730,
   (void *)FUN_004fd7c0, (void *)FUN_004fd810, (void *)FUN_004fd880,

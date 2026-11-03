@@ -1502,7 +1502,7 @@ undefined4 CreateCommP2POwner();
 undefined4 * ConstructCommP2POwner(undefined4 *param_1,undefined4 param_2);
 void DestroyCommP2POwner(undefined4 *param_1);
 void CommP2POwner_Release(void *param_1);
-void FUN_004fd3b0(int param_1);
+void CommP2POwner_AddRef(int param_1);
 char FUN_004fd510(int param_1,undefined4 param_2,int param_3,char *param_4);
 char FUN_004fd650(int param_1,undefined4 param_2);
 char FUN_004fd810(int param_1,char *param_2);
