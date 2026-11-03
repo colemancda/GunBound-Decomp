@@ -1,4 +1,10 @@
-/* FUN_004fd510 - 0x004fd510 in the original binary.
+/* CommP2POwner_SendText - 0x004fd510 in the original binary.
+ *
+ * NAMING (batch 22, was FUN_004fd510): Slot 4 of vtable 0x5575c8. Its
+ * callers (SendWhisperByNickname and the other DispatchDirectLinkPacket
+ * text senders) call it through the listener slot, and DispatchP2PMessage
+ * receives the matching 0xc011 (mode 0) / 0xc018 (mode 1) types at
+ * MessengerNotify_OnWhisper (notify slot 6).
  *
  * CARVED (2026-11-03). Never carved by Ghidra: its only reference is the
  * .data word 0x5575d8 = SLOT 4 of the CommP2P owner vtable 0x5575c8 (read
@@ -17,12 +23,12 @@
  * type) with EAX = this and EBX = the first argument. This is the
  * target-user text sender its callers SendWhisperByNickname /
  * FUN_00402900 reach through `call [edx+0x10]` (args: user id, 0, text).
- * Left unnamed. Erased __thiscall: `this` is the first cdecl argument.
+ * Erased __thiscall: `this` is the first cdecl argument.
  */
 #include "ghidra_types.h"
 
 
-char FUN_004fd510(int param_1,undefined4 param_2,int param_3,char *param_4)
+char CommP2POwner_SendText(int param_1,undefined4 param_2,int param_3,char *param_4)
 
 {
   char *pcVar1;
