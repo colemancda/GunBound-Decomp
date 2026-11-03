@@ -1340,7 +1340,15 @@ void *PTR_FUN_00556a40[5] = {
   (void *)FUN_004d3750,
   (void *)NoOpMethod, (void *)NoOpMethod,
 };
-void *PTR_FUN_005572dc;
+/* The critical-section lock object's vtable (orig .data 0x5572dc): one
+ * slot, 0x4e5430 (FUN_004e5430: reinstall 0x5572dc at 0x4e5437,
+ * DeleteCriticalSection(this+4), free if flag & 1, `ret 4`), a raw-C port
+ * of a __thiscall scalar-deleting destructor. 27 stores of 0x5572dc in the
+ * image, every one next to an InitializeCriticalSection (0x54417c) or
+ * DeleteCriticalSection (0x544104) call on the CRITICAL_SECTION at +4 of a
+ * stack local or an embedded member, so it is never deleted through the
+ * slot; filled 2026-11-03 so the table is no longer null. */
+void *PTR_FUN_005572dc = (void *)FUN_004e5430;
 /* Connection object's 2-entry vtable {HandleSocketEvent, NoOpMethod} -
  * decoded byte-for-byte from orig .data 0x5572e8-0x5572ef (values
  * 0x4e57c0, 0x429800). Only referenced by the connection-object family
