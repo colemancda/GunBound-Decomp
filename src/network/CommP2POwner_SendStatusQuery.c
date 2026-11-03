@@ -1,4 +1,8 @@
-/* FUN_004fd650 - 0x004fd650 in the original binary.
+/* CommP2POwner_SendStatusQuery - 0x004fd650 in the original binary.
+ *
+ * NAMING (batch 22, was FUN_004fd650): Slot 7 of vtable 0x5575c8; relays
+ * the empty type 0xc053, whose receiver MessengerNotify_OnStatusQuery
+ * answers with a 0xc051 status record.
  *
  * CARVED (2026-11-03). Never carved by Ghidra: its only reference is the
  * .data word at 0x5575e4 = SLOT 7 of the CommP2P owner vtable
@@ -14,12 +18,12 @@
  * the unported sites its header lists ("0x4fd670 mov edi,0xc053 at
  * 0x4fd66b in the fn 0x4fd650"). The returned AL is not proven (the
  * port of FUN_004fcf10 returns a constant 0), so it is passed through as
- * the callee gives it. Left unnamed. Erased __thiscall: `this` first.
+ * the callee gives it. Erased __thiscall: `this` first.
  */
 #include "ghidra_types.h"
 
 
-char FUN_004fd650(int param_1,undefined4 param_2)
+char CommP2POwner_SendStatusQuery(int param_1,undefined4 param_2)
 
 {
   if (*(char *)(param_1 + 0x1a70) == '\0') {

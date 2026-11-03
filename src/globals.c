@@ -1526,7 +1526,7 @@ void *PTR_LAB_005575b8;
 void *PTR_LAB_005575c8[17] = {
   (void *)CommP2POwner_AddRef, (void *)CommP2POwner_Release, (void *)FUN_004fd3e0,
   (void *)CommP2POwnerConnect, (void *)CommP2POwner_SendText, (void *)FUN_004fd680,
-  (void *)CommP2POwner_SendBuddyStatus, (void *)FUN_004fd650, (void *)CommP2POwner_SendBuddyRequest,
+  (void *)CommP2POwner_SendBuddyStatus, (void *)CommP2POwner_SendStatusQuery, (void *)CommP2POwner_SendBuddyRequest,
   (void *)CommP2POwner_SendBuddyAnswer, (void *)CommP2POwner_SendBuddyDelete, (void *)FUN_004fd880,
   (void *)FUN_004fd960, (void *)FUN_004fda50, (void *)FUN_004fd9c0,
   (void *)FUN_004fdb40, (void *)FUN_004fdba0,
