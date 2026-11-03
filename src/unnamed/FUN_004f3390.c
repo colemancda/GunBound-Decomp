@@ -13,7 +13,7 @@
 void * __thiscall FUN_004f3390(void *param_1,int param_2)
 
 {
-  FUN_004f33b0((undefined4 *)param_1);
+  SceneNode_Destructor((undefined4 *)param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

@@ -1432,7 +1432,7 @@ int FindSpriteFrame(int container,uint outerKey,uint innerKey); /* real prototyp
 void FUN_004f3100(int regEbx);
 undefined4 * __fastcall FUN_004f3150(undefined4 param_1,undefined4 *param_2,undefined4 regEax);
 void * __thiscall FUN_004f3390(void *param_1,int param_2);
-void __fastcall FUN_004f33b0(undefined4 *param_1);
+void __fastcall SceneNode_Destructor(undefined4 *param_1);
 void __fastcall SceneNode_BuildLocalTransform(undefined4 param_1,float *param_2,int regEsi);
 void __fastcall FUN_004f3540();
 void __fastcall SceneNode_UpdateTransform();

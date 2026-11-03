@@ -1328,7 +1328,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f3100,73,FUN_004f3100,false,3,0,RAW-src
 004f3150,573,FUN_004f3150,false,2,0,RAW-src
 004f3390,30,FUN_004f3390,false,1,2,RAW-src
-004f33b0,137,FUN_004f33b0,false,2,2,RAW-src
+004f33b0,137,SceneNode_Destructor,false,2,2,RAW-src
 004f3440,241,SceneNode_BuildLocalTransform,false,2,2,RAW-src
 004f3540,597,FUN_004f3540,false,1,1,RAW-src
 004f37b0,236,SceneNode_UpdateTransform,false,1,5,RAW-src
