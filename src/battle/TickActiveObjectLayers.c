@@ -24,8 +24,28 @@
  * spawners already name -- and the third takes `lea ebx,[esi+0x85c]` where ESI
  * is FUN_004e39b0's own regEsi, a parameter that function already has.  All
  * three are determined without touching a caller frame.
+ *
+ * FIX (2026-11-03): the slot-2 dispatch passes `this`. 0x4507f0-0x4507f4
+ * is `mov eax,[esi] / mov ecx,esi / call [eax+8]` with ESI the object, and
+ * nothing is pushed. The port called `(**(code **)(*piVar2 + 8))()`, so
+ * the tick ran on whatever ECX held. It now calls through
+ * ActiveObjectTickFn, __fastcall(this): every carved slot-2 target of the
+ * battle entity classes is declared __fastcall in functions.h
+ * (AnimateProjectileTick, SimulateMobileFrame, TickJewelFrame,
+ * AnimateMine, ...) or is a genuine C++ virtual (CRiderEffect::Tick), and
+ * for a method with no stack arguments __fastcall(this) is ABI-identical
+ * to __thiscall.
  */
 #include "ghidra_types.h"
+
+/* Slot 2 is the object's 0-argument per-frame tick, a __thiscall in the
+ * original (`mov ecx,esi / call [eax+8]`). Every carved slot-2 target of
+ * the battle entity classes is ported __fastcall(this) (AnimateProjectileTick,
+ * SimulateMobileFrame, TickJewelFrame, ...) or is a genuine C++ virtual
+ * (CRiderEffect::Tick, CFlameEffect::Tick), and __fastcall(this) is
+ * ABI-identical to __thiscall for a method with no stack arguments - the
+ * same form TickActiveObjectRegistry uses for the widget registry. */
+typedef void (__fastcall *ActiveObjectTickFn)(void *thisPtr);
 
 
 void TickActiveObjectLayers(int regEbx)
@@ -41,7 +61,7 @@ void TickActiveObjectLayers(int regEbx)
       piVar2 = *(int **)(iVar3 + 0x10);
       cVar1 = *(char *)((int)piVar2 + 0x15);
       while (cVar1 == '\0') {
-        (**(code **)(*piVar2 + 8))();
+        (*(ActiveObjectTickFn *)(*piVar2 + 8))(piVar2);
         piVar2 = (int *)piVar2[4];
         cVar1 = *(char *)((int)piVar2 + 0x15);
       }
