@@ -1405,6 +1405,8 @@ int FUN_004f2d20();
 void FUN_004f2d40(int regEax);
 void FUN_004f2d60(int regEbx);
 void EnqueueInputEvent(uint *queueObj,uint param_1,uint param_2,uint param_3);
+/* Scalar-deleting dtor, the only slot of the base-object vtable 0x55752c. */
+void * __thiscall FUN_004f2df0(void *param_1,int param_2);
 void __fastcall FUN_004f2e10();
 void * __thiscall FUN_004f2e20();
 void ActiveObjectRegistry_BaseConstructor(undefined4 *regEsi);

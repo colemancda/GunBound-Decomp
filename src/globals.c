@@ -1454,7 +1454,11 @@ void *PTR_LAB_005574e8[5] = {
   (void *)NoOpMethodStdcall1, (void *)PollSoundBufferPosition,
   (void *)0, (void *)FUN_004ef5b0, (void *)0,
 };
-void *PTR_LAB_0055752c;
+/* The base-object vtable (orig .data 0x55752c): one slot, 0x4f2df0, the
+ * scalar-deleting destructor carved as FUN_004f2df0. Destructors put it
+ * back as their last step (ScrubObjectVtable, FUN_004f2e10, ...). Was a
+ * lone NULL. Filled 2026-11-03. */
+void *PTR_LAB_0055752c = (void *)FUN_004f2df0;
 void *PTR_LAB_0055755c;
 void *PTR_LAB_00557594;
 void *PTR_LAB_00557598;

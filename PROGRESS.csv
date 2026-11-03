@@ -1306,6 +1306,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f2d40,19,FUN_004f2d40,false,1,2,RAW-src
 004f2d60,55,FUN_004f2d60,false,1,2,RAW-src
 004f2da0,67,EnqueueInputEvent,false,26,0,RAW-src
+004f2df0,31,FUN_004f2df0,false,1,1,RAW-src
 004f2e10,7,FUN_004f2e10,false,1,0,RAW-src
 004f2e20,30,FUN_004f2e20,false,2,2,RAW-src
 004f2e40,87,ActiveObjectRegistry_BaseConstructor,false,7,1,RAW-src
