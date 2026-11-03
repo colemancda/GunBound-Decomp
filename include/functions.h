@@ -1388,7 +1388,7 @@ void DestroySpriteFrame(void *param_1);
 undefined4 ReadSpriteFrameRecord(void *readState, int frame);
 /* Skip-frame-fields helper: stream = the dropped ESI (orig 0x4f16c8
  * `mov eax,esi` before each seek). Recovered 2026-08-11. */
-void FUN_004f16c0(int stream);
+void SkipSpriteFrameRecord(int stream);
 void FUN_004f1750(undefined4 *regEax);
 /* Base destructor of the PTR_FUN_00557534 sentinel-list container: this = the  * dropped ESI (orig 0x4f1771 `mov [esi],0x557534`; the entry `push esi` is the  * argument for FUN_004f3060, not a save - there is no pop). Recovered  * 2026-08-28. */ void FUN_004f1770(undefined4 *regEsi);
 int LoadSpriteSet();

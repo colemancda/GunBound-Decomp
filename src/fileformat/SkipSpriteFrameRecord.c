@@ -1,10 +1,16 @@
-/* FUN_004f16c0 - 0x004f16c0 in the original binary.
+/* SkipSpriteFrameRecord - 0x004f16c0 in the original binary.
  * (Historical notes below: FUN_004f08a0 is now SkipXFSEntryBytes.)
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): sibling of ReadSpriteFrameRecord
+ * (0x4f1520); the sprite-set loaders FUN_004f1a50 and LoadSpriteSetFrame
+ * call it for each frame they do not want, where the wanted frame goes
+ * through ReadSpriteFrameRecord. It walks the same field sequence with
+ * SkipXFSEntryBytes (0x4f08a0) and ReadXFSEntryByte for the length fields
+ * instead of reading the payload.
  *
  * DROPPED-REGISTER FIX (2026-08-11): a skip-frame-fields helper for the
  * sprite-set loaders (FUN_004f18c0/FUN_004f1a50 call it for every frame
@@ -20,7 +26,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004f16c0(int stream)
+void SkipSpriteFrameRecord(int stream)
 
 {
   int iVar1;

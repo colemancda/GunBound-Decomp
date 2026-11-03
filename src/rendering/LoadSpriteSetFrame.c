@@ -1,4 +1,5 @@
 /* LoadSpriteSetFrame - 0x004f18c0 in the original binary.
+ * (Historical notes below: FUN_004f16c0 is now SkipSpriteFrameRecord.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -107,7 +108,7 @@ int LoadSpriteSetFrame(undefined4 param_1,undefined4 param_2,int param_3,char *i
          * ReadXFSEntryByte calls above; only the taken-match branch at
          * 0x4f19a6 clobbers it and restores from [esp+0x18] right
          * after). local_8 is that stream. */
-        FUN_004f16c0((int)local_8);
+        SkipSpriteFrameRecord((int)local_8);
         if (puVar3 != (undefined4 *)0x0) {
           (**(code **)*puVar3)(1);
         }
