@@ -1,6 +1,11 @@
-/* FUN_004fd730 - 0x004fd730 in the original binary.
+/* CommP2POwner_SendBuddyRequest - 0x004fd730 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * NAMING (batch 22, was FUN_004fd730): Slot 8 of vtable 0x5575c8, reached
+ * by SendBuddyRequestByNickname; relays type 0xc041, whose receiver
+ * DispatchP2PMessage routes to MessengerNotify_OnBuddyRequest
+ * (BuildBuddyRequestDialog).
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
@@ -9,7 +14,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-undefined4 __thiscall FUN_004fd730(int param_1,undefined4 param_2,char *param_3,char *param_4)
+undefined4 __thiscall CommP2POwner_SendBuddyRequest(int param_1,undefined4 param_2,char *param_3,char *param_4)
 
 {
   char cVar1;
