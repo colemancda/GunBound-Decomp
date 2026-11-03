@@ -33,8 +33,22 @@
  * where callerThis is FUN_00506430's own __thiscall param_1 -- the binary
  * loads `mov edi,[esi+0x50]` with ESI never written after entry, so ESI IS
  * the caller's ECX.  Recovered via tools/reg_trace_caller.py's ENTRY chain.
+ *
+ * FIX (2026-11-03): the listener call passes `this`. 0x402d89-0x402d92 is
+ * `mov ecx,eax` (eax = [ebp+0x1bdc]) / `mov edx,[ecx]` / `push &id` /
+ * `call [edx+0x28]`. The listener at +0x1bdc is the CommP2P owner:
+ * 0x401a33 stores the return of 0x4fd090 (operator new(0x2028),
+ * ConstructCommP2POwner, vtable 0x5575c8). Slot +0x28 is 0x4fd810 (`mov
+ * esi,ecx`, `ret 4`; not yet carved), a __thiscall, so under the tree's
+ * raw-C convention `this` goes first.
  */
 #include "ghidra_types.h"
+
+/* The +0x1bdc listener is the CommP2P owner (0x401a33 stores the return
+ * of 0x4fd090, operator new(0x2028) + ConstructCommP2POwner, vtable
+ * 0x5575c8). Its slots are __thiscall (`this` in ECX); raw-C ports erase
+ * that to cdecl with `this` first. */
+typedef char (*CommP2PBuddyDeleteFn)(int self,void *userId);
 
 
 void DeleteBuddyByNickname(int param_1,char *regEdi)
@@ -96,7 +110,8 @@ void DeleteBuddyByNickname(int param_1,char *regEdi)
     return;
   }
   if (*(int **)(param_1 + 0x1bdc) != (int *)0x0) {
-    (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x28))(&local_20);
+    (*(CommP2PBuddyDeleteFn *)(**(int **)(param_1 + 0x1bdc) + 0x28))
+              (*(int *)(param_1 + 0x1bdc),&local_20);
   }
   RemoveDirectLinkBuddyNode(param_1,regEdi);
   return;

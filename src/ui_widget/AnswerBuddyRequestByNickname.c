@@ -36,8 +36,22 @@
  * the exact analogue of FUN_00402cf0's EDI, in the sibling caller
  * FUN_005063e0.  Same evidence: `mov eax,[esi+0x50]` with ESI = the caller's
  * entry ECX.
+ *
+ * FIX (2026-11-03): the listener call passes `this`. 0x402f11-0x402f1f is
+ * `mov ecx,eax` (eax = [ebp+0x1bdc]) / push the answer flag / push &id /
+ * `call [edx+0x24]`. The listener at +0x1bdc is the CommP2P owner:
+ * 0x401a33 stores the return of 0x4fd090 (operator new(0x2028),
+ * ConstructCommP2POwner, vtable 0x5575c8). Slot +0x24 is 0x4fd7c0
+ * (FUN_004fd7c0: `mov esi,ecx`, `ret 8`), a raw-C port of a __thiscall, so
+ * `this` goes first.
  */
 #include "ghidra_types.h"
+
+/* The +0x1bdc listener is the CommP2P owner (0x401a33 stores the return
+ * of 0x4fd090, operator new(0x2028) + ConstructCommP2POwner, vtable
+ * 0x5575c8). Its slots are __thiscall (`this` in ECX); raw-C ports erase
+ * that to cdecl with `this` first. */
+typedef char (*CommP2PBuddyAnswerFn)(int self,void *userId,undefined4 accept);
 
 
 void AnswerBuddyRequestByNickname(int param_1,undefined4 param_2,char *regEax)
@@ -60,7 +74,8 @@ void AnswerBuddyRequestByNickname(int param_1,undefined4 param_2,char *regEax)
   if (cVar2 == '\x01') {
     if (g_directLinkConnection == (undefined2 *)0x0) {
       if (*(int **)(param_1 + 0x1bdc) != (int *)0x0) {
-        (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x24))(&local_20,param_2);
+        (*(CommP2PBuddyAnswerFn *)(**(int **)(param_1 + 0x1bdc) + 0x24))
+                  (*(int *)(param_1 + 0x1bdc),&local_20,param_2);
       }
     }
     else {

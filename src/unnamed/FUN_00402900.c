@@ -13,8 +13,24 @@
  * `mov ecx,eax` (buffer, this) / `push ecx` where ecx=[eax+0x2004]
  * (connection object, param_2) / `push ecx` where ecx=the just-computed
  * new cursor (length, param_3 - already held in iVar8).
+ *
+ * FIX (2026-11-03): the listener call passes `this` and its third
+ * argument. 0x4029e2-0x4029ee is `push edi` / `mov ecx,eax` (eax =
+ * [esi+0x1bdc]) / push 0 / push &id / `call [edx+0x10]`, and EDI is the
+ * text (`mov edi,eax` at 0x402911, regEax here). The listener at +0x1bdc
+ * is the CommP2P owner: 0x401a33 stores the return of 0x4fd090 (operator
+ * new(0x2028), ConstructCommP2POwner, vtable 0x5575c8). Slot +0x10 is
+ * 0x4fd510 (`mov eax,ecx`, `ret 0xc`: three stack arguments; not yet
+ * carved). The port passed only (&id, 0); it now passes (listener, &id, 0,
+ * regEax), `this` first per the tree's raw-C __thiscall convention.
  */
 #include "ghidra_types.h"
+
+/* The +0x1bdc listener is the CommP2P owner (0x401a33 stores the return
+ * of 0x4fd090, operator new(0x2028) + ConstructCommP2POwner, vtable
+ * 0x5575c8). Its slots are __thiscall (`this` in ECX); raw-C ports erase
+ * that to cdecl with `this` first. */
+typedef char (*CommP2PSendTextFn)(int self,void *userId,int mode,char *text);
 
 
 void FUN_00402900(int param_1,char *param_2,char *regEax)
@@ -72,7 +88,8 @@ void FUN_00402900(int param_1,char *param_2,char *regEax)
       return;
     }
     if (*(int **)(param_1 + 0x1bdc) != (int *)0x0) {
-      (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x10))(&local_20,0);
+      (*(CommP2PSendTextFn *)(**(int **)(param_1 + 0x1bdc) + 0x10))
+                (*(int *)(param_1 + 0x1bdc),&local_20,0,regEax);
       FUN_004024f0(param_1,regEax,param_2);
       return;
     }

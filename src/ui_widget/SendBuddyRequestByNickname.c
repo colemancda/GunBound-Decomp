@@ -35,8 +35,23 @@
  * (_sprintf) and `add esp,0xc` at 0x402c03 pops three arguments: (buf,
  * format, name). The port passed only (buf, format), so %s read whatever
  * followed on the stack; it now passes regEax.
+ *
+ * FIX (2026-11-03): the listener call passes `this`. 0x402bc4 `mov
+ * ecx,[eax+0x1bdc]` loads the listener into ECX and nothing touches ECX
+ * before 0x402be5 `call [edx+0x20]`. The listener at +0x1bdc is the
+ * CommP2P owner: 0x401a33 stores the return of 0x4fd090 (operator
+ * new(0x2028), ConstructCommP2POwner, vtable 0x5575c8). Slot +0x20 is
+ * 0x4fd730 (FUN_004fd730: reads [ecx+0x1a70], `ret 0xc`), a raw-C port of
+ * a __thiscall, so `this` goes first, ahead of the three pushed arguments
+ * the port already had.
  */
 #include "ghidra_types.h"
+
+/* The +0x1bdc listener is the CommP2P owner (0x401a33 stores the return
+ * of 0x4fd090, operator new(0x2028) + ConstructCommP2POwner, vtable
+ * 0x5575c8). Its slots are __thiscall (`this` in ECX); raw-C ports erase
+ * that to cdecl with `this` first. */
+typedef int (*CommP2PBuddyRequestFn)(int self,void *userId,char *ownName,char *name);
 
 
 void SendBuddyRequestByNickname(int param_1,char *param_2,char *regEax)
@@ -93,7 +108,8 @@ void SendBuddyRequestByNickname(int param_1,char *param_2,char *regEax)
       return;
     }
     if (*(int **)(param_1 + 0x1bdc) != (int *)0x0) {
-      (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x20))(&local_a0,g_clientContext + 0x23313,param_2);
+      (*(CommP2PBuddyRequestFn *)(**(int **)(param_1 + 0x1bdc) + 0x20))
+                (*(int *)(param_1 + 0x1bdc),&local_a0,(char *)(g_clientContext + 0x23313),param_2);
       pcVar4 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa6);
       /* 0x402be8 `push edi` (EDI = the name) before the string lookup:
        * the %s argument. */
