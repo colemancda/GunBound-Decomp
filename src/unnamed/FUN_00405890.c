@@ -4,22 +4,29 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIX (2026-11-03): ESI and EDI were dropped.  One binary caller, 0x405801
+ * in FUN_004057c0: ESI = the CString* (FUN_004057c0's `mov esi,ecx`,
+ * 0x4057c1, still live) and EDI = the new capacity.  Reallocate
+ * (`push 1 / push edi / push hdr / call [edx+8]`, 0x40589a-0x40589e) the
+ * buffer through its own manager; a NULL result jumps to 0x4058b0 (throws),
+ * otherwise the text pointer (result + 0x10) is stored into the CString
+ * (0x4058aa-0x4058ad).  Manager vtable calls use the shims' ABI (no
+ * `this`).  Declared cdecl: ESI then EDI as parameters.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00405890(void)
+void FUN_00405890(int *regEsi,int regEdi)
 
 {
   int iVar1;
-  int *unaff_ESI;
-  
-  iVar1 = (**(code **)(**(int **)(*unaff_ESI + -0x10) + 8))(*unaff_ESI + -0x10);
+
+  iVar1 = (**(code **)(**(int **)(*regEsi + -0x10) + 8))(*regEsi + -0x10,regEdi,1);
   if (iVar1 == 0) {
     FUN_004058b0();
     return;
   }
-  *unaff_ESI = iVar1 + 0x10;
+  *regEsi = iVar1 + 0x10;
   return;
 }
-
