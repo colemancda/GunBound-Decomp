@@ -1,9 +1,16 @@
-/* FUN_004f08a0 - 0x004f08a0 in the original binary.
+/* SkipXFSEntryBytes - 0x004f08a0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): callers FUN_004240c0 and FUN_00423e20 skip
+ * a record count times 0x84 bytes of an open entry stream (imul
+ * edx,edx,0x84), and FUN_004f16c0 (SkipSpriteFrameRecord) skips the fixed
+ * and length-prefixed fields of a sprite frame record with it. Its callees
+ * DecodeXFSEntryBlock and FUN_004f0650 are the block decoder of that
+ * stream. It only advances the position, clamped to the entry size,
+ * without returning data.
  *
  * DROPPED-REGISTER FIX (2026-08-11): this is the XFS stream seek (skip
  * param_2 bytes of the open entry stream). The stream context arrives
@@ -18,7 +25,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall FUN_004f08a0(undefined4 param_1,int param_2,int stream)
+undefined4 __fastcall SkipXFSEntryBytes(undefined4 param_1,int param_2,int stream)
 
 {
   uint uVar1;

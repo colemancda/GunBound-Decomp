@@ -1,4 +1,5 @@
 /* FUN_004240c0 - 0x004240c0 in the original binary.
+ * (Historical notes below: FUN_004f08a0 is now SkipXFSEntryBytes.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -124,7 +125,7 @@ uint FUN_004240c0(undefined4 param_1,int param_2,int param_3,int param_4,int out
   if (iVar4 != 0) {
     ReadXFSEntryByte(iVar4,&local_108,4);
     if ((int)(uint)param_4 < local_108) {
-      FUN_004f08a0(0,(int)(uint)param_4 * 0x84,iVar4);
+      SkipXFSEntryBytes(0,(int)(uint)param_4 * 0x84,iVar4);
       ReadXFSEntryByte(iVar4,&rec,0x84);
       CloseSpriteReadState();
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

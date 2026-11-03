@@ -1,4 +1,5 @@
 /* FUN_004f16c0 - 0x004f16c0 in the original binary.
+ * (Historical notes below: FUN_004f08a0 is now SkipXFSEntryBytes.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -26,18 +27,18 @@ void FUN_004f16c0(int stream)
   char local_5;
   int local_4;
 
-  FUN_004f08a0(0,0x14,stream);
+  SkipXFSEntryBytes(0,0x14,stream);
   iVar1 = ReadXFSEntryByte(stream,&local_5,1);
   if (iVar1 != -2) {
-    FUN_004f08a0(0,3,stream);
-    FUN_004f08a0(0,0xc,stream);
+    SkipXFSEntryBytes(0,3,stream);
+    SkipXFSEntryBytes(0,0xc,stream);
     iVar1 = ReadXFSEntryByte(stream,&local_4,4);
     if (iVar1 != -2) {
-      FUN_004f08a0(0,local_4,stream);
+      SkipXFSEntryBytes(0,local_4,stream);
       if (local_5 != '\0') {
         iVar1 = ReadXFSEntryByte(stream,&local_4,4);
         if (iVar1 != -2) {
-          FUN_004f08a0(0,local_4,stream);
+          SkipXFSEntryBytes(0,local_4,stream);
         }
       }
     }

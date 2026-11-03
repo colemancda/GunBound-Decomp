@@ -1365,7 +1365,7 @@ uint FUN_004f0650();
 /* XFS stream seek (skip param_2 bytes). stream = the dropped EAX
  * (orig callers set EAX to the open stream, EDX to the byte count;
  * ECX/param_1 is garbage). Recovered 2026-08-11. */
-undefined4 __fastcall FUN_004f08a0(undefined4 param_1, int param_2, int stream);
+undefined4 __fastcall SkipXFSEntryBytes(undefined4 param_1, int param_2, int stream);
 void __fastcall FUN_004f0960();
 int CompareXFSEntryName();
 void XFSArchive_Construct(int regEsi);
