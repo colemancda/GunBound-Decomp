@@ -1,4 +1,5 @@
 /* Vector_CopyElement_8 - 0x00503710 in the original binary.
+ * (Historical notes below: FUN_0043de10 is now CString_CloneData.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -36,9 +37,9 @@ int * Vector_CopyElement_8(int *param_1,int regEdi)
 {
   int iVar1;
 
-  iVar1 = FUN_0043de10((int *)(*(int *)regEdi + -0x10));
+  iVar1 = CString_CloneData((int *)(*(int *)regEdi + -0x10));
   *param_1 = iVar1 + 0x10;
-  iVar1 = FUN_0043de10((int *)(*(int *)(regEdi + 4) + -0x10));
+  iVar1 = CString_CloneData((int *)(*(int *)(regEdi + 4) + -0x10));
   param_1[1] = iVar1 + 0x10;
   return param_1;
 }

@@ -1,4 +1,5 @@
 /* Vector_UninitFillN_8 - 0x00504190 in the original binary.
+ * (Historical notes below: FUN_0043de10 is now CString_CloneData.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -33,9 +34,9 @@ void __fastcall Vector_UninitFillN_8(undefined4 param_1,int param_2,int *param_3
   for (; param_2 != 0; param_2 = param_2 + -1) {
     if (param_3 != (int *)0x0) {
       /* 0x5041d5-0x5041da / 0x5041e8-0x5041ee: EAX = value handle - 0x10 */
-      iVar1 = FUN_0043de10((int *)(*(int *)param_1 + -0x10));
+      iVar1 = CString_CloneData((int *)(*(int *)param_1 + -0x10));
       *param_3 = iVar1 + 0x10;
-      iVar1 = FUN_0043de10((int *)(*(int *)(param_1 + 4) + -0x10));
+      iVar1 = CString_CloneData((int *)(*(int *)(param_1 + 4) + -0x10));
       param_3[1] = iVar1 + 0x10;
     }
     param_3 = param_3 + 2;

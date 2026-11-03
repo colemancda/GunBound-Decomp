@@ -1,4 +1,5 @@
 /* MSVC-side CRT/allocator/intrinsic shims for the full-tree MSVC link
+ * (Historical notes below: FUN_0043de10 is now CString_CloneData.)
  * attempt (tools/msvc-env/_link_attempt.sh). Counterpart of the
  * winegcc-only crt_shims_c.c: the raw ports call Ghidra's renamed CRT
  * symbols (_free, _rand, __stricmp, ...) and a handful of decompiler

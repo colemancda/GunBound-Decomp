@@ -1,9 +1,16 @@
-/* FUN_0043de10 - 0x0043de10 in the original binary.
+/* CString_CloneData - 0x0043de10 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): all 11 callers pass a string header (handle
+ * - 0x10) in EAX and store the return value + 0x10 as the new CString
+ * handle. The body is ATL7 CStringData::Clone: share the header (AddRef)
+ * when the manager's Clone() is the same manager and the header is not
+ * locked, otherwise Allocate through that manager and copy nDataLength+1
+ * characters; allocation failure tail-jumps to AtlThrowOutOfMemory
+ * (0x4058b0).
  *
  * The ATL CStringData clone: given a string header (pStringMgr +0,
  * nDataLength +4, nAllocLength +8, nRefs +0xc, characters at +0x10), it
@@ -36,7 +43,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_0043de10(int *regEax)
+undefined4 CString_CloneData(int *regEax)
 
 {
   int iVar1;
