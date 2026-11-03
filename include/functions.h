@@ -1431,7 +1431,7 @@ void FUN_004f3060();
 int FindSpriteFrame(int container,uint outerKey,uint innerKey); /* real prototype since 2026-09-02 - all 188 sites pass args */
 void FUN_004f3100(int regEbx);
 undefined4 * __fastcall FUN_004f3150(undefined4 param_1,undefined4 *param_2,undefined4 regEax);
-void * __thiscall FUN_004f3390(void *param_1,int param_2);
+void * __thiscall SceneNode_ScalarDtor(void *param_1,int param_2);
 void __fastcall SceneNode_Destructor(undefined4 *param_1);
 void __fastcall SceneNode_BuildLocalTransform(undefined4 param_1,float *param_2,int regEsi);
 void __fastcall FUN_004f3540();
