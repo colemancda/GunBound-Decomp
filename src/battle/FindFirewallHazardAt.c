@@ -1,10 +1,17 @@
-/* FUN_004510f0 - 0x004510f0 in the original binary.
+/* FindFirewallHazardAt - 0x004510f0 in the original binary.
  * (Historical notes below: FUN_00451030 is now FindTornadoHazardAt.)
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): the layer key 0x1f5 is the one
+ * SpawnFirewallHazard stamps and RenderWeatherHazards maps to the firewall
+ * texture. EAX is the projectile registry (&DAT_006a7f88 +
+ * g_clientContext) at every call site; callers (the Simulate*Bullet* and
+ * SimulateProjectileFrame family, plus the hazard spawner) pass a
+ * coordinate and get the matching hazard object or NULL; the match is a
+ * window around the object's guarded position cell.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at both argless PeekPacketChecksumState() calls: both off iVar4 = *(param_1+0x10) (the [eax+0x10] record the resolver shows), at +0x3c and +0x260.
@@ -22,7 +29,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_004510f0(int param_1,int regEax)
+int FindFirewallHazardAt(int param_1,int regEax)
 
 {
   uint uVar1;

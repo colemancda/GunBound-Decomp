@@ -1,4 +1,5 @@
 /* CProjectile methods - promoted from the raw C ports under src/battle/
+ * (Historical notes below: FUN_004510f0 is now FindFirewallHazardAt.)
  * (Historical notes below: FUN_00451030 is now FindTornadoHazardAt.)
  * (DestroyProjectile 0x455570, AnimateProjectileTick 0x48f1c0). See
  * Projectile.h and src/cxx/README.md.
@@ -285,7 +286,7 @@ extern void *PTR_FUN_0055658c;
 /* SimulateProjectileFrame's additional dependencies. */
 unsigned int EncodeChecksumDeltaAdd(void *cell, void *out, int delta);
 char DecodeGuardedBool(unsigned char *cell);
-int  FUN_004510f0(int x, int regEax);
+int  FindFirewallHazardAt(int x, int regEax);
 int  FindTornadoHazardAt(int x, int regEax);
 int  FUN_004511b0(int x, int regEax);
 void FUN_00436dc0(int a, int b, unsigned int c);
@@ -1046,7 +1047,7 @@ void CProjectile::SimulateFrame(int stepDelta)
             local_1594 = local_1594 + local_15a0;
             local_15b4 = local_1594 >> 0x10;
             local_15b8 = local_15a4;
-            if (local_15a5 == '\0' && (iVar12 = FUN_004510f0(local_15a4,(int)(&DAT_006a7f88 + g_clientContext)), pbVar18 = local_1598, iVar12 != 0)) {
+            if (local_15a5 == '\0' && (iVar12 = FindFirewallHazardAt(local_15a4,(int)(&DAT_006a7f88 + g_clientContext)), pbVar18 = local_1598, iVar12 != 0)) {
                 EncodeChecksumDeltaAdd(local_1598, &g1350, stepDelta);
                 EnterCriticalSection(&g_valueGuardLock);
                 iVar12 = PeekPacketChecksumState((void *)(&g1350));
@@ -1241,7 +1242,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 local_1594 = local_1594 + local_15a0;
                 local_15b4 = local_15a4;
                 local_15b8 = local_1594 >> 0x10;
-                if (local_15a5 == '\0' && (iVar13 = FUN_004510f0(local_15b8,(int)(&DAT_006a7f88 + g_clientContext)), pbVar18 = local_1598, iVar13 != 0)) {
+                if (local_15a5 == '\0' && (iVar13 = FindFirewallHazardAt(local_15b8,(int)(&DAT_006a7f88 + g_clientContext)), pbVar18 = local_1598, iVar13 != 0)) {
                     local_15b0[0] = EncodeChecksumDeltaAdd(local_1598, &gac0, stepDelta);
                     EnterCriticalSection(&g_valueGuardLock);
                     local_15b0[0] = PeekPacketChecksumState((void *)(&gac0));

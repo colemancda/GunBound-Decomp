@@ -1,4 +1,5 @@
 /* FUN_004511b0 - 0x004511b0 in the original binary.
+ * (Historical notes below: FUN_004510f0 is now FindFirewallHazardAt.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
