@@ -1,4 +1,9 @@
-/* FUN_00403890 - 0x00403890 in the original binary.
+/* MessengerNotify_OnSessionClosed - 0x00403890 in the original binary.
+ *
+ * NAMING (batch 22, was FUN_00403890): Slot 1 of the notify interface
+ * 0x551cb8; CommP2POwner_OnConnectionClosed calls it on the session
+ * handler ([owner+0x1aac], vtable +4) and it sets the closed flag at
+ * +0x1bc4.
  *
  * CARVED (2026-11-03). Never carved by Ghidra: its only reference is the
  * .data word at 0x551cbc, SLOT 1 of the messenger's notify interface
@@ -11,12 +16,12 @@
  *   mov dword ptr [ecx+0x1bc8],0         ; else clear it
  * This is the call CommP2POwner_OnConnectionClosed makes on the session
  * handler (ECX = [this+0x1aac], `call [vtbl+4]`) - its header already
- * records the bytes. Left unnamed. Erased __thiscall: this first.
+ * records the bytes. Erased __thiscall: this first.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00403890(int param_1)
+void MessengerNotify_OnSessionClosed(int param_1)
 
 {
   int iVar1;

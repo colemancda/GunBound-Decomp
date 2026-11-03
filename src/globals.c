@@ -1417,7 +1417,7 @@ void *PTR_LAB_00550378;
  *  4 4038b0  5 403ae0  6 403c00  7 403d20  8 403f30  9 403e10
  * 10 403ff0 11 404140 12 404330 13 4038b0. Filled 2026-11-03. */
 void *PTR_LAB_00551cb8[14] = {
-  (void *)MessengerNotify_AcceptMessage, (void *)FUN_00403890, (void *)NoOpMethod,
+  (void *)MessengerNotify_AcceptMessage, (void *)MessengerNotify_OnSessionClosed, (void *)NoOpMethod,
   (void *)FUN_004038c0, (void *)NoOpMethod, (void *)FUN_00403ae0,
   (void *)FUN_00403c00, (void *)FUN_00403d20, (void *)FUN_00403f30,
   (void *)FUN_00403e10, (void *)FUN_00403ff0, (void *)FUN_00404140,
