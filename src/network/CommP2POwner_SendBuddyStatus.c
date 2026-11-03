@@ -1,6 +1,11 @@
-/* FUN_004fd590 - 0x004fd590 in the original binary.
+/* CommP2POwner_SendBuddyStatus - 0x004fd590 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * NAMING (batch 22, was FUN_004fd590): Slot 6 of vtable 0x5575c8; relays
+ * type 0xc051, whose receiver is MessengerNotify_OnBuddyStatus
+ * (UpdateBuddyStatus); MessengerNotify_OnStatusQuery and the DLNoticeFn
+ * callers dispatch through this slot.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
@@ -9,7 +14,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-uint __thiscall FUN_004fd590(int param_1,undefined4 param_2,undefined4 *param_3,char *param_4)
+uint __thiscall CommP2POwner_SendBuddyStatus(int param_1,undefined4 param_2,undefined4 *param_3,char *param_4)
 
 {
   char cVar1;

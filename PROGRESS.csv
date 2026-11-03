@@ -1393,7 +1393,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fd3e0,128,FUN_004fd3e0,false,1,1,RAW-src
 004fd470,159,CommP2POwnerConnect,false,1,4,RAW-src
 004fd510,127,CommP2POwner_SendText,false,1,1,RAW-src
-004fd590,183,FUN_004fd590,false,1,2,RAW-src
+004fd590,183,CommP2POwner_SendBuddyStatus,false,1,2,RAW-src
 004fd650,42,FUN_004fd650,false,1,1,RAW-src
 004fd680,173,FUN_004fd680,false,1,2,RAW-src
 004fd730,135,CommP2POwner_SendBuddyRequest,false,1,3,RAW-src
