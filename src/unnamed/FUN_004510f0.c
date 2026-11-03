@@ -1,4 +1,5 @@
 /* FUN_004510f0 - 0x004510f0 in the original binary.
+ * (Historical notes below: FUN_00451030 is now FindTornadoHazardAt.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's

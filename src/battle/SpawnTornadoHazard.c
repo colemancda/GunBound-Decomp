@@ -1,4 +1,5 @@
 /* SpawnTornadoHazard - 0x00435800 in the original binary.
+ * (Historical notes below: FUN_00451030 is now FindTornadoHazardAt.)
  *
  * RENAMED (2026-07-16, from FUN_00435800): spawns a Tornado terrain
  * hazard. operator_new(0x6a8) + InitTornadoHazard (the ctor, which
@@ -81,7 +82,7 @@ void SpawnTornadoHazard(undefined4 param_1,int param_2,int param_3,undefined4 pa
   if (cVar1 == '\0') {
     iVar2 = (int)(param_3 + (param_3 >> 0x1f & 3U)) >> 2;
     for (iVar6 = (param_2 - iVar2) + -5; iVar6 <= iVar2 + 5 + param_2; iVar6 = iVar6 + 1) {
-      iVar3 = FUN_00451030(iVar6,(int)(&DAT_006a7f88 + g_clientContext));
+      iVar3 = FindTornadoHazardAt(iVar6,(int)(&DAT_006a7f88 + g_clientContext));
       if (iVar3 != 0) {
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         EncodeOutgoingPacketField((void *)(iVar3 + 0x484), param_4);

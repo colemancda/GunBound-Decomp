@@ -251,7 +251,7 @@ LAB_0049ea8b:
         pbVar11 = (byte *)(local_159c + 0xf4c);
         cVar2 = DecodeGuardedBool(pbVar11);
         if (cVar2 != '\0') {
-          iVar5 = FUN_00451030(local_15ac,(int)(&DAT_006a7f88 + g_clientContext));
+          iVar5 = FindTornadoHazardAt(local_15ac,(int)(&DAT_006a7f88 + g_clientContext));
           *(int *)(iVar4 + 0xf48) = iVar5;
           if (iVar5 != 0) {
             *(undefined4 *)(iVar4 + 0xf50) = 0;
@@ -507,7 +507,7 @@ LAB_0049f398:
         pbVar11 = (byte *)(local_159c + 0xf4c);
         cVar2 = DecodeGuardedBool(pbVar11);
         if (cVar2 != '\0') {
-          iVar5 = FUN_00451030(local_15c4,(int)(&DAT_006a7f88 + g_clientContext));
+          iVar5 = FindTornadoHazardAt(local_15c4,(int)(&DAT_006a7f88 + g_clientContext));
           *(int *)(iVar4 + 0xf48) = iVar5;
           if (iVar5 != 0) {
             *(undefined4 *)(iVar4 + 0xf50) = 0;
