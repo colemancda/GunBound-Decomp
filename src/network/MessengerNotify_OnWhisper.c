@@ -1,4 +1,9 @@
-/* FUN_00403c00 - 0x00403c00 in the original binary.
+/* MessengerNotify_OnWhisper - 0x00403c00 in the original binary.
+ *
+ * NAMING (batch 22, was FUN_00403c00): Slot 6 (+0x18) of the notify
+ * interface 0x551cb8; DispatchP2PMessage calls it for types 0xc011 (mode
+ * 0) and 0xc018 (mode 1), and it ends in DisplayIncomingWhisper or parks
+ * the whisper as action 0x1000.
  *
  * CARVED (2026-11-03). Never carved by Ghidra: its only reference is the
  * .data word at 0x551cd0, SLOT 6 of the messenger's notify interface
@@ -28,12 +33,12 @@
  *   0x403ce7-0x403d03  park the whisper: FUN_004026a0(0x1000, text,
  *                      strlen(text)+1, EAX = id, EBX = ctx, CL = 0).
  * So: the incoming whisper notification for a sender known only by user
- * id. Left unnamed. Erased __thiscall: `this` is the first cdecl argument.
+ * id. Erased __thiscall: `this` is the first cdecl argument.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00403c00(int param_1,char *param_2,int param_3,char *param_4,undefined4 param_5)
+void MessengerNotify_OnWhisper(int param_1,char *param_2,int param_3,char *param_4,undefined4 param_5)
 
 {
   undefined4 *puVar1;

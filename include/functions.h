@@ -186,7 +186,7 @@ void __thiscall FUN_00403d20(int param_1,char *param_2,undefined4 param_3,undefi
 char MessengerNotify_AcceptMessage(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5,undefined4 param_6);
 void MessengerNotify_OnSessionClosed(int param_1);
 void FUN_004038c0(int param_1,short param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5,int *param_6);
-void FUN_00403c00(int param_1,char *param_2,int param_3,char *param_4,undefined4 param_5);
+void MessengerNotify_OnWhisper(int param_1,char *param_2,int param_3,char *param_4,undefined4 param_5);
 void FUN_00403ff0(int param_1,char *param_2,char param_3);
 void FUN_00404140(int param_1,char *param_2);
 void __thiscall FUN_00403e10(int param_1,char *param_2,undefined4 param_3,char *param_4);
