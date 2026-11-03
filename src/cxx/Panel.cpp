@@ -1143,6 +1143,171 @@ extern "C" void BuildItemDescriptionTooltip(void *manager, int itemId)
     PanelManager_Register(manager, p);
 }
 
+/* The builders of three more confirm dialogs that were raw C and stored a
+ * placeholder global as the vtable (PTR_LAB_00557d50, _00557e40,
+ * _00557d78: lone null `void *`s, so every PanelManager dispatch on them
+ * read past the global). Each original vtable, read from .data, is
+ * CPanel's 0x557bbc slot for slot except slot 7:
+ *
+ *   0x557d50 CBuddyRequestDialog        slot 7 0x5063e0
+ *   0x557e40 CDeleteBuddyConfirmDialog  slot 7 0x506430
+ *   0x557d78 CAvatarShopIpConfirmDialog slot 7 0x506e10
+ *
+ * All three slot-7 targets are __thiscall, ret 0xc (`mov esi,ecx` at
+ * 0x5063ed and 0x50643d, `mov edi,ecx` at 0x506e1d), ending in a direct
+ * `call 0x50eb10` (Widget_OnCommandDefault). Their C ports are
+ * erased-__thiscall cdecl with `this` first. (2026-11-03) */
+extern "C" void BuddyRequestDialog_OnCommand(int this_, int evt, int id, int arg);
+extern "C" void DeleteBuddyConfirmDialog_OnCommand(int this_, int evt, int id, int arg);
+extern "C" void AvatarShopIpConfirmDialog_OnCommand(int this_, int evt, int id, int arg);
+/* 0x4056c0: CString assign (dest, src) with the length in EBX, promoted to
+ * a trailing parameter - see src/unnamed/AssignStringBuffer.c. */
+extern "C" void AssignStringBuffer(int *dest, void *src, unsigned int length);
+extern "C" int __mbsicmp(const unsigned char *a, const unsigned char *b);
+extern "C" int _sprintf(char *buf, const char *fmt, ...);
+
+void CBuddyRequestDialog::OnCommand(int evt, int id, int arg)
+{
+    BuddyRequestDialog_OnCommand((int)this, evt, id, arg);
+}
+
+void CDeleteBuddyConfirmDialog::OnCommand(int evt, int id, int arg)
+{
+    DeleteBuddyConfirmDialog_OnCommand((int)this, evt, id, arg);
+}
+
+void CAvatarShopIpConfirmDialog::OnCommand(int evt, int id, int arg)
+{
+    AvatarShopIpConfirmDialog_OnCommand((int)this, evt, id, arg);
+}
+
+/* The shared tail of the two buddy confirm builders: the YES/NO labels,
+ * the name into m_strings[0], the localized prompt sprintf'd with the
+ * name as a CStaticText, and the Register. The parent of every AddChild
+ * is the new panel (EBX = ESI at 0x508df3/0x508e72 and 0x508f84/0x509003). */
+static void BuildBuddyConfirmBody(void *manager, CPanel *p, const char *name, int stringId)
+{
+    char text[128];
+    p->AddChild(CreateLabelWidget(0, 0x2ca, 0x44, 0x66, 0x37, 0x1a));
+    p->AddChild(CreateLabelWidget(1, 0x2cb, 0x82, 0x66, 0x37, 0x1a));
+    /* The inline strlen leaves the length in EAX (0 for a NULL name) and
+     * `mov ebx,eax` hands it to AssignStringBuffer as its EBX length. */
+    unsigned int len = 0;
+    if (name != 0) {
+        const char *e = name;
+        while (*e != 0) {
+            ++e;
+        }
+        len = (unsigned int)(e - name);
+    }
+    AssignStringBuffer((int *)&p->m_strings[0], (void *)name, len);
+    _sprintf(text, (const char *)GetLocalizedString(&g_localizedStringTable, stringId), name);
+    p->AddChild(CreateStaticTextWidget(0x17, 0x2b, 0x9a, 0x33, text, 0xffff));
+    PanelManager_Register(manager, p);
+}
+
+/* True when the manager already holds a (typeId 0, id, +0x4c 0) panel
+ * whose m_strings[0] equals name, case-insensitively (_mbsicmp). */
+static bool HasBuddyConfirmFor(void *manager, int id, const char *name)
+{
+    for (CPanelListNode *n = ManagerListHead(manager); n != 0; n = n->m_next) {
+        CPanel *q = n->m_panel;
+        if (q->m_typeId == 0 && q->m_id == id && q->m_unk4c == 0 &&
+            __mbsicmp((const unsigned char *)q->m_strings[0],
+                      (const unsigned char *)name) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/* 0x508d00 - BuildBuddyRequestDialog (ret 4: manager; the name in EDI,
+ * promoted to the trailing regEdi). 0x508d30-0x508d61 walk the manager for
+ * (typeId 0, id 0x2711, +0x4c 0) with the same name (__mbsicmp at
+ * 0x508d4f) and return on a match (0x508e86). Otherwise operator new(0xa8),
+ * CPanel ctor, vtable 0x557d50 (0x508d87), id 0x2711, +0x4c 0, frame
+ * 0x2c6/2, rect (0x12d, 0xd9, 200, 0x8a) and +0x1e = (state == 0xb)
+ * (0x508db6-0x508dea), then the body above with string 0xfa1
+ * (0x508e3a; the name is pushed at 0x508e39, sprintf at 0x508e4f). */
+extern "C" void BuildBuddyRequestDialog(int param_1, unsigned char *regEdi)
+{
+    void *manager = (void *)param_1;
+    const char *name = (const char *)regEdi;
+    if (HasBuddyConfirmFor(manager, 0x2711, name)) {
+        return;
+    }
+    CBuddyRequestDialog *p = new CBuddyRequestDialog();
+    p->m_id = 0x2711;
+    p->m_unk4c = 0;
+    p->m_unk44 = 0x2c6;
+    p->m_unk48 = 2;
+    p->m_x = 0x12d;
+    p->m_y = 0xd9;
+    p->m_width = 200;
+    p->m_height = 0x8a;
+    p->m_hidden = (u8)(g_currentGameState == 0xb);
+    BuildBuddyConfirmBody(manager, p, name, 0xfa1);
+}
+
+/* 0x508ea0 - BuildDeleteBuddyConfirmDialog, the same shape: walk for
+ * (typeId 0, id 0x2712, +0x4c 0, same name) (0x508ed0-0x508f01, return at
+ * 0x509017), operator new(0xa8), vtable 0x557e40 (0x508f27), id 0x2712,
+ * the same frame and rect (0x508f4a-0x508f77) but no +0x1e store, and
+ * string 0xfa5 (0x508fcb). */
+extern "C" void BuildDeleteBuddyConfirmDialog(int param_1, unsigned char *regEdi)
+{
+    void *manager = (void *)param_1;
+    const char *name = (const char *)regEdi;
+    if (HasBuddyConfirmFor(manager, 0x2712, name)) {
+        return;
+    }
+    CDeleteBuddyConfirmDialog *p = new CDeleteBuddyConfirmDialog();
+    p->m_id = 0x2712;
+    p->m_unk4c = 0;
+    p->m_unk44 = 0x2c6;
+    p->m_unk48 = 2;
+    p->m_x = 0x12d;
+    p->m_y = 0xd9;
+    p->m_width = 200;
+    p->m_height = 0x8a;
+    BuildBuddyConfirmBody(manager, p, name, 0xfa5);
+}
+
+/* 0x509780 - BuildAvatarShopIpConfirmDialog (manager in ESI, promoted to
+ * the parameter). 0x5097a0-0x5097bd walk for (typeId 0, id 50000) and
+ * return on a match (0x5098ce). Otherwise operator new(0x90), CPanel ctor,
+ * vtable 0x557d78 (0x5097e5), id 50000, +0x4c 0, frame 0x2710/0x12, rect
+ * (0x115, 0xac, 0xf8, 0xf9) (0x509806-0x509837), the CStaticTexts
+ * (0x14, 0xf, 0xd2, 0xf, string 350) and (0x14, 0x32, 0xce, 0x8a,
+ * string 351), labels (0, 0x640) and (1, 0x641) at (0x48|0x9d, 0xd0, 0x51,
+ * 0x21), and `push ebx / mov eax,esi / call 0x50eea0`. */
+extern "C" void BuildAvatarShopIpConfirmDialog(int esiArg)
+{
+    void *manager = (void *)esiArg;
+    for (CPanelListNode *n = ManagerListHead(manager); n != 0; n = n->m_next) {
+        CPanel *q = n->m_panel;
+        if (q->m_typeId == 0 && q->m_id == 50000) {
+            return;
+        }
+    }
+    CAvatarShopIpConfirmDialog *p = new CAvatarShopIpConfirmDialog();
+    p->m_id = 50000;
+    p->m_unk4c = 0;
+    p->m_unk44 = 10000;
+    p->m_unk48 = 0x12;
+    p->m_x = 0x115;
+    p->m_y = 0xac;
+    p->m_width = 0xf8;
+    p->m_height = 0xf9;
+    p->AddChild(CreateStaticTextWidget(0x14, 0xf, 0xd2, 0xf,
+        (const char *)GetLocalizedString(&g_localizedStringTable, 0x15e), 0xffff));
+    p->AddChild(CreateStaticTextWidget(0x14, 0x32, 0xce, 0x8a,
+        (const char *)GetLocalizedString(&g_localizedStringTable, 0x15f), 0xffff));
+    p->AddChild(CreateLabelWidget(0, 0x640, 0x48, 0xd0, 0x51, 0x21));
+    p->AddChild(CreateLabelWidget(1, 0x641, 0x9d, 0xd0, 0x51, 0x21));
+    PanelManager_Register(manager, p);
+}
+
 /* 0x50e420 - the panel press core (bound as the panel-family slot-2
  * default). Pressed-state (+0x04) follows the rect test; children get
  * the mouse-down broadcast; a miss on both drops focus (a real virtual

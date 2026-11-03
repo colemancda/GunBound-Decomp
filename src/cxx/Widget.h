@@ -516,6 +516,45 @@ public:
     char m_itemName[0x80];                     /* +0x90: copied from FindItemRecordByIcon */
 };
 
+/* Three more confirm dialogs whose raw-C builders installed a placeholder
+ * global (PTR_LAB_00557d50 / _00557e40 / _00557d78, a single null void *)
+ * as the vtable. Each original vtable (read from .data) is CPanel's
+ * 0x557bbc slot for slot except slot 7; the builders now live in
+ * Panel.cpp (2026-11-03). */
+
+/* "'%s' asks for your permission. Do you accept?" (Language.txt 4001):
+ * labels 0 (accept) / 1 (reject), the requester's name in m_strings[0]
+ * (+0x50). One per requester: keyed 0x2711 and matched by name. Hidden
+ * (+0x1e) when built during battle (state 0xb). */
+class CBuddyRequestDialog : public CPanel {    /* vtable 0x557d50; builder 0x508d00, size 0xa8 */
+public:
+    CBuddyRequestDialog() {}                   /* base defaults only */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x5063e0 - Panel.cpp forwards to the C
+                                                * BuddyRequestDialog_OnCommand (slot 7) */
+    u8  m_unk90[0x18];                         /* +0x90: allocated (0xa8), never touched */
+};
+
+/* "You are about to remove '%s' from buddy list. Are you sure?"
+ * (Language.txt 4005): labels 0 (yes) / 1 (no), the buddy's name in
+ * m_strings[0]. Keyed 0x2712 and matched by name. */
+class CDeleteBuddyConfirmDialog : public CPanel { /* vtable 0x557e40; builder 0x508ea0, size 0xa8 */
+public:
+    CDeleteBuddyConfirmDialog() {}             /* base defaults only */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x506430 - Panel.cpp forwards to the C
+                                                * DeleteBuddyConfirmDialog_OnCommand (slot 7) */
+    u8  m_unk90[0x18];                         /* +0x90: allocated (0xa8), never touched */
+};
+
+/* State 3's avatar-shop IP confirmation (Language.txt 350/351): YES
+ * (0x640) / NO (0x641) labels; YES sends opcode 0x1078. SINGLETON keyed
+ * 50000; the builder does nothing when one already exists. */
+class CAvatarShopIpConfirmDialog : public CPanel { /* vtable 0x557d78; builder 0x509780, size 0x90 */
+public:
+    CAvatarShopIpConfirmDialog() {}            /* base defaults only */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x506e10 - Panel.cpp forwards to the C
+                                                * AvatarShopIpConfirmDialog_OnCommand (slot 7) */
+};
+
 /* The shared buddy list (lobby / ready room / WndProc). A SINGLETON
  * keyed 20000: re-opening sets the existing panel's +0x1d flag
  * instead of rebuilding or refocusing. Close-X / Add / Del labels +

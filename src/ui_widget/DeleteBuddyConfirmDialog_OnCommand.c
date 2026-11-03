@@ -12,6 +12,12 @@
  * name stored at +0x50 (0x506456); labels 0 and 1 both set the +0x1d
  * close flag. Named after the builder, like
  * BuddyRequestDialog_OnCommand.
+ *
+ * WIRED (2026-11-03): the builder 0x508ea0 now lives in src/cxx/Panel.cpp
+ * and builds a C++ CDeleteBuddyConfirmDialog whose vtable is 0x557e40's
+ * shape (CPanel's 0x557bbc with slot 7 = 0x506430); its OnCommand forwards
+ * here with `this` first. Before, the raw builder stored the null
+ * placeholder PTR_LAB_00557e40 as the vtable, so this was never reached.
  */
 #include "ghidra_types.h"
 

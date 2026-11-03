@@ -13,6 +13,12 @@
  * requester's name from +0x50, then sets the +0x1d close flag that
  * PanelManager_Update's per-tick sweep destroys panels on. Named
  * after the builder, like AddBuddyDialog_OnCommand.
+ *
+ * WIRED (2026-11-03): the builder 0x508d00 now lives in src/cxx/Panel.cpp
+ * and builds a C++ CBuddyRequestDialog whose vtable is 0x557d50's shape
+ * (CPanel's 0x557bbc with slot 7 = 0x5063e0); its OnCommand forwards here
+ * with `this` first. Before, the raw builder stored the null placeholder
+ * PTR_LAB_00557d50 as the vtable, so this was never reached.
  */
 #include "ghidra_types.h"
 

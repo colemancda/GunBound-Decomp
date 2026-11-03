@@ -13,6 +13,12 @@
  * Opcode 0x1078 is not in include/opcodes.h or the reference server's
  * Opcode.swift, so what the server does with it is not established
  * here. Named after the builder, like BuddyRequestDialog_OnCommand.
+ *
+ * WIRED (2026-11-03): the builder 0x509780 now lives in src/cxx/Panel.cpp
+ * and builds a C++ CAvatarShopIpConfirmDialog whose vtable is 0x557d78's
+ * shape (CPanel's 0x557bbc with slot 7 = 0x506e10); its OnCommand forwards
+ * here with `this` first. Before, the raw builder stored the null
+ * placeholder PTR_LAB_00557d78 as the vtable, so this was never reached.
  */
 #include "ghidra_types.h"
 
