@@ -14,8 +14,12 @@
  * 0x40d150 thunk. "Base" marks the base-class member, as in
  * PanelManager_BaseDestructor.
  *
- * NOTE (not fixed here): the call to PanelManager_BaseDestructor passes
- * nothing, while the original keeps `this` in ECX across it.
+ * FIX (2026-11-03): the call to PanelManager_BaseDestructor passed
+ * nothing. 0x50ede1 `mov esi,ecx` copies `this` but leaves ECX intact,
+ * and 0x50ede3 `call 0x50ee00` reaches the destructor with ECX = `this`;
+ * 0x50ee17 `mov ebx,ecx` is its first use. Its port is __fastcall
+ * (this in ECX), so it now gets `this`, and its prototype in functions.h
+ * is no longer an empty K&R list that hid the missing argument.
  */
 #include "ghidra_types.h"
 
@@ -23,7 +27,7 @@
 void * __thiscall PanelManager_BaseScalarDtor(void *param_1,int param_2)
 
 {
-  PanelManager_BaseDestructor();
+  PanelManager_BaseDestructor((undefined4 *)param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }
