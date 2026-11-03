@@ -1,13 +1,18 @@
-/* FUN_00404330 - 0x00404330 in the original binary.
+/* MessengerNotify_OnBuddyDelete - 0x00404330 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * NAMING (batch 22, was FUN_00404330): Slot 12 (+0x30) of the notify
+ * interface 0x551cb8; DispatchP2PMessage calls it for type 0xc043, the one
+ * CommP2POwner_SendBuddyDelete sends; the resolved-nickname path calls
+ * RemoveDirectLinkBuddyNode.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00404330(int param_1,char *param_2)
+void __thiscall MessengerNotify_OnBuddyDelete(int param_1,char *param_2)
 
 {
   undefined4 *puVar1;

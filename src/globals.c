@@ -1421,7 +1421,7 @@ void *PTR_LAB_00551cb8[14] = {
   (void *)FUN_004038c0, (void *)NoOpMethod, (void *)FUN_00403ae0,
   (void *)MessengerNotify_OnWhisper, (void *)FUN_00403d20, (void *)FUN_00403f30,
   (void *)MessengerNotify_OnBuddyRequest, (void *)MessengerNotify_OnBuddyAnswer, (void *)FUN_00404140,
-  (void *)FUN_00404330, (void *)NoOpMethod,
+  (void *)MessengerNotify_OnBuddyDelete, (void *)NoOpMethod,
 };
 void *PTR_LAB_00551cf4;
 void *PTR_LAB_005520a4;
