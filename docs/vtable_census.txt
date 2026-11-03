@@ -25,7 +25,7 @@
 # 0x46xxxx-0x48xxxx (the per-weapon new(0x50) effect classes' Tick/Draw),
 # 0x4edxxx-0x4eexxx, 0x4fdxxx-0x50xxxx (widget/panel virtuals).
 #
-171 candidate vtables (>=2 slots, slot0 in .text)
+191 candidate vtables (>=1 slot, slot0 in .text)
 
 vtable 0x544b24  installs=2  slots=5  UNCARVED=4
    0: 0x51ffbb  UNCARVED
@@ -41,6 +41,9 @@ vtable 0x544b38  installs=3  slots=6  UNCARVED=5
    3: 0x52006e  UNCARVED
    4: 0x52007c  UNCARVED
    5: 0x52007f  UNCARVED
+
+vtable 0x544b54  installs=4  slots=1
+   0: 0x5201d0  `scalar_deleting_destructor'
 
 vtable 0x544b5c  installs=3  slots=2  UNCARVED=1
    0: 0x40a080  FUN_0040a080
@@ -58,6 +61,9 @@ vtable 0x544ba8  installs=3  slots=2  UNCARVED=1
    0: 0x5202dc  FUN_005202dc
    1: 0x525e40  UNCARVED
 
+vtable 0x544bf8  installs=1  slots=1
+   0: 0x525405  `scalar_deleting_destructor'
+
 vtable 0x544c50  installs=4  slots=2  UNCARVED=1
    0: 0x525e4d  FUN_00525e4d
    1: 0x525e40  UNCARVED
@@ -69,6 +75,12 @@ vtable 0x54b450  installs=2  slots=2
 vtable 0x54b458  installs=2  slots=2
    0: 0x4038b0  NoOpMethodStdcall1
    1: 0x401200  FUN_00401200
+
+vtable 0x550378  installs=4  slots=1  UNCARVED=1
+   0: 0x520000  UNCARVED
+
+vtable 0x551cb4  installs=2  slots=1
+   0: 0x40ca00  DeletePoisonedBaseObject
 
 vtable 0x551cb8  installs=2  slots=14  UNCARVED=7
    0: 0x403880  UNCARVED
@@ -85,6 +97,9 @@ vtable 0x551cb8  installs=2  slots=14  UNCARVED=7
   11: 0x404140  UNCARVED
   12: 0x404330  FUN_00404330
   13: 0x4038b0  NoOpMethodStdcall1
+
+vtable 0x551cf0  installs=2  slots=1
+   0: 0x401a50  FUN_00401a50
 
 vtable 0x551cf4  installs=1  slots=14
    0: 0x525acd  __purecall
@@ -109,12 +124,18 @@ vtable 0x551e44  installs=1  slots=5
    3: 0x405ea0  DrawButtonWidget
    4: 0x429800  NoOpMethod
 
+vtable 0x551e88  installs=2  slots=1
+   0: 0x405f20  FUN_00405f20
+
 vtable 0x55208c  installs=1  slots=5
    0: 0x40ca00  DeletePoisonedBaseObject
    1: 0x461c60  ResolveNamedState
    2: 0x429800  NoOpMethod
    3: 0x40ca20  TextBoxWidget_Draw
    4: 0x429800  NoOpMethod
+
+vtable 0x5520a0  installs=2  slots=1
+   0: 0x40cd60  FUN_0040cd60
 
 vtable 0x5520a4  installs=2  slots=2
    0: 0x4038b0  NoOpMethodStdcall1
@@ -313,6 +334,9 @@ vtable 0x555b68  installs=1  slots=5
    2: 0x429800  NoOpMethod
    3: 0x429800  NoOpMethod
    4: 0x429800  NoOpMethod
+
+vtable 0x555b7c  installs=2  slots=1
+   0: 0x4f3960  FUN_004f3960
 
 vtable 0x555bd0  installs=2  slots=8
    0: 0x451380  FUN_00451380
@@ -1236,6 +1260,9 @@ vtable 0x557278  installs=1  slots=18  UNCARVED=1
   16: 0x429800  NoOpMethod
   17: 0x429800  NoOpMethod
 
+vtable 0x5572dc  installs=29  slots=1
+   0: 0x4e5430  FUN_004e5430
+
 vtable 0x5572e0  installs=2  slots=2
    0: 0x4038b0  NoOpMethodStdcall1
    1: 0x429800  NoOpMethod
@@ -1312,6 +1339,21 @@ vtable 0x5574e8  installs=3  slots=5  UNCARVED=2
    3: 0x4ef5b0  FUN_004ef5b0
    4: 0x4ef610  FUN_004ef610
 
+vtable 0x557524  installs=8  slots=1
+   0: 0x4f14c0  FUN_004f14c0
+
+vtable 0x557528  installs=1  slots=1
+   0: 0x4f3960  FUN_004f3960
+
+vtable 0x55752c  installs=15  slots=1
+   0: 0x4f2df0  FUN_004f2df0
+
+vtable 0x557530  installs=2  slots=1
+   0: 0x4f2e20  FUN_004f2e20
+
+vtable 0x557534  installs=9  slots=1
+   0: 0x4f2ea0  FUN_004f2ea0
+
 vtable 0x557538  installs=2  slots=6  UNCARVED=1
    0: 0x4f3390  FUN_004f3390
    1: 0x4038b0  NoOpMethodStdcall1
@@ -1320,17 +1362,26 @@ vtable 0x557538  installs=2  slots=6  UNCARVED=1
    4: 0x4f38a0  SceneNode_UpdateWorldViewProjection
    5: 0x4f3910  UNCARVED
 
+vtable 0x557550  installs=1  slots=1
+   0: 0x4f3960  FUN_004f3960
+
 vtable 0x55755c  installs=3  slots=4  UNCARVED=1
    0: 0x4f47b0  UNCARVED
    1: 0x525acd  __purecall
    2: 0x429800  NoOpMethod
    3: 0x429800  NoOpMethod
 
+vtable 0x557594  installs=1  slots=1
+   0: 0x525acd  __purecall
+
 vtable 0x557598  installs=3  slots=4
    0: 0x525acd  __purecall
    1: 0x4fdef0  CGameState_NoOpVirtual_B
    2: 0x4fdef0  CGameState_NoOpVirtual_B
    3: 0x4fdef0  CGameState_NoOpVirtual_B
+
+vtable 0x5575a8  installs=2  slots=1
+   0: 0x501770  CommP2POwner_ProcessPacket
 
 vtable 0x5575ac  installs=2  slots=3  UNCARVED=2
    0: 0x504800  UNCARVED
@@ -1702,73 +1753,17 @@ vtable 0x557f80  installs=1  slots=11  UNCARVED=1
    9: 0x50f290  PanelManager_Update
   10: 0x50f320  UNCARVED
 
-vtable 0x5627e8  installs=1  slots=64  UNCARVED=64
-   0: 0x541d70  UNCARVED
-   1: 0x541d80  UNCARVED
-   2: 0x541d90  UNCARVED
-   3: 0x541da0  UNCARVED
-   4: 0x541db0  UNCARVED
-   5: 0x541dc0  UNCARVED
-   6: 0x541dd0  UNCARVED
-   7: 0x541de0  UNCARVED
-   8: 0x541df0  UNCARVED
-   9: 0x541e00  UNCARVED
-  10: 0x541e10  UNCARVED
-  11: 0x541e20  UNCARVED
-  12: 0x541e30  UNCARVED
-  13: 0x541e40  UNCARVED
-  14: 0x541e50  UNCARVED
-  15: 0x541e60  UNCARVED
-  16: 0x541e70  UNCARVED
-  17: 0x541e80  UNCARVED
-  18: 0x541e90  UNCARVED
-  19: 0x541ea0  UNCARVED
-  20: 0x541eb0  UNCARVED
-  21: 0x541ec0  UNCARVED
-  22: 0x541ed0  UNCARVED
-  23: 0x541ee0  UNCARVED
-  24: 0x541ef0  UNCARVED
-  25: 0x541f00  UNCARVED
-  26: 0x541f10  UNCARVED
-  27: 0x5422e0  UNCARVED
-  28: 0x5422f0  UNCARVED
-  29: 0x542300  UNCARVED
-  30: 0x542310  UNCARVED
-  31: 0x542320  UNCARVED
-  32: 0x542330  UNCARVED
-  33: 0x542340  UNCARVED
-  34: 0x542350  UNCARVED
-  35: 0x542360  UNCARVED
-  36: 0x542370  UNCARVED
-  37: 0x542380  UNCARVED
-  38: 0x542390  UNCARVED
-  39: 0x5423a0  UNCARVED
-  40: 0x5423b0  UNCARVED
-  41: 0x5423c0  UNCARVED
-  42: 0x5423d0  UNCARVED
-  43: 0x5423e0  UNCARVED
-  44: 0x5423f0  UNCARVED
-  45: 0x542400  UNCARVED
-  46: 0x542410  UNCARVED
-  47: 0x542420  UNCARVED
-  48: 0x542430  UNCARVED
-  49: 0x542440  UNCARVED
-  50: 0x542450  UNCARVED
-  51: 0x542460  UNCARVED
-  52: 0x542470  UNCARVED
-  53: 0x542480  UNCARVED
-  54: 0x542490  UNCARVED
-  55: 0x5424a0  UNCARVED
-  56: 0x5424b0  UNCARVED
-  57: 0x5424c0  UNCARVED
-  58: 0x5424d0  UNCARVED
-  59: 0x5424e0  UNCARVED
-  60: 0x5424f0  UNCARVED
-  61: 0x542500  UNCARVED
-  62: 0x542510  UNCARVED
-  63: 0x542520  UNCARVED
+vtable 0x559be8  installs=1  slots=1  UNCARVED=1
+   0: 0x538073  UNCARVED
 
-vtable 0x562ae8  installs=1  slots=3  UNCARVED=3
-   0: 0x543110  UNCARVED
-   1: 0x543120  UNCARVED
-   2: 0x543130  UNCARVED
+vtable 0x55c824  installs=1  slots=1  UNCARVED=1
+   0: 0x53b1d4  UNCARVED
+
+vtable 0x55cc24  installs=1  slots=1  UNCARVED=1
+   0: 0x53baac  UNCARVED
+
+vtable 0x55d3e8  installs=1  slots=1  UNCARVED=1
+   0: 0x53c289  UNCARVED
+
+vtable 0x55d904  installs=1  slots=1  UNCARVED=1
+   0: 0x53ca36  UNCARVED

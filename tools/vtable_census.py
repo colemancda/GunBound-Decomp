@@ -47,7 +47,12 @@ base = struct.unpack_from('<I', d, pe + 24 + 28)[0]
 secs = []
 for i in range(nsec):
     name, vs, va, rs, ro = struct.unpack_from('<8sIIII', d, pe + 24 + opt + i * 40)[:5]
-    secs.append((name.rstrip(b'\0').decode(), base + va, max(vs, rs), ro))
+    # (name, va, virtual extent, raw size, raw offset).  A section's file
+    # bytes end at its raw size; past that, up to the virtual extent, the
+    # loader zero-fills.  Reading past the raw size used to return the NEXT
+    # section's file bytes and produced phantom vtables (0x5627e8 with 64
+    # slots, 0x562ae8 with 3) in .data's zero-fill tail (VA 0x562400 on).
+    secs.append((name.rstrip(b'\0').decode(), base + va, max(vs, rs), rs, ro))
 
 def sec(name):
     for s in secs:
@@ -58,15 +63,25 @@ def sec(name):
 text = sec('.text')
 TEXT_LO, TEXT_HI = text[1], text[1] + text[2]
 
+ZERO_FILL = -1
+
 def va2off(va):
-    for _, sva, size, ro in secs:
+    """File offset of va; ZERO_FILL inside a section's zero-filled tail
+    (past its raw size); None outside every section."""
+    for _, sva, size, rsize, ro in secs:
         if sva <= va < sva + size:
+            if va - sva + 4 > rsize:
+                return ZERO_FILL
             return ro + (va - sva)
     return None
 
 def u32(va):
     o = va2off(va)
-    return struct.unpack_from('<I', d, o)[0] if o is not None else None
+    if o is None:
+        return None
+    if o == ZERO_FILL:
+        return 0
+    return struct.unpack_from('<I', d, o)[0]
 
 # --- every function start/extent Ghidra carved -------------------------------
 starts = {}
@@ -95,7 +110,7 @@ DATA_RANGES = [(s[1], s[1] + s[2]) for s in secs if s[0] in ('.rdata', '.data')]
 def in_data(v):
     return any(lo <= v < hi for lo, hi in DATA_RANGES)
 
-to, tlen = text[3], text[2]
+to, tlen = text[4], text[3]          # scan .text's file bytes only (raw size)
 raw = d[to:to + tlen]
 installs = {}
 for i in range(len(raw) - 3):
@@ -111,6 +126,12 @@ for v in installs:
         cands[v] = installs[v]
 
 boundaries = set(cands)
+
+# One-slot tables are reported too: the game has real one-slot vtables (a
+# lone scalar-deleting destructor, e.g. 0x551cb4, 0x5572dc, 0x557524-
+# 0x557534), and skipping them hid 14 that the port had left NULL.  The
+# price is that a lone code pointer stored as data also shows up.
+MIN_SLOTS = 1
 
 def walk(vt):
     slots = []
@@ -161,7 +182,7 @@ def coverage():
         if not (0x551000 <= vt < 0x558000):
             continue
         slots = walk(vt)
-        if len(slots) < 2:
+        if len(slots) < MIN_SLOTS:
             continue
         tables.append((vt, slots))
         for s2 in set(slots):
@@ -206,12 +227,12 @@ def main():
     rows = []
     for vt in sorted(cands):
         slots = walk(vt)
-        if len(slots) < 2:
-            continue          # single-pointer data, not a vtable
+        if len(slots) < MIN_SLOTS:
+            continue
         labels = [classify(s) for s in slots]
         unc = sum(1 for l in labels if l == 'UNCARVED')
         rows.append((vt, len(cands[vt]), slots, labels, unc))
-    print('%d candidate vtables (>=2 slots, slot0 in .text)' % len(rows))
+    print('%d candidate vtables (>=1 slot, slot0 in .text)' % len(rows))
     for vt, ninst, slots, labels, unc in rows:
         if only_uncarved and unc == 0:
             continue
