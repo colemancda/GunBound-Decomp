@@ -1570,7 +1570,7 @@ void StringMap_Rehash_1c(int *map,uint nBins);
 undefined4 * StringMap_Insert_1c(int param_1,undefined4 param_2,undefined4 *regEax,int *regEbx);
 void StringMap_FreeNode_1c(int regEax,int regEsi);
 void FUN_005006b0();
-void __thiscall FUN_005006c0();
+void __thiscall AtlList_FreeNode_38();
 undefined4 IntMap_LookupPair_1768(int *regEcx,uint regEdi);
 undefined4 IntMap_RemoveKey_1768(int *regEbx,uint regEdi);
 void IntMap_RemoveAll_1768(int *regEax);

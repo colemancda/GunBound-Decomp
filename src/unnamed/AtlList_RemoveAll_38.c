@@ -33,7 +33,7 @@ void AtlList_RemoveAll_38(void)
   while (iVar1 != 0) {
     puVar2 = (undefined4 *)*unaff_ESI;
     *unaff_ESI = *puVar2;
-    FUN_005006c0(puVar2);
+    AtlList_FreeNode_38(puVar2);
     iVar1 = unaff_ESI[2];
   }
   *unaff_ESI = 0;
