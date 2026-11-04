@@ -222,7 +222,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
       *(undefined4 *)(param_1 + 0x11bc) = *(undefined4 *)(&DAT_005f2f50 + iVar7);
       *(undefined *)(param_1 + 0x11c0) = (&DAT_005f2f54)[iVar7];
       *(undefined *)(param_1 + 0x11c1) = (&DAT_005f2f55)[iVar7];
-      FUN_004eeb10();
+      SetMusicVolume();
       FUN_004eeb30();
       return;
     }
@@ -255,7 +255,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
           PlayMusicTrack(1,(byte *)acStack_80);
         }
       }
-      FUN_004eeb10();
+      SetMusicVolume();
     }
     FUN_004eeb70();
     if (*(int *)(param_1 + 0x11bc) != 0) {
@@ -459,7 +459,7 @@ LAB_004b8aeb:
           PlayMusicTrack(1,(byte *)acStack_80);
         }
       }
-      FUN_004eeb10();
+      SetMusicVolume();
     }
     FUN_004eeb70();
     if (*(int *)(param_1 + 0x11bc) != 0) {

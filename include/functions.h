@@ -1335,7 +1335,7 @@ uint AcquireSoundChannel();
 uint PlayMusicTrack();
 void StopSoundChannel(int soundChannelIndex);
 undefined4 __thiscall FUN_004e4fe0(int param_1,int param_2,int *param_3,int *param_4,int param_5,char param_6,char param_7,int in_EAX);
-void __fastcall FUN_004eeb10();
+void __fastcall SetMusicVolume();
 void __fastcall FUN_004eeb30();
 void FUN_004eeb70();
 undefined4 *FUN_004eebe0(); /* __thiscall ctor: call sites use the returned this-pointer */

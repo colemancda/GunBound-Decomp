@@ -122,7 +122,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
             } while (uVar3 < g_soundChannelCount);
           }
         }
-        FUN_004eeb10();
+        SetMusicVolume();
         FUN_004eeb30();
         FUN_004edd70(param_1);
         FUN_004ee270(param_1);
