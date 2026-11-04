@@ -1376,7 +1376,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f76f0,10408,Sha1TransformBuffer,false,3,0,RAW-src
 004f9fa0,11645,Sha1TransformBlocks,false,1,0,RAW-src
 004fcd20,44,EncodeCipherBlocks,false,1,1,RAW-src
-004fcd50,44,FUN_004fcd50,false,1,1,RAW-src
+004fcd50,44,DecodeCipherBlocks,false,1,1,RAW-src
 004fcd80,103,FUN_004fcd80,false,6,3,RAW-src
 004fcdf0,102,FUN_004fcdf0,false,2,3,RAW-src
 004fce60,65,FUN_004fce60,false,2,1,RAW-src

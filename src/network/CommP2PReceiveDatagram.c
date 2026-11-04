@@ -209,7 +209,7 @@ void CommP2PReceiveDatagram(int *param_1,int param_2)
              *   lea edx,[esp+0x32a]           ; EDX = SOURCE = local_2e9a + 4
              *                                 ;   (past the 4-byte nonce that
              *                                 ;    was SHA-absorbed above) */
-            FUN_004fcd50((int)local_174c,(int)local_30c8,
+            DecodeCipherBlocks((int)local_174c,(int)local_30c8,
                          (uint *)((char *)local_2e9a + 4),local_318c);
             if ((uint)local_173e <= local_2ebc - 0x36) {
               GetSystemTimeAsFileTime(&local_3158);
