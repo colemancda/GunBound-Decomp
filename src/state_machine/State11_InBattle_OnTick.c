@@ -662,7 +662,7 @@ LAB_004be4b1:
         local_3d68 = (int *)PeekPacketChecksumState(&DAT_00e9b818);
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         if (iVar6 < (int)local_3d68) {
-          uVar11 = FUN_00415c60();
+          uVar11 = BattleRandom_Next();
           iVar5 = uVar11 % 10 + 0x7e5;
         }
         else {
@@ -670,7 +670,7 @@ LAB_004be4b1:
           iVar5 = PeekPacketChecksumState(&DAT_00796aa0);
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           if (iVar5 <= iVar6) break;
-          uVar11 = FUN_00415c60();
+          uVar11 = BattleRandom_Next();
           iVar5 = uVar11 % 10 + 0x7ef;
         }
       }

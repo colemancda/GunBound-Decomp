@@ -396,7 +396,7 @@ void FUN_004158f0();
 undefined4 LoadFourWordList();
 undefined4 CheckChatWordFilter();
 uint __fastcall AtlArray_AppendCString();
-int FUN_00415c60();
+int BattleRandom_Next();
 void FUN_00415ca0(undefined4 *regEax);
 void FUN_00415ce0(int param_1,int regEbx);
 int ClientContext_Constructor();
