@@ -70,7 +70,7 @@ char PeekPacketChecksumBool(unsigned char *cell); /* mode check gating the page-
 int SetGuardedBool(int value, int guardPtr);
 void CloseServerConnection(int connCtx);   /* the connection context to tear down */
 int __fastcall FUN_00402020(int param_1); /* per-slot blink randomizer */
-void FUN_00401650(int *slot);            /* flat-ButtonWidget per-slot destroy */
+void FreeButtonDefinition(int *slot);            /* flat-ButtonWidget per-slot destroy */
 void FUN_00404410(void *arg);
 extern unsigned char DAT_00e53e88[0xf28]; /* sized, see globals.c */
 }
@@ -194,7 +194,7 @@ void CState02ServerSelect::OnExit()
          * pointer explicitly now - was silently dropped here (see that
          * file's own header for the objdump evidence). Slot i lives at
          * buttonCount+0x20004+i*0x18. */
-        FUN_00401650((int *)((unsigned char *)buttonCount + 0x20004 + i * 0x18));
+        FreeButtonDefinition((int *)((unsigned char *)buttonCount + 0x20004 + i * 0x18));
     }
     *buttonCount = 0;
     memset((unsigned char *)&DAT_0067ec74 + g_clientContext, 0, 0x20000);

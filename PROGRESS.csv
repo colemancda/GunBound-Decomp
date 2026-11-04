@@ -10,7 +10,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00401370,203,FUN_00401370,false,2,1,RAW-src
 00401440,463,LoadButtonDefinitionFromXFS,false,1,5,RAW-src
 00401610,52,FindStringNoCase,false,1,1,RAW-src
-00401650,199,FUN_00401650,false,5,1,RAW-src
+00401650,199,FreeButtonDefinition,false,5,1,RAW-src
 00401740,130,AppendPersistentButtonName,false,432,1,RAW-src
 004017d0,69,FindPreloadedTextureByName,false,82,1,RAW-src
 00401820,96,LoadStringTableEntry,false,2,3,RAW-src

@@ -1,9 +1,22 @@
-/* FUN_00401650 - 0x00401650 in the original binary.
+/* FreeButtonDefinition - 0x00401650 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (FUN_00401650 in the notes below is this function's old symbol, now FreeButtonDefinition.)
+ *
+ * NAMED (2026-11-04), CERTAIN. Frees the 6-int button animation-state
+ * descriptor that LoadButtonDefinitionFromXFS (0x401440) fills. That file
+ * documents the layout from the original's allocations - entry[0] state
+ * count, [1] malloc'd name pointers, [2] loop flags, [3] step counts, [4]
+ * and [5] per-state frame and duration tables - and this body frees
+ * exactly those: each name string and each per-state table, then the
+ * arrays, zeroing the pointers. The five callers (the OnExit handlers of
+ * states 2, 3, 7, 9 and 11) walk the flat slot array at client context +
+ * 0x20004 with stride 0x18 (six ints) and call it once per slot before
+ * zeroing the slot count, which is the lifetime pairing with the loader.
+ * Memory is released and not otherwise destroyed, hence Free.
  *
  * FIXED (2026-07-13): `unaff_ESI` is a genuine incoming "this" register
  * (a flat-ButtonWidget slot record, 0x18 bytes), not garbage - confirmed
@@ -22,7 +35,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00401650(int *slot)
+void FreeButtonDefinition(int *slot)
 
 {
   int iVar1;

@@ -105,7 +105,7 @@ LAB_004e18c5:
            * loop, `add esi,0x18` each iteration - see FUN_00401650.c's
            * own header (already fixed at its C++ sibling's call site,
            * missed here). */
-          FUN_00401650((int *)(g_clientContext + 0x20004 + iVar7 * 0x18));
+          FreeButtonDefinition((int *)(g_clientContext + 0x20004 + iVar7 * 0x18));
           iVar7 = iVar7 + 1;
         } while (iVar7 < *piVar8);
       }
