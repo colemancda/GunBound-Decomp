@@ -1,9 +1,25 @@
-/* FUN_0040cc50 - 0x0040cc50 in the original binary.
+/* TextBoxWidget_BeginEdit - 0x0040cc50 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_0040cc50 mean this function.)
+ *
+ * NAMED (2026-11-04), LIKELY. Puts a text box into edit mode: limits the
+ * shared edit control (g_sharedTextInputControl, +4 is its window) to the
+ * box's length limit at +0x44c with EM_LIMITTEXT (0xC5), copies the box's
+ * text at +0x48 into it with SetWindowTextA, puts the caret at the end of
+ * the text with EM_SETSEL (0xB1) when the control's flag at +8 is set, and
+ * sets the box's mode at +0x448 to 2. TextBoxWidget_Draw's header names
+ * mode 2 as the focused state (it switches on +0x448 and takes the
+ * TextEntry_FetchSelectionAndPlaceImeCaret arm for 2), and
+ * InitTextBoxWidget stores the limit at +0x44c. Callers:
+ * HandleBackgroundActiveObjectMouseDown, FUN_0040cf80 and FUN_0040d020
+ * each call it right after committing the previously active box with
+ * CommitActiveTextInput and storing the new box in the registry's +8 slot
+ * - the begin half of that commit/begin pairing. LIKELY: "BeginEdit" is
+ * the role the callers give it; no library name applies.
  *
  * EBX PROMOTED (2026-10-30): the first instruction, 0x40cc50
  * `mov eax,[ebx+0x44c]`, reads EBX with no prior write, and the body ends
@@ -18,7 +34,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0040cc50(int regEbx)
+void TextBoxWidget_BeginEdit(int regEbx)
 
 {
   char cVar1;
