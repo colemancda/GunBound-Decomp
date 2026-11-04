@@ -111,7 +111,7 @@ SendEncryptedP2PDatagram(char *param_1,int param_2,int param_3,sockaddr *param_4
    *                                      ;   just past the 0x26-byte header
    *                                      ;   that starts at local_1770
    * The source pointer and the count were both dropped entirely. */
-  FUN_004fcd20((int)&local_174e + 4,(int)local_197c,(uint *)param_3,iVar3 >> 4);
+  EncodeCipherBlocks((int)&local_174e + 4,(int)local_197c,(uint *)param_3,iVar3 >> 4);
   uVar4 = iVar3 + 0x26;
   local_1770 = (undefined2)uVar4;
   iVar3 = sendto(*(SOCKET *)(param_2 + 0x288),(char *)&local_1770,uVar4 & 0xffff,0,param_4,0x10);
