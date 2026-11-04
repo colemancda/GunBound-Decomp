@@ -1597,7 +1597,7 @@ void IntMap_Rehash_14(int *map,uint nBins);
 void IntMap_FreeNode_14(int regEax,int regEsi);
 uint * __thiscall IntMap_Find_14(int *param_1,undefined4 *param_2,uint *regEax,uint *regEsi,uint regEdi);
 undefined4 * StringMap_Insert_ac(int param_1,undefined4 param_2,undefined4 *regEax,int *regEbx);
-void FUN_00501510(int regEsi);
+void AtlList_GetFreeNode_38(int regEsi);
 undefined4 * IntMap_Insert_14(undefined4 param_1,undefined4 param_2,int regEbx,int *regEsi);
 void FUN_00501600(int regEsi);
 void __fastcall CommP2POwner_OnConnectionClosed();

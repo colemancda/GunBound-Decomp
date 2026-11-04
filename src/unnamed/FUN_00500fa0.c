@@ -12,7 +12,7 @@ undefined4 FUN_00500fa0(undefined4 param_1,undefined4 param_2,int regEax,undefin
 {
   undefined4 *puVar1;
   
-  FUN_00501510(regEax);
+  AtlList_GetFreeNode_38(regEax);
   puVar1 = *(undefined4 **)(regEax + 0x10);
   if (puVar1 != (undefined4 *)0x0) {
     puVar1[8] = 0;
