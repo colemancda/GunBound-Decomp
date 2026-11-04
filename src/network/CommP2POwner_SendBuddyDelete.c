@@ -36,7 +36,7 @@ char CommP2POwner_SendBuddyDelete(int param_1,char *param_2)
     return 0;
   }
   _strncpy(local_10,param_2,0x10);
-  cVar1 = (char)FUN_00502500(0x10,(undefined4 *)local_10,0x3002,param_1);
+  cVar1 = (char)CommP2POwner_SendFrame(0x10,(undefined4 *)local_10,0x3002,param_1);
   if (cVar1 == '\0') {
     return 0;
   }

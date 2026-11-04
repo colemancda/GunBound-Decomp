@@ -72,7 +72,7 @@ uint FUN_00502650(int param_1,int param_2,int param_3,undefined4 *param_4,uint p
        * ((_Dest - framebase) + 0xb)/0xc - the same plaintext span the encode
        * rounded to *0xc above, re-expanded 12->16 per cipher block.
        * orig 0x50272b-0x50273c: mov ecx,esi / shl ecx,4 / push 0x2020. */
-      uVar1 = FUN_00502500((((int)(_Dest - ((char *)&local_2ee3 - 5)) + 0xb) / 0xc) * 0x10,
+      uVar1 = CommP2POwner_SendFrame((((int)(_Dest - ((char *)&local_2ee3 - 5)) + 0xb) / 0xc) * 0x10,
                            (undefined4 *)local_1778,0x2020,param_1);
       return uVar1;
     }

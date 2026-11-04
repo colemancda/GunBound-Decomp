@@ -28,7 +28,7 @@ void FUN_004fcee0(char *regEax,int regEbx)
   local_24[0x10] = 0;
   /* opcode -> stack param, ECX=0x24 len, EDX=&local_24 buf, EBX=session;
    * orig 0x4fcef3-0x4fcf06. */
-  FUN_00502500(0x24,(undefined4 *)local_24,0x3000,regEbx);
+  CommP2POwner_SendFrame(0x24,(undefined4 *)local_24,0x3000,regEbx);
   return;
 }
 

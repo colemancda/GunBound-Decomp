@@ -1,8 +1,26 @@
-/* FUN_00502500 - 0x00502500 in the original binary.
+/* CommP2POwner_SendFrame - 0x00502500 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00502500 mean this function.)
+ *
+ * NAMED (2026-11-04), LIKELY. Builds one wire frame, [total length
+ * u16][opcode u16][payload], in a 0x1770-byte local and sends it on the
+ * owner's connection at +0x1a74 through CommConnectionSendOrQueue, after
+ * gating on the live flag at +0x1a70 and stamping the keepalive clock at
+ * +0x1abc. The owner (EBX) is the CommP2POwner: its callers are the owner
+ * methods CommP2POwner_SendBuddyDelete (0x3002, 16-byte id),
+ * SendP2PNamedMessage (0x2000), SendBuddyNameMessage, RequestP2PPeerByName
+ * (0x3010) and the sibling senders FUN_004fd960 (0x3006), FUN_004fd880
+ * (0x3004) and FUN_004fd9c0 (0x4000), each handing it only a payload and
+ * an opcode (Buddy2TimerWndProc's header describes the keepalive clock
+ * this stamps). Those opcodes are the 0x2000/0x3000/0x4000 buddy-messenger
+ * family, which this single frame writer fronts. LIKELY because the
+ * framing identity rests on the callers and the 0x1770 buffer cap
+ * (CommConnectionSendOrQueue's element is 0x1774 bytes with its length at
+ * +0x1770), not on an external packet struct.
  *
  * FRAME WRITER for the CBuddy2 messenger connection.  Gates on the session
  * flag [EBX+0x1a70] and the connection pointer [EBX+0x1a74], stamps the
@@ -42,7 +60,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-uint __fastcall FUN_00502500(uint param_1,undefined4 *param_2,ushort opcode,int regEbx)
+uint __fastcall CommP2POwner_SendFrame(uint param_1,undefined4 *param_2,ushort opcode,int regEbx)
 
 {
   __time32_t _Var1;

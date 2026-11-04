@@ -53,7 +53,7 @@ void FUN_004fd8a2(void)
   _strncpy(_Dest,in_stack_0000177c,0x14);
   /* opcode -> stack param, ECX = payload length, EDX = frame base
    * (&uStack00000004, the count word), EBX = session. */
-  FUN_00502500((int)(_Dest + 0x14 - (char *)&uStack00000004),(undefined4 *)&uStack00000004,0x3004,
+  CommP2POwner_SendFrame((int)(_Dest + 0x14 - (char *)&uStack00000004),(undefined4 *)&uStack00000004,0x3004,
                in_stack_00000000);
   return;
 }

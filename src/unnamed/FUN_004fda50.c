@@ -19,7 +19,7 @@ undefined4 __thiscall FUN_004fda50(int param_1,char *param_2)
   _strncpy(local_10,param_2,0x10);
   /* opcode -> stack param, ECX=0x10 len, EDX=&local_10 buf, EBX=this;
    * orig 0x4fda7d-0x4fda8b. */
-  uVar1 = FUN_00502500(0x10,(undefined4 *)local_10,0x3010,param_1);
+  uVar1 = CommP2POwner_SendFrame(0x10,(undefined4 *)local_10,0x3010,param_1);
   return uVar1;
 }
 

@@ -119,7 +119,7 @@ void SendBuddyNameMessage(undefined4 param_1,char *regEax,int regEbx)
    * arrives in EBX and is dropped by this port; the sole caller
    * (DispatchP2PMessage's 0xc043 arm, `mov ebx,[ebp+8]` at 0x504ad5) supplies
    * its param_3 - forwarded as regEbx.  orig 0x4fcec7-0x4fced1. */
-  FUN_00502500(0x10,(undefined4 *)local_10,(ushort)param_1,regEbx);
+  CommP2POwner_SendFrame(0x10,(undefined4 *)local_10,(ushort)param_1,regEbx);
   return;
 }
 

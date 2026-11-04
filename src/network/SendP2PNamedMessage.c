@@ -78,7 +78,7 @@ SendP2PNamedMessage(ushort param_1,int param_2,char *param_3,undefined2 param_4,
    * blockcount*0x10 where blockcount=(param_1+0x1f)/0xc (the 12->16 cipher-
    * block expansion of the same input the encode rounded to *0xc above).
    * orig 0x502631-0x502642: mov ecx,esi / shl ecx,4 / push 0x2000. */
-  FUN_00502500((((int)param_1 + 0x1f) / 0xc) * 0x10,(undefined4 *)local_1778,0x2000,param_2);
+  CommP2POwner_SendFrame((((int)param_1 + 0x1f) / 0xc) * 0x10,(undefined4 *)local_1778,0x2000,param_2);
   return;
 }
 

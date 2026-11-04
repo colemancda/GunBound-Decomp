@@ -31,7 +31,7 @@ FUN_004fd9c0(int param_1,char *param_2,char *param_3,undefined2 param_4,undefine
   *(undefined2 *)(frame + 0x16) = param_5;
   /* opcode -> stack param, ECX=0x18 len, EDX=&frame buf, EBX=this;
    * orig 0x4fda28-0x4fda36. */
-  uVar1 = FUN_00502500(0x18,(undefined4 *)frame,0x4000,param_1);
+  uVar1 = CommP2POwner_SendFrame(0x18,(undefined4 *)frame,0x4000,param_1);
   return uVar1;
 }
 

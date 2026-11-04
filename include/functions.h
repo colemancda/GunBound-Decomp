@@ -1603,7 +1603,7 @@ void FUN_00501600(int regEsi);
 void __fastcall CommP2POwner_OnConnectionClosed();
 undefined4 __thiscall CommP2POwner_ProcessPacket();
 uint FUN_005024a0(ushort opcode,int regEsi);
-uint __fastcall FUN_00502500(uint param_1,undefined4 *param_2,ushort opcode,int regEbx);
+uint __fastcall CommP2POwner_SendFrame(uint param_1,undefined4 *param_2,ushort opcode,int regEbx);
 uint FUN_00502650();
 void __fastcall Vector_PushBack_12(int param_1,undefined4 regEax);
 void Vector_Erase_12(undefined4 param_1,undefined4 *regEbx,int regEsi);

@@ -224,7 +224,7 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
          * orig 0x501ff1-0x50200d: mov edi,[esp+0x14] / mov ecx,[esp+0x20] /
          * lea edx,[esp+0x1a98] / sub ecx,edx / push 0x2011 / lea ebx,
          * [edi-0x2f4]. */
-        FUN_00502500((int)((char *)local_4970 - (char *)&local_2ef8),(undefined4 *)&local_2ef8,
+        CommP2POwner_SendFrame((int)((char *)local_4970 - (char *)&local_2ef8),(undefined4 *)&local_2ef8,
                      0x2011,param_1 + -0x2f4);
       }
       goto LAB_00502483;
@@ -392,7 +392,7 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
                * output at esp+0x1abc; 0x2ef8-0x2ed8 = 0x20).
                * orig 0x501c96-0x501cad: push 0x1010 / lea ebx,[edi-0x2f4] /
                * mov ecx,0x50 / lea edx,[esp+0x1a9c]. */
-              FUN_00502500(0x50,(undefined4 *)&local_2ef8,0x1010,param_1 + -0x2f4);
+              CommP2POwner_SendFrame(0x50,(undefined4 *)&local_2ef8,0x1010,param_1 + -0x2f4);
             }
           }
         }

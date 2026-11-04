@@ -55,7 +55,7 @@ uint RequestP2PPeerByName(char *param_1,int regEcx)
   _strncpy(local_10,param_1,0x10);
   /* opcode -> stack param, ECX=0x10 len, EDX=&local_10 buf, EBX=session
    * (regEcx-0x2c); orig 0x5048b1-0x5048c1. */
-  uVar1 = FUN_00502500(0x10,(undefined4 *)local_10,0x3010,regEcx + -0x2c);
+  uVar1 = CommP2POwner_SendFrame(0x10,(undefined4 *)local_10,0x3010,regEcx + -0x2c);
   return uVar1;
 }
 

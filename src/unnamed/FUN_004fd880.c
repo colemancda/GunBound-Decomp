@@ -50,7 +50,7 @@ undefined4 __thiscall FUN_004fd880(int param_1,int param_2,char *param_3)
   }
   _strncpy(_Dest,param_3,0x14);
   /* opcode -> stack param, ECX = payload length, EDX = frame, EBX = this. */
-  uVar2 = FUN_00502500((int)(_Dest + 0x14 - frame),(undefined4 *)frame,0x3004,param_1);
+  uVar2 = CommP2POwner_SendFrame((int)(_Dest + 0x14 - frame),(undefined4 *)frame,0x3004,param_1);
   return uVar2;
 }
 
