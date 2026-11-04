@@ -1556,7 +1556,7 @@ void __thiscall CommEngineRecv(int *param_1,int param_2,undefined4 *regEdi);
 void CommEngineSend(int param_1,int regEax,int regEbx);
 void __fastcall CommEngineConnectComplete(int *param_1,int regEbx,int *regEax);
 void FUN_004ff690(undefined4 param_1,int regEax);
-void FUN_004ff6d0();
+void AtlList_RemoveAll_38();
 void CommConnectionList_Erase(int *regEax,int *regEdi);
 void CommP2PReceiveDatagram();
 void RetransmitPendingP2PDatagrams();

@@ -1446,7 +1446,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ff550,238,CommEngineSend,false,1,6,RAW-src
 004ff640,67,CommEngineConnectComplete,false,1,2,RAW-src
 004ff690,55,FUN_004ff690,false,1,1,RAW-src
-004ff6d0,74,FUN_004ff6d0,false,4,2,RAW-src
+004ff6d0,74,AtlList_RemoveAll_38,false,4,2,RAW-src
 004ff720,72,CommConnectionList_Erase,false,3,2,RAW-src
 004ff770,1134,CommP2PReceiveDatagram,false,1,22,RAW-src
 004ffbe0,662,RetransmitPendingP2PDatagrams,false,1,5,RAW-src

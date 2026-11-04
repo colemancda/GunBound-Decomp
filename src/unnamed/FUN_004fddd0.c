@@ -67,7 +67,7 @@ joined_r0x004fde6a:
           unaff_EBX[5] = (int)piVar4;
           unaff_EBX[3] = iVar6 + -1;
           if (iVar6 + -1 == 0) {
-            FUN_004ff6d0();
+            AtlList_RemoveAll_38();
           }
           break;
         }

@@ -18,7 +18,7 @@ void __thiscall FUN_005006c0(int param_1,undefined4 *param_2)
   *(undefined4 **)(param_1 + 0x10) = param_2;
   *(int *)(param_1 + 8) = iVar1;
   if (iVar1 == 0) {
-    FUN_004ff6d0();
+    AtlList_RemoveAll_38();
   }
   return;
 }

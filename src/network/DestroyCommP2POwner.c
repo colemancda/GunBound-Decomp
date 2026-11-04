@@ -91,7 +91,7 @@ LAB_004fd2b5:
     closesocket(param_1[8]);
     param_1[8] = 0xffffffff;
   }
-  FUN_004ff6d0();
+  AtlList_RemoveAll_38();
   *unaff_FS_OFFSET = local_c;
   return;
 }

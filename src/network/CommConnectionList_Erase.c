@@ -58,7 +58,7 @@ void CommConnectionList_Erase(int *regEax,int *regEdi)
   in_EAX[4] = (int)unaff_EDI;
   in_EAX[2] = iVar1 + -1;
   if (iVar1 + -1 == 0) {
-    FUN_004ff6d0();
+    AtlList_RemoveAll_38();
   }
   return;
 }
