@@ -1589,7 +1589,7 @@ char * StringMap_Find_ac(char *param_1,uint *param_2,undefined4 *param_3,int *re
 void thunk_FUN_00500f80(int regEax);
 void FUN_00500f80(int regEax);
 void FUN_00500f90();
-undefined4 FUN_00500fa0(undefined4 param_1,undefined4 param_2,int regEax,undefined4 *regEdi);
+undefined4 AtlList_NewNode_38(undefined4 param_1,undefined4 param_2,int regEax,undefined4 *regEdi);
 void __fastcall FUN_00501010();
 void IntMap_Rehash_1768(int *map,uint nBins);
 void IntMap_FreeNode_1768(int regEax,int regEsi);

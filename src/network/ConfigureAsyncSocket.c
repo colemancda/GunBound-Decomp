@@ -59,7 +59,7 @@ undefined4 __thiscall ConfigureAsyncSocket(SOCKET param_1,u_long param_2,undefin
   /* DROPPED-REG FIX: orig 0x4ff45e `mov eax,esi` with 0x4ff455
      `lea esi,[ebp+4]` (EBP = uVar1, the engine) and 0x4ff45a
      `lea edi,[esp+0x18]` = the sourceRecord rebuilt above. */
-  uVar3 = FUN_00500fa0(*(undefined4 *)(uVar1 + 8),0,(int)(uVar1 + 4),sourceRecord);
+  uVar3 = AtlList_NewNode_38(*(undefined4 *)(uVar1 + 8),0,(int)(uVar1 + 4),sourceRecord);
   if (*(undefined4 **)(uVar1 + 8) == (undefined4 *)0x0) {
     *(undefined4 *)(uVar1 + 4) = uVar3;
   }
