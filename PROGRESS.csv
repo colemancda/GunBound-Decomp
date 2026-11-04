@@ -66,7 +66,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00404b00,136,FUN_00404b00,false,16,2,RAW-src
 00404b90,161,HashMap_RemoveAll_2c,false,1,5,RAW-src
 00404c40,135,RBTree_RotateLeft,false,5,0,RAW-src
-00404cd0,135,FUN_00404cd0,false,5,0,RAW-src
+00404cd0,135,RBTree_RotateRight,false,5,0,RAW-src
 00404d60,111,TreeReplaceNode,false,1,0,RAW-src
 00404dd0,138,FUN_00404dd0,false,1,2,RAW-src
 00404e60,476,FUN_00404e60,false,1,2,RAW-src

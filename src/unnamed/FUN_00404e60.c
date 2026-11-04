@@ -38,7 +38,7 @@ void FUN_00404e60(void)
         if (*(int *)(*(int *)(iVar1 + 0x10c) + 0x104) == 1) {
           *(undefined4 *)(*(int *)(iVar1 + 0x108) + 0x104) = 1;
           *(undefined4 *)(iVar1 + 0x104) = 0;
-          FUN_00404cd0();
+          RBTree_RotateRight();
           iVar2 = *(int *)(in_EAX + 0x110);
           iVar1 = *(int *)(iVar2 + 0x10c);
         }
@@ -56,7 +56,7 @@ LAB_00404eeb:
       if (*(int *)(iVar1 + 0x104) == 0) {
         *(undefined4 *)(iVar1 + 0x104) = 1;
         *(undefined4 *)(*(int *)(iVar1 + 0x110) + 0x104) = 0;
-        FUN_00404cd0();
+        RBTree_RotateRight();
         iVar2 = *(int *)(in_EAX + 0x110);
         iVar1 = *(int *)(iVar2 + 0x108);
       }
@@ -72,7 +72,7 @@ LAB_00404eeb:
       *(undefined4 *)(iVar1 + 0x104) = *(undefined4 *)(iVar2 + 0x104);
       *(undefined4 *)(*(int *)(in_EAX + 0x110) + 0x104) = 1;
       *(undefined4 *)(*(int *)(iVar1 + 0x108) + 0x104) = 1;
-      FUN_00404cd0();
+      RBTree_RotateRight();
 LAB_0040501c:
       in_EAX = *unaff_EDI;
     }

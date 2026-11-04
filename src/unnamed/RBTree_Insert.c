@@ -84,7 +84,7 @@ int RBTree_Insert(int param_1,undefined4 regEax,int *regEdi)
           }
           *(undefined4 *)(*(int *)(iVar4 + 0x110) + 0x104) = 1;
           *(undefined4 *)(*(int *)(*(int *)(iVar4 + 0x110) + 0x110) + 0x104) = 0;
-          FUN_00404cd0();
+          RBTree_RotateRight();
         }
         else {
 LAB_00404a08:
@@ -97,7 +97,7 @@ LAB_00404a08:
       else {
         if ((iVar3 != 0) && (*(int *)(iVar3 + 0x104) == 0)) goto LAB_00404a08;
         if (iVar4 == *(int *)(iVar1 + 0x108)) {
-          FUN_00404cd0();
+          RBTree_RotateRight();
           iVar4 = iVar1;
         }
         *(undefined4 *)(*(int *)(iVar4 + 0x110) + 0x104) = 1;
