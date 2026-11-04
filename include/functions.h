@@ -199,7 +199,7 @@ uint RBTree_RemoveNode(int *regEax,int regEbx);
 int RBTree_Insert(int param_1,undefined4 regEax,int *regEdi);
 undefined4 * FUN_00404b00(uchar *param_1,int *regEbx);
 void HashMap_RemoveAll_2c(int *regEax);
-void __fastcall FUN_00404c40();
+void __fastcall RBTree_RotateLeft();
 void __fastcall FUN_00404cd0();
 void __fastcall TreeReplaceNode(int param_1,int *param_2,int regEax);
 undefined4 __thiscall FUN_00404dd0(int *param_1,uchar *param_2,int regEax);
