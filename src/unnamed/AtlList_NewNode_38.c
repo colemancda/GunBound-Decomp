@@ -20,6 +20,13 @@
  * freshly built source record in EDI, then links the returned node as the
  * new tail (or the head when the tail is NULL) - CAtlList::AddTail inlined
  * around this call.
+ *
+ * KNOWN DEFECT (not fixed here): the port's tail still returns 0 ("result
+ * unused" in its comment below), but the binary returns the node in EAX
+ * (ret 8 at 0x501008 follows the mov at 0x500fa8 untouched) and
+ * ConfigureAsyncSocket uses the return as the new tail, so it currently
+ * links NULL. Same defect AtlList_NewNode_177c had before its 2026-10-30
+ * fix.
  */
 #include "ghidra_types.h"
 
