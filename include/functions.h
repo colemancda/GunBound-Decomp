@@ -1383,7 +1383,7 @@ undefined4 OpenXFSEntryStream(int archive, char *name, char findExisting, undefi
  * call site passes the real 2 args (readState, archive) - ~13 other
  * callers still use the old 0-arg form. See CloseSpriteReadState.c. */
 undefined4 CloseSpriteReadState();
-void * __thiscall FUN_004f14c0(void *param_1, int param_2);
+void * __thiscall SpriteFrame_ScalarDtor(void *param_1, int param_2);
 void DestroySpriteFrame(void *param_1);
 undefined4 ReadSpriteFrameRecord(void *readState, int frame);
 /* Skip-frame-fields helper: stream = the dropped ESI (orig 0x4f16c8

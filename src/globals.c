@@ -1384,7 +1384,7 @@ void *PTR_FUN_00557484;
  * after are separately-addressed vtables already used standalone
  * elsewhere (FUN_004f1750.c/ActiveObjectRegistry_BaseConstructor.c/FUN_004f2f00.c) - left
  * untouched, not part of this one. */
-void *PTR_FUN_00557524 = (void *)FUN_004f14c0;
+void *PTR_FUN_00557524 = (void *)SpriteFrame_ScalarDtor;
 void *PTR_FUN_00557528 = (void *)FUN_004f3960;   /* see 0x551cf0 above */
 void *PTR_FUN_00557530 = (void *)FUN_004f2e20;
 void *PTR_FUN_00557534 = (void *)ActiveObjectRegistry_BaseScalarDtor;
