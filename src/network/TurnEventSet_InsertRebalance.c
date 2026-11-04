@@ -138,13 +138,13 @@ LAB_004e8c05:
         }
         *(undefined1 *)(piVar6[1] + 0xe) = 1;
         *(undefined1 *)(*(int *)(piVar6[1] + 4) + 0xe) = 0;
-        FUN_004e8d50(unaff_EDI);
+        TurnEventSet_RotateRight(unaff_EDI);
       }
     }
     else {
       if (*(char *)((int)piVar5 + 0xe) == '\0') goto LAB_004e8c05;
       if (piVar6 == (int *)*piVar2) {
-        FUN_004e8d50(unaff_EDI);
+        TurnEventSet_RotateRight(unaff_EDI);
         piVar6 = piVar2;
       }
       *(undefined1 *)(piVar6[1] + 0xe) = 1;

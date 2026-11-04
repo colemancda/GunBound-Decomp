@@ -136,7 +136,7 @@ void TurnEventSet_Erase(int param_1,undefined4 *param_2,int *param_3)
               if (*(char *)(piVar5[2] + 0xe) == '\x01') {
                 *(undefined1 *)(*piVar5 + 0xe) = 1;
                 *(undefined1 *)((int)piVar5 + 0xe) = 0;
-                FUN_004e8d50(param_1);
+                TurnEventSet_RotateRight(param_1);
                 piVar5 = (int *)piVar3[2];
               }
               *(undefined1 *)((int)piVar5 + 0xe) = *(undefined1 *)((int)piVar3 + 0xe);
@@ -153,7 +153,7 @@ LAB_004e89e2:
           if (*(char *)((int)piVar5 + 0xe) == '\0') {
             *(undefined1 *)((int)piVar5 + 0xe) = 1;
             *(undefined1 *)((int)piVar3 + 0xe) = 0;
-            FUN_004e8d50(param_1);
+            TurnEventSet_RotateRight(param_1);
             piVar5 = (int *)*piVar3;
           }
           if (*(char *)((int)piVar5 + 0xf) == '\0') {
@@ -168,7 +168,7 @@ LAB_004e89e2:
             *(undefined1 *)((int)piVar5 + 0xe) = *(undefined1 *)((int)piVar3 + 0xe);
             *(undefined1 *)((int)piVar3 + 0xe) = 1;
             *(undefined1 *)(*piVar5 + 0xe) = 1;
-            FUN_004e8d50(param_1);
+            TurnEventSet_RotateRight(param_1);
             break;
           }
         }

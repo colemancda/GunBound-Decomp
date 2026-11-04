@@ -1252,7 +1252,7 @@ undefined4 * __thiscall TurnEventSet_InsertRebalance(undefined4 *param_1,int tre
 void __thiscall TurnEventSet_RotateLeft();
 void FUN_004e8d10(int regEax);
 void FUN_004e8d30(int *regEax);
-void __thiscall FUN_004e8d50();
+void __thiscall TurnEventSet_RotateRight();
 undefined4 * FUN_004e8db0(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
 undefined4 FUN_004e8e70();
 void __fastcall FUN_004e8eb0();
