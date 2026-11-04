@@ -1580,7 +1580,7 @@ void IntMap_SetAt_14(int *param_1,undefined4 *param_2,undefined4 regEax);
 undefined4 IntMap_RemoveKey_14(int *regEbx,uint regEdi);
 void IntMap_RemoveAll_14(int *regEsi);
 int __fastcall IntMap_GetStartPosition_14();
-void FUN_00500ba0(int *param_1,undefined4 *param_2,undefined4 *param_3,int *regEbx);
+void IntMap_GetNextAssoc_14(int *param_1,undefined4 *param_2,undefined4 *param_3,int *regEbx);
 undefined4 HashMap_InitHashTable();
 void StringMap_Rehash_ac(int *map,uint nBins);
 uint HashMap_PickSize(int *param_1,uint regEax);
