@@ -1249,7 +1249,7 @@ void TurnEventSet_Erase();
 void __fastcall TurnEventSet_Find(int param_1,undefined4 *regEax,ushort *regEbx);
 void TurnEventSet_EraseSubtree(int *param_1);
 undefined4 * __thiscall TurnEventSet_InsertRebalance(undefined4 *param_1,int treeSet,undefined4 *param_3,char param_4,undefined4 param_5);
-void __thiscall FUN_004e8cb0();
+void __thiscall TurnEventSet_RotateLeft();
 void FUN_004e8d10(int regEax);
 void FUN_004e8d30(int *regEax);
 void __thiscall FUN_004e8d50();

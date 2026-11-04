@@ -133,7 +133,7 @@ LAB_004e8c05:
       }
       else {
         if (piVar6 == (int *)piVar2[2]) {
-          FUN_004e8cb0(unaff_EDI);
+          TurnEventSet_RotateLeft(unaff_EDI);
           piVar6 = piVar2;
         }
         *(undefined1 *)(piVar6[1] + 0xe) = 1;
@@ -149,7 +149,7 @@ LAB_004e8c05:
       }
       *(undefined1 *)(piVar6[1] + 0xe) = 1;
       *(undefined1 *)(*(int *)(piVar6[1] + 4) + 0xe) = 0;
-      FUN_004e8cb0(unaff_EDI);
+      TurnEventSet_RotateLeft(unaff_EDI);
     }
     cVar1 = *(char *)(piVar6[1] + 0xe);
   } while( true );
