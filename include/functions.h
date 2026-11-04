@@ -1579,7 +1579,7 @@ undefined4 IntMap_Lookup_14(undefined4 *regEbx,int *regEcx,uint regEdi);
 void IntMap_SetAt_14(int *param_1,undefined4 *param_2,undefined4 regEax);
 undefined4 IntMap_RemoveKey_14(int *regEbx,uint regEdi);
 void IntMap_RemoveAll_14(int *regEsi);
-int __fastcall FUN_00500b70();
+int __fastcall IntMap_GetStartPosition_14();
 void FUN_00500ba0(int *param_1,undefined4 *param_2,undefined4 *param_3,int *regEbx);
 undefined4 HashMap_InitHashTable();
 void StringMap_Rehash_ac(int *map,uint nBins);

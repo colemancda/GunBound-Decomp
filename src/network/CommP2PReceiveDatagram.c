@@ -215,7 +215,7 @@ void CommP2PReceiveDatagram(int *param_1,int param_2)
               GetSystemTimeAsFileTime(&local_3158);
               IntMap_SetAt_14(puVar1 + 8,&local_3158,local_2e9a[0]);
               if (0x100 < (uint)local_3190[9]) {
-                local_3190 = (undefined4 *)FUN_00500b70();
+                local_3190 = (undefined4 *)IntMap_GetStartPosition_14();
                 while (local_3190 != (undefined4 *)0x0) {
                   FUN_00500ba0(&local_3190,&local_318c,&local_3160,(int *)(puVar1 + 8));
                   uVar3 = __aulldiv(local_3158.dwLowDateTime - local_3160,
