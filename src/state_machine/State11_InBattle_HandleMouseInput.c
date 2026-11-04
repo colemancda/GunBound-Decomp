@@ -282,31 +282,31 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
           if ((0x6e < uVar17) && (uVar17 < 0x8c)) {
             DAT_0079354b = g_soundAvailable != '\0';
             *(undefined4 *)(&DAT_005f2f50 + iVar13) = 0x50;
-            FUN_004eeb30();
+            SetEffectsVolume();
             iVar13 = g_clientContext;
           }
           if ((0x8c < uVar17) && (uVar17 < 0xaa)) {
             DAT_0079354b = g_soundAvailable != '\0';
             *(undefined4 *)(&DAT_005f2f50 + iVar13) = 0x5a;
-            FUN_004eeb30();
+            SetEffectsVolume();
             iVar13 = g_clientContext;
           }
           if ((0xaa < uVar17) && (uVar17 < 200)) {
             DAT_0079354b = g_soundAvailable != '\0';
             *(undefined4 *)(&DAT_005f2f50 + iVar13) = 0x5f;
-            FUN_004eeb30();
+            SetEffectsVolume();
             iVar13 = g_clientContext;
           }
           if ((200 < uVar17) && (uVar17 < 0xe6)) {
             DAT_0079354b = g_soundAvailable != '\0';
             *(undefined4 *)(&DAT_005f2f50 + iVar13) = 0x62;
-            FUN_004eeb30();
+            SetEffectsVolume();
             iVar13 = g_clientContext;
           }
           if ((0xe6 < uVar17) && (uVar17 < 0xfb)) {
             DAT_0079354b = g_soundAvailable != '\0';
             *(undefined4 *)(&DAT_005f2f50 + iVar13) = 100;
-            FUN_004eeb30();
+            SetEffectsVolume();
             iVar13 = g_clientContext;
           }
         }

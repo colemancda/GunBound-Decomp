@@ -223,7 +223,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
       *(undefined *)(param_1 + 0x11c0) = (&DAT_005f2f54)[iVar7];
       *(undefined *)(param_1 + 0x11c1) = (&DAT_005f2f55)[iVar7];
       SetMusicVolume();
-      FUN_004eeb30();
+      SetEffectsVolume();
       return;
     }
     *(undefined1 *)(param_1 + 0x11ac) = 0;
@@ -259,7 +259,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     }
     FUN_004eeb70();
     if (*(int *)(param_1 + 0x11bc) != 0) {
-      FUN_004eeb30();
+      SetEffectsVolume();
       return;
     }
     break;
@@ -463,7 +463,7 @@ LAB_004b8aeb:
     }
     FUN_004eeb70();
     if (*(int *)(param_1 + 0x11bc) != 0) {
-      FUN_004eeb30();
+      SetEffectsVolume();
       return;
     }
     break;

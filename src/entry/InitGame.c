@@ -123,7 +123,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
           }
         }
         SetMusicVolume();
-        FUN_004eeb30();
+        SetEffectsVolume();
         FUN_004edd70(param_1);
         FUN_004ee270(param_1);
         _DAT_00e53c24 = 0;
