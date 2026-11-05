@@ -134,7 +134,7 @@ undefined4 * __fastcall MultiplyMatrix4x4ToScratch(float *param_1,float *regEax)
   if (ABS(regEax[0xb]) < _DAT_0054c870) {
     if (ABS(regEax[0xf] - _DAT_00557fb0) < _DAT_0054c870) {
       if (ABS(regEax[3]) < _DAT_0054c870) {
-        cVar1 = FUN_004e9490(regEax[7]);
+        cVar1 = IsNearZero(regEax[7]);
         if (cVar1 != '\0') {
           local_40[3] = param_1[3];
           local_24 = param_1[7];

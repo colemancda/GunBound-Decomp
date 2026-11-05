@@ -1263,7 +1263,7 @@ undefined4 CArray_Grow_206(uint regEax,int *regEsi);
 void FUN_004e9070();
 void QueueCompositorSpan(int param_1, int param_2, int param_3, int regEsi);
 void FlushCompositorLayer(int param_1, int regEbx);
-undefined4 FUN_004e9490();
+undefined4 IsNearZero();
 undefined4 * __fastcall FUN_004e94c0();
 void FUN_004e9520();
 void EvaluateKeyframeTrack(double param_1,undefined4 param_2,int regEbx);

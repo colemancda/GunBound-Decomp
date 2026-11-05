@@ -1160,7 +1160,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e9070,177,FUN_004e9070,false,1,1,RAW-src
 004e9130,679,QueueCompositorSpan,false,3,1,RAW-src
 004e93e0,175,FlushCompositorLayer,false,3,0,RAW-src
-004e9490,47,FUN_004e9490,false,2,0,RAW-src
+004e9490,47,IsNearZero,false,2,0,RAW-src
 004e94c0,88,FUN_004e94c0,false,1,0,RAW-src
 004e9520,155,FUN_004e9520,false,2,1,RAW-src
 004e95c0,1240,EvaluateKeyframeTrack,false,2,3,RAW-src
