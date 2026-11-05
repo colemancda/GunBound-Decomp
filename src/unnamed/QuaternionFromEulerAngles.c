@@ -22,13 +22,19 @@
  * first two result components are stored swapped (y, x, z, w). The Euler-
  * angle form is certain; the yaw/pitch/roll labels and the engine's axis
  * convention are not, so the name stops at EulerAngles. LIKELY.
+ *
+ * FIXED (2026-11-05): the three angles were declared double, but the
+ * original loads them with fld DWORD PTR [esp+8], [esp+0xc] and [esp+0x10]
+ * (0x4f3af1, 0x4f3aff, 0x4f3b10) and returns with ret 0xc, i.e. three
+ * 4-byte floats on the stack, not three 8-byte doubles (which would be
+ * ret 0x18).
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void QuaternionFromEulerAngles(double param_1,double param_2,double param_3,float *regEax)
+void QuaternionFromEulerAngles(float param_1,float param_2,float param_3,float *regEax)
 
 {
   float fVar1;
