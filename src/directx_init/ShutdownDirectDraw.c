@@ -30,7 +30,7 @@ void ShutdownDirectDraw(void)
   /* Original set ESI=&g_graphicsArchive before this call (dropped by Ghidra);
    * FUN_004f0d70 (CloseXFSArchive) flushes and closes the graphics archive. */
   CloseXFSArchive(&g_graphicsArchive);
-  FUN_004f3e70();
+  DestroyTextureCachePool();
   FUN_004f3a30();
   /* Container passed in EBX by the original (`mov ebx,0xeb1bd8` immediately
    * before the call) - see src/rendering/FlushTextureCache.c's header. */

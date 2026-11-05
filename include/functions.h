@@ -1448,7 +1448,7 @@ void __fastcall QuaternionToRotationMatrix(float *param_1,float *regEax);
 undefined * __thiscall SlerpQuaternionsToScratch(float *param_1,double param_2,float *regEsi);
 void * AllocTextureCacheNode();
 void InitTextureCachePool();
-void FUN_004f3e70();
+void DestroyTextureCachePool();
 void FUN_004f3ea0();
 void FUN_004f3ee0();
 void FlushSpriteBatch();
