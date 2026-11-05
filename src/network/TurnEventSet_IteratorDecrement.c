@@ -13,8 +13,12 @@
  * subtree or climbs while it is a left child. The caller
  * TurnEventSet_Insert uses it exactly where the std::set insert does
  * `--where` to compare the new key against its predecessor before choosing
- * between insert and duplicate. The caller currently passes no argument
- * (the EDX iterator pointer is dropped), see the report.
+ * between insert and duplicate. FIXED (2026-11-05): the caller used to
+ * pass no argument. The original loads EDX with the address of the local
+ * iterator (0x4e8760 `lea edx,[esp+0x14]`, then call 0x4e8eb0, then
+ * 0x4e8769 reloads that slot), and the callee's first instruction is
+ * `mov eax,[edx]`; ECX is never read before it is overwritten, so the first
+ * parameter is a dummy. TurnEventSet_Insert now passes (0, &iterator).
  */
 #include "ghidra_types.h"
 

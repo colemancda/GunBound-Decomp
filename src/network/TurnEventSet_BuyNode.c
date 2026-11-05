@@ -14,14 +14,17 @@
  * field offsets TurnEventSet_Find, TurnEventSet_IteratorIncrement and
  * TurnEventSet_RotateLeft read. Sole caller is
  * TurnEventSet_InsertRebalance, which passes (head, parent, head, key
- * pointer, color 0) and uses the returned node as the new leaf. The port's
- * return value is lost (declared void while the caller uses it), see the
- * report.
+ * pointer, color 0) and uses the returned node as the new leaf. FIXED
+ * (2026-11-05): the port was declared void and returned nothing while the
+ * caller uses the node; the original leaves the operator_new result in EAX
+ * (0x4e8e32 call, test eax,eax / je to the shared `ret 0x14` at 0x4e8e68
+ * without touching EAX, so a failed allocation returns 0). It now returns
+ * the node.
  */
 #include "ghidra_types.h"
 
 
-void TurnEventSet_BuyNode(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined2 *param_4,
+undefined4 * TurnEventSet_BuyNode(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined2 *param_4,
                  undefined1 param_5)
 
 {
@@ -36,6 +39,6 @@ void TurnEventSet_BuyNode(undefined4 param_1,undefined4 param_2,undefined4 param
     *(undefined1 *)((int)puVar1 + 0xe) = param_5;
     *(undefined1 *)((int)puVar1 + 0xf) = 0;
   }
-  return;
+  return puVar1;
 }
 
