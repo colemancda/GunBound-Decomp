@@ -377,7 +377,7 @@ int __fastcall AtlArray_GetAt(int *param_1,uint regEax);
 void __fastcall AtlArray_RemoveAt(undefined4 param_1,int param_2,int regEbx,int *regEdi);
 void thunk_FUN_00415560(int *regEax);
 void __fastcall LocalizedStrings_InitHeader(undefined4 param_1,undefined4 param_2,undefined4 *regEax);
-void FUN_004154e0();
+void LocalizedStrings_Destruct();
 bool WorkerThread_Start(void *);
 bool WorkerThread2_Start(void *);
 void StringMap_RemoveAll_CString(int *regEax);

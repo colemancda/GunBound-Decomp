@@ -266,7 +266,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00415470,54,AtlArray_RemoveAt,false,1,2,RAW-src
 004154b0,5,thunk_FUN_00415560,true,1,1,RAW-src
 004154c0,20,LocalizedStrings_InitHeader,false,1,0,RAW-src
-004154e0,24,FUN_004154e0,false,1,2,RAW-src
+004154e0,24,LocalizedStrings_Destruct,false,1,2,RAW-src
 00415500,40,WorkerThread_Start,false,1,1,RAW-src
 00415530,40,WorkerThread2_Start,false,1,1,RAW-src
 00415560,157,StringMap_RemoveAll_CString,false,3,5,RAW-src
