@@ -225,7 +225,7 @@ float DAT_00558010 = -64.0f; /* orig .data 0xc2800000; only x87 DWORD operands r
 float DAT_0055801c = 0.00390625f; /* orig .data 0x3b800000; only x87 DWORD operands reference it */
 float DAT_00558020 = -255.0f; /* orig .data 0xc37f0000; only x87 DWORD operands reference it */
 float DAT_00558028 = -15.0f; /* orig .data 0xc1700000; only x87 DWORD operands reference it */
-uint8_t DAT_0055802c;
+float DAT_0055802c = 48.0f; /* orig .data 0x42400000; only x87 DWORD operands reference it */
 uint8_t DAT_00558030;
 uint8_t DAT_00558034;
 uint8_t DAT_00558038;
