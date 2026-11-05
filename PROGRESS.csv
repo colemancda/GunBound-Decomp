@@ -1225,7 +1225,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004edb50,184,DrawBattleFadeOverlay,false,1,0,RAW-src
 004edc50,91,InitDirectInput,false,1,2,RAW-src
 004edce0,30,UpdateDeviceAcquisition,false,2,0,RAW-src
-004edd10,94,FUN_004edd10,false,1,0,RAW-src
+004edd10,94,KeyboardDevice_Construct,false,1,0,RAW-src
 004edd70,163,FUN_004edd70,false,2,0,RAW-src
 004ede20,38,FUN_004ede20,false,2,0,RAW-src
 004ee0d0,62,FUN_004ee0d0,false,2,0,RAW-src

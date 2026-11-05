@@ -1320,7 +1320,7 @@ void __thiscall FUN_004ed300(int param_1,int param_2,int param_3,int param_4,int
 void FUN_004edaa0(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,undefined4 color);
 void DrawBattleFadeOverlay(int param_1,int param_2,int param_3,int param_4,int param_5);
 void UpdateDeviceAcquisition(int deviceObj, char wasActive);
-undefined4 * __fastcall FUN_004edd10();
+undefined4 * __fastcall KeyboardDevice_Construct();
 undefined4 __fastcall FUN_004edd70();
 void __fastcall FUN_004ede20();
 void __fastcall FUN_004ee0d0(int param_1);

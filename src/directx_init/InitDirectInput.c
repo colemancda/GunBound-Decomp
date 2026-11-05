@@ -1,4 +1,5 @@
 /* InitDirectInput - 0x004edc50 in the original binary.
+ * (FUN_004edd10 in the notes below is KeyboardDevice_Construct's old symbol.)
  *
  * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
  * verified against documented behavior beyond what's already in
@@ -35,10 +36,16 @@ bool InitDirectInput(undefined4 param_1)
        * `int (**)()` (K&R/unspecified-args) type: that defaults to __cdecl
        * under MSVC, so the compiler emits a caller-side stack cleanup on top
        * of the real __stdcall COM callee's own - see SetupZBuffer.c for the
-       * full writeup of this bug class. */
+       * full writeup of this bug class.
+       *
+       * KNOWN BUG, NOT FIXED: the claim above that the callback and
+       * KeyboardDevice_Construct are the same code is wrong. 0x4edd10 is
+       * the keyboard singleton's constructor (EDX = object, called from
+       * the static-init stub 0x540de0); the real DIENUMDEVICESCALLBACK
+       * is the unported code at 0x4edc10, 0x100 bytes earlier. */
       iVar2 = ((HRESULT (WINAPI *)(void *, DWORD, LPVOID, LPVOID, DWORD))
                    (*(void ***)DAT_00674f68)[4])
-                  (DAT_00674f68, 4, FUN_004edd10, 0, 1);
+                  (DAT_00674f68, 4, KeyboardDevice_Construct, 0, 1);
       return -1 < iVar2;
     }
   }
