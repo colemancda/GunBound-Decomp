@@ -707,7 +707,7 @@ void __fastcall DetonateShot1_Bullet7();
 undefined4 * InitSuperShot_Bullet1(undefined4 *regEsi);
 void * __thiscall Projectile_ScalarDtor();
 void __fastcall DetonateSuperShot_Bullet1();
-void * __thiscall FUN_0044e8f0();
+void * __thiscall Mobile00_ScalarDtor();
 void Mobile00_Destructor(undefined4 *regEax);
 void __thiscall Mobile00_MainAction();
 undefined4 * InitSuperShot_Bullet10(undefined4 *regEsi);
