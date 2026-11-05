@@ -345,7 +345,7 @@ void __fastcall ActivateTextBoxById(undefined4 param_1,uint param_2,int param_3,
 int __fastcall GetWidgetChildText(undefined4 param_1,uint widgetId,int regEax,uint childId);
 void __thiscall NavigateTextBoxFocusOnKey(int param_1, int param_2, int message);
 void __fastcall PanelManager_BaseDestructorThunk(undefined4 *param_1);
-undefined4 * FUN_0040d160(undefined4 *regEsi);
+undefined4 * LocalizedStrings_Construct(undefined4 *regEsi);
 void thunk_FUN_004154e0();
 void FUN_0040d180(undefined4 *regEax);
 void StringMap_RemoveAll_IntThunk(int *regEax);
