@@ -1,4 +1,5 @@
 /* TurnEventSet_Erase - 0x004e87b0 in the original binary.
+ * (Historical notes below: FUN_004e8db0 is now TurnEventSet_EraseRange.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"

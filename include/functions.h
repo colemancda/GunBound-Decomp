@@ -1253,7 +1253,7 @@ void __thiscall TurnEventSet_RotateLeft();
 void FUN_004e8d10(int regEax);
 void FUN_004e8d30(int *regEax);
 void __thiscall TurnEventSet_RotateRight();
-undefined4 * FUN_004e8db0(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
+undefined4 * TurnEventSet_EraseRange(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
 undefined4 FUN_004e8e70();
 void __fastcall FUN_004e8eb0();
 void __fastcall FUN_004e8f10();
