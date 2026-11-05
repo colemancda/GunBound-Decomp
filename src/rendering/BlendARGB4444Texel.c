@@ -1,4 +1,19 @@
-/* FUN_00413ee0 - 0x00413ee0 in the original binary.
+/* BlendARGB4444Texel - 0x00413ee0 in the original binary.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00413ee0 mean this function.)
+ *
+ * NAMED (2026-11-05), HIGH. Evidence from outside the body: the sole
+ * caller, BlitAvatarPartToCanvas (0x414070), invokes it once per source
+ * pixel with a pointer into the avatar canvas, a 128x128 16bpp buffer
+ * (0x8000 bytes in LoadAvatarSprites and ComposeAvatarSprites), and
+ * ARCHITECTURE.md records the surfaces as ARGB4444. The arithmetic (alpha
+ * nibble 0 skips, 0xf copies, otherwise (src*a + dst*(15-a))/15 per
+ * channel) is a standard 4-bit-alpha blend, and the operand shapes are
+ * pinned by that caller and canvas size.
  *
  * Per-pixel ARGB4444 alpha blend of one source texel over one canvas
  * texel (used by FUN_00414070's avatar-part compositing loop): alpha 0
@@ -15,7 +30,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00413ee0(ushort *param_1,ushort *src)
+void BlendARGB4444Texel(ushort *param_1,ushort *src)
 
 {
   ushort uVar1;

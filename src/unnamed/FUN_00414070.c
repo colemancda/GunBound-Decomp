@@ -89,7 +89,7 @@ void __fastcall FUN_00414070(uint frameIdx,uint param_2,int param_3)
           local_c = iVar3;
           if (0 < iVar3) {
             do {
-              FUN_00413ee0((ushort *)iVar1,(ushort *)srcPix);
+              BlendARGB4444Texel((ushort *)iVar1,(ushort *)srcPix);
               local_c = local_c + -1;
               iVar1 = iVar1 + 2;
               srcPix = srcPix + 2;

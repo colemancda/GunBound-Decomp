@@ -366,7 +366,7 @@ uint FUN_00412e00(undefined4 param_1,char *regEdi);
 void FUN_00412e50();
 void DisplayLocalizedChatMessage(char *regEdi);
 void SendPlayResult();
-void FUN_00413ee0(ushort *dest,ushort *src);
+void BlendARGB4444Texel(ushort *dest,ushort *src);
 void __fastcall FUN_00414070(uint frameIdx,uint key,int canvas);
 void LoadAvatarSprites(); /* 0x4141b0 - resolve avatar equip codes (head/body/glasses/flag) to {gender}{cat}%05d.img sprites */
 undefined4 FUN_00415230();
