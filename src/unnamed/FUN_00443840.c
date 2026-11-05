@@ -117,7 +117,7 @@ void FUN_00443840(int param_1,undefined4 *param_2,int *param_3)
               if (*(char *)(piVar5[2] + 0x14) == '\x01') {
                 *(undefined1 *)(*piVar5 + 0x14) = 1;
                 *(undefined1 *)(piVar5 + 5) = 0;
-                FUN_004437e0(param_1);
+                Tree_RotateRight_18(param_1);
                 piVar5 = (int *)piVar3[2];
               }
               *(char *)(piVar5 + 5) = (char)piVar3[5];
@@ -134,7 +134,7 @@ LAB_00443a72:
           if ((char)piVar5[5] == '\0') {
             *(undefined1 *)(piVar5 + 5) = 1;
             *(undefined1 *)(piVar3 + 5) = 0;
-            FUN_004437e0(param_1);
+            Tree_RotateRight_18(param_1);
             piVar5 = (int *)*piVar3;
           }
           if (*(char *)((int)piVar5 + 0x15) == '\0') {
@@ -149,7 +149,7 @@ LAB_00443a72:
             *(char *)(piVar5 + 5) = (char)piVar3[5];
             *(undefined1 *)(piVar3 + 5) = 1;
             *(undefined1 *)(*piVar5 + 0x14) = 1;
-            FUN_004437e0(param_1);
+            Tree_RotateRight_18(param_1);
             break;
           }
         }

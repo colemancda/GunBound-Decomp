@@ -517,7 +517,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00443680,122,FUN_00443680,false,1,3,RAW-src
 00443700,122,FUN_00443700,false,1,3,RAW-src
 00443780,87,Tree_IteratorIncrement_18,false,3,0,RAW-src
-004437e0,85,FUN_004437e0,false,3,0,RAW-src
+004437e0,85,Tree_RotateRight_18,false,3,0,RAW-src
 00443840,692,FUN_00443840,false,2,9,RAW-src
 00443b00,81,FUN_00443b00,false,3,0,RAW-src
 00443b60,55,Tree_Buynode_18,false,1,1,RAW-src
