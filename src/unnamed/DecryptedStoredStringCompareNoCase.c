@@ -1,8 +1,20 @@
-/* FUN_004fcdf0 - 0x004fcdf0 in the original binary.
+/* DecryptedStoredStringCompareNoCase - 0x004fcdf0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004fcdf0 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: Same shape
+ * as DecryptStoredStringTo (0x4fcd80): EAX is the crypto context,
+ * ciphertext at +0x27c and length at +0x280 is decrypted into a stack
+ * block by DecryptContextBuffer (0x4fce60), then __strnicmp(decrypted,
+ * param_1, param_2) is returned; -1 when no ciphertext is stored or the
+ * decrypt fails. Its two callers, both in CommP2PReceiveDatagram, compare
+ * the 0x10 byte field of a received datagram against it and treat a non-
+ * zero result as a mismatch. LIKELY: the compare is certain, what the
+ * stored string is is inferred.
  */
 #include "ghidra_types.h"
 
@@ -11,7 +23,7 @@
 /* WARNING: Unable to track spacebase fully for stack */
 /* WARNING: Type propagation algorithm not settling */
 
-int FUN_004fcdf0(undefined4 param_1,undefined4 param_2,int regEax)
+int DecryptedStoredStringCompareNoCase(undefined4 param_1,undefined4 param_2,int regEax)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
