@@ -1330,7 +1330,7 @@ void __fastcall CInputDevice_BaseDestructor();
 void __fastcall ClampCursorToRect();
 undefined4 __fastcall MouseDevice_Initialize();
 void __fastcall MouseDevice_Poll();
-void __fastcall FUN_004ee540();
+void __fastcall MouseDevice_TickButtonTimers();
 void FUN_004ee850();
 uint AcquireSoundChannel();
 uint PlayMusicTrack();

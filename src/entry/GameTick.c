@@ -1,4 +1,5 @@
 /* GameTick - 0x00413130 in the original binary.
+ * (FUN_004ee540 below is MouseDevice_TickButtonTimers.)
  * (FUN_004ee0d0 below is KeyboardDevice_TickKeyTimers.)
  * (FUN_004ee270 in the notes below is MouseDevice_Initialize's old symbol.)
  * (FUN_004edd70 below is KeyboardDevice_Initialize.)
@@ -179,7 +180,7 @@ void GameTick(void)
      * never constructed in bring-up (their DirectInput constructors are
      * stubbed), so point the timer updates at zeroed backing blocks - a correct
      * no-op for the input-less logo path. See globals.c. */
-    FUN_004ee540((int)g_mouseDeviceTimerBlock);
+    MouseDevice_TickButtonTimers((int)g_mouseDeviceTimerBlock);
     KeyboardDevice_TickKeyTimers((int)g_keyboardDeviceTimerBlock);
     AdvanceSpriteAnimation((int)g_softwareCursorAnimBlock);
   }
