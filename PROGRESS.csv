@@ -568,7 +568,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0044c940,13,DestroyShot1_Bullet7,false,1,1,RAW-src
 0044c950,4117,DetonateShot1_Bullet7,false,1,41,RAW-src
 0044d970,30,InitSuperShot_Bullet1,false,1,1,RAW-src
-0044d990,32,FUN_0044d990,false,13,2,RAW-src
+0044d990,32,Projectile_ScalarDtor,false,13,2,RAW-src
 0044d9b0,3898,DetonateSuperShot_Bullet1,false,1,33,RAW-src
 0044e8f0,32,FUN_0044e8f0,false,1,2,RAW-src
 0044e910,13,Mobile00_Destructor,false,1,1,RAW-src
