@@ -1,4 +1,5 @@
 /* LoadLocalizedStrings - 0x0043da00 in the original binary.
+ * (Historical notes below: FUN_0043dd40 is now LocalizedStrings_SetAt.)
  * (Historical notes below: FUN_004f0d70 is now CloseXFSArchive.)
  *
  * Builds the localized UI-string table (g_localizedStringTable, param_1)
@@ -148,7 +149,7 @@ LAB_0043db71:
         else {
           acStack_10f50[iVar5] = '\0';
           if (iVar4 != 0) {
-            FUN_0043dd40(iVar4,param_1,acStack_10f50);
+            LocalizedStrings_SetAt(iVar4,param_1,acStack_10f50);
           }
           iVar5 = 0;
           iVar4 = 0;

@@ -1,9 +1,19 @@
-/* FUN_0043dd40 - 0x0043dd40 in the original binary.
+/* LocalizedStrings_SetAt - 0x0043dd40 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_0043dd40 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: Called by
+ * LoadLocalizedStrings once per parsed Language.txt line (id, message,
+ * table). It first looks the id up with FindLocalizedStringNode; on a hit
+ * it overwrites the node's string at +4 with AssignStringBuffer, on a miss
+ * it falls into LocalizedStrings_Insert. That is an assign-or-insert on
+ * the id -> string table GetLocalizedString reads. SetAt is the MFC/ATL
+ * map verb for that; the container itself is a custom tree, so the verb is
+ * borrowed (LIKELY).
  *
  * Dropped-register-arg fix (confirmed against the 0x43dd40 disassembly):
  * Ghidra's per-call-site decompile only resolved the one stack-passed
@@ -23,7 +33,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_0043dd40(int id,undefined4 param_1,char *message)
+int LocalizedStrings_SetAt(int id,undefined4 param_1,char *message)
 
 {
   char cVar1;

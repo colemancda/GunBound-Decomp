@@ -1,4 +1,5 @@
 /* FUN_0043de70 - 0x0043de70 in the original binary.
+ * (Historical notes below: FUN_0043dd40 is now LocalizedStrings_SetAt.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
