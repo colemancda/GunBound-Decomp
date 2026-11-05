@@ -106,7 +106,7 @@ void Tree_Erase_18(int param_1,undefined4 *param_2,int *param_3)
   if ((int *)*puVar1 == param_3) {
     piVar3 = piVar5;
     if (*(char *)((int)piVar6 + 0x15) == '\0') {
-      FUN_00443c00(piVar6);
+      Tree_Min_18(piVar6);
     }
     *puVar1 = piVar3;
   }

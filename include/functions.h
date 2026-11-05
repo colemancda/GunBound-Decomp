@@ -660,7 +660,7 @@ void __thiscall Tree_RotateLeft_18();
 undefined4 Tree_Buynode_18();
 void FUN_00443ba0();
 void FUN_00443be0(int regEax);
-void FUN_00443c00(int *regEax);
+void Tree_Min_18(int *regEax);
 undefined4 * State07_AvatarStore_Construct();
 void * __thiscall State07_AvatarStore_Delete();
 void FUN_00443dc0();
