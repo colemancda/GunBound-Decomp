@@ -21,12 +21,12 @@
  * new tail (or the head when the tail is NULL) - CAtlList::AddTail inlined
  * around this call.
  *
- * KNOWN DEFECT (not fixed here): the port's tail still returns 0 ("result
- * unused" in its comment below), but the binary returns the node in EAX
- * (ret 8 at 0x501008 follows the mov at 0x500fa8 untouched) and
- * ConfigureAsyncSocket uses the return as the new tail, so it currently
- * links NULL. Same defect AtlList_NewNode_177c had before its 2026-10-30
- * fix.
+ * FIXED (2026-11-05): the port's tail used to return 0 ("result unused"),
+ * but the binary returns the node in EAX (mov eax,[esi+0x10] at 0x500fa8 is
+ * never overwritten before the ret 8 at 0x501008) and ConfigureAsyncSocket
+ * uses it (0x4ff465 mov edi,eax, then links it as the tail/head and returns
+ * it), so it linked NULL. The node is now returned. Same defect
+ * AtlList_NewNode_177c had before its 2026-10-30 fix.
  */
 #include "ghidra_types.h"
 
@@ -56,10 +56,6 @@ undefined4 AtlList_NewNode_38(undefined4 param_1,undefined4 param_2,int regEax,u
   puVar1[1] = param_1;
   *puVar1 = param_2;
   *(int *)(regEax + 8) = *(int *)(regEax + 8) + 1;
-  /* Ghidra emitted a bare `return;` in a value-returning function;
-   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
-   * (-Wreturn-mismatch). This path's result is unused by callers -
-   * return 0 to satisfy both toolchains without inventing a value. */
-  return 0;
+  return (undefined4)puVar1;
 }
 
