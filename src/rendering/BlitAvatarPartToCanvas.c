@@ -1,4 +1,18 @@
-/* FUN_00414070 - 0x00414070 in the original binary.
+/* BlitAvatarPartToCanvas - 0x00414070 in the original binary.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00414070 mean this function.)
+ *
+ * NAMED (2026-11-05), HIGH. Evidence from outside the body:
+ * LoadAvatarSprites and ComposeAvatarSprites (rendering) call it four
+ * times per composed avatar, in groups of four with the part keys 0x186a0,
+ * 0x186a1, 0x186a2 and 0x186a3 (flag, body, glasses, head) and the same
+ * 128x128 16bpp avatarCanvas buffer as the third argument. It looks up the
+ * sprite set and frame for each part and blends the frame into that canvas
+ * pixel by pixel through BlendARGB4444Texel.
  *
  * Blits one sprite frame into the 128x128x16bpp avatar canvas: walks
  * the DAT_00ea0e1c registry for the sprite set whose key is `key`,
@@ -19,7 +33,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00414070(uint frameIdx,uint param_2,int param_3)
+void __fastcall BlitAvatarPartToCanvas(uint frameIdx,uint param_2,int param_3)
 
 {
   int iVar1;

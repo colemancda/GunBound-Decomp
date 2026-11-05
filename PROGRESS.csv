@@ -256,7 +256,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00413af0,242,DisplayLocalizedChatMessage,false,2,0,RAW-src
 00413bf0,742,SendPlayResult,false,5,6,RAW-src
 00413ee0,389,BlendARGB4444Texel,false,1,0,RAW-src
-00414070,315,FUN_00414070,false,16,1,RAW-src
+00414070,315,BlitAvatarPartToCanvas,false,16,1,RAW-src
 004141b0,4208,LoadAvatarSprites,false,13,12,RAW-src
 00415230,154,FUN_00415230,false,5,2,RAW-src
 004152d0,171,FUN_004152d0,false,2,1,RAW-src

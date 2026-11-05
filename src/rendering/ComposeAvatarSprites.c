@@ -133,10 +133,10 @@ LAB_004d1680:
     if (glassesCount == 0x2c) { glassesFrame = c; }
     else { glassesFrame = (c < 0x16) ? ((c < 0xb) ? c : 0x15 - c)
                                      : ((c < 0x21) ? c - 0xb : 0x36 - c); }
-    FUN_00414070(flagFrame,0x186a0,(int)avatarCanvas);
-    FUN_00414070(headFrame,0x186a3,(int)avatarCanvas);
-    FUN_00414070(glassesFrame,0x186a2,(int)avatarCanvas);
-    FUN_00414070(bodyFrame,0x186a1,(int)avatarCanvas);
+    BlitAvatarPartToCanvas(flagFrame,0x186a0,(int)avatarCanvas);
+    BlitAvatarPartToCanvas(headFrame,0x186a3,(int)avatarCanvas);
+    BlitAvatarPartToCanvas(glassesFrame,0x186a2,(int)avatarCanvas);
+    BlitAvatarPartToCanvas(bodyFrame,0x186a1,(int)avatarCanvas);
   }
   iVar5 = 0;
   puVar12 = (undefined4 *)avatarCanvas;
@@ -421,10 +421,10 @@ LAB_004d1c82:
     if (glassesCount == 0x2c) { glassesFrame = c; }
     else { glassesFrame = (c < 0x16) ? ((c < 0xb) ? c : 0x15 - c)
                                      : ((c < 0x21) ? c - 0xb : 0x36 - c); }
-    FUN_00414070(flagFrame,0x186a0,(int)avatarCanvas);
-    FUN_00414070(headFrame,0x186a3,(int)avatarCanvas);
-    FUN_00414070(glassesFrame,0x186a2,(int)avatarCanvas);
-    FUN_00414070(bodyFrame,0x186a1,(int)avatarCanvas);
+    BlitAvatarPartToCanvas(flagFrame,0x186a0,(int)avatarCanvas);
+    BlitAvatarPartToCanvas(headFrame,0x186a3,(int)avatarCanvas);
+    BlitAvatarPartToCanvas(glassesFrame,0x186a2,(int)avatarCanvas);
+    BlitAvatarPartToCanvas(bodyFrame,0x186a1,(int)avatarCanvas);
   }
   iVar5 = 0;
   puVar12 = (undefined4 *)avatarCanvas;
