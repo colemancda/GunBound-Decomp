@@ -10,7 +10,7 @@
 void FUN_005432e0(void)
 
 {
-  thunk_FUN_004154e0();
+  LocalizedStrings_DestructThunk();
   return;
 }
 
