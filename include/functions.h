@@ -445,7 +445,7 @@ int TokenizeChatCommandLine(char *param_1);
 void __fastcall CopyChatCommandToken(int param_1,int param_2,undefined4 *regEbx);
 undefined4 ParseChatSlashCommand();
 void __thiscall AddRejoinBlockedRoom(undefined4 param_1,undefined4 param_2,int regEsi);
-void FUN_00422f70();
+void PruneExpiredRejoinBlockedRooms();
 void RecordChatHistoryEntry(int param_1,byte *param_2);
 void ApplyBattleActionToContext();
 void __fastcall FUN_00423a20();

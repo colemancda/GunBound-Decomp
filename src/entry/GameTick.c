@@ -198,7 +198,7 @@ void GameTick(void)
     }
   }
   FUN_00425770(g_clientContext);
-  FUN_00422f70(g_clientContext);
+  PruneExpiredRejoinBlockedRooms(g_clientContext);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9084);
   if (DAT_007934cc == '\0') goto LAB_00413a44;
   g_frameTriangleCounter = 0;

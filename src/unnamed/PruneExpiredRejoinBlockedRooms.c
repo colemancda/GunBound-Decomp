@@ -1,14 +1,26 @@
-/* FUN_00422f70 - 0x00422f70 in the original binary.
+/* PruneExpiredRejoinBlockedRooms - 0x00422f70 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00422f70 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: Called once
+ * per GameTick under the main lock. It walks the list built by
+ * AddRejoinBlockedRoom (0x422f10; three parallel 0x40 entry arrays at ctx
+ * + 0x5f2f58/+0x5f3058/+0x5f3158, count at +0x5f3258) and for each entry
+ * whose two keys are not -1 and whose expiry in the third array is older
+ * than GetTickCount() / 1000 shifts the remaining entries of all three
+ * arrays down one slot and decrements the count. LIKELY: the pairing with
+ * the adder and the readers SendJoinRoomChecked /
+ * EnterRoomNumberDialog_SubmitRoomNumber is solid, the purpose of the list
+ * is inferred from those.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00422f70(int param_1)
+void PruneExpiredRejoinBlockedRooms(int param_1)
 
 {
   int iVar1;
