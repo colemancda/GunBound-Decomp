@@ -98,22 +98,16 @@ undefined4 FUN_004fcf10(undefined4 param_1,undefined4 param_2,undefined4 regEdi,
   
   cVar1 = (**(code **)(*in_EAX + 0x3c))();
   if (cVar1 != '\0') {
-    SendP2PMessageToPeer((undefined4 *)((int)in_EAX + 0x1a90),in_EAX + 0xb,unaff_EBX,unaff_EDI,
-                 (undefined4 *)param_1,param_2);
-    /* Ghidra emitted a bare `return;` in a value-returning function;
-     * MSVC falls through with whatever's in EAX, gcc 14 rejects it
-     * (-Wreturn-mismatch). This path's result is unused by callers -
-     * return 0 to satisfy both toolchains without inventing a value. */
-    return 0;
+    /* 0x4fcf36 call 0x4fe110 then 0x4fcf3b pop esi / pop ebp / ret 8: nothing
+       touches EAX after the call, so the callee's AL bool is this function's
+       return value (not a constant 0). */
+    return SendP2PMessageToPeer((undefined4 *)((int)in_EAX + 0x1a90),in_EAX + 0xb,unaff_EBX,
+                 unaff_EDI,(undefined4 *)param_1,param_2);
   }
   /* 0x4fcf40 `mov eax,edi` / call 0x4fd030, then 0x4fcf59 `mov cl,al` and
    * 0x4fcf5b `mov edx,edi` feed FUN_00502650's CL and DX. */
-  FUN_00502650((int)in_EAX,1,(int)&nameSlot,(undefined4 *)param_1,param_2,(unsigned char)FUN_004fd030((unsigned short)unaff_EDI),
+  /* 0x4fcf5d call 0x502650 then pop esi / pop ebp / ret 8: AL of the relay
+     call is the return value. */
+  return (undefined4)(unsigned char)FUN_00502650((int)in_EAX,1,(int)&nameSlot,(undefined4 *)param_1,param_2,(unsigned char)FUN_004fd030((unsigned short)unaff_EDI),
                (unsigned short)unaff_EDI);
-  /* Ghidra emitted a bare `return;` in a value-returning function;
-   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
-   * (-Wreturn-mismatch). This path's result is unused by callers -
-   * return 0 to satisfy both toolchains without inventing a value. */
-  return 0;
 }
-

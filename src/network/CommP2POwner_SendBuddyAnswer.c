@@ -20,7 +20,8 @@ undefined1 __thiscall CommP2POwner_SendBuddyAnswer(int param_1,undefined4 param_
   if (*(char *)(param_1 + 0x1a70) == '\0') {
     return 0;
   }
-  FUN_004fcf10(&param_3,1,0xc042,(int *)param_1,param_2);
+  cVar1 = (char)FUN_004fcf10(&param_3,1,0xc042,(int *)param_1,param_2);
+  /* 0x4fd7ec test al,al uses the AL returned by 0x4fcf10. */
   if (cVar1 == '\0') {
     return 0;
   }
