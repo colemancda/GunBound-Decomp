@@ -900,7 +900,7 @@ void FUN_0047e990(uint spriteKey, uint sortKey, int rowBase, int stride);
 undefined4 FUN_0047eb60(undefined4 *regEsi);
 void * __thiscall FUN_0047eb90();
 void FUN_0047ebb0(undefined4 *regEax);
-void * __thiscall FUN_0047f2a0();
+void * __thiscall Mobile09_ScalarDtor();
 void Mobile09_Destructor(undefined4 *regEax);
 void __thiscall Mobile09_MainAction();
 undefined4 * InitLaserIon(undefined4 *regEsi);

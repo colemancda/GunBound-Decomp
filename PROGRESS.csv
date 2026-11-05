@@ -772,7 +772,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0047eb60,34,FUN_0047eb60,false,1,1,RAW-src
 0047eb90,32,FUN_0047eb90,false,1,2,RAW-src
 0047ebb0,13,FUN_0047ebb0,false,1,1,RAW-src
-0047f2a0,32,FUN_0047f2a0,false,1,2,RAW-src
+0047f2a0,32,Mobile09_ScalarDtor,false,1,2,RAW-src
 0047f2c0,13,Mobile09_Destructor,false,1,1,RAW-src
 0047f2d0,1754,Mobile09_MainAction,false,1,14,RAW-src
 0047f9e0,74,InitLaserIon,false,1,1,RAW-src
