@@ -1462,7 +1462,7 @@ void InsertTextureCacheRecord(byte *param_1,int regEax);
 void FlushTextureCache(int param_1);
 int FindFreeAtlasTileSlot(undefined4 *param_1,int cache,int pageTag,char formatId);
 void FUN_004f47e0();
-undefined * __fastcall FUN_004f4810(float *param_1,float *regEax);
+undefined * __fastcall TransformCoordToScratch(float *param_1,float *regEax);
 int __fastcall RijndaelSetKey(unsigned int *param_1, unsigned int param_2, int param_3, unsigned int *ctx);
 uint __fastcall EncodeCipherBlock(unsigned int param_1, unsigned int *param_2, unsigned int *param_3, int param_4);
 undefined4 __fastcall DecodeCipherBlock(unsigned int param_1, unsigned int *param_2, unsigned int *param_3, int param_4);
