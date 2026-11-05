@@ -176,7 +176,7 @@ void __fastcall AdvanceTurnQueue(int param_1)
       if (iVar5 != 3) {
         FUN_0043c440();
         FUN_0043c4a0();
-        FUN_0043c4f0();
+        RemoveIonAura();
       }
     }
     uVar6 = EncodeChecksumDeltaMul(piVar2 + 0x237a,auStack_234,2);

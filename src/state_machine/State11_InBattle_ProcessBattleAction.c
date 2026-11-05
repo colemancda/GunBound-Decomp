@@ -443,7 +443,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       FUN_0043c440();
       local_27f0 = &DAT_006a7f70 + g_clientContext;
       FUN_0043c4a0();
-      FUN_0043c4f0();
+      RemoveIonAura();
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       FUN_004207c0(g_clientContext,bVar16);
       cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba));

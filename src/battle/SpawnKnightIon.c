@@ -33,7 +33,7 @@ void SpawnKnightIon(undefined4 param_1,int param_2,int param_3,uint param_4,unde
   puStack_8 = &LAB_0053795b;
   uStack_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_c;
-  FUN_0043c4f0();
+  RemoveIonAura();
   piVar1 = operator_new(0x3fe8);
   local_4 = 0;
   if (piVar1 == (int *)0x0) {

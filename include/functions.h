@@ -604,7 +604,7 @@ void FUN_0043bda0();
 void FUN_0043c3c0();
 void FUN_0043c440();
 void __fastcall FUN_0043c4a0();
-void __fastcall FUN_0043c4f0();
+void __fastcall RemoveIonAura();
 uint FUN_0043c550();
 void FUN_0043c620();
 void FUN_0043c6a0();
