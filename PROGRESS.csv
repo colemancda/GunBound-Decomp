@@ -797,7 +797,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004837c0,20,InitSuperShot_Bullet8,false,1,1,RAW-src
 004837e0,2055,ExplodeSuperShot_Bullet8,false,1,12,RAW-src
 00483ff0,4038,DetonateSuperShot_Bullet2_8_11,false,3,39,RAW-src
-00484fc0,32,FUN_00484fc0,false,1,2,RAW-src
+00484fc0,32,Mobile07_ScalarDtor,false,1,2,RAW-src
 00484fe0,13,Mobile07_Destructor,false,1,1,RAW-src
 00484ff0,1715,Mobile07_MainAction,false,1,14,RAW-src
 004856d0,110,InitSuperShot_Bullet13,false,1,2,RAW-src
