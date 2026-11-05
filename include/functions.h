@@ -1443,7 +1443,7 @@ void * AllocSpriteRegistryNode();
 void InitSpriteRegistryPool();
 void DestroySpriteRegistryPool();
 undefined * __fastcall MultiplyQuaternionsToScratch(float *param_1,float *regEax);
-void FUN_004f3af0(double param_1,double param_2,double param_3,float *regEax);
+void QuaternionFromEulerAngles(double param_1,double param_2,double param_3,float *regEax);
 void __fastcall QuaternionToRotationMatrix(float *param_1,float *regEax);
 undefined * __thiscall SlerpQuaternionsToScratch(float *param_1,double param_2,float *regEsi);
 void * AllocTextureCacheNode();
