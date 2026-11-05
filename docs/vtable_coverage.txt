@@ -1,4 +1,4 @@
-# Per-class port coverage, ranked (tools/vtable_census.py --coverage, 2026-11-03)
+# Per-class port coverage, ranked (tools/vtable_census.py --coverage, 2026-11-05)
 # ported = summed PROGRESS.csv bytes of this vtable's distinct slots with
 # status RAW-src/PARITY-*; slots = raw count (ported/distinct); uncarved =
 # distinct slots Ghidra never carved.  ~name = synthesized from the
@@ -163,7 +163,7 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
      30b  0x557550  1 ( 1/ 1)     0     (all FUN_/uncarved)
      30b  0x557530  1 ( 1/ 1)     0     (all FUN_/uncarved)
      30b  0x557528  1 ( 1/ 1)     0     (all FUN_/uncarved)
-     30b  0x557524  1 ( 1/ 1)     0     (all FUN_/uncarved)
+     30b  0x557524  1 ( 1/ 1)     0     ~SpriteFrame_ScalarDtor
      30b  0x555b7c  1 ( 1/ 1)     0     (all FUN_/uncarved)
       7b  0x553fb0 18 ( 3/ 4)     1     ~CGameState_NoOpVirtual_A
       4b  0x557434 10 ( 2/ 5)     3     ~CGameState_NoOpVirtual_B

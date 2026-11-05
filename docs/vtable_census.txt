@@ -1340,7 +1340,7 @@ vtable 0x5574e8  installs=3  slots=5  UNCARVED=2
    4: 0x4ef610  FUN_004ef610
 
 vtable 0x557524  installs=8  slots=1
-   0: 0x4f14c0  FUN_004f14c0
+   0: 0x4f14c0  SpriteFrame_ScalarDtor
 
 vtable 0x557528  installs=1  slots=1
    0: 0x4f3960  FUN_004f3960
