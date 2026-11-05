@@ -193,7 +193,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040bce0,29,TreeSubtreeMax,false,1,0,RAW-src
 0040bd00,28,TreeSubtreeMin,false,1,0,RAW-src
 0040bd20,85,TreeRotateRight,false,5,0,RAW-src
-0040bda0,117,FUN_0040bda0,false,2,2,RAW-src
+0040bda0,117,basic_string_Erase,false,2,2,RAW-src
 0040be20,122,TreeEraseRange,false,1,3,RAW-src
 0040bea0,57,TreeAllocateNode,false,1,1,RAW-src
 0040bee0,234,basic_string_AssignCStr,false,8,3,RAW-src

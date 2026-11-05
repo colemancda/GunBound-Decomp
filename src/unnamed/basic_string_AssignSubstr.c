@@ -1,4 +1,5 @@
 /* basic_string_AssignSubstr - 0x0040b9f0 in the original binary.
+ * (FUN_0040bda0 in the notes below is basic_string_Erase's old symbol.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -107,8 +108,8 @@ int __thiscall basic_string_AssignSubstr(int param_1,int param_2,uint param_3,ui
    * push -1 then push ebp=uVar3+param_3; call 2: push esi=param_3 then
    * push 0). This self-assign branch erases the tail then the head,
    * leaving the middle [param_3, param_3+uVar3) substring in place. */
-  FUN_0040bda0(param_1,uVar3 + param_3,0xffffffff);
-  FUN_0040bda0(param_1,0,param_3);
+  basic_string_Erase(param_1,uVar3 + param_3,0xffffffff);
+  basic_string_Erase(param_1,0,param_3);
   return param_1;
 }
 
