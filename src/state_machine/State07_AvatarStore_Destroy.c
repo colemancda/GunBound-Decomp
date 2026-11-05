@@ -33,7 +33,7 @@ void __fastcall State07_AvatarStore_Destroy(undefined4 *param_1)
   *unaff_FS_OFFSET = &local_c;
   *param_1 = &vtable_State07_AvatarStore;
   local_4 = 10;
-  FUN_004254a0();
+  AvatarPartWorkspace_Destruct();
   local_4 = 9;
   if (param_1[0xc971] != 0) {
     ScrambleChecksumGuardBytes(param_1[0xc971],&g_valueGuardKeyTable);
@@ -59,9 +59,9 @@ void __fastcall State07_AvatarStore_Destroy(undefined4 *param_1)
     TreeInsert(local_14,&g_valueGuardMap);
   }
   local_4 = 3;
-  _eh_vector_destructor_iterator_(param_1 + 0x36d7,0x17e4,0x15,FUN_004254a0);
+  _eh_vector_destructor_iterator_(param_1 + 0x36d7,0x17e4,0x15,AvatarPartWorkspace_Destruct);
   local_4 = 2;
-  _eh_vector_destructor_iterator_(param_1 + 0x116,0x17e4,9,FUN_004254a0);
+  _eh_vector_destructor_iterator_(param_1 + 0x116,0x17e4,9,AvatarPartWorkspace_Destruct);
   local_4 = 1;
   if (param_1[0x8f] != 0) {
     ScrambleChecksumGuardBytes(param_1[0x8f],&g_valueGuardKeyTable);

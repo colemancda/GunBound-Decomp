@@ -353,7 +353,7 @@ LAB_004457e7:
         uVar12 = PeekChecksumStateUnderLock(iVar3);
         *(undefined4 *)(param_1 + 0x34788) = uVar12;
         local_4 = local_4 & 0xffffff00;
-        FUN_004254a0();
+        AvatarPartWorkspace_Destruct();
       }
       else {
         ShowErrorDialog(0);
@@ -439,7 +439,7 @@ LAB_004457e7:
               CreateButtonWidget(&g_activeObjectRegistry,0,0x33,0x517,s_b_storewindow_cancel_00555a30,0x14d,
                                  0x154,0x4a,0x1a,1,0);
               local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
-              FUN_004254a0();
+              AvatarPartWorkspace_Destruct();
             }
             else {
               ShowErrorDialog(0);
@@ -581,7 +581,7 @@ LAB_004457e7:
           RegisterActiveObject(0, 0, (undefined4 *)0);
           ActivateTextBoxById(0,0x2710,(int)&g_activeObjectRegistry2,0);
           local_4 = local_4 & 0xffffff00;
-          FUN_004254a0();
+          AvatarPartWorkspace_Destruct();
         }
         else {
           ShowErrorDialog(0);
@@ -646,7 +646,7 @@ LAB_004457e7:
                            0x4a,0x1a,1,0);
       }
       local_4 = local_4 & 0xffffff00;
-      FUN_004254a0();
+      AvatarPartWorkspace_Destruct();
     }
     break;
   case 0x32:
@@ -1053,7 +1053,7 @@ LAB_00446f6d:
   }
 switchD_00445591_caseD_2:
   local_4 = 0xffffffff;
-  FUN_004254a0();
+  AvatarPartWorkspace_Destruct();
   /* (SEH frame teardown stripped - see the header note at the top) */
   return;
 }

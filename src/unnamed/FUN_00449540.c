@@ -270,7 +270,7 @@ LAB_004495fa:
     local_1878 = local_1878 + 0x78;
     puVar13 = puVar13 + 1;
   } while (iVar11 < 9);
-  FUN_004254a0();
+  AvatarPartWorkspace_Destruct();
   return;
 code_r0x004495d2:
   puVar15 = (undefined4 *)puVar15[7];

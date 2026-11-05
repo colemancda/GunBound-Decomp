@@ -1,14 +1,26 @@
-/* FUN_004254a0 - 0x004254a0 in the original binary.
+/* AvatarPartWorkspace_Destruct - 0x004254a0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004254a0 mean this function.)
+ *
+ * NAMED (2026-11-05), HIGH. Evidence from outside the body: it is the
+ * element destructor passed alongside AvatarPartWorkspace_Construct to
+ * _eh_vector_constructor_iterator_ in the State07 constructor and to
+ * _eh_vector_destructor_iterator_ in State07_AvatarStore_Destroy (stride
+ * 0x17e4, counts 9 and 0x15), and every stack user of the workspace
+ * (State07_AvatarStore_OnCommand, RenderInventoryItemDetail,
+ * ApplyAvatarStatBonuses, LoadAvatarStoreCatalog) calls it at scope exit.
+ * It runs the guard-table scramble and TreeInsert for each of the 11
+ * cells' table handles at +0x14, +0x250 ... +0x1594, the reverse of the
+ * constructor's per-cell registration.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004254a0(int param_1)
+void __fastcall AvatarPartWorkspace_Destruct(int param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;

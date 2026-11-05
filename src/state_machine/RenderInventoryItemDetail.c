@@ -229,7 +229,7 @@ void RenderInventoryItemDetail(int param_1)
   }
 LAB_0044bdfe:
   local_4 = 0xffffffff;
-  FUN_004254a0();
+  AvatarPartWorkspace_Destruct();
   *unaff_FS_OFFSET = local_c;
   return;
 }

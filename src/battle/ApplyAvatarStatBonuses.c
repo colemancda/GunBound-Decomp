@@ -359,7 +359,7 @@ void ApplyAvatarStatBonuses(undefined4 param_1,undefined4 param_2,undefined4 par
     } while (iVar2 != 0);
   }
   local_4 = 0xffffffff;
-  FUN_004254a0();
+  AvatarPartWorkspace_Destruct();
   return;
 }
 
