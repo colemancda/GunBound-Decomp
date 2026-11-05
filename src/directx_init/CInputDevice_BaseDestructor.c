@@ -1,4 +1,5 @@
 /* CInputDevice_BaseDestructor - 0x004ee1f0 in the original binary.
+ * (FUN_004ee270 in the notes below is MouseDevice_Initialize's old symbol.)
  * (FUN_004edd70 below is KeyboardDevice_Initialize.)
  *
  * Renamed with confidence: this is the base destructor (poisons `this`'s

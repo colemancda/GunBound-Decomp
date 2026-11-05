@@ -1233,7 +1233,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ee1d0,30,CInputDevice_ScalarDeletingDestructor,false,2,2,RAW-src
 004ee1f0,7,CInputDevice_BaseDestructor,false,3,0,RAW-src
 004ee200,104,ClampCursorToRect,false,5,1,RAW-src
-004ee270,163,FUN_004ee270,false,2,0,RAW-src
+004ee270,163,MouseDevice_Initialize,false,2,0,RAW-src
 004ee320,471,FUN_004ee320,false,1,1,RAW-src
 004ee540,101,FUN_004ee540,false,2,0,RAW-src
 004ee5b0,657,InitDirectSound,false,1,6,RAW-src

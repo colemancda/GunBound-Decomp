@@ -1,4 +1,5 @@
 /* UpdateDeviceAcquisition - 0x004edce0 in the original binary.
+ * (FUN_004ee270 in the notes below is MouseDevice_Initialize's old symbol.)
  * (FUN_004edd70 below is KeyboardDevice_Initialize.)
  *
  * PROMOTED (2026-07-14): called twice from WndProc's WM_ACTIVATEAPP handler

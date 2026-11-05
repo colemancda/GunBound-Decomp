@@ -1328,7 +1328,7 @@ void MouseDevice_Construct(undefined4 *regEax);
 void * __thiscall CInputDevice_ScalarDeletingDestructor();
 void __fastcall CInputDevice_BaseDestructor();
 void __fastcall ClampCursorToRect();
-undefined4 __fastcall FUN_004ee270();
+undefined4 __fastcall MouseDevice_Initialize();
 void __fastcall FUN_004ee320();
 void __fastcall FUN_004ee540();
 void FUN_004ee850();

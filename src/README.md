@@ -421,7 +421,7 @@ Concretely, that means:
   file-by-file (not all genuinely-broken, just needed small type/cast
   fixes) has so far fixed `entry/GameTick.c`, `entry/Shutdown.c`,
   `directx_init/InitDirectInput.c`, `directx_init/KeyboardDevice_Initialize.c`, and
-  `unnamed/FUN_004ee270.c` — mostly the same "vtable call's return
+  `src/directx_init/MouseDevice_Initialize.c` — mostly the same "vtable call's return
   value is used, `code`'s void return can't express that" pattern
   (fixed per call site with a local `int (**)()` cast instead of
   `code **`, rather than changing the shared `code` typedef, since
