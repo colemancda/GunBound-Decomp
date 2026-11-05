@@ -32,7 +32,7 @@ void __fastcall LocalizedStrings_LinkNode(int *param_1,int regEbx,undefined4 reg
   int *piVar1;
   int *piVar2;
   int iVar3;
-  iVar3 = FUN_0043e150(regEbx,regEax,(undefined4 *)param_1);
+  iVar3 = LocalizedStrings_BuyNode(regEbx,regEax,(undefined4 *)param_1);
   piVar2 = (int *)*param_1;
   piVar1 = (int *)0x0;
   while (piVar2 != (int *)param_1[5]) {

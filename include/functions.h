@@ -627,7 +627,7 @@ undefined4 CString_CloneData(int *regEax);
 int LocalizedStrings_Insert(int *param_1,int regEcx,char *regEax);
 int * __fastcall FindLocalizedStringNode();
 void __fastcall LocalizedStrings_LinkNode(int *param_1,int regEbx,undefined4 regEax);
-undefined4 * FUN_0043e150(undefined4 param_1,undefined4 param_2,undefined4 *regEsi);
+undefined4 * LocalizedStrings_BuyNode(undefined4 param_1,undefined4 param_2,undefined4 *regEsi);
 void State10_Loading_ProcessPacket();
 /* The other per-state ProcessPacket virtuals (vtable slot 1) - full
  * prototypes (winegcc rejects K&R decls against ushort-param

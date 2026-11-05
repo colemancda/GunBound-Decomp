@@ -489,7 +489,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0043de70,487,LocalizedStrings_Insert,false,1,1,RAW-src
 0043e060,134,FindLocalizedStringNode,false,2,0,RAW-src
 0043e0f0,87,LocalizedStrings_LinkNode,false,1,1,RAW-src
-0043e150,296,FUN_0043e150,false,1,3,RAW-src
+0043e150,296,LocalizedStrings_BuyNode,false,1,3,RAW-src
 0043e280,440,State10_Loading_ProcessPacket,false,1,6,RAW-src
 0043e440,700,State10_Loading_ProcessBattleAction,false,1,15,RAW-src
 0043e700,17,State10_Loading_OnGameEvent,false,1,0,RAW-src

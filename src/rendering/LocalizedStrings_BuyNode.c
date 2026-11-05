@@ -1,9 +1,20 @@
-/* FUN_0043e150 - 0x0043e150 in the original binary.
+/* LocalizedStrings_BuyNode - 0x0043e150 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_0043e150 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: the only
+ * caller is LocalizedStrings_LinkNode, which takes the returned node and
+ * links it in. It lazily mallocs the nil sentinel into map+0x14, refills
+ * the pool with blocks of map+0x10 (= 10, stored by
+ * LocalizedStrings_InitHeader) 0x18-byte nodes (malloc(10*0x18+4), block
+ * chain at map+0xc, free list at map+8), constructs the CString value at
+ * node+4 with ConstructStringFromText, and bumps the count at map+4. It is
+ * the pool-allocator _Buynode of this map, a sibling of Tree_Buynode_18
+ * and RBTree_BuyNode for a different node layout.
  *
  * DEFINITION COMPLETED AND ESI RECOVERED (2026-08-25).  `ret 8`: two stack
  * arguments -- the node key and value FUN_0043e0f0 already pushed -- against
@@ -14,7 +25,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_0043e150(undefined4 param_1,undefined4 param_2,undefined4 *regEsi)
+undefined4 * LocalizedStrings_BuyNode(undefined4 param_1,undefined4 param_2,undefined4 *regEsi)
 
 {
   undefined4 *puVar1;
