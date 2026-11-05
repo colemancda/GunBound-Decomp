@@ -1,4 +1,6 @@
 /* TreeIteratorIncrement - 0x0040c1b0 in the original binary.
+ * (Historical notes below: FUN_004e8f10 is now
+ *   TurnEventSet_IteratorIncrement.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"

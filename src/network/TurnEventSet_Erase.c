@@ -77,7 +77,7 @@ void TurnEventSet_Erase(int param_1,undefined4 *param_2,int *param_3)
                     /* WARNING: Subroutine does not return */
     __CxxThrowException_8(local_34,&DAT_00558458);
   }
-  FUN_004e8f10();
+  TurnEventSet_IteratorIncrement();
   piVar6 = (int *)*param_3;
   if (*(char *)((int)piVar6 + 0xf) == '\0') {
     if (*(char *)(param_3[2] + 0xf) == '\0') {

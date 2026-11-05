@@ -41,7 +41,7 @@ undefined4 * TurnEventSet_EraseRange(undefined4 *param_1,int *param_2,int *param
   }
   while (piVar2 != piVar4) {
     param_2 = piVar2;
-    FUN_004e8f10();
+    TurnEventSet_IteratorIncrement();
     TurnEventSet_Erase(regEsi,&param_1,piVar2);
     piVar2 = param_2;
   }
