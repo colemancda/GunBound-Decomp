@@ -41,8 +41,11 @@ void FUN_004fcf70(int param_1,undefined4 param_2,undefined4 param_3,undefined4 p
       iVar3 = iVar3 + 1;
     } while (iVar3 < param_1);
     if (0 < iVar2) {
-      FUN_004fd030();
-      FUN_00502650(regEdi,iVar2,auStack_190,param_3,param_4);
+      /* 0x4fcffb `mov eax,esi` / call 0x4fd030, then 0x4fd019 `mov cl,al`
+       * and 0x4fd01b `mov edx,esi`, with esi = [esp+0x1a0] = param_2, the
+       * message type (the same slot SendP2PMessageToPeer receives it in). */
+      FUN_00502650((int)regEdi,iVar2,(int)auStack_190,(undefined4 *)param_3,param_4,
+                   (unsigned char)FUN_004fd030((unsigned short)param_2),(unsigned short)param_2);
     }
   }
   return;

@@ -106,8 +106,10 @@ undefined4 FUN_004fcf10(undefined4 param_1,undefined4 param_2,undefined4 regEdi,
      * return 0 to satisfy both toolchains without inventing a value. */
     return 0;
   }
-  FUN_004fd030();
-  FUN_00502650(in_EAX,1,&nameSlot,param_1,param_2);
+  /* 0x4fcf40 `mov eax,edi` / call 0x4fd030, then 0x4fcf59 `mov cl,al` and
+   * 0x4fcf5b `mov edx,edi` feed FUN_00502650's CL and DX. */
+  FUN_00502650((int)in_EAX,1,(int)&nameSlot,(undefined4 *)param_1,param_2,(unsigned char)FUN_004fd030((unsigned short)unaff_EDI),
+               (unsigned short)unaff_EDI);
   /* Ghidra emitted a bare `return;` in a value-returning function;
    * MSVC falls through with whatever's in EAX, gcc 14 rejects it
    * (-Wreturn-mismatch). This path's result is unused by callers -
