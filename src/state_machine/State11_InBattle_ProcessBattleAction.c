@@ -440,7 +440,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       goto switchD_004b64f9_caseD_c302;
     }
     if (uVar1 == GB_ACT_WEAPON_SELECT_SOUND) {
-      ExplodePlayerMines();
+      ExplodePlayerMines(bVar16);
       local_27f0 = &DAT_006a7f70 + g_clientContext;
       FUN_0043c4a0(0,bVar16);
       RemoveIonAura(0,bVar16);

@@ -9,7 +9,8 @@
  * NAMED (2026-11-05), LIKELY. Evidence from outside the body: Player slot
  * in EAX; walks the class-100003 (mine) layer of the active-object
  * registry for keys slot*8 .. slot*8+7 and fires vtable slot +0x20 on each
- * hit. Slot 8 of vtable 0x5563f0 (the Mine class installed by InitMine) is
+ * hit. The slot arrives in EAX (43c441 mov esi,eax; plain ret at 43c49f,
+ * no stack args); promoted to the parameter in_EAX. Slot 8 of vtable 0x5563f0 (the Mine class installed by InitMine) is
  * ExplodeMine at 0x497ad0, and FindFreeMineKey documents the 8-key per-
  * player block. It does not unlink or delete. Callers AdvanceTurnQueue
  * (the player whose turn ended) and ProcessBattleAction's weapon-select-
@@ -21,13 +22,12 @@
 #include "ghidra_types.h"
 
 
-void ExplodePlayerMines(void)
+void ExplodePlayerMines(int in_EAX)
 
 {
   int iVar1;
   int iVar2;
   uint uVar3;
-  int in_EAX;
   int *piVar4;
   uint uVar5;
   
