@@ -13,15 +13,16 @@
  * InvertAffineMatrix4x4 also uses). A zero test with an epsilon is what
  * the callers need there.
  *
- * Argument type: the binary loads its argument with fld DWORD PTR [esp+4],
- * a 4-byte float, although the port declares a double. Not changed here.
+ * Argument type: float. The binary does `and eax,0x7fffffff` on the
+ * dword at [esp+4], then `fld DWORD PTR [esp+4]; fcomp DWORD PTR ds:0x54c870`
+ * (4-byte loads, plain `ret` so cdecl); callers push a 4-byte float.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 IsNearZero(double param_1)
+undefined4 IsNearZero(float param_1)
 
 {
   if (ABS(param_1) < _DAT_0054c870) {
