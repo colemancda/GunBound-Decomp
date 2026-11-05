@@ -2377,7 +2377,7 @@ documented (Channel 1's queued/polled `ProcessPacket` traffic and Channel
     from the UDP `recvfrom`/`sendto` pair used for the main game protocol
     documented everywhere else in this project), complete with its own
     non-blocking retry/backpressure handling (`WSAEWOULDBLOCK`/`0x2733`
-    triggers buffering the unsent remainder via `FUN_004e5c70` rather than
+    triggers buffering the unsent remainder via `CArray_Add_4004` rather than
     blocking).
 
 **Significance**: GunBound's client maintains a genuinely separate TCP
