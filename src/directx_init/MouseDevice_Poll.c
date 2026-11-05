@@ -1,8 +1,17 @@
-/* FUN_004ee320 - 0x004ee320 in the original binary.
+/* MouseDevice_Poll - 0x004ee320 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): slot 3 of the mouse vtable 0x557484 (the
+ * keyboard vtable has a different function, 0x4ede50, there). The binary
+ * calls IDirectInputDevice8::GetDeviceData (vtbl+0x28) with a 0x14-byte
+ * DIDEVICEOBJECTDATA stride and a 0x40-record buffer at obj+0x88 (the
+ * count lives at obj+0x588), re-acquires (vtbl+0x1c) and retries when the
+ * result is 0x8007001E (DIERR_INPUTLOST), feeds each record to
+ * EnqueueInputEvent, then calls GetDeviceState (vtbl+0x24) for the 16-byte
+ * DIMOUSESTATE delta accumulated into obj+0x28/+0x2c/+0x30.
  *
  * EnqueueInputEvent QUEUE RECOVERED (2026-10-30): the three calls
  * (0x4ee440, 0x4ee450, 0x4ee478) load EAX = [esi+0x4c] (0x4ee436,
@@ -13,7 +22,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004ee320(int param_1)
+void __fastcall MouseDevice_Poll(int param_1)
 
 {
   uint *puVar1;

@@ -1,4 +1,5 @@
 /* InitGame - 0x0040eaa0 in the original binary.
+ * (FUN_004ee320 in the notes below is MouseDevice_Poll's old symbol.)
  *
  * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
  * verified against documented behavior beyond what's already in
