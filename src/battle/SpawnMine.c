@@ -48,7 +48,7 @@ void SpawnMine(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint par
   }
   iVar2 = FindFreeMineKey(param_4);
   while (iVar2 == -1) {
-    FUN_00437500();
+    ExplodeOldestMine();
     iVar2 = FindFreeMineKey(param_4);
   }
   pvVar3 = operator_new(0x441c);

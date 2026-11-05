@@ -45,7 +45,7 @@ void SpawnSuperMine(undefined4 param_1,undefined4 param_2,undefined4 param_3,uin
   if (cVar1 != '\0') goto LAB_00437acb;
   iVar2 = FindFreeMineKey(param_4);
   while (iVar2 == -1) {
-    FUN_00437500();
+    ExplodeOldestMine();
     iVar2 = FindFreeMineKey(param_4);
   }
   piVar3 = operator_new(0x4420);

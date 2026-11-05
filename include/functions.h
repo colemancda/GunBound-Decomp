@@ -586,7 +586,7 @@ void FUN_00436ec0();
 void FUN_00436fd0();
 void FUN_00437150();
 uint FindFreeMineKey(int regEax);
-void __fastcall FUN_00437500();
+void __fastcall ExplodeOldestMine();
 void __fastcall FUN_00437ae0();
 void SpawnLaserIon();
 void SpawnKnightIon();

@@ -1,13 +1,26 @@
-/* FUN_00437500 - 0x00437500 in the original binary.
+/* ExplodeOldestMine - 0x00437500 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00437500 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: Eviction
+ * half of the 8-mines-per-player cap. SpawnMine and SpawnSuperMine call it
+ * in `while (FindFreeMineKey(slot) == -1)` retry loops (slot in EDX/ECX),
+ * so it must free a key. It scans the player's eight keys (slot*8 .. +7)
+ * in the mine layer, keeps the entry with the smallest +0x3f9c (stamped in
+ * SpawnMine from the turn counter, so the oldest), fires vtable slot +0x20
+ * (ExplodeMine, 0x497ad0 on vtable 0x5563f0), unlinks it (+0xc / +0x10)
+ * and calls the scalar-deleting destructor. FindFreeMineKey's header
+ * documents this contract. LIKELY: the +0x3f9c-is-age reading is from that
+ * header, not re-derived here.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00437500(undefined4 param_1,int param_2)
+void __fastcall ExplodeOldestMine(undefined4 param_1,int param_2)
 
 {
   int iVar1;
