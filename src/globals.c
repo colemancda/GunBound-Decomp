@@ -2361,7 +2361,7 @@ uint32_t DAT_00544af0;
 uint32_t DAT_00544af8;
 uint32_t DAT_00544b00;
 uint32_t DAT_0054bb4c;
-uint32_t DAT_0054c870;
+float DAT_0054c870 = 1e-5f; /* orig .data 0x54c870 = 0x3727c5ac; used only via x87 fcomp/fadd */
 uint32_t DAT_00557fe4;
 uint32_t DAT_00558014;
 uint32_t DAT_00558018;
