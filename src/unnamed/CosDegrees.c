@@ -12,18 +12,19 @@
  * (0x54c240), result in ST0. Callers (RenderMobile,
  * State11_InBattle_HandleFireInput x3, State11_InBattle_HandleMouseInput
  * x3, FUN_0045cb50, Mobile.cpp) call this and then SinDegrees back to
- * back, each followed by FloatToInt64. OPEN BUG, not fixed by this rename:
- * same as SinDegrees - the port is int f(void) returning (in_EAX + 0x5a) /
- * 0x168, dropping the EAX angle argument and the float ST0 result.
+ * back, each followed by FloatToInt64. FIXED (2026-11-05): was int f(void)
+ * returning (in_EAX + 0x5a) / 0x168, dropping the EAX angle argument and the
+ * float ST0 result; now float CosDegrees(int angle), see SinDegrees.
  */
 #include "ghidra_types.h"
+#include "globals.h"
 
-
-int CosDegrees(void)
-
+float CosDegrees(int angle)
 {
-  int in_EAX;
-  
-  return (in_EAX + 0x5a) / 0x168;
-}
+  int idx = (angle + 0x5a) % 0x168;
 
+  if (idx < 0) {
+    idx += 0x168;
+  }
+  return g_sineTable360[idx];
+}

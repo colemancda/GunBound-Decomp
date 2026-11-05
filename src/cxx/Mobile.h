@@ -94,8 +94,10 @@ public:
      * (0x45b900) - direct (non-RLE) sprite copies clipped to the 128x128 tile -
      * draws the aim/trajectory markers (BlitRLESprite), and sprintf's a "%d,%d"
      * coordinate overlay drawn digit-by-digit; populates the per-slot
-     * turn-display array. (The +0x90c fire-angle field is fed through the
-     * FUN_004ead90/70 = (x+90)/360 and x/360 helpers, then FloatToInt64.) */
+     * turn-display array. (The +0x62f8-cell turret angle is the EAX argument of
+     * CosDegrees/SinDegrees (0x4ead90/70), which index g_sineTable360 with
+     * the angle wrapped to 0..359 (cos adds 90) and return the float in ST0;
+     * the result is scaled by 18.0 and truncated, as in the original.) */
     virtual void v3_Render();
     /* slot 4 +0x10: 0x429800 (shared) - no-op (`return;`). */
     virtual void v4_NoOp();

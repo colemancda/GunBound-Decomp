@@ -119,8 +119,8 @@ unsigned int __fastcall BlitSpriteAttached(unsigned int phantom, unsigned int at
 void BlitRLESprite(int a, int b);
 void DrawSprite(void);
 void GBFillRect(int a, int b);
-void CosDegrees(void);               /* (x+90)/360 angle helper */
-void SinDegrees(void);               /* x/360 angle helper */
+float CosDegrees(int angle);         /* g_sineTable360[(angle+90) wrapped to 0..359] */
+float SinDegrees(int angle);         /* g_sineTable360[angle wrapped to 0..359] */
 int  FloatToInt64(void);
 char CheckGuardedBoolAnd(int cond);
 unsigned int PacketChecksumEquals(void *cell, int v);
@@ -349,7 +349,8 @@ int CMobile::v5_ComputeGroundY()
  *     DrawSprite.
  * The fire angle/power are read from the CValueGuard cells at m_pad908+4
  * (0x90c) / +0x228 (0xb30); the +0x59f0 cell feeds the turret angle through
- * FUN_004ead90/70 ((x+90)/360, x/360) + FloatToInt64. Camera-relative
+ * CosDegrees/SinDegrees (0x4ead90/70: angle in EAX,
+ * g_sineTable360 lookup, float in ST0) * 18.0, truncated. Camera-relative
  * screen position uses g_nCameraX/Y as ctx-relative arena fields
  * (&sym + g_clientContext, see the declaration note above).
  *
@@ -485,9 +486,7 @@ void CMobile::v3_Render()
                 *reinterpret_cast<unsigned int *>(g_clientContext + 0x227a8) = 1;
                 uVar8 = EncodeChecksumNegate(this->m_pad908 + 0x59f0, local_89c);
                 uVar8 = EncodeChecksumDeltaAdd(reinterpret_cast<void *>(uVar8), local_678, 0x5a);
-                PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
-                CosDegrees();
-                uVar8 = FloatToInt64();
+                uVar8 = (int)((double)CosDegrees((int)PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8))) * 18.0);
                 uVar8 = EncodeChecksumDeltaAdd(pbVar13, local_454, (int)uVar8);
                 uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
                 *reinterpret_cast<unsigned int *>(g_clientContext + 0x227ac) = uVar8;
@@ -496,9 +495,7 @@ void CMobile::v3_Render()
                 ScrubChecksumGuard(local_89c);
                 uVar8 = EncodeChecksumNegate(this->m_pad908 + 0x59f0, local_454);
                 uVar8 = EncodeChecksumDeltaAdd(reinterpret_cast<void *>(uVar8), local_678, 0x5a);
-                PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
-                SinDegrees();
-                uVar8 = FloatToInt64();
+                uVar8 = (int)((double)SinDegrees((int)PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8))) * 18.0);
                 uVar8 = EncodeChecksumDeltaSub(this->m_pad908 + 0x228, local_89c, uVar8);
                 uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
                 *reinterpret_cast<unsigned int *>(g_clientContext + 0x227b0) = uVar8;
@@ -1545,57 +1542,54 @@ LAB_00460553:
                 (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = cVar9 != '\0';
                 g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
                 cVar9 = PacketChecksumEquals(piVar20, 0);
-                if (cVar9 == '\0') {
-                    PeekChecksumStateUnderLock(param_1 + 0x273c);
-                    PeekChecksumStateUnderLock(param_1 + 0x1476);
-                } else {
-                    PeekChecksumStateUnderLock(param_1 + 0x1476);
-                    PeekChecksumStateUnderLock(param_1 + 0x273c);
+                {
+                  int iAngle;
+                  if (cVar9 == '\0') {
+                    iAngle = (int)PeekChecksumStateUnderLock(param_1 + 0x273c);
+                    iAngle += (int)PeekChecksumStateUnderLock(param_1 + 0x1476);
+                  } else {
+                    iAngle = 0xb4 - (int)PeekChecksumStateUnderLock(param_1 + 0x1476);
+                    iAngle -= (int)PeekChecksumStateUnderLock(param_1 + 0x273c);
+                  }
+                  uVar11 = (unsigned short)(int)((double)(int)PeekChecksumStateUnderLock(param_1 + 0x27c5) * CosDegrees(iAngle));
+                  uVar14 = (unsigned short)(int)((double)(int)PeekChecksumStateUnderLock(param_1 + 0x27c5) * SinDegrees(iAngle));
                 }
-                PeekChecksumStateUnderLock(param_1 + 0x27c5);
-                CosDegrees();
-                uVar11 = (unsigned short)FloatToInt64();
-                PeekChecksumStateUnderLock(param_1 + 0x27c5);
-                SinDegrees();
-                uVar14 = (unsigned short)FloatToInt64();
                 *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
                 puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aace + g_dwBroadcastEventCursor);
                 g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
                 *puVar1 = uVar14;
                 g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
                 cVar9 = PacketChecksumEquals(piVar20, 0);
-                if (cVar9 == '\0') {
-                    PeekChecksumStateUnderLock(param_1 + 0x284e);
-                    PeekChecksumStateUnderLock(param_1 + 0x1476);
-                } else {
-                    PeekChecksumStateUnderLock(param_1 + 0x284e);
-                    PeekChecksumStateUnderLock(param_1 + 0x1476);
+                {
+                  int iAngle;
+                  if (cVar9 == '\0') {
+                    iAngle = (int)PeekChecksumStateUnderLock(param_1 + 0x284e);
+                    iAngle += (int)PeekChecksumStateUnderLock(param_1 + 0x1476);
+                  } else {
+                    iAngle = 0xb4 - (int)PeekChecksumStateUnderLock(param_1 + 0x284e);
+                    iAngle -= (int)PeekChecksumStateUnderLock(param_1 + 0x1476);
+                  }
+                  uVar11 = (unsigned short)(int)((double)(int)PeekChecksumStateUnderLock(param_1 + 0x28d7) * CosDegrees(iAngle));
+                  uVar14 = (unsigned short)(int)((double)(int)PeekChecksumStateUnderLock(param_1 + 0x28d7) * SinDegrees(iAngle));
                 }
-                PeekChecksumStateUnderLock(param_1 + 0x28d7);
-                CosDegrees();
-                uVar11 = (unsigned short)FloatToInt64();
-                PeekChecksumStateUnderLock(param_1 + 0x28d7);
-                SinDegrees();
-                uVar14 = (unsigned short)FloatToInt64();
                 *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
                 puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aace + g_dwBroadcastEventCursor);
                 g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
                 *puVar1 = uVar14;
                 g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
                 cVar9 = PacketChecksumEquals(piVar20, 0);
-                if (cVar9 == '\0') {
-                    PeekChecksumStateUnderLock(param_1 + 0x2a72);
-                    PeekChecksumStateUnderLock(param_1 + 0x1476);
-                } else {
-                    PeekChecksumStateUnderLock(param_1 + 0x1476);
-                    PeekChecksumStateUnderLock(param_1 + 0x2a72);
+                {
+                  int iAngle;
+                  if (cVar9 == '\0') {
+                    iAngle = (int)PeekChecksumStateUnderLock(param_1 + 0x2a72);
+                    iAngle += (int)PeekChecksumStateUnderLock(param_1 + 0x1476);
+                  } else {
+                    iAngle = 0xb4 - (int)PeekChecksumStateUnderLock(param_1 + 0x1476);
+                    iAngle -= (int)PeekChecksumStateUnderLock(param_1 + 0x2a72);
+                  }
+                  uVar11 = (unsigned short)(int)((double)(int)PeekChecksumStateUnderLock(param_1 + 0x2afb) * CosDegrees(iAngle));
+                  uVar14 = (unsigned short)(int)((double)(int)PeekChecksumStateUnderLock(param_1 + 0x2afb) * SinDegrees(iAngle));
                 }
-                PeekChecksumStateUnderLock(param_1 + 0x2afb);
-                CosDegrees();
-                uVar11 = (unsigned short)FloatToInt64();
-                PeekChecksumStateUnderLock(param_1 + 0x2afb);
-                SinDegrees();
-                uVar14 = (unsigned short)FloatToInt64();
                 iVar18 = g_clientContext;
                 *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
                 puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aace + g_dwBroadcastEventCursor);

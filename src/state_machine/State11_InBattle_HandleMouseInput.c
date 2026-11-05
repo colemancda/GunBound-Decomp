@@ -839,20 +839,18 @@ LAB_004bafd2:
   (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = cVar4 != '\0';
   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
   cVar4 = PacketChecksumEquals(*(int *)(iVar13 + 0x621e0) + 0x1c54,0);
-  if (cVar4 == '\0') {
-    PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x9cf0);
-    PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x51d8);
+  {
+    int iAngle;
+    if (cVar4 == '\0') {
+      iAngle = (int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x9cf0);
+      iAngle += (int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x51d8);
+    } else {
+      iAngle = 0xb4 - (int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x51d8);
+      iAngle -= (int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x9cf0);
+    }
+    uVar7 = (int)((double)(int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x9f14) * CosDegrees(iAngle));
+    uVar8 = (int)((double)(int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x9f14) * SinDegrees(iAngle));
   }
-  else {
-    PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x51d8);
-    PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x9cf0);
-  }
-  PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x9f14);
-  CosDegrees();
-  uVar7 = FloatToInt64();
-  PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x9f14);
-  SinDegrees();
-  uVar8 = FloatToInt64();
   iVar13 = g_clientContext;
   *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
   puVar2 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
@@ -860,20 +858,18 @@ LAB_004bafd2:
   *puVar2 = uVar8;
   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
   cVar4 = PacketChecksumEquals(*(int *)(iVar13 + 0x621e0) + 0x1c54,0);
-  if (cVar4 == '\0') {
-    PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa138);
-    PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x51d8);
+  {
+    int iAngle;
+    if (cVar4 == '\0') {
+      iAngle = (int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa138);
+      iAngle += (int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x51d8);
+    } else {
+      iAngle = 0xb4 - (int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x51d8);
+      iAngle -= (int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa138);
+    }
+    uVar7 = (int)((double)(int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa35c) * CosDegrees(iAngle));
+    uVar8 = (int)((double)(int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa35c) * SinDegrees(iAngle));
   }
-  else {
-    PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x51d8);
-    PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa138);
-  }
-  PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa35c);
-  CosDegrees();
-  uVar7 = FloatToInt64();
-  PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa35c);
-  SinDegrees();
-  uVar8 = FloatToInt64();
   iVar13 = g_clientContext;
   *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
   puVar2 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
@@ -881,20 +877,18 @@ LAB_004bafd2:
   *puVar2 = uVar8;
   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
   cVar4 = PacketChecksumEquals(*(int *)(iVar13 + 0x621e0) + 0x1c54,0);
-  if (cVar4 == '\0') {
-    PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa9c8);
-    PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x51d8);
+  {
+    int iAngle;
+    if (cVar4 == '\0') {
+      iAngle = (int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa9c8);
+      iAngle += (int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x51d8);
+    } else {
+      iAngle = 0xb4 - (int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x51d8);
+      iAngle -= (int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa9c8);
+    }
+    uVar7 = (int)((double)(int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xabec) * CosDegrees(iAngle));
+    uVar8 = (int)((double)(int)PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xabec) * SinDegrees(iAngle));
   }
-  else {
-    PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x51d8);
-    PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa9c8);
-  }
-  PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xabec);
-  CosDegrees();
-  uVar7 = FloatToInt64();
-  PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xabec);
-  SinDegrees();
-  uVar8 = FloatToInt64();
   iVar13 = g_clientContext;
   *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
   puVar2 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);

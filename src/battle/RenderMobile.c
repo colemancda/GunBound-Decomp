@@ -172,9 +172,7 @@ void __fastcall RenderMobile(int param_1)
         local_4 = 0;
         uVar7 = EncodeChecksumDeltaAdd(uVar7,local_678,0x5a);
         local_4 = 1;
-        PeekChecksumStateUnderLock(uVar7);
-        CosDegrees();
-        uVar7 = FloatToInt64();
+        uVar7 = (int)((double)CosDegrees((int)PeekChecksumStateUnderLock(uVar7)) * 18.0);
         uVar7 = EncodeChecksumDeltaAdd(iVar1,local_454,uVar7);
         local_4 = 2;
         uVar7 = PeekChecksumStateUnderLock(uVar7);
@@ -189,9 +187,7 @@ void __fastcall RenderMobile(int param_1)
         local_4 = 3;
         uVar7 = EncodeChecksumDeltaAdd(uVar7,local_678,0x5a);
         local_4 = 4;
-        PeekChecksumStateUnderLock(uVar7);
-        SinDegrees();
-        uVar7 = FloatToInt64();
+        uVar7 = (int)((double)SinDegrees((int)PeekChecksumStateUnderLock(uVar7)) * 18.0);
         uVar7 = EncodeChecksumDeltaSub(param_1 + 0xb30,local_89c,uVar7);
         local_4 = 5;
         uVar7 = PeekChecksumStateUnderLock(uVar7);

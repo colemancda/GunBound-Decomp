@@ -24,6 +24,7 @@ void __fastcall FUN_0045cb50(int *param_1)
   char cVar3;
   int iVar4;
   int iVar5;
+  float fCos;
   undefined4 uVar6;
   int iVar7;
   int iVar8;
@@ -137,10 +138,8 @@ LAB_0045cdb1:
     if ((cVar3 == '\x01') &&
        ((cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,1), cVar3 != '\0' ||
         (cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar3 != '\0')))) {
-      PeekChecksumStateUnderLock(g_clientContext + 0x5b1ac);
-      CosDegrees();
-      PeekChecksumStateUnderLock(g_clientContext + 0x5af88);
-      iVar5 = FloatToInt64();
+      fCos = CosDegrees((int)PeekChecksumStateUnderLock(g_clientContext + 0x5b1ac));
+      iVar5 = (int)((double)(int)PeekChecksumStateUnderLock(g_clientContext + 0x5af88) * fCos);
       param_1[0x2ffb] = param_1[0x2ffb] + iVar5 * 3;
       iVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
       AddToPacketChecksum(param_1 + 0x243, param_1[0x2ffb] / iVar5);

@@ -17,22 +17,23 @@
  * eax set at 6 of 7) loads an angle into EAX, calls this, hands the x87
  * result straight to FloatToInt64 and adds or subtracts the integer on a
  * position cell, always right after the +0x5a twin CosDegrees (0x4ead90,
- * cos a = sin(a+90)). OPEN BUG, not fixed by this rename: the port
- * declares int f(void) and returns in_EAX / 0x168, which is wrong on three
- * counts - the angle is a register argument that every call site drops,
- * the operation is a wrapped modulus used as a table index and not a
- * division, and the result is a float in ST0, not an int in EAX. The
- * comments in Mobile.h and Mobile.cpp that call these the x/360 helpers
- * share the misreading.
+ * cos a = sin(a+90)). FIXED (2026-11-05): the old port declared int f(void)
+ * and returned in_EAX / 0x168, wrong on three counts (the angle is a register
+ * argument, the operation is a wrapped modulus used as a table index, and the
+ * result is a float in ST0). It is now float SinDegrees(int angle); the EAX
+ * register argument is promoted to a real parameter because MSVC cannot
+ * express EAX. Every call site now passes the angle: the wrapped sum
+ * (peek A + peek B, or 180 - peek B - peek A) built just before the call.
  */
 #include "ghidra_types.h"
+#include "globals.h"
 
-
-int SinDegrees(void)
-
+float SinDegrees(int angle)
 {
-  int in_EAX;
-  
-  return in_EAX / 0x168;
-}
+  int idx = angle % 0x168;
 
+  if (idx < 0) {
+    idx += 0x168;
+  }
+  return g_sineTable360[idx];
+}

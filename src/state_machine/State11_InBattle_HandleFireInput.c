@@ -669,60 +669,54 @@ LAB_004606d5:
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = cVar9 != '\0';
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         cVar9 = PacketChecksumEquals(piVar20,0);
-        if (cVar9 == '\0') {
-          PeekChecksumStateUnderLock(param_1 + 0x273c);
-          PeekChecksumStateUnderLock(param_1 + 0x1476);
+        {
+          int iAngle;
+          if (cVar9 == '\0') {
+            iAngle = (int)PeekChecksumStateUnderLock(param_1 + 0x273c);
+            iAngle += (int)PeekChecksumStateUnderLock(param_1 + 0x1476);
+          } else {
+            iAngle = 0xb4 - (int)PeekChecksumStateUnderLock(param_1 + 0x1476);
+            iAngle -= (int)PeekChecksumStateUnderLock(param_1 + 0x273c);
+          }
+          uVar11 = (int)((double)(int)PeekChecksumStateUnderLock(param_1 + 0x27c5) * CosDegrees(iAngle));
+          uVar14 = (int)((double)(int)PeekChecksumStateUnderLock(param_1 + 0x27c5) * SinDegrees(iAngle));
         }
-        else {
-          PeekChecksumStateUnderLock(param_1 + 0x1476);
-          PeekChecksumStateUnderLock(param_1 + 0x273c);
-        }
-        PeekChecksumStateUnderLock(param_1 + 0x27c5);
-        CosDegrees();
-        uVar11 = FloatToInt64();
-        PeekChecksumStateUnderLock(param_1 + 0x27c5);
-        SinDegrees();
-        uVar14 = FloatToInt64();
         *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
         puVar1 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         *puVar1 = uVar14;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         cVar9 = PacketChecksumEquals(piVar20,0);
-        if (cVar9 == '\0') {
-          PeekChecksumStateUnderLock(param_1 + 0x284e);
-          PeekChecksumStateUnderLock(param_1 + 0x1476);
+        {
+          int iAngle;
+          if (cVar9 == '\0') {
+            iAngle = (int)PeekChecksumStateUnderLock(param_1 + 0x284e);
+            iAngle += (int)PeekChecksumStateUnderLock(param_1 + 0x1476);
+          } else {
+            iAngle = 0xb4 - (int)PeekChecksumStateUnderLock(param_1 + 0x284e);
+            iAngle -= (int)PeekChecksumStateUnderLock(param_1 + 0x1476);
+          }
+          uVar11 = (int)((double)(int)PeekChecksumStateUnderLock(param_1 + 0x28d7) * CosDegrees(iAngle));
+          uVar14 = (int)((double)(int)PeekChecksumStateUnderLock(param_1 + 0x28d7) * SinDegrees(iAngle));
         }
-        else {
-          PeekChecksumStateUnderLock(param_1 + 0x284e);
-          PeekChecksumStateUnderLock(param_1 + 0x1476);
-        }
-        PeekChecksumStateUnderLock(param_1 + 0x28d7);
-        CosDegrees();
-        uVar11 = FloatToInt64();
-        PeekChecksumStateUnderLock(param_1 + 0x28d7);
-        SinDegrees();
-        uVar14 = FloatToInt64();
         *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
         puVar1 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         *puVar1 = uVar14;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         cVar9 = PacketChecksumEquals(piVar20,0);
-        if (cVar9 == '\0') {
-          PeekChecksumStateUnderLock(param_1 + 0x2a72);
-          PeekChecksumStateUnderLock(param_1 + 0x1476);
+        {
+          int iAngle;
+          if (cVar9 == '\0') {
+            iAngle = (int)PeekChecksumStateUnderLock(param_1 + 0x2a72);
+            iAngle += (int)PeekChecksumStateUnderLock(param_1 + 0x1476);
+          } else {
+            iAngle = 0xb4 - (int)PeekChecksumStateUnderLock(param_1 + 0x1476);
+            iAngle -= (int)PeekChecksumStateUnderLock(param_1 + 0x2a72);
+          }
+          uVar11 = (int)((double)(int)PeekChecksumStateUnderLock(param_1 + 0x2afb) * CosDegrees(iAngle));
+          uVar14 = (int)((double)(int)PeekChecksumStateUnderLock(param_1 + 0x2afb) * SinDegrees(iAngle));
         }
-        else {
-          PeekChecksumStateUnderLock(param_1 + 0x1476);
-          PeekChecksumStateUnderLock(param_1 + 0x2a72);
-        }
-        PeekChecksumStateUnderLock(param_1 + 0x2afb);
-        CosDegrees();
-        uVar11 = FloatToInt64();
-        PeekChecksumStateUnderLock(param_1 + 0x2afb);
-        SinDegrees();
-        uVar14 = FloatToInt64();
         iVar18 = g_clientContext;
         *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
         puVar1 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
