@@ -341,7 +341,7 @@ undefined4 HandleBackgroundActiveObjectMouseDown(int param_1,int mouseX,int mous
 int FindActiveObjectAt(void *widgetRoot,int mouseX,int mouseY);
 void SyncActiveTextInput(int param_1);
 void __fastcall FUN_0040cf30(undefined4 param_1,uint param_2,int param_3,int regEax,uint regEsi);
-void __fastcall FUN_0040cf80(undefined4 param_1,uint param_2,int param_3,uint regEsi);
+void __fastcall ActivateTextBoxById(undefined4 param_1,uint param_2,int param_3,uint regEsi);
 int __fastcall GetWidgetChildText(undefined4 param_1,uint widgetId,int regEax,uint childId);
 void __thiscall NavigateTextBoxFocusOnKey(int param_1, int param_2, int message);
 void __fastcall PanelManager_BaseDestructorThunk(undefined4 *param_1);

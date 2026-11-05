@@ -1,8 +1,22 @@
-/* FUN_0040cf80 - 0x0040cf80 in the original binary.
+/* ActivateTextBoxById - 0x0040cf80 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_0040cf80 mean this function.)
+ *
+ * NAMED (2026-11-05), HIGH. Evidence from outside the body: Walks registry
+ * param_3's layer list for the layer key param_2 and then that layer's
+ * object ring for the id in ESI (both are ordered unsigned-key walks that
+ * stop early once the key is passed, so a miss changes nothing); on a hit
+ * it commits the outgoing focused box with CommitActiveTextInput, stores
+ * the new box at registry + 8 (the same focus slot
+ * NavigateTextBoxFocusOnKey cycles) and starts editing with
+ * TextBoxWidget_BeginEdit. Both binary callers are in
+ * State07_AvatarStore_OnCommand and pass registry 0xe9c0fc
+ * (g_activeObjectRegistry2), layer 0x2710 and id 0, i.e. focus the box
+ * with that fixed key.
  *
  * ARGUMENTS RE-SLOTTED AND ESI RECOVERED.  `ret 4` gives one stack argument,
  * so param_1 is ECX, param_2 is EDX and param_3 is the push.  ECX is a
@@ -22,7 +36,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0040cf80(undefined4 param_1,uint param_2,int param_3,uint regEsi)
+void __fastcall ActivateTextBoxById(undefined4 param_1,uint param_2,int param_3,uint regEsi)
 
 {
   uint uVar1;

@@ -579,7 +579,7 @@ LAB_004457e7:
           }
           *(undefined4 *)(iVar3 + 0x448) = 0;
           RegisterActiveObject(0, 0, (undefined4 *)0);
-          FUN_0040cf80(0,0x2710,(int)&g_activeObjectRegistry2,0);
+          ActivateTextBoxById(0,0x2710,(int)&g_activeObjectRegistry2,0);
           local_4 = local_4 & 0xffffff00;
           FUN_004254a0();
         }
@@ -986,7 +986,7 @@ LAB_00446f6d:
         break;
       }
     }
-    FUN_0040cf80(0,0x2710,(int)&g_activeObjectRegistry2,0);
+    ActivateTextBoxById(0,0x2710,(int)&g_activeObjectRegistry2,0);
     break;
   case 0x36:
     RenderInventoryItemDetail(param_1);
