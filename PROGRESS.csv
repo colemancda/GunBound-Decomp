@@ -206,7 +206,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040c470,224,ReadRegistryDword,false,2,6,RAW-src
 0040c550,194,WriteRegistryDword,false,3,6,RAW-src
 0040c620,71,GetDisplayConfigFromRegistry,false,1,4,RAW-src
-0040c670,113,FUN_0040c670,false,1,5,RAW-src
+0040c670,113,CreateSharedTextInputControl,false,1,5,RAW-src
 0040c6f0,359,FUN_0040c6f0,false,1,5,RAW-src
 0040c880,39,FetchActiveTextInputText,false,4,1,RAW-src
 0040c8b0,32,TextEntry_PushTextToControl,false,1,1,RAW-src

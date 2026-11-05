@@ -1,9 +1,24 @@
-/* FUN_0040c670 - 0x0040c670 in the original binary.
+/* CreateSharedTextInputControl - 0x0040c670 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_0040c670 mean this function.)
+ *
+ * NAMED (2026-11-05), HIGH. Evidence from outside the body: Sole caller
+ * InitGame hands it a freshly allocated 0x10-byte block and stores that
+ * same block in g_sharedTextInputControl; this function fills it in:
+ * block[0] = parent HWND, block[1] = the child created by CreateWindowExA
+ * with class DAT_00552084 (the Win32 edit control class, bytes 'edit' in
+ * the original .rdata), size 800x24, block[3] = its original WndProc, then
+ * subclasses it with 0x40c6f0 (SharedTextInputControlWndProc), SetFocus,
+ * marks the block ready at +8 and calls ImmDisableIME. The block is what
+ * CommitActiveTextInput, SyncActiveTextInput and
+ * TextEntry_PushTextToControl read as g_sharedTextInputControl (HWND at
+ * +4, active flag at +8), so this is the creator of the one shared text
+ * input control. Calling convention is unchanged (__fastcall: hInstance,
+ * block, hWndParent).
  *
  * FIXED (2026-07-14): both `unaff_ESI` (the caller's freshly-allocated
  * 0x10-byte block, built into a sub-window control wrapper: [0]=parent
@@ -32,7 +47,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0040c670(HINSTANCE param_1,undefined4 *block,HWND hWndParent)
+void __fastcall CreateSharedTextInputControl(HINSTANCE param_1,undefined4 *block,HWND hWndParent)
 
 {
   HWND hWnd;

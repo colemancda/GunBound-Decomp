@@ -325,7 +325,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
            * NULL, this was a real, live-reproduced NULL+8 write crash
            * the instant the game reached server select. */
           g_sharedTextInputControl = (uint32_t)pvVar2;
-          FUN_0040c670((HINSTANCE)param_2,(undefined4 *)pvVar2,(HWND)param_1);
+          CreateSharedTextInputControl((HINSTANCE)param_2,(undefined4 *)pvVar2,(HWND)param_1);
         }
         /* Both take a fixed global control-block pointer via a dropped ESI
          * register in the original (0x40f38e/0x40f39d); see their own .c
