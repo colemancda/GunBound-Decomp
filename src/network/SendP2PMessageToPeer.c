@@ -19,8 +19,8 @@
  * sends the datagram with SendEncryptedP2PDatagram when the peer is
  * connected, appends it to the peer record's pending array
  * (CArray_Add_1750) when it is not, calls the owner's vtable slot 0 with
- * the same message when the peer record is absent (the port's flow around
- * the slot +4 lookup is garbled), and arms the 0x14a retransmit timer that
+ * the same message when the peer record is absent (flow around the slot +4
+ * lookup fixed 2026-11: its AL result was discarded and ECX was dropped), and arms the 0x14a retransmit timer that
  * RetransmitPendingP2PDatagrams services. LIKELY because the name
  * generalises over the three paths (direct, queued, relayed).
  *
@@ -64,6 +64,14 @@
 #include "ghidra_types.h"
 
 
+/* Owner virtuals are genuine __thiscall (this = owner in ECX), so use the
+ * __fastcall + dummy-EDX idiom. Slot 1 (+4) takes the peer id; slot 0 takes
+ * (0, id, type, payload, length, address object), all callee-cleaned. */
+typedef char (__fastcall *OwnerLookupFn)(void *thisPtr, int dummyEDX, undefined4 id);
+typedef void (__fastcall *OwnerSendFn)(void *thisPtr, int dummyEDX, int zero, undefined4 id,
+                                       undefined4 type, undefined4 *payload, uint length,
+                                       undefined4 *addr);
+
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
 undefined4 __thiscall
@@ -102,9 +110,13 @@ SendP2PMessageToPeer(undefined4 *param_1,int *param_2,undefined4 param_3,undefin
     cVar2 = FindP2PPeerRecord((undefined4)param_2,(int *)&local_2ecc,(char *)param_3);
     uStack_2eaa = (ushort)param_6;
     if (cVar2 == '\0') {
-      (**(code **)(*param_2 + 4))(param_3);
+      /* 0x4fe146..0x4fe150: ECX = owner (EBX = param_2), one stack arg (ESI =
+         param_3), callee-cleaned; its AL bool is tested. Zero -> 0x4fe152
+         slot 0 with 6 stack args (0, param_3, param_4, param_5, param_6,
+         param_1) and return 1; non-zero -> 0x4fe173 look the peer up again. */
+      cVar2 = ((OwnerLookupFn)*(void **)(*param_2 + 4))(param_2,0,param_3);
       if (cVar2 == '\0') {
-        (**(code **)*param_2)(0,param_3,param_4,param_5,param_6,param_1);
+        ((OwnerSendFn)*(void **)*param_2)(param_2,0,0,param_3,param_4,param_5,param_6,param_1);
         return 1;
       }
       cVar2 = FindP2PPeerRecord((undefined4)param_2,(int *)&local_2ecc,(char *)param_3);
