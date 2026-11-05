@@ -65,7 +65,7 @@ undefined4 * GetLocalizedString(undefined4 param_1,int param_2)
   uStack_4 = 0;
   /* orig 0x43dca0/0x43dc9c: EDX = param_1 (the table) and EDI = param_2
    * (the id) - both dropped by the decompile until 2026-08-19. */
-  iVar4 = (int)FUN_0043e060(0,(undefined4 *)param_1,param_2);
+  iVar4 = (int)FindLocalizedStringNode(0,(undefined4 *)param_1,param_2);
   puVar2 = PTR_DAT_0056d460;
   if (iVar4 != 0) {
     CString_Assign((int *)(iVar4 + 4),&local_10);

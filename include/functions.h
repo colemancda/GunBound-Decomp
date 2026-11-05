@@ -625,7 +625,7 @@ int FUN_0043dd40();
 void CString_Assign(int *regEax,int *regEdi);
 undefined4 CString_CloneData(int *regEax);
 int FUN_0043de70(int *param_1,int regEcx,char *regEax);
-int * __fastcall FUN_0043e060();
+int * __fastcall FindLocalizedStringNode();
 void __fastcall FUN_0043e0f0(int *param_1,int regEbx,undefined4 regEax);
 undefined4 * FUN_0043e150(undefined4 param_1,undefined4 param_2,undefined4 *regEsi);
 void State10_Loading_ProcessPacket();

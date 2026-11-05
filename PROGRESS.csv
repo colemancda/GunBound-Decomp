@@ -487,7 +487,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0043ddb0,87,CString_Assign,false,2,2,RAW-src
 0043de10,92,CString_CloneData,false,11,1,RAW-src
 0043de70,487,FUN_0043de70,false,1,1,RAW-src
-0043e060,134,FUN_0043e060,false,2,0,RAW-src
+0043e060,134,FindLocalizedStringNode,false,2,0,RAW-src
 0043e0f0,87,FUN_0043e0f0,false,1,1,RAW-src
 0043e150,296,FUN_0043e150,false,1,3,RAW-src
 0043e280,440,State10_Loading_ProcessPacket,false,1,6,RAW-src
