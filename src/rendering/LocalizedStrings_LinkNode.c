@@ -1,10 +1,21 @@
-/* FUN_0043e0f0 - 0x0043e0f0 in the original binary.
+/* LocalizedStrings_LinkNode - 0x0043e0f0 in the original binary.
  * (Historical notes below: FUN_0043de70 is now LocalizedStrings_Insert.)
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_0043e0f0 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: the only
+ * caller is LocalizedStrings_Insert (0x43de70), which runs the red-black
+ * rebalance on the node this returns. It takes a node from
+ * LocalizedStrings_BuyNode for the (id, message) pair, descends from the
+ * root comparing the id against each node key to find the parent, stores
+ * the parent at node+0x14, and hangs the node as the left (+0xc) or right
+ * (+0x10) child, or makes it the root. That is exactly the 'link before
+ * rebalance' half of a tree insert whose rebalance half lives in the
+ * caller.
  *
  * REGISTERS RECOVERED (2026-08-25).  Inserts a (key, value) node into the
  * localized-string map param_1 (ECX): regEbx is the signed id key the tree
@@ -15,7 +26,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0043e0f0(int *param_1,int regEbx,undefined4 regEax)
+void __fastcall LocalizedStrings_LinkNode(int *param_1,int regEbx,undefined4 regEax)
 
 {
   int *piVar1;

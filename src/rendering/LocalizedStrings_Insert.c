@@ -36,7 +36,7 @@ int LocalizedStrings_Insert(int *param_1,int regEcx,char *regEax)
   int iVar4;
   int iVar5;
   
-  FUN_0043e0f0(param_1,regEcx,(undefined4)regEax);
+  LocalizedStrings_LinkNode(param_1,regEcx,(undefined4)regEax);
   *(undefined4 *)(iVar2 + 8) = 0;
   iVar3 = iVar2;
   if (iVar2 != *param_1) {
