@@ -295,7 +295,7 @@ vtable 0x555ac4  installs=1  slots=9
    8: 0x48de60  ExplodeSuperShot_Bullet1_5_6_12_13_15
 
 vtable 0x555af8  installs=3  slots=8
-   0: 0x44e8f0  FUN_0044e8f0
+   0: 0x44e8f0  Mobile00_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -360,7 +360,7 @@ vtable 0x555bf0  installs=1  slots=9  UNCARVED=1
    8: 0x48de60  ExplodeSuperShot_Bullet1_5_6_12_13_15
 
 vtable 0x555c14  installs=2  slots=8
-   0: 0x454270  FUN_00454270
+   0: 0x454270  Mobile05_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -431,7 +431,7 @@ vtable 0x555d14  installs=2  slots=8
    7: 0x491a40  FUN_00491a40
 
 vtable 0x555d34  installs=2  slots=8
-   0: 0x466860  FUN_00466860
+   0: 0x466860  Mobile08_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -441,7 +441,7 @@ vtable 0x555d34  installs=2  slots=8
    7: 0x466890  Mobile08_MainAction
 
 vtable 0x555d54  installs=2  slots=8
-   0: 0x466fa0  FUN_00466fa0
+   0: 0x466fa0  Mobile15_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -520,7 +520,7 @@ vtable 0x555e30  installs=1  slots=9
    8: 0x46ca60  ExplodeSuperShot_Bullet14
 
 vtable 0x555e54  installs=2  slots=8
-   0: 0x46cb80  FUN_0046cb80
+   0: 0x46cb80  Mobile13_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -585,7 +585,7 @@ vtable 0x555f04  installs=1  slots=5  UNCARVED=2
    4: 0x429800  NoOpMethod
 
 vtable 0x555f18  installs=2  slots=8
-   0: 0x471fa0  FUN_00471fa0
+   0: 0x471fa0  Mobile12_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -616,7 +616,7 @@ vtable 0x555f58  installs=1  slots=9
    8: 0x4759b0  ExplodeSuperShot_Bullet11
 
 vtable 0x555f7c  installs=2  slots=8
-   0: 0x475e10  FUN_00475e10
+   0: 0x475e10  Mobile10_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -663,7 +663,7 @@ vtable 0x556008  installs=2  slots=8
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x556038  installs=2  slots=8
-   0: 0x47ab60  FUN_0047ab60
+   0: 0x47ab60  Mobile14_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -721,7 +721,7 @@ vtable 0x5560d0  installs=3  slots=8  UNCARVED=2
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x5560f0  installs=2  slots=8
-   0: 0x47f2a0  FUN_0047f2a0
+   0: 0x47f2a0  Mobile09_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -786,7 +786,7 @@ vtable 0x5561c8  installs=1  slots=9
    8: 0x4837e0  ExplodeSuperShot_Bullet8
 
 vtable 0x5561ec  installs=2  slots=8
-   0: 0x484fc0  FUN_00484fc0
+   0: 0x484fc0  Mobile07_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -807,7 +807,7 @@ vtable 0x55620c  installs=2  slots=9  UNCARVED=1
    8: 0x48de60  ExplodeSuperShot_Bullet1_5_6_12_13_15
 
 vtable 0x556230  installs=2  slots=8
-   0: 0x488a90  FUN_00488a90
+   0: 0x488a90  Mobile01_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -824,7 +824,7 @@ vtable 0x556250  installs=1  slots=5  UNCARVED=1
    4: 0x429800  NoOpMethod
 
 vtable 0x556264  installs=2  slots=8
-   0: 0x489550  FUN_00489550
+   0: 0x489550  Mobile04_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -845,7 +845,7 @@ vtable 0x556284  installs=1  slots=9
    8: 0x48b420  ExplodeSuperShot_Bullet3
 
 vtable 0x5562a8  installs=2  slots=8
-   0: 0x48d1c0  FUN_0048d1c0
+   0: 0x48d1c0  Mobile02_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -966,7 +966,7 @@ vtable 0x556424  installs=1  slots=9  UNCARVED=1
    8: 0x49c050  UNCARVED
 
 vtable 0x556448  installs=2  slots=8
-   0: 0x49c0f0  FUN_0049c0f0
+   0: 0x49c0f0  Mobile06_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -1127,7 +1127,7 @@ vtable 0x55661c  installs=1  slots=9
    8: 0x48de60  ExplodeSuperShot_Bullet1_5_6_12_13_15
 
 vtable 0x556640  installs=2  slots=8
-   0: 0x4aed00  FUN_004aed00
+   0: 0x4aed00  Mobile11_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
@@ -1157,7 +1157,7 @@ vtable 0x556680  installs=2  slots=8  UNCARVED=2
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x5566a0  installs=2  slots=8
-   0: 0x4b31c0  FUN_004b31c0
+   0: 0x4b31c0  Mobile03_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile

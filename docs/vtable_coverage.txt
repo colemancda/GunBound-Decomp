@@ -6,24 +6,24 @@
 ported    vtable slots       uncarved class (~ = named from its most distinctive slot)
   93564b  0x5566d8 18 (17/17)     0     ~State11_InBattle_Delete
   27201b  0x5569f8 18 (15/15)     0     ~State09_ReadyRoom_Delete
-  23854b  0x556264  8 ( 8/ 8)     0     ~Mobile04_MainAction
-  20659b  0x555f18  8 ( 8/ 8)     0     ~Mobile12_MainAction
+  23854b  0x556264  8 ( 8/ 8)     0     ~Mobile04_ScalarDtor
+  20659b  0x555f18  8 ( 8/ 8)     0     ~Mobile12_ScalarDtor
   20218b  0x5555f8 18 (12/13)     0     ~State07_AvatarStore_Delete
-  19630b  0x555e54  8 ( 8/ 8)     0     ~Mobile13_MainAction
-  18999b  0x556448  8 ( 8/ 8)     0     ~Mobile06_MainAction
-  18979b  0x555c14  8 ( 8/ 8)     0     ~Mobile05_MainAction
-  18842b  0x555d54  8 ( 8/ 8)     0     ~Mobile15_MainAction
+  19630b  0x555e54  8 ( 8/ 8)     0     ~Mobile13_ScalarDtor
+  18999b  0x556448  8 ( 8/ 8)     0     ~Mobile06_ScalarDtor
+  18979b  0x555c14  8 ( 8/ 8)     0     ~Mobile05_ScalarDtor
+  18842b  0x555d54  8 ( 8/ 8)     0     ~Mobile15_ScalarDtor
   18803b  0x554018 18 (13/13)     0     ~State10_Loading_ProcessPacket
-  18489b  0x5566a0  8 ( 8/ 8)     0     ~Mobile03_MainAction
-  18205b  0x556640  8 ( 8/ 8)     0     ~Mobile11_MainAction
-  18203b  0x556230  8 ( 8/ 8)     0     ~Mobile01_MainAction
-  17964b  0x555d34  8 ( 8/ 8)     0     ~Mobile08_MainAction
-  17958b  0x5560f0  8 ( 8/ 8)     0     ~Mobile09_MainAction
-  17958b  0x556038  8 ( 8/ 8)     0     ~Mobile14_MainAction
-  17919b  0x5561ec  8 ( 8/ 8)     0     ~Mobile07_MainAction
-  17919b  0x555af8  8 ( 8/ 8)     0     ~Mobile00_MainAction
-  17905b  0x5562a8  8 ( 8/ 8)     0     ~Mobile02_MainAction
-  17905b  0x555f7c  8 ( 8/ 8)     0     ~Mobile10_MainAction
+  18489b  0x5566a0  8 ( 8/ 8)     0     ~Mobile03_ScalarDtor
+  18205b  0x556640  8 ( 8/ 8)     0     ~Mobile11_ScalarDtor
+  18203b  0x556230  8 ( 8/ 8)     0     ~Mobile01_ScalarDtor
+  17964b  0x555d34  8 ( 8/ 8)     0     ~Mobile08_ScalarDtor
+  17958b  0x5560f0  8 ( 8/ 8)     0     ~Mobile09_ScalarDtor
+  17958b  0x556038  8 ( 8/ 8)     0     ~Mobile14_ScalarDtor
+  17919b  0x5561ec  8 ( 8/ 8)     0     ~Mobile07_ScalarDtor
+  17919b  0x555af8  8 ( 8/ 8)     0     ~Mobile00_ScalarDtor
+  17905b  0x5562a8  8 ( 8/ 8)     0     ~Mobile02_ScalarDtor
+  17905b  0x555f7c  8 ( 8/ 8)     0     ~Mobile10_ScalarDtor
   16206b  0x555c68  8 ( 8/ 8)     0     CMobile (base)
   15899b  0x556380 10 ( 8/10)     2     ~DeleteSuperMine
   15300b  0x556078  8 ( 7/ 8)     1     ~DetonateProjectile
