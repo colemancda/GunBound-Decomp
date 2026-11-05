@@ -115,7 +115,7 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2,usho
         /* 0x411b8e: ecx = [0x7934f4] (g_directLinkConnection) is
          * 0x405b20's __fastcall `this`. 0x411ba5-0x411baf: the guarded
          * bool's cell is EAX = g_clientContext + 0x3b968. */
-        FUN_00405b20((undefined2 *)g_directLinkConnection);
+        SendDirectLinkActivated((undefined2 *)g_directLinkConnection);
         SetGuardedBool(*(char *)((int)param_1 + 2) == '\x01',g_clientContext + 0x3b968);
         iVar7 = g_clientContext;
         *(undefined4 *)(g_clientContext + 0x3b96b) = *(undefined4 *)((int)param_1 + 3);

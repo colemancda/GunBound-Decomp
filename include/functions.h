@@ -227,7 +227,7 @@ void CloseDirectLinkSocket(int param_1);
 void __fastcall FUN_004059e0();
 void __fastcall FUN_00405a20();
 void DrainDirectLinkActionRing(int param_1);
-void __fastcall FUN_00405b20(undefined2 *param_1);
+void __fastcall SendDirectLinkActivated(undefined2 *param_1);
 void __fastcall FUN_00405b60(undefined2 *param_1);
 void FUN_00405ba0();
 void SocketWorkerThreadProc(void *);

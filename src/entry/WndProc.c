@@ -107,7 +107,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
          * 0x405b60 (0x4100d7). */
         if (g_directLinkConnection != 0) {
           if (param_3 == 1) {
-            FUN_00405b20((undefined2 *)g_directLinkConnection);
+            SendDirectLinkActivated((undefined2 *)g_directLinkConnection);
           }
           else {
             FUN_00405b60((undefined2 *)g_directLinkConnection);
