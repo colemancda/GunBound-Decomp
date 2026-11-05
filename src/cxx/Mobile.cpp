@@ -119,7 +119,7 @@ unsigned int __fastcall BlitSpriteAttached(unsigned int phantom, unsigned int at
 void BlitRLESprite(int a, int b);
 void DrawSprite(void);
 void GBFillRect(int a, int b);
-void FUN_004ead90(void);               /* (x+90)/360 angle helper */
+void CosDegrees(void);               /* (x+90)/360 angle helper */
 void SinDegrees(void);               /* x/360 angle helper */
 int  FloatToInt64(void);
 char CheckGuardedBoolAnd(int cond);
@@ -486,7 +486,7 @@ void CMobile::v3_Render()
                 uVar8 = EncodeChecksumNegate(this->m_pad908 + 0x59f0, local_89c);
                 uVar8 = EncodeChecksumDeltaAdd(reinterpret_cast<void *>(uVar8), local_678, 0x5a);
                 PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
-                FUN_004ead90();
+                CosDegrees();
                 uVar8 = FloatToInt64();
                 uVar8 = EncodeChecksumDeltaAdd(pbVar13, local_454, (int)uVar8);
                 uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
@@ -1553,7 +1553,7 @@ LAB_00460553:
                     PeekChecksumStateUnderLock(param_1 + 0x273c);
                 }
                 PeekChecksumStateUnderLock(param_1 + 0x27c5);
-                FUN_004ead90();
+                CosDegrees();
                 uVar11 = (unsigned short)FloatToInt64();
                 PeekChecksumStateUnderLock(param_1 + 0x27c5);
                 SinDegrees();
@@ -1572,7 +1572,7 @@ LAB_00460553:
                     PeekChecksumStateUnderLock(param_1 + 0x1476);
                 }
                 PeekChecksumStateUnderLock(param_1 + 0x28d7);
-                FUN_004ead90();
+                CosDegrees();
                 uVar11 = (unsigned short)FloatToInt64();
                 PeekChecksumStateUnderLock(param_1 + 0x28d7);
                 SinDegrees();
@@ -1591,7 +1591,7 @@ LAB_00460553:
                     PeekChecksumStateUnderLock(param_1 + 0x2a72);
                 }
                 PeekChecksumStateUnderLock(param_1 + 0x2afb);
-                FUN_004ead90();
+                CosDegrees();
                 uVar11 = (unsigned short)FloatToInt64();
                 PeekChecksumStateUnderLock(param_1 + 0x2afb);
                 SinDegrees();

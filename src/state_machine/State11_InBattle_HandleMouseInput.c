@@ -848,7 +848,7 @@ LAB_004bafd2:
     PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x9cf0);
   }
   PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x9f14);
-  FUN_004ead90();
+  CosDegrees();
   uVar7 = FloatToInt64();
   PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x9f14);
   SinDegrees();
@@ -869,7 +869,7 @@ LAB_004bafd2:
     PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa138);
   }
   PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa35c);
-  FUN_004ead90();
+  CosDegrees();
   uVar7 = FloatToInt64();
   PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa35c);
   SinDegrees();
@@ -890,7 +890,7 @@ LAB_004bafd2:
     PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xa9c8);
   }
   PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xabec);
-  FUN_004ead90();
+  CosDegrees();
   uVar7 = FloatToInt64();
   PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xabec);
   SinDegrees();

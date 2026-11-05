@@ -678,7 +678,7 @@ LAB_004606d5:
           PeekChecksumStateUnderLock(param_1 + 0x273c);
         }
         PeekChecksumStateUnderLock(param_1 + 0x27c5);
-        FUN_004ead90();
+        CosDegrees();
         uVar11 = FloatToInt64();
         PeekChecksumStateUnderLock(param_1 + 0x27c5);
         SinDegrees();
@@ -698,7 +698,7 @@ LAB_004606d5:
           PeekChecksumStateUnderLock(param_1 + 0x1476);
         }
         PeekChecksumStateUnderLock(param_1 + 0x28d7);
-        FUN_004ead90();
+        CosDegrees();
         uVar11 = FloatToInt64();
         PeekChecksumStateUnderLock(param_1 + 0x28d7);
         SinDegrees();
@@ -718,7 +718,7 @@ LAB_004606d5:
           PeekChecksumStateUnderLock(param_1 + 0x2a72);
         }
         PeekChecksumStateUnderLock(param_1 + 0x2afb);
-        FUN_004ead90();
+        CosDegrees();
         uVar11 = FloatToInt64();
         PeekChecksumStateUnderLock(param_1 + 0x2afb);
         SinDegrees();

@@ -138,7 +138,7 @@ LAB_0045cdb1:
        ((cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,1), cVar3 != '\0' ||
         (cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar3 != '\0')))) {
       PeekChecksumStateUnderLock(g_clientContext + 0x5b1ac);
-      FUN_004ead90();
+      CosDegrees();
       PeekChecksumStateUnderLock(g_clientContext + 0x5af88);
       iVar5 = FloatToInt64();
       param_1[0x2ffb] = param_1[0x2ffb] + iVar5 * 3;

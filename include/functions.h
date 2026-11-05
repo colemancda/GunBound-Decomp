@@ -1284,7 +1284,7 @@ int FUN_004ea670(int regEsi);
 uint FUN_004ea6e0(int regEsi);
 uint EncodeLZHUFBlock();
 int SinDegrees();
-int FUN_004ead90();
+int CosDegrees();
 void __fastcall SetClipRect();
 void LoadBitmapFont();
 void FUN_004eaeb0(int param_1,int param_2,byte *param_3,int regEax);
