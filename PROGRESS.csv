@@ -1127,7 +1127,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e7430,137,ResetReplayContext,false,3,1,RAW-src
 004e74c0,159,FUN_004e74c0,false,2,1,RAW-src
 004e7560,121,FUN_004e7560,false,1,1,RAW-src
-004e75e0,118,FUN_004e75e0,false,2,0,RAW-src
+004e75e0,118,BroadcastRing_Push,false,2,0,RAW-src
 004e7660,104,FUN_004e7660,false,1,0,RAW-src
 004e76d0,105,BeginUdpSessionProbe,false,1,3,RAW-src
 004e7740,153,ReconcileBroadcastAckState,false,1,4,RAW-src

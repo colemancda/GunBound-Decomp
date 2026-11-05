@@ -1,4 +1,5 @@
 /* BroadcastRingEvent - 0x004e77e0 in the original binary.
+ * (FUN_004e75e0 in the notes below is BroadcastRing_Push's old symbol.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"

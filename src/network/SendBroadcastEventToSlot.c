@@ -1,4 +1,5 @@
 /* SendBroadcastEventToSlot - 0x004e7140 in the original binary.
+ * (FUN_004e75e0 in the notes below is BroadcastRing_Push's old symbol.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -83,7 +84,7 @@ void SendBroadcastEventToSlot(uint param_1,int regEax)
     *(undefined4 *)(in_EAX + 0x44e05) = puVar2[1];
     *(undefined4 *)(in_EAX + 0x44e09) = puVar2[2];
     if ((*(byte *)(in_EAX + 0x44def) & 0x80) != 0) {
-      FUN_004e75e0((ushort *)puVar1,(int)param_1,in_EAX);
+      BroadcastRing_Push((ushort *)puVar1,(int)param_1,in_EAX);
       SetEvent(*(HANDLE *)(in_EAX + 0x10));
       LeaveCriticalSection((LPCRITICAL_SECTION)(in_EAX + 0x198));
       return;

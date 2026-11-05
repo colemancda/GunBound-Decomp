@@ -1,9 +1,18 @@
-/* FUN_004e75e0 - 0x004e75e0 in the original binary.
+/* BroadcastRing_Push - 0x004e75e0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): BroadcastRingEvent's header identifies the
+ * ring this writes as the deferred broadcast ring at ctx+0x3d0 with its
+ * consumer there. The layout is 512 records of 0x200 bytes from ctx+0x3d0,
+ * a parallel dword array of 512 slot tags at ctx+0x403d0, the head index
+ * at ctx+0x40bd0 and the tail at ctx+0x40bd4 (0x3d0 + 512 * 0x200 =
+ * 0x403d0, and + 512 * 4 = 0x40bd0), advanced with (head + 1) & 0x1ff. It
+ * returns 0 when the ring is full (next head equals tail), 1 otherwise.
+ * Callers: BroadcastQueuedEvent and SendBroadcastEventToSlot. Consumer:
+ * BroadcastRing_Pop.
  *
  * (FUN_004e7140 below is SendBroadcastEventToSlot's old symbol.)
  *
@@ -20,7 +29,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_004e75e0(ushort *param_1,int param_2,int regEax)
+undefined4 __thiscall BroadcastRing_Push(ushort *param_1,int param_2,int regEax)
 
 {
   ushort uVar1;

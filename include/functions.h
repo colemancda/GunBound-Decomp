@@ -1231,7 +1231,7 @@ void SetLocalPeerEndpoint(int slot,int ctx,char *nameRec);
 void ResetReplayContext(int ctx);
 void __fastcall FUN_004e74c0(int param_1,int param_2,int param_3,int param_4,char *param_5,uint regEax,int regEdi);
 void __fastcall FUN_004e7560(undefined4 param_1,int param_2,uint regEsi);
-undefined4 __thiscall FUN_004e75e0(ushort *param_1,int param_2,int regEax);
+undefined4 __thiscall BroadcastRing_Push(ushort *param_1,int param_2,int regEax);
 uint __fastcall FUN_004e7660(undefined4 param_1,int param_2,undefined4 *param_3,undefined4 *param_4);
 void __fastcall BeginUdpSessionProbe(undefined4 serverAddr,int serverPort,undefined4 *sessionId,char *localUserName,int replayCtx);
 undefined4 ReconcileBroadcastAckState(int regEsi);
