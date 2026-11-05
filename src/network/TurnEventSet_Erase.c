@@ -111,7 +111,7 @@ void TurnEventSet_Erase(int param_1,undefined4 *param_2,int *param_3)
   iVar2 = *(int *)(param_1 + 4);
   if (*(int **)(iVar2 + 8) == param_3) {
     if (*(char *)((int)piVar6 + 0xf) == '\0') {
-      FUN_004e8d10((int)piVar6);
+      TurnEventSet_Max((int)piVar6);
       *(undefined4 *)(iVar2 + 8) = uVar4;
     }
     else {

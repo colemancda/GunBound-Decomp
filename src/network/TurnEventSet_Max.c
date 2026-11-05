@@ -1,9 +1,15 @@
-/* FUN_004e8d10 - 0x004e8d10 in the original binary.
+/* TurnEventSet_Max - 0x004e8d10 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004e8d10 mean this function.)
+ *
+ * NAMED (2026-11-05), CERTAIN. Evidence from outside the body:
+ * _Tree::_Max(node): mirror of TurnEventSet_Min through the right link
+ * (+8). Sole caller TurnEventSet_Erase uses it for the rbegin update (`if
+ * header->right == erased: header->right = Max(replacement)`).
  *
  * (FUN_004e87b0 below is TurnEventSet_Erase's old symbol.)
  *
@@ -16,7 +22,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e8d10(int regEax)
+void TurnEventSet_Max(int regEax)
 
 {
   char cVar1;
