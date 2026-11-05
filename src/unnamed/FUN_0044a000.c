@@ -275,26 +275,23 @@ LAB_0044a1b2:
         BlitSpriteClipped(8,iVar4 + 0x1e,local_108 + 0x14,0x2711);
       }
     }
-    iVar1 = 3;
-    do {
-      /* BlitRLESprite's args were dropped entirely here too - objdump at
-       * this call site (0x44a2ab) shows ECX = ebp+0xb (this file's own
-       * iVar4, recomputed fresh via `lea` each of the 3 loop passes from
-       * an unchanged ebp - it does not advance across iterations here),
-       * and EAX = esi = param_2*0x78 + param_1 + 0x2d114 (a struct field
-       * table indexed by param_2, matching this loop's later
-       * `iVar3 + g_clientContext`-style indexing pattern elsewhere in
-       * this file). Per real disassembly the rleData/x stack arg do
-       * advance by 0x18/0xe each of the 3 passes, but the raw decompile
-       * collapsed the loop to a single call-site text with no per-
-       * iteration locals to carry that - using the first iteration's
-       * values here, which is the most faithful recovery obtainable
-       * without inventing new loop state. The 2nd stack arg (x) reads
-       * the same uninitialized [esp+0x18]-based local as the other call
-       * site, so it's left as a placeholder; color = 0xffff. */
-      BlitRLESprite(iVar4 + 0xb,0,0xffff,(byte *)(param_2 * 0x78 + param_1 + 0x2d114));
-      iVar1 = iVar1 + -1;
-    } while (iVar1 != 0);
+    /* PROVEN from 0x44a280-0x44a2ba (2026-11): edi = [esp+0x18] + 0x1e
+     * = local_108 + 0x1e, esi = param_2*0x78 + param_1 + 0x2d114, and the
+     * three passes each call 0x4eb450 with ECX = ebp+0xb (= iVar4 + 0x20,
+     * since EBP = iVar4 + 0x15), EAX = esi, push 0xffff, push edi; after
+     * each call esi += 0x18 and edi += 0xe, ebx counts 3 down to 0. The old
+     * text passed x = iVar4 + 0xb and y = 0 for every pass. */
+    {
+      byte *pbVar9 = (byte *)(param_2 * 0x78 + param_1 + 0x2d114);
+      int iRowY = local_108 + 0x1e;
+      iVar1 = 3;
+      do {
+        BlitRLESprite(iVar4 + 0x20,iRowY,0xffff,pbVar9);
+        pbVar9 = pbVar9 + 0x18;
+        iRowY = iRowY + 0xe;
+        iVar1 = iVar1 + -1;
+      } while (iVar1 != 0);
+    }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)(local_104 + 0x694));
