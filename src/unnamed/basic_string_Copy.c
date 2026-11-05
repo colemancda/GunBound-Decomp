@@ -1,9 +1,20 @@
-/* FUN_0040bfd0 - 0x0040bfd0 in the original binary.
+/* basic_string_Copy - 0x0040bfd0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): the MSVC 7.1 dinkumware
+ * basic_string::_Copy(newsize, oldlen) growth policy, member for member.
+ * The requested capacity is rounded up with | 0xf, and when newres / 3 <
+ * oldres / 2 and oldres is not near the maximum the 1.5x growth
+ * substitutes (newres = oldres + oldres / 2). It then allocates newres + 1
+ * bytes, copies oldlen bytes of the old contents, frees the old buffer
+ * only when the old capacity exceeded the 0xf small-string threshold,
+ * stores the new pointer, capacity and size, and NUL-terminates. Callers
+ * are the two string assign routines, basic_string_AssignSubstr and
+ * basic_string_AssignCStr, which call it when the source does not fit the
+ * current capacity.
  *
  * (FUN_0040bee0 in the note below is basic_string_AssignCStr's old
  * symbol; FUN_0040b9f0 is basic_string_AssignSubstr's.)
@@ -21,7 +32,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_0040bfd0(int param_1,uint param_2,uint param_3)
+void __thiscall basic_string_Copy(int param_1,uint param_2,uint param_3)
 
 {
   uint uVar1;

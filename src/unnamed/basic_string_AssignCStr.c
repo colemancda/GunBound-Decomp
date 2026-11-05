@@ -73,7 +73,7 @@ int __thiscall basic_string_AssignCStr(int param_1,undefined4 *param_2,uint para
     FUN_00520291();
   }
   if (*(uint *)(param_1 + 0x18) < param_3) {
-    FUN_0040bfd0(param_1,param_3,*(undefined4 *)(param_1 + 0x14));
+    basic_string_Copy(param_1,param_3,*(undefined4 *)(param_1 + 0x14));
   }
   else if (param_3 == 0) {
     *(undefined4 *)(param_1 + 0x14) = 0;

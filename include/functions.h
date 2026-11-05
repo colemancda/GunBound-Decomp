@@ -318,7 +318,7 @@ undefined4 * TreeAllocateNode(undefined4 param_1, undefined4 param_2, undefined4
 int __thiscall basic_string_Erase(int param_1,uint param_2,uint param_3);
 undefined4 * TreeEraseRange(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
 int __thiscall basic_string_AssignCStr(int param_1,undefined4 *param_2,uint param_3);
-void __thiscall FUN_0040bfd0(int param_1,uint param_2,uint param_3);
+void __thiscall basic_string_Copy(int param_1,uint param_2,uint param_3);
 undefined4 FUN_0040c110();
 void __fastcall TreeIteratorDecrement();
 void __fastcall TreeIteratorIncrement();

@@ -60,7 +60,7 @@ int __thiscall basic_string_AssignSubstr(int param_1,int param_2,uint param_3,ui
       FUN_00520291();
     }
     if (*(uint *)(param_1 + 0x18) < uVar3) {
-      FUN_0040bfd0(param_1,uVar3,*(undefined4 *)(param_1 + 0x14));
+      basic_string_Copy(param_1,uVar3,*(undefined4 *)(param_1 + 0x14));
     }
     else if (uVar3 == 0) {
       *(undefined4 *)(param_1 + 0x14) = 0;
