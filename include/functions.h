@@ -843,7 +843,7 @@ void __fastcall RenderFirewallHazard();
 void __fastcall FUN_00471af0();
 void FUN_00471b40(uint spriteKey, uint sortKey, int rowBase, int stride);
 int __fastcall TickFlameEffect();
-void * __thiscall FUN_00471fa0();
+void * __thiscall Mobile12_ScalarDtor();
 void Mobile12_Destructor(undefined4 *regEax);
 void __thiscall Mobile12_MainAction();
 undefined4 * InitShot2_Bullet11(undefined4 *regEsi);
