@@ -179,7 +179,7 @@ LAB_00445543:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
     if (((cVar1 != '\0') || (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32c54)), cVar1 == '\x01')) ||
        ((cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
-    FUN_00449540(param_1,1);
+    LoadAvatarStoreCatalog(param_1,1);
     RefreshAvatarStoreButtons(param_1,1,0);
     SetWidgetReadyState(0,0,1,(int)&g_activeObjectRegistry,0xa);
     uVar12 = 0;
@@ -188,7 +188,7 @@ LAB_00445543:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
     if (((cVar1 != '\0') || (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32c54)), cVar1 == '\x01')) ||
        ((cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
-    FUN_00449540(param_1,0);
+    LoadAvatarStoreCatalog(param_1,0);
     RefreshAvatarStoreButtons(param_1,1,0);
     SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry,0xa);
     uVar12 = 1;
@@ -205,7 +205,7 @@ LAB_004457e7:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
     if ((((cVar1 != '\0') || (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32c54)), cVar1 == '\x01')) ||
         (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01')) || (g_stateChangeInProgress != 0)) break;
-    FUN_00449540(param_1,2);
+    LoadAvatarStoreCatalog(param_1,2);
     RefreshAvatarStoreButtons(param_1,1,0);
     SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry,0xa);
     SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry,0xb);
@@ -215,7 +215,7 @@ LAB_004457e7:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
     if (((cVar1 != '\0') || (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32c54)), cVar1 == '\x01')) ||
        ((cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
-    FUN_00449540(param_1,3);
+    LoadAvatarStoreCatalog(param_1,3);
     RefreshAvatarStoreButtons(param_1,1,0);
     SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry,0xa);
     SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry,0xb);

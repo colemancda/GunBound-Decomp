@@ -1,11 +1,25 @@
-/* FUN_00449540 - 0x00449540 in the original binary.
+/* LoadAvatarStoreCatalog - 0x00449540 in the original binary.
  * (Historical notes below: FUN_004240c0 is now
  *   LoadAvatarPartRecordByIndex.)
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00449540 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body:
+ * State07_AvatarStore_OnEnter calls it once with (state, 1) after
+ * FUN_00423bf0 sets up the per-gender, per-category part tables, and
+ * State07_AvatarStore_OnCommand calls it with categories 0-3 when the cap,
+ * cloth, glasses and flag tabs are pressed (the same four keys
+ * CreateAvatarStoreButtons builds). It reads the part-table counts at
+ * ctx+cat*0x224+0x5f3774/+0x5f4004 that FUN_00423bf0 initialises, loads
+ * each part through LoadAvatarPartRecordByIndex into a stack
+ * AvatarPartWorkspace, builds the 'NNNNN.img' icon name from it, and fills
+ * the store's slot grid. Name chosen from the callers and the callee
+ * names; 'Catalog' is the tree's own wording for the part tables in
+ * FUN_00423bf0's header.
  *
  * SEH-PROLOGUE ARTIFACT FIX (2026-08-06): same bug class already fixed
  * in WidgetChildArray_Destroy.c / FUN_00443c20.c / FUN_0044fb40.c -
@@ -53,7 +67,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void FUN_00449540(int param_1,undefined4 param_2)
+void LoadAvatarStoreCatalog(int param_1,undefined4 param_2)
 
 {
   char *pcVar1;

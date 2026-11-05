@@ -672,7 +672,7 @@ void __fastcall State07_AvatarStore_OnTick();
 void __fastcall State07_AvatarStore_RenderStoreContent(int param_1); /* State07 vtable slot 13 - 0x448440 */
 void __fastcall State07_AvatarStore_RenderAvatarPreview(int param_1); /* State07 vtable slot 14 - 0x449050 */
 void RefreshAvatarStoreButtons();
-void FUN_00449540();
+void LoadAvatarStoreCatalog();
 void FUN_00449b60();
 void FUN_00449db0();
 void FUN_0044a000();

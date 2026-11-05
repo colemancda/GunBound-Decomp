@@ -146,7 +146,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
    * guard cells at ctx+0x5f3774..; see FUN_00423bf0.c's 2026-08-11
    * header). Was passed pre-offset (ctx+0xf6e8) before that fix. */
   FUN_00423bf0((int)g_clientContext);
-  FUN_00449540(param_1,1);
+  LoadAvatarStoreCatalog(param_1,1);
   *(undefined4 *)(param_1 + 0x454) = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField(0xffffffff);
