@@ -205,7 +205,7 @@ uint32_t DAT_00557854;
 float DAT_00557fb0 = 1.0f; /* orig .data 0x3f800000; only x87 DWORD operands reference it */
 float DAT_00557fb4 = 0.0f; /* orig .data 0x00000000; only x87 DWORD operands reference it */
 float DAT_00557fb8 = 0.5f; /* orig .data 0x3f000000; only x87 DWORD operands reference it */
-uint8_t DAT_00557fbc;
+float DAT_00557fbc = 0.0016666667f; /* orig .data 0x3ada740e; only x87 DWORD operands reference it */
 uint8_t DAT_00557fc0;
 uint8_t DAT_00557fc4;
 uint8_t DAT_00557fc8;
