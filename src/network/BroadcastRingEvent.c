@@ -1,4 +1,5 @@
 /* BroadcastRingEvent - 0x004e77e0 in the original binary.
+ * (FUN_004e7660 in the notes below is BroadcastRing_Pop's old symbol.)
  * (FUN_004e75e0 in the notes below is BroadcastRing_Push's old symbol.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
@@ -81,7 +82,7 @@ void BroadcastRingEvent(int param_1,int regEax)
    * ECX (ret 8's undocumented ABI slot) is never set by this call site
    * and the callee never reads param_1, so its value is inconsequential;
    * passed 0. See FUN_004e7660.c's header. */
-  cVar5 = FUN_004e7660(0,param_1,&local_200,&local_210);
+  cVar5 = BroadcastRing_Pop(0,param_1,&local_200,&local_210);
   if (cVar5 != '\x01') {
     return;
   }

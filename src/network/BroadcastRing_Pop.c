@@ -1,9 +1,16 @@
-/* FUN_004e7660 - 0x004e7660 in the original binary.
+/* BroadcastRing_Pop - 0x004e7660 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): the consumer half of the ring
+ * BroadcastRing_Push fills: it returns 0 when the tail at ctx+0x40bd4
+ * equals the head at ctx+0x40bd0, otherwise copies the 0x200-byte record
+ * at ctx+0x3d0 + tail * 0x200 out, reads the slot tag at ctx+0x403d0 +
+ * tail * 4, and advances the tail with & 0x1ff. Sole caller is
+ * BroadcastRingEvent, which drains the ring after the producer queues a
+ * record.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20, no-prototype sweep). __fastcall's two
  * register slots (ECX=param_1, EDX=param_2) plus `ret 8` (2 stack args:
@@ -25,7 +32,7 @@
 #include "ghidra_types.h"
 
 
-uint __fastcall FUN_004e7660(undefined4 param_1,int param_2,undefined4 *param_3,undefined4 *param_4)
+uint __fastcall BroadcastRing_Pop(undefined4 param_1,int param_2,undefined4 *param_3,undefined4 *param_4)
 
 {
   ushort uVar1;
