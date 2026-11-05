@@ -2049,11 +2049,21 @@ extern uint32_t DAT_00568934;
 extern uint32_t DAT_00568938;
 extern uint32_t DAT_0056893c;
 extern uint32_t DAT_00568940;
-extern uint32_t DAT_00568944;
-extern uint32_t DAT_00569144;
 extern uint32_t DAT_00569344;
-extern uint32_t DAT_00569348;
-extern uint32_t DAT_00569b48;
+/* Index tables read as `mov r32, [idx*4 + base]` (x87 synthesis windows in FUN_0051d780 and
+ * clones).  The ported code spells every access `*(int *)(&DAT_xxxxxxxx + idx * 4)`, i.e. BYTE
+ * arithmetic, so the DAT_ names are byte lvalues over the real uint32_t arrays (declaring them
+ * uint32_t scaled the offset by 4 again and read outside every object).  Extents tile exactly:
+ * 0x568944+0x800, 0x569144+0x200, 0x569348+0x800, 0x569b48+0x200; each holds a permutation of
+ * 0..n-1, which also matches the `and 0x1ff` / `and 0x7f` index masks in the asm. */
+extern uint32_t g_synthIdxTab0[512];
+#define DAT_00568944 (*(unsigned char *)g_synthIdxTab0) /* callers take &DAT_00568944 + byteOffset */
+extern uint32_t g_synthIdxTab1[128];
+#define DAT_00569144 (*(unsigned char *)g_synthIdxTab1) /* callers take &DAT_00569144 + byteOffset */
+extern uint32_t g_synthIdxTab2[512];
+#define DAT_00569348 (*(unsigned char *)g_synthIdxTab2) /* callers take &DAT_00569348 + byteOffset */
+extern uint32_t g_synthIdxTab3[128];
+#define DAT_00569b48 (*(unsigned char *)g_synthIdxTab3) /* callers take &DAT_00569b48 + byteOffset */
 extern uint32_t DAT_0056d468;
 extern uint32_t DAT_00598e7e;
 /* g_fullnessGaugeThresholds (was DAT_005a9050) - read-only percentage
