@@ -2349,7 +2349,7 @@ double DAT_00544378 = 2.0; /* orig .data 0x4000000000000000; only x87 QWORD oper
 double DAT_005448d8 = 0.5; /* orig .data 0x3fe0000000000000; only x87 QWORD operands reference it */
 double DAT_005448e0 = 4.0; /* orig .data 0x4010000000000000; only x87 QWORD operands reference it */
 uint32_t DAT_00544aa8;
-uint32_t DAT_00544ab0;
+double DAT_00544ab0 = -2.0; /* orig .data 0xc000000000000000; only x87 QWORD operands reference it */
 uint32_t DAT_00544ab8;
 uint32_t DAT_00544ac0;
 uint32_t DAT_00544ac8;
