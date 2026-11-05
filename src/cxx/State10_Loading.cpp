@@ -31,7 +31,7 @@ void QueueBroadcastEvent(int type, int replayCtx);
 void __fastcall AppendBroadcastString(int unused, unsigned int len, const void *src, int context);
 extern unsigned char g_replayContext;
 void BroadcastQueuedEvent(void);
-void ShowChatBanNotice(int ctx);                /* playback-mode chat path */
+void ShowChatBanNotice(int ctx);                /* chat-ban notice (guard bool at ctx+0x6aa678 set) */
 void *GetLocalizedString(void *table, int id);
 }
 
@@ -51,8 +51,10 @@ void CState10Loading::OnExit()
  * and not a slash command, either reject it (too long -> localized
  * 0x202, not-allowed -> 0x205, shown via the widget's slot-10 dialog)
  * or record it into the replay stream. Always clears the EDIT box
- * afterward (except the not-armed early-out, a bare return). In
- * replay-playback mode the FUN_00426230 path runs instead. The
+ * afterward (except the not-armed early-out, a bare return). When the
+ * chat-ban guard bool at ctx+0x6aa678 is set, ShowChatBanNotice
+ * (0x426230, Language string 0x204 with the nickname and the hours/minutes
+ * left) runs instead of the send path; it is not a playback-mode path. The
  * `this->vtable[0x28]` call is a widget dialog method on the screen's
  * overlaid input object - kept as the raw code* dispatch. */
 void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)

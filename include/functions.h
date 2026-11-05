@@ -621,7 +621,7 @@ void FUN_0043d970(undefined4 *regEbx);
 void FUN_0043d9b0();
 undefined4 LoadLocalizedStrings();
 undefined4 * GetLocalizedString();
-int LocalizedStrings_SetAt();
+int LocalizedStrings_SetAt(int id,undefined4 param_1,char *message);
 void CString_Assign(int *regEax,int *regEdi);
 undefined4 CString_CloneData(int *regEax);
 int LocalizedStrings_Insert(int *param_1,int regEcx,char *regEax);
@@ -1381,8 +1381,9 @@ uint FindOrInsertXFSEntry();
  * See OpenXFSEntryStream.c's header for the original recovery. */
 undefined4 OpenXFSEntryStream(int archive, char *name, char findExisting, undefined4 insertFlag);
 /* K&R-empty deliberately (like FindSpriteFrame): only LoadSpriteSet.c's
- * call site passes the real 2 args (readState, archive) - ~13 other
- * callers still use the old 0-arg form. See CloseSpriteReadState.c. */
+ * call site passes the real 2 args (readState, archive) - 16 of the
+ * 24 call sites still use the old 0-arg form (8 pass both args; counted with
+ * tools/count_call_args.py, 2026-11-05). See CloseSpriteReadState.c. */
 undefined4 CloseSpriteReadState();
 void * __thiscall SpriteFrame_ScalarDtor(void *param_1, int param_2);
 void DestroySpriteFrame(void *param_1);

@@ -25,15 +25,20 @@
  * GetLocalizedString (g_localizedStringTable, id) calls it with the table
  * in EDX and the id in EDI and, when it returns a node, reads the string
  * handle at node + 4 and copies it out with CString_Assign; when it returns
- * null GetLocalizedString falls through to the missing-string path
- * (FUN_0043de70, whose header says it runs after this lookup comes up
- * empty). The second caller, FUN_0043dd40, passes the same table and an id
- * the same way. CORRECTION to the older paragraph above: the body is not a
+ * null GetLocalizedString returns the shared nil string (the 0x56d460
+ * pointer at 0x43dcfc-0x43dd28) and does NOT fall into LocalizedStrings_Insert
+ * (FUN_0043de70, 0x43de70): the only path into the insert is the second
+ * caller, LocalizedStrings_SetAt (0x43dd40), which passes the same table
+ * and an id the same way and calls the insert at 0x43dd5e when this lookup
+ * misses. CORRECTION to the older paragraph above: the body is not a
  * linear walk. It descends a binary tree keyed on the id in the first dword
  * of each node (child links at +0xc and +0x10, parent link at +0x14, nil
  * sentinel at table + 0x14), then walks neighbouring nodes while the key
  * still equals the id before returning, i.e. a find over a tree that may
- * hold equal keys. The direction of that final walk is not asserted here.
+ * hold equal keys. Disasm 0x43e098-0x43e0de gives the direction: it steps to the in-order
+ * predecessor (rightmost node of the left subtree, otherwise climbing while
+ * the node is a left child) and keeps going while that node's key still
+ * equals the id, so it returns the first node in order with that key.
  * Only the key-then-string-at-+4 node shape is corroborated by callers.
  */
 #include "ghidra_types.h"
