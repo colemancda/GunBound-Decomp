@@ -119,7 +119,7 @@ void __thiscall LobbyChatPanel_OnCommand(int param_1,int param_2,uint param_3,un
               AppendPacketBytes(0,iVar2,(uint)puVar4[1],puVar5);
               EncodePacketBody(0,iVar2);
               SendOutgoingPacket(iVar2);
-              FUN_00425700(g_clientContext);
+              ChatFlood_RecordSend(g_clientContext);
             }
             else {
               iVar2 = *(int *)g_gameStateVTableArray[3];
