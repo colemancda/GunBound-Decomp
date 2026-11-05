@@ -661,7 +661,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00466860,32,Mobile08_ScalarDtor,false,1,2,RAW-src
 00466880,13,Mobile08_Destructor,false,1,1,RAW-src
 00466890,1760,Mobile08_MainAction,false,1,14,RAW-src
-00466fa0,32,FUN_00466fa0,false,1,2,RAW-src
+00466fa0,32,Mobile15_ScalarDtor,false,1,2,RAW-src
 00466fc0,13,Mobile15_Destructor,false,1,1,RAW-src
 00466fd0,2638,Mobile15_MainAction,false,0,14,RAW-src
 00467a50,20,InitSuperShot_Bullet16,false,1,1,RAW-src
