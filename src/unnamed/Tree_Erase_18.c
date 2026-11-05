@@ -113,7 +113,7 @@ void Tree_Erase_18(int param_1,undefined4 *param_2,int *param_3)
   iVar2 = *(int *)(param_1 + 4);
   if (*(int **)(iVar2 + 8) == param_3) {
     if (*(char *)((int)piVar6 + 0x15) == '\0') {
-      FUN_00443be0((int)piVar6);
+      Tree_Max_18((int)piVar6);
       *(undefined4 *)(iVar2 + 8) = uVar4;
     }
     else {
