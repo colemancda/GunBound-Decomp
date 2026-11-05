@@ -1322,7 +1322,7 @@ void DrawBattleFadeOverlay(int param_1,int param_2,int param_3,int param_4,int p
 void UpdateDeviceAcquisition(int deviceObj, char wasActive);
 undefined4 * __fastcall KeyboardDevice_Construct();
 undefined4 __fastcall KeyboardDevice_Initialize();
-void __fastcall FUN_004ede20();
+void __fastcall CInputDevice_Release();
 void __fastcall FUN_004ee0d0(int param_1);
 void MouseDevice_Construct(undefined4 *regEax);
 void * __thiscall CInputDevice_ScalarDeletingDestructor();
