@@ -289,7 +289,7 @@ extern uint32_t g_textureExt;        /* was DAT_00557554 - ".xtf" texture XFS ex
 extern uint8_t g_textureExtNul;      /* was DAT_00557558 - its trailing NUL */
 extern uint32_t DAT_00557850;
 extern uint32_t DAT_00557854;
-extern uint8_t DAT_00557fb0;
+extern float DAT_00557fb0;
 #define _DAT_00557fb0 DAT_00557fb0
 extern uint8_t DAT_00557fb4;
 #define _DAT_00557fb4 DAT_00557fb4

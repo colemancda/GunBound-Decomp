@@ -202,7 +202,7 @@ uint32_t g_textureExt = 0x6674782e; /* ".xtf" little-endian */
 uint8_t g_textureExtNul = 0x00;        /* trailing NUL */
 uint32_t DAT_00557850;
 uint32_t DAT_00557854;
-uint8_t DAT_00557fb0;
+float DAT_00557fb0 = 1.0f; /* orig .data 0x3f800000; only x87 DWORD operands reference it */
 uint8_t DAT_00557fb4;
 uint8_t DAT_00557fb8;
 uint8_t DAT_00557fbc;
