@@ -129,7 +129,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
            inside the callee. */
         AppendDirectLinkSendBuffer(0,(uint)((pcVar6 - (char *)(param_1 + 8)) - 1),(undefined4 *)(param_1 + 8),
                      iVar4);
-        FUN_00405a20();
+        FlushDirectLinkSendBuffer();
         FUN_004024f0(param_2,param_1 + 8,param_3);
         return;
       }
@@ -150,7 +150,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
           puVar3[3] = 0;
           puVar3[4] = 0;
           *(int *)(iVar4 + 0x2000) = *(int *)(iVar4 + 0x2000) + 0x14;
-          FUN_00405a20();
+          FlushDirectLinkSendBuffer();
           return;
         }
         if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
@@ -179,7 +179,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
            (case 2, 0xa112) - same shape as the 0x1000 case above. */
         AppendDirectLinkSendBuffer(0,(uint)((pcVar6 - (char *)(param_1 + 8)) - 1),(undefined4 *)(param_1 + 8),
                      iVar4);
-        FUN_00405a20();
+        FlushDirectLinkSendBuffer();
       }
     }
     else {
@@ -248,7 +248,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
         *(undefined1 *)(iVar7 + iVar4) = 1;
 LAB_0040377c:
         *(int *)(iVar4 + 0x2000) = *(int *)(iVar4 + 0x2000) + 1;
-        FUN_00405a20();
+        FlushDirectLinkSendBuffer();
         return;
       }
       if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
@@ -289,7 +289,7 @@ LAB_0040377c:
       *(undefined4 *)(iVar4 + 0xc) = regEax[2];
       *(undefined4 *)(iVar4 + 0x10) = regEax[3];
       *(int *)(iVar4 + 0x2000) = *(int *)(iVar4 + 0x2000) + 0x10;
-      FUN_00405a20();
+      FlushDirectLinkSendBuffer();
       RemoveDirectLinkBuddyNode(param_2,(char *)param_3 + 1);
       return;
     case 0x2005:

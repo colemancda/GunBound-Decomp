@@ -92,7 +92,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00405930,99,CloseAndFreeConnection,false,2,4,RAW-src
 004059a0,55,CloseDirectLinkSocket,false,4,1,RAW-src
 004059e0,59,AppendDirectLinkSendBuffer,false,2,0,RAW-src
-00405a20,30,FUN_00405a20,false,5,1,RAW-src
+00405a20,30,FlushDirectLinkSendBuffer,false,5,1,RAW-src
 00405a40,216,DrainDirectLinkActionRing,false,1,1,RAW-src
 00405b20,51,SendDirectLinkActivated,false,2,1,RAW-src
 00405b60,51,SendDirectLinkDeactivated,false,1,1,RAW-src

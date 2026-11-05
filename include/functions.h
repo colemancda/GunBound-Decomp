@@ -225,7 +225,7 @@ void FUN_004058c0(void *, undefined4, undefined4);
 void CloseAndFreeConnection(int connOwner);
 void CloseDirectLinkSocket(int param_1);
 void __fastcall AppendDirectLinkSendBuffer();
-void __fastcall FUN_00405a20();
+void __fastcall FlushDirectLinkSendBuffer();
 void DrainDirectLinkActionRing(int param_1);
 void __fastcall SendDirectLinkActivated(undefined2 *param_1);
 void __fastcall SendDirectLinkDeactivated(undefined2 *param_1);
