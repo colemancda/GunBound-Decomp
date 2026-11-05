@@ -16,18 +16,21 @@
 #include "ghidra_types.h"
 
 
-void TreeSubtreeMin(int *regEax)
+int *TreeSubtreeMin(int *regEax)
 
 {
   char cVar1;
   int *piVar2;
 
+  /* Disasm 0x40bd00: ecx = [eax]; while (!nil(ecx)) { eax = ecx; ecx = [eax]; }
+     ret -- EAX is the leftmost non-nil node; caller stores it at 0x40b6ef. */
   piVar2 = (int *)*regEax;
   cVar1 = *(char *)((int)piVar2 + 0x11);
   while (cVar1 == '\0') {
-    piVar2 = (int *)*piVar2;
+    regEax = piVar2;
+    piVar2 = (int *)*regEax;
     cVar1 = *(char *)((int)piVar2 + 0x11);
   }
-  return;
+  return regEax;
 }
 

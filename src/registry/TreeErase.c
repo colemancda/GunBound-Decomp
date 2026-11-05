@@ -47,7 +47,6 @@ void TreeErase(int param_1,undefined4 *param_2,int *param_3)
   undefined4 *puVar1;
   int iVar2;
   int *piVar3;
-  undefined4 uVar4;
   int *piVar5;
   int *piVar6;
   undefined1 local_50 [4];
@@ -103,27 +102,20 @@ void TreeErase(int param_1,undefined4 *param_2,int *param_3)
   }
   puVar1 = *(undefined4 **)(param_1 + 4);
   if ((int *)*puVar1 == param_3) {
-    piVar3 = piVar5;
+    /* disasm 0x40b6dd..0x40b6ef: nil replacement -> parent, else
+       TreeSubtreeMin(replacement); EAX is stored to head + 0. */
     if (*(char *)((int)piVar6 + 0x11) == '\0') {
-      /* TreeSubtreeMin is void-returning (see its own definition) - this
-       * call site's return-value use is a Ghidra per-call-site
-       * decompilation inconsistency, same class as entry/WinMain.c's
-       * FUN_004058c0 fix. piVar3 keeps its prior value (piVar5) as a
-       * result. */
-      TreeSubtreeMin(piVar6);
+      piVar3 = TreeSubtreeMin(piVar6);
+    }
+    else {
+      piVar3 = piVar5;
     }
     *puVar1 = piVar3;
   }
   iVar2 = *(int *)(param_1 + 4);
   if (*(int **)(iVar2 + 8) == param_3) {
     if (*(char *)((int)piVar6 + 0x11) == '\0') {
-      /* FUN_0040bce0 is void-returning (see its own definition) - this
-       * call site's return-value use is a Ghidra per-call-site
-       * decompilation inconsistency, same class as entry/WinMain.c's
-       * FUN_004058c0 fix. uVar4 is left uninitialized here as a
-       * result. */
-      TreeSubtreeMax((int)piVar6);
-      *(undefined4 *)(iVar2 + 8) = uVar4;
+      *(int *)(iVar2 + 8) = TreeSubtreeMax((int)piVar6);
     }
     else {
       *(int **)(iVar2 + 8) = piVar5;

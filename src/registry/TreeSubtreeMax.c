@@ -12,25 +12,27 @@
  * left-subtree update of the header's max pointer at +8, while
  * TreeSubtreeMin feeds the min pointer at +0).
  *
- * Return value: the port is void-returning although the binary leaves the
- * node in EAX; the same Ghidra void-return inconsistency TreeSubtreeMin
- * documents. Not changed here.
+ * Returns the node in EAX (verified at 0x40bce0 and the caller's store at
+ * 0x40b712); TreeErase stores it at head+8.
  */
 #include "ghidra_types.h"
 
 
-void TreeSubtreeMax(int regEax)
+int TreeSubtreeMax(int regEax)
 
 {
   char cVar1;
   int iVar2;
   
+  /* Disasm 0x40bce0: ecx = [eax+8]; while (!nil(ecx)) { eax = ecx; ecx = [eax+8]; }
+     ret -- EAX is the rightmost non-nil node (the arg itself if its right is nil). */
   iVar2 = *(int *)(regEax + 8);
   cVar1 = *(char *)(iVar2 + 0x11);
   while (cVar1 == '\0') {
-    iVar2 = *(int *)(iVar2 + 8);
+    regEax = iVar2;
+    iVar2 = *(int *)(regEax + 8);
     cVar1 = *(char *)(iVar2 + 0x11);
   }
-  return;
+  return regEax;
 }
 
