@@ -2469,7 +2469,7 @@ extern uint32_t DAT_0054bb4c;
 #define _DAT_0054bb4c DAT_0054bb4c
 extern float DAT_0054c870;
 #define _DAT_0054c870 DAT_0054c870
-extern uint32_t DAT_00557fe4;
+extern float DAT_00557fe4;
 #define _DAT_00557fe4 DAT_00557fe4
 extern uint32_t DAT_00558014;
 #define _DAT_00558014 DAT_00558014

@@ -2362,7 +2362,7 @@ uint32_t DAT_00544af8;
 uint32_t DAT_00544b00;
 uint32_t DAT_0054bb4c;
 float DAT_0054c870 = 1e-5f; /* orig .data 0x54c870 = 0x3727c5ac; used only via x87 fcomp/fadd */
-uint32_t DAT_00557fe4;
+float DAT_00557fe4 = 0.001f; /* orig .data 0x3a83126f; only x87 DWORD operands reference it */
 uint32_t DAT_00558014;
 uint32_t DAT_00558018;
 uint32_t DAT_00558048;
