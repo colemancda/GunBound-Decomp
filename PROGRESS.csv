@@ -933,7 +933,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ad3b0,3378,DetonateSuperShot_Bullet4,false,1,37,RAW-src
 004ae0f0,165,AnimateSuperShot_Bullet4,false,1,8,RAW-src
 004ae370,30,InitSuperShot_Bullet12,false,1,1,RAW-src
-004ae390,13,FUN_004ae390,false,1,1,RAW-src
+004ae390,13,Projectile_Destructor,false,1,1,RAW-src
 004ae3a0,2390,DetonateSuperShot_Bullet12,false,1,32,RAW-src
 004aed00,32,FUN_004aed00,false,1,2,RAW-src
 004aed20,13,Mobile11_Destructor,false,1,1,RAW-src

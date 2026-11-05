@@ -23,7 +23,7 @@
 void * __thiscall Projectile_ScalarDtor(void *param_1,int param_2)
 
 {
-  FUN_004ae390((undefined4 *)param_1);
+  Projectile_Destructor((undefined4 *)param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }
