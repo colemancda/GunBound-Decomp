@@ -507,7 +507,7 @@ void __fastcall NoOpMethodStdcall1();
 void SendJoinRoomChecked(int regEax);
 void __fastcall OpenCreateRoomDialog();
 void SendCreateRoom();
-void FUN_00429dc0();
+void CloseCreateRoomDialog();
 void SendJoinRoomByNumber();
 void FUN_00429f90();
 void FUN_00429fb0();

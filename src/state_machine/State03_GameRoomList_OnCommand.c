@@ -261,7 +261,7 @@ LAB_004287a5:
     uVar5 = 1;
     break;
   case 0x28:
-    FUN_00429dc0();
+    CloseCreateRoomDialog();
     return;
   case 0x29:
     SendCreateRoom(param_1);

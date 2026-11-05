@@ -766,7 +766,7 @@ switchD_00428058_default:
                            (int)pbVar18 - ((int)&local_668 + 1));
         return;
       }
-      FUN_00429dc0();
+      CloseCreateRoomDialog();
       goto LAB_00426d84;
     }
     if (*(char *)((int)this + 0xd) != '\0') {
