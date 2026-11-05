@@ -1299,27 +1299,27 @@ vtable 0x557434  installs=2  slots=10  UNCARVED=5
 
 vtable 0x55745c  installs=1  slots=10  UNCARVED=5
    0: 0x4ee1d0  CInputDevice_ScalarDeletingDestructor
-   1: 0x4edd70  FUN_004edd70
-   2: 0x4ede20  FUN_004ede20
+   1: 0x4edd70  KeyboardDevice_Initialize
+   2: 0x4ede20  CInputDevice_Release
    3: 0x4ede50  UNCARVED
    4: 0x4ee060  UNCARVED
    5: 0x4edd00  UNCARVED
    6: 0x4ee080  UNCARVED
    7: 0x4ee0a0  UNCARVED
    8: 0x4fdef0  CGameState_NoOpVirtual_B
-   9: 0x4ee0d0  FUN_004ee0d0
+   9: 0x4ee0d0  KeyboardDevice_TickKeyTimers
 
 vtable 0x557484  installs=1  slots=10  UNCARVED=3
    0: 0x4ee1d0  CInputDevice_ScalarDeletingDestructor
-   1: 0x4ee270  FUN_004ee270
-   2: 0x4ede20  FUN_004ede20
-   3: 0x4ee320  FUN_004ee320
+   1: 0x4ee270  MouseDevice_Initialize
+   2: 0x4ede20  CInputDevice_Release
+   3: 0x4ee320  MouseDevice_Poll
    4: 0x4fdef0  CGameState_NoOpVirtual_B
    5: 0x4edd00  UNCARVED
    6: 0x4ee500  UNCARVED
    7: 0x4ee520  UNCARVED
    8: 0x4fdef0  CGameState_NoOpVirtual_B
-   9: 0x4ee540  FUN_004ee540
+   9: 0x4ee540  MouseDevice_TickButtonTimers
 
 vtable 0x5574cc  installs=1  slots=5  UNCARVED=2
    0: 0x4038b0  NoOpMethodStdcall1

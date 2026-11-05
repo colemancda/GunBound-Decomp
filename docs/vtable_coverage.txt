@@ -115,7 +115,7 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
     858b  0x557dc8  8 ( 8/ 8)     0     ~RoomPasswordDialog_OnCommand
     845b  0x557e18 10 (10/10)     0     ~Widget_DrawSelf
     845b  0x557d28 10 (10/10)     0     ~Widget_DrawSelf
-    806b  0x557484 10 ( 6/ 9)     3     ~CInputDevice_ScalarDeletingDestructor
+    806b  0x557484 10 ( 6/ 9)     3     ~MouseDevice_Initialize
     745b  0x557f80 11 (10/11)     1     ~PanelManager_BaseScalarDtor
     643b  0x55208c  5 ( 4/ 4)     0     ~TextBoxWidget_Draw
     556b  0x557300  6 ( 4/ 6)     2     ~SceneNode_UpdateTransformAndCamera
@@ -129,7 +129,7 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
     416b  0x555ef0  5 ( 5/ 5)     0     CFlameEffect
     375b  0x557538  6 ( 5/ 6)     1     ~SceneNode_ScalarDtor
     368b  0x5560bc  5 ( 5/ 5)     0     CSuperFlameEffect
-    296b  0x55745c 10 ( 5/10)     5     ~CInputDevice_ScalarDeletingDestructor
+    296b  0x55745c 10 ( 5/10)     5     ~KeyboardDevice_Initialize
     260b  0x557278 18 ( 8/ 9)     1     ~State01_Title_OnEnter
     236b  0x555528 18 ( 7/ 9)     2     ~State06_Logo2_OnEnter
     203b  0x555ce0  5 ( 4/ 5)     1     ~DeletePoisonedBaseObject
