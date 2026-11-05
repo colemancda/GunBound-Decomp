@@ -653,7 +653,7 @@ void Tree_Init_18(int regEsi);
 void FUN_00443640();
 undefined4 * FUN_00443680(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
 undefined4 * FUN_00443700(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
-void __fastcall FUN_00443780();
+void __fastcall Tree_IteratorIncrement_18();
 void __thiscall FUN_004437e0();
 void FUN_00443840();
 void __thiscall FUN_00443b00();
