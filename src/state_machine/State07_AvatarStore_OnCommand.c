@@ -180,7 +180,7 @@ LAB_00445543:
     if (((cVar1 != '\0') || (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32c54)), cVar1 == '\x01')) ||
        ((cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,1);
-    FUN_00449250(param_1,1,0);
+    RefreshAvatarStoreButtons(param_1,1,0);
     SetWidgetReadyState(0,0,1,(int)&g_activeObjectRegistry,0xa);
     uVar12 = 0;
     goto LAB_00445629;
@@ -189,7 +189,7 @@ LAB_00445543:
     if (((cVar1 != '\0') || (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32c54)), cVar1 == '\x01')) ||
        ((cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,0);
-    FUN_00449250(param_1,1,0);
+    RefreshAvatarStoreButtons(param_1,1,0);
     SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry,0xa);
     uVar12 = 1;
 LAB_00445629:
@@ -206,7 +206,7 @@ LAB_004457e7:
     if ((((cVar1 != '\0') || (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32c54)), cVar1 == '\x01')) ||
         (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01')) || (g_stateChangeInProgress != 0)) break;
     FUN_00449540(param_1,2);
-    FUN_00449250(param_1,1,0);
+    RefreshAvatarStoreButtons(param_1,1,0);
     SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry,0xa);
     SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry,0xb);
     uVar12 = 1;
@@ -216,7 +216,7 @@ LAB_004457e7:
     if (((cVar1 != '\0') || (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32c54)), cVar1 == '\x01')) ||
        ((cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,3);
-    FUN_00449250(param_1,1,0);
+    RefreshAvatarStoreButtons(param_1,1,0);
     SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry,0xa);
     SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry,0xb);
     SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry,0xc);
@@ -810,7 +810,7 @@ LAB_00446d2b:
     RemoveWidget();
     RemoveWidget();
     CreateAvatarStoreButtons(param_1);
-    FUN_00449250(param_1,1,0);
+    RefreshAvatarStoreButtons(param_1,1,0);
     break;
   case 0x33:
     QueueOutgoingPacketField(0);
@@ -1026,14 +1026,14 @@ LAB_00446f6d:
     RemoveWidget();
     RemoveWidget();
     CreateAvatarStoreButtons(param_1);
-    FUN_00449250(param_1,0,0);
+    RefreshAvatarStoreButtons(param_1,0,0);
     break;
   case 0x3b:
     *(undefined1 *)(param_1 + 0x32f90) = 1;
     QueueOutgoingPacketField(0);
     RemoveWidget((int)&g_activeObjectRegistry,0,0x3b);
     CreateAvatarStoreButtons(param_1);
-    FUN_00449250(param_1,1,0);
+    RefreshAvatarStoreButtons(param_1,1,0);
     break;
   case 0x3c:
     QueueOutgoingPacketField(0);
@@ -1042,7 +1042,7 @@ LAB_00446f6d:
     RemoveWidget();
     RemoveWidget();
     CreateAvatarStoreButtons(param_1);
-    FUN_00449250(param_1,1,0);
+    RefreshAvatarStoreButtons(param_1,1,0);
   case 0x3d:
     BuildSystemInfoBlob(&local_4518, systemInfoBlob2);
     puVar11 = &local_4518;

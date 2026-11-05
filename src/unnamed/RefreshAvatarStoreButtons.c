@@ -1,9 +1,22 @@
-/* FUN_00449250 - 0x00449250 in the original binary.
+/* RefreshAvatarStoreButtons - 0x00449250 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00449250 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: every caller
+ * is avatar-store or avatar-equip code: CreateAvatarStoreButtons calls it
+ * right after building the b_store_* buttons, State07_AvatarStore_OnEnter,
+ * _OnCommand and _ProcessPacket call it after each state change, and the
+ * equip/unequip/preview helpers (EquipAvatarPart, UnequipAvatarSlot,
+ * PreviewAvatarPart) call it with the third argument set. The widget keys
+ * it drives through InvokeWidget and SetState are 0, 10-13, 15, 16, 17 and
+ * 18, the key set CreateAvatarStoreButtons registers (exit, cap, cloth,
+ * glasses, flag, puton, buy, up, down), and it reads the store object's
+ * selected-slot fields. It enables or disables those buttons, which is a
+ * refresh of the button states, not a creation.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 5 argless PeekPacketChecksumState() calls - every one reads
@@ -48,7 +61,7 @@ typedef void (__fastcall *WidgetSetStateFn)(void *thisPtr, int dummyEDX, const c
 /* WARNING: Removing unreachable block (ram,0x0044936e) */
 /* WARNING: Removing unreachable block (ram,0x00449378) */
 
-void FUN_00449250(int param_1,int param_2,int param_3)
+void RefreshAvatarStoreButtons(int param_1,int param_2,int param_3)
 
 {
   int *piVar1;

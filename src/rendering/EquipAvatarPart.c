@@ -79,7 +79,7 @@ void EquipAvatarPart(int param_1)
     EncodeOutgoingPacketField((void *)(g_clientContext + 0x5f4ab8 + (uVar5 >> 0x10 & 0xf) * 0x224), uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,param_1 + 0x31488,200000,300000);
-    FUN_00449250(param_1,1,1);
+    RefreshAvatarStoreButtons(param_1,1,1);
   }
   return;
 }

@@ -106,6 +106,6 @@ void __fastcall FUN_004475c0(void *thisPtr, int dummyEDX, uint msg, uint wParam,
     QueueOutgoingPacketField((void *)(self + 4),iVar1);
     RadioGroup_RefreshEnableStates(*(int *)(self + 0x34784),0);
   }
-  FUN_00449250(self,1,0);
+  RefreshAvatarStoreButtons(self,1,0);
   return;
 }

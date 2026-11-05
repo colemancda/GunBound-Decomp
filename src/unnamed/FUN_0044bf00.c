@@ -157,7 +157,7 @@ void FUN_0044bf00(int param_1)
 LAB_0044c2d6:
   EncodePacketBody(0,iVar4);
   SendOutgoingPacket(iVar4);
-  FUN_00449250(param_1,0,0);
+  RefreshAvatarStoreButtons(param_1,0,0);
   return;
 }
 

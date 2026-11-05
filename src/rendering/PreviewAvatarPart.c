@@ -62,7 +62,7 @@ void PreviewAvatarPart(int regEsi)
   case 1:
     LoadAvatarSprites(uVar4 | uVar1 & 0xffff,0xffffffff,0xffffffff,0xffffffff,regEsi + 0x31488,200000,
                  300000);
-    FUN_00449250(regEsi,1,1);
+    RefreshAvatarStoreButtons(regEsi,1,1);
     return;
   case 2:
     uVar4 = uVar4 | uVar1 & 0xffff;
@@ -79,7 +79,7 @@ void PreviewAvatarPart(int regEsi)
 LAB_0044b59d:
   LoadAvatarSprites(0xffffffff,uVar1,uVar4,uVar3,regEsi + 0x31488,200000,300000);
 switchD_0044b51a_default:
-  FUN_00449250(regEsi,1,1);
+  RefreshAvatarStoreButtons(regEsi,1,1);
   return;
 }
 

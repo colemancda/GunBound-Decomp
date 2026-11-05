@@ -29,7 +29,7 @@ void CreateAvatarStoreButtons(undefined4 param_1)
   CreateButtonWidget(&g_activeObjectRegistry,0,0x12,0x454,s_b_store_down_005556e0,0x205,0x1e8,0x10,0x30,1,0);
   CreateButtonWidget(&g_activeObjectRegistry,0,0x3d,0x455,s_b_store_cashcharge_005556cc,0x1e5,7,0x37,0x2e,1,0)
   ;
-  FUN_00449250(param_1,1,0);
+  RefreshAvatarStoreButtons(param_1,1,0);
   return;
 }
 

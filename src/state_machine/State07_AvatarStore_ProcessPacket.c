@@ -601,7 +601,7 @@ switchD_00444e7c_default:
     }
     *(undefined1 *)((int)this + 0x32f90) = 1;
   }
-  FUN_00449250(this,1,0);
+  RefreshAvatarStoreButtons(this,1,0);
 LAB_00445282:
   return;
 }
