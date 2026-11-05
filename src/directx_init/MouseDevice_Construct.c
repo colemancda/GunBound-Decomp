@@ -1,4 +1,4 @@
-/* FUN_004ee120 - 0x004ee120 in the original binary.
+/* MouseDevice_Construct - 0x004ee120 in the original binary.
  *
  * RECOVERED (2026-09-01): the 0xe53698 coalesce landed - one 0x5a8
  * g_mouseDeviceTimerBlock in globals_sized.c with the split fields as
@@ -9,9 +9,18 @@
  * g_cursorFreeMode = 1 default the hand initializer used to fake and
  * the 0..799/0..599 cursor bounds with the 400/300 anchor.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): the CRT static-init stub 0x540e00 loads EAX
+ * = 0xe53698 (g_mouseDeviceTimerBlock, the mouse singleton GameTick ticks)
+ * and calls this function before registering an atexit handler. It copies
+ * GUID_SysMouse (6F1D2B60-D5A0-11CF-BFC7-444553540000 at 0x557328) into
+ * obj+8, stamps vtable 0x557484 whose slot 1 is the c_dfDIMouse
+ * initializer, and seeds the cursor bounds 0..799 / 0..599 with the
+ * 400/300 anchor, which matches the 800x600 screen. Keyboard counterpart:
+ * KeyboardDevice_Construct.
  *
  * DROPPED REGISTER RESOLVED BUT DELIBERATELY NOT APPLIED (2026-08-27).
  * regEax is 0xe53698 -- uniform, and there is only one call site: the static
@@ -41,7 +50,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004ee120(undefined4 *regEax)
+void MouseDevice_Construct(undefined4 *regEax)
 
 {
   

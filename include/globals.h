@@ -895,7 +895,7 @@ extern uint8_t DAT_00e525e8;
 /* The DirectInput mouse/cursor singleton at 0xe53698, COALESCED
  * (2026-09-01): one 0x5a8-byte object in globals_sized.c; the split-out
  * fields below are offset macros into it, so the constructor
- * FUN_004ee120 (now run from the startup hook) and every field access
+ * MouseDevice_Construct (now run from the startup hook) and every field access
  * observe the same memory. The _DAT_ spellings are the 4-byte-wide
  * accesses Ghidra emitted - typing them uint32_t also FIXES the old
  * truncation where dialog clamp bounds like 0x229 were stored through a

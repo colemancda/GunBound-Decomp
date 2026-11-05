@@ -1,4 +1,5 @@
 /* MultiplyMatrix4x4ToScratch - 0x004f1f50 in the original binary.
+ * (FUN_004ee120 in the notes below is MouseDevice_Construct's old symbol.)
  *
  * Multiplies two 4x4 float matrices and leaves the product in one shared
  * static scratch matrix, DAT_005a9350, which it also returns.

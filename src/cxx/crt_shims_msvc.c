@@ -125,7 +125,7 @@ extern unsigned char g_replayContext;
  * of early-returning "already open". Offset 0x1040 = XFS_OFF_HFILE. */
 extern unsigned char g_graphicsArchive[], g_xfsScratch[];
 void XFSArchive_Construct(int regEsi);   /* 0x4f09d0 - see src/fileformat/XFSArchive_Construct.c */
-void FUN_004ee120(unsigned int *regEax);   /* the mouse/cursor singleton ctor - 0x4ee120 (undefined4* in functions.h; identical under MSVC) */
+void MouseDevice_Construct(unsigned int *regEax);   /* the mouse/cursor singleton ctor - 0x4ee120 (undefined4* in functions.h; identical under MSVC) */
 extern unsigned char g_mouseDeviceTimerBlock[];
 /* Flat-ButtonWidget registry roots (src/globals.c) - each is its own
  * embedded circular-list sentinel node. Every reader (FindActiveObjectAt's
@@ -418,7 +418,7 @@ static void gb_startup_init(void)
      * g_mouseDeviceTimerBlock - supplies g_cursorFreeMode = 1 (previously
      * a hand-set initializer in globals.c) and the 0..799/0..599 cursor
      * bounds with the 400/300 anchor the clamp code reads. */
-    FUN_004ee120((unsigned int *)g_mouseDeviceTimerBlock);
+    MouseDevice_Construct((unsigned int *)g_mouseDeviceTimerBlock);
     gb_init_widget_registry(g_activeObjectRegistry, gb_registrySentinel[0]);
     gb_init_widget_registry(g_activeObjectRegistry2, gb_registrySentinel[1]);
     gb_init_widget_registry(g_spriteRegistry, gb_registrySentinel[2]);   /* global sprite registry */

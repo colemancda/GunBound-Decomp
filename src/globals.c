@@ -688,7 +688,7 @@ uint8_t DAT_00d9aa35;
  * no real input device is acquired. */
 /* g_mouseDeviceTimerBlock moved to globals_sized.c, expanded 0x88 ->
  * 0x5a8: the full DirectInput mouse/cursor singleton, coalescing the
- * split fields around it; its constructor FUN_004ee120 now runs from
+ * split fields around it; its constructor MouseDevice_Construct now runs from
  * the startup hook. The KNOWN DIVERGENCE above is resolved for the
  * mouse object, and (2026-10-30) for the keyboard object below; the
  * cursor-anim block is unchanged. */
@@ -711,7 +711,7 @@ uint8_t g_softwareCursorAnimBlock[0x38];
  * defaulted to 0 and the menu cursor was locked at (0,0). Default it to the
  * menu/free value 1 so the cursor tracks outside battle. (2026-07-18) */
 /* g_cursorFreeMode is the byte at g_mouseDeviceTimerBlock+0x5a4 (macro
- * in globals.h). Its old hand-set `= 1` is retired: FUN_004ee120 - the
+ * in globals.h). Its old hand-set `= 1` is retired: MouseDevice_Construct - the
  * original's own constructor, now run from the startup hook - writes
  * exactly that byte to 1. */
 /* g_uiPanelManager was a 1-byte placeholder, but the code dereferences it as

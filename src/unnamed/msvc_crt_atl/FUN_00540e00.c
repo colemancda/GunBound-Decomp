@@ -1,4 +1,5 @@
 /* FUN_00540e00 - 0x00540e00 in the original binary.
+ * (FUN_004ee120 in the notes below is MouseDevice_Construct's old symbol.)
  *
  * The CRT static-initializer thunk for the DirectInput mouse/cursor
  * singleton: `mov eax,0xe53698 / call 0x4ee120 / push dtor / call
@@ -20,7 +21,7 @@ void FUN_00543270(void);
 void FUN_00540e00(void)
 
 {
-  FUN_004ee120((undefined4 *)g_mouseDeviceTimerBlock);
+  MouseDevice_Construct((undefined4 *)g_mouseDeviceTimerBlock);
   _atexit(FUN_00543270);
   return;
 }

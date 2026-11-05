@@ -1,4 +1,5 @@
 /* MultiplyMatrix4x4InPlace - 0x004f2240 in the original binary.
+ * (FUN_004ee120 in the notes below is MouseDevice_Construct's old symbol.)
  *
  * Multiplies two 4x4 float matrices and writes the product back over the
  * left operand.
