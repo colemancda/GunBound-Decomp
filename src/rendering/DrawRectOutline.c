@@ -1,13 +1,26 @@
-/* FUN_004eb7a0 - 0x004eb7a0 in the original binary.
+/* DrawRectOutline - 0x004eb7a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004eb7a0 mean this function.)
+ *
+ * NAMED (2026-11-05), CERTAIN. Evidence from outside the body: its four
+ * callees are the already-named DrawHLine (0x4eb5d0, top and bottom edge)
+ * and DrawVLine (left and right edge), so the four edges form a rectangle
+ * outline with x, width and height on the stack, y in ESI and the colour in
+ * EAX. The callers confirm the shape: TextEntry_Update and
+ * State11_InBattle_RenderPlayerRoster pass (column * 6 + base, span * 6,
+ * 0xc), a text-selection or caret rectangle one row tall (the ReadyRoom
+ * status overlay inlines the same call), and RenderMobile, its C++ twin in
+ * Mobile.cpp and FUN_00463630 pass (x + 1, 0x4e, 5), a 78 by 5 box. It
+ * draws the outline only.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004eb7a0(int param_1,int param_2,int param_3)
+void DrawRectOutline(int param_1,int param_2,int param_3)
 
 {
   /* DROPPED-REG FIX (2026-08-28): a rectangle-outline helper - two

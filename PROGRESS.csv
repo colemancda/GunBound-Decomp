@@ -1197,7 +1197,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004eb640,99,DrawBlendedHLine,false,1,1,RAW-src
 004eb6b0,102,DrawVLine,false,8,0,RAW-src
 004eb720,123,DrawBlendedVLine,false,1,1,RAW-src
-004eb7a0,82,FUN_004eb7a0,false,4,2,RAW-src
+004eb7a0,82,DrawRectOutline,false,4,2,RAW-src
 004eb800,142,FillScreenRect,false,11,1,RAW-src
 004eb890,65,DrawSprite,false,16,3,RAW-src
 004eb8e0,92,QueueSpriteSpansByContentId,false,13,2,RAW-src

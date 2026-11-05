@@ -92,7 +92,7 @@ void __fastcall TextEntry_Update(int param_1)
         } while (cVar1 != '\0');
         local_4 = (int)pcVar2 - (param_1 + 0x39);
       }
-      FUN_004eb7a0((local_8 * 6 - *(int *)(param_1 + 0x13c)) + *(int *)(param_1 + 0x28),
+      DrawRectOutline((local_8 * 6 - *(int *)(param_1 + 0x13c)) + *(int *)(param_1 + 0x28),
                    local_4 * 6 + local_8 * -6 + 2,0xc);
       BlitRLESprite(*(int *)(param_1 + 0x28) - *(int *)(param_1 + 0x13c),
                     *(undefined4 *)(param_1 + 0x2c),0xffff,(byte *)(param_1 + 0x38));

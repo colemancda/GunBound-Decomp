@@ -128,7 +128,7 @@ void FUN_00463630(int param_1)
           PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         }
         if (*(int *)(param_1 + 0x24) != 0xe) {
-          FUN_004eb7a0(iVar4 + 1,0x4e,5);
+          DrawRectOutline(iVar4 + 1,0x4e,5);
           local_113c[0] = iVar4 + 2;
           iVar7 = iVar2 + 1;
           FillScreenRect(iVar7,local_113c[0],0x4c,0x2965,3);

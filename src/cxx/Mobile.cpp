@@ -126,7 +126,7 @@ char CheckGuardedBoolAnd(int cond);
 unsigned int PacketChecksumEquals(void *cell, int v);
 char PacketChecksumNotEquals(void *cell, int v);
 char CompareChecksumPair(void *cellA, unsigned int cellB);
-void FUN_004eb7a0(int a, int b, int c);
+void DrawRectOutline(int a, int b, int c);
 int  _sprintf(char *buf, const char *fmt, int a, int b);
 
 extern int g_clientContext;            /* _DAT_005b3484 */
@@ -544,7 +544,7 @@ void CMobile::v3_Render()
                 }
                 if (*reinterpret_cast<int *>(this->m_pad20 + 4) != 0xe &&
                     (cVar4 = PacketChecksumNotEquals(reinterpret_cast<void *>(g_clientContext + 0x45354), 3), cVar4 != '\0')) {
-                    FUN_004eb7a0(iVar6 + 1, 0x4e, 5);
+                    DrawRectOutline(iVar6 + 1, 0x4e, 5);
                     GBFillRect(0x4c, 0x2965);
                     pbVar13 = this->m_pad908 + 0x64a8;
                     pbVar1 = this->m_pad908 + 0x5e3c;

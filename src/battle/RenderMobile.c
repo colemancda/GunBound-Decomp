@@ -266,7 +266,7 @@ void __fastcall RenderMobile(int param_1)
         }
         if ((*(int *)(param_1 + 0x24) != 0xe) &&
            (cVar3 = PacketChecksumNotEquals(g_clientContext + 0x45354,3), cVar3 != '\0')) {
-          FUN_004eb7a0(iVar5 + 1,0x4e,5);
+          DrawRectOutline(iVar5 + 1,0x4e,5);
           FillScreenRect(iVar10 + 1,iVar5 + 2,0x4c,0x2965,3);
           iVar5 = param_1 + 0x6db0;
           iVar8 = param_1 + 0x6744;

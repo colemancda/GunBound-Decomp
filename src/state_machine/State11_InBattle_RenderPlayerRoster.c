@@ -202,7 +202,7 @@ void State11_InBattle_RenderPlayerRoster(int param_1)
       } while (cVar1 != '\0');
       local_1018[0] = (int)pcVar4 - (int)local_1007;
     }
-    FUN_004eb7a0(iVar3 * 6 + 0xca,local_1018[0] * 6 + iVar3 * -6 + 2,0xc);
+    DrawRectOutline(iVar3 * 6 + 0xca,local_1018[0] * 6 + iVar3 * -6 + 2,0xc);
     /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the raw
      * port - objdump at this call site (0x4083ac/0x4083a8) shows
      * ECX=0xcb (constant x-cursor) and EAX=&local_1008 (the edit-box
