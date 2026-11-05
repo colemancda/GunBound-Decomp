@@ -1337,7 +1337,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f3960,30,FUN_004f3960,false,3,2,RAW-src
 004f3980,115,AllocSpriteRegistryNode,false,1,1,RAW-src
 004f3a00,34,InitSpriteRegistryPool,false,1,1,RAW-src
-004f3a30,40,FUN_004f3a30,false,1,1,RAW-src
+004f3a30,40,DestroySpriteRegistryPool,false,1,1,RAW-src
 004f3a60,142,MultiplyQuaternionsToScratch,false,1,0,RAW-src
 004f3af0,166,FUN_004f3af0,false,1,0,RAW-src
 004f3ba0,204,QuaternionToRotationMatrix,false,2,0,RAW-src

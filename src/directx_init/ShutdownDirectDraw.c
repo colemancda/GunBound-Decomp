@@ -31,7 +31,7 @@ void ShutdownDirectDraw(void)
    * FUN_004f0d70 (CloseXFSArchive) flushes and closes the graphics archive. */
   CloseXFSArchive(&g_graphicsArchive);
   DestroyTextureCachePool();
-  FUN_004f3a30();
+  DestroySpriteRegistryPool();
   /* Container passed in EBX by the original (`mov ebx,0xeb1bd8` immediately
    * before the call) - see src/rendering/FlushTextureCache.c's header. */
   FlushTextureCache((int)&g_textureCache);

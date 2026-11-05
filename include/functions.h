@@ -1441,7 +1441,7 @@ void FUN_004f3940(undefined4 *regEax);
 void * __thiscall FUN_004f3960();
 void * AllocSpriteRegistryNode();
 void InitSpriteRegistryPool();
-void FUN_004f3a30();
+void DestroySpriteRegistryPool();
 undefined * __fastcall MultiplyQuaternionsToScratch(float *param_1,float *regEax);
 void FUN_004f3af0(double param_1,double param_2,double param_3,float *regEax);
 void __fastcall QuaternionToRotationMatrix(float *param_1,float *regEax);
