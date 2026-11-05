@@ -1323,7 +1323,7 @@ void UpdateDeviceAcquisition(int deviceObj, char wasActive);
 undefined4 * __fastcall KeyboardDevice_Construct();
 undefined4 __fastcall KeyboardDevice_Initialize();
 void __fastcall CInputDevice_Release();
-void __fastcall FUN_004ee0d0(int param_1);
+void __fastcall KeyboardDevice_TickKeyTimers(int param_1);
 void MouseDevice_Construct(undefined4 *regEax);
 void * __thiscall CInputDevice_ScalarDeletingDestructor();
 void __fastcall CInputDevice_BaseDestructor();

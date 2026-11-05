@@ -678,7 +678,7 @@ uint8_t DAT_00d9aa35;
  * MouseDevice_Initialize.c), so the singletons never exist and GameTick's literal-address
  * timer calls dereferenced unbacked memory and faulted. Each consumer only
  * decrements already-nonzero timer fields (FUN_004ee540 at +0x68..+0x84,
- * FUN_004ee0d0 at +0x258..+0x654) or is gated on an enable flag
+ * KeyboardDevice_TickKeyTimers at +0x258..+0x654) or is gated on an enable flag
  * (AdvanceSpriteAnimation on +0x20), so zeroed backing is a correct no-op for
  * the input-less logo path. Sized to cover each function's highest field read.
  *
