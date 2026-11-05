@@ -69,7 +69,7 @@ LAB_004fe749:
       param_4 = 0x10;
       SVar4 = accept(*(SOCKET *)(LVar3 + 0x1c),&local_10,(int *)&param_4);
       if (SVar4 != 0xffffffff) {
-        FUN_004ff690(&local_10,(int)param_4);
+        CommEngineAccept(&local_10,(int)param_4);
       }
     }
     break;
