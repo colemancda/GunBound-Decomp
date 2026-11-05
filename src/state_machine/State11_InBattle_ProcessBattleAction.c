@@ -795,7 +795,7 @@ LAB_004b7c01:
                 pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x265);
                 _sprintf((char *)local_27d8,pcVar5,iVar4,uVar21);
                 (**(code **)(*local_27ec + 0x28))(local_27d8,4,3);
-                FUN_0040b030((void *)((int)local_27ec + 0x11dc));
+                EncodeIncrementedChecksum((void *)((int)local_27ec + 0x11dc));
               }
               else if (bVar16 == 2) {
                 local_27dc = uVar11 * 0x224;
@@ -852,7 +852,7 @@ LAB_004b7c01:
                 pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x262);
                 _sprintf((char *)local_27d8,pcVar5,iVar4,uVar21);
                 (**(code **)(*local_27ec + 0x28))(local_27d8,4,3);
-                FUN_0040b030((void *)((int)local_27ec + 0x11dc));
+                EncodeIncrementedChecksum((void *)((int)local_27ec + 0x11dc));
                 puVar8 = local_27f0;
               }
               else if (bVar16 == 2) {

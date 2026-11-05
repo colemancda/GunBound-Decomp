@@ -288,7 +288,7 @@ int InitGuardedChecksumSlot();
 int FUN_0040aea0(undefined4 param_1,int param_2,undefined4 param_3);
 void EmitChecksumSum(void *self,void *other);
 void EmitChecksumDiff(void *self,void *other);
-void FUN_0040b030(void *self);
+void EncodeIncrementedChecksum(void *self);
 void EncodeDecrementedChecksum(void *self);
 int FUN_0040b090();
 int EncodeChecksumDeltaShr();

@@ -165,7 +165,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040aea0,261,FUN_0040aea0,false,3,6,RAW-src
 0040afb0,59,EmitChecksumSum,false,110,4,RAW-src
 0040aff0,59,EmitChecksumDiff,false,3,4,RAW-src
-0040b030,43,FUN_0040b030,false,6,4,RAW-src
+0040b030,43,EncodeIncrementedChecksum,false,6,4,RAW-src
 0040b060,43,EncodeDecrementedChecksum,false,10,4,RAW-src
 0040b090,236,FUN_0040b090,false,8,6,RAW-src
 0040b180,236,EncodeChecksumDeltaShr,false,144,6,RAW-src
