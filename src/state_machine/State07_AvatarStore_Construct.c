@@ -1,6 +1,21 @@
-/* FUN_00443c20 - 0x00443c20 in the original binary. CState07AvatarStore's
+/* State07_AvatarStore_Construct - 0x00443c20 in the original binary. CState07AvatarStore's
  * constructor - called from InitGame right after the object is allocated,
  * stores its pointer into g_gameStateVTableArray[7].
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00443c20 mean this function.)
+ *
+ * NAMED (2026-11-05), HIGH. Evidence from outside the body: InitGame
+ * allocates the state object and stores the return value into
+ * g_gameStateVTableArray[7] (entry/InitGame.c), the cxx GameStateMachine
+ * does the same with operator new(0x34818), and the function stamps the
+ * vtable vtable_State07_AvatarStore into the object. It also runs the
+ * guard-cell constructors for the part-record arrays and the state's other
+ * members, matching State07_AvatarStore_Delete and _Destroy, and the file
+ * is the State07 twin of State09_ReadyRoom_Construct.
  *
  * SEH-PROLOGUE ARTIFACT FIX (2026-07-29): same bug class already fixed in
  * WidgetChildArray_Destroy.c - Ghidra's `unaff_FS_OFFSET` was an
@@ -28,7 +43,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_00443c20(undefined4 *param_1)
+undefined4 * State07_AvatarStore_Construct(undefined4 *param_1)
 
 {
   *param_1 = &vtable_State07_AvatarStore;

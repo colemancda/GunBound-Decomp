@@ -661,7 +661,7 @@ undefined4 Tree_Buynode_18();
 void FUN_00443ba0();
 void FUN_00443be0(int regEax);
 void FUN_00443c00(int *regEax);
-undefined4 * FUN_00443c20();
+undefined4 * State07_AvatarStore_Construct();
 void * __thiscall State07_AvatarStore_Delete();
 void FUN_00443dc0();
 void __fastcall State07_AvatarStore_Destroy(undefined4 *param_1);

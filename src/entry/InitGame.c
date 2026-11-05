@@ -210,7 +210,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
           g_gameStateVTableArray[7] = (undefined *)0x0;
         }
         else {
-          g_gameStateVTableArray[7] = (undefined *)FUN_00443c20(pvVar2);
+          g_gameStateVTableArray[7] = (undefined *)State07_AvatarStore_Construct(pvVar2);
         }
         uStack_4 = 0xffffffff;
         pvVar2 = operator_new(0x78c);
