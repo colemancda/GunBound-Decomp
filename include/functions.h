@@ -622,7 +622,7 @@ void FUN_0043d9b0();
 undefined4 LoadLocalizedStrings();
 undefined4 * GetLocalizedString();
 int FUN_0043dd40();
-void FUN_0043ddb0(int *regEax,int *regEdi);
+void CString_Assign(int *regEax,int *regEdi);
 undefined4 CString_CloneData(int *regEax);
 int FUN_0043de70(int *param_1,int regEcx,char *regEax);
 int * __fastcall FUN_0043e060();

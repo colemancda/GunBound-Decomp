@@ -71,7 +71,7 @@ undefined4 * FindSoundFileName(int *param_1,uchar *regEbx)
   uStack_4 = 0;
   iVar3 = StringMap_Find_10(auStack_10,auStack_14,&stack0x00000004,param_1,regEbx);
   if (iVar3 != 0) {
-    FUN_0043ddb0((int *)(iVar3 + 4),&local_18);
+    CString_Assign((int *)(iVar3 + 4),&local_18);
     /* 0x4e37a6 `mov esi,[esp+8]`: from here on the local is the ASSIGNED
      * value, not the nil it was built from - release and return that. */
     puVar2 = (undefined4 *)(local_18 - 0x10);

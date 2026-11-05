@@ -68,7 +68,7 @@ undefined4 * GetLocalizedString(undefined4 param_1,int param_2)
   iVar4 = (int)FUN_0043e060(0,(undefined4 *)param_1,param_2);
   puVar2 = PTR_DAT_0056d460;
   if (iVar4 != 0) {
-    FUN_0043ddb0((int *)(iVar4 + 4),&local_10);
+    CString_Assign((int *)(iVar4 + 4),&local_10);
     uStack_4 = 0xffffffff;
     piVar1 = puVar3 + 3;
     LOCK();
