@@ -619,7 +619,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004585e0,166,FUN_004585e0,false,23,5,RAW-src
 00458690,448,PublishProjectileTrackingState,false,31,6,RAW-src
 00458850,193,IsProjectileInBounds,false,40,5,RAW-src
-00458920,216,FUN_00458920,false,12,1,RAW-src
+00458920,216,FindFirstImpactAlongStep_XMajor,false,12,1,RAW-src
 00458a00,216,FUN_00458a00,false,12,1,RAW-src
 00458b80,6590,InitMobile,false,17,8,RAW-src
 0045a540,31,DeleteMobile,false,1,2,RAW-src

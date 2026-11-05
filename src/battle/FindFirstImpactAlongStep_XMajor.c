@@ -1,8 +1,26 @@
-/* FUN_00458920 - 0x00458920 in the original binary.
+/* FindFirstImpactAlongStep_XMajor - 0x00458920 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00458920 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: it is called
+ * from ten projectile Simulate* routines (and CProjectile::SimulateFrame),
+ * in one branch of the line stepper (SimulateProjectileFrame has the
+ * 0x458920 sites in one branch and the 0x458a00 sites in the mirrored
+ * one), immediately after the per-step trace has found the current pixel
+ * inside the terrain mask (ctx+0x6a773c, camera bound stride) or
+ * HitTestMobilesAndJewels has fired, with the step count (stepDelta) in
+ * EAX. The caller then encodes the returned (x, y) into the projectile's
+ * guarded position and impact cells and broadcasts the 0xf002 enter-
+ * terrain event. The body replays the last stepDelta steps forward (x
+ * stepping linearly, y in 16.16 fixed point) and returns the first solid
+ * mask pixel, or the first mobile hit when the last argument is set, so
+ * the reported impact is the first contact rather than the overshoot
+ * pixel. FUN_00458a00 is the Y-major twin (x and y roles swapped, called
+ * from the other branch); hence the XMajor suffix.
  *
  * DROPPED REGISTER RECOVERED (2026-08-24): EAX is the caller's STEP COUNT --
  * param_2 of every __thiscall Simulate* caller (stepDelta in the C++ port).
@@ -22,7 +40,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00458920(int *param_1,int *param_2,int param_3,int param_4,int param_5,int param_6,
+void FindFirstImpactAlongStep_XMajor(int *param_1,int *param_2,int param_3,int param_4,int param_5,int param_6,
                  int param_7,char param_8,char param_9,int regEax)
 
 {

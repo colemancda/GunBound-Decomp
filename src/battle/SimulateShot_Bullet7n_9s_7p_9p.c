@@ -313,7 +313,7 @@ LAB_0049b2e9:
            (((int)uVar16 < *(int *)(&g_nCameraBoundY + g_clientContext) &&
             (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * uVar16 +
                        *(int *)(&DAT_006a773c + g_clientContext) + uVar11) != '\0')))) {
-          FUN_00458920(&local_15b0,&local_15a0,local_1580[0],local_1594,local_1590,iVar14,local_159c
+          FindFirstImpactAlongStep_XMajor(&local_15b0,&local_15a0,local_1580[0],local_1594,local_1590,iVar14,local_159c
                        ,1,0,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15b0 << 8);

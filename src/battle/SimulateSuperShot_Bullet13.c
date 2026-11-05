@@ -416,7 +416,7 @@ LAB_00486e6e:
             (iVar9 < *(int *)(&g_nCameraBoundY + g_clientContext))) &&
            (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * iVar9 +
                       *(int *)(&DAT_006a773c + g_clientContext) + iVar11) != '\0')) {
-          FUN_00458920(&local_15c0,&local_15b8,local_159c,local_1588,local_158c,local_15bc,
+          FindFirstImpactAlongStep_XMajor(&local_15c0,&local_15b8,local_159c,local_1588,local_158c,local_15bc,
                        local_1584,1,0,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar9 = local_15a8;

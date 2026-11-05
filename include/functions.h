@@ -1914,7 +1914,7 @@ void __cdecl FUN_0051f184(int param_3,undefined4 param_4,int param_5);
 void __thiscall HashMap_Construct(undefined4 param_1,undefined4 param_2,undefined4 param_3,
                              undefined4 param_4,undefined4 regEax,undefined4 *regEsi);
 
-void FUN_00458920(int *param_1,int *param_2,int param_3,int param_4,int param_5,int param_6,int param_7,char param_8,char param_9,int regEax);
+void FindFirstImpactAlongStep_XMajor(int *param_1,int *param_2,int param_3,int param_4,int param_5,int param_6,int param_7,char param_8,char param_9,int regEax);
 void FUN_00458a00(int *param_1,int *param_2,int param_3,int param_4,int param_5,int param_6,int param_7,char param_8,char param_9,int regEax);
 
 void __cdecl FUN_0051f456(int param_3,undefined4 param_4,int param_5);

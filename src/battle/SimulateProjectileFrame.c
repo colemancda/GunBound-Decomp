@@ -318,7 +318,7 @@ LAB_004560f2:
           ) && ((local_15b4 < *(int *)(&g_nCameraBoundY + g_clientContext) &&
                 (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * local_15b4 +
                            *(int *)(&DAT_006a773c + g_clientContext) + iVar13) != '\0')))) {
-        FUN_00458920(&local_15b8,&local_15b4,local_1584,local_158c,local_1590,local_1588,local_1594,
+        FindFirstImpactAlongStep_XMajor(&local_15b8,&local_15b4,local_1584,local_158c,local_1590,local_1588,local_1594,
                      1,0,param_2);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15b8 << 8);
@@ -359,7 +359,7 @@ LAB_004560f2:
         if ((int)local_15b0[0] <= local_158c) goto LAB_00457294;
         goto LAB_00456014;
       }
-      FUN_00458920(&local_15b8,&local_15b4,local_1584,local_158c,local_1590,local_1588,local_1594,0,
+      FindFirstImpactAlongStep_XMajor(&local_15b8,&local_15b4,local_1584,local_158c,local_1590,local_1588,local_1594,0,
                    1,param_2);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar12 = local_159c;

@@ -318,7 +318,7 @@ LAB_0048bc2e:
         cVar1 = HitTestMobilesAndJewels(local_15bc,(int)(&DAT_006a7f88 + g_clientContext),local_15b8);
         iVar3 = local_15b4;
         if (cVar1 != '\0') {
-          FUN_00458920(&local_15c4,&local_15bc,local_159c,local_15a4,local_1590,local_1578,
+          FindFirstImpactAlongStep_XMajor(&local_15c4,&local_15bc,local_159c,local_15a4,local_1590,local_1578,
                        local_1588,0,1,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar3 = local_15b4;

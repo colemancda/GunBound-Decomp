@@ -345,7 +345,7 @@ LAB_0049ea8b:
             ) && ((local_15c0 < *(int *)(&g_nCameraBoundY + g_clientContext) &&
                   (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * local_15c0 +
                              *(int *)(&DAT_006a773c + g_clientContext) + iVar5) != '\0')))) {
-          FUN_00458920(&local_15c4,&local_15c0,local_1598,local_1594,local_1590,local_1584,
+          FindFirstImpactAlongStep_XMajor(&local_15c4,&local_15c0,local_1598,local_1594,local_1590,local_1584,
                        local_1588,1,0,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15c4 << 8);
@@ -377,7 +377,7 @@ LAB_0049ea8b:
         }
         cVar2 = HitTestMobilesAndJewels(local_15c0,(int)(&DAT_006a7f88 + g_clientContext),local_15ac);
         if (cVar2 != '\0') {
-          FUN_00458920(&local_15c4,&local_15c0,local_1598,local_1594,local_1590,local_1584,
+          FindFirstImpactAlongStep_XMajor(&local_15c4,&local_15c0,local_1598,local_1594,local_1590,local_1584,
                        local_1588,0,1,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar4 = local_159c;
