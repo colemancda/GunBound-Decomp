@@ -127,7 +127,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
            WITHOUT the terminator (`pcVar6 - (param_1 + 8) - 1`, since the
            scan loop leaves pcVar6 one past the NUL); ECX (dummy) is dead
            inside the callee. */
-        FUN_004059e0(0,(uint)((pcVar6 - (char *)(param_1 + 8)) - 1),(undefined4 *)(param_1 + 8),
+        AppendDirectLinkSendBuffer(0,(uint)((pcVar6 - (char *)(param_1 + 8)) - 1),(undefined4 *)(param_1 + 8),
                      iVar4);
         FUN_00405a20();
         FUN_004024f0(param_2,param_1 + 8,param_3);
@@ -177,7 +177,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
         } while (cVar1 != '\0');
         /* DROPPED-ARG FIX 2026-09-21: recovered from orig 0x403309-0x40335e
            (case 2, 0xa112) - same shape as the 0x1000 case above. */
-        FUN_004059e0(0,(uint)((pcVar6 - (char *)(param_1 + 8)) - 1),(undefined4 *)(param_1 + 8),
+        AppendDirectLinkSendBuffer(0,(uint)((pcVar6 - (char *)(param_1 + 8)) - 1),(undefined4 *)(param_1 + 8),
                      iVar4);
         FUN_00405a20();
       }

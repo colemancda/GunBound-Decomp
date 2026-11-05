@@ -224,7 +224,7 @@ void AtlThrowOutOfMemory();
 void FUN_004058c0(void *, undefined4, undefined4);
 void CloseAndFreeConnection(int connOwner);
 void CloseDirectLinkSocket(int param_1);
-void __fastcall FUN_004059e0();
+void __fastcall AppendDirectLinkSendBuffer();
 void __fastcall FUN_00405a20();
 void DrainDirectLinkActionRing(int param_1);
 void __fastcall SendDirectLinkActivated(undefined2 *param_1);
