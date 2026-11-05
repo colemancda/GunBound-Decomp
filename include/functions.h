@@ -1531,7 +1531,7 @@ undefined4 CreateBoundSocket(char *regEax,int regEsi);
 void StringMap_SetAt_1c(int param_1,undefined4 regEdi,int *regEsi);
 undefined4 StringMap_RemoveKey_1c(char *regEdx,int *regEax);
 void __fastcall FUN_004fe590(undefined4 param_1,undefined4 *param_2,undefined4 *regEax);
-undefined4 __thiscall FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 param_4,undefined4 *param_5,uint param_6);
+undefined4 __thiscall SendP2PMessageToPeer(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 param_4,undefined4 *param_5,uint param_6);
 void CopyNameField_12(int regEsi,int regEdi);
 int ConnectToHostPort(undefined4 param_1,u_short param_2,int regEbx); /* narrow u_short arg: empty-paren decl conflicts under gcc */
 void __fastcall CommEngineCloseConnection(undefined4 param_1,int *param_2,int *regEax);

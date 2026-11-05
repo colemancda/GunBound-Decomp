@@ -1417,7 +1417,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fdf00,204,InitCommP2PNotifyWindow,false,1,5,RAW-src
 004fdfd0,136,DestroyCommEngine,false,1,6,RAW-src
 004fe060,161,CreateBoundSocket,false,1,5,RAW-src
-004fe110,760,FUN_004fe110,false,3,10,RAW-src
+004fe110,760,SendP2PMessageToPeer,false,3,10,RAW-src
 004fe420,102,HashMap_Construct,false,9,1,RAW-src
 004fe490,108,StringMap_SetAt_1c,false,1,4,RAW-src
 004fe500,113,StringMap_RemoveKey_1c,false,2,2,RAW-src

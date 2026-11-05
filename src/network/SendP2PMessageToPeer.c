@@ -1,8 +1,28 @@
-/* FUN_004fe110 - 0x004fe110 in the original binary.
+/* SendP2PMessageToPeer - 0x004fe110 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004fe110 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: Its callers
+ * show the arguments: this is the 12-byte address object at owner + 0x1a90
+ * (owner = CommP2POwner, passed as param_2 = owner + 0x2c), param_3 is a
+ * peer id, param_4 the 16-bit 0xc0xx message type (the 0xc0xx space
+ * SendBuddyNameMessage documents; FUN_004fcf10 loads it as its EDI),
+ * param_5/param_6 the payload and its length (rejected when 0x173b or
+ * more). FUN_004fcf10 and FUN_004fcf70 call it when owner vtable slot
+ * +0x3c returns true for the peer; otherwise they use the server-relay
+ * path FUN_00502650. UpsertP2PPeerRecord re-sends through it the datagrams
+ * it queued earlier. Inside, it looks the peer up with FindP2PPeerRecord,
+ * sends the datagram with SendEncryptedP2PDatagram when the peer is
+ * connected, appends it to the peer record's pending array
+ * (CArray_Add_1750) when it is not, calls the owner's vtable slot 0 with
+ * the same message when the peer record is absent (the port's flow around
+ * the slot +4 lookup is garbled), and arms the 0x14a retransmit timer that
+ * RetransmitPendingP2PDatagrams services. LIKELY because the name
+ * generalises over the three paths (direct, queued, relayed).
  *
  * DROPPED-ARGUMENT FIX (2026-09-20): the 3 SendEncryptedP2PDatagram() calls here
  * (lines ~132/142/148, orig 0x4fe28b/0x4fe2ba/0x4fe2f0) were each missing
@@ -47,7 +67,7 @@
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
 undefined4 __thiscall
-FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 param_4,
+SendP2PMessageToPeer(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 param_4,
             undefined4 *param_5,uint param_6)
 
 {

@@ -35,7 +35,7 @@ void FUN_004fcf70(int param_1,undefined4 param_2,undefined4 param_3,undefined4 p
         iVar2 = iVar2 + 1;
       }
       else {
-        FUN_004fe110((undefined4 *)((char *)regEdi + 0x1a90),regEdi + 0xb,
+        SendP2PMessageToPeer((undefined4 *)((char *)regEdi + 0x1a90),regEdi + 0xb,
                      *(undefined4 *)(regEbx + iVar3 * 4),param_2,param_3,param_4);
       }
       iVar3 = iVar3 + 1;

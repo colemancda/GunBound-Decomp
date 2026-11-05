@@ -159,7 +159,7 @@ UpsertP2PPeerRecord(undefined4 *param_1,int param_2,int param_3,short param_4,in
         ThrowCxxException(0x80070057);
       }
       iVar5 = piVar8[0x20] + (int)local_b8;
-      cVar1 = FUN_004fe110((undefined4 *)iVar5,(int *)param_1,param_2,
+      cVar1 = SendP2PMessageToPeer((undefined4 *)iVar5,(int *)param_1,param_2,
                            *(undefined2 *)(iVar5 + 0xc),(undefined4 *)(iVar5 + 0x10),
                            *(undefined2 *)(iVar5 + 0xe));
       if (cVar1 == '\0') {

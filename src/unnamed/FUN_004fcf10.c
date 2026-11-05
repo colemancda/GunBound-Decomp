@@ -98,7 +98,7 @@ undefined4 FUN_004fcf10(undefined4 param_1,undefined4 param_2,undefined4 regEdi,
   
   cVar1 = (**(code **)(*in_EAX + 0x3c))();
   if (cVar1 != '\0') {
-    FUN_004fe110((undefined4 *)((int)in_EAX + 0x1a90),in_EAX + 0xb,unaff_EBX,unaff_EDI,
+    SendP2PMessageToPeer((undefined4 *)((int)in_EAX + 0x1a90),in_EAX + 0xb,unaff_EBX,unaff_EDI,
                  (undefined4 *)param_1,param_2);
     /* Ghidra emitted a bare `return;` in a value-returning function;
      * MSVC falls through with whatever's in EAX, gcc 14 rejects it
