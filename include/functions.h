@@ -656,7 +656,7 @@ undefined4 * FUN_00443700(undefined4 *param_1,int *param_2,int *param_3,int regE
 void __fastcall Tree_IteratorIncrement_18();
 void __thiscall Tree_RotateRight_18();
 void FUN_00443840();
-void __thiscall FUN_00443b00();
+void __thiscall Tree_RotateLeft_18();
 undefined4 Tree_Buynode_18();
 void FUN_00443ba0();
 void FUN_00443be0(int regEax);
