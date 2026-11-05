@@ -343,7 +343,7 @@ extern float DAT_00558034;
 #define _DAT_00558034 DAT_00558034
 extern float DAT_00558038;
 #define _DAT_00558038 DAT_00558038
-extern uint8_t DAT_0055803c;
+extern float DAT_0055803c;
 #define _DAT_0055803c DAT_0055803c
 extern uint8_t DAT_00558040;
 #define _DAT_00558040 DAT_00558040
