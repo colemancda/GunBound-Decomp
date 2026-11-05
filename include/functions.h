@@ -1339,7 +1339,7 @@ void __fastcall SetMusicVolume();
 void __fastcall SetEffectsVolume();
 void FUN_004eeb70();
 undefined4 *FUN_004eebe0(); /* __thiscall ctor: call sites use the returned this-pointer */
-undefined4 FUN_004eec70();
+undefined4 RefillSoundStreamBuffer();
 void __fastcall FUN_004eef00();
 void __thiscall DecodeSoundBufferChunk();
 void __thiscall PollSoundBufferPosition();

@@ -60,7 +60,7 @@ LAB_004ef344:
         }
       }
       else {
-        cVar1 = FUN_004eec70();
+        cVar1 = RefillSoundStreamBuffer();
         uVar6 = DAT_00588f44;
         while (DAT_00588f44 = uVar6, cVar1 != '\0') {
           if (*(int *)(param_1 + 0xa4) < *(int *)(param_1 + 0x54)) {
@@ -80,7 +80,7 @@ LAB_004ef344:
               }
               RewindXFSEntryStream();
               *(undefined4 *)(param_1 + 0xa4) = 0;
-              cVar1 = FUN_004eec70();
+              cVar1 = RefillSoundStreamBuffer();
               if (cVar1 != '\0') {
                 iVar2 = FUN_00514950(*(undefined4 *)(param_1 + 0x98),*(undefined4 *)(param_1 + 0xa4)
                                      ,param_1 + 0x58,param_1 + 0x8c);
@@ -206,7 +206,7 @@ LAB_004ef25f:
             goto LAB_004ef344;
           }
 LAB_004ef13b:
-          cVar1 = FUN_004eec70();
+          cVar1 = RefillSoundStreamBuffer();
           uVar6 = DAT_00588f44;
         }
         piVar3 = *(int **)(g_secondarySoundBuffers + *(int *)(param_1 + 0x38) * 4);
