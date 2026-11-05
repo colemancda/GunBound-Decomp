@@ -284,7 +284,7 @@ vtable 0x555aa4  installs=2  slots=8
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x555ac4  installs=1  slots=9
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  PublishProjectileTrackingState
@@ -349,7 +349,7 @@ vtable 0x555bd0  installs=2  slots=8
    7: 0x491a40  FUN_00491a40
 
 vtable 0x555bf0  installs=1  slots=9  UNCARVED=1
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x453f30  UNCARVED
    3: 0x458690  PublishProjectileTrackingState
@@ -451,7 +451,7 @@ vtable 0x555d54  installs=2  slots=8
    7: 0x466fd0  Mobile15_MainAction
 
 vtable 0x555d74  installs=1  slots=9
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x488880  PublishProjectileTrackingStateFacing
@@ -509,7 +509,7 @@ vtable 0x555e0c  installs=2  slots=8
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x555e30  installs=1  slots=9
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  PublishProjectileTrackingState
@@ -605,7 +605,7 @@ vtable 0x555f38  installs=2  slots=8
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x555f58  installs=1  slots=9
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  PublishProjectileTrackingState
@@ -693,7 +693,7 @@ vtable 0x556078  installs=2  slots=8  UNCARVED=1
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x556098  installs=1  slots=9
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  PublishProjectileTrackingState
@@ -775,7 +775,7 @@ vtable 0x5561a8  installs=2  slots=8
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x5561c8  installs=1  slots=9
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  PublishProjectileTrackingState
@@ -834,7 +834,7 @@ vtable 0x556264  installs=2  slots=8
    7: 0x489580  Mobile04_MainAction
 
 vtable 0x556284  installs=1  slots=9
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x48d110  AnimateSuperShot_Bullet3
    3: 0x488880  PublishProjectileTrackingStateFacing
@@ -855,7 +855,7 @@ vtable 0x5562a8  installs=2  slots=8
    7: 0x48d1f0  Mobile02_MainAction
 
 vtable 0x5562c8  installs=1  slots=9
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  PublishProjectileTrackingState
@@ -880,7 +880,7 @@ vtable 0x556308  installs=1  slots=5  UNCARVED=2
    4: 0x429800  NoOpMethod
 
 vtable 0x55631c  installs=3  slots=9
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  PublishProjectileTrackingState
@@ -955,7 +955,7 @@ vtable 0x5563f0  installs=2  slots=10  UNCARVED=2
    9: 0x499930  UNCARVED
 
 vtable 0x556424  installs=1  slots=9  UNCARVED=1
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  PublishProjectileTrackingState
@@ -1105,7 +1105,7 @@ vtable 0x5565e4  installs=2  slots=5
    4: 0x4acc90  TickTornadoHazardLifetime
 
 vtable 0x5565f8  installs=1  slots=9  UNCARVED=1
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x4ae0f0  AnimateSuperShot_Bullet4
    3: 0x4ae1a0  UNCARVED
@@ -1116,7 +1116,7 @@ vtable 0x5565f8  installs=1  slots=9  UNCARVED=1
    8: 0x4ad230  ExplodeSuperShot_Bullet4
 
 vtable 0x55661c  installs=1  slots=9
-   0: 0x44d990  FUN_0044d990
+   0: 0x44d990  Projectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  PublishProjectileTrackingState
