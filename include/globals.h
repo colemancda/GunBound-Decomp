@@ -2439,7 +2439,7 @@ extern double DAT_00544378;
 #define _DAT_00544378 DAT_00544378
 extern double DAT_005448d8;
 #define _DAT_005448d8 DAT_005448d8
-extern uint32_t DAT_005448e0;
+extern double DAT_005448e0;
 #define _DAT_005448e0 DAT_005448e0
 extern uint32_t DAT_00544aa8;
 #define _DAT_00544aa8 DAT_00544aa8
