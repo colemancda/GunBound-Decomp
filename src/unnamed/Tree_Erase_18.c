@@ -1,8 +1,30 @@
-/* FUN_00443840 - 0x00443840 in the original binary.
+/* Tree_Erase_18 - 0x00443840 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00443840 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY, and NOT the name the scoping pass proposed.
+ * That pass called this Tree_InsertRebalance_18; the body disproves it.
+ * VC7.1 STL _Tree::erase(iterator _Where), for the 0x18-byte-node
+ * instantiation of Tree_Init_18 and Tree_Buynode_18. Library identity: it
+ * opens by throwing std::out_of_range with the exact library message
+ * "invalid map/set<T> iterator" (the string at 0x552000, built with
+ * basic_string_AssignCStr and LogicError_ctor) when the iterator's node is
+ * the nil head, which is the xtree.h check on erasing end(); then it
+ * advances a copy of the iterator with Tree_IteratorIncrement_18, unlinks
+ * the node, repairs the cached leftmost (head + 0) and rightmost (head + 8)
+ * with the min/max helpers 0x443c00 and 0x443be0, runs the red-black erase
+ * fix-up with Tree_RotateRight_18 and Tree_RotateLeft_18, frees the node,
+ * decrements the size at tree + 8 and stores the node in the out parameter.
+ * An insert never throws on an iterator, never frees a node and never
+ * decrements the size. Callers: the two range erasers FUN_00443680 and
+ * FUN_00443700 call it once per node in their erase(first, last) loops.
+ * Also corrected from the scoping note: 0x442e00 is a 692-byte function
+ * too, but it is unrelated code (a room-mobile renderer), not a twin of
+ * this one.
  */
 #include "ghidra_types.h"
 
@@ -19,7 +41,7 @@
 /* WARNING: Removing unreachable block (ram,0x0044398a) */
 /* WARNING: Removing unreachable block (ram,0x0044399d) */
 
-void FUN_00443840(int param_1,undefined4 *param_2,int *param_3)
+void Tree_Erase_18(int param_1,undefined4 *param_2,int *param_3)
 
 {
   undefined4 *puVar1;

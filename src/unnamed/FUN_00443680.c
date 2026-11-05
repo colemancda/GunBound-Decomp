@@ -31,7 +31,7 @@ undefined4 * FUN_00443680(undefined4 *param_1,int *param_2,int *param_3,int regE
   while (piVar2 != piVar4) {
     param_2 = piVar2;
     Tree_IteratorIncrement_18();
-    FUN_00443840(regEsi,&param_1,piVar2);
+    Tree_Erase_18(regEsi,&param_1,piVar2);
     piVar2 = param_2;
   }
   *puVar3 = piVar2;
