@@ -1,4 +1,5 @@
 /* RBTree_RotateLeft - 0x00404c40 in the original binary.
+ * (FUN_00404dd0 in the notes below is RBTree_LinkNode's old symbol.)
  * (Historical notes below: FUN_00404e60 is now RBTree_RemoveRebalance.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler

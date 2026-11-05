@@ -1,10 +1,18 @@
-/* FUN_00404dd0 - 0x00404dd0 in the original binary.
+/* RBTree_LinkNode - 0x00404dd0 in the original binary.
  * (Historical notes below: FUN_00405360 is now RBTree_BuyNode.)
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): RBTree_Insert's header documents this as
+ * the descent half of the insert, its sole call site, and the already-
+ * named sibling LocalizedStrings_LinkNode is the same split in the other
+ * map: allocate the node through the _Buynode twin (here RBTree_BuyNode),
+ * walk down comparing keys, attach the new node under the found parent as
+ * the left or right child, or as the root when the tree is empty. The
+ * comparison here is __mbsicmp over the string key, as RBTree_RemoveNode's
+ * header also notes. The rebalance is left to RBTree_Insert.
  *
  * RE-SLOTTED AND EAX RECOVERED (2026-08-24).  Entry: `mov ebp,[esp+0xc]`
  * (the key string, param_2), `mov ebx,ecx` (this, param_1), then
@@ -17,7 +25,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_00404dd0(int *param_1,uchar *param_2,int regEax)
+undefined4 __thiscall RBTree_LinkNode(int *param_1,uchar *param_2,int regEax)
 
 {
   int iVar1;

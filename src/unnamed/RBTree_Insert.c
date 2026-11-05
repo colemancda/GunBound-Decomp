@@ -1,4 +1,5 @@
 /* RBTree_Insert - 0x004049a0 in the original binary.
+ * (FUN_00404dd0 in the notes below is RBTree_LinkNode's old symbol.)
  * (Historical notes below: FUN_00404e60 is now RBTree_RemoveRebalance.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
@@ -68,7 +69,7 @@ int RBTree_Insert(int param_1,undefined4 regEax,int *regEdi)
   int iVar4;
   int *unaff_EDI = regEdi;
   
-  iVar2 = FUN_00404dd0(unaff_EDI,(uchar *)in_EAX,param_1);
+  iVar2 = RBTree_LinkNode(unaff_EDI,(uchar *)in_EAX,param_1);
   *(undefined4 *)(iVar2 + 0x104) = 0;
   iVar4 = iVar2;
   if (iVar2 != *unaff_EDI) {

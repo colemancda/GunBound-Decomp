@@ -1,4 +1,5 @@
 /* RBTree_BuyNode - 0x00405360 in the original binary.
+ * (FUN_00404dd0 in the notes below is RBTree_LinkNode's old symbol.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"

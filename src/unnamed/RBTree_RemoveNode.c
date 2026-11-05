@@ -1,4 +1,5 @@
 /* RBTree_RemoveNode - 0x004048e0 in the original binary.
+ * (FUN_00404dd0 in the notes below is RBTree_LinkNode's old symbol.)
  * (Historical notes below: FUN_00404e60 is now RBTree_RemoveRebalance.)
  * (Historical notes below: FUN_004050a0 is now
  * RBTree_IteratorDecrement.)
