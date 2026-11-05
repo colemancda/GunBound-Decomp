@@ -1208,7 +1208,7 @@ undefined4 * FUN_004e5bb0();
 void ShutdownConnectionThread();
 int __fastcall SendQueue_ElementAt(int *param_1,uint regEax);
 uint FUN_004e5c70(undefined4 *param_1,int *regEbx);
-void FUN_004e5cc0(int regEbx,int regEax,int *regEdi);
+void AtlArray_RemoveAt_4004(int regEbx,int regEax,int *regEdi);
 undefined4 CArray_Grow_4004(uint regEax,int *regEsi);
 void QueueGameEvent(uint eventCode, uint value);
 undefined4 * FUN_004e5e00();
