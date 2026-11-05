@@ -174,7 +174,7 @@ void __fastcall AdvanceTurnQueue(int param_1)
       unaff_EBX = CONCAT13(iVar5 != 3,(int3)unaff_EBX);
       (*pcVar9)(&g_valueGuardLock);
       if (iVar5 != 3) {
-        FUN_0043c440();
+        ExplodePlayerMines();
         FUN_0043c4a0();
         RemoveIonAura();
       }

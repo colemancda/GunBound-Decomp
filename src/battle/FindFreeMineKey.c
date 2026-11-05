@@ -1,4 +1,5 @@
 /* FindFreeMineKey - 0x00437490 in the original binary.
+ * (Historical notes below: FUN_0043c440 is now ExplodePlayerMines.)
  *
  * Named below; still a raw/near-verbatim port of Ghidra's decompiler
  * output rather than a hand-verified reconstruction.  See src/README.md's

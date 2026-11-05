@@ -602,7 +602,7 @@ void FUN_0043a5f0();
 void FUN_0043a670();
 void FUN_0043bda0();
 void FUN_0043c3c0();
-void FUN_0043c440();
+void ExplodePlayerMines();
 void __fastcall FUN_0043c4a0();
 void __fastcall RemoveIonAura();
 uint FUN_0043c550();
