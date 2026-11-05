@@ -64,7 +64,7 @@ void __thiscall State10_Loading_HandleChatInput(int *param_1,int param_2,int par
     }
   }
   else {
-    FUN_00426230(g_clientContext);
+    ShowChatBanNotice(g_clientContext);
   }
 LAB_0043e820:
   SetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&DAT_00551cb1);

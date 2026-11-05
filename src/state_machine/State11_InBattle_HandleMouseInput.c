@@ -763,7 +763,7 @@ LAB_004b9bb0:
       }
     }
     else {
-      FUN_00426230(g_clientContext);
+      ShowChatBanNotice(g_clientContext);
     }
 LAB_004b9e3e:
     SetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&DAT_00551cb1);

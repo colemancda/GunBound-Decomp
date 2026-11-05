@@ -474,7 +474,7 @@ void CacheNicknameUserIdPair(int regEax,undefined4 regEsi,undefined4 regEdi);
 void FUN_00426120();
 void FUN_004261d0(int regEsi);
 void FUN_00426210();
-void FUN_00426230(int ctx);
+void ShowChatBanNotice(int ctx);
 void SyncOutgoingChecksumField(void *self,int param_1,undefined4 param_2);
 int * __fastcall CString_Construct();
 undefined4 __fastcall FUN_00426430();
