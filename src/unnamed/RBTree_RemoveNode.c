@@ -1,4 +1,5 @@
 /* RBTree_RemoveNode - 0x004048e0 in the original binary.
+ * (Historical notes below: FUN_00404e60 is now RBTree_RemoveRebalance.)
  * (Historical notes below: FUN_004050a0 is now
  * RBTree_IteratorDecrement.)
  *
@@ -57,7 +58,7 @@ uint RBTree_RemoveNode(int *regEax,int regEbx)
       *(int *)(iVar1 + 0x10c) = iVar3;
     }
     if (*(int *)(iVar2 + 0x104) == 1) {
-      FUN_00404e60();
+      RBTree_RemoveRebalance();
     }
     if (iVar2 != regEbx) {
       TreeReplaceNode((int)regEbx,regEax,iVar2);

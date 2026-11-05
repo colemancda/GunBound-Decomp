@@ -1,4 +1,5 @@
 /* RBTree_Insert - 0x004049a0 in the original binary.
+ * (Historical notes below: FUN_00404e60 is now RBTree_RemoveRebalance.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
