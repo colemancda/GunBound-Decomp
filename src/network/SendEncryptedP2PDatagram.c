@@ -66,7 +66,7 @@ SendEncryptedP2PDatagram(char *param_1,int param_2,int param_3,sockaddr *param_4
   
   uStack_4 = 0x4feb0a;
   local_1774 = 0;
-  cVar1 = FUN_004fcd80(local_176e,0x10,param_2 + 4);
+  cVar1 = DecryptStoredStringTo(local_176e,0x10,param_2 + 4);
   if (cVar1 == '\0') {
     return false;
   }

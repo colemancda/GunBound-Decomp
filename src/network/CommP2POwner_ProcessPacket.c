@@ -347,8 +347,8 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
          * ESI argument and the schedule pointer a dropped return value. */
         uVar9 = (undefined4)AllocCipherSchedule(0x2dbabe65);
         *(undefined4 *)(param_1 + 0x1784) = uVar9;
-        cVar4 = FUN_004fcd80(local_4914,0x11,param_1 + 0x182c);
-        if (((cVar4 != '\0') && (cVar4 = FUN_004fcd80(&local_4944,0x15,param_1 + 0x1ab0), cVar4 != '\0')) &&
+        cVar4 = DecryptStoredStringTo(local_4914,0x11,param_1 + 0x182c);
+        if (((cVar4 != '\0') && (cVar4 = DecryptStoredStringTo(&local_4944,0x15,param_1 + 0x1ab0), cVar4 != '\0')) &&
            /* RECOVERED (2026-07-19), orig 0x501baa-0x501bb5: EncodeHandshakeBlock's
             * credKey/credStr arrive in ESI/EAX (`lea esi,[esp+0x8c]` /
             * `lea eax,[esp+0x5c]`), and those two stack slots are exactly the
@@ -436,7 +436,7 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
          * param_2+0xa; ESI is the 14-byte scratch record at param_1+0x179c
          * that the line above just put in local_4980. */
         CopyNameField_e((int)local_4980,(int)(pcVar12 + 4));
-        FUN_004fcd80(local_4914,0x11,param_1 + 0x182c);
+        DecryptStoredStringTo(local_4914,0x11,param_1 + 0x182c);
         /* RECOVERED (2026-08-28), orig 0x5018d9/0x5018dd: `lea esi,[esp+0x7c]`
          * is local_4914 (0x4990-0x7c) and `lea eax,[esp+0x116]` is
          * local_48ba + 0x40 (0x48ba sits at esp_base+0xd6), both at zero

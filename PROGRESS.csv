@@ -1377,7 +1377,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f9fa0,11645,Sha1TransformBlocks,false,1,0,RAW-src
 004fcd20,44,EncodeCipherBlocks,false,1,1,RAW-src
 004fcd50,44,DecodeCipherBlocks,false,1,1,RAW-src
-004fcd80,103,FUN_004fcd80,false,6,3,RAW-src
+004fcd80,103,DecryptStoredStringTo,false,6,3,RAW-src
 004fcdf0,102,FUN_004fcdf0,false,2,3,RAW-src
 004fce60,65,FUN_004fce60,false,2,1,RAW-src
 004fceb0,44,SendBuddyNameMessage,false,1,2,RAW-src

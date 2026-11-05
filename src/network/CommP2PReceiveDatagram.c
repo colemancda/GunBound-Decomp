@@ -170,7 +170,7 @@ void CommP2PReceiveDatagram(int *param_1,int param_2)
       }
       puVar1 = local_3190;
       local_3150 = 0x26;
-      cVar2 = FUN_004fcd80(local_314e,0x10,(int)param_1 + 4);
+      cVar2 = DecryptStoredStringTo(local_314e,0x10,(int)param_1 + 4);
       if (cVar2 != '\0') {
         local_313e = local_2eba;
         local_3136 = local_2eb2;
