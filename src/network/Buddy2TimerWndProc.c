@@ -61,7 +61,7 @@ LRESULT __stdcall Buddy2TimerWndProc(HWND param_1,UINT param_2,WPARAM param_3,LP
       if (dVar1 < (double)_Var3) {
         /* 0x4fdb0f: push 0 (opcode); ESI = LVar2, the GWL_USERDATA object
          * (`mov esi,eax` at 0x4fdab6) */
-        FUN_005024a0(0,LVar2);
+        CommP2POwner_SendBareFrame(0,LVar2);
       }
     }
     return 0;

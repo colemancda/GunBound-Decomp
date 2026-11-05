@@ -1,8 +1,19 @@
-/* FUN_005024a0 - 0x005024a0 in the original binary.
+/* CommP2POwner_SendBareFrame - 0x005024a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_005024a0 mean this function.)
+ *
+ * NAMED (2026-11-05), HIGH. Evidence from outside the body: The payload-
+ * less twin of CommP2POwner_SendFrame (0x502500): both gate on owner +
+ * 0x1a70 and the connection at owner + 0x1a74, stamp the keepalive clock
+ * at owner + 0x1abc and send through CommConnectionSendOrQueue, but this
+ * one writes only the 4-byte header [len = 4 : u16][opcode : u16].
+ * Callers: Buddy2TimerWndProc sends opcode 0 as the keep-alive and
+ * CommP2POwnerConnect sends opcode 0x1000 right after the connect. The
+ * owner class is the one CommP2POwner_SendFrame already names.
  *
  * SIGNATURE RECOVERED (2026-10-30): the header-only CBuddy2 frame writer,
  * the payload-less twin of FUN_00502500.  The original (0x5024a0-0x5024f2):
@@ -30,7 +41,7 @@
 #include "ghidra_types.h"
 
 
-uint FUN_005024a0(ushort opcode,int regEsi)
+uint CommP2POwner_SendBareFrame(ushort opcode,int regEsi)
 
 {
   __time32_t _Var1;

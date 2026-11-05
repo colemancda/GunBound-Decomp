@@ -69,7 +69,7 @@ CommP2POwnerConnect(int param_1,undefined4 param_2,undefined4 param_3,char *para
     }
     else {
       /* 0x4fd4d9: push 0x1000 (opcode); `mov esi,edi` (EDI = this) */
-      FUN_005024a0(0x1000,param_1);
+      CommP2POwner_SendBareFrame(0x1000,param_1);
     }
   }
   return 1;

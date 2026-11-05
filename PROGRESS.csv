@@ -1492,7 +1492,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00501600,59,FUN_00501600,false,2,1,RAW-src
 005016d0,120,CommP2POwner_OnConnectionClosed,false,1,2,RAW-src
 00501770,3372,CommP2POwner_ProcessPacket,false,1,42,RAW-src
-005024a0,85,FUN_005024a0,false,3,2,RAW-src
+005024a0,85,CommP2POwner_SendBareFrame,false,3,2,RAW-src
 00502500,140,CommP2POwner_SendFrame,false,12,3,RAW-src
 00502590,192,SendP2PNamedMessage,false,1,4,RAW-src
 00502650,250,FUN_00502650,false,3,4,RAW-src

@@ -1602,7 +1602,7 @@ undefined4 * IntMap_Insert_14(undefined4 param_1,undefined4 param_2,int regEbx,i
 void FUN_00501600(int regEsi);
 void __fastcall CommP2POwner_OnConnectionClosed();
 undefined4 __thiscall CommP2POwner_ProcessPacket();
-uint FUN_005024a0(ushort opcode,int regEsi);
+uint CommP2POwner_SendBareFrame(ushort opcode,int regEsi);
 uint __fastcall CommP2POwner_SendFrame(uint param_1,undefined4 *param_2,ushort opcode,int regEbx);
 uint FUN_00502650();
 void __fastcall Vector_PushBack_12(int param_1,undefined4 regEax);
