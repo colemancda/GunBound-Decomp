@@ -1080,7 +1080,7 @@ void FUN_004b3b10();
 uint BlitAnnouncementFrameToYesooriTexture(int param_1,int param_2,uint regEax);
 void FUN_004b3e00(void *param_1);
 void FUN_004b3e60();
-undefined4 * FUN_004b3f90();
+undefined4 * State11_InBattle_Construct();
 void * __thiscall State11_InBattle_Delete();
 void __fastcall State11_InBattle_Destroy(undefined4 *param_1);
 void __thiscall State11_InBattle_HandleKeyInput();

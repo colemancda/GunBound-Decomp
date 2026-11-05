@@ -7,7 +7,7 @@ overlay still uses the software blitter. The most complex state.
 ## Identity
 - **State ID**: 11
 - **vtable**: `vtable_State11_InBattle` (`0x5566d8`, 18 slots — fully mapped)
-- **Object size**: 0x2408 (~9 KB) — constructed by `FUN_004b3f90`
+- **Object size**: 0x2408 (~9 KB) — constructed by `State11_InBattle_Construct`
 - **ProcessPacket**: `State11_InBattle_ProcessPacket` (`0x4b4100`)
 - **ProcessBattleAction**: `State11_InBattle_ProcessBattleAction` (`0x4b5460`)
 - **OnEnter**: `0x4bb730` · **OnExit**: `0x4bcd00` · **OnTick**: `State11_InBattle_OnTick` (`0x4bd8b0`)

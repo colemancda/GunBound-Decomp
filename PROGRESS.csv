@@ -954,7 +954,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004b3da0,96,BuildAssetPath,false,10,0,RAW-src
 004b3e00,87,FUN_004b3e00,false,1,0,RAW-src
 004b3e60,298,FUN_004b3e60,false,1,5,RAW-src
-004b3f90,203,FUN_004b3f90,false,1,2,RAW-src
+004b3f90,203,State11_InBattle_Construct,false,1,2,RAW-src
 004b4060,30,State11_InBattle_Delete,false,1,2,RAW-src
 004b4080,115,State11_InBattle_Destroy,false,1,1,RAW-src
 004b4100,4903,State11_InBattle_ProcessPacket,false,1,48,RAW-src

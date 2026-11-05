@@ -45,7 +45,7 @@ extern unsigned char g_spriteRegistry[0x20];
  * __thiscall: storage in as first arg, object out) */
 void *State07_AvatarStore_Construct(void *storage);  /* CState07AvatarStore ctor */
 void *State09_ReadyRoom_Construct(void *storage);  /* CState09ReadyRoom ctor */
-void *FUN_004b3f90(void *storage);  /* CState11InBattle ctor */
+void *State11_InBattle_Construct(void *storage);  /* CState11InBattle ctor */
 }
 
 /* The state-construction section of InitGame (0x40eaa0, interior) as
@@ -69,7 +69,7 @@ void ConstructGameStates()
     g_gameStateVTableArray[7] = (CGameState *)State07_AvatarStore_Construct(operator new(0x34818));
     g_gameStateVTableArray[9] = (CGameState *)State09_ReadyRoom_Construct(operator new(0x78c));
     g_gameStateVTableArray[10] = new CState10Loading();
-    g_gameStateVTableArray[11] = (CGameState *)FUN_004b3f90(operator new(0x2408));
+    g_gameStateVTableArray[11] = (CGameState *)State11_InBattle_Construct(operator new(0x2408));
     g_gameStateVTableArray[15] = new CGameState();
     static const int kSharedSpriteSets[] = {
         500, 600, 0x259, 0x25a, 0x262, 0x263, 0x264, 700,

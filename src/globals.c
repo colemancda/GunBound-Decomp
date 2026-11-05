@@ -1738,7 +1738,7 @@ void *vtable_State10_Loading[32] = {
   (void *)NoOpMethod, (void *)NoOpMethod,                   /* 16-17 0x429800 */
 };
 /* Real 18-slot vtable - dumped from orig .rdata at 0x5566d8 (stored by
- * FUN_004b3f90, this state's constructor, at *param_1). Every slot
+ * State11_InBattle_Construct, this state's constructor, at *param_1). Every slot
  * already ported; slot 12 is the weather-hazard render documented in
  * State11_InBattle_RenderWeatherHazards.c (that file's "unpopulated
  * bring-up placeholder" caveat is resolved by this initializer). */
