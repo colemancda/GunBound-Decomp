@@ -1,4 +1,5 @@
 /* TreeErase - 0x0040b600 in the original binary.
+ * (FUN_0040bce0 in the notes below is TreeSubtreeMax's old symbol.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -121,7 +122,7 @@ void TreeErase(int param_1,undefined4 *param_2,int *param_3)
        * decompilation inconsistency, same class as entry/WinMain.c's
        * FUN_004058c0 fix. uVar4 is left uninitialized here as a
        * result. */
-      FUN_0040bce0((int)piVar6);
+      TreeSubtreeMax((int)piVar6);
       *(undefined4 *)(iVar2 + 8) = uVar4;
     }
     else {

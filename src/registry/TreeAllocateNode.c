@@ -1,4 +1,5 @@
 /* TreeAllocateNode - 0x0040bea0 in the original binary.
+ * (FUN_0040bce0 in the notes below is TreeSubtreeMax's old symbol.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"

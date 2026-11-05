@@ -311,7 +311,7 @@ int __thiscall FUN_0040b9b0();
 int __thiscall basic_string_AssignSubstr(int param_1,int param_2,uint param_3,uint param_4);
 void __thiscall TreeInsertRebalance(undefined4 *param_1,undefined4 *param_2,char param_3,undefined4 param_4);
 void __thiscall TreeRotateLeft(int param_1, int param_2);
-void FUN_0040bce0(int regEax);
+void TreeSubtreeMax(int regEax);
 void TreeSubtreeMin(int *regEax);
 void __thiscall TreeRotateRight(int *param_1, int param_2);
 undefined4 * TreeAllocateNode(undefined4 param_1, undefined4 param_2, undefined4 param_3, undefined4 *param_4, undefined1 param_5);
