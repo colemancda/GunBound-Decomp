@@ -577,7 +577,7 @@ LAB_004b4d38:
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_9a4[0] = PeekPacketChecksumState((void *)(iVar8 + 0x90c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      FUN_004368f0(local_9a4[0],local_9a8,uVar9);
+      SpawnFloatingNumberPopup(local_9a4[0],local_9a8,uVar9);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar6 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

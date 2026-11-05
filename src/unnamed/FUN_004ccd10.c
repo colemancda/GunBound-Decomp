@@ -319,7 +319,7 @@ void FUN_004ccd10(int *param_1)
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         local_71c = (undefined *)PeekPacketChecksumState((void *)(local_714 + 0x90c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        FUN_004368f0(local_71c,uVar9,4);
+        SpawnFloatingNumberPopup(local_71c,uVar9,4);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         uVar9 = PeekPacketChecksumState((void *)(local_678));
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

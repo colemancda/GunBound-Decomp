@@ -354,7 +354,7 @@ LAB_00479e75:
           uVar15 = 2;
           uVar4 = PeekChecksumStateUnderLock(iVar6 + 0xb30);
           uVar12 = PeekChecksumStateUnderLock(iVar6 + 0x90c);
-          FUN_004368f0(uVar12,uVar4,uVar15);
+          SpawnFloatingNumberPopup(uVar12,uVar4,uVar15);
           uVar4 = 2;
         }
         else {
@@ -362,7 +362,7 @@ LAB_00479e75:
           uVar15 = 1;
           uVar4 = PeekChecksumStateUnderLock(iVar6 + 0xb30);
           uVar12 = PeekChecksumStateUnderLock(iVar6 + 0x90c);
-          FUN_004368f0(uVar12,uVar4,uVar15);
+          SpawnFloatingNumberPopup(uVar12,uVar4,uVar15);
           uVar4 = 1;
         }
         AddToPacketChecksum((void *)(g_clientContext + iVar5 * 0x224 + 0x5cba0), uVar4);

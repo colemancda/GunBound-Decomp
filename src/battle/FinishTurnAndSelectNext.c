@@ -209,7 +209,7 @@ void FinishTurnAndSelectNext(int param_1)
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         PeekPacketChecksumState((void *)(iVar3 + 0x90c));
         (*pcVar14)(&g_valueGuardLock);
-        FUN_004368f0(puVar18,uVar6,4);
+        SpawnFloatingNumberPopup(puVar18,uVar6,4);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         uVar6 = PeekPacketChecksumState((void *)((char *)auStack_68c + 0x14));
         (*pcVar14)(&g_valueGuardLock);

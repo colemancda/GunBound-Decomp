@@ -1164,7 +1164,7 @@ LAB_004bedb3:
         (*pcVar16)(&g_valueGuardLock);
         uVar7 = PeekPacketChecksumState((void *)(local_3d4c + 0x90c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        FUN_004368f0(uVar7,puVar19,0xffffffff);
+        SpawnFloatingNumberPopup(uVar7,puVar19,0xffffffff);
         (*pcVar16)(&g_valueGuardLock);
         uVar7 = PeekPacketChecksumState(&local_3d48);
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -1436,7 +1436,7 @@ LAB_004c008f:
           (*pcVar16)(&g_valueGuardLock);
           uVar7 = PeekPacketChecksumState((void *)(local_3d4c + 0x90c));
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-          FUN_004368f0(uVar7,puVar19,1);
+          SpawnFloatingNumberPopup(uVar7,puVar19,1);
           (*pcVar16)(&g_valueGuardLock);
           uVar7 = PeekPacketChecksumState(&local_3d48);
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -1502,7 +1502,7 @@ LAB_004c08c8:
             (*pcVar16)(&g_valueGuardLock);
             uVar7 = PeekPacketChecksumState((void *)(local_3d4c + 0x90c));
             LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-            FUN_004368f0(uVar7,puVar19,2);
+            SpawnFloatingNumberPopup(uVar7,puVar19,2);
             (*pcVar16)(&g_valueGuardLock);
             uVar7 = PeekPacketChecksumState(&local_3d48);
             LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -1556,7 +1556,7 @@ LAB_004c08c8:
             EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             unaff_ESI = PeekPacketChecksumState((void *)(local_3d4c + 0x90c));
             LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-            FUN_004368f0(unaff_ESI,uVar7,4);
+            SpawnFloatingNumberPopup(unaff_ESI,uVar7,4);
             EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             uVar7 = PeekPacketChecksumState(&local_3d48);
             LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

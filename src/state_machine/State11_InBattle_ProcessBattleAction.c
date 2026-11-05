@@ -789,7 +789,7 @@ LAB_004b7c01:
                 uVar22 = 1;
                 uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
                 uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
-                FUN_004368f0(uVar20,uVar21,uVar22);
+                SpawnFloatingNumberPopup(uVar20,uVar21,uVar22);
                 uVar21 = PeekChecksumStateUnderLock(&local_2658);
                 iVar4 = iVar4 + 0xae15;
                 pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x265);
@@ -817,7 +817,7 @@ LAB_004b7c01:
                 uVar22 = 0xfffffffc;
                 uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
                 uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
-                FUN_004368f0(uVar20,uVar21,uVar22);
+                SpawnFloatingNumberPopup(uVar20,uVar21,uVar22);
                 uVar21 = PeekChecksumStateUnderLock(&local_2658);
                 iVar4 = iVar4 + 0xae15;
                 pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x266);
@@ -846,7 +846,7 @@ LAB_004b7c01:
                 uVar22 = 1;
                 uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
                 uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
-                FUN_004368f0(uVar20,uVar21,uVar22);
+                SpawnFloatingNumberPopup(uVar20,uVar21,uVar22);
                 uVar21 = PeekChecksumStateUnderLock(&local_2658);
                 iVar4 = iVar4 + 0xae15;
                 pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x262);
@@ -875,7 +875,7 @@ LAB_004b7c01:
                 uVar22 = 0xfffffffc;
                 uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
                 uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
-                FUN_004368f0(uVar20,uVar21,uVar22);
+                SpawnFloatingNumberPopup(uVar20,uVar21,uVar22);
                 uVar21 = PeekChecksumStateUnderLock(&local_2658);
                 iVar4 = iVar4 + 0xae15;
                 pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x263);
@@ -905,7 +905,7 @@ LAB_004b7c01:
                   uVar22 = 0xffffffff;
                   uVar21 = PeekChecksumStateUnderLock(local_27f0 + 0xb30);
                   uVar20 = PeekChecksumStateUnderLock(puVar8 + 0x90c);
-                  FUN_004368f0(uVar20,uVar21,uVar22);
+                  SpawnFloatingNumberPopup(uVar20,uVar21,uVar22);
                   uVar21 = PeekChecksumStateUnderLock(&local_2658);
                   puVar19 = puVar8 + 0xae15;
                   pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x264);
@@ -1236,7 +1236,7 @@ LAB_004b7fb2:
             uVar22 = 4;
             uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
             uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
-            FUN_004368f0(uVar20,uVar21,uVar22);
+            SpawnFloatingNumberPopup(uVar20,uVar21,uVar22);
             iVar4 = iVar4 + 0xae15;
             uVar21 = PeekChecksumStateUnderLock(&local_2658);
             iVar10 = iVar4;
