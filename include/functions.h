@@ -387,7 +387,7 @@ void WorkerThread2ProcThunk(void *);
 void StringMap_FreeNode_CString(int regEax,int regEdi);
 void FUN_00415740(int *regEsi);
 void WorkerThreadEventLoop(int *);
-void FUN_00415810(int *);
+void WorkerThread2EventLoop(int *);
 void CStringPair_DestroyThunk(int regEsi);
 void CStringPair_Destroy(int regEsi);
 void __thiscall FUN_004158a0();

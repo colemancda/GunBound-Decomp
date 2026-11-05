@@ -23,7 +23,7 @@
 void WorkerThread2ProcThunk(void *param_1)
 
 {
-  FUN_00415810(param_1);
+  WorkerThread2EventLoop(param_1);
   return;
 }
 
