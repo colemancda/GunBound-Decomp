@@ -1254,7 +1254,7 @@ void TurnEventSet_Max(int regEax);
 void TurnEventSet_Min(int *regEax);
 void __thiscall TurnEventSet_RotateRight();
 undefined4 * TurnEventSet_EraseRange(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
-undefined4 FUN_004e8e70();
+undefined4 TurnEventSet_BuyHead();
 void __fastcall FUN_004e8eb0();
 void __fastcall TurnEventSet_IteratorIncrement();
 uint CArray_Add_206(undefined4 *param_1, int *regEbx);

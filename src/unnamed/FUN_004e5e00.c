@@ -36,7 +36,7 @@ undefined4 * FUN_004e5e00(undefined4 *param_1)
   InitializeCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x66));
   local_4 = 2;
   *(undefined1 *)(param_1 + 0x11480) = 0;
-  iVar1 = FUN_004e8e70();
+  iVar1 = TurnEventSet_BuyHead();
   param_1[0x1148d] = iVar1;
   *(undefined1 *)(iVar1 + 0xf) = 1;
   *(undefined4 *)(param_1[0x1148d] + 4) = param_1[0x1148d];
