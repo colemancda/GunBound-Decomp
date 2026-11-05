@@ -945,7 +945,7 @@ undefined4 * InitSuperShot_Bullet3(undefined4 *regEsi);
 void __fastcall ExplodeSuperShot_Bullet3();
 void __thiscall SimulateSuperShot_Bullet3();
 void __fastcall AnimateSuperShot_Bullet3();
-void * __thiscall FUN_0048d1c0();
+void * __thiscall Mobile02_ScalarDtor();
 void Mobile02_Destructor(undefined4 *regEax);
 void __thiscall Mobile02_MainAction();
 undefined4 * InitSuperShot_Bullet2(undefined4 *regEsi);
