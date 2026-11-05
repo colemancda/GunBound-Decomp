@@ -58,6 +58,13 @@ uint __thiscall CommP2POwner_SendBuddyStatus(int param_1,undefined4 param_2,unde
         param_4 = param_4 + 1;
         pcVar2 = pcVar2 + 1;
       }
+      /* Verified against 0x4fd624..0x4fd639: `lea ecx,[esp+0x10]` (&local_1778);
+       * `sub dx,cx` (16-bit: edx = nameLen, upper half zero, so only the low
+       * 16 bits change); `add edx,ebx` (ebx = esp+0x28 = local_1760); then
+       * push edx / push ecx(&local_1778) / call 0x4fcf10. The (short)
+       * subtraction below is therefore the binary's own 16-bit pointer-diff
+       * artifact, not a port mistake - the CONCAT22 reproduces the untouched
+       * upper half of EDX. Left as is. */
       uVar4 = FUN_004fcf10(&local_1778,
                            local_1760 +
                            CONCAT22((short)(uVar4 >> 0x10),(short)uVar4 - (short)&local_1778),
