@@ -252,7 +252,7 @@ LAB_004287a5:
     SendJoinRoomSelected(param_1);
     return;
   case 0x20:
-    FUN_00429f90();
+    CloseEnterRoomNumberDialog();
     uVar5 = 1;
     break;
   case 0x21:

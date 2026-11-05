@@ -773,7 +773,7 @@ switchD_00428058_default:
       FUN_00429fb0();
     }
     if (*(char *)((int)this + 0xe) != '\0') {
-      FUN_00429f90();
+      CloseEnterRoomNumberDialog();
     }
     if (*payload == 0) {
       ResetReplayContext((int)&g_replayContext);

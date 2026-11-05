@@ -509,7 +509,7 @@ void __fastcall OpenCreateRoomDialog();
 void SendCreateRoom();
 void CloseCreateRoomDialog();
 void SendJoinRoomByNumber();
-void FUN_00429f90();
+void CloseEnterRoomNumberDialog();
 void FUN_00429fb0();
 void SendJoinRoomSelected(int regEax);
 void RefreshGameRoomListControls(undefined4 controlsEnabled, int stateObj);
