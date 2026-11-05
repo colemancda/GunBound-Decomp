@@ -343,7 +343,7 @@ void SyncActiveTextInput(int param_1);
 void __fastcall FUN_0040cf30(undefined4 param_1,uint param_2,int param_3,int regEax,uint regEsi);
 void __fastcall FUN_0040cf80(undefined4 param_1,uint param_2,int param_3,uint regEsi);
 int __fastcall GetWidgetChildText(undefined4 param_1,uint widgetId,int regEax,uint childId);
-void __thiscall FUN_0040d020(int param_1, int param_2, int message);
+void __thiscall NavigateTextBoxFocusOnKey(int param_1, int param_2, int message);
 void __fastcall PanelManager_BaseDestructorThunk(undefined4 *param_1);
 undefined4 * FUN_0040d160(undefined4 *regEsi);
 void thunk_FUN_004154e0();

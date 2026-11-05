@@ -59,7 +59,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
   uint uVar4;
   
   cVar1 = '\x01';
-  FUN_0040d020(param_3, &g_activeObjectRegistry2, param_2);
+  NavigateTextBoxFocusOnKey(param_3, &g_activeObjectRegistry2, param_2);
   if (param_2 < 0x106) {
     if (param_2 == 0x105) {
       if (param_3 == 0x79) {

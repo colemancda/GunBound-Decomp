@@ -1,4 +1,22 @@
-/* FUN_0040d020 - 0x0040d020 in the original binary.
+/* NavigateTextBoxFocusOnKey - 0x0040d020 in the original binary.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_0040d020 mean this function.)
+ *
+ * NAMED (2026-11-05), HIGH. Evidence from outside the body: Sole caller is
+ * WndProc, which calls it for the keyboard message with (wParam,
+ * &g_activeObjectRegistry2, uMsg). It acts only when uMsg == WM_KEYDOWN
+ * (0x100) and the registry has a focused text box at registry + 8: Tab (9)
+ * moves to the next sibling or, with Shift held, the previous one, Enter
+ * (0xd) advances to the next box or finishes, Escape (0x1b) cancels. The
+ * moves go through CommitActiveTextInput on the outgoing box and
+ * TextBoxWidget_BeginEdit on the incoming one, and the end-of-list and
+ * Escape cases enqueue input events 10 and 11 onto the registry's input
+ * ring. The registry at 0xe9c0fc is the one ActivateTextBoxById (0x40cf80)
+ * also writes the focus slot of.
  *
  * Keyboard navigation (Tab/Shift+Tab focus cycling, Enter/Escape) among a
  * widget list's siblings, gated on the message being WM_KEYDOWN.
@@ -46,7 +64,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_0040d020(int param_1,int param_2,int message)
+void __thiscall NavigateTextBoxFocusOnKey(int param_1,int param_2,int message)
 
 {
   SHORT SVar1;
