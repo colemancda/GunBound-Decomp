@@ -862,7 +862,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00499ed0,20,InitSuperShot_Bullet7,false,1,1,RAW-src
 00499ef0,4012,DetonateSuperShot_Bullet7,false,1,39,RAW-src
 0049aeb0,4512,SimulateShot_Bullet7n_9s_7p_9p,false,4,23,RAW-src
-0049c0f0,32,FUN_0049c0f0,false,1,2,RAW-src
+0049c0f0,32,Mobile06_ScalarDtor,false,1,2,RAW-src
 0049c110,13,Mobile06_Destructor,false,1,1,RAW-src
 0049c120,2795,Mobile06_MainAction,false,1,1,RAW-src
 0049c13f,2764,FUN_0049c13f,false,0,15,RAW-src

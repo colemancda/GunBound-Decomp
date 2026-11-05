@@ -989,7 +989,7 @@ void FUN_00499650();
 undefined4 * InitSuperShot_Bullet7(undefined4 *regEsi);
 void __fastcall DetonateSuperShot_Bullet7();
 void __thiscall SimulateShot_Bullet7n_9s_7p_9p();
-void * __thiscall FUN_0049c0f0();
+void * __thiscall Mobile06_ScalarDtor();
 void Mobile06_Destructor(undefined4 *regEax);
 void __thiscall Mobile06_MainAction();
 void __fastcall FUN_0049c13f();
