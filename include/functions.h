@@ -383,7 +383,7 @@ bool WorkerThread2_Start(void *);
 void StringMap_RemoveAll_CString(int *regEax);
 void StringMap_RemoveAll_Int(int *regEax);
 void WorkerThreadProcThunk(void *);
-void FUN_004156c0(void *);
+void WorkerThread2ProcThunk(void *);
 void StringMap_FreeNode_CString(int regEax,int regEdi);
 void FUN_00415740(int *regEsi);
 void WorkerThreadEventLoop(int *);

@@ -31,7 +31,7 @@ bool WorkerThread2_Start(void *unaff_ESI)
   uintptr_t uVar1;
 
   *(undefined1 *)((int)unaff_ESI + 0xc) = 1;
-  uVar1 = __beginthread(FUN_004156c0,0,unaff_ESI);
+  uVar1 = __beginthread(WorkerThread2ProcThunk,0,unaff_ESI);
   *(uintptr_t *)((int)unaff_ESI + 4) = uVar1;
   if (uVar1 == 0) {
     *(undefined1 *)((int)unaff_ESI + 0xc) = 0;
