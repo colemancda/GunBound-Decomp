@@ -15,7 +15,7 @@
  * HitTestJewel's header established. Callers are the per-step
  * collision probe of projectile integration: eleven sites across the
  * six Simulate* files (plus the Projectile.cpp twin), and the
- * column-scan loops in FUN_00458920 / FUN_00458a00 / FUN_004e4fe0.
+ * column-scan loops in FUN_00458920 / FindFirstImpactAlongStep_YMajor / FUN_004e4fe0.
  * Not named HitTestEntities: mines, projectiles and the other layer
  * classes are deliberately NOT probed here.
  *
@@ -36,7 +36,7 @@
  * Simulate* files both the X and Y loads sit at zero pending depth, so
  * the Y slot the C already names anchors the frame base and the X is
  * the slot at the load's own offset - each file's two sites confirm one
- * base twice. In FUN_00458920 / FUN_00458a00 / FUN_004e4fe0 the X is
+ * base twice. In FUN_00458920 / FindFirstImpactAlongStep_YMajor / FUN_004e4fe0 the X is
  * the cursor variable their own terrain-pixel guard indexes (the
  * un-multiplied operand of pitch*row + base + column).
  */

@@ -588,7 +588,7 @@ LAB_004a7c59:
            (((int)local_15c4 < *(int *)(&g_nCameraBoundY + g_clientContext) &&
             (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * local_15c4 +
                        *(int *)(&DAT_006a773c + g_clientContext) + iVar13) != '\0')))) {
-          FUN_00458a00(&local_15b4,&local_15a4,local_158c[0],local_1590,local_1594,iVar14,local_1598
+          FindFirstImpactAlongStep_YMajor(&local_15b4,&local_15a4,local_158c[0],local_1590,local_1594,iVar14,local_1598
                        ,1,0,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar14 = local_15b0;

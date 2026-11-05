@@ -19,8 +19,9 @@
  * stepping linearly, y in 16.16 fixed point) and returns the first solid
  * mask pixel, or the first mobile hit when the last argument is set, so
  * the reported impact is the first contact rather than the overshoot
- * pixel. FUN_00458a00 is the Y-major twin (x and y roles swapped, called
- * from the other branch); hence the XMajor suffix.
+ * pixel. FindFirstImpactAlongStep_YMajor (0x00458a00) is the Y-major twin (x
+ * and y roles swapped, called from the other branch); hence the XMajor
+ * suffix.
  *
  * DROPPED REGISTER RECOVERED (2026-08-24): EAX is the caller's STEP COUNT --
  * param_2 of every __thiscall Simulate* caller (stepDelta in the C++ port).

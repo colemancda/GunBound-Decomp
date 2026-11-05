@@ -1,8 +1,27 @@
-/* FUN_00458a00 - 0x00458a00 in the original binary.
+/* FindFirstImpactAlongStep_YMajor - 0x00458a00 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00458a00 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Mirrored twin of
+ * FindFirstImpactAlongStep_XMajor (0x00458920), compared instruction by
+ * instruction: same prologue, same ret 0x24 signature, same EAX step
+ * count, same call to HitTestMobilesAndJewels (0x00450e10). What swaps is
+ * which variable is which axis. Here param_3 (stepped by param_5) is Y,
+ * checked against the map height at ctx + 0x6a7724, while the 16.16
+ * accumulator param_7 >> 16 is X, checked against the width at ctx +
+ * 0x6a7720; XMajor has them the other way round. The mask index is
+ * therefore y * width + x with the accumulator as x (XMajor: accumulator
+ * is the row), the hit test is still called as (y, ctx, x) so its
+ * arguments come from the opposite variables, and the outputs are
+ * written as (*param_1 = x, *param_2 = y) from the opposite sources.
+ * Callers (SimulateProjectileFrame, the Bullet Simulate* routines and
+ * CProjectile::SimulateFrame) call the XMajor and YMajor pair from the two
+ * mirrored branches of the line stepper, which is the external evidence
+ * for the pairing; the X/Y label itself comes from the body.
  *
  * DROPPED REGISTER RECOVERED (2026-08-24): EAX is the caller's STEP COUNT --
  * param_2 of every __thiscall Simulate* caller (stepDelta in the C++ port).
@@ -22,7 +41,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00458a00(int *param_1,int *param_2,int param_3,int param_4,int param_5,int param_6,
+void FindFirstImpactAlongStep_YMajor(int *param_1,int *param_2,int param_3,int param_4,int param_5,int param_6,
                  int param_7,char param_8,char param_9,int regEax)
 
 {
