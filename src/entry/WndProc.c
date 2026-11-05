@@ -110,7 +110,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
             SendDirectLinkActivated((undefined2 *)g_directLinkConnection);
           }
           else {
-            FUN_00405b60((undefined2 *)g_directLinkConnection);
+            SendDirectLinkDeactivated((undefined2 *)g_directLinkConnection);
           }
         }
         DAT_007934cc = param_3 == 1;
