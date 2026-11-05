@@ -31,7 +31,7 @@
 undefined4 * LocalizedStrings_Construct(undefined4 *regEsi)
 
 {
-  FUN_004154c0(0,10,regEsi);
+  LocalizedStrings_InitHeader(0,10,regEsi);
   return regEsi;
 }
 

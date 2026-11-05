@@ -376,7 +376,7 @@ void FUN_00415410(undefined4 *regEsi);
 int __fastcall AtlArray_GetAt(int *param_1,uint regEax);
 void __fastcall AtlArray_RemoveAt(undefined4 param_1,int param_2,int regEbx,int *regEdi);
 void thunk_FUN_00415560(int *regEax);
-void __fastcall FUN_004154c0(undefined4 param_1,undefined4 param_2,undefined4 *regEax);
+void __fastcall LocalizedStrings_InitHeader(undefined4 param_1,undefined4 param_2,undefined4 *regEax);
 void FUN_004154e0();
 bool WorkerThread_Start(void *);
 bool WorkerThread2_Start(void *);
