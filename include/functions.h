@@ -194,7 +194,7 @@ void __thiscall MessengerNotify_OnStatusQuery();
 void __thiscall MessengerNotify_OnBuddyDelete();
 void FUN_00404410();
 void FUN_00404700(int param_1,undefined4 *regEdi);
-int __fastcall FUN_00404890();
+int __fastcall Vector_Size_34();
 uint RBTree_RemoveNode(int *regEax,int regEbx);
 int RBTree_Insert(int param_1,undefined4 regEax,int *regEdi);
 undefined4 * FUN_00404b00(uchar *param_1,int *regEbx);

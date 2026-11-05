@@ -60,7 +60,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00404330,223,MessengerNotify_OnBuddyDelete,false,1,5,RAW-src
 00404410,726,FUN_00404410,false,11,7,RAW-src
 00404700,392,FUN_00404700,false,3,5,RAW-src
-00404890,31,FUN_00404890,false,1,0,RAW-src
+00404890,31,Vector_Size_34,false,1,0,RAW-src
 004048e0,185,RBTree_RemoveNode,false,1,4,RAW-src
 004049a0,346,RBTree_Insert,false,2,3,RAW-src
 00404b00,136,FUN_00404b00,false,16,2,RAW-src

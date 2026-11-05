@@ -95,7 +95,7 @@ void __thiscall Vector_InsertN_34(uint param_1,int param_2,int param_3,undefined
         iVar2 = (*(int *)(param_2 + 8) - iVar2) / 0x34;
       }
       if (uVar5 < iVar2 + param_1) {
-        iVar2 = FUN_00404890();
+        iVar2 = Vector_Size_34();
         uVar5 = iVar2 + param_1;
       }
       pvVar3 = operator_new(uVar5 * 0x34);
