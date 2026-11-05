@@ -811,7 +811,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00488ac0,1999,Mobile01_MainAction,false,1,14,RAW-src
 004892c0,69,FUN_004892c0,false,1,0,RAW-src
 00489310,416,FUN_00489310,false,1,4,RAW-src
-00489550,32,FUN_00489550,false,1,2,RAW-src
+00489550,32,Mobile04_ScalarDtor,false,1,2,RAW-src
 00489570,13,Mobile04_Destructor,false,1,1,RAW-src
 00489580,7650,Mobile04_MainAction,false,1,16,RAW-src
 0048b3f0,44,InitSuperShot_Bullet3,false,1,1,RAW-src
