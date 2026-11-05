@@ -1,4 +1,5 @@
 /* SkipXFSEntryBytes - 0x004f08a0 in the original binary.
+ * (Historical notes below: FUN_00423e20 is now LoadAvatarPartRecord.)
  * (Historical notes below: FUN_004f16c0 is now SkipSpriteFrameRecord.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler

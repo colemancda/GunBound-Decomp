@@ -1,4 +1,5 @@
 /* FUN_004240c0 - 0x004240c0 in the original binary.
+ * (Historical notes below: FUN_00423e20 is now LoadAvatarPartRecord.)
  * (Historical notes below: FUN_004f08a0 is now SkipXFSEntryBytes.)
  *
  * No confirmed real name/purpose - referenced by at least one already-

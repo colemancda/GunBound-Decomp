@@ -1,4 +1,5 @@
 /* State07_AvatarStore_OnCommand - 0x00445450 in the original binary.
+ * (Historical notes below: FUN_00423e20 is now LoadAvatarPartRecord.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -397,7 +398,7 @@ LAB_004457e7:
               iVar3 = AtlArray_GetAt_450((int *)(g_clientContext + 0x44e20),
                                  PeekChecksumStateUnderLock(iVar3)); /* 0x445f25 */
               iVar3 = PeekChecksumStateUnderLock(iVar3 + 0x22c);
-              FUN_00423e20(g_clientContext,iVar3 >> 0x10 & 0xffffff0f,(uint)iVarPart,(int)partWorkspace);
+              LoadAvatarPartRecord(g_clientContext,iVar3 >> 0x10 & 0xffffff0f,(uint)iVarPart,(int)partWorkspace);
               QueueOutgoingPacketField(2);
               pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c3);
               pcVar13 = (char *)(param_1 + 0x327d4);
@@ -475,7 +476,7 @@ LAB_004457e7:
           iVar9 = AtlArray_GetAt_450((int *)(g_clientContext + 0x44e20),
                              PeekChecksumStateUnderLock(iVar3)); /* 0x4461fc */
           iVar9 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
-          FUN_00423e20(g_clientContext,iVar9 >> 0x10 & 0xffffff0f,(uint)iVarPart,(int)partWorkspace);
+          LoadAvatarPartRecord(g_clientContext,iVar9 >> 0x10 & 0xffffff0f,(uint)iVarPart,(int)partWorkspace);
           SetGuardedBool(1,GB_GUARD_UNRECOVERED);
           iVar9 = AtlArray_GetAt_450((int *)(g_clientContext + 0x44e20),
                              PeekChecksumStateUnderLock(iVar3)); /* 0x446244 */
@@ -605,7 +606,7 @@ LAB_004457e7:
         iVar3 = AtlArray_GetAt_450((int *)(g_clientContext + 0x44e20),
                            PeekChecksumStateUnderLock(iVar3)); /* 0x446622 */
         iVar3 = PeekChecksumStateUnderLock(iVar3 + 0x22c);
-        FUN_00423e20(g_clientContext,iVar3 >> 0x10 & 0xffffff0f,(uint)iVarPart,(int)partWorkspace);
+        LoadAvatarPartRecord(g_clientContext,iVar3 >> 0x10 & 0xffffff0f,(uint)iVarPart,(int)partWorkspace);
         QueueOutgoingPacketField(3);
         pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c8);
         pcVar13 = (char *)(param_1 + 0x327d4);
@@ -694,7 +695,7 @@ LAB_00446d2b:
         iVar9 = AtlArray_GetAt_450((int *)(g_clientContext + 0x44e20),
                            PeekChecksumStateUnderLock(iVar3)); /* 0x446902 */
         iVar9 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
-        FUN_00423e20(g_clientContext,iVar9 >> 0x10 & 0xffffff0f,(uint)iVarPart,(int)partWorkspace);
+        LoadAvatarPartRecord(g_clientContext,iVar9 >> 0x10 & 0xffffff0f,(uint)iVarPart,(int)partWorkspace);
         uVar12 = EncodeChecksumDeltaMul(local_15b4,local_1c38,6);
         SUBFIELD(local_4,0,undefined1) = 7;
         uVar7 = PeekChecksumStateUnderLock(&DAT_00e9ba40);

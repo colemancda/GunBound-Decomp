@@ -1,4 +1,5 @@
 /* RenderInventoryItemDetail - 0x0044b900 in the original binary.
+ * (Historical notes below: FUN_00423e20 is now LoadAvatarPartRecord.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -136,7 +137,7 @@ void RenderInventoryItemDetail(int param_1)
       RemoveInventoryItems(1,0,(int *)(g_clientContext + 0x44be8));
       uVar2 = local_1874;
       uVar12 = local_1874 >> 0x10;
-      FUN_00423e20(g_clientContext,uVar12 & 0xf,uVar2,(int)partWorkspace);
+      LoadAvatarPartRecord(g_clientContext,uVar12 & 0xf,uVar2,(int)partWorkspace);
       pcVar6 = local_1888;
       iVar5 = (param_1 + 0x32ef0) - (int)pcVar6;
       do {

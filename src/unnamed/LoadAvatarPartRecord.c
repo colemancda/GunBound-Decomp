@@ -1,9 +1,25 @@
-/* FUN_00423e20 - 0x00423e20 in the original binary.
+/* LoadAvatarPartRecord - 0x00423e20 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00423e20 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: Avatar part-
+ * record loader taking a packed 16-bit part id (bit 15 = gender flag
+ * selecting the f/m file prefix, low 15 bits = index) plus a category
+ * 0..3. It opens the avatar archive entry (g_clientContext + 0xf6e8),
+ * seeks index * 0x84 and reads the 0x84-byte record, verifies the stored
+ * id, and copies name, flag and attribute cells into the part workspace at
+ * ESI (+0x224 .. +0x23b, +0x17a4 .. +0x17cc). Callers feed it avatar part
+ * ids: ApplyAvatarStatBonuses (four consecutive 16-bit ids, one per
+ * category 0..3), RenderInventoryItemDetail and
+ * State07_AvatarStore_OnCommand (the item part id). Pair of
+ * LoadAvatarPartRecordByIndex, which takes the same record via unpacked
+ * (gender, category, index) arguments. LIKELY: both names are from caller
+ * roles and the 0x84-record layout; the on-disk file naming is not
+ * independently documented.
  *
  * DROPPED-ARGUMENT FIX (2026-07-29): the stale `OpenXFSEntryStream(0)` (see
  * functions.h's "K&R-empty deliberately" note) resolves via objdump
@@ -39,7 +55,7 @@
 #include "ghidra_types.h"
 
 
-uint FUN_00423e20(undefined4 param_1,int param_2,uint regEax,int regEsi)
+uint LoadAvatarPartRecord(undefined4 param_1,int param_2,uint regEax,int regEsi)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not

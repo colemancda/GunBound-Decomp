@@ -1,4 +1,5 @@
 /* CloseSpriteReadState - 0x004f1460 in the original binary.
+ * (Historical notes below: FUN_00423e20 is now LoadAvatarPartRecord.)
  *
  * PROMOTED (2026-07-14): releases an XFS sprite-set read cursor
  * (`readState`, LoadSpriteSet's own operator_new(0x1024) scratch object)
