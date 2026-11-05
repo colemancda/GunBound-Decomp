@@ -219,7 +219,7 @@ float DAT_00557ff8 = 32.0f; /* orig .data 0x42000000; only x87 DWORD operands re
 float DAT_00557ffc = -48.0f; /* orig .data 0xc2400000; only x87 DWORD operands reference it */
 float DAT_00558000 = -32.0f; /* orig .data 0xc2000000; only x87 DWORD operands reference it */
 float DAT_00558004 = -63.0f; /* orig .data 0xc27c0000; only x87 DWORD operands reference it */
-uint8_t DAT_00558008;
+float DAT_00558008 = 64.0f; /* orig .data 0x42800000; only x87 DWORD operands reference it */
 uint8_t DAT_0055800c;
 uint8_t DAT_00558010;
 uint8_t DAT_0055801c;
