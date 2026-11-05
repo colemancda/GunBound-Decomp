@@ -28,7 +28,9 @@ undefined4 __thiscall CommP2POwner_SendBuddyRequest(int param_1,undefined4 param
   
   uStack_c = 0x4fd740;
   if (*(char *)(param_1 + 0x1a70) == '\0') {
-    return 0x1700;
+    /* 0x4fd751 xor al,al; ret 0xc -- returns false.  The 0x1700 was Ghidra's
+       view of the alloca_probe EAX (0x1774), not a stored value. */
+    return 0;
   }
   _strncpy(local_1778,param_3,8);
   pcVar2 = param_4;

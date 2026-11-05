@@ -32,7 +32,6 @@ uint __thiscall CommP2POwner_SendBuddyStatus(int param_1,undefined4 param_2,unde
   undefined4 uStack_c;
   
   uStack_c = 0x4fd5a0;
-  pcVar2 = (char *)CONCAT31(0x17,*(char *)(param_1 + 0x1a70));
   if (*(char *)(param_1 + 0x1a70) != '\0') {
     pcVar2 = param_4 + 1;
     pcVar3 = param_4;
@@ -66,6 +65,8 @@ uint __thiscall CommP2POwner_SendBuddyStatus(int param_1,undefined4 param_2,unde
       return uVar4;
     }
   }
-  return (uint)pcVar2 & 0xffffff00;
+  /* 0x4fd5d3 xor al,al; ret 0xc -- not connected, or name longer than 0x80:
+     returns false. */
+  return 0;
 }
 
