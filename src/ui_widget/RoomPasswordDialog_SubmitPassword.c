@@ -1,4 +1,5 @@
 /* RoomPasswordDialog_SubmitPassword - 0x00506bf0 in the original binary.
+ * (Historical notes below: FUN_00429fb0 is now CloseRoomPasswordDialog.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"

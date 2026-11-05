@@ -246,7 +246,7 @@ LAB_004287a5:
     uVar5 = 0;
     break;
   case 0x1e:
-    FUN_00429fb0();
+    CloseRoomPasswordDialog();
     return;
   case 0x1f:
     SendJoinRoomSelected(param_1);

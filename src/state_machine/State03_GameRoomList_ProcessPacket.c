@@ -770,7 +770,7 @@ switchD_00428058_default:
       goto LAB_00426d84;
     }
     if (*(char *)((int)this + 0xd) != '\0') {
-      FUN_00429fb0();
+      CloseRoomPasswordDialog();
     }
     if (*(char *)((int)this + 0xe) != '\0') {
       CloseEnterRoomNumberDialog();

@@ -510,7 +510,7 @@ void SendCreateRoom();
 void CloseCreateRoomDialog();
 void SendJoinRoomByNumber();
 void CloseEnterRoomNumberDialog();
-void FUN_00429fb0();
+void CloseRoomPasswordDialog();
 void SendJoinRoomSelected(int regEax);
 void RefreshGameRoomListControls(undefined4 controlsEnabled, int stateObj);
 void __thiscall RenderRoomCard();
