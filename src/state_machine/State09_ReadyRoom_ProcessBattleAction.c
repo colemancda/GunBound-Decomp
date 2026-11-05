@@ -183,7 +183,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         bVar1 = *pbVar10;
         uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (bVar1 == uVar9) {
-          FUN_00422f10(*(undefined4 *)(g_clientContext + 0x3f804),
+          AddRejoinBlockedRoom(*(undefined4 *)(g_clientContext + 0x3f804),
                      *(undefined4 *)(g_clientContext + 0x44e60),g_clientContext);
           iVar4 = g_connectionContextA;
           *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
