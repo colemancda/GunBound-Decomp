@@ -607,7 +607,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00452bf0,141,FUN_00452bf0,false,1,6,RAW-src
 00452c80,62,InitSuperShot_Bullet6,false,1,2,RAW-src
 00452cc0,4710,DetonateSuperShot_Bullet6,false,1,39,RAW-src
-00454270,32,FUN_00454270,false,1,2,RAW-src
+00454270,32,Mobile05_ScalarDtor,false,1,2,RAW-src
 00454290,13,Mobile05_Destructor,false,1,1,RAW-src
 004542a0,2775,Mobile05_MainAction,false,1,14,RAW-src
 00454dc0,1935,InitProjectile,false,86,5,RAW-src
