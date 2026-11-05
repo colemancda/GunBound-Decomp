@@ -2368,7 +2368,7 @@ float DAT_00558018 = -8192.0f; /* orig .data 0xc6000000; only x87 DWORD operands
 double DAT_00558048 = 90.0; /* orig .data 0x4056800000000000; only x87 QWORD operands reference it */
 float DAT_00558068 = 0.248f; /* orig .data 0x3e7df3b6; only x87 DWORD operands reference it */
 double DAT_00558070 = 0.06977777928113937; /* orig .data 0x3fb1dcf4e0000000; only x87 QWORD operands reference it */
-uint32_t DAT_00558078;
+double DAT_00558078 = 1000.0; /* orig .data 0x408f400000000000; only x87 QWORD operands reference it */
 uint32_t DAT_00563d9c;
 uint32_t DAT_005687f8;
 uint32_t DAT_005688a4;
