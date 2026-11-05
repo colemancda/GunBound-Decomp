@@ -1,4 +1,21 @@
-/* FUN_00425350 - 0x00425350 in the original binary.
+/* AvatarPartWorkspace_Construct - 0x00425350 in the original binary.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00425350 mean this function.)
+ *
+ * NAMED (2026-11-05), HIGH. Evidence from outside the body:
+ * State07_AvatarStore's constructor builds its two part-record arrays (9
+ * and 0x15 elements, stride 0x17e4) with _eh_vector_constructor_iterator_
+ * using this and FUN_004254a0 as ctor and dtor, and the avatar-store and
+ * equip code (State07_AvatarStore_OnCommand, RenderInventoryItemDetail,
+ * ApplyAvatarStatBonuses, LoadAvatarStoreCatalog) call it on stack buffers
+ * they then hand to LoadAvatarPartRecordByIndex, whose output cells at +0,
+ * +0x23c ... +0x1580 are exactly the 11 guard cells this initialises. The
+ * 0x17e4 stride is those 11 cells (guard extent 0x17a4) plus the 0x40-byte
+ * text field at +0x17a4.
  *
  * The 11-cell CValueGuard workspace constructor: zeroes each cell's
  * activeFlag/tableHandle pair and registers it via
@@ -20,7 +37,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_00425350(int param_1)
+int __fastcall AvatarPartWorkspace_Construct(int param_1)
 
 {
   undefined4 local_4;

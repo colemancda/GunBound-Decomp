@@ -104,7 +104,7 @@ void ApplyAvatarStatBonuses(undefined4 param_1,undefined4 param_2,undefined4 par
    * alloc + 4 saved-reg pushes) - exactly partWorkspace, cross-checked
    * against the FUN_00423e20 call two lines below whose regEsi arg is
    * the algebraically identical esp+0x44 one push shallower. */
-  FUN_00425350((int)partWorkspace);
+  AvatarPartWorkspace_Construct((int)partWorkspace);
   local_4 = 0;
   LoadAvatarPartRecord(param_1,0,*(ushort *)((int)param_2 + 0),(int)partWorkspace);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x424b37..

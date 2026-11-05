@@ -119,7 +119,7 @@ LAB_004495fa:
     uVar17 = uVar17 + 1;
     local_1878 = local_1878 + -1;
   } while (local_1878 != 0);
-  FUN_00425350((int)partRecord);
+  AvatarPartWorkspace_Construct((int)partRecord);
   iVar11 = g_clientContext;
   iVar14 = 0;
   local_1878 = 0;

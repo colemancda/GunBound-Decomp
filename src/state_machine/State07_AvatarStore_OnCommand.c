@@ -145,7 +145,7 @@ void __thiscall State07_AvatarStore_OnCommand(int param_1,int param_2,undefined4
    * ALSO reused by the body as a genuine case-progress flag (the
    * CONCAT31/SUBFIELD writes below), so it stays. */
   local_4 = 0xffffffff;
-  FUN_00425350((int)guardWorkspace);
+  AvatarPartWorkspace_Construct((int)guardWorkspace);
   local_4 = 0;
   if (param_2 != 0) {
     if ((param_2 != 0xb) || (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) goto switchD_00445591_caseD_2;
@@ -243,7 +243,7 @@ LAB_004457e7:
         /* This case's ctor + loader both use the SECOND workspace: orig
          * 0x4458fc `lea ecx,[esp+0x214]` and 0x44595e `lea esi,[esp+0x21c]`
          * (2 args pushed) = the same entry-0x4318 cell. */
-        FUN_00425350((int)partWorkspace);
+        AvatarPartWorkspace_Construct((int)partWorkspace);
         iVar3 = param_1 + 4;
         local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
         iVar9 = PeekChecksumStateUnderLock(iVar3);
@@ -392,7 +392,7 @@ LAB_004457e7:
           if ((uVar4 & 4) == 0) {
             if ((uVar4 & 2) == 0) {
               /* orig 0x445edb `lea ecx,[esp+0x214]` - the second workspace. */
-              FUN_00425350((int)partWorkspace);
+              AvatarPartWorkspace_Construct((int)partWorkspace);
               SUBFIELD(local_4,0,undefined1) = 2;
               iVar9 = AtlArray_GetAt_450((int *)(g_clientContext + 0x44e20),
                                  PeekChecksumStateUnderLock(iVar3)); /* 0x445f01 */
@@ -470,7 +470,7 @@ LAB_004457e7:
         iVar9 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
         if ((iVar9 >> 0x1c & 2U) == 0) {
           /* orig 0x4461b2 `lea ecx,[esp+0x214]` - the second workspace. */
-          FUN_00425350((int)partWorkspace);
+          AvatarPartWorkspace_Construct((int)partWorkspace);
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
           iVar9 = AtlArray_GetAt_450((int *)(g_clientContext + 0x44e20),
                              PeekChecksumStateUnderLock(iVar3)); /* 0x4461d8 */
@@ -594,7 +594,7 @@ LAB_004457e7:
     if ((((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32c54)), cVar1 != '\x01')) &&
         (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 != '\x01')) && (g_stateChangeInProgress == 0)) {
       /* orig 0x44658e `lea ecx,[esp+0x214]` - the second workspace. */
-      FUN_00425350((int)partWorkspace);
+      AvatarPartWorkspace_Construct((int)partWorkspace);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),4);
       iVar3 = param_1 + 0x3054c;
       iVar9 = PeekChecksumStateUnderLock(param_1 + 0x228);

@@ -457,7 +457,7 @@ uint LoadAvatarPartRecord(undefined4 param_1, int param_2, uint regEax, int regE
 uint LoadAvatarPartRecordByIndex(undefined4 param_1, int param_2, int param_3, int param_4, int outRecord);
 void FUN_00424400(int regEsi);
 void ApplyAvatarStatBonuses();
-int __fastcall FUN_00425350(int param_1);
+int __fastcall AvatarPartWorkspace_Construct(int param_1);
 void __fastcall FUN_004254a0();
 void ChatFlood_RecordSend(int regEsi);
 void ChatFlood_ExpireOldest(int clientContext);

@@ -61,7 +61,7 @@ void RenderInventoryItemDetail(int param_1)
    * (lea ecx,[esp+0x130], esp there = entry_esp-0x1920 after the chkstk
    * alloc + 4 saved-reg pushes) - exactly partWorkspace (local_15cc-0x224
    * per this file's own header note = entry_esp-0x15cc-0x224). */
-  FUN_00425350((int)partWorkspace);
+  AvatarPartWorkspace_Construct((int)partWorkspace);
   local_4 = 0;
   cVar3 = PeekPacketChecksumBool();
   pcVar11 = (code *)LeaveCriticalSection;

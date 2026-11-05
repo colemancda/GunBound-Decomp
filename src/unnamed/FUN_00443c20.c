@@ -49,8 +49,8 @@ undefined4 * FUN_00443c20(undefined4 *param_1)
    * (`lea edi,[esi+0x228]`); tableHandle=param_1[0x8f],
    * activeFlag=*(undefined1*)(param_1+0x112), matching above. */
   EncodeOutgoingPacketField((int)param_1 + 0x228, 0);
-  _eh_vector_constructor_iterator_(param_1 + 0x116,0x17e4,9,FUN_00425350,FUN_004254a0);
-  _eh_vector_constructor_iterator_(param_1 + 0x36d7,0x17e4,0x15,FUN_00425350,FUN_004254a0);
+  _eh_vector_constructor_iterator_(param_1 + 0x116,0x17e4,9,AvatarPartWorkspace_Construct,FUN_004254a0);
+  _eh_vector_constructor_iterator_(param_1 + 0x36d7,0x17e4,0x15,AvatarPartWorkspace_Construct,FUN_004254a0);
   *(undefined1 *)(param_1 + 0xc1db) = 0;
   param_1[0xc158] = 0;
   /* FIXED (2026-07-15): angr-confirmed at 0x443ccd
@@ -81,7 +81,7 @@ undefined4 * FUN_00443c20(undefined4 *param_1)
   InitGuardedBool((byte *)param_1 + 0x32c54);
   InitGuardedBool((byte *)param_1 + 0x32ce0);
   InitGuardedBool((byte *)param_1 + 0x32e63);
-  FUN_00425350((int)param_1 + 0x32fa0);
+  AvatarPartWorkspace_Construct((int)param_1 + 0x32fa0);
   return param_1;
 }
 
