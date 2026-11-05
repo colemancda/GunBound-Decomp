@@ -18,34 +18,41 @@
  * (case 1), CommEngineSend (case 2) and CommEngineConnectComplete (case
  * 0x10).
  *
- * The accepted SOCKET (EDI) and the engine (ESI) are dropped registers in
- * this port (unaff_EDI/unaff_ESI), and the caller's accept() result is not
- * passed; left as found, not fixed here.
+ * FIXED (2026-11-05): the accepted SOCKET (EDI) and the engine (ESI) were
+ * dropped registers (sock/engine, so closesocket read an
+ * uninitialised value) and the caller never passed accept()'s result.
+ * Disasm at the sole call site 0x4fe7eb-0x4fe7fb: `mov edi,eax` (accept()
+ * result, tested against -1), esi = engine (the same register
+ * `mov eax,[esi+0x1c]` reads the listen socket from), `push lea [esp+0x10]`
+ * (the sockaddr), `mov eax,[esp+0x34]` (the addrlen). In the callee,
+ * `mov ecx,edi` + `push esi` feed ConfigureAsyncSocket and the two
+ * `mov [esp+4],edi; jmp closesocket` tails close edi. They are now the
+ * trailing promoted parameters sock and engine, and the ConfigureAsyncSocket
+ * call passes (socket, engine, sockaddr) as the callee defines them (the old
+ * call passed the engine as the socket and left the third argument off).
  */
 #include "ghidra_types.h"
 
 
-void CommEngineAccept(undefined4 param_1,int regEax)
+void CommEngineAccept(undefined4 param_1,int regEax,SOCKET sock,int *engine)
 
 {
   int iVar1;
-  int *unaff_ESI;
-  SOCKET unaff_EDI;
   
   if (regEax != 0x10) {
                     /* WARNING: Could not recover jumptable at 0x004ff699. Too many branches */
                     /* WARNING: Treating indirect jump as call */
-    closesocket(unaff_EDI);
+    closesocket(sock);
     return;
   }
-  iVar1 = ConfigureAsyncSocket(unaff_ESI,param_1);
+  iVar1 = ConfigureAsyncSocket(sock,(u_long)engine,param_1);
   if (iVar1 == 0) {
                     /* WARNING: Could not recover jumptable at 0x004ff6b4. Too many branches */
                     /* WARNING: Treating indirect jump as call */
-    closesocket(unaff_EDI);
+    closesocket(sock);
     return;
   }
-  (**(code **)(*unaff_ESI + 0xc))(0,iVar1);
+  (**(code **)(*engine + 0xc))(0,iVar1);
   return;
 }
 
