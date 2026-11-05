@@ -16,13 +16,18 @@
  * MouseDevice_Initialize there), and InitGame calls it with ECX = 0xe52810
  * (0x40ecb0).
  *
+ * Calling convention (0x40ecae..0x40ecb5): `push ebp` (the window handle,
+ * InitGame's param_1), `mov ecx,0xe52810`, `call 0x4edd70`; the function ends
+ * `ret 4`. So ECX = the singleton, hWnd is the one stack argument; written
+ * __fastcall with a dummy EDX slot, the idiom for genuine C++ callees.
+ *
  * The port body is a bring-up stub returning 0; see the workaround comment
  * below.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall KeyboardDevice_Initialize(int param_1)
+undefined4 __fastcall KeyboardDevice_Initialize(void *thisPtr,int dummyEdx,undefined4 hWnd)
 
 {
   /* BRING-UP WORKAROUND: skip DirectInput keyboard-device acquisition.

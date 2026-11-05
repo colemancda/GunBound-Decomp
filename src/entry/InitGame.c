@@ -125,8 +125,9 @@ int InitGame(undefined4 param_1,undefined4 param_2)
         }
         SetMusicVolume();
         SetEffectsVolume();
-        KeyboardDevice_Initialize(param_1);
-        MouseDevice_Initialize(param_1);
+        /* 0x40ecae-0x40ecc0: push ebp (hWnd); mov ecx,0xe52810 / 0xe53698. */
+        KeyboardDevice_Initialize(g_keyboardDeviceTimerBlock,0,param_1);
+        MouseDevice_Initialize(g_mouseDeviceTimerBlock,0,param_1);
         _DAT_00e53c24 = 0;
         _DAT_00e53c28 = 799;
         _DAT_00e53c2c = 0;

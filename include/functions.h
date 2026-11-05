@@ -1322,14 +1322,14 @@ void FUN_004edaa0(int param_1,int param_2,int param_3,int param_4,int param_5,in
 void DrawBattleFadeOverlay(int param_1,int param_2,int param_3,int param_4,int param_5);
 void UpdateDeviceAcquisition(int deviceObj, char wasActive);
 undefined4 * __fastcall KeyboardDevice_Construct();
-undefined4 __fastcall KeyboardDevice_Initialize();
+undefined4 __fastcall KeyboardDevice_Initialize(void *thisPtr,int dummyEdx,undefined4 hWnd); /* ECX=this, stack hWnd, ret 4 */
 void __fastcall CInputDevice_Release();
 void __fastcall KeyboardDevice_TickKeyTimers(int param_1);
 void MouseDevice_Construct(undefined4 *regEax);
 void * __thiscall CInputDevice_ScalarDeletingDestructor();
 void __fastcall CInputDevice_BaseDestructor();
 void __fastcall ClampCursorToRect();
-undefined4 __fastcall MouseDevice_Initialize();
+undefined4 __fastcall MouseDevice_Initialize(void *thisPtr,int dummyEdx,undefined4 hWnd); /* ECX=this, stack hWnd, ret 4 */
 void __fastcall MouseDevice_Poll();
 void __fastcall MouseDevice_TickButtonTimers();
 void FUN_004ee850();

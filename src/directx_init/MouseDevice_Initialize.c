@@ -13,13 +13,17 @@
  * the mouse vtable 0x557484, and InitGame calls it on the mouse singleton
  * 0xe53698 (0x40ecbb).
  *
+ * Calling convention (0x40ecba..0x40ecc0): `push ebp` (hWnd), `mov ecx,
+ * 0xe53698`, `call 0x4ee270`; the function ends `ret 4` (0x4ee2f6). ECX =
+ * the singleton, hWnd on the stack: __fastcall with a dummy EDX slot.
+ *
  * The port body is a bring-up stub returning 0; see the workaround comment
  * below.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall MouseDevice_Initialize(int param_1)
+undefined4 __fastcall MouseDevice_Initialize(void *thisPtr,int dummyEdx,undefined4 hWnd)
 
 {
   /* BRING-UP WORKAROUND: skip DirectInput mouse-device acquisition.
