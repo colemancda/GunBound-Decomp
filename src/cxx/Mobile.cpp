@@ -197,7 +197,7 @@ void EncodeOutgoingPacketField(void *self, unsigned int v);
 char CompareChecksumExceeds(void *cell, unsigned int other);
 void StopSoundChannel(int soundChannelIndex);
 void FUN_0040b030(void *self);
-char FUN_0040b450(void *cell, unsigned int v);
+char CompareChecksumAtLeast(void *cell, unsigned int v);
 void FUN_0043c860(void *base, int *self);
 char FUN_0041eaa0(int a, short b);
 char FUN_0045ec30(int mobile);
@@ -1350,7 +1350,7 @@ LAB_00460553:
     }
     piVar19 = param_1 + 0x1d90;
     uVar17 = EncodeChecksumDeltaMul(piVar19, local_b40, 10);
-    cVar9 = FUN_0040b450(param_1 + 0x1e19, uVar17);
+    cVar9 = CompareChecksumAtLeast(param_1 + 0x1e19, uVar17);
     if (cVar9 == '\0' || (cVar9 = PacketChecksumNotEquals(param_1 + 0x1e19, 0), cVar9 == '\0') ||
         (cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0x1c50), cVar9 != '\x01') ||
         (cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0x8bae), cVar9 != '\x01') ||

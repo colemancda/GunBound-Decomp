@@ -299,7 +299,7 @@ bool PacketChecksumLessEqual();
 bool CompareChecksumMatch();
 bool ChecksumPairDiffers();
 bool CompareChecksumExceeds();
-bool FUN_0040b450(undefined4 param_1,undefined4 param_2);
+bool CompareChecksumAtLeast(undefined4 param_1,undefined4 param_2);
 bool CompareChecksumPair();
 bool CompareChecksumAtMost();
 void __fastcall FUN_0040b510();

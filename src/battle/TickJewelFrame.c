@@ -273,7 +273,7 @@ LAB_00479e75:
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x120));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  if ((iVar5 < iVar6) || (cVar3 = FUN_0040b450(param_1 + 0x232,param_1 + 0x1a9), cVar3 != '\0')) {
+  if ((iVar5 < iVar6) || (cVar3 = CompareChecksumAtLeast(param_1 + 0x232,param_1 + 0x1a9), cVar3 != '\0')) {
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\x01') {
       uVar4 = PeekChecksumStateUnderLock(&DAT_00e55ab8);
@@ -422,7 +422,7 @@ LAB_0047a634:
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
     }
-    cVar3 = FUN_0040b450(param_1 + 0x232,param_1 + 0x1a9);
+    cVar3 = CompareChecksumAtLeast(param_1 + 0x232,param_1 + 0x1a9);
     if (cVar3 != '\0') {
       iVar5 = PeekChecksumStateUnderLock(param_1 + 0xe);
       _sprintf(acStack_91c,s_jflame_d_00555ff0,iVar5 + 1);

@@ -450,7 +450,7 @@ LAB_00460553:
   piVar19 = param_1 + 0x1d90;
   uVar17 = EncodeChecksumDeltaMul(piVar19,local_b40,10);
   local_4 = 0x10;
-  cVar9 = FUN_0040b450(param_1 + 0x1e19,uVar17);
+  cVar9 = CompareChecksumAtLeast(param_1 + 0x1e19,uVar17);
   if ((((cVar9 == '\0') || (cVar9 = PacketChecksumNotEquals(param_1 + 0x1e19,0), cVar9 == '\0')) ||
       ((cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x1c50), cVar9 != '\x01' ||
        (((cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8bae), cVar9 != '\x01' || (cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8bbd), cVar9 != '\x01')) ||

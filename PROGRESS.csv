@@ -178,7 +178,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040b390,56,CompareChecksumMatch,false,17,3,RAW-src
 0040b3d0,56,ChecksumPairDiffers,false,3,3,RAW-src
 0040b410,56,CompareChecksumExceeds,false,47,3,RAW-src
-0040b450,56,FUN_0040b450,false,4,3,RAW-src
+0040b450,56,CompareChecksumAtLeast,false,4,3,RAW-src
 0040b490,56,CompareChecksumPair,false,136,3,RAW-src
 0040b4d0,56,CompareChecksumAtMost,false,9,3,RAW-src
 0040b510,38,FUN_0040b510,false,0,1,RAW-src

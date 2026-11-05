@@ -66,7 +66,7 @@ bool __fastcall IsProjectileInBounds(int param_1)
     return false;
   }
   /* orig 0x4588d3-0x4588ff: the Y cell against a bound cell and a literal. */
-  if (FUN_0040b450(param_1 + 0x1178,g_clientContext + 0x6aa1e4) != false) {
+  if (CompareChecksumAtLeast(param_1 + 0x1178,g_clientContext + 0x6aa1e4) != false) {
     return false;
   }
   if (PacketChecksumLessThan((void *)(param_1 + 0x1178),-1000) != '\0') {
