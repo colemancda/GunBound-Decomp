@@ -1,4 +1,6 @@
 /* SceneNode_UpdateWorldViewProjection - 0x004f38a0 in the original
+ * (FUN_004f2530 in the notes below is InvertAffineMatrix4x4's old symbol.)
+ *
  * binary.
  *
  * Slot 4 of BOTH scene-node vtables (0x557548 in the base vtable at

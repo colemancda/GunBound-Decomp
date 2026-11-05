@@ -1406,7 +1406,7 @@ void FUN_004f1eb0();
 int CalculateAngleFromDelta(); /* real args (dx, dy); K&R-empty and __cdecl deliberately - see CalculateAngleFromDelta.c */
 undefined4 * __fastcall MultiplyMatrix4x4ToScratch(float *param_1,float *regEax);
 void MultiplyMatrix4x4InPlace(float *regEbx,float *regEax);
-void __fastcall FUN_004f2530();
+void __fastcall InvertAffineMatrix4x4();
 void FillPixels16();
 void BlendPixels16();
 int __fastcall FUN_004f2810();

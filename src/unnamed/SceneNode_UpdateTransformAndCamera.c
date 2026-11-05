@@ -1,4 +1,5 @@
 /* SceneNode_UpdateTransformAndCamera - 0x004e9cc0 in the original binary.
+ * (FUN_004f2530 in the notes below is InvertAffineMatrix4x4's old symbol.)
  *
  * Slot 3 of the six-slot vtable at 0x557300 (docs/vtable_census.txt) -
  * the derived-class override of the slot SceneNode_UpdateTransform
@@ -99,7 +100,7 @@ void __thiscall SceneNode_UpdateTransformAndCamera(int *param_1,undefined4 param
      * view matrix is the affine inverse of this camera node's world
      * matrix. Before 2026-08-31 this call was argless and the view
      * rebuild a no-op. */
-    FUN_004f2530((float *)(param_1 + 0x38),(float *)DAT_005a9250);
+    InvertAffineMatrix4x4((float *)(param_1 + 0x38),(float *)DAT_005a9250);
     puVar7 = (undefined4 *)DAT_005a9290;
     for (iVar5 = 0x10; iVar5 != 0; iVar5 = iVar5 + -1) {
       *puVar7 = 0;

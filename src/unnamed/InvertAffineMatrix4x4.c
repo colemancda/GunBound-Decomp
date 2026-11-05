@@ -1,15 +1,27 @@
-/* FUN_004f2530 - 0x004f2530 in the original binary.
+/* InvertAffineMatrix4x4 - 0x004f2530 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): SceneNode_UpdateTransformAndCamera calls it
+ * with ECX = the camera node's world matrix (node + 0xe0) and EDX =
+ * DAT_005a9250, then treats DAT_005a9250 as the VIEW matrix, i.e. the
+ * inverse of the camera's world transform
+ * (SceneNode_UpdateWorldViewProjection reads the same slot). Operand
+ * shapes: both are 0x40-byte row-major 4x4 matrices, as
+ * MultiplyMatrix4x4InPlace and MultiplyMatrix4x4ToScratch also address
+ * them. The body is the 3x3 cofactor inverse (determinant reciprocal;
+ * transpose when that reciprocal is within 1e-5 of 1, i.e. an orthonormal
+ * rotation) with the fourth column forced to (0,0,0,1) and the translation
+ * row set to -t * R^-1, the standard rigid or affine inverse.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __fastcall FUN_004f2530(float *param_1,float *param_2)
+void __fastcall InvertAffineMatrix4x4(float *param_1,float *param_2)
 
 {
   float fVar1;

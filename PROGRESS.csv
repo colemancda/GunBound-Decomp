@@ -1304,7 +1304,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f1f10,64,CalculateAngleFromDelta,false,28,0,RAW-src
 004f1f50,742,MultiplyMatrix4x4ToScratch,false,6,1,RAW-src
 004f2240,750,MultiplyMatrix4x4InPlace,false,4,1,RAW-src
-004f2530,448,FUN_004f2530,false,1,0,RAW-src
+004f2530,448,InvertAffineMatrix4x4,false,1,0,RAW-src
 004f26f0,74,FillPixels16,false,6,0,RAW-src
 004f2740,202,BlendPixels16,false,2,0,RAW-src
 004f2810,507,FUN_004f2810,false,1,0,RAW-src
