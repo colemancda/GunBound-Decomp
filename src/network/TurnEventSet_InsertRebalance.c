@@ -91,7 +91,7 @@ TurnEventSet_InsertRebalance(undefined4 *param_1,int treeSet,undefined4 *param_3
                     /* WARNING: Subroutine does not return */
     __CxxThrowException_8(local_34,&DAT_0055841c);
   }
-  piVar3 = (int *)FUN_004e8e30(*(undefined4 *)(unaff_EDI + 4),param_1,*(undefined4 *)(unaff_EDI + 4)
+  piVar3 = (int *)TurnEventSet_BuyNode(*(undefined4 *)(unaff_EDI + 4),param_1,*(undefined4 *)(unaff_EDI + 4)
                                ,param_5,0);
   *(int *)(unaff_EDI + 8) = *(int *)(unaff_EDI + 8) + 1;
   if (param_1 == *(undefined4 **)(unaff_EDI + 4)) {
