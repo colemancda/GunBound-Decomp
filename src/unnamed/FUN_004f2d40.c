@@ -17,7 +17,7 @@ void FUN_004f2d40(int regEax)
 
 {
   FUN_004f2d60(regEax);
-  FUN_004f2a10();
+  FUN_004f2a10(regEax);   /* 0x4f2d42 mov esi,eax; ESI survives the 0x4f2d60 call */
   return;
 }
 

@@ -34,7 +34,7 @@ void __fastcall SceneNode_Destructor(undefined4 *param_1)
   local_4 = 0;
   if ((*(char *)(param_1 + 0x82) != '\0') &&
      (_Memory = (void *)param_1[0x83], _Memory != (void *)0x0)) {
-    FUN_004f2a10();
+    FUN_004f2a10((int)_Memory);   /* 0x4f33e6 mov esi,[edi+0x20c] */
     _free(_Memory);
   }
   puVar1 = (undefined4 *)param_1[0x35];

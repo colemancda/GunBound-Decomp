@@ -19,7 +19,7 @@ void FUN_004f2d60(int regEbx)
   _Memory = *(void **)(regEbx + 0x3d8);
   while (_Memory != (void *)0x0) {
     pvVar1 = *(void **)((int)_Memory + 0x3d8);
-    FUN_004f2a10();
+    FUN_004f2a10((int)_Memory);   /* 0x4f2d76: ESI = current node */
     _free(_Memory);
     _Memory = pvVar1;
   }

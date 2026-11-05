@@ -1410,7 +1410,7 @@ void __fastcall FUN_004f2530();
 void FillPixels16();
 void BlendPixels16();
 int __fastcall FUN_004f2810();
-void FUN_004f2a10();
+void FUN_004f2a10(int regEsi);
 int FUN_004f2d20();
 void FUN_004f2d40(int regEax);
 void FUN_004f2d60(int regEbx);

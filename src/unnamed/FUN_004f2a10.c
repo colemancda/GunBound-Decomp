@@ -7,11 +7,11 @@
 #include "ghidra_types.h"
 
 
-void FUN_004f2a10(void)
+void FUN_004f2a10(int regEsi)
 
 {
   int iVar1;
-  int unaff_ESI;
+  int unaff_ESI = regEsi;   /* ESI = the object being torn down, set by every caller */
   
   if (*(void **)(unaff_ESI + 0x1c8) != (void *)0x0) {
     _free(*(void **)(unaff_ESI + 0x1c8));
