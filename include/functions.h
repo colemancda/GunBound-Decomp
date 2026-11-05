@@ -1073,7 +1073,7 @@ undefined4 * InitShot1_Bullet12(undefined4 *regEsi);
 void * __thiscall DeleteShot1_Bullet12();
 void DestroyShot1_Bullet12(undefined4 *regEax);
 void __fastcall DetonateShot1_Bullet12();
-void * __thiscall FUN_004b31c0();
+void * __thiscall Mobile03_ScalarDtor();
 void Mobile03_Destructor(undefined4 *regEax);
 void __thiscall Mobile03_MainAction();
 void FUN_004b3b10();
