@@ -1,8 +1,30 @@
-/* FUN_00415600 - 0x00415600 in the original binary.
+/* StringMap_RemoveAll_Int - 0x00415600 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00415600 mean this function.)
+ *
+ * NAMED (2026-11-05), CERTAIN. ATL7 CAtlMap::RemoveAll for the
+ * ChooseEvent.txt table DAT_00e9bea8, the map whose insert is
+ * StringMap_Insert_Int (0x409d10) and whose lookup is StringMap_Find_10.
+ * The identification rests on the exit path recorded below: the atexit
+ * destructor FUN_00543300 loads &DAT_00e9bea8 into EAX and reaches this
+ * function through the jump thunk at 0x40d1b0, and that global is the one
+ * ParseChooseEventLine fills. The body is the template statement for
+ * statement (lock count at +0x20, per-bin node release, free the bin array,
+ * InitHashTable(PickSize(0), false), free the plex chain), the same shape
+ * as StringMap_RemoveAll_CString (0x415560).
+ *
+ * Why _Int and not _10: both are 0x10-byte-node string maps, so the stride
+ * cannot separate them (StringMap_FreeNode_CString's header makes the same
+ * point from its side). They differ in the per-node release: this one
+ * calls HashTable_OnNodeRemoved (0x409f60), which destroys only the key
+ * CString and leaves a 4-byte POD value, while the other calls
+ * StringMap_FreeNode_CString, which releases a CString value too. The
+ * _Int suffix follows StringMap_Insert_Int, the sibling for this same
+ * instantiation.
  *
  * HashMap_PickSize ARGS RECOVERED (2026-10-29): the call at 0x41566c
  * passed only a literal 0.  ECX = `mov ecx,esi` (the map), EAX = 0 (`xor
@@ -26,7 +48,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00415600(int *regEax)
+void StringMap_RemoveAll_Int(int *regEax)
 
 {
   int iVar1;

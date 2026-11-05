@@ -381,7 +381,7 @@ void FUN_004154e0();
 bool WorkerThread_Start(void *);
 bool FUN_00415530(void *);
 void StringMap_RemoveAll_CString(int *regEax);
-void FUN_00415600(int *regEax);
+void StringMap_RemoveAll_Int(int *regEax);
 void WorkerThreadProcThunk(void *);
 void FUN_004156c0(void *);
 void StringMap_FreeNode_CString(int regEax,int regEdi);

@@ -17,7 +17,7 @@
 void thunk_FUN_00415600(int *regEax)
 
 {
-  FUN_00415600(regEax);
+  StringMap_RemoveAll_Int(regEax);
   return;
 }
 
