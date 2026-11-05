@@ -22,11 +22,15 @@
  * aura. The key's meaning (owner mobile) is inferred from the spawner
  * usage, not shown; the other two members of the run are unnamed.
  *
- * BUG, reported not fixed: it is declared __fastcall(param_1, param_2) but
- * all four callers (SpawnLaserIon, SpawnKnightIon, AdvanceTurnQueue,
- * ProcessBattleAction) pass nothing. In the binary the two spawners set EDX
- * (mov edx,esi) from their own incoming arguments; the other two sites do
- * not visibly set it, so the key reaching the body is whatever EDX held.
+ * Calling convention (fixed 2026-11): the body reads only EDX (the key
+ * compared against obj + 8) and never touches ECX; it ends in a plain ret,
+ * so there are no stack arguments. All four callers load EDX before the
+ * call: SpawnLaserIon / SpawnKnightIon (437f8e, 43811e) do `mov edx,esi`
+ * with esi = their fourth stack argument (param_4); ProcessBattleAction
+ * (4b6081) does `mov edx,esi` with esi = the action's player byte; and
+ * AdvanceTurnQueue (4cf608..4cf61b) derives edx from the turn-queue byte
+ * at +0x10a8, the same value it passes to ExplodePlayerMines. Callers now
+ * pass (0, key); param_1 is the unused ECX.
  */
 #include "ghidra_types.h"
 

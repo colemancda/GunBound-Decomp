@@ -442,8 +442,8 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
     if (uVar1 == GB_ACT_WEAPON_SELECT_SOUND) {
       ExplodePlayerMines();
       local_27f0 = &DAT_006a7f70 + g_clientContext;
-      FUN_0043c4a0();
-      RemoveIonAura();
+      FUN_0043c4a0(0,bVar16);
+      RemoveIonAura(0,bVar16);
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       FUN_004207c0(g_clientContext,bVar16);
       cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba));

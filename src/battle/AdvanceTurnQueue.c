@@ -175,8 +175,8 @@ void __fastcall AdvanceTurnQueue(int param_1)
       (*pcVar9)(&g_valueGuardLock);
       if (iVar5 != 3) {
         ExplodePlayerMines();
-        FUN_0043c4a0();
-        RemoveIonAura();
+        FUN_0043c4a0(0,*(byte *)(param_1 + 0x10a8) & 0x80000007);
+        RemoveIonAura(0,*(byte *)(param_1 + 0x10a8) & 0x80000007);
       }
     }
     uVar6 = EncodeChecksumDeltaMul(piVar2 + 0x237a,auStack_234,2);
