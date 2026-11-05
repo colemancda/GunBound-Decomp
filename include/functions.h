@@ -325,7 +325,7 @@ void __fastcall TreeIteratorIncrement();
 void TreeEraseSubtree();
 int OpenDriverRegistryKey();
 void __fastcall CreateSharedTextInputControl();
-LRESULT __stdcall FUN_0040c6f0(HWND, uint, WPARAM, LPARAM);
+LRESULT __stdcall SharedTextInputControlWndProc(HWND, uint, WPARAM, LPARAM);
 void FetchActiveTextInputText(int editState, LPSTR dest);
 void __fastcall TextEntry_PushTextToControl(int param_1,LPCSTR regEax);
 void __fastcall TextEntry_SetSelection(undefined4 param_1,WPARAM param_2,LPARAM param_3,int regEax);

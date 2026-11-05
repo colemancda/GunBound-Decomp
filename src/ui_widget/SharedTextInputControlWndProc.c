@@ -1,8 +1,22 @@
-/* FUN_0040c6f0 - 0x0040c6f0 in the original binary.
+/* SharedTextInputControlWndProc - 0x0040c6f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_0040c6f0 mean this function.)
+ *
+ * NAMED (2026-11-05), HIGH. Evidence from outside the body: It is the
+ * __stdcall WNDPROC that CreateSharedTextInputControl (0x40c670) installs
+ * with SetWindowLongA(GWL_WNDPROC) on the shared edit control, saving the
+ * original proc in block[3] (DAT_005b1c48 is that block); it forwards the
+ * unhandled messages to it with CallWindowProcA. It forwards WM_KEYDOWN,
+ * WM_KEYUP, WM_SYSKEYDOWN and WM_SYSKEYUP to the parent window at
+ * block[0], swallows message 0x7b, swallows Tab, Up, Down and Enter key-
+ * downs (and Tab/Enter characters) while the block's ready byte is set,
+ * and records the IME composition and open state in
+ * DAT_007934c4/DAT_007934c5. Same shape as the precedent
+ * CommP2PNotifyWndProc, a subclass proc installed through SetWindowLongA.
  */
 #include "ghidra_types.h"
 
@@ -35,7 +49,7 @@
  * on raw stack bytes at a constant ESP-relative offset). Coalesced into a
  * single properly-sized buffer; the emptiness check against `&local_87`
  * becomes the equivalent `imeCompBuf+1`. */
-LRESULT __stdcall FUN_0040c6f0(HWND param_1,uint param_2,WPARAM param_3,LPARAM param_4)
+LRESULT __stdcall SharedTextInputControlWndProc(HWND param_1,uint param_2,WPARAM param_3,LPARAM param_4)
 
 {
   char cVar1;

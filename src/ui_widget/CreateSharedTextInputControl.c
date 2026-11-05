@@ -60,7 +60,7 @@ void __fastcall CreateSharedTextInputControl(HINSTANCE param_1,undefined4 *block
   block[1] = (undefined4)hWnd;
   LVar1 = GetWindowLongA(hWnd,-4);
   block[3] = LVar1;
-  SetWindowLongA((HWND)block[1],-4,(LONG)FUN_0040c6f0);
+  SetWindowLongA((HWND)block[1],-4,(LONG)SharedTextInputControlWndProc);
   SetFocus((HWND)block[1]);
   *(undefined1 *)(block + 2) = 1;
   if (DAT_005b3438 == 1) {
