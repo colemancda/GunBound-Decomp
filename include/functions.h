@@ -1283,7 +1283,7 @@ void LZHUFUpdate(int param_1,int regEax);
 int FUN_004ea670(int regEsi);
 uint FUN_004ea6e0(int regEsi);
 uint EncodeLZHUFBlock();
-int FUN_004ead70();
+int SinDegrees();
 int FUN_004ead90();
 void __fastcall SetClipRect();
 void LoadBitmapFont();

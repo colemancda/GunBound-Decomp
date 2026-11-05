@@ -120,7 +120,7 @@ void BlitRLESprite(int a, int b);
 void DrawSprite(void);
 void GBFillRect(int a, int b);
 void FUN_004ead90(void);               /* (x+90)/360 angle helper */
-void FUN_004ead70(void);               /* x/360 angle helper */
+void SinDegrees(void);               /* x/360 angle helper */
 int  FloatToInt64(void);
 char CheckGuardedBoolAnd(int cond);
 unsigned int PacketChecksumEquals(void *cell, int v);
@@ -497,7 +497,7 @@ void CMobile::v3_Render()
                 uVar8 = EncodeChecksumNegate(this->m_pad908 + 0x59f0, local_454);
                 uVar8 = EncodeChecksumDeltaAdd(reinterpret_cast<void *>(uVar8), local_678, 0x5a);
                 PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
-                FUN_004ead70();
+                SinDegrees();
                 uVar8 = FloatToInt64();
                 uVar8 = EncodeChecksumDeltaSub(this->m_pad908 + 0x228, local_89c, uVar8);
                 uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
@@ -1556,7 +1556,7 @@ LAB_00460553:
                 FUN_004ead90();
                 uVar11 = (unsigned short)FloatToInt64();
                 PeekChecksumStateUnderLock(param_1 + 0x27c5);
-                FUN_004ead70();
+                SinDegrees();
                 uVar14 = (unsigned short)FloatToInt64();
                 *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
                 puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aace + g_dwBroadcastEventCursor);
@@ -1575,7 +1575,7 @@ LAB_00460553:
                 FUN_004ead90();
                 uVar11 = (unsigned short)FloatToInt64();
                 PeekChecksumStateUnderLock(param_1 + 0x28d7);
-                FUN_004ead70();
+                SinDegrees();
                 uVar14 = (unsigned short)FloatToInt64();
                 *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
                 puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aace + g_dwBroadcastEventCursor);
@@ -1594,7 +1594,7 @@ LAB_00460553:
                 FUN_004ead90();
                 uVar11 = (unsigned short)FloatToInt64();
                 PeekChecksumStateUnderLock(param_1 + 0x2afb);
-                FUN_004ead70();
+                SinDegrees();
                 uVar14 = (unsigned short)FloatToInt64();
                 iVar18 = g_clientContext;
                 *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;

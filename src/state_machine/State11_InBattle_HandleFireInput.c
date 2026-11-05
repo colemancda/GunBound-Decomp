@@ -681,7 +681,7 @@ LAB_004606d5:
         FUN_004ead90();
         uVar11 = FloatToInt64();
         PeekChecksumStateUnderLock(param_1 + 0x27c5);
-        FUN_004ead70();
+        SinDegrees();
         uVar14 = FloatToInt64();
         *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
         puVar1 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
@@ -701,7 +701,7 @@ LAB_004606d5:
         FUN_004ead90();
         uVar11 = FloatToInt64();
         PeekChecksumStateUnderLock(param_1 + 0x28d7);
-        FUN_004ead70();
+        SinDegrees();
         uVar14 = FloatToInt64();
         *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
         puVar1 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
@@ -721,7 +721,7 @@ LAB_004606d5:
         FUN_004ead90();
         uVar11 = FloatToInt64();
         PeekChecksumStateUnderLock(param_1 + 0x2afb);
-        FUN_004ead70();
+        SinDegrees();
         uVar14 = FloatToInt64();
         iVar18 = g_clientContext;
         *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
