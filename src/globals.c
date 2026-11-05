@@ -603,6 +603,7 @@ uint32_t g_screenSurface;
 uint32_t g_clipMinX;
 uint32_t g_clipMinY;
 uint32_t DAT_00793544;
+uint32_t g_dinputDeviceCount; /* 0x793540 */
 uint8_t g_soundAvailable;
 uint8_t DAT_0079354a;
 uint8_t DAT_0079354b;

@@ -750,6 +750,10 @@ extern uint32_t g_screenSurface;
 extern uint32_t g_clipMinX;
 extern uint32_t g_clipMinY;
 extern uint32_t DAT_00793544;
+/* DirectInput device table filled by EnumInputDevicesCallback: 16 x 0x244-byte
+ * DIDEVICEINSTANCEA at 0x674f70 and the entry count at 0x793540. */
+extern uint8_t g_dinputDeviceInstances[16 * 0x244];
+extern uint32_t g_dinputDeviceCount;
 /* g_soundAvailable (was DAT_00793549) - set to 1 on InitDirectSound's
  * success path, immediately before `return 1`, and checked before every
  * channel dispatch in the sound and battle code. */

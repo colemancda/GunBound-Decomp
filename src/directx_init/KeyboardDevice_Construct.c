@@ -13,11 +13,8 @@
  * GUID_SysMouse). It stamps vtable 0x55745c, whose slot 1 (0x4edd70) is
  * the CreateDevice/SetDataFormat(c_dfDIKeyboard) initializer.
  *
- * BUG NOTED, NOT FIXED: InitDirectInput.c passes this function to
- * IDirectInput8::EnumDevices (vtbl+0x10) as the DIENUMDEVICESCALLBACK. It
- * is a constructor taking the object in EDX, not an enumeration callback.
- * The real callback is the unported code at 0x4edc10 (the Ghidra label
- * LAB_004edc10 the comment there mentions).
+ * Not the IDirectInput8::EnumDevices callback: that is
+ * EnumInputDevicesCallback (0x4edc10).
  */
 #include "ghidra_types.h"
 

@@ -29,6 +29,7 @@
 
 byte InitDirectDraw();
 bool InitDirectInput();
+int __stdcall EnumInputDevicesCallback(const void *lpddi,void *pvRef); /* 0x4edc10, ret 8 */
 undefined4 InitDirectSound();
 void ShutdownDirectDraw();
 void ChangeGameState();

@@ -365,3 +365,7 @@ unsigned char DAT_005a94b0[0x10];
  * the clamp-bound dwords at +0x58c..+0x598, g_cursorFreeMode at +0x5a4)
  * are offset macros in globals.h now. */
 unsigned char g_mouseDeviceTimerBlock[0x5a8];
+
+/* DirectInput enumerated-device table (0x674f70, 16 x 0x244) filled by
+ * EnumInputDevicesCallback; count is g_dinputDeviceCount in globals.c. */
+unsigned char g_dinputDeviceInstances[16 * 0x244];

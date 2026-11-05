@@ -27,25 +27,12 @@ bool InitDirectInput(undefined4 param_1)
     iVar2 = ((int (WINAPI *)(void *, int, void *, void *, void *))pFVar1)
                 (param_1,0x800,&DAT_005573c8,&DAT_00674f68,0);
     if (-1 < iVar2) {
-      /* LAB_004edc10 in Ghidra's output is the entry point of the
-       * enumeration callback it split out separately as FUN_004edd10 -
-       * same address range, just labeled differently at this call
-       * site vs. its own decompilation.
-       *
-       * Dispatched through an explicit __stdcall cast, not the generic
-       * `int (**)()` (K&R/unspecified-args) type: that defaults to __cdecl
-       * under MSVC, so the compiler emits a caller-side stack cleanup on top
-       * of the real __stdcall COM callee's own - see SetupZBuffer.c for the
-       * full writeup of this bug class.
-       *
-       * KNOWN BUG, NOT FIXED: the claim above that the callback and
-       * KeyboardDevice_Construct are the same code is wrong. 0x4edd10 is
-       * the keyboard singleton's constructor (EDX = object, called from
-       * the static-init stub 0x540de0); the real DIENUMDEVICESCALLBACK
-       * is the unported code at 0x4edc10, 0x100 bytes earlier. */
+      /* 0x4edc9a: push 0x4edc10 - EnumInputDevicesCallback, a __stdcall
+       * DIENUMDEVICESCALLBACK (ret 8). Dispatched through an explicit
+       * __stdcall cast (see SetupZBuffer.c for why the generic type is wrong). */
       iVar2 = ((HRESULT (WINAPI *)(void *, DWORD, LPVOID, LPVOID, DWORD))
                    (*(void ***)DAT_00674f68)[4])
-                  (DAT_00674f68, 4, KeyboardDevice_Construct, 0, 1);
+                  (DAT_00674f68, 4, EnumInputDevicesCallback, 0, 1);
       return -1 < iVar2;
     }
   }
