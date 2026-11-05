@@ -66,7 +66,7 @@ undefined4 * TurnEventSet_Insert(undefined4 *param_1,int param_2,ushort *param_3
       *(undefined1 *)(puVar1 + 1) = 1;
       return puVar1;
     }
-    FUN_004e8eb0();
+    TurnEventSet_IteratorDecrement();
   }
   if (*(ushort *)(param_1 + 3) < *param_3) {
     /* FIXED (2026-09-20): dropped ECX(this)/EDI(tree-set) register args -
