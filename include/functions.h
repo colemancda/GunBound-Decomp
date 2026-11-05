@@ -454,7 +454,7 @@ uint LoadAvatarPartRecord(undefined4 param_1, int param_2, uint regEax, int regE
 /* outRecord = the dropped ESI (orig call sites do `lea esi,...` before
  * `call 0x4240c0`) - the 0x17a4-byte guarded part record the loader
  * fills. Recovered 2026-08-11; all 12 call sites pass it. */
-uint FUN_004240c0(undefined4 param_1, int param_2, int param_3, int param_4, int outRecord);
+uint LoadAvatarPartRecordByIndex(undefined4 param_1, int param_2, int param_3, int param_4, int outRecord);
 void FUN_00424400(int regEsi);
 void ApplyAvatarStatBonuses();
 int __fastcall FUN_00425350(int param_1);

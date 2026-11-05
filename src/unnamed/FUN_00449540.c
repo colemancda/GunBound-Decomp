@@ -1,4 +1,6 @@
 /* FUN_00449540 - 0x00449540 in the original binary.
+ * (Historical notes below: FUN_004240c0 is now
+ *   LoadAvatarPartRecordByIndex.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -138,7 +140,7 @@ LAB_004495fa:
     if (0 < iVar11) {
       auStack_1874 = (undefined4)(param_1 + 0x2e54c);
       do {
-        FUN_004240c0(g_clientContext,1,param_2,iVar14,(int)partRecord);
+        LoadAvatarPartRecordByIndex(g_clientContext,1,param_2,iVar14,(int)partRecord);
         if (partRecord[0x23b] != '\0') {
           *(undefined1 *)(local_1878 + 0x2d54c + param_1) = 1;
           local_1878 = local_1878 + 1;
@@ -159,7 +161,7 @@ LAB_004495fa:
   if (0 < iVar11) {
     auStack_1874 = (undefined4)(param_1 + 0x2e54c + local_1878 * 2);
     do {
-      FUN_004240c0(g_clientContext,0,param_2,iVar14,(int)partRecord);
+      LoadAvatarPartRecordByIndex(g_clientContext,0,param_2,iVar14,(int)partRecord);
       if (partRecord[0x23b] != '\0') {
         *(undefined1 *)(local_1878 + 0x2d54c + param_1) = 0;
         local_1878 = local_1878 + 1;
@@ -191,7 +193,7 @@ LAB_004495fa:
     if (0 < iVar11) {
       auStack_1874 = (undefined4)(param_1 + 0x2e54c + local_1878 * 2);
       do {
-        FUN_004240c0(g_clientContext,1,param_2,iVar14,(int)partRecord);
+        LoadAvatarPartRecordByIndex(g_clientContext,1,param_2,iVar14,(int)partRecord);
         if (partRecord[0x23b] != '\0') {
           *(undefined1 *)(local_1878 + 0x2d54c + param_1) = 1;
           local_1878 = local_1878 + 1;
@@ -249,7 +251,7 @@ LAB_004495fa:
     case 3:
       uStack_1870 = &DAT_00666d73;
     }
-    FUN_004240c0(g_clientContext,CONCAT31((int3)((uint)iVar14 >> 8),cVar4 == '\x01'),param_2,*puVar13,
+    LoadAvatarPartRecordByIndex(g_clientContext,CONCAT31((int3)((uint)iVar14 >> 8),cVar4 == '\x01'),param_2,*puVar13,
                  (int)partRecord);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar9 = PeekPacketChecksumState((void *)partRecord);
@@ -260,7 +262,7 @@ LAB_004495fa:
     /* Fifth part-load reloads into the OBJECT's per-slot record, not the
      * stack one: orig 0x449acf-0x449ad4 `mov edi,[esp+0x20]` (= this row's
      * auStack_1874 text cursor) / `lea esi,[edi-0x17a4]`. */
-    FUN_004240c0(g_clientContext,*(char *)(param_1 + 0x2d54c + iVar11) == '\x01',param_2,*puVar13,
+    LoadAvatarPartRecordByIndex(g_clientContext,*(char *)(param_1 + 0x2d54c + iVar11) == '\x01',param_2,*puVar13,
                  (int)auVar8 - 0x17a4);
     RenderWrappedText(local_1878,auVar8,0x18,0x15,0x78,1);
     iVar11 = iVar11 + 1;

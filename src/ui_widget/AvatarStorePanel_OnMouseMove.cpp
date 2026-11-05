@@ -1,4 +1,6 @@
 /* AvatarStorePanel_OnMouseMove - 0x0050a030 in the original binary.
+ * (Historical notes below: FUN_004240c0 is now
+ *   LoadAvatarPartRecordByIndex.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -52,7 +54,7 @@ unsigned int PeekPacketChecksumState(void *self);
 void EncodeOutgoingPacketField(void *self, unsigned int field);
 void RadioGroup_RefreshEnableStates(int param_1, char regBl);
 void ThrowCxxException(long hr);
-unsigned int FUN_004240c0(unsigned int ctx, int a, int b, unsigned int c, int outRecord);
+unsigned int LoadAvatarPartRecordByIndex(unsigned int ctx, int a, int b, unsigned int c, int outRecord);
 }
 
 extern "C" int AvatarStorePanel_OnMouseMove(CWidget *this_, int x, int y)
@@ -87,7 +89,7 @@ extern "C" int AvatarStorePanel_OnMouseMove(CWidget *this_, int x, int y)
     /* FIXED (2026-08-11): dropped outRecord (ESI) - orig 0x50a13a-0x50a149
      * `mov esi,[esp+0x14]` (the state-7 object saved from EBX =
      * [0x5b3414] at 0x50a047, this C's puVar1) / `add esi,0x32fa0`. */
-    FUN_004240c0(g_clientContext, (uVar4 & 0x8000) == 0x8000, (int)uVar4 >> 0x10, uVar4 & 0x7fff,
+    LoadAvatarPartRecordByIndex(g_clientContext, (uVar4 & 0x8000) == 0x8000, (int)uVar4 >> 0x10, uVar4 & 0x7fff,
                  (int)(puVar1 + 0x32fa0));
   }
   bool consumed = this_->MouseMoveChildren(x, y);

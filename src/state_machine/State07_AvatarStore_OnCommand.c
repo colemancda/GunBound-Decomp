@@ -1,4 +1,6 @@
 /* State07_AvatarStore_OnCommand - 0x00445450 in the original binary.
+ * (Historical notes below: FUN_004240c0 is now
+ *   LoadAvatarPartRecordByIndex.)
  * (Historical notes below: FUN_00423e20 is now LoadAvatarPartRecord.)
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
@@ -248,7 +250,7 @@ LAB_004457e7:
         uVar4 = (uint)*(ushort *)(param_1 + 0x2e54c + (iVar9 + *(int *)(param_1 + 0x450) * 9) * 2);
         uVar6 = (uint)*(byte *)(param_1 + 0x44c);
         iVar9 = PeekChecksumStateUnderLock(iVar3);
-        FUN_004240c0(g_clientContext,
+        LoadAvatarPartRecordByIndex(g_clientContext,
                      *(char *)(*(int *)(param_1 + 0x450) * 9 + 0x2d54c + iVar9 + param_1) == '\x01',
                      uVar6,uVar4,(int)partWorkspace);
         QueueOutgoingPacketField(1);
@@ -656,7 +658,7 @@ LAB_004457e7:
       iVar3 = PeekChecksumStateUnderLock(param_1 + 4);
       /* orig 0x446c33 `lea esi,[esp+0x2d44]` (2 args pushed) =
        * base+0x2d3c = the prologue guardWorkspace. */
-      FUN_004240c0(g_clientContext,
+      LoadAvatarPartRecordByIndex(g_clientContext,
                    *(char *)(*(int *)(param_1 + 0x450) * 9 + 0x2d54c + iVar3 + param_1) == '\x01',
                    uVar6,uVar4,(int)guardWorkspace);
       iVar3 = g_connectionContextA;
@@ -996,7 +998,7 @@ LAB_00446f6d:
     iVar3 = PeekChecksumStateUnderLock(param_1 + 4);
     /* orig 0x4472c1 `lea esi,[esp+0x2d44]` (2 args pushed) =
      * base+0x2d3c = the prologue guardWorkspace. */
-    FUN_004240c0(g_clientContext,
+    LoadAvatarPartRecordByIndex(g_clientContext,
                  *(char *)(*(int *)(param_1 + 0x450) * 9 + 0x2d54c + iVar3 + param_1) == '\x01',
                  uVar6,uVar4,(int)guardWorkspace);
     iVar3 = g_connectionContextA;

@@ -1,4 +1,6 @@
 /* FUN_00449b60 - 0x00449b60 in the original binary.
+ * (Historical notes below: FUN_004240c0 is now
+ *   LoadAvatarPartRecordByIndex.)
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -109,7 +111,7 @@ LAB_00449be9:
          * `lea esi,[ebp+0x458]` (ebp = param_1), advanced 0x17e4 per row
          * at 0x449d7d = this C's iVar9 (the object's per-slot record;
          * RenderWrappedText below draws its +0x17a4 text field). */
-        FUN_004240c0(g_clientContext,
+        LoadAvatarPartRecordByIndex(g_clientContext,
                      CONCAT11((char)((ushort)uVar8 >> 8),
                               *(char *)(iVar2 + 0x2d54c + param_1) == '\x01'),
                      *(undefined1 *)(param_1 + 0x44c),uVar8,iVar9);

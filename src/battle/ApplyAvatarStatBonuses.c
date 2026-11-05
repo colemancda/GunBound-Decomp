@@ -1,4 +1,6 @@
 /* ApplyAvatarStatBonuses - 0x00424ac0 in the original binary.
+ * (Historical notes below: FUN_004240c0 is now
+ *   LoadAvatarPartRecordByIndex.)
  * (Historical notes below: FUN_00423e20 is now LoadAvatarPartRecord.)
  *
  * RENAMED (2026-08-13, from FUN_00424ac0). Builds a player's eight

@@ -1,4 +1,6 @@
 /* CloseSpriteReadState - 0x004f1460 in the original binary.
+ * (Historical notes below: FUN_004240c0 is now
+ *   LoadAvatarPartRecordByIndex.)
  * (Historical notes below: FUN_00423e20 is now LoadAvatarPartRecord.)
  *
  * PROMOTED (2026-07-14): releases an XFS sprite-set read cursor

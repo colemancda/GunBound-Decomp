@@ -1,11 +1,24 @@
-/* FUN_004240c0 - 0x004240c0 in the original binary.
+/* LoadAvatarPartRecordByIndex - 0x004240c0 in the original binary.
  * (Historical notes below: FUN_00423e20 is now LoadAvatarPartRecord.)
  * (Historical notes below: FUN_004f08a0 is now SkipXFSEntryBytes.)
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004240c0 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: Pair of
+ * LoadAvatarPartRecord: same archive entry, same 0x84-byte record seek
+ * (index * 0x84) and the same output-workspace layout (+0x224, +0x23b,
+ * +0x17a4), but the gender flag, category and index arrive as separate
+ * arguments (callers unpack them from one word as bit 15, bits 16.., low
+ * 15 bits) and the record is written to outRecord (ESI) through the
+ * guarded cells at +0, +0x23c, +0x460 ... +0x1580, the 11 cells
+ * FUN_00425350 initialises. Callers: State07_AvatarStore_OnCommand (x3)
+ * and AvatarStorePanel_OnMouseMove. LIKELY for the same reasons as
+ * LoadAvatarPartRecord; ByIndex only distinguishes the unpacked-argument
+ * form, since both functions index the table.
  *
  * DROPPED-ARGUMENT FIX (2026-07-29): the stale `OpenXFSEntryStream(0)` (see
  * functions.h's "K&R-empty deliberately" note) resolves via objdump
@@ -49,7 +62,7 @@
 #include "ghidra_types.h"
 
 
-uint FUN_004240c0(undefined4 param_1,int param_2,int param_3,int param_4,int outRecord)
+uint LoadAvatarPartRecordByIndex(undefined4 param_1,int param_2,int param_3,int param_4,int outRecord)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
