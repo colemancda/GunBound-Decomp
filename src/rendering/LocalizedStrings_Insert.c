@@ -1,10 +1,19 @@
-/* FUN_0043de70 - 0x0043de70 in the original binary.
+/* LocalizedStrings_Insert - 0x0043de70 in the original binary.
  * (Historical notes below: FUN_0043dd40 is now LocalizedStrings_SetAt.)
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_0043de70 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: Sole caller
+ * LocalizedStrings_SetAt runs it after FindLocalizedStringNode misses. It
+ * builds and links a new node via the node factory FUN_0043e0f0 (key = id,
+ * value = message) and then runs the inline red-black insert rebalance
+ * (rotations at the +0xc/+0x10 child links, colour at +8, parent +0x14).
+ * Evidence for the container is the caller chain; the rebalance shape is
+ * the body.
  *
  * REGISTERS RECOVERED (2026-08-25, workflow-analysed, hand-checked).  The
  * INSERT path of the localized-string id -> string map: FUN_0043dd40 looks
@@ -18,7 +27,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_0043de70(int *param_1,int regEcx,char *regEax)
+int LocalizedStrings_Insert(int *param_1,int regEcx,char *regEax)
 
 {
   int iVar1;

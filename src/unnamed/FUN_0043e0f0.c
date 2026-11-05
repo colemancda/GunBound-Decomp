@@ -1,4 +1,5 @@
 /* FUN_0043e0f0 - 0x0043e0f0 in the original binary.
+ * (Historical notes below: FUN_0043de70 is now LocalizedStrings_Insert.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's

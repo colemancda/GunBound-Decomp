@@ -44,7 +44,7 @@ int LocalizedStrings_SetAt(int id,undefined4 param_1,char *message)
    * first STACK argument) and 0x43dd48 `mov edi,ecx` = id. */
   iVar2 = (int)FindLocalizedStringNode(0,(undefined4 *)param_1,id);
   if (iVar2 == 0) {
-    iVar2 = FUN_0043de70(param_1,id,message);
+    iVar2 = LocalizedStrings_Insert(param_1,id,message);
     return iVar2;
   }
   pcVar3 = message;

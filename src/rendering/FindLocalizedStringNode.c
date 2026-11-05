@@ -1,4 +1,5 @@
 /* FindLocalizedStringNode - 0x0043e060 in the original binary.
+ * (Historical notes below: FUN_0043de70 is now LocalizedStrings_Insert.)
  * (Historical notes below: FUN_0043dd40 is now LocalizedStrings_SetAt.)
  *
  * The id -> string lookup behind GetLocalizedString: a tree search of the
