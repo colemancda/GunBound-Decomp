@@ -806,7 +806,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004857f0,5791,SimulateSuperShot_Bullet13,false,1,23,RAW-src
 00486ea0,6357,DetonateSuperShot_Bullet13,false,1,55,RAW-src
 00488880,518,PublishProjectileTrackingStateFacing,false,5,6,RAW-src
-00488a90,32,FUN_00488a90,false,1,2,RAW-src
+00488a90,32,Mobile01_ScalarDtor,false,1,2,RAW-src
 00488ab0,13,Mobile01_Destructor,false,1,1,RAW-src
 00488ac0,1999,Mobile01_MainAction,false,1,14,RAW-src
 004892c0,69,FUN_004892c0,false,1,0,RAW-src

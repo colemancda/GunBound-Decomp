@@ -933,7 +933,7 @@ void * __thiscall DeleteSuperShot_Bullet13();
 void FUN_00485760();
 void __thiscall SimulateSuperShot_Bullet13();
 void __fastcall DetonateSuperShot_Bullet13();
-void * __thiscall FUN_00488a90();
+void * __thiscall Mobile01_ScalarDtor();
 void Mobile01_Destructor(undefined4 *regEax);
 void __thiscall Mobile01_MainAction();
 undefined4 FUN_004892c0();
