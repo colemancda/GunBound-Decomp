@@ -2342,7 +2342,7 @@ uint32_t DAT_00f25ed0;
 uint32_t DAT_00f25ee0;
 uint32_t DAT_00f25ee4;
 uint32_t DAT_00f25f00;
-uint32_t DAT_00544360;
+double DAT_00544360 = 65536.0; /* orig .data 0x40f0000000000000; only x87 QWORD operands reference it */
 uint32_t DAT_00544368;
 float DAT_00544370 = 2.0f; /* orig .data 0x40000000; only x87 DWORD operands reference it */
 uint32_t DAT_00544378;

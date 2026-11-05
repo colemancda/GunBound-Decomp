@@ -2429,7 +2429,7 @@ extern uint32_t DAT_00f25ed0;
 extern uint32_t DAT_00f25ee0;
 extern uint32_t DAT_00f25ee4;
 extern uint32_t DAT_00f25f00;
-extern uint32_t DAT_00544360;
+extern double DAT_00544360;
 #define _DAT_00544360 DAT_00544360
 extern uint32_t DAT_00544368;
 #define _DAT_00544368 DAT_00544368
