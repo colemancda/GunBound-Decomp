@@ -68,7 +68,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
    * this file's own param_1 is the same CMobile-shaped object passed
    * throughout this function. */
   FUN_0045cb50(param_1);
-  if ((*(char *)((int)param_1 + 0xbffa) != '\0') && (cVar5 = FUN_0043c820(), cVar5 == '\0')) {
+  if ((*(char *)((int)param_1 + 0xbffa) != '\0') && (cVar5 = AnyProjectileInFlight(), cVar5 == '\0')) {
     (**(code **)(*param_1 + 4))((undefined4 *)((int)param_1 + 0xbffa));
     iVar12 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a0);
     iVar8 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);

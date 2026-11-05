@@ -29,7 +29,7 @@ void FUN_004ce3d0(int param_1)
     iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (*(int *)(param_1 + 0x8a0) <= iVar2) {
-      cVar1 = FUN_0043c820();
+      cVar1 = AnyProjectileInFlight();
       if (cVar1 != '\0') {
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at

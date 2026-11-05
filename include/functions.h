@@ -608,7 +608,7 @@ void __fastcall RemoveIonAura();
 uint FUN_0043c550();
 void FUN_0043c620();
 void FUN_0043c6a0();
-uint FUN_0043c820();
+uint AnyProjectileInFlight();
 void FUN_0043c860();
 void __thiscall InsertChecksumStateRecord();
 uint __fastcall FindChecksumStateRecord();

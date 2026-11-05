@@ -470,7 +470,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0043c550,202,FUN_0043c550,false,1,3,RAW-src
 0043c620,121,FUN_0043c620,false,1,0,RAW-src
 0043c6a0,374,FUN_0043c6a0,false,1,9,RAW-src
-0043c820,57,FUN_0043c820,false,6,0,RAW-src
+0043c820,57,AnyProjectileInFlight,false,6,0,RAW-src
 0043c860,3414,FUN_0043c860,false,3,13,RAW-src
 0043d5d0,100,InsertChecksumStateRecord,false,1,2,RAW-src
 0043d640,135,FindChecksumStateRecord,false,1,1,RAW-src

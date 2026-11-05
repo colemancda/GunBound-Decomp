@@ -540,7 +540,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
     QueueOutgoingPacketField((int)*(short *)(param_2 + 0x3a));
     SetGuardedBool(*(char *)(param_2 + 0x3c) == '\x01',GB_GUARD_UNRECOVERED);
     FUN_0043d780(param_2 + 0x3d,(int)(&DAT_006a7f70 + g_clientContext));
-    cVar2 = FUN_0043c820();
+    cVar2 = AnyProjectileInFlight();
     if (cVar2 == '\x01') {
       *(undefined4 *)((int)piVar7 + 0xbffa) = SUBFIELD(s_ifire_00553b60,0,undefined4);
       *(undefined2 *)((int)piVar7 + 0xbffe) = SUBFIELD(s_ifire_00553b60,4,undefined2);
@@ -1060,7 +1060,7 @@ LAB_004b7fb2:
       FUN_0043d780(param_2 + 0x3d,(int)(&DAT_006a7f70 + g_clientContext));
       *(undefined1 *)(piVar7 + 0x2ffa) = 0;
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
-      cVar2 = FUN_0043c820();
+      cVar2 = AnyProjectileInFlight();
       if (cVar2 == '\x01') {
         cVar2 = PeekPacketChecksumBool((byte *)piVar7 + 0x8bb7);
         if (cVar2 != '\0') {
@@ -1179,7 +1179,7 @@ LAB_004b7fb2:
       FUN_0043d780(param_2 + 0x3d,(int)(&DAT_006a7f70 + g_clientContext));
       *(undefined1 *)(piVar7 + 0x2ffa) = 0;
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
-      cVar2 = FUN_0043c820();
+      cVar2 = AnyProjectileInFlight();
       if (cVar2 == '\x01') {
         *(undefined4 *)((int)piVar7 + 0xbffa) = SUBFIELD(s_sfire_00553b78,0,undefined4);
         *(undefined2 *)((int)piVar7 + 0xbffe) = SUBFIELD(s_sfire_00553b78,4,undefined2);

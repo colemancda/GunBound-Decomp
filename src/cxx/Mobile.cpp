@@ -150,7 +150,7 @@ void AdvanceSpriteAnimation(void);
 /* FIXED (2026-07-15): same calling-convention mismatch as UpdateMobileEmotionState
  * above (real signature `void __fastcall FUN_0045cb50(int *param_1)`). */
 void __fastcall FUN_0045cb50(int *param_1);
-char FUN_0043c820(void);
+char AnyProjectileInFlight(void);
 void AlignMobileToTerrain(CMobile *self);
 /* FIXED (2026-07-15): was declared void(void) with no explicit calling
  * convention (defaults to __cdecl in a C++ TU) - real signature is
@@ -730,7 +730,7 @@ void CMobile::v2_SimulateFrame()
         }
     }
     FUN_0045cb50(reinterpret_cast<int *>(this));
-    if (this->m_padbff4[6] != 0 && (cVar5 = FUN_0043c820(), cVar5 == '\0')) {
+    if (this->m_padbff4[6] != 0 && (cVar5 = AnyProjectileInFlight(), cVar5 == '\0')) {
         (*reinterpret_cast<VtStr *>(*reinterpret_cast<int *>(this) + 4))(this, 0, this->m_padbff4 + 6);
         iVar11 = *reinterpret_cast<int *>(DAT_005b3424 + 0x10a0);
         iVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(g_clientContext + 0x3b49c));

@@ -88,7 +88,7 @@ LAB_004ce86c:
   iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar5 < *(int *)(param_1 + 0x9c)) goto LAB_004ce86c;
-  cVar4 = FUN_0043c820();
+  cVar4 = AnyProjectileInFlight();
   if (cVar4 == '\x01') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
