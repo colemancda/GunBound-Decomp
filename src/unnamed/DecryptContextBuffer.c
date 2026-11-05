@@ -1,8 +1,21 @@
-/* FUN_004fce60 - 0x004fce60 in the original binary.
+/* DecryptContextBuffer - 0x004fce60 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004fce60 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: Called only
+ * by DecryptStoredStringTo (0x4fcd80) and
+ * DecryptedStoredStringCompareNoCase (0x4fcdf0), both of which allocate an
+ * output block of the stored length rounded up to 16 and pass it in EBX
+ * with the context in EDI. The loop walks the ciphertext at ctx+0x27c in
+ * 16 byte steps (up to ctx+0x280) calling DecodeCipherBlock with the
+ * context as the key schedule, returning 0 as soon as one block fails and
+ * 1 otherwise. LIKELY: the cipher direction is taken from
+ * DecodeCipherBlock's existing name; the bound is length + 1 rather than a
+ * rounded block count.
  */
 /* DROPPED-REGISTER FIX (2026-07-19): EBX (the output base) and EDI (the
  * crypto context holding the ciphertext buffer at +0x27c and its length at
@@ -12,7 +25,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004fce60(int outBase,int ctx)
+undefined4 DecryptContextBuffer(int outBase,int ctx)
 
 {
   short sVar1;

@@ -42,7 +42,7 @@ int DecryptedStoredStringCompareNoCase(undefined4 param_1,undefined4 param_2,int
       /* RECOVERED (2026-07-19): EBX = the alloca'd output block (orig
        * `mov ebx,esp` just before the call), EDI = regEax, this function's
        * own crypto context. */
-      cVar1 = (char)FUN_004fce60((int)(&stack0xfffffff4 + iVar2 * -0x10),regEax);
+      cVar1 = (char)DecryptContextBuffer((int)(&stack0xfffffff4 + iVar2 * -0x10),regEax);
       if (cVar1 != '\0') {
         asStack_1c[iVar2 * -4 + 3] = param_2;
         asStack_1c[iVar2 * -4 + 2] = param_1;

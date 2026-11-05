@@ -1492,7 +1492,7 @@ void __thiscall EncodeCipherBlocks(int param_1, int schedule, unsigned int *sour
 void __thiscall DecodeCipherBlocks(int param_1, int schedule, unsigned int *source, int count);
 undefined4 DecryptStoredStringTo(undefined4 param_1,undefined4 param_2,int regEax);
 int DecryptedStoredStringCompareNoCase(undefined4 param_1,undefined4 param_2,int regEax);
-undefined4 FUN_004fce60(int outBase,int ctx);
+undefined4 DecryptContextBuffer(int outBase,int ctx);
 void SendBuddyNameMessage(undefined4 param_1,char *regEax,int regEbx);
 void FUN_004fcee0(char *regEax,int regEbx);
 undefined4 FUN_004fcf10(undefined4 param_1,undefined4 param_2,undefined4 regEdi,int *regEax,undefined4 regEbx);

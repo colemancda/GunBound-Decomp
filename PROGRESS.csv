@@ -1379,7 +1379,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fcd50,44,DecodeCipherBlocks,false,1,1,RAW-src
 004fcd80,103,DecryptStoredStringTo,false,6,3,RAW-src
 004fcdf0,102,DecryptedStoredStringCompareNoCase,false,2,3,RAW-src
-004fce60,65,FUN_004fce60,false,2,1,RAW-src
+004fce60,65,DecryptContextBuffer,false,2,1,RAW-src
 004fceb0,44,SendBuddyNameMessage,false,1,2,RAW-src
 004fcee0,47,FUN_004fcee0,false,2,2,RAW-src
 004fcf10,87,FUN_004fcf10,false,7,3,RAW-src

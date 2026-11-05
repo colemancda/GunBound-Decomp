@@ -65,7 +65,7 @@ undefined4 DecryptStoredStringTo(undefined4 param_1,undefined4 param_2,int regEa
       /* RECOVERED (2026-07-19): EBX = the alloca'd output block (orig
        * `mov ebx,esp` just before the call), EDI = in_EAX, this function's
        * own crypto context. */
-      cVar1 = (char)FUN_004fce60((int)(&stack0xfffffff4 + iVar2 * -0x10),in_EAX);
+      cVar1 = (char)DecryptContextBuffer((int)(&stack0xfffffff4 + iVar2 * -0x10),in_EAX);
       if (cVar1 != '\0') {
         asStack_1c[iVar2 * -4 + 3] = param_2;
         asStack_1c[iVar2 * -4 + 2] = (size_t)(&stack0xfffffff4 + iVar2 * -0x10);
