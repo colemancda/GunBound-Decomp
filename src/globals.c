@@ -231,7 +231,7 @@ uint8_t DAT_00558034;
 uint8_t DAT_00558038;
 uint8_t DAT_0055803c;
 uint8_t DAT_00558040;
-uint8_t DAT_00558054;
+float DAT_00558054 = 0.25f; /* orig .data 0x3e800000; only x87 DWORD operands reference it */
 uint8_t DAT_00558064;
 uint8_t DAT_005583e8;
 uint8_t DAT_0055841c;
