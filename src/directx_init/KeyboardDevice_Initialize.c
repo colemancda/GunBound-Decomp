@@ -1,14 +1,28 @@
-/* FUN_004edd70 - 0x004edd70 in the original binary.
+/* KeyboardDevice_Initialize - 0x004edd70 in the original binary.
+ * (FUN_004edd70 below is KeyboardDevice_Initialize.)
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body, read from the binary at 0x4edd70):
+ * IDirectInput8 (global 0x674f68) vtbl+0xc CreateDevice with the GUID at
+ * obj+8 and the device pointer stored at obj+4; device vtbl+0x2c
+ * SetDataFormat with 0x54b420, a DIDATAFORMAT whose dwNumObjs is 256 and
+ * dwDataSize 0x100 (c_dfDIKeyboard); vtbl+0x34 SetCooperativeLevel(hwnd, 6
+ * = NONEXCLUSIVE|FOREGROUND); vtbl+0x18 SetProperty(DIPROP_BUFFERSIZE,
+ * 0x40); vtbl+0x1c Acquire; then the flag at obj+0x54 is set. It occupies
+ * slot 1 of the keyboard vtable 0x55745c (the mouse vtable 0x557484 has
+ * MouseDevice_Initialize there), and InitGame calls it with ECX = 0xe52810
+ * (0x40ecb0).
+ *
+ * The port body is a bring-up stub returning 0; see the workaround comment
+ * below.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall FUN_004edd70(int param_1)
+undefined4 __fastcall KeyboardDevice_Initialize(int param_1)
 
 {
   /* BRING-UP WORKAROUND: skip DirectInput keyboard-device acquisition.

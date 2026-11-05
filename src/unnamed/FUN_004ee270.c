@@ -1,4 +1,5 @@
 /* FUN_004ee270 - 0x004ee270 in the original binary.
+ * (FUN_004edd70 below is KeyboardDevice_Initialize.)
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's

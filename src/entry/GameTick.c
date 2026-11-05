@@ -1,4 +1,5 @@
 /* GameTick - 0x00413130 in the original binary.
+ * (FUN_004edd70 below is KeyboardDevice_Initialize.)
  *
  * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
  * verified against documented behavior beyond what's already in

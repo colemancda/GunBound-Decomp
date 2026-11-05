@@ -673,7 +673,7 @@ uint8_t DAT_00d9aa35;
  * updates every elapsed tick. In the original these are static singletons at
  * fixed addresses - the mouse DirectInput device (0xe53698), the keyboard
  * device (0xe52810), and the software-cursor animation object (0x7a7644) -
- * constructed by FUN_004ee270 / FUN_004edd70 / the cursor init. Those
+ * constructed by FUN_004ee270 / KeyboardDevice_Initialize / the cursor init. Those
  * constructors are bring-up-stubbed (they skip DirectInput acquisition, see
  * FUN_004ee270.c), so the singletons never exist and GameTick's literal-address
  * timer calls dereferenced unbacked memory and faulted. Each consumer only

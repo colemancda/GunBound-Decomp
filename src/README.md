@@ -420,7 +420,7 @@ Concretely, that means:
   Separately, working down `make winelib-syntax-check`'s FAIL list
   file-by-file (not all genuinely-broken, just needed small type/cast
   fixes) has so far fixed `entry/GameTick.c`, `entry/Shutdown.c`,
-  `directx_init/InitDirectInput.c`, `unnamed/FUN_004edd70.c`, and
+  `directx_init/InitDirectInput.c`, `directx_init/KeyboardDevice_Initialize.c`, and
   `unnamed/FUN_004ee270.c` — mostly the same "vtable call's return
   value is used, `code`'s void return can't express that" pattern
   (fixed per call site with a local `int (**)()` cast instead of
