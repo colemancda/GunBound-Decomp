@@ -74,7 +74,7 @@ undefined4 FUN_00519aa0(void)
     pfVar6 = pfVar6 + 1;
     pfVar2[1] = (float)((float10)fVar1 / fVar7);
     pfVar2 = pfVar2 + 2;
-  } while ((int)pfVar6 < 0x544aa8);
+  } while (pfVar6 < DAT_00544a88 + 8);
   FUN_0051a120();
   FUN_0051a230();
   FUN_00519ef0();

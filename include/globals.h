@@ -1876,7 +1876,7 @@ extern uint32_t DAT_00544968;
 extern uint32_t DAT_0054496c;
 extern uint32_t DAT_00544970;
 extern uint32_t DAT_00544974;
-extern uint32_t DAT_00544a88;
+extern float DAT_00544a88[8];
 extern uint32_t DAT_0054b460;
 extern uint32_t DAT_00551b78;
 extern uint32_t DAT_00551b79;
@@ -2441,7 +2441,7 @@ extern double DAT_005448d8;
 #define _DAT_005448d8 DAT_005448d8
 extern double DAT_005448e0;
 #define _DAT_005448e0 DAT_005448e0
-extern uint32_t DAT_00544aa8;
+extern double DAT_00544aa8;
 #define _DAT_00544aa8 DAT_00544aa8
 extern double DAT_00544ab0;
 #define _DAT_00544ab0 DAT_00544ab0

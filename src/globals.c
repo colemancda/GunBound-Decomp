@@ -1803,7 +1803,7 @@ uint32_t DAT_00544968;
 uint32_t DAT_0054496c;
 uint32_t DAT_00544970;
 uint32_t DAT_00544974;
-uint32_t DAT_00544a88;
+float DAT_00544a88[8] = { -0.6f, -0.535f, -0.33f, -0.185f, -0.095f, -0.041f, -0.0142f, -0.0037f }; /* orig .data 0x544a88..0x544aa7 */
 uint32_t DAT_0054b460;
 uint32_t DAT_00551b78;
 uint32_t DAT_00551b79;
@@ -2348,7 +2348,7 @@ float DAT_00544370 = 2.0f; /* orig .data 0x40000000; only x87 DWORD operands ref
 double DAT_00544378 = 2.0; /* orig .data 0x4000000000000000; only x87 QWORD operands reference it */
 double DAT_005448d8 = 0.5; /* orig .data 0x3fe0000000000000; only x87 QWORD operands reference it */
 double DAT_005448e0 = 4.0; /* orig .data 0x4010000000000000; only x87 QWORD operands reference it */
-uint32_t DAT_00544aa8;
+double DAT_00544aa8 = 1.0; /* orig .data 0x3ff0000000000000 */
 double DAT_00544ab0 = -2.0; /* orig .data 0xc000000000000000; only x87 QWORD operands reference it */
 double DAT_00544ab8 = -0.5; /* orig .data 0xbfe0000000000000; only x87 QWORD operands reference it */
 double DAT_00544ac0 = 0.25; /* orig .data 0x3fd0000000000000; only x87 QWORD operands reference it */
