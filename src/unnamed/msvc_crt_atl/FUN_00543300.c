@@ -19,7 +19,7 @@
 void FUN_00543300(void)
 
 {
-  thunk_FUN_00415600((int *)&DAT_00e9bea8);
+  StringMap_RemoveAll_IntThunk((int *)&DAT_00e9bea8);
   return;
 }
 

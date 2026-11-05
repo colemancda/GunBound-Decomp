@@ -348,7 +348,7 @@ void __fastcall PanelManager_BaseDestructorThunk(undefined4 *param_1);
 undefined4 * FUN_0040d160(undefined4 *regEsi);
 void thunk_FUN_004154e0();
 void FUN_0040d180(undefined4 *regEax);
-void thunk_FUN_00415600(int *regEax);
+void StringMap_RemoveAll_IntThunk(int *regEax);
 void WorkerThread_Shutdown(undefined4 *regEsi);
 int __fastcall FUN_0040d200();
 void BuildSystemInfoBlob(undefined4 *, undefined4 *);
