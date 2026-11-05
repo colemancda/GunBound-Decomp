@@ -46,8 +46,8 @@ void Tree_Erase_18(int param_1,undefined4 *param_2,int *param_3)
 {
   undefined4 *puVar1;
   int iVar2;
+  int iVar2_max;
   int *piVar3;
-  undefined4 uVar4;
   int *piVar5;
   int *piVar6;
   undefined1 local_50 [4];
@@ -104,17 +104,21 @@ void Tree_Erase_18(int param_1,undefined4 *param_2,int *param_3)
   }
   puVar1 = *(undefined4 **)(param_1 + 4);
   if ((int *)*puVar1 == param_3) {
-    piVar3 = piVar5;
+    /* disasm 0x443928..0x44392f: nil replacement -> parent, else
+       Tree_Min_18(replacement); EAX is stored to head + 0. */
     if (*(char *)((int)piVar6 + 0x15) == '\0') {
-      Tree_Min_18(piVar6);
+      piVar3 = Tree_Min_18(piVar6);
+    }
+    else {
+      piVar3 = piVar5;
     }
     *puVar1 = piVar3;
   }
   iVar2 = *(int *)(param_1 + 4);
   if (*(int **)(iVar2 + 8) == param_3) {
     if (*(char *)((int)piVar6 + 0x15) == '\0') {
-      Tree_Max_18((int)piVar6);
-      *(undefined4 *)(iVar2 + 8) = uVar4;
+      iVar2_max = Tree_Max_18((int)piVar6);
+      *(int *)(iVar2 + 8) = iVar2_max;
     }
     else {
       *(int **)(iVar2 + 8) = piVar5;

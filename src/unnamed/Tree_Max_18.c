@@ -22,18 +22,20 @@
 #include "ghidra_types.h"
 
 
-void Tree_Max_18(int regEax)
+int Tree_Max_18(int regEax)
 
 {
   char cVar1;
   int iVar2;
   
+  /* Disasm 0x443be0: ecx = [eax+8]; while (!nil(ecx)) { eax = ecx; ecx = [eax+8]; }
+     ret -- EAX is the node whose right link is nil (the subtree maximum). */
   iVar2 = *(int *)(regEax + 8);
   cVar1 = *(char *)(iVar2 + 0x15);
   while (cVar1 == '\0') {
-    iVar2 = *(int *)(iVar2 + 8);
+    regEax = iVar2;
+    iVar2 = *(int *)(regEax + 8);
     cVar1 = *(char *)(iVar2 + 0x15);
   }
-  return;
+  return regEax;
 }
-
