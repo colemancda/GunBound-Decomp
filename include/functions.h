@@ -879,7 +879,7 @@ void __fastcall RenderJewel();
 void * __thiscall KnightFlameShot_ScalarDtor();
 void KnightFlameShot_DtorBody(undefined4 *regEax);
 void __fastcall FUN_0047ab00();
-void * __thiscall FUN_0047ab60();
+void * __thiscall Mobile14_ScalarDtor();
 void Mobile14_Destructor(undefined4 *regEax);
 void __thiscall Mobile14_MainAction();
 undefined4 * InitPrimaryShot_Bullet15(undefined4 *regEsi);
