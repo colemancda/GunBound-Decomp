@@ -1,9 +1,20 @@
-/* FUN_00425770 - 0x00425770 in the original binary.
+/* ChatFlood_ExpireOldest - 0x00425770 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00425770 mean this function.)
+ *
+ * NAMED (2026-11-05), LIKELY. Evidence from outside the body: GameTick
+ * calls it once per tick with g_clientContext, directly after the check
+ * that reports a flood when the list count at ctx+0x67e3c8 exceeds 5
+ * (string 0x141, or ShowErrorDialog 0x1a, then count = 0). It compares the
+ * head timestamp at ctx+0x67e348 against GetTickCount, and once the head
+ * has expired shifts the remaining entries down and decrements the count.
+ * ChatFlood_RecordSend (0x425700) is the only writer that appends the
+ * now+10000 timestamps, so this is the expiry side of that sliding window.
+ * 'Flood' is inferred from the GameTick consumer.
  *
  * DROPPED REGISTER ARGUMENT: Ghidra failed to resolve the real parameter
  * and emitted every use of it as unaff_ESI, an uninitialized local. The
@@ -17,7 +28,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00425770(int clientContext)
+void ChatFlood_ExpireOldest(int clientContext)
 
 {
   int iVar1;

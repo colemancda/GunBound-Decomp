@@ -460,7 +460,7 @@ void ApplyAvatarStatBonuses();
 int __fastcall FUN_00425350(int param_1);
 void __fastcall FUN_004254a0();
 void ChatFlood_RecordSend(int regEsi);
-void FUN_00425770(int clientContext);
+void ChatFlood_ExpireOldest(int clientContext);
 undefined4 FUN_004257b0();
 void AddMuteListEntry(char *regEsi,int regEax);
 void RemoveMuteListEntry(undefined4 param_1,int regEax);

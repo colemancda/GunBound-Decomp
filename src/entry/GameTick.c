@@ -197,7 +197,7 @@ void GameTick(void)
       *(undefined4 *)(&DAT_0067e3c8 + g_clientContext) = 0;
     }
   }
-  FUN_00425770(g_clientContext);
+  ChatFlood_ExpireOldest(g_clientContext);
   PruneExpiredRejoinBlockedRooms(g_clientContext);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9084);
   if (DAT_007934cc == '\0') goto LAB_00413a44;
