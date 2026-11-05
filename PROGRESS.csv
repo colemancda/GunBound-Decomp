@@ -279,7 +279,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00415810,97,WorkerThread2EventLoop,false,1,2,RAW-src
 00415880,5,CStringPair_DestroyThunk,true,1,0,RAW-src
 00415890,15,CStringPair_Destroy,false,3,1,RAW-src
-004158a0,63,FUN_004158a0,false,4,2,RAW-src
+004158a0,63,LocalizedStrings_EraseSubtree,false,4,2,RAW-src
 004158e0,5,thunk_FUN_004158f0,true,2,0,RAW-src
 004158f0,8,FUN_004158f0,false,1,1,RAW-src
 00415900,500,LoadFourWordList,false,1,12,RAW-src

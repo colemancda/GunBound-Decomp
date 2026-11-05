@@ -27,8 +27,8 @@ void LocalizedStrings_Clear(int *regEsi)
   
   iVar1 = *regEsi;
   if (iVar1 != regEsi[5]) {
-    FUN_004158a0(*(undefined4 *)(iVar1 + 0xc));
-    FUN_004158a0(*(undefined4 *)(iVar1 + 0x10));
+    LocalizedStrings_EraseSubtree(*(undefined4 *)(iVar1 + 0xc));
+    LocalizedStrings_EraseSubtree(*(undefined4 *)(iVar1 + 0x10));
     thunk_FUN_004158f0();
     *(int *)(iVar1 + 0xc) = regEsi[2];
     regEsi[2] = iVar1;

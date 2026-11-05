@@ -390,7 +390,7 @@ void WorkerThreadEventLoop(int *);
 void WorkerThread2EventLoop(int *);
 void CStringPair_DestroyThunk(int regEsi);
 void CStringPair_Destroy(int regEsi);
-void __thiscall FUN_004158a0();
+void __thiscall LocalizedStrings_EraseSubtree();
 void thunk_FUN_004158f0();
 void FUN_004158f0();
 undefined4 LoadFourWordList();
