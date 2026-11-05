@@ -210,7 +210,7 @@ float DAT_00557fc0 = 0.00125f; /* orig .data 0x3aa3d70a; only x87 DWORD operands
 float DAT_00557fc4 = 63.0f; /* orig .data 0x427c0000; only x87 DWORD operands reference it */
 float DAT_00557fc8 = 127.0f; /* orig .data 0x42fe0000; only x87 DWORD operands reference it */
 float DAT_00557fcc = 192.0f; /* orig .data 0x43400000; only x87 DWORD operands reference it */
-uint8_t DAT_00557fd0;
+float DAT_00557fd0 = 128.0f; /* orig .data 0x43000000; only x87 DWORD operands reference it */
 uint8_t DAT_00557fd4;
 uint8_t DAT_00557fec;
 uint8_t DAT_00557ff0;
