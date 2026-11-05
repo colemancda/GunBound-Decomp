@@ -1062,7 +1062,7 @@ void __fastcall AnimateSuperShot_Bullet4();
 undefined4 * InitSuperShot_Bullet12(undefined4 *regEsi);
 void Projectile_Destructor(undefined4 *regEax);
 void __fastcall DetonateSuperShot_Bullet12();
-void * __thiscall FUN_004aed00();
+void * __thiscall Mobile11_ScalarDtor();
 void Mobile11_Destructor(undefined4 *regEax);
 void __thiscall Mobile11_MainAction();
 undefined4 * InitShot2_Bullet12();
