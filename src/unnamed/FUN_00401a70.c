@@ -26,6 +26,10 @@
  * a __thiscall scalar-deleting destructor, so `this` is the first arg. */
 typedef void *(*LayerNodeDeleteFn)(void *self,int flags);
 
+/* Slot 1 (Release, +4) of the CommP2P owner vtable 0x5575c8; __thiscall with
+ * no stack args, so `this` is the only (first) argument in raw C. */
+typedef void (*CommP2PReleaseFn)(void *self);
+
 
 void FUN_00401a70(undefined4 *param_1)
 
@@ -52,7 +56,9 @@ void FUN_00401a70(undefined4 *param_1)
     iVar5 = iVar5 + -1;
   } while (iVar5 != 0);
   if ((int *)param_1[0x6f7] != (int *)0x0) {
-    (**(code **)(*(int *)param_1[0x6f7] + 4))();
+    /* 0x401acd..0x401ad1: `mov eax,[ecx] / call [eax+4]` with ECX = the
+       listener at +0x1bdc; the port called the slot with no arguments. */
+    (*(CommP2PReleaseFn *)(*(int *)param_1[0x6f7] + 4))((void *)param_1[0x6f7]);
   }
   param_1[0x6f7] = 0;
   HashMap_RemoveAll_2c((int *)(param_1 + 0x6ff));
