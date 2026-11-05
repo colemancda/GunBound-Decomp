@@ -1950,10 +1950,16 @@ extern uint32_t DAT_00568100;
 extern uint32_t DAT_00568101;
 extern uint32_t DAT_00568184;
 extern uint32_t DAT_00568188;
-extern uint32_t DAT_00568318;
-extern uint32_t DAT_00568654;
-extern uint32_t DAT_005686d4;
-extern uint32_t DAT_00568714;
+/* The 264-float window table at 0x568318..0x568737 (initialised .data, read-only, every
+ * access an x87 DWORD fld through a register).  FUN_0051d780 and its 11 clones
+ * (51dae5/51de4a/51e107/51e3c4/51e729/51ea90/51ee0a/51f184/51f456/51f728/51faa2) start a
+ * pointer at 0x568318 and walk upward, then restart at 0x568714 / 0x5686d4 / 0x568654
+ * (the stride-0x40/0x80/0x100 variants) and walk downward -- all inside this one object,
+ * so it must be a single array.  The three later addresses are interior cells of it. */
+extern float DAT_00568318[264];
+#define DAT_00568654 (DAT_00568318[207]) /* 0x568654 = 0x568318 + 0x33c */
+#define DAT_005686d4 (DAT_00568318[239]) /* 0x5686d4 = 0x568318 + 0x3bc */
+#define DAT_00568714 (DAT_00568318[255]) /* 0x568714 = 0x568318 + 0x3fc */
 extern float DAT_00568738;
 extern float DAT_0056873c;
 extern float DAT_00568740;
