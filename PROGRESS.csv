@@ -658,7 +658,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004654d0,32,DeleteShot2_Bullet9,false,1,2,RAW-src
 004654f0,13,DestroyShot2_Bullet9,false,1,1,RAW-src
 00465500,4955,DetonateShot2_Bullet9,false,1,47,RAW-src
-00466860,32,FUN_00466860,false,1,2,RAW-src
+00466860,32,Mobile08_ScalarDtor,false,1,2,RAW-src
 00466880,13,Mobile08_Destructor,false,1,1,RAW-src
 00466890,1760,Mobile08_MainAction,false,1,14,RAW-src
 00466fa0,32,FUN_00466fa0,false,1,2,RAW-src

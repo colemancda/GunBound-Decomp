@@ -790,7 +790,7 @@ undefined4 * InitShot2_Bullet9(undefined4 *regEsi);
 void * __thiscall DeleteShot2_Bullet9();
 void DestroyShot2_Bullet9(undefined4 *regEax);
 void __fastcall DetonateShot2_Bullet9();
-void * __thiscall FUN_00466860();
+void * __thiscall Mobile08_ScalarDtor();
 void Mobile08_Destructor(undefined4 *regEax);
 void __thiscall Mobile08_MainAction();
 void * __thiscall FUN_00466fa0();
