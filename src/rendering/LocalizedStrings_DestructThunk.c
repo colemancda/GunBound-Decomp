@@ -22,7 +22,7 @@ void LocalizedStrings_DestructThunk(void)
 {
   int in_EAX;
   
-  FUN_00415740((int *)in_EAX);
+  LocalizedStrings_Clear((int *)in_EAX);
   if (*(void **)(in_EAX + 0x14) != (void *)0x0) {
     _free(*(void **)(in_EAX + 0x14));
   }

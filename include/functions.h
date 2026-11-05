@@ -385,7 +385,7 @@ void StringMap_RemoveAll_Int(int *regEax);
 void WorkerThreadProcThunk(void *);
 void WorkerThread2ProcThunk(void *);
 void StringMap_FreeNode_CString(int regEax,int regEdi);
-void FUN_00415740(int *regEsi);
+void LocalizedStrings_Clear(int *regEsi);
 void WorkerThreadEventLoop(int *);
 void WorkerThread2EventLoop(int *);
 void CStringPair_DestroyThunk(int regEsi);
