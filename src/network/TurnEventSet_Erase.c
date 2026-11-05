@@ -104,7 +104,7 @@ void TurnEventSet_Erase(int param_1,undefined4 *param_2,int *param_3)
   if ((int *)*puVar1 == param_3) {
     piVar3 = piVar5;
     if (*(char *)((int)piVar6 + 0xf) == '\0') {
-      FUN_004e8d30(piVar6);
+      TurnEventSet_Min(piVar6);
     }
     *puVar1 = piVar3;
   }

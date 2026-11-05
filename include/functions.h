@@ -1251,7 +1251,7 @@ void TurnEventSet_EraseSubtree(int *param_1);
 undefined4 * __thiscall TurnEventSet_InsertRebalance(undefined4 *param_1,int treeSet,undefined4 *param_3,char param_4,undefined4 param_5);
 void __thiscall TurnEventSet_RotateLeft();
 void FUN_004e8d10(int regEax);
-void FUN_004e8d30(int *regEax);
+void TurnEventSet_Min(int *regEax);
 void __thiscall TurnEventSet_RotateRight();
 undefined4 * TurnEventSet_EraseRange(undefined4 *param_1,int *param_2,int *param_3,int regEsi);
 undefined4 FUN_004e8e70();
