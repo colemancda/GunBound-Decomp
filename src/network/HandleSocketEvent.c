@@ -1,4 +1,5 @@
 /* HandleSocketEvent - 0x004e57c0 in the original binary.
+ * (FUN_004e5480 in the notes below is ResolveHostToIPv4Addr's old symbol.)
  *
  * The connection object's socket-event dispatch routine. param_2 selects
  * the operation:

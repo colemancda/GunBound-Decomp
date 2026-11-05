@@ -1,4 +1,5 @@
 /* ConnectSocketToTarget - 0x004e59b0 in the original binary.
+ * (FUN_004e5480 in the notes below is ResolveHostToIPv4Addr's old symbol.)
  *
  * Worker-thread body of the actual connect. Creates a TCP socket
  * (AF_INET / SOCK_STREAM), builds a sockaddr_in from the stored target
@@ -74,7 +75,7 @@ undefined1 __stdcall ConnectSocketToTarget(int conn)
   if (SVar1 != 0xffffffff) {
     local_10.sa_family = 2;
     SUBFIELD(local_10.sa_data,0,undefined2) = htons(*(u_short *)(conn + 0x228));
-    SUBFIELD(local_10.sa_data,2,undefined4) = FUN_004e5480(0,(char *)(conn + 0x28));
+    SUBFIELD(local_10.sa_data,2,undefined4) = ResolveHostToIPv4Addr(0,(char *)(conn + 0x28));
     iVar2 = connect(*(SOCKET *)(conn + 0x24),&local_10,0x10);
     if (iVar2 == 0) {
       *(undefined1 *)(conn + 0x22a) = 1;

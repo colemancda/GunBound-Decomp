@@ -1195,7 +1195,7 @@ void FUN_004e4f50();
 void ComputeShotViewBounds(int regEsi,uint regEax);
 void __fastcall State01_Title_OnTick(int);
 undefined4 * __thiscall FUN_004e5430();
-ulong __fastcall FUN_004e5480();
+ulong __fastcall ResolveHostToIPv4Addr();
 undefined4 FUN_004e54e0(undefined4 *, undefined4, undefined4);
 void DestroyConnectionObject(undefined4 *conn);
 bool ReceiveFramedPackets(int conn);
