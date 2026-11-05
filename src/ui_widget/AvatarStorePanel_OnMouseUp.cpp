@@ -67,7 +67,7 @@ int AtlArray_ConstructElement_450(void *buf);
 void AtlArray_CopyElement_450(int dstRecord, int srcRecord);
 void AtlArray_RemoveAt_450(unsigned int ctx, int regEdi, int regEax);
 void AtlArray_InsertAt_450(unsigned int ctx, unsigned int idx, void *buf, int flag);
-void FUN_0044b0b0(void *state);
+void LoadAvatarStorePagePartRecords(void *state);
 void AtlArray_DestroyElement_450(void *buf);
 unsigned int PeekPacketChecksumState(void *self);
 void EncodeOutgoingPacketField(void *self, unsigned int field);
@@ -130,7 +130,7 @@ extern "C" int AvatarStorePanel_OnMouseUp(CWidget *this_, int x, int y)
          moved, the same self->[0x94] the copy above reads. */
       AtlArray_RemoveAt_450(g_clientContext + 0x44e20,1,*(int *)(self + 0x94));
       AtlArray_InsertAt_450(g_clientContext + 0x44e20, local_468, local_45c, 1);
-      FUN_0044b0b0(puVar2);
+      LoadAvatarStorePagePartRecords(puVar2);
       iVar4 = 0;
       do {
         iVar6 = *(int *)(self + 0x94);

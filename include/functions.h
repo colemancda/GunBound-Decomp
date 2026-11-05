@@ -676,7 +676,7 @@ void FUN_00449540();
 void FUN_00449b60();
 void FUN_00449db0();
 void FUN_0044a000();
-void FUN_0044b0b0();
+void LoadAvatarStorePagePartRecords();
 void EquipAvatarPart(int param_1);
 void UnequipAvatarSlot(int param_1);
 void PreviewAvatarPart(int regEsi);

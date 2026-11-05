@@ -236,7 +236,7 @@ LAB_0044469b:
         *(byte *)(iVar4 + 0x23311) = bVar12;
         *(byte *)(iVar4 + 0x23312) = bVar12 + *pbVar15 + -0x34;
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        FUN_0044b0b0(this);
+        LoadAvatarStorePagePartRecords(this);
         return;
       }
       if (opcode != GB_OP_JOIN_CHANNEL_RESPONSE) {
@@ -273,7 +273,7 @@ LAB_0044469b:
             }
             LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
-            FUN_0044b0b0(this);
+            LoadAvatarStorePagePartRecords(this);
             Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe,
                                  *(int *)((int)this + 0x34784));
           }
@@ -354,7 +354,7 @@ LAB_0044469b:
         AtlArray_Add_450((int *)(g_clientContext + 0x44e30),(undefined4)&local_468);
         QueueOutgoingPacketField(0xffffffff);
         LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,300000);
-        FUN_0044b0b0(this);
+        LoadAvatarStorePagePartRecords(this);
         Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe,
                                  *(int *)((int)this + 0x34784));
         QueueOutgoingPacketField(4);
@@ -464,7 +464,7 @@ switchD_004449fc_default:
               local_520 = local_520 + 1;
               iVar4 = iVar4 + 0x224;
             } while (iVar4 < 0x890);
-            FUN_0044b0b0(this);
+            LoadAvatarStorePagePartRecords(this);
             FUN_00424400((int)g_clientContext);
             EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             EncodeOutgoingPacketField((void *)((int)this + 0x3054c), 0xffffffff);
@@ -584,7 +584,7 @@ switchD_00444e7c_default:
           local_520 = local_520 + 0x224;
           local_514 = local_514 + 1;
         } while (local_520 < 0x890);
-        FUN_0044b0b0(this);
+        LoadAvatarStorePagePartRecords(this);
         FUN_00424400((int)g_clientContext);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         EncodeOutgoingPacketField((void *)((int)this + 0x3054c), 0xffffffff);

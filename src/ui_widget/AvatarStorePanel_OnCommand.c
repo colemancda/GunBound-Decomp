@@ -59,7 +59,7 @@ void __thiscall AvatarStorePanel_OnCommand(undefined4 *param_1,int param_2,int p
   }
   else if ((param_2 == 0x2000) && (param_3 == 0)) {
     *(undefined4 *)(g_gameStateVTableArray[7] + 0x454) = param_4;
-    FUN_0044b0b0(puVar1);
+    LoadAvatarStorePagePartRecords(puVar1);
     RefreshConnectionStatusLabel(param_1);
     Widget_OnCommandDefault((int)param_1,0x2000,0,param_4);
     return;
