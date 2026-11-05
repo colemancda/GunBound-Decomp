@@ -853,7 +853,7 @@ void __thiscall SimulateShot2_Bullet11();
 void __fastcall DetonateShot2_Bullet11();
 undefined4 * InitSuperShot_Bullet11(undefined4 *regEsi);
 void __fastcall ExplodeSuperShot_Bullet11();
-void * __thiscall FUN_00475e10();
+void * __thiscall Mobile10_ScalarDtor();
 void Mobile10_Destructor(undefined4 *regEax);
 void __thiscall Mobile10_MainAction();
 undefined4 * InitItemShot(undefined4 *regEsi);
