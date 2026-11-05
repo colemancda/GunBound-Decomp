@@ -1158,7 +1158,7 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
     (the outer key = **sprite id 0**), and `esi = g_cursorFrame` (the inner
     frame key), and `esi` is passed on to `BlitSpriteClipped`. **Sprite id 0 is
     the cursor** — the last persistent sprite loaded in `InitGame`
-    (`LoadSpriteSet(&DAT_00ea0e18, 0)`); the row blitter (`FUN_004eb940`) is a
+    (`LoadSpriteSet(&DAT_00ea0e18, 0)`); the row blitter (`BlitSpriteRowClipped`) is a
     plain clipped memcpy.
   - **The cursor animates — a 17-frame loop, confirmed on the live client.** A
     debugger probe (`tools/debug/cursor-probe.sh`, logging at `0x4139dc`) shows

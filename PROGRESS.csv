@@ -1201,7 +1201,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004eb800,142,FillScreenRect,false,11,1,RAW-src
 004eb890,65,DrawSprite,false,16,3,RAW-src
 004eb8e0,92,QueueSpriteSpansByContentId,false,13,2,RAW-src
-004eb940,128,FUN_004eb940,false,1,0,RAW-src
+004eb940,128,BlitSpriteRowClipped,false,1,0,RAW-src
 004eb9c0,186,BlitSpriteClipped,false,217,2,RAW-src
 004eba80,99,QueueTextureRowSpan,false,1,1,RAW-src
 004ebaf0,201,QueueTextureRegionSpans,false,17,1,RAW-src

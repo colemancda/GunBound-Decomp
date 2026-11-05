@@ -1,4 +1,5 @@
 /* BlitSpriteClipped - 0x004eb9c0 in the original binary.
+ * (FUN_004eb940 in the notes below is BlitSpriteRowClipped's old symbol.)
  *
  * Ghidra dropped TWO of this function's real inputs and, as a result,
  * omitted the x/pixel-pointer computation entirely:
@@ -237,7 +238,7 @@ undefined4 BlitSpriteClipped(int frame,int x,int y,int outerKey)
     }
     if (0 < local_4) {
       do {
-        FUN_004eb940(iRowStride,puPixelRow,iVar2,x);
+        BlitSpriteRowClipped(iRowStride,puPixelRow,iVar2,x);
         puPixelRow = (undefined4 *)((int)puPixelRow + iRowStride * 2);
         iVar2 = iVar2 + 1;
         local_4 = local_4 + -1;
