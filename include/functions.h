@@ -379,7 +379,7 @@ void thunk_FUN_00415560(int *regEax);
 void __fastcall FUN_004154c0(undefined4 param_1,undefined4 param_2,undefined4 *regEax);
 void FUN_004154e0();
 bool WorkerThread_Start(void *);
-bool FUN_00415530(void *);
+bool WorkerThread2_Start(void *);
 void StringMap_RemoveAll_CString(int *regEax);
 void StringMap_RemoveAll_Int(int *regEax);
 void WorkerThreadProcThunk(void *);

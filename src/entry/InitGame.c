@@ -331,7 +331,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
          * register in the original (0x40f38e/0x40f39d); see their own .c
          * files for the recovered addresses. */
         WorkerThread_Start(DAT_00e9c334);
-        FUN_00415530(DAT_007a767c);
+        WorkerThread2_Start(DAT_007a767c);
         InterlockedExchange((LONG *)&DAT_00e9c348,1);
         FUN_004e6b50();
         _DAT_00e9acd0 = &g_gameEventRingWriteIndex;

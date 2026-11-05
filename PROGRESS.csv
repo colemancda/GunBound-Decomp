@@ -268,7 +268,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004154c0,20,FUN_004154c0,false,1,0,RAW-src
 004154e0,24,FUN_004154e0,false,1,2,RAW-src
 00415500,40,WorkerThread_Start,false,1,1,RAW-src
-00415530,40,FUN_00415530,false,1,1,RAW-src
+00415530,40,WorkerThread2_Start,false,1,1,RAW-src
 00415560,157,StringMap_RemoveAll_CString,false,3,5,RAW-src
 00415600,161,StringMap_RemoveAll_Int,false,1,5,RAW-src
 004156b0,12,WorkerThreadProcThunk,false,1,1,RAW-src
