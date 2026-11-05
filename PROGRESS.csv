@@ -998,7 +998,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d2130,61,FUN_004d2130,false,2,2,RAW-src
 004d2170,341,InitConnectionObject,false,3,6,RAW-src
 004d22d0,279,FUN_004d22d0,false,3,6,RAW-src
-004d23f0,142,FUN_004d23f0,false,3,2,RAW-src
+004d23f0,142,ResolveLocalHostAddresses,false,3,2,RAW-src
 004d2480,102,BeginServerConnect,false,2,4,RAW-src
 004d24f0,59,CloseServerConnection,false,4,1,RAW-src
 004d2530,64,AppendPacketBytes,false,9,0,RAW-src

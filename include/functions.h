@@ -1117,7 +1117,7 @@ void ComposeAvatarSprites(); /* 0x4d1500 - in-battle avatar compositor (action 0
 uint FUN_004d2130(undefined4 param_1,int *regEax);
 undefined4 * InitConnectionObject();
 void FUN_004d22d0();
-void FUN_004d23f0();
+void ResolveLocalHostAddresses();
 void BeginServerConnect(undefined4, undefined4, int);
 void CloseServerConnection(int regEdi);
 void __fastcall AppendPacketBytes();

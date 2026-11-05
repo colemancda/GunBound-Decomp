@@ -149,7 +149,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     DAT_005b2b58 = InitConnectionObject(pvVar4,0,&g_inputEventQueueWriteIndex);
   }
   g_connectionContextB = DAT_005b2b58;
-  FUN_004d23f0((int *)DAT_005b2b58);
+  ResolveLocalHostAddresses((int *)DAT_005b2b58);
   pvVar4 = operator_new(0x84f0);
   if (pvVar4 == (void *)0x0) {
     DAT_005b2b5c = 0;
@@ -158,7 +158,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     DAT_005b2b5c = InitConnectionObject(pvVar4,1,&g_inputEventQueueWriteIndex);
   }
   g_connectionContextA = DAT_005b2b5c;
-  FUN_004d23f0((int *)DAT_005b2b5c);
+  ResolveLocalHostAddresses((int *)DAT_005b2b5c);
   pvVar4 = operator_new(0x84f0);
   if (pvVar4 == (void *)0x0) {
     DAT_005b2b60 = 0;
@@ -167,7 +167,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     DAT_005b2b60 = InitConnectionObject(pvVar4,2,&g_inputEventQueueWriteIndex);
   }
   DAT_007934f0 = DAT_005b2b60;
-  FUN_004d23f0((int *)DAT_005b2b60);
+  ResolveLocalHostAddresses((int *)DAT_005b2b60);
   LoadClientSettingsFromRegistry();
   pvVar4 = operator_new(0x200c);
   if (pvVar4 == (void *)0x0) {

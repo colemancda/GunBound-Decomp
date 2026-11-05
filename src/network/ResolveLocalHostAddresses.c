@@ -1,4 +1,4 @@
-/* FUN_004d23f0 - 0x004d23f0 in the original binary.
+/* ResolveLocalHostAddresses - 0x004d23f0 in the original binary.
  *
  * Resolves the local hostname's IP address list into a connection
  * object's address array (gethostname + gethostbyname), used to populate
@@ -13,11 +13,26 @@
  * immediately before the call - a genuinely varying per-call argument,
  * not a fixed global. Promoted to an explicit parameter; all 3 callers
  * updated.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004d23f0 mean this function.)
+ *
+ * NAMED (2026-11-05), CERTAIN. The Winsock calls are the identity:
+ * gethostname into a 128-byte buffer and gethostbyname on the result, then
+ * each IPv4 address of the h_addr_list is copied into the object in EDI as
+ * four bytes at +4 + 4 * i, with the count stored at +0 (both fields zeroed
+ * when gethostname fails). WinMain calls it once for each of the three
+ * connection objects it constructs (DAT_005b2b58, DAT_005b2b5c,
+ * DAT_005b2b60), so every connection object carries the machine's own
+ * address list. It does not resolve any remote host.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004d23f0(int *conn)
+void ResolveLocalHostAddresses(int *conn)
 
 {
   int iVar1;
