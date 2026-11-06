@@ -474,7 +474,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0043c860,3414,FUN_0043c860,false,3,13,RAW-src
 0043d5d0,100,InsertChecksumStateRecord,false,1,2,RAW-src
 0043d640,135,FindChecksumStateRecord,false,1,1,RAW-src
-0043d6d0,160,FUN_0043d6d0,false,3,1,RAW-src
+0043d6d0,160,AppendChecksumStateRecordList,false,3,1,RAW-src
 0043d780,188,FUN_0043d780,false,3,3,RAW-src
 0043d840,165,GrowChecksumStateArray,false,2,3,RAW-src
 0043d910,25,FUN_0043d910,false,1,1,RAW-src

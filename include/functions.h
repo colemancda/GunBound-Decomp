@@ -613,7 +613,7 @@ uint AnyProjectileInFlight();
 void FUN_0043c860();
 void __thiscall InsertChecksumStateRecord();
 uint __fastcall FindChecksumStateRecord();
-void FUN_0043d6d0(int regEax);
+void AppendChecksumStateRecordList(int regEax);
 int FUN_0043d780(byte *param_1,int regEax);
 undefined4 GrowChecksumStateArray(uint regEax,int *regEsi);
 void FUN_0043d910(undefined4 *regEax);
