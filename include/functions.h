@@ -810,7 +810,7 @@ void DropBombProjectile_DtorBody(undefined4 *regEax);
 void __fastcall DetonateDropBombProjectile();
 void * __thiscall DropCaseProjectile_ScalarDtor();
 void DropCaseProjectile_DtorBody(undefined4 *regEax);
-void __fastcall FUN_0046af10();
+void __fastcall DetonateDropCaseProjectile();
 void __fastcall AnimateDropCaseProjectile();
 void * __thiscall Shot_Type13_ScalarDtor();
 void Shot_Type13_DtorBody(undefined4 *regEax);

@@ -5,7 +5,7 @@
  * FindPreloadedTextureByName("itemcase") (0x553c38), state "normal", and the
  * "caseflame" (0x553c78) effect.  Distinct from SpawnDropCaseProjectile
  * (0x434ac0), which is the falling "dropcase" projectile - this one is the
- * case itself, spawned from FUN_0046af10.
+ * case itself, spawned from DetonateDropCaseProjectile.
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *

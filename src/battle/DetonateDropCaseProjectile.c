@@ -1,8 +1,19 @@
-/* FUN_0046af10 - 0x0046af10 in the original binary.
+/* DetonateDropCaseProjectile - 0x0046af10 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_0046af10): slot 6 (+0x18) of vtable 0x555dec, whose
+ * slot 0 is DropCaseProjectile_ScalarDtor (0x46aee0); the only vtable
+ * reference is 0x555e04.  Slot 6 is the projectile Detonate virtual
+ * (DetonateProjectile 0x4572b0 in the sibling vtables, called through +0x18
+ * by AnimateProjectileTick; AnimateDropCaseProjectile here calls this
+ * override).  Same override shape as the other Detonate bodies: the +0xf45
+ * flag marks the object dead (+0x14).  The class-specific part is that it
+ * calls SpawnItemCase, which SpawnItemCase's header already says it is
+ * spawned from ("the case itself, spawned from" this function) - the
+ * falling drop case lands and becomes the item case.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 15 argless PeekPacketChecksumState() calls and all 6 1-arg
@@ -18,7 +29,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0046af10(int *param_1)
+void __fastcall DetonateDropCaseProjectile(int *param_1)
 
 {
   int *piVar1;
