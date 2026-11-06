@@ -89,7 +89,7 @@ DecodeMpegAudioFrame(int param_1,undefined4 param_2,int param_3,undefined4 param
         psVar14 = psVar13;
       } while (iVar1 != 0);
       iVar10 = iVar10 + 1;
-    } while ((int)psVar13 < 0x5ab4f4);
+    } while (psVar13 < &DAT_005a9cf4 + 3072);
     DAT_00563afc = 0;
   }
   PTR_FUN_005637d0 = (&PTR_FUN_00563aec)[*(uint *)(param_1 + 8) & 3];

@@ -2125,9 +2125,13 @@ extern uint32_t DAT_005a99ec;
 extern uint32_t DAT_005a99f0;
 extern uint32_t DAT_005a99f4;
 extern uint32_t DAT_005a99f8;
-extern uint32_t DAT_005a9cf4;
-extern uint32_t DAT_005a9cf6;
-extern uint32_t DAT_005a9cf8;
+/* 1024 triples of signed words (digit-9 decode, value-4) at 0x5a9cf4..0x5ab4f3; DecodeMpegAudioFrame's
+ * one-time init fills it through a walking pointer bounded by 0x5ab4f4, the next object. The readers
+ * index it by word (ecx + 0x5a9cf4/6/8), so the three DAT names are elements 0..2. */
+extern int16_t g_mpegTriple9Tab[3072];
+#define DAT_005a9cf4 (g_mpegTriple9Tab[0])
+#define DAT_005a9cf6 (g_mpegTriple9Tab[1])
+#define DAT_005a9cf8 (g_mpegTriple9Tab[2])
 extern uint32_t DAT_005ab4f4;
 extern uint32_t DAT_005ab4fc;
 extern uint32_t DAT_005ab500;

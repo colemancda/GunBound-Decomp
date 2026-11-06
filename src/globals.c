@@ -2174,9 +2174,7 @@ uint32_t DAT_005a99ec;
 uint32_t DAT_005a99f0;
 uint32_t DAT_005a99f4;
 uint32_t DAT_005a99f8;
-uint32_t DAT_005a9cf4;
-uint32_t DAT_005a9cf6;
-uint32_t DAT_005a9cf8;
+int16_t g_mpegTriple9Tab[3072]; /* runtime-filled once (orig 0x5a9cf4 is past the raw image) */
 uint32_t DAT_005ab4f4;
 uint32_t DAT_005ab4fc;
 uint32_t DAT_005ab500;
