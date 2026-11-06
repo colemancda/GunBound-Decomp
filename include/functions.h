@@ -784,7 +784,7 @@ void RestorePlayerStateSnapshot(int regEsi);
 void FUN_00464060();
 undefined4 * InitCrashEffect(undefined4 *regEax);
 void __fastcall FUN_00464320();
-void * __thiscall FUN_00464440();
+void * __thiscall CrystalShot_ScalarDtor();
 void FUN_00464460();
 undefined1 FUN_004644e0();
 undefined4 * InitShot2_Bullet9(undefined4 *regEsi);
