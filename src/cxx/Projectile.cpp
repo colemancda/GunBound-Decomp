@@ -279,7 +279,8 @@ extern unsigned char DAT_006a7f74;
  * reading the wrong link-time global - a real bug, now fixed. */
 extern unsigned char g_nCameraBoundX, g_nCameraBoundY, g_nCameraX, g_nCameraY;
 extern unsigned char g_nCameraScrollX, g_nCameraScrollY;
-extern unsigned char DAT_006a7734, DAT_006a7736, DAT_006a7f6c;
+extern unsigned char DAT_006a7736, DAT_006a7f6c;
+#define DAT_006a7734 (*(unsigned char *)(0x006a7734))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7734 + <arena base> */
 extern unsigned char DAT_006a7750, DAT_006a7754;
 #define DAT_006a7730 (*(unsigned char *)(0x006a7730))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7730 + <arena base> */
 #define DAT_006a772c (*(unsigned char *)(0x006a772c))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a772c + <arena base> */
