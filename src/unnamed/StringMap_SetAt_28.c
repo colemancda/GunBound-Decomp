@@ -67,7 +67,7 @@
  * forced rewriting three currently-correct reads for no gain in fidelity.
  * The lea ebx,[edi-0x2c8] at 0x50184d that the old note read as the start of
  * the walk is not part of it - it is local_4970 = param_1 - 0x2c8, stored to
- * [esp+0x20] at 0x501853, and at the same time FUN_00503bb0's
+ * [esp+0x20] at 0x501853, and at the same time RemoveAllP2PPeers's
  * already-recovered regEbx argument; EBX is reloaded from local_4980 at
  * 0x50188b before the first helper call.
  *

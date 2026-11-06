@@ -416,7 +416,7 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
     if (*puVar1 == 0) {
       if (0x1d < param_3) {
         local_4970 = (undefined4 *)(param_1 + -0x2c8);
-        FUN_00503bb0(param_1 + -0x2c8);
+        RemoveAllP2PPeers(param_1 + -0x2c8);
         StringMap_RemoveAll_1c((int *)(param_1 + 0x17fc));
         namelen = &local_4984;
         name = &local_496c;

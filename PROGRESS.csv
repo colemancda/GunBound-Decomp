@@ -1526,7 +1526,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005039a0,97,FUN_005039a0,false,1,2,RAW-src
 00503a10,61,FUN_00503a10,false,2,2,RAW-src
 00503a50,340,FUN_00503a50,false,2,3,RAW-src
-00503bb0,137,FUN_00503bb0,false,1,1,RAW-src
+00503bb0,137,RemoveAllP2PPeers,false,1,1,RAW-src
 00503c40,459,CommP2POwner_ReassemblePackets,false,2,2,RAW-src
 00503e10,32,CopyNameField_e,false,5,0,RAW-src
 00503e30,120,StringMap_SetAt_28,false,6,4,RAW-src

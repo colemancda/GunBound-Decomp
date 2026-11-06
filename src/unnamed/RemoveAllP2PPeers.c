@@ -1,8 +1,21 @@
-/* FUN_00503bb0 - 0x00503bb0 in the original binary.
+/* RemoveAllP2PPeers - 0x00503bb0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (batch 35), LIKELY (was FUN_00503bb0).  EBX = the engine object
+ * (CommP2POwner_ProcessPacket's this - 0x2c8; the call site is
+ * `lea ebx,[edi-0x2c8]` before the call at 0x501857).  Walks every occupied bucket chain of
+ * the peer table at engine+0x290 (bucket array +0x290, count +0x294,
+ * bucket total +0x298) and passes each record's id to FUN_00503a50
+ * (0x503a50), taking the successor before the removal.  The sole caller is
+ * CommP2POwner_ProcessPacket's 0x1011 arm (taken when the status word at
+ * pkt+4 is 0 and the frame is longer than 0x1d bytes), where it is
+ * followed directly by StringMap_RemoveAll_1c on the sibling map at
+ * this+0x17fc - a wipe-then-reload sequence, with the roster re-added
+ * entry by entry through FUN_00503a10 further down that
+ * arm.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * EBX RECOVERED (2026-08-24): it is callerThis - 0x2c8.  Two independent
  * confirmations: the binary's `lea ebx,[edi-0x2c8]` with EDI = CommP2POwner_ProcessPacket's
@@ -17,7 +30,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00503bb0(int regEbx)
+void RemoveAllP2PPeers(int regEbx)
 
 {
   int iVar1;

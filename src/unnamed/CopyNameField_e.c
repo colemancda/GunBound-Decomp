@@ -48,7 +48,7 @@
  * The esp+0x90 destination is the 14-byte gap buffer described above, now
  * declared in the caller as `local_4900`.  The `lea ebx,[edi - 0x2c8]` at
  * 0x50184d that the old note read as the head of the walk is not part of it:
- * 0x501853 stores it to local_4970 and 0x501857 consumes it as FUN_00503bb0's
+ * 0x501853 stores it to local_4970 and 0x501857 consumes it as RemoveAllP2PPeers's
  * regEbx, and EBX is reloaded from local_4980 at 0x50188b before the first
  * helper call.
  *
