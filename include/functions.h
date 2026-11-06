@@ -783,7 +783,7 @@ void SavePlayerStateSnapshot(int regEsi);
 void RestorePlayerStateSnapshot(int regEsi);
 void FUN_00464060();
 undefined4 * InitCrashEffect(undefined4 *regEax);
-void __fastcall FUN_00464320();
+void __fastcall TickCrashParticleBurst();
 void * __thiscall CrystalShot_ScalarDtor();
 void CrystalShot_DtorBody();
 undefined1 FUN_004644e0();
