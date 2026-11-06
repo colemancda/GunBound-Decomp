@@ -90,7 +90,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
     iVar1 = PeekPacketChecksumState((void *)&DAT_00796878);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (DAT_007934c8 == iVar1) {
-      FUN_004f1eb0();
+      InitFastSqrtTables();
       BuildAssetPath(local_40c,&g_installPath,s_sound_xfs_005526fc,0);
       InitDirectSound(param_1,0x10,local_40c);
       DAT_007934c8 = DAT_00ea0f54;

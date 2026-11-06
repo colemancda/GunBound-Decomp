@@ -490,7 +490,7 @@ int32_t g_presentDstRect[4];
 uint32_t DAT_00677544[8];
 uint32_t DAT_006777e8[8];
 /* 0x8000-entry sqrt lookup table (32768 * 4 = 0x20000 bytes), filled by
- * FUN_004f1eb0 and read by FUN_004ed300. Was a lone uint32_t; its sibling
+ * InitFastSqrtTables (was FUN_004f1eb0) and read by FUN_004ed300. Was a lone uint32_t; its sibling
  * table DAT_006990c0 sits exactly 0x20000 bytes higher in the original
  * image, confirming the real size. Undersized, the fill loop wrote past
  * the end of the whole executable image and faulted. */

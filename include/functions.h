@@ -1403,7 +1403,7 @@ void __fastcall FUN_004f1d40();
 void FUN_004f1d80(int regEsi);
 void FUN_004f1da0();
 void FUN_004f1e20();
-void FUN_004f1eb0();
+void InitFastSqrtTables();
 int CalculateAngleFromDelta(); /* real args (dx, dy); K&R-empty and __cdecl deliberately - see CalculateAngleFromDelta.c */
 undefined4 * __fastcall MultiplyMatrix4x4ToScratch(float *param_1,float *regEax);
 void MultiplyMatrix4x4InPlace(float *regEbx,float *regEax);
