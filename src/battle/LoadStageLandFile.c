@@ -1,9 +1,28 @@
-/* FUN_004e3c50 - 0x004e3c50 in the original binary.
+/* LoadStageLandFile - 0x004e3c50 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (LIKELY). Callers: the two loading-phase handlers
+ * (ProcessBattleFrame case 4 and State10_Loading_PreloadAssets case 0xe)
+ * pass the stage object at ctx+0x6a7708 and the per-room map-name buffer
+ * (ctx + 0x1a1ec8 + slot*0x7d28), the very buffer handed to
+ * PreloadBattleTextures in the preceding case. The function appends the
+ * literal at 0x557258 (verified in the binary: the string ".lnd") to a
+ * copy of that name and opens it in g_graphicsArchive through
+ * OpenXFSEntryStream (orig 0x4e3d09 call 0x4f1390, edi = 0xf11dd0).
+ * The consumers confirm what the file holds. It reads two dwords into
+ * stage +0x18 and +0x1c (ctx+0x6a7720 / 0x6a7724: the width and height
+ * projectile bounds code compares against, g_nCameraBoundX/Y, and the stride
+ * FindFirstImpactAlongStep_XMajor uses) and then width*height bytes
+ * (imul at orig 0x4e3d35, count in EAX - a register argument Ghidra dropped
+ * from the ReadXFSEntryByte calls here) into stage +0x34 (ctx+0x6a773c),
+ * which the Simulate* bodies index as the per-pixel terrain mask. A
+ * second same-sized buffer is allocated at +0x38 and not filled here.
+ * Land rather than terrain in the name is taken from the .lnd extension.
+ * Known port defect, not changed here: the three ReadXFSEntryByte calls
+ * omit the EAX byte count (4, 4, width*height).
  *
  * DROPPED-ARGUMENT FIX (2026-07-29): confirmed via objdump. Entry
  * `mov edi,eax` (0x4e3c60) - the function's own name-string argument
@@ -23,7 +42,7 @@
 #include "xfs.h"
 
 
-void FUN_004e3c50(int param_1, char *name)
+void LoadStageLandFile(int param_1, char *name)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not

@@ -1178,7 +1178,7 @@ void FUN_004e38f0();
 void FUN_004e39b0(int *regEsi);
 void DrawStageDecorationParallax();
 int __fastcall DrawStageDecorationBase();
-void FUN_004e3c50(int param_1, char *name);
+void LoadStageLandFile(int param_1, char *name);
 void LoadStageDecorationSet(int param_1,char *param_2,char *regEax);
 void PreloadBattleTextures();
 void FUN_004e4220();
@@ -1378,7 +1378,7 @@ uint FindXFSEntryIndex();
 uint FindOrInsertXFSEntry();
 /* All callers now pass the real 4 args (archive, name, findExisting,
  * insertFlag) - the last stale OpenXFSEntryStream(0) sites (FUN_00423e20.c,
- * FUN_004240c0.c, FUN_004e3c50.c, FUN_00423bf0.c x6) were fixed 2026-07-29.
+ * FUN_004240c0.c, LoadStageLandFile.c, FUN_00423bf0.c x6) were fixed 2026-07-29.
  * See OpenXFSEntryStream.c's header for the original recovery. */
 undefined4 OpenXFSEntryStream(int archive, char *name, char findExisting, undefined4 insertFlag);
 /* K&R-empty deliberately (like FindSpriteFrame): only LoadSpriteSet.c's

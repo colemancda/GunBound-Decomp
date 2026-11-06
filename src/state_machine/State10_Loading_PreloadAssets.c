@@ -64,8 +64,8 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
   case 0xe:
     /* name arg recovered from objdump (orig 0x43f21a-0x43f23b): identical
      * shape to case 0xd's PreloadBattleTextures call just above - see
-     * FUN_004e3c50.c's header for the dropped-EAX fix itself. */
-    FUN_004e3c50(&DAT_006a7708 + g_clientContext,
+     * LoadStageLandFile.c's header for the dropped-EAX fix itself. */
+    LoadStageLandFile(&DAT_006a7708 + g_clientContext,
                  (char *)((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1ec8 +
                           g_clientContext));
     if (*(ushort *)(&DAT_006aa660 + g_clientContext) != 0xffff) {

@@ -80,7 +80,7 @@ byte LoadGameDataFiles(int param_1)
    * archive slot: `lea ecx,[esp+0x38]` (path) / `add esi,0xf6e8` (esi =
    * [ebp+8] = this function's own param_1) / `call 0x4f0a50`
    * (OpenXFSArchive). This is the same archive FUN_00423bf0.c/
-   * FUN_00423e20.c/FUN_004240c0.c/FUN_004e3c50.c read from at
+   * FUN_00423e20.c/FUN_004240c0.c/LoadStageLandFile.c read from at
    * g_clientContext + 0xf6e8 (this function is called with param_1 =
    * g_clientContext, matching those callers). Using g_xfsScratch left that
    * slot permanently unopened (all-garbage), so every one of those avatar
