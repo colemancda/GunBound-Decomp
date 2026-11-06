@@ -1764,7 +1764,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005175d0,95,FUN_005175d0,false,1,2,RAW-src
 00517690,195,FUN_00517690,false,6,2,RAW-src
 00517d00,6,GetMpegImdctWindowTable,false,1,0,RAW-src
-00517d10,44,FUN_00517d10,false,5,1,RAW-src
+00517d10,44,MpegImdctThunk,false,5,1,RAW-src
 00517d40,820,FUN_00517d40,false,1,2,RAW-src
 00518080,33,FUN_00518080,false,1,0,RAW-src
 005180b0,19,MpegFrequencyInversionThunk,false,4,1,RAW-src

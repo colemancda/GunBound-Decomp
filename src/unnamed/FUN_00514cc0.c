@@ -37,7 +37,7 @@ void FUN_00514cc0(undefined4 param_1,uint param_2)
       if (DAT_00563d8c < iVar1) {
         iVar1 = DAT_00563d8c;
       }
-      iVar1 = FUN_00517d10(puVar5,puVar4,&DAT_005ada3c,*piVar3,param_2,iVar1,*local_4);
+      iVar1 = MpegImdctThunk(puVar5,puVar4,&DAT_005ada3c,*piVar3,param_2,iVar1,*local_4);
       *local_8 = iVar1;
       MpegFrequencyInversionThunk(&DAT_005ada3c,iVar1);
       (*(code *)PTR_FUN_00563da0)(&DAT_005ada3c,param_1,iVar2);

@@ -1,5 +1,7 @@
 /* FUN_0051b667 - 0x0051b667 in the original binary.
  *
+ * (Note: FUN_00517d10 below is now MpegImdctThunk.)
+ *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
