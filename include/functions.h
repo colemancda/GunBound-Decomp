@@ -1068,7 +1068,7 @@ void Mobile11_Destructor(undefined4 *regEax);
 void __thiscall Mobile11_MainAction();
 undefined4 * InitShot2_Bullet12();
 void * __thiscall DeleteShot2_Bullet12();
-void FUN_004af680();
+void DestroyShot2_Bullet12(undefined4 *param_1);
 void __fastcall DetonateShot2_Bullet12();
 undefined4 * InitShot1_Bullet12(undefined4 *regEsi);
 void * __thiscall DeleteShot1_Bullet12();

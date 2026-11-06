@@ -15,7 +15,7 @@
 void * __thiscall DeleteShot2_Bullet12(void *param_1,int param_2)
 
 {
-  FUN_004af680(param_1);
+  DestroyShot2_Bullet12(param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }
