@@ -59,7 +59,7 @@ void SpawnCrashEffect(undefined4 param_1,undefined4 param_2,int regEbx)
       iVar3 = 0;
     }
     else {
-      FUN_00464200();
+      iVar3 = (int)InitCrashEffect((undefined4 *)pvVar2);
     }
     *(undefined4 *)(iVar3 + 0x38) = param_1;
     *(undefined4 *)(iVar3 + 0x3c) = param_2;

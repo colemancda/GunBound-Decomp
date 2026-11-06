@@ -782,7 +782,7 @@ void FUN_00463630();
 void SavePlayerStateSnapshot(int regEsi);
 void RestorePlayerStateSnapshot(int regEsi);
 void FUN_00464060();
-void FUN_00464200();
+undefined4 * InitCrashEffect(undefined4 *regEax);
 void __fastcall FUN_00464320();
 void * __thiscall FUN_00464440();
 void FUN_00464460();
