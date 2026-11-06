@@ -15,8 +15,10 @@
  * Constants match LZHUF.C: N = 4096, F = 60 (0x3c, the compare limit),
  * THRESHOLD = 2, and match_position/match_length at state +0x1044/+0x1048.
  *
- * The port still reads in_EAX / unaff_ESI as uninitialised locals (the
- * dropped-register fix applied to LZHUFDeleteNode has not been made here).
+ * EAX (state) and ESI (node) are now the two parameters, in that order. All
+ * four callers load them at the call (0x4ea950 mov eax,ebp / esi = the
+ * 0xfc3..0xf88 counter; 0x4ea961 esi = 0xfc4; 0x4eaad3/0x4eaadd and
+ * 0x4eab32/0x4eab34 mov eax,ebp / esi = the advanced ring position r).
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -25,15 +27,13 @@
 #include "ghidra_types.h"
 
 
-void LZHUFInsertNode(void)
+void LZHUFInsertNode(int in_EAX,int unaff_ESI)
 
 {
   byte bVar1;
   uint uVar2;
-  int in_EAX;
   int iVar3;
   uint uVar4;
-  int unaff_ESI;
   int iVar5;
   
   bVar1 = *(byte *)(unaff_ESI + 8 + in_EAX);

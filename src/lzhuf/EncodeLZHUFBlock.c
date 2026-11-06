@@ -50,6 +50,13 @@ uint EncodeLZHUFBlock(uint *param_1,uint param_2,uint param_3,uint param_4)
     puVar6 = puVar6 + 1;
   }
   uVar7 = 0;
+  /* Two ring cursors live in the reused arg slots: s (0x4ea7d4 mov
+   * [esp+0x14],esi = 0) in param_2's slot and r (0x4ea7d8 mov [esp+0x18],
+   * 0xfc4) in param_3's. Both advance together, so r = s + 0xfc4 mod 4096.
+   * DeleteNode and the ring-buffer stores use s ([esp+0x18] after the
+   * lazy push ebx at 0x4ea960); InsertNode's ESI and the lookahead byte
+   * read use r. */
+  param_2 = 0;
   param_3 = 0xfc4;
   do {
     uVar5 = param_1[0x3db1];
@@ -113,10 +120,10 @@ LAB_004ea936:
   *param_1 = uVar7;
   iVar3 = 0xfc3;
   do {
-    LZHUFInsertNode();
+    LZHUFInsertNode((int)puVar2,iVar3);
     iVar3 = iVar3 + -1;
   } while (0xf87 < iVar3);
-  LZHUFInsertNode();
+  LZHUFInsertNode((int)puVar2,param_3);
   param_1 = (uint *)uVar7;
   do {
     if (param_1 < puVar2[0x412]) {
@@ -176,17 +183,17 @@ LAB_004ea936:
         bVar1 = *(byte *)(uVar5 + puVar2[0x3dae]);
         puVar2[0x3db1] = uVar5 + 1;
         if (bVar1 == 0xffffffff) break;
-        /* DROPPED-REG FIX 2026-08-28: the node is param_3 (the ring
-           cursor s, living in its own reused arg slot [esp+0x18]) and
-           the state EBP = param_1; the callee preserves EDX, which is
-           why Ghidra's extraout_EDX below was just param_3 again. */
-        LZHUFDeleteNode(0,param_3,(int)puVar2);
-        *(byte *)(param_3 + 8 + (int)puVar2) = bVar1;
-        if (param_3 < 0x3b) {
-          *(byte *)(param_3 + 0x1008 + (int)puVar2) = bVar1;
+        /* EDX of the DeleteNode call is s = [esp+0x18] (0x4eaaa4), which
+         * after the lazy push ebx at 0x4ea960 is param_2's slot, NOT
+         * param_3 (r); the earlier note equated them. */
+        LZHUFDeleteNode(0,param_2,(int)puVar2);
+        *(byte *)(param_2 + 8 + (int)puVar2) = bVar1;
+        if (param_2 < 0x3b) {
+          *(byte *)(param_2 + 0x1008 + (int)puVar2) = bVar1;
         }
+        param_2 = param_2 + 1 & 0xfff;
         param_3 = param_3 + 1 & 0xfff;
-        LZHUFInsertNode();
+        LZHUFInsertNode((int)puVar2,param_3);
         iVar3 = iVar3 + 1;
       } while (iVar3 < (int)uVar7);
     }
@@ -194,11 +201,12 @@ LAB_004ea936:
     if (iVar3 < (int)uVar7) {
       iVar3 = uVar7 - iVar3;
       do {
-        LZHUFDeleteNode(0,param_3,(int)puVar2);
+        LZHUFDeleteNode(0,param_2,(int)puVar2);
+        param_2 = param_2 + 1 & 0xfff;
         param_3 = param_3 + 1 & 0xfff;
         param_1 = (uint *)((int)param_1 - 1);
         if (param_1 != (uint *)0x0) {
-          LZHUFInsertNode();
+          LZHUFInsertNode((int)puVar2,param_3);
         }
         iVar3 = iVar3 + -1;
       } while (iVar3 != 0);
