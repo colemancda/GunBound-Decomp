@@ -417,7 +417,7 @@ LAB_004111c0:
       if (uVar6 == 0x2001) {
         if (*(short *)pbVar22 == 0) {
           *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
-          FUN_0041c230();
+          ClearChannelUserListAndScroll(0,g_clientContext);
           ClearChatLog(0,g_clientContext);
           ResetReplayContext((int)&g_replayContext);
           iVar19 = g_clientContext;

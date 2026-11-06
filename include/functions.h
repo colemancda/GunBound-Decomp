@@ -423,7 +423,7 @@ void FUN_0041bce0();
 void FUN_0041c0a0();
 uint __fastcall FUN_0041c190(undefined4 param_1,int param_2,int regEsi);
 void __fastcall ClearChannelUserList(undefined4 param_1,int param_2);
-void __fastcall FUN_0041c230();
+void __fastcall ClearChannelUserListAndScroll(undefined4 param_1,int param_2);
 int __fastcall FindRoomListIndexById(int param_1,uint regEsi);
 undefined4 CheckRoomSlotActive();
 void __thiscall FUN_0041c360(int param_1,int param_2,int param_3);
