@@ -15,7 +15,7 @@
  * ApplyImpactToJewel, class 100003 (mines, InitMine) -> ApplyImpactToMine only when
  * param_5 is set (ExplodeMine passes 0, so a mine blast does not reach
  * other mines), class 200002 (0x30d42, item cases, SpawnItemCase's
- * InitProjectile id) -> FUN_00477650. The mobile and jewel handlers are
+ * InitProjectile id) -> ApplyImpactToItemCase. The mobile and jewel handlers are
  * the ones that call SpawnDamagePopup. ApplyBlastDamage (0x43af40) is a
  * different function: it writes the damage cells on the mobiles and
  * jewels, whereas this one is the per-entity pass after the crater. What
@@ -134,7 +134,7 @@ LAB_00450f65:
     iVar3 = *(int *)(iVar3 + 0x10);
     cVar1 = *(char *)(iVar3 + 0x15);
     while (cVar1 == '\0') {
-      FUN_00477650(iVar3,param_2,param_3,param_4);
+      ApplyImpactToItemCase(iVar3,param_2,param_3,param_4);
       iVar3 = *(int *)(iVar3 + 0x10);
       cVar1 = *(char *)(iVar3 + 0x15);
     }

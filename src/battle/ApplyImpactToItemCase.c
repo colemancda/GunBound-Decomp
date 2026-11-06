@@ -1,8 +1,17 @@
-/* FUN_00477650 - 0x00477650 in the original binary.
+/* ApplyImpactToItemCase - 0x00477650 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_00477650): the layer-200002 handler of
+ * ApplyImpactToBattleEntities (0x450eb0), called with (node, impact x,
+ * impact y, source projectile) for every node of registry layer 0x30d42.
+ * That is the item case's class id: SpawnItemCase passes 0x30d42 to
+ * InitProjectile (its header's "100002" is a typo for 200002).  Same shape
+ * as ApplyImpactToMine - a squared-distance test of the case against the
+ * impact point, and when it is inside the radius the case is set off by
+ * calling ExplodeItemCase (0x477140, its only caller).  LIKELY.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at all 6 argless PeekPacketChecksumState() calls, from
@@ -17,7 +26,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
+void ApplyImpactToItemCase(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
 
 {
   char cVar1;
