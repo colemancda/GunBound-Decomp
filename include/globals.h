@@ -2158,7 +2158,7 @@ extern int8_t g_mpegTriple5Tab[384];
 extern uint32_t DAT_005ab88c;
 extern uint32_t DAT_005ab890;
 extern uint32_t DAT_005ab8d4;
-/* 15 floats at 0x5ab8e0..0x5ab91b: FUN_005144e0's one-time init stores 2.0/(n-1) for n = 4, 8, 16, ...
+/* 15 floats at 0x5ab8e0..0x5ab91b: SetupMpegLayerIDecoder's one-time init stores 2.0/(n-1) for n = 4, 8, 16, ...
  * through a walking pointer bounded by 0x5ab91c, the next object. */
 extern float g_mpegReciprocalTab[15];
 #define DAT_005ab8e0 (g_mpegReciprocalTab[0])

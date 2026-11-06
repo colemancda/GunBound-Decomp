@@ -94,7 +94,7 @@ DecodeMpegAudioFrame(int param_1,undefined4 param_2,int param_3,undefined4 param
   }
   PTR_FUN_005637d0 = (&PTR_FUN_00563aec)[*(uint *)(param_1 + 8) & 3];
   if (*(int *)(param_1 + 8) == 3) {
-    uVar2 = FUN_005144e0(param_1,param_2,param_3,param_4,param_5,param_6);
+    uVar2 = SetupMpegLayerIDecoder(param_1,param_2,param_3,param_4,param_5,param_6);
     return uVar2;
   }
   if (*(int *)(param_1 + 8) == 1) {

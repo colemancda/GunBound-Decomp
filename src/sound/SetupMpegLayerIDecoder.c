@@ -1,8 +1,20 @@
-/* FUN_005144e0 - 0x005144e0 in the original binary.
+/* SetupMpegLayerIDecoder - 0x005144e0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Per-stream setup for Layer I: selects subband limit and sample-rate
+ * tables and installs the synthesis pointer.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * DecodeMpegAudioFrame calls it only when header field +8 == 3, which is
+ * Layer I in the ISO layer bits (11 = Layer I); the matching frame
+ * decoder, table slot 3 of 0x563aec, is 0x5133c0, which calls the two
+ * Layer I readers (0x513850, 0x513900). It sets the subband count to 0x20
+ * or 0x40 (DAT_00563b44), installs PTR_FUN_005637cc from the table at
+ * 0x563a60 and calls the already named InitMpegSynthesisTables. Sibling of
+ * SetupMpegLayerIIIDecoder.
  */
 #include "ghidra_types.h"
 
@@ -10,7 +22,7 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4
-FUN_005144e0(int param_1,undefined4 param_2,int param_3,undefined4 param_4,uint param_5,int param_6)
+SetupMpegLayerIDecoder(int param_1,undefined4 param_2,int param_3,undefined4 param_4,uint param_5,int param_6)
 
 {
   int iVar1;
