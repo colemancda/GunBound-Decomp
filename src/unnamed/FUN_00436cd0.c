@@ -57,7 +57,7 @@ void __thiscall FUN_00436cd0(int param_1,int param_2,int param_3)
         iVar2 = 0;
       }
       else {
-        iVar2 = FUN_004892c0();
+        iVar2 = (int)InitCrashParticleAlphaBlend_2e632((undefined4 *)pvVar3);
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar4 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
