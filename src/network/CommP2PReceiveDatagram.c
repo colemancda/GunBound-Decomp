@@ -48,7 +48,7 @@
  */
 #include "ghidra_types.h"
 
-/* capped-16 string length - the inlined equivalent of FUN_004f7360 (orig
+/* capped-16 string length - the inlined equivalent of BoundedStrLen16 (was FUN_004f7360, orig
  * 0x4f7360: scan for NUL, cap at 0x10), whose AL return Ghidra dropped at
  * the Sha1Absorb call sites below (their length arg). See Sha1Absorb.c. */
 static uint gb_capped16_len(const char *s) {

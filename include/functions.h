@@ -1483,7 +1483,7 @@ undefined4 EncodeP2PPacketBlocks(undefined4 param_1, int param_2, int param_3, u
                         int inputLen);
 undefined4 __thiscall DecodeP2PPacketBlocks(undefined4 *param_1, int param_2, int param_3, int param_4,
                         unsigned int inputLen);
-byte __fastcall FUN_004f7360();
+byte __fastcall BoundedStrLen16();
 void Sha1Absorb(int param_1, unsigned char *param_2, unsigned int length);
 void Sha1Final(int ctx);
 void Sha1Init(undefined4 *regEax);
