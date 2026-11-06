@@ -909,7 +909,7 @@ void * __thiscall LaserIon_ScalarDtor();
 void LaserIon_DtorBody();
 void FUN_0047fad0(int param_1,int param_2,int param_3,int param_4,int *regEsi);
 void FUN_0047fee0(int param_1,int param_2,int *regEsi);
-void __fastcall FUN_00480310();
+void __fastcall AnimateLaserIon();
 undefined4 * InitPrimaryShot_Bullet10(undefined4 *regEsi);
 void * __thiscall DeletePrimaryShot_Bullet10();
 void DestroyPrimaryShot_Bullet10(undefined4 *regEax);

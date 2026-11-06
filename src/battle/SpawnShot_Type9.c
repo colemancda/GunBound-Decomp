@@ -3,14 +3,14 @@
  * RENAMED (2026-07-16, from FUN_0042f4b0): projectile-shot spawner for
  * mobile TYPE 9 (structural sibling of the confirmed SpawnKnightFlameShot
  * and of SpawnPrimaryShot/SpawnSuperShot). Mobile type CONFIRMED via
- * vtable geometry - its sole caller FUN_00480310 is a type-9 mobile
+ * vtable geometry - its sole caller AnimateLaserIon is a type-9 mobile
  * method; the effect it fires is flame10/101blast. The "_Type9" suffix
  * is the confirmed mobile type; the mobile NAME is not confirmable (no
  * name-bearing asset, and the repo has no mobile-type->name map). Raw/
  * near-verbatim Ghidra body - see src/README.md.
  *
  * FIXED (2026-07-16): this function's 5 real call sites (all in
- * FUN_00480310.c) already pass 12 cdecl arguments each, but only the
+ * AnimateLaserIon.c) already pass 12 cdecl arguments each, but only the
  * first 3 were ever surfaced as real parameters (param_1/param_2/
  * param_3 - param_2 itself unused) - the other 9 were silently
  * dropped, most visibly the value half of most of this function's 19

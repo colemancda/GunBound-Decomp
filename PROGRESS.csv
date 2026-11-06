@@ -780,7 +780,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0047fa50,128,LaserIon_DtorBody,false,1,1,RAW-src
 0047fad0,1039,FUN_0047fad0,false,1,10,RAW-src
 0047fee0,1069,FUN_0047fee0,false,1,11,RAW-src
-00480310,3479,FUN_00480310,false,1,19,RAW-src
+00480310,3479,AnimateLaserIon,false,1,19,RAW-src
 004812d0,20,InitPrimaryShot_Bullet10,false,2,1,RAW-src
 004812f0,32,DeletePrimaryShot_Bullet10,false,1,2,RAW-src
 00481310,13,DestroyPrimaryShot_Bullet10,false,1,1,RAW-src

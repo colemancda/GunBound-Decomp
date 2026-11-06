@@ -1,8 +1,16 @@
-/* FUN_00480310 - 0x00480310 in the original binary.
+/* AnimateLaserIon - 0x00480310 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_00480310): slot 2 (+0x8) of vtable 0x556110, whose
+ * slot 0 is LaserIon_ScalarDtor (0x47fa30); the only vtable reference is
+ * 0x556118.  Slot 2 is the projectile Animate virtual (AnimateProjectileTick
+ * 0x48f1c0 in the sibling projectile vtables).  Counterpart of
+ * AnimateKnightIon for the laser mobile's ion aura (SpawnLaserIon /
+ * InitLaserIon build this object): it also calls UpdateIonTargetAngle three
+ * times, and it is the only caller of SpawnShot_Type9.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 27 argless PeekPacketChecksumState() calls (worklist 27:27;
@@ -24,7 +32,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00480310(int *param_1)
+void __fastcall AnimateLaserIon(int *param_1)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not

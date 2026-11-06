@@ -733,7 +733,7 @@ vtable 0x5560f0  installs=2  slots=8
 vtable 0x556110  installs=2  slots=8  UNCARVED=1
    0: 0x47fa30  FUN_0047fa30
    1: 0x461c60  ResolveNamedState
-   2: 0x480310  FUN_00480310
+   2: 0x480310  AnimateLaserIon
    3: 0x4810c0  UNCARVED
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
