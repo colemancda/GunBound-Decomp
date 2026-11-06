@@ -159,7 +159,7 @@ void DecodeMpegLayerIIIGranule(undefined4 param_1,int *param_2)
               [*(int *)(&DAT_005ae760 + iVar1 * 0x38) +
                *(int *)(&DAT_005ae75c + iVar1 * 0x38) * 0x16];
     }
-    FUN_00518120(&DAT_00f25f00 + iVar1 * 0x240,iVar8);
+    ApplyMpegMidSideStereo(&DAT_00f25f00 + iVar1 * 0x240,iVar8);
   }
   if (DAT_005aba2c != 0) {
     if (DAT_005ae34c == 0) {
