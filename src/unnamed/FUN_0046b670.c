@@ -5,7 +5,7 @@
  * verbatim ports" section for status.
  *
  DROPPED REGISTER RECOVERED: EAX is the object being destroyed.  This is a
- * destructor body whose scalar-deleting wrapper (FUN_0046b650) receives the object as
+ * destructor body whose scalar-deleting wrapper (Shot_Type13_ScalarDtor) receives the object as
  * its __thiscall param_1 (ECX), never writes EAX, and calls this -- so EAX at
  * this call IS that param_1, traced through the caller by
  * tools/reg_trace_caller.py and passed explicitly now.

@@ -1,0 +1,28 @@
+/* Shot_Type13_ScalarDtor - 0x0046b650 in the original binary.
+ *
+ * Scalar-deleting destructor of the Shot_Type13 (mobile type 13 shot)
+ * class and slot 0 of vtable 0x00555e0c: __thiscall, one stack argument
+ * (ret 4); it calls Shot_Type13_DtorBody on the object and then _free's
+ * it when bit 0 of the flag argument is set. Evidence: this wrapper is
+ * slot 0 of that vtable (read from .data) and the only xref to this
+ * function; SpawnShot_Type13 installs the same vtable on the object it
+ * allocates. Same shape as DropCaseProjectile_ScalarDtor. Confidence
+ * LIKELY: the class name is inherited from the spawner's naming.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ */
+#include "ghidra_types.h"
+
+
+void * __thiscall Shot_Type13_ScalarDtor(void *param_1,int param_2)
+
+{
+  FUN_0046b670((undefined4 *)param_1);
+  if ((param_2 & 1) != 0) {
+    _free(param_1);
+  }
+  return param_1;
+}
+
