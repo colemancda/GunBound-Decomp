@@ -2,7 +2,7 @@
  * src/sound/SoundChannel_ConstructBase.c (shared base construction),
  * src/sound/SoundChannel_Construct.c (secondary-channel ctor),
  * src/sound/SoundChannel_Stop.c (secondary-channel stop),
- * src/unnamed/FUN_004eebe0.c (primary-channel ctor), and
+ * src/sound/MusicChannel_Construct.c (primary-channel ctor), and
  * src/unnamed/FUN_004eef00.c (primary-channel stop). See SoundChannel.cpp
  * and src/cxx/README.md.
  *
@@ -78,7 +78,7 @@ GB_STATIC_ASSERT(sizeof(CSoundChannel) == 0x50, CSoundChannel_size);
  * (PTR_LAB_005574cc) at the end of construction. */
 class CPrimaryStreamChannel : public CSoundChannel {
 public:
-    /* FUN_004eebe0: runs CSoundChannel's shared setup (inline, not via
+    /* MusicChannel_Construct: runs CSoundChannel's shared setup (inline, not via
      * the base ctor, matching the original's flat non-virtual-base
      * layout), then the primary-only extras, then swaps vtable to
      * PTR_LAB_005574cc. */

@@ -1340,7 +1340,7 @@ undefined4 __thiscall FindFirstImpactAlongRay(int param_1,int param_2,int *param
 void __fastcall SetMusicVolume();
 void __fastcall SetEffectsVolume();
 void SetEffectsEnabled(char regAl);
-undefined4 *FUN_004eebe0(); /* __thiscall ctor: call sites use the returned this-pointer */
+undefined4 *MusicChannel_Construct(); /* __thiscall ctor: call sites use the returned this-pointer */
 undefined4 RefillSoundStreamBuffer();
 void __fastcall FUN_004eef00();
 void __thiscall DecodeSoundBufferChunk();

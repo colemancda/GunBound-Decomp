@@ -2,14 +2,14 @@
  *
  * DROPPED REGISTER ARGUMENT (unaff_EBX): Ghidra read the object being
  * initialized as an uninitialized unaff_EBX local instead of a real
- * parameter. Both real callers (SoundChannel_Construct/FUN_004eebe0) confirm via
+ * parameter. Both real callers (SoundChannel_Construct/MusicChannel_Construct) confirm via
  * objdump at 0x4ef3a0-0x4ef3a3 (`mov ebx,esi` immediately before `call
  * 0x4ef7e0`) that EBX is simply their own object pointer forwarded
  * through - promoted to a real parameter here and at both call sites.
  *
  * NAMED (batch 36), LIKELY. The base-subobject constructor shared by both
  * sound channel classes: both SoundChannel_Construct (0x4ef3a0, secondary)
- * and FUN_004eebe0 (primary) call it first, with the object in EBX
+ * and MusicChannel_Construct (primary) call it first, with the object in EBX
  * (`mov ebx,esi` immediately before the call). It installs
  * PTR_LAB_005574e0, a vtable of only no-op stubs plus
  * PollSoundBufferPosition that each derived constructor then overwrites

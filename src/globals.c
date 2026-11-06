@@ -1434,7 +1434,7 @@ void *PTR_LAB_005572e0;
 void *PTR_LAB_00557434;
 /* Real 7-slot vtable (was a bare scalar) - the DirectSound streaming
  * object's runtime vtable, installed via `*unaff_ESI = &PTR_LAB_005574cc`
- * at the end of FUN_004eebe0/SoundChannel_Construct (see those files' header
+ * at the end of MusicChannel_Construct/SoundChannel_Construct (see those files' header
  * comments). Slots recovered from orig .data at 0x5574cc-0x5574e8:
  * 0=NoOpMethodStdcall1 (0x4038b0), 1=PollSoundBufferPosition ("tick",
  * currently bring-up-bypassed to a no-op - see its own header), 2 is
@@ -1450,7 +1450,7 @@ void *PTR_LAB_005574cc[7] = {
 };
 /* Same shape as PTR_LAB_005574cc but the SoundChannel_ConstructBase-installed
  * bring-up vtable (set briefly during construction, before
- * FUN_004eebe0/SoundChannel_Construct swap in PTR_LAB_005574e8 then
+ * MusicChannel_Construct/SoundChannel_Construct swap in PTR_LAB_005574e8 then
  * PTR_LAB_005574cc) - recovered from orig .data at 0x5574e0-0x5574ec:
  * 0/2=NoOpMethodStdcall1 (0x4038b0), 1=NoOpMethod (0x429800),
  * 3=PollSoundBufferPosition (0x4ef450). */
@@ -1460,7 +1460,7 @@ void *PTR_LAB_005574e0[4] = {
 };
 /* The runtime vtable for SoundChannel_Construct-constructed secondary-channel
  * objects (SoundChannel_Construct itself keeps this vtable permanently, unlike
- * FUN_004eebe0's primary-channel object which swaps to
+ * MusicChannel_Construct's primary-channel object which swaps to
  * PTR_LAB_005574cc at the end of construction) - recovered from orig
  * .data at 0x5574e8-0x5574f8: 0=NoOpMethodStdcall1,
  * 1=PollSoundBufferPosition (currently bring-up-bypassed to a no-op),

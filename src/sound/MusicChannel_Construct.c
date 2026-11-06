@@ -1,4 +1,4 @@
-/* FUN_004eebe0 - 0x004eebe0 in the original binary.
+/* MusicChannel_Construct - 0x004eebe0 in the original binary.
  *
  * DROPPED REGISTER ARGUMENT (unaff_ESI): Ghidra read the object being
  * initialized (a freshly operator_new'd 0xb8-byte struct, per the sole
@@ -12,15 +12,31 @@
  * `ret` - it returns the same object pointer it was passed, which the
  * caller stores into *g_soundChannels. Fixed to match.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (batch 41), LIKELY on the "Music" half. Constructor of the
+ * 0xb8-byte object InitDirectSound builds for g_soundChannels[0]: it runs
+ * SoundChannel_ConstructBase, passes through the secondary-channel vtable
+ * 0x5574e8 (as SoundChannel_Construct does), starts the AudioStreamThread
+ * worker, then zeroes the extra streaming fields (+0x98..+0xac) and stores
+ * 20000 at +0xa0, and finally installs vtable 0x5574cc. The shape (vtable
+ * 0x5574e8 then 0x5574cc, size 0xb8) is read off InitDirectSound's
+ * operator_new(0xb8) and the two vtables in globals.c, and 0x5574cc
+ * slot 4 is DecodeSoundBufferChunk, the compressed-stream refill.
+ *
+ * Why "Music": slot 0 of g_soundChannels is driven by PlayMusicTrack
+ * (it stops and restarts the track through this object), and
+ * SetMusicVolume sets the volume of the parallel g_secondarySoundBuffers
+ * entry 0. That is indirect; no string or label names the channel, so
+ * the role rests on those two callers. The tree's C++ promotion calls
+ * the class CPrimaryStreamChannel (src/cxx/SoundChannel.h).
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 *FUN_004eebe0(undefined4 *unaff_ESI)
+undefined4 *MusicChannel_Construct(undefined4 *unaff_ESI)
 
 {
   undefined4 uVar1;

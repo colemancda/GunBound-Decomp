@@ -17,7 +17,7 @@
  * NAMED (batch 36). The secondary sound channel constructor. The sole
  * caller, InitDirectSound, runs it on a fresh operator_new(0x50) block and
  * stores the returned pointer (the same object, in ESI) into
- * g_soundChannels[1..] (slot 0 is the primary channel, FUN_004eebe0). It
+ * g_soundChannels[1..] (slot 0 is the primary channel, MusicChannel_Construct). It
  * runs the shared base construction (0x4ef7e0), installs
  * PTR_LAB_005574e8, the vtable whose slot 3 is SoundChannel_Stop
  * (0x4ef5b0) and which StopSoundChannel and the FUN_004ee850 teardown
