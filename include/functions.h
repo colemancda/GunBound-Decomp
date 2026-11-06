@@ -994,7 +994,7 @@ void * __thiscall Mobile06_ScalarDtor(void *param_1,int param_2);
 void Mobile06_Destructor(undefined4 *regEax);
 void __thiscall Mobile06_MainAction();
 void __fastcall FUN_0049c13f();
-void * __thiscall FUN_0049cc40();
+void * __thiscall Shot_Type9_ScalarDtor();
 void FUN_0049cc60(undefined4 *regEax);
 void __fastcall FUN_0049d270();
 void FUN_0049e420();
