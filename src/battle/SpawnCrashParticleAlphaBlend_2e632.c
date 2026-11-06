@@ -1,8 +1,24 @@
-/* FUN_00436cd0 - 0x00436cd0 in the original binary.
+/* SpawnCrashParticleAlphaBlend_2e632 - 0x00436cd0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Spawns the class-0x2e632 CrashTexture ordinary-alpha particle
+ * (constructor InitCrashParticleAlphaBlend_2e632, vtable 0x00556250),
+ * the third alpha class beside SpawnCrashParticleAlphaBlend (0x2e631).
+ * Evidence from outside the body: the constructor stamps key 0x2e632 and
+ * FUN_00450c20 draws that key in the blend-mode-1 group with 0x2e631;
+ * the spawn is the same shape as SpawnCrashParticleAlphaBlend, a rand()
+ * % 200 roll against the effects option (DAT_005f2f54) scaled by the
+ * third argument, a position jittered by up to 20 less the global bias
+ * at DAT_00e9ba40, and a random variant peeked from DAT_00e9bed8. Its
+ * sole caller is SimulateMobileFrame (0x00462786), which passes ECX and
+ * two stack values (ret 8) and loads EAX with ctx + 0x6a7f70 as every
+ * spawner of this family does; the port reads the flag at +0x74
+ * directly. The class key is unique in the image, so it is the suffix,
+ * as for SpawnCrashParticleAdditive_2e634. LIKELY: the particle's role
+ * beyond class, blend mode and texture is not established.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at both argless PeekPacketChecksumState() calls: &DAT_00e9ba40 then &DAT_00e9bed8 (emitter family).
@@ -28,13 +44,13 @@
  * already named uVar9 in the port) is pushed last and lands as stack-arg
  * 1 (param_2). Both call sites (SimulateMobileFrame.c and its src/cxx/
  * Mobile.cpp twin) now capture the first Peek's result into a new local
- * and pass all three arguments in this order: FUN_00436cd0(<first-Peek
+ * and pass all three arguments in this order: SpawnCrashParticleAlphaBlend_2e632(<first-Peek
  * result>, <second-Peek result>, 0x28).
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00436cd0(int param_1,int param_2,int param_3)
+void __thiscall SpawnCrashParticleAlphaBlend_2e632(int param_1,int param_2,int param_3)
 
 {
   char cVar1;

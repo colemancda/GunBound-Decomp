@@ -163,7 +163,7 @@ void AlignMobileToTerrain(CMobile *self);
  * explicitly on a free-function declaration (unlike __thiscall, no
  * C4234 restriction). */
 void __fastcall UpdateMobileEmotionState(int *param_1);
-void FUN_00436cd0(unsigned int ecxThis, unsigned int a, unsigned int b);
+void SpawnCrashParticleAlphaBlend_2e632(unsigned int ecxThis, unsigned int a, unsigned int b);
 unsigned short CommitTurnDelay(int a, int regEax);
 void FUN_0041f200(int a, int regEax);
 char ChecksumPairDiffers(void *a, void *b);
@@ -986,7 +986,7 @@ LAB_004622cf:
          * orig 0x462766-0x462786. */
         uVar15 = PeekChecksumStateUnderLock(this->m_pad908 + 0x228);
         uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 4);
-        FUN_00436cd0(uVar15, uVar9, uVar14);
+        SpawnCrashParticleAlphaBlend_2e632(uVar15, uVar9, uVar14);
     }
     uVar9 = EncodeChecksumPairDiff(this->m_pad908 + 0x6284, auStack_454, reinterpret_cast<unsigned int>(this->m_pad908 + 0x6060));
     iVar11 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar9));

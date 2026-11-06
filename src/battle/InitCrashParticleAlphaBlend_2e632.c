@@ -3,7 +3,7 @@
  * Constructor of a third CrashTexture ordinary-alpha particle class, key
  * 0x2e632, vtable 0x00556250, next to InitCrashParticleAlphaBlend (key
  * 0x2e631). Evidence from outside the body: its sole caller,
- * FUN_00436cd0 (0x00436d1a), calls it right after operator_new(0x50)
+ * SpawnCrashParticleAlphaBlend_2e632 (0x00436d1a), calls it right after operator_new(0x50)
  * with the allocation still in EAX and takes the returned EAX as the
  * object (mov edi,eax) to position at +0x38/+0x3c and register.
  * FUN_00450c20, the CrashTexture draw pass, lists 0x2e632 with 0x2e631

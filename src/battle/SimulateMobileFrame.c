@@ -360,7 +360,7 @@ LAB_00462742:
      * argument, not a discarded value. */
     uVar16 = PeekChecksumStateUnderLock(param_1 + 0x2cc);
     uVar9 = PeekChecksumStateUnderLock(param_1 + 0x243);
-    FUN_00436cd0(uVar16,uVar9,uVar15);
+    SpawnCrashParticleAlphaBlend_2e632(uVar16,uVar9,uVar15);
   }
   uVar9 = EncodeChecksumPairDiff(param_1 + 0x1ae3,auStack_454,param_1 + 0x1a5a);
   uStack_4 = 0xd;
