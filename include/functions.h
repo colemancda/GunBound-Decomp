@@ -1774,7 +1774,7 @@ void Widget_RemoveChild(int *thisArray,void *child);
 void __thiscall Widget_MoveBy();
 void __fastcall Widget_ClearPressedRecursive(int param_1);
 void Widget_SetEnabled(int this_,int enabled);
-void FUN_0050e820(int regEbx,int regEdi);
+void Widget_UnfocusSiblings(int regEbx,int regEdi);
 void Widget_OnCommandDefault(int this_,int evt,int id,int arg);
 void __fastcall Widget_DrawChildrenDeep();
 undefined4 AtlArray_GrowBuffer();

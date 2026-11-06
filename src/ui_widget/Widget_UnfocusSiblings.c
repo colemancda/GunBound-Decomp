@@ -1,8 +1,4 @@
-/* FUN_0050e820 - 0x0050e820 in the original binary.
- *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+/* Widget_UnfocusSiblings - 0x0050e820 in the original binary.
  *
  * EBX and EDI RECOVERED (2026-08-25): `mov ebx,esi` at 0x506e7e where ESI is
  * ActivateLegacyTextInputField's own incoming EAX (its source spells that
@@ -19,6 +15,22 @@
  * The children are C++ CWidgets, so the call now goes through a
  * __fastcall pointer with a dummy EDX (ECX = this, the flag on the stack,
  * callee-clean of 4 bytes), the 5b858ff7 idiom.
+ *
+ * NAMED (batch 41), LIKELY. Calls vtable slot 0 with 0 on every child of
+ * the field's parent (array at +0xc, count at +0x10) except the field
+ * itself, so only the field being activated keeps focus. Slot 0 is
+ * Widget_SetFocus in docs/vtable_census.txt (0x50e860 heads the widget
+ * vtables listed there), so the call is SetFocus(false) on each sibling.
+ * The only caller, ActivateLegacyTextInputField (0x506e70), runs it first
+ * with EBX = the field and EDI = its parent (+8), when the parent is
+ * non-null, before it takes over the shared EDIT control.
+ *
+ * Named "Widget", not "TextField": the children are whatever widgets the
+ * parent holds, and the body makes no type test.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
@@ -27,7 +39,7 @@
 typedef void (__fastcall *WidgetSetFocusFn)(void *thisPtr, int dummyEDX, int active);
 
 
-void FUN_0050e820(int regEbx,int regEdi)
+void Widget_UnfocusSiblings(int regEbx,int regEdi)
 
 {
   uint uVar1;
