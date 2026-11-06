@@ -188,7 +188,7 @@ static unsigned char gb_registrySentinel[4][0x20];
 /* g_uiPanelManager (0xe53c40) - a genuine CPanelManager object, unlike
  * the three registries above (its list head/tail are meant to start
  * NULL, not self-referencing). Real field layout decompiled from its
- * own constructor (FUN_00507dc0, .CRT$XCU-registered) - see globals.c's
+ * own constructor (PanelManager_Construct, .CRT$XCU-registered) - see globals.c's
  * comment for the full breakdown. Only the grow-count seed at +0x18
  * needs an explicit non-zero init (=10, the constructor's own literal);
  * every other field the constructor sets is already 0, matching BSS. */
@@ -196,7 +196,7 @@ extern unsigned char g_uiPanelManager[0x1c];
 /* The real CPanelManager constructor (orig 0x507dc0, .CRT$XCU-registered so
  * it runs as a static initializer in the original; we don't run CRT static
  * init, hence this hook). __fastcall: ECX unused, EDX = this. */
-extern void * __fastcall FUN_00507dc0(unsigned int unused, void *thisPtr);
+extern void * __fastcall PanelManager_Construct(unsigned int unused, void *thisPtr);
 
 /* REWORKED (2026-07-20): call the REAL constructor instead of hand-setting a
  * single field. The old body set only +0x18 = 10 and left the object's VTABLE
@@ -209,7 +209,7 @@ extern void * __fastcall FUN_00507dc0(unsigned int unused, void *thisPtr);
  * registry roots' sentinel above. */
 static void gb_init_panel_manager(unsigned char *manager)
 {
-    FUN_00507dc0(0, manager);
+    PanelManager_Construct(0, manager);
 }
 /* DAT_00e53e88 (chat-log/replay object, ~25 raw-ported callers - see
  * globals.c) uses the identical +4 head/+0x1c outer-next embedded-

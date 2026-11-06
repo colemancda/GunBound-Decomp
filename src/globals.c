@@ -545,7 +545,7 @@ uint16_t DAT_00793228;
 uint8_t g_chatInputActive;
 uint32_t g_chatInputMaxLength;
 /* g_chatInputText: moved to src/globals_sized.c - the CPanelManager ctor
- * (FUN_00507dc0, orig 0x507dc0) zeroes 0x40 DWORDS (0x100 bytes) from
+ * (PanelManager_Construct, orig 0x507dc0) zeroes 0x40 DWORDS (0x100 bytes) from
  * here, so a one-dword cell would clobber ~0xfc bytes of neighbours. */
 uint8_t DAT_007934c4;
 uint32_t DAT_007934c8;
@@ -698,7 +698,7 @@ uint8_t g_softwareCursorAnimBlock[0x38];
  * linker happened to place next and walked a garbage "widget list", jumping to
  * a junk vtable pointer (crash at eip=0xfff0e483 on the first WM_MOUSEMOVE).
  *
- * 2026-07-14: found + decompiled the REAL constructor (FUN_00507dc0,
+ * 2026-07-14: found + decompiled the REAL constructor (PanelManager_Construct,
  * .CRT$XCU-registered via FUN_00540dc0 - same hidden-static-initializer
  * pattern as g_clientContext's own ClientContext_Constructor). Confirms the true
  * object layout and size:

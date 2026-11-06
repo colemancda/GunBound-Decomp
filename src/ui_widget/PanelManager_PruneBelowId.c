@@ -12,7 +12,7 @@
  * RESTORED (2026-07-20): was a no-op stub whose comment claimed
  * g_uiPanelManager was a 1-byte placeholder. That is stale - the manager is
  * now the real sized object (globals.c: uint8_t g_uiPanelManager[0x1c]),
- * constructed by FUN_00507dc0 and populated by PanelManager_Register ->
+ * constructed by PanelManager_Construct and populated by PanelManager_Register ->
  * PanelManager_PrependNode, so the node list at +4 is valid. With this
  * stubbed, entering the lobby never destroyed ServerSelect's panels: they
  * (and every prior state's panels) persisted and drew on top of / behind the

@@ -1711,7 +1711,7 @@ void __thiscall LobbyChatPanel_OnCommand();
 void __fastcall LobbyChatPanel_Update(int thisPtr);
 void FUN_00507cc0(undefined4 param_1,int param_2,int regEbx);
 void __fastcall FUN_00507d50(int param_1);
-undefined4 * __fastcall FUN_00507dc0();
+undefined4 * __fastcall PanelManager_Construct();
 void * __thiscall PanelManager_ScalarDtor();
 void TextEntry_RestoreChatInput();
 char PanelManager_DispatchMouseDown(int uiPanelManager,undefined4 param_1,undefined4 param_2);

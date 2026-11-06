@@ -216,7 +216,7 @@ void State11_InBattle_RenderPlayerRoster(int param_1)
     /* objdump at 0x4083df/0x4083da shows ECX=0xcb, EAX=&g_chatInputText -
      * the same chat-input text buffer used by GetWindowTextA/
      * SetWindowTextA elsewhere (ActivateLegacyTextInputField.c/
-     * TextEntry_RestoreChatInput.c/FUN_00507dc0.c). */
+     * TextEntry_RestoreChatInput.c/PanelManager_Construct.c). */
     BlitRLESprite(0xcb,0x21c,0,(byte *)&g_chatInputText);
     /* Same site, second call (0x4083f8/0x4083f3): ECX=0xca, EAX still
      * &g_chatInputText (unclobbered). */

@@ -674,7 +674,7 @@ extern uint16_t DAT_00793228;
  * showing the chat input and 0 while some other field has borrowed it. */
 extern uint8_t g_chatInputActive;
 /* g_chatInputMaxLength (was DAT_007933bc) - initialised to 0x3c (60) by
- * FUN_00507dc0 and sent as EM_LIMITTEXT's limit.  It is ALSO reused as both
+ * PanelManager_Construct and sent as EM_LIMITTEXT's limit.  It is ALSO reused as both
  * ends of the following EM_SETSEL, which parks the caret at the end: a
  * position past the text clamps.  ActivateLegacyTextInputField does exactly
  * the same with each legacy field's own max-length at +0x138. */
@@ -941,7 +941,7 @@ extern uint8_t g_softwareCursorAnimBlock[0x38];
  * that screens attach dynamic panels to. Passed by address to the panel
  * builders/closers (BuildWorldListPanel, the lobby buddy panel BuildBuddyPanel,
  * the Create Room dialog BuildCreateRoomDialog, PanelManager_Unregister close, etc.).
- * Real object layout recovered from its own constructor (FUN_00507dc0) -
+ * Real object layout recovered from its own constructor (PanelManager_Construct) -
  * see globals.c's comment for the full field breakdown and gb_init_panel_manager
  * (crt_shims_msvc.c) for the matching sentinel/grow-count init. */
 extern uint8_t g_uiPanelManager[0x1c]; /* sized to real storage - see globals.c */

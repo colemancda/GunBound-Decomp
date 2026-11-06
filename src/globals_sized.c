@@ -192,13 +192,13 @@ const unsigned char DAT_0056dbf0[0xa0] = {
     0x1c, 0x00, 0x0a, 0xff, 0x1d, 0x00, 0x05, 0x00,
 };
 
-/* CPanelManager's 0x100-byte scratch table. Its constructor (FUN_00507dc0,
+/* CPanelManager's 0x100-byte scratch table. Its constructor (PanelManager_Construct,
  * orig 0x507dc0 - `mov ecx,0x40 / mov edi,0x7933c0 / rep stosd`) clears 0x40
  * dwords starting here; globals.c had it as a single uint32_t. */
 unsigned char g_chatInputText[0x100];
 
 /* CPanelManager's vtable (orig 0x557cfc, stored at +0 by its constructor
- * FUN_00507dc0). globals.c had it as a single zero-initialised `void *`, so
+ * PanelManager_Construct). globals.c had it as a single zero-initialised `void *`, so
  * any dispatch past slot 0 read adjacent zeroed globals - PanelManager_
  * ClearAllFocus ends with `(**(code **)(*this + 0x18))()`, i.e. SLOT 6, which
  * therefore jumped to null as soon as State03's OnEnter reached
