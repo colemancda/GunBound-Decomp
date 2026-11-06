@@ -1,14 +1,32 @@
-/* FUN_004d22d0 - 0x004d22d0 in the original binary.
+/* TeardownConnectionObject - 0x004d22d0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (batch 36), LIKELY. The destructor of the outer 0x84f0-byte
+ * connection object that InitConnectionObject (0x4d2170) constructs - the
+ * counterpart of Init, not of DestroyConnectionObject (0x4e5590), which only
+ * destroys the inner 0x24a70-byte session sub-object at +0x84e0 and is
+ * called from here. WinMain builds three of the outer objects
+ * (operator_new(0x84f0) -> InitConnectionObject) into DAT_005b2b58,
+ * DAT_005b2b5c and DAT_005b2b60; Shutdown calls this once on each, with the
+ * object as the stack argument, and _free()s the same pointer straight
+ * afterwards (Shutdown.c, call sites 0x40ff99, 0x40ffc0, 0x40ffe1), so the
+ * block is dead when this returns.
+ *
+ * What it does to the outer object: frees the buffer at +0x84e8, closes the
+ * socket and clears the connected flags (the CloseServerConnection
+ * sequence, inlined), clears the worker run flag, SetEvents the worker,
+ * runs DestroyConnectionObject on the sub-object and frees it, then
+ * scrambles the two value-guard cells at +0x98 and +0x2bc into
+ * g_valueGuardMap. The port still carries Ghidra's SEH frame artifact
+ * (unaff_FS_OFFSET).
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004d22d0(int param_1)
+void TeardownConnectionObject(int param_1)
 
 {
   int iVar1;

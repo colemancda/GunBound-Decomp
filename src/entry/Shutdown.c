@@ -687,19 +687,19 @@ LAB_0040fd35:
     }
     pvVar5 = DAT_005b2b58;
     if (DAT_005b2b58 != (void *)0x0) {
-      FUN_004d22d0(DAT_005b2b58);
+      TeardownConnectionObject(DAT_005b2b58);
       _free(pvVar5);
     }
     pvVar5 = DAT_005b2b5c;
     DAT_005b2b58 = (void *)0x0;
     if (DAT_005b2b5c != (void *)0x0) {
-      FUN_004d22d0(DAT_005b2b5c);
+      TeardownConnectionObject(DAT_005b2b5c);
       _free(pvVar5);
     }
     pvVar5 = DAT_005b2b60;
     DAT_005b2b5c = (void *)0x0;
     if (DAT_005b2b60 != (void *)0x0) {
-      FUN_004d22d0(DAT_005b2b60);
+      TeardownConnectionObject(DAT_005b2b60);
       _free(pvVar5);
     }
     DAT_005b2b60 = (void *)0x0;

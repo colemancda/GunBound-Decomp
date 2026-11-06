@@ -36,7 +36,7 @@
  * this tears it back down. Nothing is freed and the socket worker thread
  * is left running, so the context is immediately reusable and a second
  * BeginServerConnect reconnects it. Freeing the connection object is
- * FUN_004d22d0's job; joining the worker is ShutdownConnectionThread's
+ * TeardownConnectionObject's job; joining the worker is ShutdownConnectionThread's
  * (0x4e5c00).
  *
  * The body is CloseConnectionSocket (0x4e5a20) applied to the connection
@@ -50,7 +50,7 @@
  * per ARCHITECTURE.md's connection-state list).
  *
  * The same sequence appears INLINED wherever the compiler could see the
- * context: FUN_004d22d0 runs it immediately before freeing the object and
+ * context: TeardownConnectionObject runs it immediately before freeing the object and
  * nulling ctx+0x84e0, and ShowErrorDialog / ShowErrorDialogFmt /
  * ShowMessageDialog / Shutdown run it over all three contexts under their
  * closeSockets flag -- ShowErrorDialog.c's header already glosses that
