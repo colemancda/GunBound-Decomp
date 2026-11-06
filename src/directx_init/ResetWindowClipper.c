@@ -1,4 +1,4 @@
-/* FUN_004f0320 - 0x004f0320 in the original binary.
+/* ResetWindowClipper - 0x004f0320 in the original binary.
  *
  * Re-derives a fresh clipper for the primary surface (called from
  * ChangeGameState, likely on a display-mode/window change): clears the
@@ -34,10 +34,23 @@
  * Fixed with explicit WINAPI typedefs matching InitDirectDraw.c's
  * established idiom.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004f0320 mean this function.)
+ *
+ * Evidence (CERTAIN on behaviour, HIGH on the verb). Its only caller is
+ * ChangeGameState (and the C++ twin in src/cxx/GameStateMachine.cpp),
+ * which calls it right after installing the new state id. Re-checked
+ * against orig
+ * 0x4f0320-0x4f0379: IDirectDrawSurface7::SetClipper(NULL) on the primary
+ * surface (0x7935f4, vtable +0x70); then, only when the windowed flag
+ * 0x588f4c is set, IDirectDraw7::CreateClipper (+0x10),
+ * IDirectDrawClipper::SetHWnd (+0x20) with the window handle 0x7935ec,
+ * SetClipper on the primary surface and Release of the local reference.
+ * So it drops the old clipper and, in windowed mode only, attaches a fresh
+ * one bound to the game window.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -48,7 +61,7 @@ typedef HRESULT (WINAPI *CreateClipperFn)(void *, DWORD, void **, IUnknown *);
 typedef HRESULT (WINAPI *SetHWndFn)(void *, DWORD, HWND);
 typedef ULONG (WINAPI *ReleaseFn)(void *);
 
-void FUN_004f0320(void)
+void ResetWindowClipper(void)
 
 {
   int iVar1;

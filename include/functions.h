@@ -1361,7 +1361,7 @@ undefined4 __stdcall EnumZBufferFormatsCallback(undefined4 *, undefined4 *);
 void FUN_004f0100();
 void SetBlendMode(int regEax);
 bool __fastcall CreateTextureAtlasSurface(undefined4 param_1,undefined4 param_2,int param_3);
-void FUN_004f0320();
+void ResetWindowClipper();
 uint FlushXFSWriteBlock();
 uint FUN_004f0650();
 /* XFS stream seek (skip param_2 bytes). stream = the dropped EAX

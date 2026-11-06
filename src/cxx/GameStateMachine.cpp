@@ -39,7 +39,7 @@ void AppendPersistentButtonName(void *slot); /* per-slot register-arg index drop
 void *FindPreloadedTextureByName(const char *name);
 void ResolveNamedState(const char *cursorName);/* select the named cursor */
 void FUN_005099b0(void);
-void FUN_004f0320(void);
+void ResetWindowClipper(void);
 int __stdcall LoadSpriteSet(void *container, int key); /* .img name in EAX, .mp3 in EDI */
 extern unsigned char g_spriteRegistry[0x20];
 /* the three out-of-line state constructors (Ghidra-flattened
@@ -119,7 +119,7 @@ void ChangeGameState(int newStateId)
     FUN_005099b0();
     g_gameStateVTableArray[newStateId]->OnEnter();
     g_currentGameState = newStateId;
-    FUN_004f0320();
+    ResetWindowClipper();
     if (g_stateChangeRequested != 0) {
         g_stateChangeRequested = 0;
         return;

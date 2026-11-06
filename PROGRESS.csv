@@ -1267,7 +1267,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f01d0,91,SetBlendMode,false,2,0,RAW-src
 004f0230,141,CreateTextureAtlasSurface,false,1,0,RAW-src
 004f02c0,92,LockBackBuffer,false,4,0,RAW-src
-004f0320,91,FUN_004f0320,false,1,0,RAW-src
+004f0320,91,ResetWindowClipper,false,1,0,RAW-src
 004f0380,112,ReadXFSEntry,false,9,1,RAW-src
 004f03f0,316,DecodeXFSEntryBlock,false,5,4,RAW-src
 004f0530,281,FlushXFSWriteBlock,false,4,4,RAW-src

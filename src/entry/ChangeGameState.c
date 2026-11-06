@@ -75,7 +75,7 @@ void ChangeGameState(int newStateId)
     ((GameStateVirtualFn)(*(void ***)g_gameStateVTableArray[newStateId])[7])
               (g_gameStateVTableArray[newStateId]);
     g_currentGameState = newStateId;
-    FUN_004f0320();
+    ResetWindowClipper();
     if (g_stateChangeRequested != '\0') {
       g_stateChangeRequested = 0;
       return;
