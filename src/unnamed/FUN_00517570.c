@@ -13,7 +13,7 @@ void FUN_00517570(int param_1,int param_2,int param_3)
   if (0 < param_3) {
     do {
       FUN_0051ac80(param_1,&DAT_005af144 + DAT_005ae93c);
-      FUN_0051aff0(&DAT_005af144,DAT_005ae93c,param_2);
+      MpegSynthWindow8QuarterThunk(&DAT_005af144,DAT_005ae93c,param_2);
       param_1 = param_1 + 0x100;
       param_2 = param_2 + 8;
       DAT_005ae93c = DAT_005ae93c - 8 & 0x7f;

@@ -1883,7 +1883,7 @@ void MpegSynthWindow8FullThunk();
 void MpegSynthWindow8FullInterleavedThunk();
 void MpegSynthWindow8HalfThunk();
 void MpegSynthWindow8HalfInterleavedThunk();
-void FUN_0051aff0();
+void MpegSynthWindow8QuarterThunk();
 void FUN_0051b010();
 void __cdecl FUN_0051b030(float *param_3);
 void __cdecl FUN_0051b436(float *param_3);
