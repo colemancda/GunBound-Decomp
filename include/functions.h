@@ -1861,7 +1861,7 @@ undefined4 InitMpegLayerIIITables();
 void FUN_00519c80();
 void FUN_00519ef0();
 void InitMpegIntensityStereoRatios();
-void FUN_0051a230();
+void InitMpegIntensityStereoLSFTables();
 undefined4 * FUN_0051a420();
 void FUN_0051a430();
 void FUN_0051a450();

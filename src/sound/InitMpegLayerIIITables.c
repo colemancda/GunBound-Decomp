@@ -88,7 +88,7 @@ undefined4 InitMpegLayerIIITables(void)
     pfVar2 = pfVar2 + 2;
   } while (pfVar6 < DAT_00544a88 + 8);
   InitMpegIntensityStereoRatios();
-  FUN_0051a230();
+  InitMpegIntensityStereoLSFTables();
   FUN_00519ef0();
   FUN_00519c80();
   return 0;

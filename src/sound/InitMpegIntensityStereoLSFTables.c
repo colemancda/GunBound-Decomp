@@ -1,15 +1,28 @@
-/* FUN_0051a230 - 0x0051a230 in the original binary.
+/* InitMpegIntensityStereoLSFTables - 0x0051a230 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Fill the LSF intensity-stereo ratio table (0x5af944).
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Fetches its destination from GetMpegIntensityStereoLSFTable (0x5180f0,
+ * the accessor for 0x5af944) and fills all 0x800 bytes: 2 intensity_scale
+ * settings x 2 ratio sets x 64 (left, right) float pairs, using local
+ * scales {1.0, sqrt(2)} and powers pow(2, -(n+1)*0.25) (constant at
+ * 0x544af8, read from the binary), i.e. the ISO 13818-3 LSF intensity
+ * ratios 2^-0.25 and 2^-0.5. The consumer ApplyMpegIntensityStereoLSF
+ * indexes 0x5af944 in 8-byte pairs. Its only caller is
+ * InitMpegLayerIIITables (0x519c5b), sitting between the MPEG-1 ratio
+ * builder InitMpegIntensityStereoRatios and the window builder.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0051a230(void)
+void InitMpegIntensityStereoLSFTables(void)
 
 {
   float *pfVar1;
