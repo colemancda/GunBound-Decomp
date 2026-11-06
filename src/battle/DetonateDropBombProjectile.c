@@ -1,8 +1,20 @@
-/* FUN_0046a4d0 - 0x0046a4d0 in the original binary.
+/* DetonateDropBombProjectile - 0x0046a4d0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_0046a4d0): slot 6 (+0x18) of vtable 0x555dcc, whose
+ * slot 0 is DropBombProjectile_ScalarDtor (0x46a4a0); the only vtable
+ * reference is 0x555de4.  Slot 6 is the Detonate virtual: DetonateProjectile
+ * (0x4572b0) is installed there by the sibling projectile vtables, and
+ * AnimateProjectileTick (slot 2) calls it through +0x18.  This is the
+ * DropBomb override: once the +0xf45 flag is set it marks the object dead
+ * (+0x14), then runs the same impact set as the base
+ * (ApplyCraterExcavation, RebuildTerrainColumnCache,
+ * ApplyImpactToBattleEntities, SpawnCrashEffect, SpawnFlameEffect,
+ * SpawnCrashParticleBurst).  SpawnCrashParticleBurst's header already lists
+ * it among the detonation bodies.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 32 argless PeekPacketChecksumState() calls and the 6 1-arg
@@ -25,7 +37,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0046a4d0(int *param_1)
+void __fastcall DetonateDropBombProjectile(int *param_1)
 
 {
   int iCraterX;

@@ -485,7 +485,7 @@ vtable 0x555dcc  installs=3  slots=8
    3: 0x458690  PublishProjectileTrackingState
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
-   6: 0x46a4d0  FUN_0046a4d0
+   6: 0x46a4d0  DetonateDropBombProjectile
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x555dec  installs=2  slots=8
