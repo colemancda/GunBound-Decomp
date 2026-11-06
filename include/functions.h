@@ -813,7 +813,7 @@ void DropCaseProjectile_DtorBody(undefined4 *regEax);
 void __fastcall FUN_0046af10();
 void __fastcall FUN_0046b610();
 void * __thiscall Shot_Type13_ScalarDtor();
-void FUN_0046b670(undefined4 *regEax);
+void Shot_Type13_DtorBody(undefined4 *regEax);
 void __fastcall FUN_0046b680();
 void __fastcall FUN_0046c990();
 undefined4 * InitSuperShot_Bullet14(undefined4 *regEsi);
