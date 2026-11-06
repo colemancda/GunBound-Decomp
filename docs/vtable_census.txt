@@ -312,7 +312,7 @@ vtable 0x555b18  installs=2  slots=8
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
    6: 0x44f050  DetonateSuperShot_Bullet10
-   7: 0x491a40  FUN_00491a40
+   7: 0x491a40  IsProjectileInLandBounds
 
 vtable 0x555b38  installs=1  slots=5
    0: 0x44fc90  FUN_0044fc90
@@ -346,7 +346,7 @@ vtable 0x555bd0  installs=2  slots=8
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
    6: 0x4513b0  FUN_004513b0
-   7: 0x491a40  FUN_00491a40
+   7: 0x491a40  IsProjectileInLandBounds
 
 vtable 0x555bf0  installs=1  slots=9  UNCARVED=1
    0: 0x44d990  Projectile_ScalarDtor
@@ -411,7 +411,7 @@ vtable 0x555ce0  installs=1  slots=5  UNCARVED=1
    4: 0x429800  NoOpMethod
 
 vtable 0x555cf4  installs=2  slots=8  UNCARVED=1
-   0: 0x464440  FUN_00464440
+   0: 0x464440  CrystalShot_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x465470  UNCARVED
    3: 0x429800  NoOpMethod
@@ -428,7 +428,7 @@ vtable 0x555d14  installs=2  slots=8
    4: 0x429800  NoOpMethod
    5: 0x49aeb0  SimulateShot_Bullet7n_9s_7p_9p
    6: 0x465500  DetonateShot2_Bullet9
-   7: 0x491a40  FUN_00491a40
+   7: 0x491a40  IsProjectileInLandBounds
 
 vtable 0x555d34  installs=2  slots=8
    0: 0x466860  Mobile08_ScalarDtor
@@ -479,7 +479,7 @@ vtable 0x555dac  installs=2  slots=8
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x555dcc  installs=3  slots=8
-   0: 0x46a4a0  FUN_0046a4a0
+   0: 0x46a4a0  DropBombProjectile_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  PublishProjectileTrackingState
@@ -499,7 +499,7 @@ vtable 0x555dec  installs=2  slots=8
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x555e0c  installs=2  slots=8
-   0: 0x46b650  FUN_0046b650
+   0: 0x46b650  Shot_Type13_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x46c990  AnimateShot_Type13
    3: 0x488880  PublishProjectileTrackingStateFacing
@@ -633,7 +633,7 @@ vtable 0x555f9c  installs=2  slots=8
    4: 0x429800  NoOpMethod
    5: 0x4a7050  SimulateShot_Bullet8n_8s_Item
    6: 0x4765d0  DetonateItemShot
-   7: 0x491a40  FUN_00491a40
+   7: 0x491a40  IsProjectileInLandBounds
 
 vtable 0x555fbc  installs=2  slots=8  UNCARVED=1
    0: 0x476f50  ItemCase_ScalarDtor
@@ -680,10 +680,10 @@ vtable 0x556058  installs=2  slots=8
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
    6: 0x47b2f0  DetonatePrimaryShot_Bullet15
-   7: 0x491a40  FUN_00491a40
+   7: 0x491a40  IsProjectileInLandBounds
 
 vtable 0x556078  installs=2  slots=8  UNCARVED=1
-   0: 0x47bde0  FUN_0047bde0
+   0: 0x47bde0  KnightIon_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x47ca40  AnimateKnightIon
    3: 0x47dc00  UNCARVED
@@ -700,7 +700,7 @@ vtable 0x556098  installs=1  slots=9
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
    6: 0x47de50  DetonateSuperShot_Bullet15
-   7: 0x491a40  FUN_00491a40
+   7: 0x491a40  IsProjectileInLandBounds
    8: 0x48de60  ExplodeSuperShot_Bullet1_5_6_12_13_15
 
 vtable 0x5560bc  installs=1  slots=5
@@ -731,7 +731,7 @@ vtable 0x5560f0  installs=2  slots=8
    7: 0x47f2d0  Mobile09_MainAction
 
 vtable 0x556110  installs=2  slots=8  UNCARVED=1
-   0: 0x47fa30  FUN_0047fa30
+   0: 0x47fa30  LaserIon_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x480310  AnimateLaserIon
    3: 0x4810c0  UNCARVED
@@ -748,7 +748,7 @@ vtable 0x556160  installs=2  slots=8
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
    6: 0x481320  DetonatePrimaryShot_Bullet10
-   7: 0x491a40  FUN_00491a40
+   7: 0x491a40  IsProjectileInLandBounds
 
 vtable 0x556180  installs=1  slots=5  UNCARVED=2
    0: 0x40ca00  DeletePoisonedBaseObject
@@ -758,7 +758,7 @@ vtable 0x556180  installs=1  slots=5  UNCARVED=2
    4: 0x429800  NoOpMethod
 
 vtable 0x556194  installs=2  slots=5  UNCARVED=1
-   0: 0x482060  FUN_00482060
+   0: 0x482060  DeleteLightningStrike
    1: 0x461c60  ResolveNamedState
    2: 0x4a6aa0  UNCARVED
    3: 0x482130  RenderLightningStrike
@@ -803,7 +803,7 @@ vtable 0x55620c  installs=2  slots=9  UNCARVED=1
    4: 0x429800  NoOpMethod
    5: 0x4857f0  SimulateSuperShot_Bullet13
    6: 0x486ea0  DetonateSuperShot_Bullet13
-   7: 0x491a40  FUN_00491a40
+   7: 0x491a40  IsProjectileInLandBounds
    8: 0x48de60  ExplodeSuperShot_Bullet1_5_6_12_13_15
 
 vtable 0x556230  installs=2  slots=8
@@ -891,7 +891,7 @@ vtable 0x55631c  installs=3  slots=9
    8: 0x48de60  ExplodeSuperShot_Bullet1_5_6_12_13_15
 
 vtable 0x556340  installs=2  slots=8
-   0: 0x48f260  FUN_0048f260
+   0: 0x48f260  SuperCrystalShot_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x490780  FUN_00490780
    3: 0x429800  NoOpMethod
@@ -908,7 +908,7 @@ vtable 0x556360  installs=2  slots=8
    4: 0x429800  NoOpMethod
    5: 0x49aeb0  SimulateShot_Bullet7n_9s_7p_9p
    6: 0x490820  DetonateSuperShot_Bullet9
-   7: 0x491a40  FUN_00491a40
+   7: 0x491a40  IsProjectileInLandBounds
 
 vtable 0x556380  installs=2  slots=10  UNCARVED=2
    0: 0x491b10  DeleteSuperMine
@@ -930,7 +930,7 @@ vtable 0x5563a8  installs=2  slots=8
    4: 0x429800  NoOpMethod
    5: 0x493390  SimulateShot2_Bullet3
    6: 0x494910  DetonateShot2_Bullet3
-   7: 0x491a40  FUN_00491a40
+   7: 0x491a40  IsProjectileInLandBounds
 
 vtable 0x5563d0  installs=2  slots=8  UNCARVED=1
    0: 0x495d40  DeleteShot2_Bullet7
@@ -976,7 +976,7 @@ vtable 0x556448  installs=2  slots=8
    7: 0x49c120  Mobile06_MainAction
 
 vtable 0x556468  installs=3  slots=8  UNCARVED=2
-   0: 0x49cc40  FUN_0049cc40
+   0: 0x49cc40  Shot_Type9_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x49cc70  UNCARVED
    3: 0x47f1c0  UNCARVED
@@ -1000,7 +1000,7 @@ vtable 0x55649c  installs=2  slots=8
    4: 0x429800  NoOpMethod
    5: 0x49e650  SimulateShot2_Bullet13
    6: 0x49fd40  DetonateShot2_Bullet13
-   7: 0x491a40  FUN_00491a40
+   7: 0x491a40  IsProjectileInLandBounds
 
 vtable 0x5564bc  installs=1  slots=5
    0: 0x40ca00  DeletePoisonedBaseObject
@@ -1030,7 +1030,7 @@ vtable 0x5564f0  installs=2  slots=8  UNCARVED=2
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x556510  installs=2  slots=5  UNCARVED=1
-   0: 0x4a69d0  FUN_004a69d0
+   0: 0x4a69d0  DeleteProjectileLightningHazard
    1: 0x461c60  ResolveNamedState
    2: 0x4a6aa0  UNCARVED
    3: 0x4a6b10  RenderProjectileLightningHazard
@@ -1088,10 +1088,10 @@ vtable 0x5565ac  installs=2  slots=8
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
    6: 0x4aafd0  DetonateShot2_Bullet16
-   7: 0x491a40  FUN_00491a40
+   7: 0x491a40  IsProjectileInLandBounds
 
 vtable 0x5565cc  installs=2  slots=5  UNCARVED=2
-   0: 0x4abca0  FUN_004abca0
+   0: 0x4abca0  DeleteThor
    1: 0x461c60  ResolveNamedState
    2: 0x4abda0  UNCARVED
    3: 0x4abf60  UNCARVED
@@ -1325,7 +1325,7 @@ vtable 0x5574cc  installs=1  slots=5  UNCARVED=2
    0: 0x4038b0  NoOpMethodStdcall1
    1: 0x4ef450  UNCARVED
    2: 0x4eed10  UNCARVED
-   3: 0x4eef00  FUN_004eef00
+   3: 0x4eef00  MusicChannel_Stop
    4: 0x4eef80  DecodeSoundBufferChunk
 
 vtable 0x5574e0  installs=2  slots=2
@@ -1336,8 +1336,8 @@ vtable 0x5574e8  installs=3  slots=5  UNCARVED=2
    0: 0x4038b0  NoOpMethodStdcall1
    1: 0x4ef450  UNCARVED
    2: 0x4ef4c0  UNCARVED
-   3: 0x4ef5b0  FUN_004ef5b0
-   4: 0x4ef610  FUN_004ef610
+   3: 0x4ef5b0  SoundChannel_Stop
+   4: 0x4ef610  SoundChannel_FillBufferChunk
 
 vtable 0x557524  installs=8  slots=1
    0: 0x4f14c0  SpriteFrame_ScalarDtor
