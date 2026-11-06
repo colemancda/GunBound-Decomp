@@ -105,7 +105,7 @@ void AppendChatLogEntry(int param_1,char param_2,char *param_3,char *param_4,cha
       pcVar11 = pcVar11 + 1;
     }
     pcVar3[(int)&uStack_81 + (in_EAX - ((int)&uStack_81 + 2)) + 1] = '\0';
-    FUN_00426120((int)&uStack_81 + 1);
+    AppendChatBacklog((int)&uStack_81 + 1);
   }
   if (99 < *(int *)(param_1 + 0x3b980)) {
     DropOldestChatLogEntry(param_1);

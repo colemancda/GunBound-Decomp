@@ -4,6 +4,8 @@
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
  * section for status.
  *
+ * (FUN_00426120, mentioned below, is now AppendChatBacklog.)
+ *
  * (FUN_004259d0, mentioned below, is now FindMuteListIndex; FUN_00402300
  * is now ProcessIncomingWhisper; FUN_004025e0, mentioned below, is now
  * EnsureChatLogPanelForPeer.)
@@ -90,7 +92,7 @@ void DisplayIncomingWhisper(undefined4 param_1,char *param_2,uint param_3,char *
       pcVar8 = pcVar8 + 1;
     }
     pcVar4[(int)(local_200 + (param_3 - (int)(local_200 + 1)))] = '\0';
-    FUN_00426120(local_200);
+    AppendChatBacklog(local_200);
     iVar3 = PanelManager_FindByName((int)&g_uiPanelManager,in_EAX);
     if (iVar3 == 0) {
       EnsureChatLogPanelForPeer(param_1,in_EAX);
