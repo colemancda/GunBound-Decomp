@@ -47,7 +47,7 @@ void FUN_0051ac80(float *param_1,undefined4 param_2)
       iVar2 = iVar2 + 4;
       pfVar3 = pfVar3 + -1;
       pfVar4 = pfVar5;
-    } while ((int)pfVar5 < 0xf25ab8);
+    } while (pfVar5 < &DAT_00f25ab8);
     iVar6 = iVar6 + 0x10;
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);

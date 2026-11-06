@@ -2390,17 +2390,43 @@ extern uint32_t DAT_00f25a20;
 extern uint32_t DAT_00f25a24;
 extern uint32_t DAT_00f25a28;
 extern uint32_t DAT_00f25a2c;
-extern uint32_t DAT_00f25a40;
-extern uint32_t DAT_00f25a7c;
-extern uint32_t DAT_00f25a80;
-extern uint32_t DAT_00f25a84;
-extern uint32_t DAT_00f25a88;
-extern uint32_t DAT_00f25a9c;
-extern uint32_t DAT_00f25aa0;
-extern uint32_t DAT_00f25aa4;
-extern uint32_t DAT_00f25aa8;
-extern uint32_t DAT_00f25ab0;
-extern uint32_t DAT_00f25ab4;
+/* The 31-float DCT-32 coefficient table at 0xf25a40..0xf25abb (rows of 16, 8, 4, 2 and 1 cosine
+ * reciprocals).  InitMpegSynthesisTables fills it through the pointer FUN_0051a420 returns:
+ * 16 values at +0, 8 at +0x40, 4 at +0x60, 2 at +0x70, 1 at +0x78.  FUN_0051a470 and its
+ * clones then walk the sub-rows by pointer (0xf25a80, 0xf25aa0, 0xf25ab0, ending at 0xf25ab8), so it
+ * is ONE object and every old DAT_ name is an element macro. */
+extern float g_mpegCosTab[31];
+#define DAT_00f25a40 (g_mpegCosTab[0])  /* 0xf25a40 */
+#define DAT_00f25a44 (g_mpegCosTab[1])  /* 0xf25a44 */
+#define DAT_00f25a48 (g_mpegCosTab[2])  /* 0xf25a48 */
+#define DAT_00f25a4c (g_mpegCosTab[3])  /* 0xf25a4c */
+#define DAT_00f25a50 (g_mpegCosTab[4])  /* 0xf25a50 */
+#define DAT_00f25a54 (g_mpegCosTab[5])  /* 0xf25a54 */
+#define DAT_00f25a58 (g_mpegCosTab[6])  /* 0xf25a58 */
+#define DAT_00f25a5c (g_mpegCosTab[7])  /* 0xf25a5c */
+#define DAT_00f25a60 (g_mpegCosTab[8])  /* 0xf25a60 */
+#define DAT_00f25a64 (g_mpegCosTab[9])  /* 0xf25a64 */
+#define DAT_00f25a68 (g_mpegCosTab[10])  /* 0xf25a68 */
+#define DAT_00f25a6c (g_mpegCosTab[11])  /* 0xf25a6c */
+#define DAT_00f25a70 (g_mpegCosTab[12])  /* 0xf25a70 */
+#define DAT_00f25a74 (g_mpegCosTab[13])  /* 0xf25a74 */
+#define DAT_00f25a78 (g_mpegCosTab[14])  /* 0xf25a78 */
+#define DAT_00f25a7c (g_mpegCosTab[15])  /* 0xf25a7c */
+#define DAT_00f25a80 (g_mpegCosTab[16])  /* 0xf25a80 */
+#define DAT_00f25a84 (g_mpegCosTab[17])  /* 0xf25a84 */
+#define DAT_00f25a88 (g_mpegCosTab[18])  /* 0xf25a88 */
+#define DAT_00f25a8c (g_mpegCosTab[19])  /* 0xf25a8c */
+#define DAT_00f25a90 (g_mpegCosTab[20])  /* 0xf25a90 */
+#define DAT_00f25a94 (g_mpegCosTab[21])  /* 0xf25a94 */
+#define DAT_00f25a98 (g_mpegCosTab[22])  /* 0xf25a98 */
+#define DAT_00f25a9c (g_mpegCosTab[23])  /* 0xf25a9c */
+#define DAT_00f25aa0 (g_mpegCosTab[24])  /* 0xf25aa0 */
+#define DAT_00f25aa4 (g_mpegCosTab[25])  /* 0xf25aa4 */
+#define DAT_00f25aa8 (g_mpegCosTab[26])  /* 0xf25aa8 */
+#define DAT_00f25aac (g_mpegCosTab[27])  /* 0xf25aac */
+#define DAT_00f25ab0 (g_mpegCosTab[28])  /* 0xf25ab0 */
+#define DAT_00f25ab4 (g_mpegCosTab[29])  /* 0xf25ab4 */
+#define DAT_00f25ab8 (g_mpegCosTab[30])  /* 0xf25ab8 */
 extern uint32_t DAT_00f25ac0;
 extern uint32_t DAT_00f25b00;
 extern uint32_t DAT_00f25b04;
@@ -2608,47 +2634,27 @@ extern uint32_t DAT_00f258a0;
 #define _DAT_00f258a0 DAT_00f258a0
 extern uint32_t DAT_00f25a30;
 #define _DAT_00f25a30 DAT_00f25a30
-extern uint32_t DAT_00f25a44;
 #define _DAT_00f25a44 DAT_00f25a44
-extern uint32_t DAT_00f25a48;
 #define _DAT_00f25a48 DAT_00f25a48
-extern uint32_t DAT_00f25a4c;
 #define _DAT_00f25a4c DAT_00f25a4c
-extern uint32_t DAT_00f25a50;
 #define _DAT_00f25a50 DAT_00f25a50
-extern uint32_t DAT_00f25a54;
 #define _DAT_00f25a54 DAT_00f25a54
-extern uint32_t DAT_00f25a58;
 #define _DAT_00f25a58 DAT_00f25a58
-extern uint32_t DAT_00f25a5c;
 #define _DAT_00f25a5c DAT_00f25a5c
-extern uint32_t DAT_00f25a60;
 #define _DAT_00f25a60 DAT_00f25a60
-extern uint32_t DAT_00f25a64;
 #define _DAT_00f25a64 DAT_00f25a64
-extern uint32_t DAT_00f25a68;
 #define _DAT_00f25a68 DAT_00f25a68
-extern uint32_t DAT_00f25a6c;
 #define _DAT_00f25a6c DAT_00f25a6c
-extern uint32_t DAT_00f25a70;
 #define _DAT_00f25a70 DAT_00f25a70
-extern uint32_t DAT_00f25a74;
 #define _DAT_00f25a74 DAT_00f25a74
-extern uint32_t DAT_00f25a78;
 #define _DAT_00f25a78 DAT_00f25a78
 #define _DAT_00f25a7c DAT_00f25a7c
-extern uint32_t DAT_00f25a8c;
 #define _DAT_00f25a8c DAT_00f25a8c
-extern uint32_t DAT_00f25a90;
 #define _DAT_00f25a90 DAT_00f25a90
-extern uint32_t DAT_00f25a94;
 #define _DAT_00f25a94 DAT_00f25a94
-extern uint32_t DAT_00f25a98;
 #define _DAT_00f25a98 DAT_00f25a98
 #define _DAT_00f25a9c DAT_00f25a9c
-extern uint32_t DAT_00f25aac;
 #define _DAT_00f25aac DAT_00f25aac
-extern uint32_t DAT_00f25ab8;
 #define _DAT_00f25ab8 DAT_00f25ab8
 #define _DAT_00f25ac0 DAT_00f25ac0
 extern uint32_t DAT_00f25ac4;

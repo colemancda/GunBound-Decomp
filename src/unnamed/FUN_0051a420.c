@@ -10,6 +10,6 @@
 undefined4 * FUN_0051a420(void)
 
 {
-  return &DAT_00f25a40;
+  return (undefined4 *)&DAT_00f25a40;
 }
 

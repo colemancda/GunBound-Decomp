@@ -48,7 +48,7 @@ void FUN_0051a8b0(float *param_1,undefined4 param_2)
       iVar2 = iVar2 + 4;
       pfVar3 = pfVar3 + -1;
       pfVar5 = pfVar4;
-    } while ((int)pfVar4 < 0xf25ab0);
+    } while (pfVar4 < &DAT_00f25ab0);
     iVar6 = iVar6 + 0x20;
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
@@ -66,7 +66,7 @@ void FUN_0051a8b0(float *param_1,undefined4 param_2)
       iVar2 = iVar2 + 4;
       pfVar3 = pfVar3 + -1;
       pfVar5 = pfVar4;
-    } while ((int)pfVar4 < 0xf25ab8);
+    } while (pfVar4 < &DAT_00f25ab8);
     iVar6 = iVar6 + 0x10;
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
