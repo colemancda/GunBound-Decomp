@@ -1777,7 +1777,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005182f0,550,ApplyMpegIntensityStereoLSF,false,1,0,RAW-src
 00518520,6,GetMpegGlobalGainTable,false,1,0,RAW-src
 00518530,6,GetMpegScalefactorGainTable,false,1,0,RAW-src
-00518540,6,FUN_00518540,false,1,0,RAW-src
+00518540,6,GetMpegPow43Table,false,1,0,RAW-src
 00518550,6,FUN_00518550,false,1,0,RAW-src
 00518560,1010,FUN_00518560,false,1,3,RAW-src
 00518960,1220,FUN_00518960,false,3,0,RAW-src

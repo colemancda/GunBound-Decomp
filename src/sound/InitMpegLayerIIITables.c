@@ -58,7 +58,7 @@ undefined4 InitMpegLayerIIITables(void)
       iVar3 = iVar3 + 1;
     } while (iVar3 < 4);
   } while (iVar4 < 2);
-  pfVar2 = (float *)FUN_00518540();
+  pfVar2 = (float *)GetMpegPow43Table();
   iVar4 = 0;
   do {
     _Y = 0.3333333333333333;
