@@ -7,7 +7,7 @@
  * layer key at node+4 and binds the matching texture, then walks that
  * layer's child list (node+0x10) and calls each child's OWN render
  * method = the hazard object's vtable slot 3 (+0xc):
- *   key 100    - a water/terrain effect (FUN_004f01d0 + a cached texture)
+ *   key 100    - a water/terrain effect (SetBlendMode + a cached texture)
  *   key 0x1f4  (500)   -> s_TornadoTexture   ; child render 0x4ac760
  *   key 0x1f5  (501)   -> s_FirewallTexture  ; child render 0x471550
  *   key 0x1f6  (502)   -> s_LightningTexture ; child render 0x46e020
@@ -62,7 +62,7 @@ void RenderWeatherHazards(int param_1)
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           PeekPacketChecksumState((void *)(g_clientContext + 0x1a216c + (uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28));
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-          FUN_004f01d0((iVar4 != 0) + 1);
+          SetBlendMode((iVar4 != 0) + 1);
           iVar4 = FindTextureCacheEntryByName
                             ((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1ec8 +
                              g_clientContext);

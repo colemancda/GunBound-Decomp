@@ -1359,7 +1359,7 @@ void AudioStreamThreadProc();
  * invokes it as __stdcall (crash at EIP=0xdd in SetupZBuffer). */
 undefined4 __stdcall EnumZBufferFormatsCallback(undefined4 *, undefined4 *);
 void FUN_004f0100();
-void FUN_004f01d0(int regEax);
+void SetBlendMode(int regEax);
 bool __fastcall CreateTextureAtlasSurface(undefined4 param_1,undefined4 param_2,int param_3);
 void FUN_004f0320();
 uint FlushXFSWriteBlock();
