@@ -14,7 +14,7 @@
  * and then walks the layers, puts 0x2e631 in the group drawn with blend
  * mode 1 (SRCALPHA / INVSRCALPHA, ordinary alpha) and 0x2e633 in the
  * additive group (mode 2, SRCALPHA / ONE). The other spawner of the same
- * shape, FUN_00436dc0, builds class 0x2e633, so the two particle spawners
+ * shape, SpawnCrashParticleAdditive, builds class 0x2e633, so the two particle spawners
  * differ by blend mode, and the names say so. SpawnCrashEffect (class
  * 0x2e644, also additive) is the detonation-time sibling and is named from
  * the same texture.

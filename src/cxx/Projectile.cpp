@@ -306,7 +306,7 @@ char DecodeGuardedBool(unsigned char *cell);
 int  FindFirewallHazardAt(int x, int regEax);
 int  FindTornadoHazardAt(int x, int regEax);
 int  FindLightningHazardAt(int x, int regEax);
-void FUN_00436dc0(int a, int b, unsigned int c);
+void SpawnCrashParticleAdditive(int a, int b, unsigned int c);
 void SpawnCrashParticleAlphaBlend(int a, int b, unsigned int c);
 void FUN_00436ec0(int a, int b);
 /* Point-vs-entities hit test; registry and x recovered 2026-08-28 - see
@@ -977,7 +977,7 @@ LAB_004585ba:
  * bodies to match the original's own codegen rather than unifying. At the
  * first terrain-material hit it resolves the impact (FUN_004510f0 /
  * FUN_00451030 / FUN_004511b0 scramble the guarded impact-state), advances
- * the on-screen trace (FUN_00436dc0/bd0/ec0), and - when the step lands on a
+ * the on-screen trace (SpawnCrashParticleAdditive/bd0/ec0), and - when the step lands on a
  * solid, on-screen pixel - emits the impact/exit point (FUN_00458920/a00)
  * and fires the 0xf002 (enter-terrain) / 0xf003 (exit-terrain) replay
  * broadcast. `stepDelta` is the per-step time/delta (the 2nd argument this
@@ -1155,7 +1155,7 @@ void CProjectile::SimulateFrame(int stepDelta)
             EnterCriticalSection(&g_valueGuardLock);
             uVar11 = PeekPacketChecksumState((void *)(local_1598));
             LeaveCriticalSection(&g_valueGuardLock);
-            FUN_00436dc0(local_15a4, local_15b4, uVar11);
+            SpawnCrashParticleAdditive(local_15a4, local_15b4, uVar11);
             EnterCriticalSection(&g_valueGuardLock);
             iVar12 = PeekPacketChecksumState((void *)(local_1598));
             LeaveCriticalSection(&g_valueGuardLock);
@@ -1356,7 +1356,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 EnterCriticalSection(&g_valueGuardLock);
                 uVar11 = PeekPacketChecksumState((void *)(local_1598));
                 LeaveCriticalSection(&g_valueGuardLock);
-                FUN_00436dc0(local_15b8, local_15a4, uVar11);
+                SpawnCrashParticleAdditive(local_15b8, local_15a4, uVar11);
                 EnterCriticalSection(&g_valueGuardLock);
                 iVar13 = PeekPacketChecksumState((void *)(local_1598));
                 LeaveCriticalSection(&g_valueGuardLock);

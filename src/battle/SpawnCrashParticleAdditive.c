@@ -1,17 +1,40 @@
-/* FUN_00436dc0 - 0x00436dc0 in the original binary.
+/* SpawnCrashParticleAdditive - 0x00436dc0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at all 3 argless PeekPacketChecksumState() calls (3 C : 3 orig,
- * goto-free zip) - three plain globals, cell for cell SpawnCrashParticleAlphaBlend's twin.
+ * goto-free zip) - three plain globals, cell for cell the twin of SpawnCrashParticleAlphaBlend.
+ *
+ * Evidence. The constructor it calls, FUN_0048dcc0 (0x50-byte object),
+ * stamps class id 0x2e633 and installs vtable 0x556308. The class-id switch
+ * in FUN_00450c20, the draw pass that binds the "CrashTexture" texture once
+ * and then walks the layers, puts 0x2e633 in the additive group (blend mode
+ * 2, SRCALPHA / ONE) and the sibling spawner SpawnCrashParticleAlphaBlend's
+ * class 0x2e631 in the ordinary-alpha group (mode 1). The two spawners are
+ * otherwise the same shape, so the blend mode is what separates them, and the
+ * names say so. SpawnCrashEffect (class 0x2e644) is the detonation-time
+ * additive sibling.
+ *
+ * Callers. All 18 binary sites load EAX with ctx + 0x6a7f70 and push (x, y,
+ * value); in SimulateProjectileFrame the value is the peek of a guard cell
+ * and the call comes right before SpawnCrashParticleAlphaBlend. The port
+ * reads the flag at ctx + 0x6a7f74 directly instead of taking EAX. The spawn
+ * is gated on rand() % 400 (half the sibling's rate for the same inputs)
+ * against DAT_005f2f54, the 1..3 value HandleMouseInput stores from a
+ * three-position option, times the third argument. The object is placed at
+ * (x, y) plus the same random offset and bias as the sibling. LIKELY: the
+ * role of the particle is not established beyond its blend mode and texture.
+ *
+ * Known port defect, not changed here: the call to FUN_0048dcc0 discards the
+ * object, so iVar2 is uninitialised in the port.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00436dc0(int param_1,int param_2,int param_3)
+void SpawnCrashParticleAdditive(int param_1,int param_2,int param_3)
 
 {
   char cVar1;

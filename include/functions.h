@@ -582,7 +582,7 @@ void SpawnCrashEffect(undefined4 param_1,undefined4 param_2,int regEbx);
 void FUN_00436b50();
 void SpawnCrashParticleAlphaBlend();
 void __thiscall FUN_00436cd0(int param_1,int param_2,int param_3);
-void FUN_00436dc0();
+void SpawnCrashParticleAdditive();
 void FUN_00436ec0();
 void FUN_00436fd0();
 void FUN_00437150();

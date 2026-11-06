@@ -288,7 +288,7 @@ LAB_004735e2:
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar11 = PeekPacketChecksumState((void *)(local_15a0));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      FUN_00436dc0(local_15a8,local_15b8,uVar11);
+      SpawnCrashParticleAdditive(local_15a8,local_15b8,uVar11);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar12 = PeekPacketChecksumState((void *)(local_15a0));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -549,7 +549,7 @@ LAB_00473e6c:
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         local_15b4[0] = PeekPacketChecksumState((void *)(local_15a0));
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        FUN_00436dc0(local_15bc,local_15a8,local_15b4[0]);
+        SpawnCrashParticleAdditive(local_15bc,local_15a8,local_15b4[0]);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar17 = PeekPacketChecksumState((void *)(local_15a0));
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
