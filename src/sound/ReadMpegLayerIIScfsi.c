@@ -1,15 +1,26 @@
-/* FUN_0050fd90 - 0x0050fd90 in the original binary.
+/* ReadMpegLayerIIScfsi - 0x0050fd90 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Read the Layer II scalefactor-selection information (scfsi), 2 bits per
+ * allocated subband.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Called from DecodeMpegLayerIISamples (0x50f8b0, the slot-2 frame decoder
+ * of the 0x563aec table) immediately before the scalefactor and sample
+ * readers; ISO 11172-3 Layer II frame order is header, bit allocation,
+ * scfsi, scalefactors, samples, which is the call order 0x50fd90,
+ * 0x50fe50, 0x5100a0. Reads a 2-bit field per subband whose allocation is
+ * nonzero and stores 4 (no data) otherwise.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0050fd90(void)
+void ReadMpegLayerIIScfsi(void)
 
 {
   int iVar1;

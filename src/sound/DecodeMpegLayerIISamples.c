@@ -187,7 +187,7 @@ undefined8 DecodeMpegLayerIISamples(byte *param_1,undefined4 param_2)
     } while (local_10 < 0x10);
     (&DAT_005ab91c)[DAT_00563770] = 0x25;
     (&DAT_005ab91c)[iVar2] = 0x24;
-    FUN_0050fd90();
+    ReadMpegLayerIIScfsi();
     FUN_0050fe50();
     FUN_005100a0();
     (*(code *)PTR_FUN_005637cc)(&DAT_00f25f00,param_2,0x24);
