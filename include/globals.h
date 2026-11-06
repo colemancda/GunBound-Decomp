@@ -637,8 +637,8 @@ extern uint8_t DAT_006aa5fc;
 #define DAT_006aa600 (*(uint8_t *)(0x006aa600))  /* client-context arena offset 0x006aa600; see the arena-offset note */
 extern uint8_t DAT_006aa624;
 #define DAT_006aa625 (*(uint8_t *)(0x006aa625))  /* client-context arena offset 0x006aa625; see the arena-offset note */
-extern uint8_t DAT_006aa626;
-extern uint8_t DAT_006aa627;
+#define DAT_006aa626 (*(uint8_t *)(0x006aa626))  /* client-context arena offset 0x006aa626; see the arena-offset note */
+#define DAT_006aa627 (*(uint8_t *)(0x006aa627))  /* client-context arena offset 0x006aa627; see the arena-offset note */
 #define DAT_006aa628 (*(uint8_t *)(0x006aa628))  /* client-context arena offset 0x006aa628; see the arena-offset note */
 extern uint8_t DAT_006aa629;
 extern uint8_t DAT_006aa62a;

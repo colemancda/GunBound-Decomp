@@ -523,8 +523,6 @@ uint8_t DAT_006aa47b;
 uint8_t DAT_006aa47c;
 uint8_t DAT_006aa5fc;
 uint8_t DAT_006aa624;
-uint8_t DAT_006aa626;
-uint8_t DAT_006aa627;
 uint8_t DAT_006aa629;
 uint8_t DAT_006aa62a;
 uint8_t DAT_006aa62b;
