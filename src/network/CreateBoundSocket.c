@@ -29,7 +29,7 @@ undefined4 CreateBoundSocket(char *regEax,int regEsi)
     /* RECOVERED (2026-07-19), orig 0x4fe077-0x4fe07c: `sub ecx,edi` (ECX =
      * the strlen), `lea edx,[esi+4]` (EDX = the crypto context), EAX = the
      * string base. All three were dropped. */
-    FUN_005051e0((int)(regEax - startStr) - 1,regEsi + 4,startStr);
+    EncryptStringIntoContext((int)(regEax - startStr) - 1,regEsi + 4,startStr);
   }
   if (*(int *)(regEsi + 0x288) != -1) {
     return 1;

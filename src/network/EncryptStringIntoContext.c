@@ -1,8 +1,23 @@
-/* FUN_005051e0 - 0x005051e0 in the original binary.
+/* EncryptStringIntoContext - 0x005051e0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_005051e0 mean this function.)
+ *
+ * Evidence (HIGH, from the storage layout shared with the named
+ * decryptor). EDX is a 0x284-byte crypto context: it receives a 16-byte
+ * key schedule (RijndaelSetKey on a key built from four FUN_00504d80
+ * calls, orig 0x5051f7-0x505211), then a realloc'd buffer at +0x27c holding
+ * the ciphertext (EncodeCipherBlock per 16-byte block; the last block is
+ * strncpy'd into a zero-padded local first) and the plaintext length at
+ * +0x280. Those are exactly the cells DecryptStoredStringTo (0x4fcd80)
+ * reads: buffer +0x27c, length +0x280, same context. The callers
+ * CommP2POwnerConnect (contexts +0x1b20 and +0x1da4, 0x284 apart like the
+ * two contexts CommP2POwner_ProcessPacket decrypts) and CreateBoundSocket
+ * feed it a NUL-terminated string (length = end - start - 1). "String"
+ * rests on that caller use; what the strings are is not established.
  */
 /* DROPPED-REGISTER FIX (2026-07-19): EAX (the source plaintext pointer) is
  * an incoming register argument - orig 0x5051eb `mov [esp+0x10],eax` stashes
@@ -12,7 +27,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_005051e0(int param_1,int param_2,char *src)
+void __fastcall EncryptStringIntoContext(int param_1,int param_2,char *src)
 
 {
   char *in_EAX = src;

@@ -38,7 +38,7 @@ CommP2POwnerConnect(int param_1,undefined4 param_2,undefined4 param_3,char *para
        * `mov ecx,eax` (ECX = the strlen just computed), `lea edx,[edi+0x1b20]`
        * (EDX = the crypto context), `mov eax,ebx` (EAX = the string base).
        * Ghidra kept the strlen loop but dropped all three arguments. */
-      FUN_005051e0((int)(param_4 - start4) - 1,param_1 + 0x1b20,start4);
+      EncryptStringIntoContext((int)(param_4 - start4) - 1,param_1 + 0x1b20,start4);
     }
     {
       char *start5 = param_5;
@@ -48,11 +48,11 @@ CommP2POwnerConnect(int param_1,undefined4 param_2,undefined4 param_3,char *para
       } while (cVar1 != '\0');
       /* RECOVERED (2026-07-19), orig 0x4fd4b7-0x4fd4bf: same shape, with
        * `lea edx,[edi+0x1da4]` as the context. */
-      FUN_005051e0((int)(param_5 - start5) - 1,param_1 + 0x1da4,start5);
+      EncryptStringIntoContext((int)(param_5 - start5) - 1,param_1 + 0x1da4,start5);
     }
     /* DROPPED-REG FIX: orig 0x4fd4c4 `lea esi,[edi+0x2c]` (EDI = this)
        and 0x4fd4c7 `mov eax,ebx` (EBX = param_4's original base, hoisted
-       above as start4; both survive the two FUN_005051e0 calls, whose
+       above as start4; both survive the two EncryptStringIntoContext calls, whose
        epilogue 0x505299-0x50529c restores ebx/edi). */
     CreateBoundSocket(start4,param_1 + 0x2c);
     if (*(char *)(param_1 + 0x1a70) == '\0') {
