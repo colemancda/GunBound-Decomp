@@ -2275,7 +2275,6 @@ uint32_t DAT_006a9fd4;
 uint32_t DAT_006aa1e0;
 uint32_t DAT_006aa1f8;
 uint32_t DAT_006aa404;
-uint32_t DAT_006aa410;
 uint32_t DAT_006aa630;
 uint32_t DAT_006aa678;
 uint32_t DAT_006aa679;
