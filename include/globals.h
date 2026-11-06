@@ -2136,7 +2136,10 @@ extern uint32_t DAT_005ab70a;
 extern uint32_t DAT_005ab88c;
 extern uint32_t DAT_005ab890;
 extern uint32_t DAT_005ab8d4;
-extern uint32_t DAT_005ab8e0;
+/* 15 floats at 0x5ab8e0..0x5ab91b: FUN_005144e0's one-time init stores 2.0/(n-1) for n = 4, 8, 16, ...
+ * through a walking pointer bounded by 0x5ab91c, the next object. */
+extern float g_mpegReciprocalTab[15];
+#define DAT_005ab8e0 (g_mpegReciprocalTab[0])
 extern uint32_t DAT_005ab91c;
 extern uint32_t DAT_005ab920;
 extern uint32_t DAT_005aba28;

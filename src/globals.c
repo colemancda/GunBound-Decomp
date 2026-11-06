@@ -2191,7 +2191,7 @@ uint32_t DAT_005ab70a;
 uint32_t DAT_005ab88c;
 uint32_t DAT_005ab890;
 uint32_t DAT_005ab8d4;
-uint32_t DAT_005ab8e0;
+float g_mpegReciprocalTab[15]; /* runtime-filled once (orig 0x5ab8e0 is past the raw image) */
 uint32_t DAT_005ab91c;
 uint32_t DAT_005ab920;
 uint32_t DAT_005aba28;
