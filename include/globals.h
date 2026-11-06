@@ -2301,7 +2301,7 @@ extern uint32_t DAT_006a9fd4;
 extern uint32_t DAT_006aa1e0;
 extern uint32_t DAT_006aa1f8;
 extern uint32_t DAT_006aa404;
-extern uint32_t DAT_006aa40c;
+#define DAT_006aa40c (*(uint8_t *)(0x006aa40c))  /* client-context arena offset 0x006aa40c; see the arena-offset note */
 extern uint32_t DAT_006aa410;
 extern uint32_t DAT_006aa630;
 extern uint32_t DAT_006aa678;
