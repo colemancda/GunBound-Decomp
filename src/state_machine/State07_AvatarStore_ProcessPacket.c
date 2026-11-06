@@ -344,7 +344,7 @@ LAB_0044469b:
         }
         AtlArray_ConstructElement_450(&local_468);
         local_c = 0;
-        local_464 = FUN_0044c310();
+        local_464 = NextAvatarItemOrdinal();
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         QueueOutgoingPacketField(0x80000000);
         uVar9 = PeekChecksumStateUnderLock((int)this + 0x3054c);
