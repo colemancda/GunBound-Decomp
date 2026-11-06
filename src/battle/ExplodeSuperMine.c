@@ -232,7 +232,7 @@ void __fastcall ExplodeSuperMine(int param_1)
         piVar7 = (int *)0x0;
       }
       else {
-        piVar7 = (int *)FUN_0047e940();
+        piVar7 = (int *)InitSuperFlameEffect(1,0,(undefined4 *)pvVar6);
       }
       piVar7[0xf] = iVar5;
       piVar7[0xe] = iVar4;

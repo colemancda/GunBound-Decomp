@@ -73,7 +73,7 @@ void __fastcall ExplodeSuperShot_Bullet4(int param_1)
       piVar6 = (int *)0x0;
     }
     else {
-      piVar6 = (int *)FUN_0047e940();
+      piVar6 = (int *)InitSuperFlameEffect(0,0,(undefined4 *)pvVar5);
     }
     piVar6[0xe] = iVar4;
     piVar6[0xf] = iVar3;

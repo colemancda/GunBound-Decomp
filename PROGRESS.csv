@@ -766,7 +766,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0047ca40,4507,FUN_0047ca40,false,1,19,RAW-src
 0047de30,20,InitSuperShot_Bullet15,false,1,1,RAW-src
 0047de50,2790,DetonateSuperShot_Bullet15,false,1,26,RAW-src
-0047e940,72,FUN_0047e940,false,3,0,RAW-src
+0047e940,72,InitSuperFlameEffect,false,3,0,RAW-src
 0047e990,316,FUN_0047e990,false,3,0,RAW-src
 0047ead0,142,DrawSuperFlameEffect,false,1,1,RAW-src
 0047eb60,34,FUN_0047eb60,false,1,1,RAW-src

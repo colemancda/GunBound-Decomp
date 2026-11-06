@@ -896,7 +896,7 @@ void FUN_0047c3f0(int param_1,int param_2,int *regEsi);
 void __fastcall FUN_0047ca40();
 undefined4 * InitSuperShot_Bullet15(undefined4 *regEsi);
 void __fastcall DetonateSuperShot_Bullet15();
-undefined4 __fastcall FUN_0047e940();
+undefined4 * __fastcall InitSuperFlameEffect(undefined4 param_1,undefined4 param_2,undefined4 *regEax);
 void FUN_0047e990(uint spriteKey, uint sortKey, int rowBase, int stride);
 undefined4 FUN_0047eb60(undefined4 *regEsi);
 void * __thiscall FUN_0047eb90();

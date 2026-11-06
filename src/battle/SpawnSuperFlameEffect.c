@@ -34,7 +34,7 @@ SpawnSuperFlameEffect(char param_1,int param_2,int param_3,int param_4,int param
       piVar3 = (int *)0x0;
     }
     else {
-      FUN_0047e940();
+      piVar3 = (int *)InitSuperFlameEffect(param_2,0,(undefined4 *)pvVar2);
     }
     piVar3[0xe] = param_3;
     piVar3[0xf] = param_4;
