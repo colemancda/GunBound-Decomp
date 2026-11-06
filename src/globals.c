@@ -2452,7 +2452,7 @@ uint32_t g_mpegBandWidthTab[35]; /* runtime-filled once per frame header (orig 0
 uint32_t DAT_00f25ed0;
 uint32_t DAT_00f25ee0;
 uint32_t DAT_00f25ee4;
-uint32_t DAT_00f25f00;
+uint32_t g_mpegSynthBuf[2304]; /* runtime-zeroed by FUN_005163d0 (orig 0xf25f00 is past the raw image) */
 double DAT_00544360 = 65536.0; /* orig .data 0x40f0000000000000; only x87 QWORD operands reference it */
 double DAT_00544368 = 3.0; /* orig .data 0x4008000000000000; only x87 QWORD operands reference it */
 float DAT_00544370 = 2.0f; /* orig .data 0x40000000; only x87 DWORD operands reference it */

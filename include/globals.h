@@ -2551,7 +2551,11 @@ extern uint32_t g_mpegBandWidthTab[35];
 extern uint32_t DAT_00f25ed0;
 extern uint32_t DAT_00f25ee0;
 extern uint32_t DAT_00f25ee4;
-extern uint32_t DAT_00f25f00;
+/* Synthesis overlap buffers: 2304 words (4 x 0x240) at 0xf25f00..0xf282ff.  FUN_005163d0 zeroes the
+ * whole run in a loop ended by `cmp eax,0xf28300`; the readers address it as 0x240-word rows from
+ * 0xf25f00 and (FUN_00514cc0) from 0xf27100 = row 2. */
+extern uint32_t g_mpegSynthBuf[2304];
+#define DAT_00f25f00 (g_mpegSynthBuf[0])
 extern double DAT_00544360;
 #define _DAT_00544360 DAT_00544360
 extern double DAT_00544368;
