@@ -1258,7 +1258,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ef870,12,AudioStreamThreadStart,false,2,1,RAW-src
 004ef880,94,AudioStreamThreadProc,false,1,2,RAW-src
 004ef8e0,143,EnumTextureFormatsCallback,false,1,0,RAW-src
-004ef970,44,FUN_004ef970,false,2,0,RAW-src
+004ef970,44,EnumZBufferFormatsCallback,false,2,0,RAW-src
 004ef9a0,255,SetupZBuffer,false,1,0,RAW-src
 004efaa0,1262,InitDirectDraw,false,1,9,RAW-src
 004eff90,217,ShutdownDirectDraw,false,1,6,RAW-src

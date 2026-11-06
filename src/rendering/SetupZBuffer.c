@@ -13,7 +13,7 @@
  *      D3DPRASTERCAPS_ZBUFFERLESSHSR it needs no Z-buffer; succeed early.
  *   2. IDirectDrawSurface7::GetSurfaceDesc (vtbl+0x58) on the back buffer -
  *      recover its width/height and display bit depth.
- *   3. IDirect3D7::EnumZBufferFormats (vtbl+0x18): FUN_004ef970 (the callback)
+ *   3. IDirect3D7::EnumZBufferFormats (vtbl+0x18): EnumZBufferFormatsCallback (the callback)
  *      copies the first Z format whose bit depth (DDPIXELFORMAT +0xc) matches
  *      the context's +0xc into the context. Try the display depth, then 16-bit.
  *   4. IDirectDraw7::CreateSurface (vtbl+0x18) -> the Z-buffer surface.
@@ -88,12 +88,12 @@ bool SetupZBuffer(void)
   ZeroMemory(&zfmt, sizeof(zfmt));
   PF_BITDEPTH(&zfmt) = PF_BITDEPTH(&bbDesc.ddpfPixelFormat);
   ((EnumZBufferFormatsFn)(*(void ***)g_pDirect3D7)[6])
-      (g_pDirect3D7, &DAT_00f22504, FUN_004ef970, &zfmt);
+      (g_pDirect3D7, &DAT_00f22504, EnumZBufferFormatsCallback, &zfmt);
   if (zfmt.dwSize == 0) {
     ZeroMemory(&zfmt, sizeof(zfmt));
     PF_BITDEPTH(&zfmt) = 0x10;            /* 16-bit depth */
     ((EnumZBufferFormatsFn)(*(void ***)g_pDirect3D7)[6])
-        (g_pDirect3D7, &DAT_00f22504, FUN_004ef970, &zfmt);
+        (g_pDirect3D7, &DAT_00f22504, EnumZBufferFormatsCallback, &zfmt);
     if (zfmt.dwSize == 0) {
       return false;
     }

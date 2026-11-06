@@ -20,7 +20,7 @@
  * format leaked 8 bytes of stack (caller expects callee cleanup), drifting ESP
  * until the return chain corrupted and control jumped to a stale stack value
  * (observed as an execute fault at &g_graphicsArchive). Same class as the
- * FUN_004ef970 (EnumZBufferFormats callback) fix in commit c9ecc32.
+ * EnumZBufferFormatsCallback (EnumZBufferFormats callback) fix in commit c9ecc32.
  * __stdcall(LPDDPIXELFORMAT, LPVOID) decorates to _EnumTextureFormatsCallback@8,
  * matching functions.h. param_2 (context) is unused, as in the original. */
 undefined4 __stdcall EnumTextureFormatsCallback(undefined4 *param_1,undefined4 param_2)

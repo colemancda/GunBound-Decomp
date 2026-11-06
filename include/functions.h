@@ -1354,10 +1354,10 @@ void FUN_004ef820(undefined4 *regEax);
 void AudioStreamThreadStart();
 void AudioStreamThreadProc();
 /* EnumZBufferFormats callback - __stdcall (orig ends in `ret 8`); full
- * signature so the decoration is _FUN_004ef970@8, matching the definition.
+ * signature so the decoration is _EnumZBufferFormatsCallback@8, matching the definition.
  * An empty-paren cdecl decl here mis-cleans the stack when wine's ddraw
  * invokes it as __stdcall (crash at EIP=0xdd in SetupZBuffer). */
-undefined4 __stdcall FUN_004ef970(undefined4 *, undefined4 *);
+undefined4 __stdcall EnumZBufferFormatsCallback(undefined4 *, undefined4 *);
 void FUN_004f0100();
 void FUN_004f01d0(int regEax);
 bool __fastcall CreateTextureAtlasSurface(undefined4 param_1,undefined4 param_2,int param_3);
