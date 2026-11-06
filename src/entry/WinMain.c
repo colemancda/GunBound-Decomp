@@ -179,7 +179,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
      * (which takes it as a dropped-EDI context arg - see that file), and
      * SignalConnectRequest later reads *(g_directLinkConnection+0x2004) expecting
      * this same object. FUN_004058c0 itself is still a raw, unverified
-     * port of a deep constructor chain (FUN_004e54e0 and beyond build a
+     * port of a deep constructor chain (ConstructConnectionObject and beyond build a
      * 0x24a70-byte connection object) - called for its side effects, not
      * its (nonexistent) return value. */
     g_directLinkConnection = pvVar4;

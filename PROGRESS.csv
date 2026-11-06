@@ -1092,7 +1092,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e5400,40,State01_Title_OnTick,false,1,1,RAW-src
 004e5430,41,FUN_004e5430,false,1,2,RAW-src
 004e5480,81,ResolveHostToIPv4Addr,false,1,2,RAW-src
-004e54e0,163,FUN_004e54e0,false,2,2,RAW-src
+004e54e0,163,ConstructConnectionObject,false,2,2,RAW-src
 004e5590,127,DestroyConnectionObject,false,2,6,RAW-src
 004e5610,432,ReceiveFramedPackets,false,1,3,RAW-src
 004e57c0,490,HandleSocketEvent,false,1,12,RAW-src

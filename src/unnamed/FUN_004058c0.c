@@ -25,9 +25,9 @@ void FUN_004058c0(void *unaff_EDI, undefined4 param_1,undefined4 param_2)
     pvVar1 = (void *)0x0;
   }
   else {
-    /* FUN_004e54e0 also takes this new object via a dropped ESI register
+    /* ConstructConnectionObject also takes this new object via a dropped ESI register
      * (orig: `mov esi, eax` before the call) - see that file. */
-    FUN_004e54e0(pvVar1,param_1,param_2);
+    ConstructConnectionObject(pvVar1,param_1,param_2);
   }
   *(void **)((int)unaff_EDI + 0x2004) = pvVar1;
   *(undefined1 *)((int)pvVar1 + 0x18) = 1;

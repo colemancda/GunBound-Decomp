@@ -1339,7 +1339,7 @@ void *PTR_FUN_005572dc = (void *)FUN_004e5430;
 /* Connection object's 2-entry vtable {HandleSocketEvent, NoOpMethod} -
  * decoded byte-for-byte from orig .data 0x5572e8-0x5572ef (values
  * 0x4e57c0, 0x429800). Only referenced by the connection-object family
- * (FUN_004e54e0.c/DestroyConnectionObject.c), unlike the widely-shared
+ * (ConstructConnectionObject.c/DestroyConnectionObject.c), unlike the widely-shared
  * PTR_FUN_005572dc immediately before it, so safe to type as a real
  * function-pointer array instead of a lone null placeholder. */
 void *PTR_FUN_005572e8[2] = { (void *)HandleSocketEvent, (void *)NoOpMethod };

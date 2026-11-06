@@ -1,9 +1,25 @@
-/* FUN_004e54e0 - 0x004e54e0 in the original binary.
+/* ConstructConnectionObject - 0x004e54e0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (batch 36). Constructs the 0x24a70-byte per-connection session
+ * object (the "connection object" DestroyConnectionObject tears down). It
+ * installs PTR_FUN_005572e8 at +0 - the {HandleSocketEvent, NoOpMethod}
+ * vtable - zeroes the buffers and counters, initialises the critical
+ * section at +0x24a58, sets socket +0x24 = INVALID_SOCKET and state
+ * +0x22c = 1, and stores its two stack arguments at +0x1c and +0x20.
+ *
+ * Evidence is the pairing and the callers. DestroyConnectionObject
+ * (0x4e5590) writes the same PTR_FUN_005572e8 vtable, the same +0x22c = 1
+ * and +0x24 = INVALID_SOCKET, and is the destructor applied to the object
+ * at conn+0x84e0 / +0x2004. Both constructing callers, InitConnectionObject
+ * and FUN_004058c0 (the 0x200c auto-connect object), allocate it with
+ * operator_new(0x24a70) immediately before the call (`mov esi,eax` puts the
+ * block in ESI), store the result at conn+0x84e0 / +0x2004, and start
+ * SocketWorkerThreadProc on it. ESI is the dropped `this`; the two
+ * arguments are on the stack.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
@@ -11,7 +27,7 @@
 /* unaff_ESI (the object being constructed) arrives via a dropped ESI
  * register in the original (`mov esi, eax` before the call in
  * FUN_004058c0) - promoted to an explicit first parameter. */
-undefined4 FUN_004e54e0(undefined4 *unaff_ESI, undefined4 param_1,undefined4 param_2)
+undefined4 ConstructConnectionObject(undefined4 *unaff_ESI, undefined4 param_1,undefined4 param_2)
 
 {
   int iVar1;

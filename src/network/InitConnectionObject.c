@@ -3,7 +3,7 @@
  * The network-connection constructor: builds one of WinMain's three
  * connection objects (index 0/1/2 = direct-link / game-server / broker),
  * allocates its 0x24a70 session sub-object at conn+0x84e0, constructs it
- * via FUN_004e54e0, and spawns the per-connection socket worker thread
+ * via ConstructConnectionObject, and spawns the per-connection socket worker thread
  * (SocketWorkerThreadProc). This is the same construction FUN_004058c0 does for the
  * 0x200c auto-connect object at +0x2004 - without the worker thread here,
  * SignalConnectRequest's SetEvent(session+0x10) has nothing to wake and
@@ -72,10 +72,10 @@ undefined4 * InitConnectionObject(undefined4 *param_1,int param_2,undefined4 par
     pvVar2 = (void *)0x0;
   }
   else {
-    /* FUN_004e54e0's 1st arg (unaff_ESI, the object being constructed) is
+    /* ConstructConnectionObject's 1st arg (unaff_ESI, the object being constructed) is
      * this same freshly-allocated pvVar2 - same pattern as
      * FUN_004058c0.c's identical construction call. */
-    FUN_004e54e0(pvVar2,param_2,param_3);
+    ConstructConnectionObject(pvVar2,param_2,param_3);
   }
   param_1[0x2138] = pvVar2;
   *(undefined1 *)((int)pvVar2 + 0x18) = 1;
