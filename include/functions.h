@@ -1837,7 +1837,7 @@ void FUN_00517510();
 void FUN_00517570();
 void FUN_005175d0();
 void FUN_00517690();
-undefined4 * FUN_00517d00();
+undefined4 * GetMpegImdctWindowTable();
 int FUN_00517d40();
 void FUN_00518080();
 void MpegFrequencyInversionThunk();

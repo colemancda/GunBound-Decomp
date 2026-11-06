@@ -22,7 +22,7 @@ void FUN_00519c80(void)
   double dVar8;
   int local_20;
   
-  pfVar2 = (float *)FUN_00517d00();
+  pfVar2 = (float *)GetMpegImdctWindowTable();
   dVar8 = FID_conflict__cos(1.0);
   dVar8 = dVar8 * _DAT_005448e0;
   iVar6 = 0;
