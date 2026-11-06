@@ -1787,7 +1787,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00519aa0,468,InitMpegLayerIIITables,false,1,12,RAW-src
 00519c80,617,FUN_00519c80,false,1,3,RAW-src
 00519ef0,546,FUN_00519ef0,false,1,4,RAW-src
-0051a120,265,FUN_0051a120,false,2,5,RAW-src
+0051a120,265,InitMpegIntensityStereoRatios,false,2,5,RAW-src
 0051a230,495,FUN_0051a230,false,1,3,RAW-src
 0051a420,6,FUN_0051a420,false,1,0,RAW-src
 0051a430,19,FUN_0051a430,false,8,1,RAW-src

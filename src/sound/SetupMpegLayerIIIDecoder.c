@@ -172,7 +172,7 @@ LAB_005164e7:
     piVar7 = piVar6;
   } while ((uint *)piVar6 < &DAT_00f25e78 + 13);
   InitMpegLayerIIITables();
-  FUN_0051a120();
+  InitMpegIntensityStereoRatios();
   InitMpegSynthesisTables();
   puVar2 = &DAT_005ada3c;
   for (iVar4 = 0x240; iVar4 != 0; iVar4 = iVar4 + -1) {

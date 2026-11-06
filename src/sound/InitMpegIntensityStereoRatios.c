@@ -1,15 +1,30 @@
-/* FUN_0051a120 - 0x0051a120 in the original binary.
+/* InitMpegIntensityStereoRatios - 0x0051a120 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Fill the MPEG-1 intensity-stereo ratio table (0x5b0144).
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Fetches its destination from GetMpegIntensityRatioTable (0x5180e0, the
+ * accessor for 0x5b0144) and writes eight (left, right) float pairs for
+ * is_pos 0..7: l = sin/(sin+cos), r = cos/(sin+cos) of is_pos*pi/12, i.e.
+ * tan/(1+tan) and 1/(1+tan), with pair 7 set to the (1.0, 0.0) escape
+ * value. A second eight pairs at +0x40 hold the same ratios scaled by
+ * sqrt(2) (sqrt via the CRT routine at 0x527f34 with 2.0). The consumer
+ * ApplyMpegIntensityStereo reads (l, r) at ((is_pos + flag*8)*8) from
+ * +0x5b0144/+0x5b0148, its trailing flag argument selecting the half.
+ * Called from InitMpegLayerIIITables (0x519c56) and
+ * again from SetupMpegLayerIIIDecoder (0x516752), both Layer III setup
+ * paths.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0051a120(void)
+void InitMpegIntensityStereoRatios(void)
 
 {
   double dVar1;
