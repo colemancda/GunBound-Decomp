@@ -1812,7 +1812,7 @@ undefined8 DecodeMpegLayerIIISamples();
 void DecodeMpegLayerIIIGranule();
 undefined4 FUN_00515b90();
 void InitMpegSynthesisTables();
-void FUN_005168d0();
+void SynthesizeMpeg16FullMono();
 void FUN_005169e0();
 void FUN_00516a40();
 void FUN_00516aa0();
