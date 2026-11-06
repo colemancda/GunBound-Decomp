@@ -905,7 +905,7 @@ void * __thiscall Mobile09_ScalarDtor(void *param_1,int param_2);
 void Mobile09_Destructor(undefined4 *regEax);
 void __thiscall Mobile09_MainAction();
 undefined4 * InitLaserIon(undefined4 *regEsi);
-void * __thiscall FUN_0047fa30();
+void * __thiscall LaserIon_ScalarDtor();
 void FUN_0047fa50();
 void FUN_0047fad0(int param_1,int param_2,int param_3,int param_4,int *regEsi);
 void FUN_0047fee0(int param_1,int param_2,int *regEsi);
