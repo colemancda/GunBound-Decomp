@@ -1,13 +1,20 @@
-/* FUN_00482080 - 0x00482080 in the original binary.
+/* DestroyLightningStrike - 0x00482080 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Destructor body behind DeleteLightningStrike (slot 0 of vtable
+ * 0x00556194, installed by InitLightningStrike): the object arrives as a
+ * stack argument, the body stores the vtable, scrambles and re-registers
+ * the guard cells with the value-guard map, and finishes by storing the
+ * base vtable 0x0055752c, as DestroyJewel does. It does not chain to
+ * DestroyProjectile. Reached only from the wrapper.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00482080(undefined4 *param_1)
+void DestroyLightningStrike(undefined4 *param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;

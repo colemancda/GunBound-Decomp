@@ -19,7 +19,7 @@
 void * __thiscall DeleteLightningStrike(void *param_1,int param_2)
 
 {
-  FUN_00482080(param_1);
+  DestroyLightningStrike(param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }
