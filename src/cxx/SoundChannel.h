@@ -1,7 +1,7 @@
 /* CSoundChannel / CPrimaryStreamChannel - promoted from the raw C ports
  * src/unnamed/FUN_004ef7e0.c (shared base construction),
  * src/unnamed/FUN_004ef3a0.c (secondary-channel ctor),
- * src/unnamed/FUN_004ef5b0.c (secondary-channel stop),
+ * src/sound/SoundChannel_Stop.c (secondary-channel stop),
  * src/unnamed/FUN_004eebe0.c (primary-channel ctor), and
  * src/unnamed/FUN_004eef00.c (primary-channel stop). See SoundChannel.cpp
  * and src/cxx/README.md.
@@ -49,7 +49,7 @@ public:
      * no primary-only extras" state). */
     CSoundChannel();
 
-    /* FUN_004ef5b0 (vtable slot 3, "stop/release channel"). NOT virtual
+    /* SoundChannel_Stop (vtable slot 3, "stop/release channel"). NOT virtual
      * (see class header note) - CPrimaryStreamChannel provides its own
      * Stop() that hides this one, matching each class's real vtable
      * slot 3 pointing at a different function. */

@@ -1465,13 +1465,13 @@ void *PTR_LAB_005574e0[4] = {
  * .data at 0x5574e8-0x5574f8: 0=NoOpMethodStdcall1,
  * 1=PollSoundBufferPosition (currently bring-up-bypassed to a no-op),
  * 2 is un-cross-referenced address 0x4ef4c0, not yet wired to a real
- * ported function, 3=FUN_004ef5b0 (0x4ef5b0, "stop/release channel" -
+ * ported function, 3=SoundChannel_Stop (0x4ef5b0, "stop/release channel" -
  * called from InitGame.c, same role as PTR_LAB_005574cc's
  * FUN_004eef00 but for this object's own field layout), 4 is
  * un-cross-referenced address 0x4ef610. */
 void *PTR_LAB_005574e8[5] = {
   (void *)NoOpMethodStdcall1, (void *)PollSoundBufferPosition,
-  (void *)0, (void *)FUN_004ef5b0, (void *)0,
+  (void *)0, (void *)SoundChannel_Stop, (void *)0,
 };
 /* The base-object vtable (orig .data 0x55752c): one slot, 0x4f2df0, the
  * scalar-deleting destructor carved as FUN_004f2df0. Destructors put it

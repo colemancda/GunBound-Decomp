@@ -23,7 +23,7 @@ void FUN_004ef3f0(undefined4 *param_1)
   local_4 = 0;
   *(undefined1 *)(param_1 + 4) = 0;
   SetEvent((HANDLE)param_1[2]);
-  FUN_004ef5b0();
+  SoundChannel_Stop();
   DeleteCriticalSection((LPCRITICAL_SECTION)(param_1 + 8));
   FUN_004ef820(param_1);
   *unaff_FS_OFFSET = local_c;

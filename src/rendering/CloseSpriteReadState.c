@@ -26,7 +26,7 @@
  * variable (see each file's own header for its objdump confirmation).
  *
  * NOT FIXED HERE: ~9 other call sites remain (PreloadTexture.c,
- * FUN_00423e20.c, FUN_004ef5b0.c, FUN_004e3c50.c, FUN_004240c0.c,
+ * FUN_00423e20.c, SoundChannel_Stop.c, FUN_004e3c50.c, FUN_004240c0.c,
  * FUN_00423bf0.c, FUN_004eef00.c), each in its own not-yet-verified caller
  * with its own distinct readState/archive sources - those still use the
  * old 0-arg form and need the same per-site disassembly treatment (same
