@@ -398,7 +398,7 @@ undefined4 LoadFourWordList();
 undefined4 CheckChatWordFilter();
 uint __fastcall AtlArray_AppendCString();
 int BattleRandom_Next();
-void FUN_00415ca0(undefined4 *regEax);
+void ResetPlayerOrderList(undefined4 *regEax);
 void FUN_00415ce0(int param_1,int regEbx);
 int ClientContext_Constructor();
 int __fastcall FUN_00416c20();

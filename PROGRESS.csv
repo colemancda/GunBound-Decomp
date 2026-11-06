@@ -286,7 +286,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00415b00,184,CheckChatWordFilter,false,6,2,RAW-src
 00415bc0,112,AtlArray_AppendCString,false,3,3,RAW-src
 00415c60,52,BattleRandom_Next,false,5,0,RAW-src
-00415ca0,63,FUN_00415ca0,false,2,0,RAW-src
+00415ca0,63,ResetPlayerOrderList,false,2,0,RAW-src
 00415ce0,84,FUN_00415ce0,false,5,0,RAW-src
 00415d40,3801,ClientContext_Constructor,false,1,13,RAW-src
 00416c20,2201,FUN_00416c20,false,1,1,RAW-src
