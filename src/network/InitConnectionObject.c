@@ -4,7 +4,7 @@
  * connection objects (index 0/1/2 = direct-link / game-server / broker),
  * allocates its 0x24a70 session sub-object at conn+0x84e0, constructs it
  * via ConstructConnectionObject, and spawns the per-connection socket worker thread
- * (SocketWorkerThreadProc). This is the same construction FUN_004058c0 does for the
+ * (SocketWorkerThreadProc). This is the same construction DirectLinkConnection_Construct does for the
  * 0x200c auto-connect object at +0x2004 - without the worker thread here,
  * SignalConnectRequest's SetEvent(session+0x10) has nothing to wake and
  * the broker connect() never fires.
@@ -74,7 +74,7 @@ undefined4 * InitConnectionObject(undefined4 *param_1,int param_2,undefined4 par
   else {
     /* ConstructConnectionObject's 1st arg (unaff_ESI, the object being constructed) is
      * this same freshly-allocated pvVar2 - same pattern as
-     * FUN_004058c0.c's identical construction call. */
+     * DirectLinkConnection_Construct.c's identical construction call. */
     ConstructConnectionObject(pvVar2,param_2,param_3);
   }
   param_1[0x2138] = pvVar2;

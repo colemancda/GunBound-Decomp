@@ -1,0 +1,54 @@
+/* DirectLinkConnection_Construct - 0x004058c0 in the original binary.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence: its only caller, WinMain (call at 0x40dc24), operator_new's
+ * 0x200c bytes, stores the pointer in g_directLinkConnection and then
+ * calls this with the object in EDI (`mov edi,eax` just before) and
+ * (3, &g_inputEventQueueWriteIndex) on the stack. That object is the one
+ * CloseDirectLinkSocket, SendBuddyRequestByNickname and
+ * AnswerBuddyRequestByNickname read as g_directLinkConnection, with its
+ * session sub-object at +0x2004. This function is the constructor body
+ * for it: it clears the two flag bytes at +0x2008/+0x2009, news the
+ * 0x24a70-byte session via ConstructConnectionObject, stores it at
+ * +0x2004, and starts SocketWorkerThreadProc on it with __beginthread
+ * (thread handle at session+4, session+0x18 = running flag). The original
+ * also returns the object (`mov eax,edi`, ret 8); the port is void and
+ * the one caller ignores the result.
+ */
+#include "ghidra_types.h"
+
+
+/* unaff_EDI (the connection-manager object being constructed) arrives via a
+ * dropped EDI register in the original (orig 0x40dc22: `mov edi, eax` before
+ * the call) - promoted to an explicit first parameter; the sole caller
+ * (WinMain.c) passes pvVar4 directly. */
+void DirectLinkConnection_Construct(void *unaff_EDI, undefined4 param_1,undefined4 param_2)
+
+{
+  void *pvVar1;
+  uintptr_t uVar2;
+
+  *(undefined1 *)((int)unaff_EDI + 0x2008) = 0;
+  *(undefined1 *)((int)unaff_EDI + 0x2009) = 0;
+  pvVar1 = operator_new(0x24a70);
+  if (pvVar1 == (void *)0x0) {
+    pvVar1 = (void *)0x0;
+  }
+  else {
+    /* ConstructConnectionObject also takes this new object via a dropped ESI register
+     * (orig: `mov esi, eax` before the call) - see that file. */
+    ConstructConnectionObject(pvVar1,param_1,param_2);
+  }
+  *(void **)((int)unaff_EDI + 0x2004) = pvVar1;
+  *(undefined1 *)((int)pvVar1 + 0x18) = 1;
+  uVar2 = __beginthread(SocketWorkerThreadProc,0,pvVar1);
+  *(uintptr_t *)((int)pvVar1 + 4) = uVar2;
+  if (uVar2 == 0) {
+    *(undefined1 *)((int)pvVar1 + 0x18) = 0;
+  }
+  return;
+}
+

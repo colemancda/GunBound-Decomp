@@ -503,7 +503,7 @@ switchD_00428058_default:
         /* QueueOutgoingPacketField is void-returning (see its own
          * definition) - this call site's return-value use is a Ghidra
          * per-call-site decompilation inconsistency, same class as
-         * entry/WinMain.c's FUN_004058c0 fix. uVar13 is left
+         * entry/WinMain.c's DirectLinkConnection_Construct fix. uVar13 is left
          * uninitialized here as a result; EncodeChecksumState's real
          * argument at this site isn't recoverable without more
          * context. */

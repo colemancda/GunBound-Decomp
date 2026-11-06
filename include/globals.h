@@ -711,7 +711,7 @@ extern uint32_t g_connectionContextA;
 extern uint32_t g_connectionContextB;
 extern uint32_t DAT_007934f0;
 /* The direct-link / peer-to-peer auto-connect object WinMain allocates at
- * startup (operator_new(0x200c), then FUN_004058c0(obj,3,...)); its session
+ * startup (operator_new(0x200c), then DirectLinkConnection_Construct(obj,3,...)); its session
  * sub-object lives at +0x2004. Non-NULL from startup, which is why the
  * 0x1012 auth-success handler's `if (g_directLinkConnection != 0) return;`
  * is the normal path there. Torn down via CloseDirectLinkSocket. */

@@ -11,7 +11,7 @@
  * (0x4e5590) writes the same PTR_FUN_005572e8 vtable, the same +0x22c = 1
  * and +0x24 = INVALID_SOCKET, and is the destructor applied to the object
  * at conn+0x84e0 / +0x2004. Both constructing callers, InitConnectionObject
- * and FUN_004058c0 (the 0x200c auto-connect object), allocate it with
+ * and DirectLinkConnection_Construct (the 0x200c auto-connect object), allocate it with
  * operator_new(0x24a70) immediately before the call (`mov esi,eax` puts the
  * block in ESI), store the result at conn+0x84e0 / +0x2004, and start
  * SocketWorkerThreadProc on it. ESI is the dropped `this`; the two
@@ -26,7 +26,7 @@
 
 /* unaff_ESI (the object being constructed) arrives via a dropped ESI
  * register in the original (`mov esi, eax` before the call in
- * FUN_004058c0) - promoted to an explicit first parameter. */
+ * DirectLinkConnection_Construct) - promoted to an explicit first parameter. */
 undefined4 ConstructConnectionObject(undefined4 *unaff_ESI, undefined4 param_1,undefined4 param_2)
 
 {

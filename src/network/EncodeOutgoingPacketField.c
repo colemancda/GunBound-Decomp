@@ -69,7 +69,7 @@
  * real call started exercising this path). Per this file's own prior
  * note, FUN_0040b8c0 is void-returning and this comparison was always a
  * Ghidra decompilation artifact, not real original behavior - removed
- * the same way entry/WinMain.c's FUN_004058c0 call site was fixed
+ * the same way entry/WinMain.c's DirectLinkConnection_Construct call site was fixed
  * (call kept for its side effects, the bogus post-call check dropped). */
 void EncodeOutgoingPacketField(void *self, uint param_1)
 

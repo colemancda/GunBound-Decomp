@@ -129,7 +129,7 @@ void __fastcall DetonateItemShot(int *param_1)
         /* EncodeChecksumState is void-returning (see its own
          * definition) - this call site's return-value use is a
          * Ghidra per-call-site decompilation inconsistency, same
-         * class as entry/WinMain.c's FUN_004058c0 fix. uVar10 is left
+         * class as entry/WinMain.c's DirectLinkConnection_Construct fix. uVar10 is left
          * uninitialized here as a result. */
         EncodeChecksumState(param_1 + 0x3d5);
         EncodeChecksumState(uVar10);

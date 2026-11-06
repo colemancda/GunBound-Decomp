@@ -175,15 +175,15 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   }
   else {
     /* g_directLinkConnection = pvVar4 recovered from orig 0x40dc17-0x40dc24: the
-     * original stores eax (pvVar4) into edi BEFORE calling FUN_004058c0
+     * original stores eax (pvVar4) into edi BEFORE calling DirectLinkConnection_Construct
      * (which takes it as a dropped-EDI context arg - see that file), and
      * SignalConnectRequest later reads *(g_directLinkConnection+0x2004) expecting
-     * this same object. FUN_004058c0 itself is still a raw, unverified
+     * this same object. DirectLinkConnection_Construct itself is still a raw, unverified
      * port of a deep constructor chain (ConstructConnectionObject and beyond build a
      * 0x24a70-byte connection object) - called for its side effects, not
      * its (nonexistent) return value. */
     g_directLinkConnection = pvVar4;
-    FUN_004058c0(pvVar4,3,&g_inputEventQueueWriteIndex);
+    DirectLinkConnection_Construct(pvVar4,3,&g_inputEventQueueWriteIndex);
   }
   DVar3 = timeGetTime();
   FUN_00525c42(DVar3);

@@ -60,7 +60,7 @@ void SpawnCrashParticleAdditive(int param_1,int param_2,int param_3)
         /* FUN_0048dcc0 is void-returning (see its own definition) -
          * this call site's return-value use is a Ghidra per-call-site
          * decompilation inconsistency, same class as entry/WinMain.c's
-         * FUN_004058c0 fix. iVar2 is left uninitialized here as a
+         * DirectLinkConnection_Construct fix. iVar2 is left uninitialized here as a
          * result. */
         FUN_0048dcc0();
       }
