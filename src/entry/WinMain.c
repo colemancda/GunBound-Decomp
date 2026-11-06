@@ -230,12 +230,12 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   _DAT_00793518 = hWnd;
   if (DAT_005b33f0 == 1) {
     local_db4 = GetDC(hWnd);
-    GetDeviceCaps(local_db4,0x74);
-    DAT_00588f48 = FUN_0040d200();
+    /* ECX = the VREFRESH (0x74) value just read (0x40dd45 mov ecx,eax). */
+    DAT_00588f48 = QuantizeRefreshRate(GetDeviceCaps(local_db4,0x74));
     if (DAT_00588f48 == 0) {
       lpData = (LPBYTE)GetDisplayConfigFromRegistry();
-      ReadRegistryDword(0x10);
-      local_db0 = (LPBYTE)FUN_0040d200();
+      /* ECX = the ReadRegistryDword return (0x40dd74 mov ecx,eax). */
+      local_db0 = (LPBYTE)QuantizeRefreshRate(ReadRegistryDword(0x10));
       if (local_db0 < lpData) {
         local_dac = 4;
         LVar5 = RegOpenKeyExA(HKEY_CURRENT_USER,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,
@@ -246,7 +246,8 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
           RegSetValueExA(local_db8,s_Template_0055273c,0,4,(BYTE *)&local_db0,4);
           RegCloseKey(local_db8);
         }
-        uVar6 = FUN_0040d200();
+        /* ECX = ESI = the GetDisplayConfigFromRegistry result (0x40ddf6). */
+        uVar6 = QuantizeRefreshRate((int)lpData);
         WriteRegistryDword(uVar6);
       }
     }

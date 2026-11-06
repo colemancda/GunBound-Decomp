@@ -351,7 +351,7 @@ void LocalizedStrings_DestructThunk();
 void FUN_0040d180(undefined4 *regEax);
 void StringMap_RemoveAll_IntThunk(int *regEax);
 void WorkerThread_Shutdown(undefined4 *regEsi);
-int __fastcall FUN_0040d200();
+int __fastcall QuantizeRefreshRate(int param_1);
 void BuildSystemInfoBlob(undefined4 *, undefined4 *);
 void LoadClientSettingsFromRegistry();
 void SaveClientSettingsToRegistry();
