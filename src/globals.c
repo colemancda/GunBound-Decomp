@@ -2161,7 +2161,7 @@ uint32_t DAT_005a9550;
 uint32_t DAT_005a960c;
 uint32_t DAT_005a9624;
 uint32_t DAT_005a9640;
-uint32_t DAT_005a965c;
+uint32_t g_tt800Mag01[2] = { 0x00000000u, 0x8ebfd028u }; /* initialised in the image at 0x5a965c */
 uint8_t *DAT_005a9680;
 uint32_t DAT_005a9684;
 uint32_t DAT_005a9688;

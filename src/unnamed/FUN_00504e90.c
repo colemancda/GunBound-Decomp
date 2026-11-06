@@ -60,29 +60,29 @@ uint FUN_00504e90(void)
     iVar4 = 0;
     do {
       (&DAT_00f25840)[iVar4] =
-           *(uint *)(&DAT_005a965c + ((&DAT_00f25840)[iVar4] & 1) * 4) ^ (&DAT_00f2585c)[iVar4] ^
+           (&DAT_005a965c)[(&DAT_00f25840)[iVar4] & 1] ^ (&DAT_00f2585c)[iVar4] ^
            (&DAT_00f25840)[iVar4] >> 1;
       (&DAT_00f25844)[iVar4] =
-           *(uint *)(&DAT_005a965c + ((&DAT_00f25844)[iVar4] & 1) * 4) ^ (&DAT_00f25860)[iVar4] ^
+           (&DAT_005a965c)[(&DAT_00f25844)[iVar4] & 1] ^ (&DAT_00f25860)[iVar4] ^
            (&DAT_00f25844)[iVar4] >> 1;
       (&DAT_00f25848)[iVar4] =
-           *(uint *)(&DAT_005a965c + ((&DAT_00f25848)[iVar4] & 1) * 4) ^ (&DAT_00f25864)[iVar4] ^
+           (&DAT_005a965c)[(&DAT_00f25848)[iVar4] & 1] ^ (&DAT_00f25864)[iVar4] ^
            (&DAT_00f25848)[iVar4] >> 1;
       (&DAT_00f2584c)[iVar4] =
-           *(uint *)(&DAT_005a965c + ((&DAT_00f2584c)[iVar4] & 1) * 4) ^ (&DAT_00f25868)[iVar4] ^
+           (&DAT_005a965c)[(&DAT_00f2584c)[iVar4] & 1] ^ (&DAT_00f25868)[iVar4] ^
            (&DAT_00f2584c)[iVar4] >> 1;
       (&DAT_00f25850)[iVar4] =
-           *(uint *)(&DAT_005a965c + ((&DAT_00f25850)[iVar4] & 1) * 4) ^ (&DAT_00f2586c)[iVar4] ^
+           (&DAT_005a965c)[(&DAT_00f25850)[iVar4] & 1] ^ (&DAT_00f2586c)[iVar4] ^
            (&DAT_00f25850)[iVar4] >> 1;
       (&DAT_00f25854)[iVar4] =
-           *(uint *)(&DAT_005a965c + ((&DAT_00f25854)[iVar4] & 1) * 4) ^ (&DAT_00f25870)[iVar4] ^
+           (&DAT_005a965c)[(&DAT_00f25854)[iVar4] & 1] ^ (&DAT_00f25870)[iVar4] ^
            (&DAT_00f25854)[iVar4] >> 1;
       iVar4 = iVar4 + 6;
     } while (iVar4 < 0x12);
     if (iVar4 < 0x19) {
       puVar5 = &DAT_00f25840 + iVar4;
       do {
-        *puVar5 = *puVar5 >> 1 ^ *(uint *)(&DAT_005a965c + (*puVar5 & 1) * 4) ^ puVar5[-0x12];
+        *puVar5 = *puVar5 >> 1 ^ (&DAT_005a965c)[*puVar5 & 1] ^ puVar5[-0x12];
         puVar5 = puVar5 + 1;
       } while ((int)puVar5 < 0xf258a4);
     }

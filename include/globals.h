@@ -2101,7 +2101,10 @@ extern uint32_t DAT_005a9550;
 extern uint32_t DAT_005a960c;
 extern uint32_t DAT_005a9624;
 extern uint32_t DAT_005a9640;
-extern uint32_t DAT_005a965c;
+/* TT800 'mag01' table {0, 0x8ebfd028} at 0x5a965c, read by FUN_00504e90 as `[(x & 1) * 4 + 0x5a965c]`
+ * (seven loads, all with a scale-4 index into a two-word table). */
+extern uint32_t g_tt800Mag01[2];
+#define DAT_005a965c (g_tt800Mag01[0])
 extern uint8_t *DAT_005a9680; /* used dereferenced as a byte-stream cursor at call sites */
 extern uint32_t DAT_005a9684;
 extern uint32_t DAT_005a9688;
