@@ -335,7 +335,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
         WorkerThread_Start(DAT_00e9c334);
         WorkerThread2_Start(DAT_007a767c);
         InterlockedExchange((LONG *)&DAT_00e9c348,1);
-        FUN_004e6b50();
+        ReplayContext_StartWorkerThread();
         _DAT_00e9acd0 = &g_gameEventRingWriteIndex;
         FUN_00520380(param_1);
         iVar1 = 0;

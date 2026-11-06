@@ -19,8 +19,8 @@
  * already key off).
  *
  * The thread itself is started by this object's own "start" method
- * (FUN_004e6b50, a bring-up neuter - see its own header), which calls
- * `__beginthread(0x4f47e0, 0, this)`. 0x4f47e0 is a generic three-phase
+ * (ReplayContext_StartWorkerThread, formerly FUN_004e6b50, a bring-up
+ * neuter - see its own header), which calls `__beginthread(0x4f47e0, 0, this)`. 0x4f47e0 is a generic three-phase
  * thread-runner thunk shared by more than one class: it dispatches
  * `this`'s own vtable slots +8, then +4, then +0xc (each `call
  * [slot](this)`) before calling `_endthread`. For this object slots +8
