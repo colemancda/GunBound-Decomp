@@ -10,7 +10,7 @@
 void FUN_005180b0(undefined4 param_1,undefined4 param_2)
 
 {
-  FUN_0051c568(param_1,param_2);
+  MpegFrequencyInversion(param_1,param_2);
   return;
 }
 
