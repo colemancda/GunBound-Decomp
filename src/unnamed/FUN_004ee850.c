@@ -55,7 +55,7 @@ void FUN_004ee850(void)
           }
           _Memory = *(void **)((int)g_soundChannels + uVar3 * 4);
           if (_Memory != (void *)0x0) {
-            FUN_004ef3f0(_Memory);
+            SoundChannel_Destruct(_Memory);
             _free(_Memory);
           }
         }
