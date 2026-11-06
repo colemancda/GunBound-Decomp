@@ -1809,7 +1809,7 @@ int GetMpegFrameSizeAndBitrate();
 undefined4 ConsumeMpegBits();
 void FUN_00514cc0();
 undefined8 DecodeMpegLayerIIISamples();
-void FUN_00515420();
+void DecodeMpegLayerIIIGranule();
 undefined4 FUN_00515b90();
 void InitMpegSynthesisTables();
 void FUN_005168d0();

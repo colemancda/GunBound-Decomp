@@ -202,8 +202,8 @@ undefined8 DecodeMpegLayerIIISamples(byte *param_1,undefined4 *param_2)
         return CONCAT44(DAT_005ae344,iVar4);
       }
       DAT_005ae920 = DAT_005ae930 * 8;
-      FUN_00515420(param_2,0);
-      FUN_00515420((undefined1 *)(DAT_005ae7e0 + (int)param_2),1);
+      DecodeMpegLayerIIIGranule(param_2,0);
+      DecodeMpegLayerIIIGranule((undefined1 *)(DAT_005ae7e0 + (int)param_2),1);
       return CONCAT44(DAT_005ae344,iVar4);
     }
   }

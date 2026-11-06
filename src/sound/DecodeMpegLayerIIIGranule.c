@@ -1,13 +1,24 @@
-/* FUN_00515420 - 0x00515420 in the original binary.
+/* DecodeMpegLayerIIIGranule - 0x00515420 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Decode one Layer III granule for each channel.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Called twice (granules 0 and 1) from DecodeMpegLayerIIISamples. Per
+ * channel it calls the scalefactor readers (ReadMpegLayerIIIScalefactors
+ * or the LSF variant), the unnamed table decoders at 0x518960 / 0x518e30 /
+ * 0x518560, then the mid/side and intensity stereo steps (gated by the
+ * DAT_005ae348 / DAT_005aba2c mode-extension bits set in
+ * DecodeMpegLayerIIISamples) and MpegAntialias: the ISO Layer III decode
+ * order.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00515420(undefined4 param_1,int *param_2)
+void DecodeMpegLayerIIIGranule(undefined4 param_1,int *param_2)
 
 {
   int iVar1;
