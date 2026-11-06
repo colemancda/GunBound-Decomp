@@ -23,7 +23,7 @@
  * 16-bit words at stride 2, clip to 0x7fff / -0x8000.
  *
  * SIGNATURE CORRECTED (2026-08-25).  Same hand-written-asm shape as
- * FUN_0051f456 and its two siblings: entry `push ebp; lea ebp,[esp+8];
+ * MpegSynthWindow8HalfInterleaved and its two siblings: entry `push ebp; lea ebp,[esp+8];
  * pushal`, exit `popal; pop ebp; ret`, ret 0 with the caller cleaning up.
  * Every general register is saved and restored, so ECX, EDX and EAX are all
  * written before any read -- phantoms, not arguments -- and Ghidra's
