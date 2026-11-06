@@ -23,7 +23,7 @@
 void * __thiscall DropBombProjectile_ScalarDtor(void *param_1,int param_2)
 
 {
-  FUN_0046a4c0((undefined4 *)param_1);
+  DropBombProjectile_DtorBody((undefined4 *)param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

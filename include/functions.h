@@ -806,7 +806,7 @@ void * __thiscall DeleteShot2_Bullet1();
 void DestroyShot2_Bullet1(undefined4 *regEax);
 void __fastcall DetonateShot2_Bullet1();
 void * __thiscall DropBombProjectile_ScalarDtor();
-void FUN_0046a4c0(undefined4 *regEax);
+void DropBombProjectile_DtorBody(undefined4 *regEax);
 void __fastcall FUN_0046a4d0();
 void * __thiscall DropCaseProjectile_ScalarDtor();
 void DropCaseProjectile_DtorBody(undefined4 *regEax);

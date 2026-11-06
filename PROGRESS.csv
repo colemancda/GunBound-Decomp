@@ -673,7 +673,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004688a0,13,DestroyShot2_Bullet1,false,1,1,RAW-src
 004688b0,7138,DetonateShot2_Bullet1,false,1,46,RAW-src
 0046a4a0,32,DropBombProjectile_ScalarDtor,false,1,2,RAW-src
-0046a4c0,13,FUN_0046a4c0,false,1,1,RAW-src
+0046a4c0,13,DropBombProjectile_DtorBody,false,1,1,RAW-src
 0046a4d0,2570,FUN_0046a4d0,false,1,29,RAW-src
 0046aee0,32,DropCaseProjectile_ScalarDtor,false,1,2,RAW-src
 0046af00,13,DropCaseProjectile_DtorBody,false,1,1,RAW-src
