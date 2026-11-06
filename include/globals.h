@@ -2191,7 +2191,7 @@ extern uint32_t DAT_005ae7e8;
 extern uint32_t DAT_005ae7ec;
 extern uint32_t DAT_005ae7f0;
 extern uint32_t DAT_005ae7f8;
-/* Per-channel MPEG frame state: two 0x90-byte records (72 words) at 0x5ae800..0x5ae91f. FUN_00514fc0
+/* Per-channel MPEG frame state: two 0x90-byte records (72 words) at 0x5ae800..0x5ae91f. DecodeMpegLayerIIISamples
  * walks them with a pointer starting at 0x5ae808 and stepping 0x90 until `cmp esi,0x5ae928`
  * (= 0x5ae808 + 2 * 0x90); the next objects 0x5ae920.. are separate scalars. */
 extern uint32_t g_mpegChannelInfo[72];

@@ -1,15 +1,29 @@
-/* FUN_00514fc0 - 0x00514fc0 in the original binary.
+/* DecodeMpegLayerIIISamples - 0x00514fc0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Layer III frame decoder (MPEG-1 path, two granules): header and side
+ * info, bit reservoir, then both granules.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Installed by SetupMpegLayerIIIDecoder as PTR_FUN_00563da8 and reached
+ * through the slot-1 trampoline (0x514fa0) of the frame-decoder table at
+ * 0x563aec, alongside the already named DecodeMpegLayerIISamples in slot
+ * 2. It re-reads the 0xfff sync and header, splitting mode extension into
+ * DAT_005aba2c (bit 0, intensity) and DAT_005ae348 (bit 1, mid/side) as in
+ * ISO 11172-3, parses the Layer III side info (main_data_begin, scfsi,
+ * big_values, global_gain, scalefac_compress, window switching), manages
+ * the bit reservoir, and calls DecodeMpegLayerIIIGranule(buf, 0) and (buf
+ * + DAT_005ae7e0, 1).
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined8 FUN_00514fc0(byte *param_1,undefined4 *param_2)
+undefined8 DecodeMpegLayerIIISamples(byte *param_1,undefined4 *param_2)
 
 {
   undefined1 uVar1;

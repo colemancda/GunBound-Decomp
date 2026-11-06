@@ -193,7 +193,7 @@ LAB_005164e7:
       iVar4 = iVar4 + -1;
     } while (iVar4 != 0);
   } while (puVar2 < &DAT_00f25f00 + 2304);
-  PTR_FUN_00563da8 = FUN_00514fc0;
+  PTR_FUN_00563da8 = DecodeMpegLayerIIISamples;
   if (*(int *)(param_1 + 4) != 1) {
     PTR_FUN_00563da8 = &LAB_005159d0;
   }

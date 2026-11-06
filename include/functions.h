@@ -1808,7 +1808,7 @@ int ParseMpegFrameHeader();
 int GetMpegFrameSizeAndBitrate();
 undefined4 ConsumeMpegBits();
 void FUN_00514cc0();
-undefined8 FUN_00514fc0();
+undefined8 DecodeMpegLayerIIISamples();
 void FUN_00515420();
 undefined4 FUN_00515b90();
 void InitMpegSynthesisTables();
