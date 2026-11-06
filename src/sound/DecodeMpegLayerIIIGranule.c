@@ -198,7 +198,7 @@ void DecodeMpegLayerIIIGranule(undefined4 param_1,int *param_2)
         else {
           iVar8 = 1;
         }
-        FUN_00518100(puVar7,iVar8);
+        MpegAntialiasThunk(puVar7,iVar8);
         iVar8 = iVar8 * 0x12 + 8;
         if (*piVar12 < iVar8) {
           *piVar12 = iVar8;

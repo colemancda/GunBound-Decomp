@@ -1844,7 +1844,7 @@ void FUN_005180b0();
 undefined * FUN_005180d0();
 undefined * FUN_005180e0();
 undefined * FUN_005180f0();
-void FUN_00518100();
+void MpegAntialiasThunk();
 void ApplyMpegMidSideStereo();
 void ApplyMpegIntensityStereo(int param_1,int param_2,int param_3,int param_4,int param_5);
 void ApplyMpegIntensityStereoLSF();

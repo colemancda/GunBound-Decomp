@@ -1771,7 +1771,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005180d0,6,FUN_005180d0,false,1,0,RAW-src
 005180e0,6,FUN_005180e0,false,1,0,RAW-src
 005180f0,6,FUN_005180f0,false,1,0,RAW-src
-00518100,19,FUN_00518100,false,1,1,RAW-src
+00518100,19,MpegAntialiasThunk,false,1,1,RAW-src
 00518120,61,ApplyMpegMidSideStereo,false,1,0,RAW-src
 00518160,395,ApplyMpegIntensityStereo,false,1,0,RAW-src
 005182f0,550,ApplyMpegIntensityStereoLSF,false,1,0,RAW-src
