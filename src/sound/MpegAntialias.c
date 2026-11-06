@@ -1,8 +1,19 @@
-/* FUN_0051c6a0 - 0x0051c6a0 in the original binary.
+/* MpegAntialias - 0x0051c6a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Layer III alias-reduction butterflies at each subband boundary.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Reached through MpegAntialiasThunk (0x518100) from
+ * DecodeMpegLayerIIIGranule once per channel with (samples, number of
+ * subbands). Each iteration does the eight ISO 11172-3 butterflies
+ * (xr[-1-i], xr[i]) with the cs and ca pairs at 0xf25ac0..0xf25afc,
+ * advancing 18 samples (0x48 bytes) per subband boundary; those cs/ca
+ * values are produced by InitMpegLayerIIITables from the ISO ci
+ * coefficients.
  *
  * SIGNATURE CORRECTED (2026-08-25).  Same hand-written-asm shape as
  * FUN_0051f456 and its two siblings: entry `push ebp; lea ebp,[esp+8];
@@ -17,7 +28,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __cdecl FUN_0051c6a0(int param_3,int param_4)
+void __cdecl MpegAntialias(int param_3,int param_4)
 {
   float fVar1;
   

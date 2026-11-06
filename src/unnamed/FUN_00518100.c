@@ -10,7 +10,7 @@
 void FUN_00518100(undefined4 param_1,undefined4 param_2)
 
 {
-  FUN_0051c6a0(param_1,param_2);
+  MpegAntialias(param_1,param_2);
   return;
 }
 
