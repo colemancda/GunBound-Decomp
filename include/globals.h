@@ -1937,7 +1937,8 @@ extern uint32_t DAT_0056382c;
  * idx*4)`, i.e. BYTE arithmetic, so the DAT_ name is a byte lvalue over the real array. */
 extern uint32_t g_mpegSampleRateTab[8];
 #define DAT_005638ec (*(unsigned char *)g_mpegSampleRateTab) /* callers take &DAT_005638ec + byteOffset */
-extern uint32_t DAT_0056390c;
+extern unsigned char g_mpegAllocSrcTab[320];
+#define DAT_0056390c (g_mpegAllocSrcTab[0]) /* byte table 0x56390c..0x563a4b; callers take &DAT_0056390c + byteOffset */
 extern uint32_t DAT_00563a4c;
 extern uint32_t DAT_00563ad8;
 extern uint32_t DAT_00563afc;
