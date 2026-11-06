@@ -182,7 +182,7 @@ void BroadcastQueuedEvent(void);
 extern int DAT_005b3424;               /* second per-connection base (distinct from g_clientContext) */
 extern unsigned char g_nCameraBoundX, g_nCameraBoundY;  /* 1-byte ctx bases (&sym + g_clientContext) */
 extern unsigned char DAT_005f3768;     /* 1-byte ctx base */
-extern unsigned char DAT_006a7758;     /* 1-byte ctx base (byte-indexed) */
+#define DAT_006a7758 (*(unsigned char *)(0x006a7758))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7758 + <arena base> */
 extern unsigned int  g_sharedTextInputControl;     /* shared overlay EDIT control singleton (holds an address) */
 extern unsigned char DAT_007a7644[0x1c];/* animated cursor object (address taken);
                                         * real extent now backed in globals_sized.c */

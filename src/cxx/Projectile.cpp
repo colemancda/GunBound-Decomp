@@ -268,7 +268,7 @@ extern unsigned char g_replayContext;  /* 0xe55ce0 - battle/replay turn-event bu
  * arena base. */
 #define DAT_006a7708 (*(unsigned char *)(0x006a7708))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7708 + <arena base> */
 #define DAT_006a773c (*(unsigned char *)(0x006a773c))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a773c + <arena base> */
-extern unsigned char DAT_006a7758;
+#define DAT_006a7758 (*(unsigned char *)(0x006a7758))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7758 + <arena base> */
 #define DAT_006a7f70 (*(unsigned char *)(0x006a7f70))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7f70 + <arena base> */
 #define DAT_006a7f8c (*(unsigned char *)(0x006a7f8c))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7f8c + <arena base> */
 #define DAT_006a7f88 (*(unsigned char *)(0x006a7f88))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7f88 + <arena base> */
