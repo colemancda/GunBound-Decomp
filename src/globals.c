@@ -2344,23 +2344,7 @@ uint32_t DAT_00989680;
 uint32_t g_serverSelectRecordCount;         /* 0xe54ca4 - count/valid flag */
 uint8_t  g_serverSelectRecords[21 * 12];    /* 0xe54ca8 - record[0] == old DAT_00e54ca8/cac/cb0 */
 /* DAT_00e9c578: moved to globals_sized.c (0x224 CValueGuard cell). */
-uint32_t DAT_00f25840;
-uint32_t DAT_00f25844;
-uint32_t DAT_00f25848;
-uint32_t DAT_00f2584c;
-uint32_t DAT_00f25850;
-uint32_t DAT_00f25854;
-uint32_t DAT_00f25858;
-uint32_t DAT_00f2585c;
-uint32_t DAT_00f25860;
-uint32_t DAT_00f25864;
-uint32_t DAT_00f25868;
-uint32_t DAT_00f2586c;
-uint32_t DAT_00f25870;
-uint32_t DAT_00f25874;
-uint32_t DAT_00f25878;
-uint32_t DAT_00f2587c;
-uint32_t DAT_00f25880;
+uint32_t g_tt800State[25]; /* runtime-seeded on first use (orig 0xf25840 is past the raw image) */
 uint32_t DAT_00f258a4;
 uint32_t DAT_00f258a8;
 uint32_t DAT_00f258c0;
@@ -2546,14 +2530,6 @@ uint32_t DAT_005ae738;
 uint32_t DAT_005ae7f4;
 uint32_t DAT_005ae7fc;
 uint32_t DAT_0079361c;
-uint32_t DAT_00f25884;
-uint32_t DAT_00f25888;
-uint32_t DAT_00f2588c;
-uint32_t DAT_00f25890;
-uint32_t DAT_00f25894;
-uint32_t DAT_00f25898;
-uint32_t DAT_00f2589c;
-uint32_t DAT_00f258a0;
 uint32_t DAT_00f25a30;
 uint32_t DAT_00f25ac4;
 uint32_t DAT_00f25ac8;

@@ -84,7 +84,7 @@ uint FUN_00504e90(void)
       do {
         *puVar5 = *puVar5 >> 1 ^ (&DAT_005a965c)[*puVar5 & 1] ^ puVar5[-0x12];
         puVar5 = puVar5 + 1;
-      } while ((int)puVar5 < 0xf258a4);
+      } while (puVar5 < &DAT_00f25840 + 25);
     }
     DAT_00f258a4 = 0;
   }
