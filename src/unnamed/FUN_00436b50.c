@@ -31,7 +31,7 @@ void FUN_00436b50(undefined4 param_1,undefined4 param_2)
       iVar3 = 0;
     }
     else {
-      FUN_0049e420();
+      iVar3 = (int)InitCrashParticleAdditive_556488((undefined4 *)pvVar2);
     }
     *(undefined4 *)(iVar3 + 0x38) = param_1;
     *(undefined4 *)(iVar3 + 0x3c) = param_2;
