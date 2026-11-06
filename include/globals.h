@@ -1970,7 +1970,7 @@ extern uint32_t DAT_00568101;
 extern uint32_t DAT_00568184;
 extern uint32_t DAT_00568188;
 /* The 264-float window table at 0x568318..0x568737 (initialised .data, read-only, every
- * access an x87 DWORD fld through a register).  FUN_0051d780 and its 11 clones
+ * access an x87 DWORD fld through a register).  MpegSynthWindow16Full and its 11 clones
  * (51dae5/51de4a/51e107/51e3c4/51e729/51ea90/51ee0a/51f184/51f456/51f728/51faa2) start a
  * pointer at 0x568318 and walk upward, then restart at 0x568714 / 0x5686d4 / 0x568654
  * (the stride-0x40/0x80/0x100 variants) and walk downward -- all inside this one object,
@@ -2069,7 +2069,7 @@ extern uint32_t DAT_00568938;
 extern uint32_t DAT_0056893c;
 extern uint32_t DAT_00568940;
 extern uint32_t DAT_00569344;
-/* Index tables read as `mov r32, [idx*4 + base]` (x87 synthesis windows in FUN_0051d780 and
+/* Index tables read as `mov r32, [idx*4 + base]` (x87 synthesis windows in MpegSynthWindow16Full and
  * clones).  The ported code spells every access `*(int *)(&DAT_xxxxxxxx + idx * 4)`, i.e. BYTE
  * arithmetic, so the DAT_ names are byte lvalues over the real uint32_t arrays (declaring them
  * uint32_t scaled the offset by 4 again and read outside every object).  Extents tile exactly:

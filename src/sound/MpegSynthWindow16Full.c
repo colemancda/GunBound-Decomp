@@ -1,8 +1,26 @@
-/* FUN_0051d780 - 0x0051d780 in the original binary.
+/* MpegSynthWindow16Full - 0x0051d780 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * MPEG audio polyphase synthesis window: 16-bit PCM, full band (32 samples
+ * per call), contiguous output.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Sole caller is its thunk MpegSynthWindow16FullThunk (0x51aeb0), which
+ * the four single-output drivers 0x5168d0 (Mono), 0x5169e0, 0x516a40,
+ * 0x516aa0 call once per block (table slots 0, 2, 3, 4 of 0x563a60). Each
+ * advances out by 0x40 = 32 samples x 2 bytes, so the output is
+ * contiguous.
+ * The drivers step the ring offset DAT_005ae93c by 0x20 and mask it with
+ * 0x1ff, and the table index is col + (downsample + eightBit*3)*5 with
+ * downsample 0 (subband count 0x20 >> downsample = 32) and eightBit 0, as
+ * installed by SetupMpegLayerIDecoder, SetupMpegLayerIIIDecoder and
+ * DecodeMpegAudioFrame. Raw table bytes at 0x563a60 give slot 0 = driver
+ * 0x5168d0.
+ * In the body (consistent with, not the basis for, the name): stores are
+ * 16-bit words at stride 2, clip to 0x7fff / -0x8000.
  *
  * SIGNATURE CORRECTED (2026-08-25).  Same hand-written-asm shape as
  * FUN_0051f456 and its two siblings: entry `push ebp; lea ebp,[esp+8];
@@ -15,7 +33,7 @@
 #include "ghidra_types.h"
 
 
-void __cdecl FUN_0051d780(int param_3,int param_4,int param_5)
+void __cdecl MpegSynthWindow16Full(int param_3,int param_4,int param_5)
 {
   float *pfVar1;
   float *pfVar2;

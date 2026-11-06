@@ -1900,7 +1900,7 @@ uint32_t DAT_00568184;
 uint32_t DAT_00568188;
 /* The window table is ONE 264-float object (see globals.h); DAT_00568654/5686d4/568714 are
  * interior macros into it, so the walkers' pointer arithmetic stays inside it. */
-float DAT_00568318[264] = { /* orig .data 0x568318..0x568737; the MP3 synthesis window FUN_0051d780 and its 11 clones walk */
+float DAT_00568318[264] = { /* orig .data 0x568318..0x568737; the MP3 synthesis window MpegSynthWindow16Full and its 11 clones walk */
   0.0f, 0.000442504999f, -0.00325012207f, 0.00700378418f, -0.0310821515f, 0.07862854f,
   -0.100311279f, 0.572036743f, -1.14498901f, -0.572036743f, -0.100311279f, -0.07862854f,
   -0.0310821515f, -0.00700378418f, -0.00325012207f, -0.000442504999f, 1.52590001e-05f, 0.000473021995f,
@@ -2036,7 +2036,7 @@ uint32_t DAT_00568938;
 uint32_t DAT_0056893c;
 uint32_t DAT_00568940;
 uint32_t DAT_00569344;
-/* The four MPEG synthesis index tables walked byte-wise by FUN_0051d780 and its 11 clones
+/* The four MPEG synthesis index tables walked byte-wise by MpegSynthWindow16Full and its 11 clones
  * (see include/globals.h): each is a permutation of 0..n-1 in the original image. */
 uint32_t g_synthIdxTab0[512] = { /* orig .data 0x568944..0x569143: a permutation of 0..511 */
   64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79,
