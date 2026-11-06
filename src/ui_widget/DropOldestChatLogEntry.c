@@ -1,14 +1,25 @@
-/* FUN_0041b840 - 0x0041b840 in the original binary.
+/* DropOldestChatLogEntry - 0x0041b840 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (outside the body): its only two callers are in
+ * AppendChatLogEntry (0x41b958, 0x41bb8d), both guarded by
+ * `if (99 < ctx[0x3b980])` - the line counter has reached the 100-line
+ * capacity - and both pass EAX = ebp = the context (AppendChatLogEntry's
+ * param_1).  Afterwards AppendChatLogEntry writes the new line at index
+ * ctx[0x3b980] again, so this is what makes room.  The body agrees with the
+ * array layout ClearChatLog zeroes: each parallel array (9-byte names at
+ * +0x3b984, 20-byte nicknames at +0x3bd08, kind bytes at +0x3c4d8, 0x80-byte
+ * text at +0x3c53c, words at +0x3f73c) is moved down by one record (the
+ * copy sources are the arrays plus 9/20/1/0x80/2), and the counter at
+ * +0x3b980 is set to 99.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0041b840(int regEax)
+void DropOldestChatLogEntry(int regEax)
 
 {
   int iVar1;

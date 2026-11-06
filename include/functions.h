@@ -416,7 +416,7 @@ int RenderWrappedText();
 void RebuildChannelUserIndex(int clientContext);
 void FUN_0041b6f0();
 void __fastcall ClearChatLog(undefined4 param_1,int param_2);
-void FUN_0041b840(int regEax);
+void DropOldestChatLogEntry(int regEax);
 void AppendChatLogEntry(int param_1,char param_2,char *param_3,char *param_4,char *param_5,
                         undefined2 param_6,char param_7,uint regEax);
 void FUN_0041bce0();
