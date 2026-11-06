@@ -11,7 +11,7 @@
  * is an alpha particle, not an additive one. A byte scan of the image
  * finds no other site stamping 0x2e632, so the key is unique and is used
  * as the suffix. LIKELY: the role beyond class, texture and blend mode
- * is not established.  The object arrives in EAX (Ghidra's regEax),
+ * is not established.  The object arrives in EAX (Ghidra's in_EAX),
  * promoted to regEax and returned; the sole call site now passes the
  * allocation and assigns the return.
  *
