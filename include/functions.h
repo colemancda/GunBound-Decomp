@@ -887,7 +887,7 @@ undefined4 * InitPrimaryShot_Bullet15(undefined4 *regEsi);
 void * __thiscall DeletePrimaryShot_Bullet15();
 void DestroyPrimaryShot_Bullet15(undefined4 *regEax);
 void __fastcall DetonatePrimaryShot_Bullet15();
-void * __thiscall FUN_0047bde0();
+void * __thiscall KnightIon_ScalarDtor();
 void FUN_0047be00();
 void __fastcall BlitSpriteFrameTo32x32Buffer(undefined4 param_1,uint param_2,int param_3,int param_4,uint regEax);
 void FUN_0047bfd0();

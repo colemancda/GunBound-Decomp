@@ -757,7 +757,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0047b2c0,32,DeletePrimaryShot_Bullet15,false,1,2,RAW-src
 0047b2e0,13,DestroyPrimaryShot_Bullet15,false,1,1,RAW-src
 0047b2f0,2785,DetonatePrimaryShot_Bullet15,false,1,27,RAW-src
-0047bde0,31,FUN_0047bde0,false,1,2,RAW-src
+0047bde0,31,KnightIon_ScalarDtor,false,1,2,RAW-src
 0047be00,128,FUN_0047be00,false,1,1,RAW-src
 0047be80,334,BlitSpriteFrameTo32x32Buffer,false,4,0,RAW-src
 0047bfd0,101,FUN_0047bfd0,false,6,4,RAW-src
