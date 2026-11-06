@@ -2255,7 +2255,7 @@ uint32_t DAT_005b0148;
 uint32_t DAT_005b01c4;
 uint32_t DAT_005b01e4;
 uint32_t DAT_005b01fc;
-uint32_t DAT_005b05fc;
+float g_mpegShortBlockScratch[576]; /* runtime scratch (orig 0x5b05fc is past the raw image) */
 uint32_t DAT_005b0efc;
 uint32_t DAT_005b12fc;
 uint32_t DAT_005b137c;

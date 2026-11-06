@@ -103,7 +103,7 @@ void FUN_00518560(int param_1,int *param_2,int param_3,int param_4,undefined4 *p
   *param_5 = 0;
   if (uVar13 < 0xc) {
     piVar8 = (int *)(param_4 + 0x28);
-    local_54 = (float *)&DAT_005b05fc;
+    local_54 = &DAT_005b05fc;
     iVar10 = 3;
     pfVar9 = local_14;
     do {

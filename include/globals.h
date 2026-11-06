@@ -2200,7 +2200,11 @@ extern uint32_t DAT_005b0148;
 extern uint32_t DAT_005b01c4;
 extern uint32_t DAT_005b01e4;
 extern uint32_t DAT_005b01fc;
-extern uint32_t DAT_005b05fc;
+/* Scratch of 576 floats (0x5b05fc..0x5b0efb, up to the 0x5b0efc table): FUN_00518560 fills it
+ * through a walking pointer (stride 3 floats per window) and memmoves the result out, so it is one
+ * object and DAT_005b05fc names element 0. */
+extern float g_mpegShortBlockScratch[576];
+#define DAT_005b05fc (g_mpegShortBlockScratch[0])
 extern uint32_t DAT_005b0efc;
 extern uint32_t DAT_005b12fc;
 extern uint32_t DAT_005b137c;
