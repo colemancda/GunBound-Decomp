@@ -63,8 +63,6 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
   uint uVar23;
   int iVar24;
   char *pcVar25;
-  int extraout_EDX;
-  int extraout_EDX_00;
   undefined4 *puVar26;
   ushort *puVar27;
   undefined4 *puVar28;
@@ -499,7 +497,7 @@ switchD_00428058_default:
         ResetPlayerOrderList((undefined4 *)(g_clientContext + 0x4737c));
         ResetReplayContext((int)&g_replayContext);
         ClearChatLog(0,g_clientContext);
-        *(undefined1 *)(extraout_EDX + 0x3b6c0) = 0;
+        *(undefined1 *)(g_clientContext + 0x3b6c0) = 0;
         /* QueueOutgoingPacketField is void-returning (see its own
          * definition) - this call site's return-value use is a Ghidra
          * per-call-site decompilation inconsistency, same class as
@@ -779,8 +777,8 @@ switchD_00428058_default:
       ResetReplayContext((int)&g_replayContext);
       ClearChatLog(0,g_clientContext);
       ResetPlayerOrderList((undefined4 *)(g_clientContext + 0x4737c));
-      *(undefined4 *)(extraout_EDX_00 + 0x45914) = 0;
-      *(undefined4 *)(extraout_EDX_00 + 0x45918) = 0;
+      *(undefined4 *)(g_clientContext + 0x45914) = 0;
+      *(undefined4 *)(g_clientContext + 0x45918) = 0;
       QueueOutgoingPacketField((char)payload[1]);
       QueueOutgoingPacketField(*(undefined1 *)((int)payload + 3));
       FUN_004e7340(0,PeekChecksumStateUnderLock(g_clientContext + 0x3b49c),
