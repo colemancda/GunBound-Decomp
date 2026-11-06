@@ -1363,7 +1363,7 @@ void SetBlendMode(int regEax);
 bool __fastcall CreateTextureAtlasSurface(undefined4 param_1,undefined4 param_2,int param_3);
 void ResetWindowClipper();
 uint FlushXFSWriteBlock();
-uint FUN_004f0650();
+uint SkipXFSBlock(int stream);
 /* XFS stream seek (skip param_2 bytes). stream = the dropped EAX
  * (orig callers set EAX to the open stream, EDX to the byte count;
  * ECX/param_1 is garbage). Recovered 2026-08-11. */

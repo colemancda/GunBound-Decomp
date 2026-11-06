@@ -1271,7 +1271,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f0380,112,ReadXFSEntry,false,9,1,RAW-src
 004f03f0,316,DecodeXFSEntryBlock,false,5,4,RAW-src
 004f0530,281,FlushXFSWriteBlock,false,4,4,RAW-src
-004f0650,108,FUN_004f0650,false,1,2,RAW-src
+004f0650,108,SkipXFSBlock,false,1,2,RAW-src
 004f06c0,471,ReadXFSEntryByte,false,66,3,RAW-src
 004f08a0,181,SkipXFSEntryBytes,false,7,2,RAW-src
 004f0960,48,RewindXFSEntryStream,false,2,1,RAW-src

@@ -12,7 +12,7 @@
  * a record count times 0x84 bytes of an open entry stream (imul
  * edx,edx,0x84), and FUN_004f16c0 (SkipSpriteFrameRecord) skips the fixed
  * and length-prefixed fields of a sprite frame record with it. Its callees
- * DecodeXFSEntryBlock and FUN_004f0650 are the block decoder of that
+ * DecodeXFSEntryBlock and SkipXFSBlock are the block decoder of that
  * stream. It only advances the position, clamped to the entry size,
  * without returning data.
  *
@@ -52,7 +52,7 @@ undefined4 __fastcall SkipXFSEntryBytes(undefined4 param_1,int param_2,int strea
     uVar3 = *(int *)(in_EAX + 0x100c) + param_2;
     if (0x1000 < uVar3) {
       while (uVar3 = uVar3 - 0x1000, 0x1000 < uVar3) {
-        cVar2 = FUN_004f0650();
+        cVar2 = SkipXFSBlock(in_EAX);
         if (cVar2 == '\0') {
           return 0;
         }
