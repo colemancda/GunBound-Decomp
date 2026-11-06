@@ -20,7 +20,7 @@
 void * __thiscall DeleteProjectileLightningHazard(void *param_1,int param_2)
 
 {
-  FUN_004a69f0(param_1);
+  DestroyProjectileLightningHazard(param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

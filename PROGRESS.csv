@@ -893,7 +893,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004a4950,6307,DetonateShot2_Bullet2,false,1,49,RAW-src
 004a6920,165,InitProjectileLightningHazard,false,1,1,RAW-src
 004a69d0,31,DeleteProjectileLightningHazard,false,1,2,RAW-src
-004a69f0,163,FUN_004a69f0,false,1,2,RAW-src
+004a69f0,163,DestroyProjectileLightningHazard,false,1,2,RAW-src
 004a6b10,1259,FUN_004a6b10,false,1,8,RAW-src
 004a7000,20,InitShot2_Bullet8,false,1,1,RAW-src
 004a7020,32,DeleteShot2_Bullet8,false,1,2,RAW-src
