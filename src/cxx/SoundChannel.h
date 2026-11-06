@@ -3,7 +3,7 @@
  * src/sound/SoundChannel_Construct.c (secondary-channel ctor),
  * src/sound/SoundChannel_Stop.c (secondary-channel stop),
  * src/sound/MusicChannel_Construct.c (primary-channel ctor), and
- * src/unnamed/FUN_004eef00.c (primary-channel stop). See SoundChannel.cpp
+ * src/sound/MusicChannel_Stop.c (primary-channel stop). See SoundChannel.cpp
  * and src/cxx/README.md.
  *
  * CONFIRMED: the object sizes (0x50/0xb8, matching each raw ctor's own
@@ -84,7 +84,7 @@ public:
      * PTR_LAB_005574cc. */
     CPrimaryStreamChannel();
 
-    /* FUN_004eef00 (vtable slot 3 in PTR_LAB_005574cc) - hides
+    /* MusicChannel_Stop (vtable slot 3 in PTR_LAB_005574cc) - hides
      * CSoundChannel::Stop(), not an override (see class header note). */
     void Stop();
 

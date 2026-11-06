@@ -11,7 +11,7 @@
  * on g_soundChannels[index], and the FUN_004ee850 teardown makes the same
  * slot-3 call on every channel before freeing it; the secondary-channel
  * destructor (0x4ef3f0) calls this address directly after SetEvent. The
- * primary channel's own slot 3 is FUN_004eef00, and the C++ promotion
+ * primary channel's own slot 3 is MusicChannel_Stop, and the C++ promotion
  * CSoundChannel::Stop in src/cxx/SoundChannel.h is this function.
  *
  * Not to be confused with StopSoundChannel(index), the index-taking wrapper

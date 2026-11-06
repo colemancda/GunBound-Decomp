@@ -27,7 +27,7 @@
  *
  * NOT FIXED HERE: ~9 other call sites remain (PreloadTexture.c,
  * FUN_00423e20.c, SoundChannel_Stop.c, LoadStageLandFile.c, FUN_004240c0.c,
- * FUN_00423bf0.c, FUN_004eef00.c), each in its own not-yet-verified caller
+ * FUN_00423bf0.c, MusicChannel_Stop.c), each in its own not-yet-verified caller
  * with its own distinct readState/archive sources - those still use the
  * old 0-arg form and need the same per-site disassembly treatment (same
  * partial-fix precedent as RegisterActiveObject.c/CreateActiveObjectLayer.c).

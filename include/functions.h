@@ -1342,7 +1342,7 @@ void __fastcall SetEffectsVolume();
 void SetEffectsEnabled(char regAl);
 undefined4 *MusicChannel_Construct(); /* __thiscall ctor: call sites use the returned this-pointer */
 undefined4 RefillSoundStreamBuffer();
-void __fastcall FUN_004eef00();
+void __fastcall MusicChannel_Stop();
 void __thiscall DecodeSoundBufferChunk();
 void __thiscall PollSoundBufferPosition();
 undefined4 *SoundChannel_Construct(); /* __thiscall ctor: call sites use the returned this-pointer */

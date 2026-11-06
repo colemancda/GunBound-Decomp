@@ -1440,12 +1440,12 @@ void *PTR_LAB_00557434;
  * currently bring-up-bypassed to a no-op - see its own header), 2 is
  * un-cross-referenced address 0x4eed10, not yet wired to a real ported
  * function since nothing on the confirmed bring-up path calls it,
- * 3=FUN_004eef00 (0x4eef00, "stop/release channel" - called from
+ * 3=MusicChannel_Stop (0x4eef00, "stop/release channel" - called from
  * InitGame.c), 4=DecodeSoundBufferChunk (0x4eef80), 5=NoOpMethodStdcall1,
  * 6=NoOpMethod (0x429800, shared plain-ret no-op stub). */
 void *PTR_LAB_005574cc[7] = {
   (void *)NoOpMethodStdcall1, (void *)PollSoundBufferPosition,
-  (void *)0, (void *)FUN_004eef00, (void *)DecodeSoundBufferChunk,
+  (void *)0, (void *)MusicChannel_Stop, (void *)DecodeSoundBufferChunk,
   (void *)NoOpMethodStdcall1, (void *)NoOpMethod,
 };
 /* Same shape as PTR_LAB_005574cc but the SoundChannel_ConstructBase-installed
@@ -1467,7 +1467,7 @@ void *PTR_LAB_005574e0[4] = {
  * 2 is un-cross-referenced address 0x4ef4c0, not yet wired to a real
  * ported function, 3=SoundChannel_Stop (0x4ef5b0, "stop/release channel" -
  * called from InitGame.c, same role as PTR_LAB_005574cc's
- * FUN_004eef00 but for this object's own field layout), 4 is
+ * MusicChannel_Stop but for this object's own field layout), 4 is
  * un-cross-referenced address 0x4ef610. */
 void *PTR_LAB_005574e8[5] = {
   (void *)NoOpMethodStdcall1, (void *)PollSoundBufferPosition,
