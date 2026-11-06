@@ -127,7 +127,7 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
               uVar4 = 0;
             }
             else {
-              uVar4 = (undefined4)FUN_004ef3a0(pvVar3);
+              uVar4 = (undefined4)SoundChannel_Construct(pvVar3);
             }
             g_soundChannels[uVar5] = uVar4;
             uVar5 = uVar5 + 1;

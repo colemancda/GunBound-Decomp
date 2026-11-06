@@ -1,6 +1,6 @@
 /* CSoundChannel / CPrimaryStreamChannel - promoted from the raw C ports
  * src/unnamed/FUN_004ef7e0.c (shared base construction),
- * src/unnamed/FUN_004ef3a0.c (secondary-channel ctor),
+ * src/sound/SoundChannel_Construct.c (secondary-channel ctor),
  * src/sound/SoundChannel_Stop.c (secondary-channel stop),
  * src/unnamed/FUN_004eebe0.c (primary-channel ctor), and
  * src/unnamed/FUN_004eef00.c (primary-channel stop). See SoundChannel.cpp
@@ -38,13 +38,13 @@
  * buffer (InitDirectSound's DSBUFFERDESC-less secondary channel). Also
  * the shared first stage of CPrimaryStreamChannel's construction - the
  * secondary channel simply IS this class fully constructed (no further
- * specialization), matching FUN_004ef3a0 doing nothing beyond the
- * shared setup FUN_004ef7e0/FUN_004ef3a0 both perform.
+ * specialization), matching SoundChannel_Construct doing nothing beyond the
+ * shared setup FUN_004ef7e0/SoundChannel_Construct both perform.
  */
 class CSoundChannel {
 public:
-    /* FUN_004ef7e0 + FUN_004ef3a0's shared setup, combined (both always
-     * ran back-to-back at every real call site - see FUN_004ef3a0.c).
+    /* FUN_004ef7e0 + SoundChannel_Construct's shared setup, combined (both always
+     * ran back-to-back at every real call site - see SoundChannel_Construct.c).
      * Leaves vtable = PTR_LAB_005574e8 (the "channel fully constructed,
      * no primary-only extras" state). */
     CSoundChannel();

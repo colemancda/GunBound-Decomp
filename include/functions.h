@@ -1345,7 +1345,7 @@ undefined4 RefillSoundStreamBuffer();
 void __fastcall FUN_004eef00();
 void __thiscall DecodeSoundBufferChunk();
 void __thiscall PollSoundBufferPosition();
-undefined4 *FUN_004ef3a0(); /* __thiscall ctor: call sites use the returned this-pointer */
+undefined4 *SoundChannel_Construct(); /* __thiscall ctor: call sites use the returned this-pointer */
 void FUN_004ef3f0();
 void __fastcall SoundChannel_Stop();
 void __thiscall FUN_004ef610();

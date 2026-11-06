@@ -2,7 +2,7 @@
  *
  * DROPPED REGISTER ARGUMENT (unaff_EBX): Ghidra read the object being
  * initialized as an uninitialized unaff_EBX local instead of a real
- * parameter. Both real callers (FUN_004ef3a0/FUN_004eebe0) confirm via
+ * parameter. Both real callers (SoundChannel_Construct/FUN_004eebe0) confirm via
  * objdump at 0x4ef3a0-0x4ef3a3 (`mov ebx,esi` immediately before `call
  * 0x4ef7e0`) that EBX is simply their own object pointer forwarded
  * through - promoted to a real parameter here and at both call sites.

@@ -21,7 +21,7 @@ uintptr_t __cdecl _beginthread(void (__cdecl *start_address)(void *), unsigned s
 }
 
 /* 0x4ef7e0 + 0x4ef3a0's shared setup. Every real call site ran both back
- * to back (see FUN_004ef3a0.c's header) - combined here since neither is
+ * to back (see SoundChannel_Construct.c's header) - combined here since neither is
  * ever used standalone. */
 CSoundChannel::CSoundChannel()
 {

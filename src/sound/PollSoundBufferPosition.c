@@ -8,7 +8,7 @@
  * the half that just finished playing via this object's own
  * DecodeSoundBufferChunk.
  *
- * Confirmed via debugger (breakpoints through FUN_004eebe0/FUN_004ef3a0's
+ * Confirmed via debugger (breakpoints through FUN_004eebe0/SoundChannel_Construct's
  * entire body, including the __beginthread call and return) that the
  * constructor's own object pointer (`esi`) and its `idx` field
  * (this+0x38, initialized to -1 "idle") are both correct and never

@@ -13,7 +13,7 @@
  * takes the thread argument from the stack and hands it to
  * AudioStreamThreadProc (0x4ef880) in ESI, which that routine reads as its
  * `this`.  Its address is never called, only passed as the start
- * routine: FUN_004ef3a0 and FUN_004eebe0 both do
+ * routine: SoundChannel_Construct and FUN_004eebe0 both do
  * `__beginthread(AudioStreamThreadStart, 0, unaff_ESI)`, and
  * SoundChannel.cpp does `_beginthread(AudioStreamThreadStart, 0, this)`
  * (its extern comment: "__beginthread thunk -> AudioStreamThreadProc").
