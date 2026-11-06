@@ -520,7 +520,6 @@ uint8_t DAT_006a64ac;
 uint8_t DAT_006a64bc;
 uint8_t DAT_006a64c0;
 uint8_t DAT_006a76fc;
-int32_t g_nCameraScrollX;
 int32_t g_nCameraScrollY;
 uint8_t DAT_006a7758;
 uint8_t DAT_006a7f91;
