@@ -19,7 +19,7 @@
  * a loop, each scattered within +-span/2 of (x, y). The inline object is
  * 0x58 bytes with class id 0x2e633 at +4, the CrashTexture additive class
  * SpawnCrashParticleAdditive documents, but with vtable 0x555ce0 (that one
- * installs 0x556308 through FUN_0048dcc0), so it is a distinct class
+ * installs 0x556308 through InitCrashParticleAdditive), so it is a distinct class
  * sharing the id. Burst, because it emits a counted batch at once.
  * The particle role is
  * not established beyond class id and texture.

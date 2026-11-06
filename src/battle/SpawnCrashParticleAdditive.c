@@ -8,7 +8,7 @@
  * cell at all 3 argless PeekPacketChecksumState() calls (3 C : 3 orig,
  * goto-free zip) - three plain globals, cell for cell the twin of SpawnCrashParticleAlphaBlend.
  *
- * Evidence. The constructor it calls, FUN_0048dcc0 (0x50-byte object),
+ * Evidence. The constructor it calls, InitCrashParticleAdditive (0x50-byte object),
  * stamps class id 0x2e633 and installs vtable 0x556308. The class-id switch
  * in FUN_00450c20, the draw pass that binds the "CrashTexture" texture once
  * and then walks the layers, puts 0x2e633 in the additive group (blend mode
@@ -27,9 +27,6 @@
  * three-position option, times the third argument. The object is placed at
  * (x, y) plus the same random offset and bias as the sibling. LIKELY: the
  * role of the particle is not established beyond its blend mode and texture.
- *
- * Known port defect, not changed here: the call to FUN_0048dcc0 discards the
- * object, so iVar2 is uninitialised in the port.
  */
 #include "ghidra_types.h"
 
@@ -57,12 +54,7 @@ void SpawnCrashParticleAdditive(int param_1,int param_2,int param_3)
         iVar2 = 0;
       }
       else {
-        /* FUN_0048dcc0 is void-returning (see its own definition) -
-         * this call site's return-value use is a Ghidra per-call-site
-         * decompilation inconsistency, same class as entry/WinMain.c's
-         * DirectLinkConnection_Construct fix. iVar2 is left uninitialized here as a
-         * result. */
-        FUN_0048dcc0();
+        iVar2 = (int)InitCrashParticleAdditive((undefined4 *)pvVar3);
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar4 = PeekPacketChecksumState((void *)&DAT_00e9ba40);

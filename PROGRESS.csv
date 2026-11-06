@@ -823,7 +823,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0048d1f0,1701,Mobile02_MainAction,false,1,14,RAW-src
 0048d8c0,20,InitSuperShot_Bullet2,false,1,1,RAW-src
 0048d8e0,749,ExplodeSuperShot_Bullet2,false,1,13,RAW-src
-0048dcc0,69,FUN_0048dcc0,false,1,0,RAW-src
+0048dcc0,69,InitCrashParticleAdditive,false,1,0,RAW-src
 0048de40,20,FUN_0048de40,false,1,1,RAW-src
 0048de60,871,ExplodeSuperShot_Bullet1_5_6_12_13_15,false,8,11,RAW-src
 0048e1d0,4073,DetonateSuperShot_Bullet3_5_14,false,3,40,RAW-src

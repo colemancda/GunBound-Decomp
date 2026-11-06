@@ -951,7 +951,7 @@ void Mobile02_Destructor(undefined4 *regEax);
 void __thiscall Mobile02_MainAction();
 undefined4 * InitSuperShot_Bullet2(undefined4 *regEsi);
 void __fastcall ExplodeSuperShot_Bullet2();
-void FUN_0048dcc0();
+undefined4 * InitCrashParticleAdditive(undefined4 *regEax);
 undefined4 FUN_0048de40(undefined4 *regEsi);
 void __fastcall ExplodeSuperShot_Bullet1_5_6_12_13_15();
 void __fastcall DetonateSuperShot_Bullet3_5_14();

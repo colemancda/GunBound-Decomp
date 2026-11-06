@@ -15,7 +15,7 @@
  * layers, lists 0x2e634 with 0x2e633 and 0x2e644 in the additive group
  * (blend mode 2, SRCALPHA / ONE), so this is a third CrashTexture additive
  * particle next to SpawnCrashParticleAdditive (class 0x2e633, ctor
- * FUN_0048dcc0). It is a distinct class and a distinct spawner shape, so
+ * InitCrashParticleAdditive). It is a distinct class and a distinct spawner shape, so
  * the class id is the suffix: this one takes only (x, y) (ret 8), and its
  * spawn roll is rand() % peek(0x796aa0) against DAT_005f2f54 with no
  * third-argument scale, unlike the (x, y, value) siblings.
