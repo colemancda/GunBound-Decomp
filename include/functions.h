@@ -1799,7 +1799,7 @@ void __fastcall FUN_0050f840(int param_1,int param_2);
 undefined8 DecodeMpegFrameDispatch(); /* 64-bit result used from EDX:EAX at call sites */
 undefined8 DecodeMpegLayerIISamples();
 void ReadMpegLayerIIScfsi();
-void FUN_0050fe50();
+void ReadMpegLayerIIScalefactors();
 void FUN_005100a0();
 void FUN_005133a0();
 void FUN_00513850();

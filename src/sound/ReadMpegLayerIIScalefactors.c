@@ -1,15 +1,25 @@
-/* FUN_0050fe50 - 0x0050fe50 in the original binary.
+/* ReadMpegLayerIIScalefactors - 0x0050fe50 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Read the Layer II scalefactor indices according to scfsi and scale them
+ * by the power-of-two table.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Second of the three Layer II readers called from
+ * DecodeMpegLayerIISamples, in ISO frame order after ReadMpegLayerIIScfsi.
+ * Switches on the scfsi value (the three-part sharing patterns) and reads
+ * 6-bit scalefactor indices, multiplying the table entry in g_mpegPow2Tab
+ * (0x5a9888, filled by DecodeMpegAudioFrame) by a per-subband factor.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0050fe50(void)
+void ReadMpegLayerIIScalefactors(void)
 
 {
   uint uVar1;
