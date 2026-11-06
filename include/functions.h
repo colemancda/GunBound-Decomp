@@ -1015,7 +1015,7 @@ void __fastcall DetonatePrimaryShot_Bullet4();
 void __fastcall AnimatePrimaryShot_Bullet4();
 undefined4 * InitShot2_Bullet2();
 void * __thiscall DeleteShot2_Bullet2();
-void FUN_004a4830();
+void DestroyShot2_Bullet2(undefined4 *param_1);
 void __fastcall DetonateShot2_Bullet2();
 undefined4 * InitProjectileLightningHazard();
 void * __thiscall FUN_004a69d0();
