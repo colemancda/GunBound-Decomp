@@ -76,7 +76,7 @@ undefined4 InitMpegLayerIIITables(void)
     iVar4 = iVar4 + 1;
     pfVar2 = pfVar2 + 1;
   } while (iVar4 < 8);
-  pfVar2 = (float *)FUN_005180d0();
+  pfVar2 = (float *)GetMpegAntialiasCsCaTable();
   pfVar6 = (float *)&DAT_00544a88;
   do {
     fVar7 = (float10)FUN_00527f34((double)(*pfVar6 * *pfVar6 + (float)_DAT_00544aa8));

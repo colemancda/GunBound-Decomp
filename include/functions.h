@@ -1841,7 +1841,7 @@ undefined4 * FUN_00517d00();
 int FUN_00517d40();
 void FUN_00518080();
 void MpegFrequencyInversionThunk();
-undefined * FUN_005180d0();
+undefined * GetMpegAntialiasCsCaTable();
 undefined * FUN_005180e0();
 undefined * FUN_005180f0();
 void MpegAntialiasThunk();

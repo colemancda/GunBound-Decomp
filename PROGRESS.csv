@@ -1768,7 +1768,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00517d40,820,FUN_00517d40,false,1,2,RAW-src
 00518080,33,FUN_00518080,false,1,0,RAW-src
 005180b0,19,MpegFrequencyInversionThunk,false,4,1,RAW-src
-005180d0,6,FUN_005180d0,false,1,0,RAW-src
+005180d0,6,GetMpegAntialiasCsCaTable,false,1,0,RAW-src
 005180e0,6,FUN_005180e0,false,1,0,RAW-src
 005180f0,6,FUN_005180f0,false,1,0,RAW-src
 00518100,19,MpegAntialiasThunk,false,1,1,RAW-src
