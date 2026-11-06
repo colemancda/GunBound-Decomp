@@ -23,7 +23,7 @@
  * &DAT_00e9ba40, &DAT_00796aa0, and param_4+0x2f74 (read back through
  * the arg's frame slot; param_4 is the same object whose +0x2908 cell
  * the round-1 DeltaDiv already passes explicitly).  This function and
- * its twin (ApplyImpactToItemCase/FUN_00499650) check each other cell for cell.
+ * its twin (ApplyImpactToItemCase/ApplyImpactToMine) check each other cell for cell.
  *
  * The worklist's MISMATCH (9 orig : 6 C) is a generation-time
  * ATTRIBUTION error, not a decompile problem: this function ends at
