@@ -131,7 +131,8 @@ int  _sprintf(char *buf, const char *fmt, int a, int b);
 
 extern int g_clientContext;            /* _DAT_005b3484 */
 extern unsigned char g_replayContext;  /* 0xe55ce0 - battle/replay turn-event buffer sized in globals_sized.c; declared scalar and always used as &g_replayContext, the same offset-macro idiom as globals.h */
-extern unsigned char g_nCameraX, g_nCameraY;  /* 1-byte: used only as &sym + g_clientContext ctx bases (see Projectile.cpp) */
+#define g_nCameraX (*(unsigned char *)(0x6a7710))  /* arena offset, same fixed-address form as globals.h; only used as &g_nCameraX + <arena base> */
+#define g_nCameraY (*(unsigned char *)(0x6a7714))  /* arena offset, same fixed-address form as globals.h; only used as &g_nCameraY + <arena base> */
 extern int g_clipMinX, g_clipMaxX, g_clipMinY, g_clipMaxY;  /* on-screen clip bounds */
 extern unsigned char DAT_00e9bed8;     /* a guard cell (address-of taken) */
 extern unsigned char DAT_00796aa0;     /* a guard cell (address-of taken) */
@@ -180,8 +181,9 @@ void QueueBroadcastEvent(unsigned int event, int replayCtx);
 void BroadcastQueuedEvent(void);
 
 extern int DAT_005b3424;               /* second per-connection base (distinct from g_clientContext) */
-extern unsigned char g_nCameraBoundX, g_nCameraBoundY;  /* 1-byte ctx bases (&sym + g_clientContext) */
-extern unsigned char DAT_005f3768;     /* 1-byte ctx base */
+#define g_nCameraBoundX (*(unsigned char *)(0x6a7720))  /* arena offset, same fixed-address form as globals.h; only used as &g_nCameraBoundX + <arena base> */
+#define g_nCameraBoundY (*(unsigned char *)(0x6a7724))  /* arena offset, same fixed-address form as globals.h; only used as &g_nCameraBoundY + <arena base> */
+#define DAT_005f3768 (*(unsigned char *)(0x005f3768))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_005f3768 + <arena base> */
 #define DAT_006a7758 (*(unsigned char *)(0x006a7758))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7758 + <arena base> */
 extern unsigned int  g_sharedTextInputControl;     /* shared overlay EDIT control singleton (holds an address) */
 extern unsigned char DAT_007a7644[0x1c];/* animated cursor object (address taken);
@@ -221,7 +223,7 @@ extern int  DAT_005b3438;                  /* _DAT_005b3438 */
 extern unsigned char DAT_00794bf0, DAT_00e9ba40; /* guard cells (address taken) */
 extern unsigned char DAT_00553bcc, DAT_00551cb1;
 extern unsigned char DAT_00e9aacd, DAT_00e9aace;
-extern unsigned char DAT_006a7f70;         /* ctx base */
+#define DAT_006a7f70 (*(unsigned char *)(0x006a7f70))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7f70 + <arena base> */
 extern const char s_unmove_00555c98[];
 
 /* Mobile00_MainAction's additional dependencies. */

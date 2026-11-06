@@ -26,7 +26,7 @@ extern unsigned char DAT_00e53e88[];      /* the lobby-connection object */
  * same offset-macro here. */
 #define DAT_00e55a45 (DAT_00e53e88[0x1bbd])
 extern unsigned int DAT_0056d108, DAT_007934d8;
-extern unsigned char DAT_0067ec70;
+#define DAT_0067ec70 (*(unsigned char *)(0x0067ec70))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_0067ec70 + <arena base> */
 extern unsigned char g_activeObjectRegistry[0x20], g_activeObjectRegistry2[0x20]; /* the two active-object registries */
 extern void *g_cursorTexture;
 extern const char s_cursor_005524e8[];

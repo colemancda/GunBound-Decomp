@@ -34,7 +34,7 @@ CWorldListPanel *BuildWorldListPanel(void *manager);
 int LoadSpriteSet(void *container, int key, const char *imgName);
 extern unsigned char g_spriteRegistry[0x20];
 extern int g_clientContext;
-extern unsigned char DAT_0067ec70;
+#define DAT_0067ec70 (*(unsigned char *)(0x0067ec70))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_0067ec70 + <arena base> */
 extern unsigned char g_uiPanelManager[0x1c];
 void AppendPersistentButtonName(void *slot);
 /* the flat 80-byte ButtonWidget factory (separate system, PLAN.md
