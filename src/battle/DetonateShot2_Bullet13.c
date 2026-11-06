@@ -612,7 +612,7 @@ LAB_004a0f88:
         ScrubChecksumGuard();
       }
       else {
-        cVar1 = FUN_004e4fe0((int)piStack_ae4,&DAT_006a7708 + g_clientContext,&iStack_adc,&piStack_ad8,2,1,1,iVar3);
+        cVar1 = FindFirstImpactAlongRay((int)piStack_ae4,&DAT_006a7708 + g_clientContext,&iStack_adc,&piStack_ad8,2,1,1,iVar3);
         if (cVar1 != '\0') {
           uStack_8a4 = 0;
           uStack_ab0 = 0;

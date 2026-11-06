@@ -1,8 +1,32 @@
-/* FUN_004e4fe0 - 0x004e4fe0 in the original binary.
+/* FindFirstImpactAlongRay - 0x004e4fe0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (batch 35), LIKELY (was FUN_004e4fe0).  A pixel ray cast: from
+ * the start point (ECX this = x, EAX = y) along the direction towards the
+ * point held in the two in/out cells *param_3 / *param_4, stepping
+ * param_5 (always 2) along the major axis and interpolating the minor one
+ * in 16.16 fixed point.  Each pixel is tested against the terrain bitmap
+ * (byte at bitmap[y * g_nCameraBoundX + x], gated by param_6) and against
+ * HitTestMobilesAndJewels (gated by param_7); on the first solid pixel or
+ * entity it writes the HIT point back through the two cells and returns
+ * 1.  It returns 0 when the walk leaves the bounds block in param_2
+ * (+0x18 max x, +0x1c max y, x below 0, y below -500).  The loop never
+ * compares against the end point, only the bounds, so it is a RAY along
+ * that direction and not a bounded segment - hence "Ray".  External
+ * evidence for "first impact": all 26 call sites (tools/count_call_args.py:
+ * 8 args at every site) pass (1, 1) for the two gates and the same
+ * bounds block &DAT_006a7708 + g_clientContext, and they are the
+ * detonation / shot-simulation routines (Detonate*_Bullet*,
+ * DetonateProjectile); on a hit they queue the two returned coordinates as
+ * outgoing packet fields (Projectile.cpp QueueOutgoingPacketField of
+ * uStack_adc / local_ad4), i.e. they treat the result as the impact
+ * position.  Siblings in the same job: FindFirstImpactAlongStep_XMajor /
+ * _YMajor (0x458920 / 0x458a00), which share HitTestMobilesAndJewels.
+ * LIKELY because the direction role of the in/out cells is read from the
+ * arithmetic, not stated by a caller.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * EAX RECOVERED AND THE CALL SITES RE-SLOTTED (2026-08-26).  `ret 0x18` is six
  * stack arguments against seven declared parameters, so param_1 is the ECX
@@ -15,7 +39,7 @@
 
 
 undefined4 __thiscall
-FUN_004e4fe0(int param_1,int param_2,int *param_3,int *param_4,int param_5,char param_6,char param_7,
+FindFirstImpactAlongRay(int param_1,int param_2,int *param_3,int *param_4,int param_5,char param_6,char param_7,
              int in_EAX)
 
 {

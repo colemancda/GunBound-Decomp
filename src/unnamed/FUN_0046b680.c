@@ -12,7 +12,7 @@
  * 0x46b680-0x46c98e) rather than the json hints, because this decompile
  * is goto-shuffled (the cVar4=='\0' body at lines ~74-259 lives at
  * 0x46c3ab+, AFTER the LAB_0046bdae tail). Landmarks used per site
- * (FUN_00436070/0x436070, ApplyBlastDamage, FUN_004e4fe0, FUN_00432320,
+ * (FUN_00436070/0x436070, ApplyBlastDamage, FindFirstImpactAlongRay, FUN_00432320,
  * ApplyCraterExcavation/0x4e4970, FUN_00450eb0/436ac0/4372f0/437150,
  * InitChecksumSeed/0x43a530, the rand() scramble tail). Notable
  * recoveries: ebx is param_1 up front but is reloaded from
@@ -421,7 +421,7 @@ LAB_0046bd0d:
         ScrubChecksumGuard();
       }
       else {
-        cVar4 = FUN_004e4fe0(iVar6 - iVar11,&DAT_006a7708 + g_clientContext,&uStack_adc,&local_ad4,2,1,1,iVar12);
+        cVar4 = FindFirstImpactAlongRay(iVar6 - iVar11,&DAT_006a7708 + g_clientContext,&uStack_adc,&local_ad4,2,1,1,iVar12);
         if (cVar4 != '\0') {
           uStack_8a4 = 0;
           iStack_ab0 = 0;

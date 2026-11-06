@@ -1336,7 +1336,7 @@ void FUN_004ee850();
 uint AcquireSoundChannel();
 uint PlayMusicTrack();
 void StopSoundChannel(int soundChannelIndex);
-undefined4 __thiscall FUN_004e4fe0(int param_1,int param_2,int *param_3,int *param_4,int param_5,char param_6,char param_7,int in_EAX);
+undefined4 __thiscall FindFirstImpactAlongRay(int param_1,int param_2,int *param_3,int *param_4,int param_5,char param_6,char param_7,int in_EAX);
 void __fastcall SetMusicVolume();
 void __fastcall SetEffectsVolume();
 void FUN_004eeb70();

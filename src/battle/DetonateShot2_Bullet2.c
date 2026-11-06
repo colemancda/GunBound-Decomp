@@ -41,7 +41,7 @@
  *   - global cells: &DAT_00e9bed8/&DAT_00e55ab8/&DAT_007949c8
  *     (immediates), g_clientContext+0x5b85c (mov edi,[0x5b3484];
  *     add edi,0x5b85c @0x4a593b) and +0xebcbc (lea @0x4a5169).
- *   - the branch pair around FUN_004e4fe0 uses TWO STACK cells at
+ *   - the branch pair around FindFirstImpactAlongRay uses TWO STACK cells at
  *     frame slots +0x44/+0x268 (0x224 apart = the guard-cell stride);
  *     Ghidra scatter-names them &stack0xfffff2e4 / auStack_af8 (its
  *     own names for those slots at the kept Sync/PeekUnderLock args) -
@@ -645,7 +645,7 @@ LAB_004a54f8:
         puVar27 = puVar26;
       }
       else {
-        cVar3 = FUN_004e4fe0(iVar16,&DAT_006a7708 + g_clientContext,&stack0xfffff2e0,&stack0xfffff2dc,2,1,1,iVar13 - iVar9);
+        cVar3 = FindFirstImpactAlongRay(iVar16,&DAT_006a7708 + g_clientContext,&stack0xfffff2e0,&stack0xfffff2dc,2,1,1,iVar13 - iVar9);
         puVar27 = puVar26;
         if (cVar3 != '\0') {
           uStack_afc = 0;
