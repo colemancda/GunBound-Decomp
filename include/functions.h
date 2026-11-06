@@ -156,7 +156,7 @@ void FUN_00401a70();
 int FindDirectLinkBuddyNode(int param_1,char *key);
 int FindActiveObjectByIndex(int regEax,int regEdi);
 int FindDirectLinkBuddyIndexByName(int param_1,char *param_2);
-void __fastcall FUN_00401cb0(char *param_1,int regEsi);
+void __fastcall AddDirectLinkBuddyGroupName(char *param_1,int regEsi);
 int __thiscall FUN_00401ce0(int param_1,byte *param_2);
 void __thiscall UpsertDirectLinkBuddyNode(char *param_1,int param_2,char param_3,undefined4 param_4,short param_5,undefined4 *param_6,char *param_7,char *regEax);
 void RemoveDirectLinkBuddyNode(int param_1,char *regEax);

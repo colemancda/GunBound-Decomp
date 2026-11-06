@@ -149,7 +149,7 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2,usho
             *(uint *)(local_108 + 0x10) = param_1[4];
             local_108[0x14] = 0;
             puVar8 = (undefined4 *)(param_1 + 5);
-            FUN_00401cb0(local_108,(int)&DAT_00e53e88);
+            AddDirectLinkBuddyGroupName(local_108,(int)&DAT_00e53e88);
             {
               undefined4 *puFill = (undefined4 *)local_108;
               for (iVar7 = 0x20; iVar7 != 0; iVar7 = iVar7 + -1) {
