@@ -18,7 +18,7 @@
  *     passes the recvfrom sender address twice (0x4ff968) after a
  *     FindP2PPeerRecord miss, UpdateP2PPeerRecordIfChanged passes addresses parsed from
  *     a CommP2POwner_ProcessPacket packet, and FUN_004fe110 /
- *     FUN_00503a10 pass zeros to create an address-less record.
+ *     AddP2PPeerRecordIfMissing pass zeros to create an address-less record.
  * After the write it clears the record's pending flag (record+0x1c),
  * re-sends every datagram FUN_004fe110 had queued on the record (the
  * 0x1750-stride array at record+0x80, CArray_Add_1750's element size)
@@ -74,7 +74,7 @@
  *   0x4fe380 (FUN_004fe110): `mov ecx,ebx` (0x4fe37e), EBX = [ebp+8] = that
  *     function's param_2;
  *   0x4ff968 (CommP2PReceiveDatagram): `mov ecx,ebp` (0x4ff966), EBP = its param_1;
- *   0x503a2e (FUN_00503a10): `mov ecx,edi` (0x503a2c) = its regEdi;
+ *   0x503a2e (AddP2PPeerRecordIfMissing): `mov ecx,edi` (0x503a2c) = its regEdi;
  *   0x5039f7 (UpdateP2PPeerRecordIfChanged): `mov ecx,edi`, already passed as regEdi.
  * In every case the ECX value is also the map pushed to the neighbouring
  * FindP2PPeerRecord call (witness).  Declared here as the erased-__thiscall

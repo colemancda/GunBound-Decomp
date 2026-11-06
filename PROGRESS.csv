@@ -1524,7 +1524,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00503910,25,GetConnectionSocketIfListed,false,1,0,RAW-src
 00503930,101,GetConnectionLocalAddressIfListed,false,1,1,RAW-src
 005039a0,97,UpdateP2PPeerRecordIfChanged,false,1,2,RAW-src
-00503a10,61,FUN_00503a10,false,2,2,RAW-src
+00503a10,61,AddP2PPeerRecordIfMissing,false,2,2,RAW-src
 00503a50,340,RemoveP2PPeerRecord,false,2,3,RAW-src
 00503bb0,137,RemoveAllP2PPeers,false,1,1,RAW-src
 00503c40,459,CommP2POwner_ReassemblePackets,false,2,2,RAW-src

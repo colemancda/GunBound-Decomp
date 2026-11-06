@@ -41,7 +41,7 @@
  *     [esp+0x20]` with two pushes pending = the 17-byte id the caller just
  *     assembled from the packet at [esp+0x18..0x28]);
  *   UpdateP2PPeerRecordIfChanged 0x5039ae: regEax (`mov esi,eax` at 0x5039a6);
- *   FUN_00503a10 0x503a1a, 0x503a39: regEax (`mov esi,eax` at 0x503a12,
+ *   AddP2PPeerRecordIfMissing 0x503a1a, 0x503a39: regEax (`mov esi,eax` at 0x503a12,
  *     preserved across UpsertP2PPeerRecord);
  *   RemoveP2PPeerRecord 0x503a67: param_2 (`mov ebx,[esp+0x20]` at 0x503a54,
  *     `mov esi,ebx` at 0x503a65).

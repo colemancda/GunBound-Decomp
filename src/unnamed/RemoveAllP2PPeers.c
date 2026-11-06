@@ -10,7 +10,7 @@
  * pkt+4 is 0 and the frame is longer than 0x1d bytes), where it is
  * followed directly by StringMap_RemoveAll_1c on the sibling map at
  * this+0x17fc - a wipe-then-reload sequence, with the roster re-added
- * entry by entry through FUN_00503a10 further down that
+ * entry by entry through AddP2PPeerRecordIfMissing further down that
  * arm.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
