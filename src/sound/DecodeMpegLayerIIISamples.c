@@ -38,6 +38,8 @@ undefined8 DecodeMpegLayerIIISamples(byte *param_1,undefined4 *param_2)
   int *piVar9;
   undefined4 *puVar10;
   bool bVar11;
+  int iHdrProtection;
+  int iHdrBitrateIdx;
   int *local_8;
   int local_4;
   
@@ -56,42 +58,46 @@ undefined8 DecodeMpegLayerIIISamples(byte *param_1,undefined4 *param_2)
   uVar7 = uVar5 >> ((byte)DAT_00f25e04 & 0x1f);
   DAT_00f25e00 = uVar5 - (uVar7 << ((byte)DAT_00f25e04 & 0x1f));
   if (uVar7 == 0xfff) {
-    ConsumeMpegBits(1);
-    ConsumeMpegBits(2);
-    ConsumeMpegBits(1);
-    ConsumeMpegBits(4);
-    ConsumeMpegBits(2);
-    ConsumeMpegBits(1);
-    ConsumeMpegBits(1);
-    ConsumeMpegBits(2);
-    ConsumeMpegBits(2);
+    /* The nine header reads at 0x515046..0x51508f keep their EAX results:
+     * 0x51504e stores the first (ID bit) into DAT_005ae34c - the only write
+     * to it outside 0x515b90 - and the rest land in ESI/EDI/cells below.
+     * Ghidra dropped every one of these returns. */
+    DAT_005ae34c = ConsumeMpegBits(1);
+    ConsumeMpegBits(2);                       /* layer, discarded */
+    iHdrProtection = ConsumeMpegBits(1);      /* ESI */
+    iHdrBitrateIdx = ConsumeMpegBits(4);      /* EDI */
+    DAT_005ae924 = ConsumeMpegBits(2);
+    DAT_005ae33c = ConsumeMpegBits(1);
+    ConsumeMpegBits(1);                       /* private bit, discarded */
+    DAT_005ae7e8 = ConsumeMpegBits(2);
+    DAT_005ae7ec = ConsumeMpegBits(2);
     if (DAT_005ae7e8 != 1) {
       DAT_005ae7ec = 0;
     }
     DAT_005aba2c = DAT_005ae7ec & 1;
     DAT_005ae348 = (int)DAT_005ae7ec >> 1;
     DAT_005ada38 = 0;
-    if (iVar4 == 0) {
+    if (iHdrProtection == 0) {
       ConsumeMpegBits(0x14);
       DAT_005ada38 = 2;
     }
     else {
       ConsumeMpegBits(4);
     }
-    if (0 < iVar2) {
-      DAT_005aba30 = (*(int *)(&DAT_00563d0c + (DAT_005ae34c * 0x10 + iVar2) * 4) * 0xb40) /
+    if (0 < iHdrBitrateIdx) {
+      DAT_005aba30 = (*(int *)(&DAT_00563d0c + (DAT_005ae34c * 0x10 + iHdrBitrateIdx) * 4) * 0xb40) /
                      *(int *)(&DAT_00563cec + (DAT_005ae924 + DAT_005ae34c * 4) * 4);
     }
-    ConsumeMpegBits(9);
+    DAT_005ae7f0 = ConsumeMpegBits(9);
     bVar11 = DAT_005ae7e8 != 3;
     if (bVar11) {
-      ConsumeMpegBits(3);
+      DAT_005ae7f4 = ConsumeMpegBits(3);
       iVar4 = 2;
       DAT_005ae7dc = 2;
       local_4 = 0x24;
     }
     else {
-      ConsumeMpegBits(5);
+      DAT_005ae7f4 = ConsumeMpegBits(5);
       iVar4 = 1;
       DAT_005ae7dc = 1;
       local_4 = 0x15;
