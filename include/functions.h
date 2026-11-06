@@ -976,7 +976,7 @@ void __thiscall SimulateShot2_Bullet3();
 void __fastcall DetonateShot2_Bullet3();
 undefined4 * InitShot2_Bullet7();
 void * __thiscall DeleteShot2_Bullet7();
-void FUN_00495d60();
+void DestroyShot2_Bullet7(undefined4 *param_1);
 void __fastcall DetonateShot2_Bullet7();
 undefined4 * InitMine();
 void * __thiscall DeleteMine();

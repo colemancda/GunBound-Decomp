@@ -1,13 +1,21 @@
-/* FUN_00495d60 - 0x00495d60 in the original binary.
+/* DestroyShot2_Bullet7 - 0x00495d60 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Destructor body behind the scalar-deleting wrapper DeleteShot2_Bullet7
+ * (0x00495d40), slot 0 of vtable 0x5563d0: the wrapper does push this;
+ * call 0x00495d60 and then frees the object when bit 0 of its flag
+ * argument is set.  This body stores 0x5563d0 into *this and chains to
+ * DestroyProjectile (0x00455570).  Same split as DestroyShot2_Bullet9 /
+ * DeleteShot2_Bullet9, except that the object arrives as a stack argument
+ * here (ret 4) rather than in EAX.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00495d60(undefined4 *param_1)
+void DestroyShot2_Bullet7(undefined4 *param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;
