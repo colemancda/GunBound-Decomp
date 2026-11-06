@@ -19,7 +19,7 @@
 void * __thiscall SuperCrystalShot_ScalarDtor(void *param_1,int param_2)
 
 {
-  FUN_0048f280(param_1);
+  SuperCrystalShot_DtorBody(param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

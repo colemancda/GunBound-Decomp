@@ -957,7 +957,7 @@ void __fastcall ExplodeSuperShot_Bullet1_5_6_12_13_15();
 void __fastcall DetonateSuperShot_Bullet3_5_14();
 void __fastcall AnimateProjectileTick();
 void * __thiscall SuperCrystalShot_ScalarDtor();
-void FUN_0048f280();
+void SuperCrystalShot_DtorBody();
 undefined1 FUN_0048f300();
 void __fastcall FUN_00490780();
 undefined4 * InitSuperShot_Bullet9(undefined4 *regEsi);

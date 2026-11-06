@@ -829,7 +829,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0048e1d0,4073,DetonateSuperShot_Bullet3_5_14,false,3,40,RAW-src
 0048f1c0,146,AnimateProjectileTick,false,28,7,RAW-src
 0048f260,31,SuperCrystalShot_ScalarDtor,false,1,2,RAW-src
-0048f280,128,FUN_0048f280,false,1,1,RAW-src
+0048f280,128,SuperCrystalShot_DtorBody,false,1,1,RAW-src
 0048f300,5219,FUN_0048f300,false,1,26,RAW-src
 00490780,69,FUN_00490780,false,1,4,RAW-src
 004907d0,20,InitSuperShot_Bullet9,false,1,1,RAW-src
