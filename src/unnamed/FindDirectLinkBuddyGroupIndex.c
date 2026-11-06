@@ -1,9 +1,19 @@
-/* FUN_00401ce0 - 0x00401ce0 in the original binary.
+/* FindDirectLinkBuddyGroupIndex - 0x00401ce0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (LIKELY on the noun "group", see AddDirectLinkBuddyGroupName):
+ * it is a linear search of the table AddDirectLinkBuddyGroupName appends
+ * to - 0x18-byte records from container + 0xc, count at +0xc0c - returning
+ * the matching slot or -1 (`or eax,-1`, ret 4). Its only caller is the
+ * 0xa2f0 arm of DispatchDirectLinkMessengerPacket (call at 0x4120f2), which
+ * passes ECX = &DAT_00e53e88 and the 18-char name from the payload, and
+ * feeds the result straight into UpsertDirectLinkBuddyNode as its 4th
+ * argument, the same slot the 0xa001 bulk-fill passes its outer loop
+ * counter for. The compare is case-sensitive (byte-pair strcmp inlined).
+ * The port's stack/ECX placement is as described above and unchanged.
  *
  * ARGUMENTS RE-SLOTTED.  `ret 4` gives one stack argument, so param_1 is ECX
  * and param_2 is the push.  ECX is &DAT_00e53e88 at the sole call site, and
@@ -17,7 +27,7 @@
 #include "ghidra_types.h"
 
 
-int __thiscall FUN_00401ce0(int param_1,byte *param_2)
+int __thiscall FindDirectLinkBuddyGroupIndex(int param_1,byte *param_2)
 
 {
   byte bVar1;

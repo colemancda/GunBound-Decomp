@@ -58,7 +58,7 @@
  *
  * Sites 0x00411d50 and 0x00412107 are both in FUN_00411b40 (witnesses:
  * param_6 = local_108 with param_7 = &local_13c at the first, the
- * immediately preceding FUN_00401ce0 call whose result is param_4 =
+ * immediately preceding FindDirectLinkBuddyGroupIndex call whose result is param_4 =
  * uVar6 at the second).  Both take ECX = &local_148 and EAX =
  * &local_158; the frame base is entry-0x168 at each, pinned by several
  * known slots apiece.  Those two local groups are 9 and 13 bytes wide -

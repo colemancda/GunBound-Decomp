@@ -275,7 +275,7 @@ void __fastcall DispatchDirectLinkMessengerPacket(uint *param_1,int param_2,usho
     uVar5 = (uint)*(ushort *)((int)param_1 + 0x36);
     puVar4 = local_13c;
     puVar9 = local_108;
-    uVar6 = FUN_00401ce0((int)&DAT_00e53e88,(byte *)local_120);
+    uVar6 = FindDirectLinkBuddyGroupIndex((int)&DAT_00e53e88,(byte *)local_120);
     UpsertDirectLinkBuddyNode(local_148,(int)&DAT_00e53e88,1,uVar6,(short)uVar5,
                  (undefined4 *)puVar9,puVar4,local_158);
     UpdateBuddyStatus((int)&DAT_00e53e88,local_13c,(undefined1 *)((int)param_1 + 0x38));
