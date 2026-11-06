@@ -20,7 +20,7 @@ void __fastcall FUN_0046c990(int *param_1)
   if (param_1[9] != 0) {
     (**(code **)(*param_1 + 0x18))();
   }
-  FUN_004585e0();
+  UpdateProjectileAngle();
   AdvanceSpriteAnimation((int)param_1);
   if ((char)param_1[0xd] == '\x01') {
     (**(code **)(*param_1 + 4))(&PTR_DAT_00555e2c);

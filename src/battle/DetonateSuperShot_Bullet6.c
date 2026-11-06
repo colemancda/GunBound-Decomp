@@ -318,7 +318,7 @@ LAB_00453238:
   else {
     cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0x3fa3);
     if (cVar3 == '\0') {
-      FUN_004585e0();
+      UpdateProjectileAngle();
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = _rand();
       *(byte *)((int)param_1 + 0x3fa3) = (byte)iVar5;
@@ -338,7 +338,7 @@ LAB_00453238:
       param_1[0xfea] = (-(uint)(cVar3 != '\0') & 2) - 1;
     }
     if (param_1[0xfea] == 0) {
-      FUN_004585e0();
+      UpdateProjectileAngle();
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

@@ -25,7 +25,7 @@ void __fastcall AnimateShot2_Bullet13(int *param_1)
   undefined4 uVar3;
   
   (**(code **)(*param_1 + 0x18))();
-  FUN_004585e0();
+  UpdateProjectileAngle();
   if (param_1[0xfe7] != -1) {
     param_1[0xfe7] = param_1[0xfe7] + 1;
   }

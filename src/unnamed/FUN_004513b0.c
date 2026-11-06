@@ -137,7 +137,7 @@ void __fastcall FUN_004513b0(int *param_1)
     pcVar17 = (code *)EnterCriticalSection;
     pcVar16 = (code *)LeaveCriticalSection;
     if (cVar2 == '\0') {
-      FUN_004585e0();
+      UpdateProjectileAngle();
       puStack_b08 = (undefined *)0x451419;
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar4 = _rand();
@@ -159,7 +159,7 @@ void __fastcall FUN_004513b0(int *param_1)
       param_1[0xfe9] = (uint)(iVar4 < 0x5a) * 2 + -1;
     }
     if (param_1[0xfe9] == 0) {
-      FUN_004585e0();
+      UpdateProjectileAngle();
     }
   }
   puStack_b08 = (undefined *)0x4514f0;
