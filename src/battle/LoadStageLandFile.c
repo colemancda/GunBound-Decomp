@@ -108,9 +108,12 @@ LAB_004e3ca5:
   *(void **)(param_1 + 0x38) = pvVar6;
   iVar7 = OpenXFSEntryStream((int)&g_graphicsArchive, local_80, 1, 0);
   if (iVar7 != 0) {
-    ReadXFSEntryByte(iVar7,param_1 + 0x18);
-    ReadXFSEntryByte(iVar7,param_1 + 0x1c);
-    ReadXFSEntryByte(iVar7,*(undefined4 *)(param_1 + 0x34));
+    /* EAX = byte count at each call: mov eax,4 (0x4e3d1a, 0x4e3d29) and
+     * [ebp+0x18]*[ebp+0x1c] = w*h (0x4e3d33/0x4e3d35) for the pixel data. */
+    ReadXFSEntryByte(iVar7,param_1 + 0x18,4);
+    ReadXFSEntryByte(iVar7,param_1 + 0x1c,4);
+    ReadXFSEntryByte(iVar7,*(undefined4 *)(param_1 + 0x34),
+                     *(int *)(param_1 + 0x18) * *(int *)(param_1 + 0x1c));
     CloseSpriteReadState();
   }
   return;
