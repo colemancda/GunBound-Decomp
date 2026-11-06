@@ -472,7 +472,7 @@ uint HitTestLocalMobile();
 undefined4 FindUserIdByNickname(char *param_1,char *regEax,int regEcx);
 undefined4 FindNicknameByUserId(char *param_1,char *regEax,int regEcx);
 void CacheNicknameUserIdPair(int regEax,undefined4 regEsi,undefined4 regEdi);
-void AppendChatBacklog();
+void AppendChatBacklog(char *param_1, int in_EAX);
 void FUN_004261d0(int regEsi);
 void FUN_00426210();
 void ShowChatBanNotice(int ctx);

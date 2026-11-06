@@ -21,18 +21,20 @@
  * (a sliding buffer, not a ring, despite the older note in
  * DisplayIncomingWhisper).
  *
- * Known defect, not fixed here: the context arrives in EAX but the port
- * reads it through an uninitialised in_EAX and the prototype lists only
- * the text; FUN_004024f0's EAX at 0x40256d is not yet traced.
+ * The context arrives in EAX and is a trailing parameter here. All three
+ * call sites are proven from the disassembly: 0x402492 loads [0x5b3484]
+ * (DisplayIncomingWhisper); 0x41b946 is `mov eax,ebp` with ebp =
+ * AppendChatLogEntry's first stack arg (param_1); in FUN_004024f0 EAX is
+ * loaded from [0x5b3484] at 0x402501 and nothing between there and the call
+ * at 0x40256d writes EAX (only ecx/edx/esi/edi and rep movs).
  */
 #include "ghidra_types.h"
 
 
-void AppendChatBacklog(char *param_1)
+void AppendChatBacklog(char *param_1,int in_EAX)
 
 {
   char cVar1;
-  int in_EAX;
   char *pcVar2;
   char *pcVar3;
   uint uVar4;
