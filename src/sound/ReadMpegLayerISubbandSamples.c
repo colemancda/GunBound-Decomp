@@ -1,13 +1,23 @@
-/* FUN_00513900 - 0x00513900 in the original binary.
+/* ReadMpegLayerISubbandSamples - 0x00513900 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Read and dequantise the Layer I subband samples.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * LIKELY. Called at 0x51380d by the Layer I frame decoder at 0x5133c0
+ * right after ReadMpegLayerIScalefactors and immediately before the
+ * synthesis call through PTR_FUN_005637cc, matching ISO Layer I order
+ * (allocation, scalefactors, samples). Switches on the per-subband bit
+ * width; the 2-bit case computes (v-1) times the step, as in Layer I
+ * dequantisation.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00513900(void)
+void ReadMpegLayerISubbandSamples(void)
 
 {
   uint *puVar1;

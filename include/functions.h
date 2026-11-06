@@ -1803,7 +1803,7 @@ void ReadMpegLayerIIScalefactors();
 void ReadMpegLayerIISubbandSamples();
 void FUN_005133a0();
 void ReadMpegLayerIScalefactors();
-void FUN_00513900();
+void ReadMpegLayerISubbandSamples();
 int ParseMpegFrameHeader();
 int GetMpegFrameSizeAndBitrate();
 undefined4 ConsumeMpegBits();
