@@ -8,7 +8,7 @@
  * with CloseSpriteReadState, clears +0x14 and +0x4c, and leaves +0x38 = -1.
  *
  * Evidence is outside the body. StopSoundChannel dispatches `call [vtbl+0xc]`
- * on g_soundChannels[index], and the FUN_004ee850 teardown makes the same
+ * on g_soundChannels[index], and the ShutdownDirectSound teardown makes the same
  * slot-3 call on every channel before freeing it; the secondary-channel
  * destructor (0x4ef3f0) calls this address directly after SetEvent. The
  * primary channel's own slot 3 is MusicChannel_Stop, and the C++ promotion

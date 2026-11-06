@@ -1,10 +1,19 @@
-/* FUN_004ee850 - 0x004ee850 in the original binary.
+/* ShutdownDirectSound - 0x004ee850 in the original binary.
  * (Historical notes below: FUN_004f0d70 is now CloseXFSArchive.)
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence: sole caller is Shutdown (src/entry/Shutdown.c), which runs it
+ * right after WSACleanup and before ShutdownDirectDraw, i.e. in the
+ * process teardown path. Its effects are the exact inverse of what
+ * InitDirectSound establishes: it stops every g_soundChannels entry
+ * (SoundChannel vtable slot 3), Releases the secondary buffers, frees the
+ * g_soundChannels and g_secondarySoundBuffers arrays, Releases the
+ * primary buffer and the IDirectSound object (vtable +8) and zeroes
+ * g_directSound, closes the sound archive InitDirectSound opened
+ * (CloseXFSArchive) and FreeLibrary's the module handle. Takes no args.
  *
  * CloseXFSArchive ARCHIVE RECOVERED (2026-10-30): the FUN_004f0d70 call
  * at 0x4ee98e is preceded by `mov esi,0xea0f50` (0x4ee989) - the sound
@@ -19,7 +28,7 @@
 #include "xfs.h"
 
 
-void FUN_004ee850(void)
+void ShutdownDirectSound(void)
 
 {
   int iVar1;

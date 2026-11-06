@@ -770,7 +770,7 @@ extern uint8_t DAT_0079354b;
  *   g_primarySoundBuffer (was DAT_00793550) - the PRIMARY buffer, created from
  *     primaryDesc and then SetFormat'd and Play'd once
  *   g_soundChannels (was DAT_00793554) - heap array of channel object ptrs,
- *     operator_new'd and freed in InitDirectSound / FUN_004ee850, indexed
+ *     operator_new'd and freed in InitDirectSound / ShutdownDirectSound, indexed
  *     0..g_soundChannelCount-1.  A pointer, not a fixed [16] array.
  *   g_secondarySoundBuffers (was DAT_00793558) - the parallel array of
  *     secondary buffers, operator_new(g_soundChannelCount * 4) */

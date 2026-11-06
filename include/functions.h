@@ -1332,7 +1332,7 @@ void __fastcall ClampCursorToRect();
 undefined4 __fastcall MouseDevice_Initialize(void *thisPtr,int dummyEdx,undefined4 hWnd); /* ECX=this, stack hWnd, ret 4 */
 void __fastcall MouseDevice_Poll();
 void __fastcall MouseDevice_TickButtonTimers();
-void FUN_004ee850();
+void ShutdownDirectSound();
 uint AcquireSoundChannel();
 uint PlayMusicTrack();
 void StopSoundChannel(int soundChannelIndex);

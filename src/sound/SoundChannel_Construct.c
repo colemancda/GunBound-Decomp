@@ -20,7 +20,7 @@
  * g_soundChannels[1..] (slot 0 is the primary channel, MusicChannel_Construct). It
  * runs the shared base construction (0x4ef7e0), installs
  * PTR_LAB_005574e8, the vtable whose slot 3 is SoundChannel_Stop
- * (0x4ef5b0) and which StopSoundChannel and the FUN_004ee850 teardown
+ * (0x4ef5b0) and which StopSoundChannel and the ShutdownDirectSound teardown
  * dispatch through, sets up the lock at +0x20, and starts the worker with
  * __beginthread(AudioStreamThreadStart, 0, this), keeping the thread
  * handle at +4 and the running flag at +0x10.

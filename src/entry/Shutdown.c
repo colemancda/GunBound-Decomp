@@ -711,7 +711,7 @@ LAB_0040fd35:
       DAT_00674f68 = (int *)0x0;
     }
     FreeLibrary(DAT_00793544);
-    FUN_004ee850();
+    ShutdownDirectSound();
   }
   ShutdownDirectDraw();
                     /* WARNING: Could not recover jumptable at 0x00410039. Too many branches */

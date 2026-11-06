@@ -1238,7 +1238,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ee320,471,MouseDevice_Poll,false,1,1,RAW-src
 004ee540,101,MouseDevice_TickButtonTimers,false,2,0,RAW-src
 004ee5b0,657,InitDirectSound,false,1,6,RAW-src
-004ee850,339,FUN_004ee850,false,1,6,RAW-src
+004ee850,339,ShutdownDirectSound,false,1,6,RAW-src
 004ee9b0,113,AcquireSoundChannel,false,150,0,RAW-src
 004eea30,164,PlayMusicTrack,false,24,0,RAW-src
 004eeae0,39,StopSoundChannel,false,12,0,RAW-src

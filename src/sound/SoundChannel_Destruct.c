@@ -2,7 +2,7 @@
  *
  * NAMED (batch 36), LIKELY. The secondary sound channel destructor, the
  * mirror of SoundChannel_Construct (0x4ef3a0). The sole caller, the
- * FUN_004ee850 DirectSound teardown, calls it on each g_soundChannels entry
+ * ShutdownDirectSound DirectSound teardown, calls it on each g_soundChannels entry
  * and immediately _free()s the same pointer, after having already
  * dispatched the slot-3 Stop and signalled the worker itself. The body
  * re-installs PTR_LAB_005574e8 (the vtable Construct installs), clears the
