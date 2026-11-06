@@ -606,7 +606,7 @@ void FUN_0043c3c0();
 void ExplodePlayerMines(int player);
 void __fastcall FUN_0043c4a0(undefined4 param_1, uint param_2);
 void __fastcall RemoveIonAura(undefined4 param_1, uint param_2);
-uint FUN_0043c550();
+uint FindMobileSlotAtPoint();
 void FUN_0043c620();
 void FUN_0043c6a0();
 uint AnyProjectileInFlight();

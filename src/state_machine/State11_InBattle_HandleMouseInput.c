@@ -445,7 +445,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
         *(undefined1 *)((int)param_1 + 0x93) = 0;
         (&DAT_006a7758)[iVar13] = 1;
       }
-      iVar10 = FUN_0043c550(*(int *)(&g_nCameraX + iVar13) + -400 + uVar17,
+      iVar10 = FindMobileSlotAtPoint(*(int *)(&g_nCameraX + iVar13) + -400 + uVar17,
                             *(int *)(&g_nCameraY + iVar13) + -0x12a + uVar9);
       iVar13 = g_clientContext;
       if (iVar10 != -1) {
