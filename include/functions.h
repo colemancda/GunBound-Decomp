@@ -1350,7 +1350,7 @@ void FUN_004ef3f0();
 void __fastcall SoundChannel_Stop();
 void __thiscall FUN_004ef610();
 void SoundChannel_ConstructBase();
-void FUN_004ef820(undefined4 *regEax);
+void SoundChannel_DestructBase(undefined4 *regEax);
 void AudioStreamThreadStart();
 void AudioStreamThreadProc();
 /* EnumZBufferFormats callback - __stdcall (orig ends in `ret 8`); full
