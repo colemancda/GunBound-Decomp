@@ -1,8 +1,18 @@
-/* FUN_0046cbb0 - 0x0046cbb0 in the original binary.
+/* Mobile13_ComputeGroundY - 0x0046cbb0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_0046cbb0): vtable slot 5 (+0x14) of the type-13 mobile
+ * vtable 0x555e54 (slot 0 is Mobile13_ScalarDtor at 0x46cb80).  Every other
+ * mobile vtable (17 of them in docs/vtable_census.txt) carries
+ * ComputeMobileGroundY (0x45c6e0) in slot 5, and SnapMobilesToGround calls
+ * that slot per mobile to get the ground Y, so this is the type-13
+ * override of the same virtual - src/cxx/Mobile.cpp already says "type 13
+ * overrides with 0x46cbb0".  Same five-round skeleton as ComputeMobileGroundY:
+ * combine the guard cells at +0xf78 and +0xb30, peek the result, pair it
+ * with +0x90c for FindGroundHeightAtColumn.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 9 argless PeekPacketChecksumState() calls (peek status
@@ -23,7 +33,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_0046cbb0(int param_1)
+int __fastcall Mobile13_ComputeGroundY(int param_1)
 
 {
   undefined4 uVar1;

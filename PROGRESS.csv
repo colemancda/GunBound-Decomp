@@ -688,7 +688,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0046cb60,26,Mobile13_Construct,false,1,1,RAW-src
 0046cb80,32,Mobile13_ScalarDtor,false,1,2,RAW-src
 0046cba0,13,Mobile13_Destructor,false,1,1,RAW-src
-0046cbb0,1206,FUN_0046cbb0,false,1,10,RAW-src
+0046cbb0,1206,Mobile13_ComputeGroundY,false,1,10,RAW-src
 0046d070,3353,Mobile13_MainAction,false,1,16,RAW-src
 0046dde0,290,InitLightningHazard,false,1,5,RAW-src
 0046df10,31,DeleteLightningHazard,false,1,2,RAW-src

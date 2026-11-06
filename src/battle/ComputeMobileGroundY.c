@@ -9,7 +9,7 @@
  * MISMATCH is stale - the tree today has exactly 9 argless sites and the
  * zip holds 1:1 (goto-free).
  *
- * Same skeleton as FUN_0046cbb0: rounds of "combine two cells, read the
+ * Same skeleton as Mobile13_ComputeGroundY: rounds of "combine two cells, read the
  * result back, pair it with param_1+0x90c for FindGroundHeightAtColumn".
  * Six cells are the chained returns of each round's opening
  * EncodeChecksumPairDiff / EncodeChecksumDeltaAdd (0x45c737, 0x45c837,

@@ -821,7 +821,7 @@ void __fastcall ExplodeSuperShot_Bullet14();
 undefined4 Mobile13_Construct(undefined4 *regEsi,undefined4 regEax);
 void * __thiscall Mobile13_ScalarDtor(void *param_1,int param_2);
 void Mobile13_Destructor(undefined4 *regEax);
-int __fastcall FUN_0046cbb0();
+int __fastcall Mobile13_ComputeGroundY();
 void __thiscall Mobile13_MainAction();
 undefined4 * InitLightningHazard();
 void * __thiscall DeleteLightningHazard();

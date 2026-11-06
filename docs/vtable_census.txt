@@ -525,7 +525,7 @@ vtable 0x555e54  installs=2  slots=8
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
    4: 0x429800  NoOpMethod
-   5: 0x46cbb0  FUN_0046cbb0
+   5: 0x46cbb0  Mobile13_ComputeGroundY
    6: 0x45f910  State11_InBattle_HandleFireInput
    7: 0x46d070  Mobile13_MainAction
 
