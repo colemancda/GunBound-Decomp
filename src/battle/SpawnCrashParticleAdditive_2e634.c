@@ -8,7 +8,7 @@
  * cell at all 4 argless PeekPacketChecksumState() calls (4 C : 4 orig,
  * goto-free zip) - all plain globals.
  *
- * Evidence (LIKELY). The constructor it calls, FUN_00481e30 (0x50-byte
+ * Evidence (LIKELY). The constructor it calls, InitCrashParticleAdditive_2e634 (0x50-byte
  * object, orig 0x436f17-0x436f23), stamps class id 0x2e634 (190004) at +4
  * and installs vtable 0x556180. The class-id switch in FUN_00450c20, the
  * draw pass that binds the "CrashTexture" texture once and then walks the
@@ -57,7 +57,7 @@ void SpawnCrashParticleAdditive_2e634(int param_1,int param_2)
         iVar2 = 0;
       }
       else {
-        FUN_00481e30();
+        iVar2 = (int)InitCrashParticleAdditive_2e634((undefined4 *)pvVar4);
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar3 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
