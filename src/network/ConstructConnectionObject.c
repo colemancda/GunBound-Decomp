@@ -33,7 +33,7 @@ undefined4 ConstructConnectionObject(undefined4 *unaff_ESI, undefined4 param_1,u
   int iVar1;
   undefined4 *puVar2;
 
-  FUN_004e5bb0(unaff_ESI);
+  ConstructConnectionThreadBase(unaff_ESI);
   *unaff_ESI = &PTR_FUN_005572e8;
   unaff_ESI[0x9290] = 0;
   unaff_ESI[0x9291] = 0;

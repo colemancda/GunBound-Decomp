@@ -1205,7 +1205,7 @@ undefined1 __stdcall ConnectSocketToTarget(int);
 void CloseConnectionSocket();
 void SignalConnectRequest(int, char *, int);
 uint __thiscall SendSocketData();
-undefined4 * FUN_004e5bb0();
+undefined4 * ConstructConnectionThreadBase();
 void ShutdownConnectionThread();
 int __fastcall SendQueue_ElementAt(int *param_1,uint regEax);
 uint CArray_Add_4004(undefined4 *param_1,int *regEbx);
