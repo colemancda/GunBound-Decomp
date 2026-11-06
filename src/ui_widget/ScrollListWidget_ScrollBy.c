@@ -1,8 +1,22 @@
-/* FUN_0050f840 - 0x0050f840 in the original binary.
+/* ScrollListWidget_ScrollBy - 0x0050f840 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (batch 35), CERTAIN (was FUN_0050f840).  Adds a signed delta (ECX) to
+ * the scrollbar widget's position (EDX = widget; +0x40 is m_scrollPos in
+ * Widget.h's CScrollBar) and clamps the result to [0, total - pageSize]
+ * (+0x38 m_total, +0x3c m_pageSize); when the clamped position differs
+ * from the old one it stores it and, if the widget has a parent, reports
+ * OnCommand(0x2000, m_id, newPos) through the parent's vtable slot 7 -
+ * exactly the "m_parent->OnCommand(0x2000, m_id, m_scrollPos) on change"
+ * contract Widget.h documents for CScrollBar.  The only caller,
+ * AvatarStorePanel_Draw, drives it with -1/+1 to auto-scroll its id-0
+ * scrollbar while a catalog row is dragged past the list edge (see the
+ * 2026-10-30 note below).  Prefix follows ScrollListWidget_ThumbHeight and
+ * ScrollListWidget_DrawThumb, the same widget's other members; the
+ * factory is CreateScrollListWidget.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * PARENT DISPATCH CONVENTION FIXED (2026-10-30): the change report is
  * `mov ecx,[edx+8]` (0x50f867, the scrollbar's parent), `mov esi,[ecx]`,
@@ -19,7 +33,7 @@ typedef void (__fastcall *ParentOnCommandFn)(void *thisPtr, int dummyEDX,
                                              int evt, int id, int arg);
 
 
-void __fastcall FUN_0050f840(int param_1,int param_2)
+void __fastcall ScrollListWidget_ScrollBy(int param_1,int param_2)
 
 {
   int iVar1;

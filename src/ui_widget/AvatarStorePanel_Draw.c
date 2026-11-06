@@ -14,7 +14,7 @@
  * auto-scroll in front: while +0x90 is set and +0x94 is not -1 (the
  * dragged row's catalog index, per RenderAvatarListDragRow.c), a
  * cursor (g_cursorAnchorY) above y+0x68 or below y+0x156 nudges the
- * id-0 scrollbar child by -1/+1 through FUN_0050f840, which clamps the
+ * id-0 scrollbar child by -1/+1 through ScrollListWidget_ScrollBy, which clamps the
  * scrollbar's position and reports evt 0x2000 to its parent (here
  * AvatarStorePanel_OnCommand, which re-pages the store).
  *
@@ -23,11 +23,11 @@
  * the exception - it is slot 9 of 0x557f08, Widget.h's Update.
  *
  * FIXED (2026-10-30), from the disassembly of 0x50a8f0-0x50a97f:
- *  1. FUN_0050f840 was called with no arguments. At 0x50a94f-0x50a957
+ *  1. ScrollListWidget_ScrollBy was called with no arguments. At 0x50a94f-0x50a957
  *     ECX = EBP (the scroll direction) and EDX = the child found by
  *     index (`mov edx,[ebx+0xc] / mov edx,[edx+eax*4]`). The direction
  *     computation itself (0x50a908-0x50a926) had been dropped
- *     entirely; it is restored, and FUN_0050f840's prototype gains its
+ *     entirely; it is restored, and ScrollListWidget_ScrollBy's prototype gains its
  *     two __fastcall parameters (this is its only call site).
  *  2. The child Draw broadcast passed no `this`. At 0x50a969-0x50a971
  *     ECX = the child and nothing is pushed - a 0-argument __thiscall,
@@ -67,7 +67,7 @@ void __fastcall AvatarStorePanel_Draw(int param_1)
     if (uVar1 != 0xffffffff) {
       if (*(uint *)(param_1 + 0x10) <= uVar1) goto LAB_0050a945;
       /* 0x50a94f-0x50a957: ECX = dir (EBP), EDX = the found child */
-      FUN_0050f840(dir,*(int *)(*(int *)(param_1 + 0xc) + uVar1 * 4));
+      ScrollListWidget_ScrollBy(dir,*(int *)(*(int *)(param_1 + 0xc) + uVar1 * 4));
     }
   }
   uVar1 = 0;

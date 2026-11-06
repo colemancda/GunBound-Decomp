@@ -1795,7 +1795,7 @@ void __fastcall PanelManager_Update(int *param_1);
 undefined4 PanelManager_PrependNode();
 void PanelManager_GrowNodePool();
 uint FUN_0050f3f0(int,int);
-void __fastcall FUN_0050f840(int param_1,int param_2);
+void __fastcall ScrollListWidget_ScrollBy(int param_1,int param_2);
 undefined8 DecodeMpegFrameDispatch(); /* 64-bit result used from EDX:EAX at call sites */
 undefined8 DecodeMpegLayerIISamples();
 void ReadMpegLayerIIScfsi();
