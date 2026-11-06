@@ -34,7 +34,7 @@
  * sprite set "yesoori.img".
  *
  * The object is class id 0x2e635 (190005) in the battle entity registry
- * at g_clientContext+0x6a7f8c, built by FUN_004b3b10 (which stamps that
+ * at g_clientContext+0x6a7f8c, built by BattleAnnouncement_Construct (which stamps that
  * id and vtable 0x5566c0).  That ctor has exactly one caller - this
  * function - so this is the only way the banner ever comes to exist.
  * Only one can be live: the ctor sets the registry key at +8 to 0, and
@@ -178,7 +178,7 @@ LAB_004383df:
     iVar4 = 0;
   }
   else {
-    FUN_004b3b10();
+    iVar4 = (int)BattleAnnouncement_Construct((undefined4 *)pvVar3);
   }
   *(int *)(iVar4 + 0x44) = unaff_ESI;
   RegisterActiveObject(0, 0, (undefined4 *)0);

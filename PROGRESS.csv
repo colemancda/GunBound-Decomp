@@ -949,7 +949,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004b31c0,32,Mobile03_ScalarDtor,false,1,2,RAW-src
 004b31e0,13,Mobile03_Destructor,false,1,1,RAW-src
 004b31f0,2285,Mobile03_MainAction,false,1,14,RAW-src
-004b3b10,74,FUN_004b3b10,false,1,0,RAW-src
+004b3b10,74,BattleAnnouncement_Construct,false,1,0,RAW-src
 004b3b60,369,BlitAnnouncementFrameToYesooriTexture,false,1,0,RAW-src
 004b3da0,96,BuildAssetPath,false,10,0,RAW-src
 004b3e00,87,FUN_004b3e00,false,1,0,RAW-src

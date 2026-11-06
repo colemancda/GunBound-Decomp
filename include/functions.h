@@ -1077,7 +1077,7 @@ void __fastcall DetonateShot1_Bullet12();
 void * __thiscall Mobile03_ScalarDtor(void *param_1,int param_2);
 void Mobile03_Destructor(undefined4 *regEax);
 void __thiscall Mobile03_MainAction();
-void FUN_004b3b10();
+undefined4 *BattleAnnouncement_Construct(undefined4 *in_EAX);
 uint BlitAnnouncementFrameToYesooriTexture(int param_1,int param_2,uint regEax);
 void FUN_004b3e00(void *param_1);
 void FUN_004b3e60();

@@ -11,7 +11,7 @@
  * through this exact address: the one caller, 0x4b3d8d, is the
  * announcement object's uncarved Draw at 0x4b3d50 (slot 3 of vtable
  * 0x5566c0, the class-id-0x2e635 object SpawnBattleAnnouncement builds
- * via the FUN_004b3b10 ctor), which passes the surface pointer and pitch the
+ * via the BattleAnnouncement_Construct ctor), which passes the surface pointer and pitch the
  * once-per-frame State11_InBattle_ClearEffectTextures lock stores at
  * g_clientContext+0x23254/+0x23258 - the cells of the texture the
  * original itself names "YesooriTexture" (s_YesooriTexture_005567d0) -
