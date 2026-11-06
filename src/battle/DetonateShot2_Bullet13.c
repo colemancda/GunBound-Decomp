@@ -708,7 +708,7 @@ LAB_004a101f:
   puStack_aec = (undefined *)PeekPacketChecksumState((void *)piStack_af0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = iStack_ad0;
-  FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),puStack_aec,uVar5,iStack_ad0,1,0,0);
+  ApplyImpactToBattleEntities((int)(&DAT_006a7f88 + g_clientContext),puStack_aec,uVar5,iStack_ad0,1,0,0);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)piStack_ae0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

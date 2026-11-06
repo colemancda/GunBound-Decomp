@@ -13,7 +13,7 @@
  * is goto-shuffled (the cVar4=='\0' body at lines ~74-259 lives at
  * 0x46c3ab+, AFTER the LAB_0046bdae tail). Landmarks used per site
  * (SpawnLightningStrike/0x436070, ApplyBlastDamage, FindFirstImpactAlongRay, FUN_00432320,
- * ApplyCraterExcavation/0x4e4970, FUN_00450eb0/436ac0/4372f0/437150,
+ * ApplyCraterExcavation/0x4e4970, ApplyImpactToBattleEntities/436ac0/4372f0/437150,
  * InitChecksumSeed/0x43a530, the rand() scramble tail). Notable
  * recoveries: ebx is param_1 up front but is reloaded from
  * piStack_ad8 ([esp+0x30]) at 0x46bdae/0x46c0ea for the whole tail;
@@ -515,7 +515,7 @@ LAB_0046bdae:
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   apuStack_ad0[0] = (undefined4 *)PeekPacketChecksumState((void *)(piVar9 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),apuStack_ad0[0],uVar8,piVar9,1,0,0);
+  ApplyImpactToBattleEntities((int)(&DAT_006a7f88 + g_clientContext),apuStack_ad0[0],uVar8,piVar9,1,0,0);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar8 = PeekPacketChecksumState((void *)(piVar9 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

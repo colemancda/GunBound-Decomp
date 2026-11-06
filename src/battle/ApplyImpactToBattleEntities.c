@@ -1,8 +1,26 @@
-/* FUN_00450eb0 - 0x00450eb0 in the original binary.
+/* ApplyImpactToBattleEntities - 0x00450eb0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (LIKELY, name is deliberately general). Callers: all 24 sites
+ * are the terminal step of a detonation body (the Detonate* / Explode*
+ * family, ExplodeMine), each right after ApplyCraterExcavation and before
+ * SpawnCrashEffect, with the impact point (x, y) as params 2 and 3 and the
+ * projectile as param 4. Callees: it walks four entity layers of the
+ * active-object registry (this = g_clientContext + 0x6a7f88) and calls one
+ * per-entity handler for each - class 100001 (player mobiles, InitMobile)
+ * -> FUN_0045db20, class 100006 (jewels, HitTestJewel's id) ->
+ * FUN_00478cb0, class 100003 (mines, InitMine) -> FUN_00499650 only when
+ * param_5 is set (ExplodeMine passes 0, so a mine blast does not reach
+ * other mines), class 200002 (0x30d42, item cases, SpawnItemCase's
+ * InitProjectile id) -> FUN_00477650. The mobile and jewel handlers are
+ * the ones that call SpawnDamagePopup. ApplyBlastDamage (0x43af40) is a
+ * different function: it writes the damage cells on the mobiles and
+ * jewels, whereas this one is the per-entity pass after the crater. What
+ * each handler does is not established, so the name claims only "apply
+ * the impact to the entities" and no damage-specific effect.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20): the FUN_0045db20(iVar3,param_2,
  * param_3,param_6,param_7) call was missing its own leading `this` stack
@@ -43,7 +61,7 @@
 
 
 void __thiscall
-FUN_00450eb0(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,char param_5,
+ApplyImpactToBattleEntities(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,char param_5,
             undefined4 param_6,undefined4 param_7)
 
 {

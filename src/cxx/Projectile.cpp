@@ -206,7 +206,7 @@ void ApplyCraterExcavation(unsigned int a, void *b, unsigned int c, unsigned int
                             void *f, unsigned int g, unsigned int h,
                             int terrainCtx, int impactX, int impactY);
 void RebuildTerrainColumnCache(void *base);
-void FUN_00450eb0(int self, void *a, unsigned int b, void *c, int d, int e, int f);
+void ApplyImpactToBattleEntities(int self, void *a, unsigned int b, void *c, int d, int e, int f);
 void SpawnCrashEffect(unsigned int a, unsigned int b, int regEbx);
 void SpawnFlameEffect(int a, void *b, unsigned int c, unsigned int d, void *e);
 void FUN_00437150(unsigned int a, unsigned int b, int c, unsigned int d);
@@ -851,7 +851,7 @@ LAB_004579de:
     EnterCriticalSection(&g_valueGuardLock);
     apuStack_ad0[0] = reinterpret_cast<unsigned int *>(PeekPacketChecksumState((void *)(pCStack_ad8->m_pad3d + 0xf17)));
     LeaveCriticalSection(&g_valueGuardLock);
-    FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext), apuStack_ad0[0], uVar8, pCVar9, 1, 0, 0);
+    ApplyImpactToBattleEntities((int)(&DAT_006a7f88 + g_clientContext), apuStack_ad0[0], uVar8, pCVar9, 1, 0, 0);
     EnterCriticalSection(&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)(pCStack_ad8->m_pad3d + 0x113b));
     LeaveCriticalSection(&g_valueGuardLock);

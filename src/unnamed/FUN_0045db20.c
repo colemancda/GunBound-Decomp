@@ -15,6 +15,8 @@
  * the C already captures as iVar6 on the line above (FindSpriteFrame), so the
  * cell is the sprite record's own guard at + 0x270.
  *
+ * Note: FUN_00450eb0 below is now ApplyImpactToBattleEntities.
+ *
  * DROPPED-ARGUMENT FIX (2026-09-20): the sole caller (FUN_00450eb0, inside
  * its `while (cVar1 == '\0')` loop) was missing this function's own
  * leading `this` (ECX) stack arg entirely - epilogue `ret 0x14` (orig

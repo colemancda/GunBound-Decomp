@@ -967,7 +967,7 @@ LAB_00451f7a:
   (*pcVar17)(&g_valueGuardLock);
   uVar8 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),uVar8,puVar21,param_1,1,0,0);
+  ApplyImpactToBattleEntities((int)(&DAT_006a7f88 + g_clientContext),uVar8,puVar21,param_1,1,0,0);
   (*pcVar17)(&g_valueGuardLock);
   uVar8 = PeekPacketChecksumState((void *)(param_1 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

@@ -343,7 +343,7 @@ LAB_00468fef:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     apuStack_ae0[0] = (undefined4 *)PeekPacketChecksumState((void *)(piStack_ae8 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),apuStack_ae0[0],uVar8,piStack_ae8,1,0,0);
+    ApplyImpactToBattleEntities((int)(&DAT_006a7f88 + g_clientContext),apuStack_ae0[0],uVar8,piStack_ae8,1,0,0);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)(piStack_ae8 + 0x45e));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -462,7 +462,7 @@ LAB_0046942b:
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   apuStack_ae0[0] = (undefined4 *)PeekPacketChecksumState((void *)(piStack_ae8 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00450eb0((int)(&DAT_006a7f88 + g_clientContext),apuStack_ae0[0],uVar8,piStack_ae8,1,0,0);
+  ApplyImpactToBattleEntities((int)(&DAT_006a7f88 + g_clientContext),apuStack_ae0[0],uVar8,piStack_ae8,1,0,0);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar8 = PeekPacketChecksumState((void *)(piStack_ae8 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
