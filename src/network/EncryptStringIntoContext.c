@@ -8,7 +8,7 @@
  *
  * Evidence (HIGH, from the storage layout shared with the named
  * decryptor). EDX is a 0x284-byte crypto context: it receives a 16-byte
- * key schedule (RijndaelSetKey on a key built from four FUN_00504d80
+ * key schedule (RijndaelSetKey on a key built from four NextTT800Random
  * calls, orig 0x5051f7-0x505211), then a realloc'd buffer at +0x27c holding
  * the ciphertext (EncodeCipherBlock per 16-byte block; the last block is
  * strncpy'd into a zero-padded local first) and the plaintext length at
@@ -41,7 +41,7 @@ void __fastcall EncryptStringIntoContext(int param_1,int param_2,char *src)
   
   uVar4 = 0;
   do {
-    uVar1 = FUN_00504d80();
+    uVar1 = NextTT800Random(0,(int *)(param_2 + 0x20c));
     *(undefined4 *)(local_10 + uVar4 * 4) = uVar1;
     uVar4 = uVar4 + 1;
   } while (uVar4 < 4);

@@ -1666,7 +1666,7 @@ undefined4 HasP2PSessionPeer(char *param_1,int regEsi);
 uint RequestP2PPeerByName(char *param_1,int regEcx);
 bool HasP2PPeerRecord(int param_1,int regEsi);
 void SeedTT800State(undefined4 *regEsi);
-uint __fastcall FUN_00504d80();
+uint __fastcall NextTT800Random(undefined4 param_1,int *param_2);
 uint FUN_00504e90();
 void __fastcall EncryptStringIntoContext(int param_1,int param_2,char *src);
 undefined1 __fastcall Widget_HitTestSelf(int param_1,int regEsi,int regEdi);

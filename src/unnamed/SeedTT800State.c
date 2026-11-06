@@ -25,7 +25,7 @@
  * with the SEH triple plus ebx and ebp pushed, i.e. entry+4).
  *
  * NAMED (2026-08-28): this seeds a TT800 generator, and the evidence is
- * the CONSUMER of the block rather than this body. FUN_00504d80, the
+ * the CONSUMER of the block rather than this body. NextTT800Random, the
  * next function in the image, is TT800's genrand over the very same
  * layout:
  *
