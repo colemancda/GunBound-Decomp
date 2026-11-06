@@ -1840,7 +1840,7 @@ void FUN_00517690();
 undefined4 * FUN_00517d00();
 int FUN_00517d40();
 void FUN_00518080();
-void FUN_005180b0();
+void MpegFrequencyInversionThunk();
 undefined * FUN_005180d0();
 undefined * FUN_005180e0();
 undefined * FUN_005180f0();
