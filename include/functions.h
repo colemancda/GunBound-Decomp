@@ -956,7 +956,7 @@ undefined4 FUN_0048de40(undefined4 *regEsi);
 void __fastcall ExplodeSuperShot_Bullet1_5_6_12_13_15();
 void __fastcall DetonateSuperShot_Bullet3_5_14();
 void __fastcall AnimateProjectileTick();
-void * __thiscall FUN_0048f260();
+void * __thiscall SuperCrystalShot_ScalarDtor();
 void FUN_0048f280();
 undefined1 FUN_0048f300();
 void __fastcall FUN_00490780();
