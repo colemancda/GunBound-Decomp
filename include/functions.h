@@ -422,7 +422,7 @@ void AppendChatLogEntry(int param_1,char param_2,char *param_3,char *param_4,cha
 void FUN_0041bce0();
 void FUN_0041c0a0();
 uint __fastcall FUN_0041c190(undefined4 param_1,int param_2,int regEsi);
-void __fastcall FUN_0041c1e0(undefined4 param_1,int param_2);
+void __fastcall ClearChannelUserList(undefined4 param_1,int param_2);
 void __fastcall FUN_0041c230();
 int __fastcall FindRoomListIndexById(int param_1,uint regEsi);
 undefined4 CheckRoomSlotActive();
