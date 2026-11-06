@@ -1873,7 +1873,7 @@ void FUN_0051aa00();
 void FUN_0051ab80();
 void FUN_0051ac80();
 void FUN_0051ad70();
-void FUN_0051aeb0();
+void MpegSynthWindow16FullThunk();
 void FUN_0051aed0();
 void FUN_0051aef0();
 void FUN_0051af10();
