@@ -1018,7 +1018,7 @@ void * __thiscall DeleteShot2_Bullet2();
 void DestroyShot2_Bullet2(undefined4 *param_1);
 void __fastcall DetonateShot2_Bullet2();
 undefined4 * InitProjectileLightningHazard();
-void * __thiscall FUN_004a69d0();
+void * __thiscall DeleteProjectileLightningHazard();
 void FUN_004a69f0();
 void __fastcall FUN_004a6b10();
 undefined4 * InitShot2_Bullet8(undefined4 *regEsi);
