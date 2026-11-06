@@ -505,7 +505,7 @@ vtable 0x555e0c  installs=2  slots=8
    3: 0x488880  PublishProjectileTrackingStateFacing
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
-   6: 0x46b680  FUN_0046b680
+   6: 0x46b680  DetonateShot_Type13
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x555e30  installs=1  slots=9

@@ -1,8 +1,17 @@
-/* FUN_0046b680 - 0x0046b680 in the original binary.
+/* DetonateShot_Type13 - 0x0046b680 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_0046b680): slot 6 (+0x18) of vtable 0x555e0c, whose
+ * slot 0 is Shot_Type13_ScalarDtor (0x46b650); the only vtable reference
+ * is 0x555e24.  Slot 6 is the projectile Detonate virtual (DetonateProjectile
+ * 0x4572b0 in the sibling vtables).  Body is the detonation set the base
+ * runs - ApplyCraterExcavation, RebuildTerrainColumnCache,
+ * ApplyImpactToBattleEntities, SpawnCrashEffect, SpawnFlameEffect and
+ * SpawnCrashParticleBurst (whose header lists this function among the
+ * detonation bodies).  Paired with AnimateShot_Type13 in slot 2.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-11, guard sweep): recovered the dropped
  * guard-cell pointer at all 55 argless PeekPacketChecksumState() sites
@@ -28,7 +37,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0046b680(int *param_1)
+void __fastcall DetonateShot_Type13(int *param_1)
 
 {
   int iVarBlastY;

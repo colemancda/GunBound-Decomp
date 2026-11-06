@@ -814,7 +814,7 @@ void __fastcall DetonateDropCaseProjectile();
 void __fastcall AnimateDropCaseProjectile();
 void * __thiscall Shot_Type13_ScalarDtor();
 void Shot_Type13_DtorBody(undefined4 *regEax);
-void __fastcall FUN_0046b680();
+void __fastcall DetonateShot_Type13();
 void __fastcall AnimateShot_Type13();
 undefined4 * InitSuperShot_Bullet14(undefined4 *regEsi);
 void __fastcall ExplodeSuperShot_Bullet14();
