@@ -403,10 +403,10 @@ LAB_00411727:
     cVar4 = *(char *)(iVar19 + 0x41344) + -1;
 LAB_004111c0:
     *(char *)(iVar19 + 0x41344) = cVar4;
-    iVar12 = FUN_0050f000(0,0,(int)&g_uiPanelManager,0x232a);
+    iVar12 = PanelManager_FindByTypeAndId(0,0,(int)&g_uiPanelManager,0x232a);
     pbVar22 = param_3;
     if (iVar12 != 0) {
-      /* EBX = the FUN_0050f000 result (mov ebx,eax at 0x4111e9). */
+      /* EBX = the PanelManager_FindByTypeAndId result (mov ebx,eax at 0x4111e9). */
       Widget_SetChildRange(*(undefined1 *)(iVar19 + 0x41344),7,iVar12);
       pbVar22 = param_3;
     }

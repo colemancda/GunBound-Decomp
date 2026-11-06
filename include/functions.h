@@ -1783,7 +1783,7 @@ void __fastcall PanelManager_BaseDestructor(undefined4 *param_1);
 void __stdcall PanelManager_Register(void *manager,int param_1);
 undefined4 PanelManager_Unregister();
 void PanelManager_ClearAllFocus();
-int __fastcall FUN_0050f000(undefined4 param_1,int param_2,int regEax,int regEsi);
+int __fastcall PanelManager_FindByTypeAndId(undefined4 param_1,int param_2,int regEax,int regEsi);
 undefined1 __thiscall PanelManager_DispatchMouseMove();
 char __thiscall PanelManager_BaseDispatchMouseDown();
 uint __thiscall PanelManager_DispatchRightMouseUp();
