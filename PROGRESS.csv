@@ -678,7 +678,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0046aee0,32,DropCaseProjectile_ScalarDtor,false,1,2,RAW-src
 0046af00,13,DropCaseProjectile_DtorBody,false,1,1,RAW-src
 0046af10,1778,FUN_0046af10,false,1,23,RAW-src
-0046b610,53,FUN_0046b610,false,1,4,RAW-src
+0046b610,53,AnimateDropCaseProjectile,false,1,4,RAW-src
 0046b650,32,Shot_Type13_ScalarDtor,false,1,2,RAW-src
 0046b670,13,Shot_Type13_DtorBody,false,1,1,RAW-src
 0046b680,4879,FUN_0046b680,false,1,46,RAW-src
