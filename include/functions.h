@@ -1846,7 +1846,7 @@ undefined * FUN_005180e0();
 undefined * FUN_005180f0();
 void FUN_00518100();
 void ApplyMpegMidSideStereo();
-void FUN_00518160(int param_1,int param_2,int param_3,int param_4,int param_5);
+void ApplyMpegIntensityStereo(int param_1,int param_2,int param_3,int param_4,int param_5);
 void FUN_005182f0();
 undefined * FUN_00518520();
 undefined * FUN_00518530();

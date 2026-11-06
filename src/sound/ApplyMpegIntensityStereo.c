@@ -1,8 +1,20 @@
-/* FUN_00518160 - 0x00518160 in the original binary.
+/* ApplyMpegIntensityStereo - 0x00518160 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Intensity stereo (MPEG-1 path): split the left-channel bands between
+ * both channels by position ratios.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * LIKELY. Called from DecodeMpegLayerIIIGranule when DAT_005aba2c != 0
+ * (mode_extension bit 0, the ISO intensity-stereo bit, as split out in
+ * DecodeMpegLayerIIISamples) and DAT_005ae34c != 0; its sibling
+ * ApplyMpegIntensityStereoLSF is the DAT_005ae34c == 0 alternative. It
+ * scales each scalefactor band by one of two ratios from the table at
+ * 0x5b0144/0x5b0148 and writes the second ratio times the sample to
+ * channel 1 (+0x480 floats), which is the ISO intensity-stereo operation.
  *
  * DROPPED-ARGUMENT FIX (2026-09-20): plain __cdecl with 5 real stack
  * params (no register args - epilogue is bare `ret`, disasm 0x518160-
@@ -20,7 +32,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00518160(int param_1,int param_2,int param_3,int param_4,int param_5)
+void ApplyMpegIntensityStereo(int param_1,int param_2,int param_3,int param_4,int param_5)
 
 {
   undefined4 uVar1;
