@@ -16,7 +16,7 @@ void FUN_00517690(int param_1,int param_2,int param_3)
     iVar1 = 0x12;
     do {
       FUN_0051a430(param_1,&DAT_005af144 + DAT_005ae93c);
-      FUN_0051aed0(&DAT_005af144,DAT_005ae93c,param_2);
+      MpegSynthWindow16FullInterleavedThunk(&DAT_005af144,DAT_005ae93c,param_2);
       param_1 = param_1 + 0x80;
       param_2 = param_2 + 0x80;
       DAT_005ae93c = DAT_005ae93c - 0x20 & 0x1ff;
@@ -28,7 +28,7 @@ void FUN_00517690(int param_1,int param_2,int param_3)
   param_2 = param_2 + 2;
   do {
     FUN_0051a430(param_1,&DAT_005ae940 + DAT_005af140);
-    FUN_0051aed0(&DAT_005ae940,DAT_005af140,param_2);
+    MpegSynthWindow16FullInterleavedThunk(&DAT_005ae940,DAT_005af140,param_2);
     param_1 = param_1 + 0x80;
     DAT_005af140 = DAT_005af140 - 0x20 & 0x1ff;
     param_2 = param_2 + 0x80;
