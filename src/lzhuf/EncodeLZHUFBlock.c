@@ -113,10 +113,10 @@ LAB_004ea936:
   *param_1 = uVar7;
   iVar3 = 0xfc3;
   do {
-    FUN_004e9e90();
+    LZHUFInsertNode();
     iVar3 = iVar3 + -1;
   } while (0xf87 < iVar3);
-  FUN_004e9e90();
+  LZHUFInsertNode();
   param_1 = (uint *)uVar7;
   do {
     if (param_1 < puVar2[0x412]) {
@@ -186,7 +186,7 @@ LAB_004ea936:
           *(byte *)(param_3 + 0x1008 + (int)puVar2) = bVar1;
         }
         param_3 = param_3 + 1 & 0xfff;
-        FUN_004e9e90();
+        LZHUFInsertNode();
         iVar3 = iVar3 + 1;
       } while (iVar3 < (int)uVar7);
     }
@@ -198,7 +198,7 @@ LAB_004ea936:
         param_3 = param_3 + 1 & 0xfff;
         param_1 = (uint *)((int)param_1 - 1);
         if (param_1 != (uint *)0x0) {
-          FUN_004e9e90();
+          LZHUFInsertNode();
         }
         iVar3 = iVar3 + -1;
       } while (iVar3 != 0);

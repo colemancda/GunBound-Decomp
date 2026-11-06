@@ -1,14 +1,31 @@
-/* FUN_004e9e90 - 0x004e9e90 in the original binary.
+/* LZHUFInsertNode - 0x004e9e90 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (batch 36). Classic LZSS InsertNode(r) (Okumura/Yoshizaki LZHUF):
+ * inserts the string at ring position r into the binary match tree and
+ * records the longest match. The LZHUF state is in EAX and the node r in
+ * ESI (both dropped register arguments; every caller loads them).
+ *
+ * Evidence is outside the body. Its sibling LZHUFDeleteNode (0x4ea010) uses
+ * the same state arrays - lson +0x104c, rson +0x5050, dad +0x9454, NIL =
+ * 0x1000 - and EncodeLZHUFBlock drives them as the standard LZSS encoder
+ * loop: the four call sites at 0x4ea952, 0x4ea966, 0x4eaadd and 0x4eab34
+ * pass EAX = the state (ebp) and ESI = the ring position, first priming
+ * the tree with r = 0xfc3 downward (N - F = 4096 - 60 - 1 down to 0xf88)
+ * then once per consumed byte, with DeleteNode before the replacement.
+ * Constants match LZHUF.C: N = 4096, F = 60 (0x3c, the compare limit),
+ * THRESHOLD = 2, and match_position/match_length at state +0x1044/+0x1048.
+ *
+ * The port still reads in_EAX / unaff_ESI as uninitialised locals (the
+ * dropped-register fix applied to LZHUFDeleteNode has not been made here).
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004e9e90(void)
+void LZHUFInsertNode(void)
 
 {
   byte bVar1;
