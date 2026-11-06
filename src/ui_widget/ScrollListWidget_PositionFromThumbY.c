@@ -1,4 +1,4 @@
-/* FUN_0050f3f0 - 0x0050f3f0 in the original binary.
+/* ScrollListWidget_PositionFromThumbY - 0x0050f3f0 in the original binary.
  *
  * CScrollBar drag-position solver: given the mouse Y already offset by
  * the thumb grab point (m_grabOffset + mouseY, computed by the sole
@@ -15,14 +15,24 @@
  * (mouse Y) `; call 0x50f3f0` - ESI (this) carries over unclobbered
  * from the caller's own ESI=this. Promoted to two explicit parameters.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (batch 35), CERTAIN (was FUN_0050f3f0).  Inverse of the thumb
+ * placement: maps a thumb-relative mouse Y (EAX = m_grabOffset + mouseY,
+ * ESI = widget) back to a scroll position in [0, total - pageSize].  The
+ * sole caller, CScrollBar::OnMouseMove (0x50f460, ScrollBar.cpp), only
+ * calls it while m_dragging and compares the result with m_scrollPos
+ * before firing OnCommand 0x2000, so the value returned is the position
+ * the dragged thumb corresponds to.  The same thumb-height floor and
+ * round-to-5 shape as ScrollListWidget_ThumbHeight (0x50e050) supplies
+ * the track length it divides by (+0x34 minus the thumb height).
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-uint FUN_0050f3f0(int thisPtr,int grabAdjustedY)
+uint ScrollListWidget_PositionFromThumbY(int thisPtr,int grabAdjustedY)
 
 {
   int iVar1;
