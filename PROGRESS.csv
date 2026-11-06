@@ -1,5 +1,5 @@
 addr,size,name,is_thunk,xref_count,calls_out,status
-00401070,73,FUN_00401070,false,4,3,RAW-src
+00401070,73,AtlGetThreadACPThunk,false,4,3,RAW-src
 004010c0,23,ThrowCxxException,false,165,1,RAW-src
 004010e0,24,FUN_004010e0,false,1,0,RAW-src
 00401100,78,FUN_00401100,false,1,1,RAW-src

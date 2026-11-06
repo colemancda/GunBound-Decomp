@@ -137,7 +137,7 @@ void __fastcall State11_InBattle_RenderModeIcons();
 void AppendPersistentButtonName();
 void LoadButtonDefinitionFromXFS();
 undefined4 __fastcall RegisterActiveObject(undefined4 param_1,int param_2,undefined4 *node);
-void FUN_00401070();
+void AtlGetThreadACPThunk();
 void ThrowCxxException();
 void __fastcall FUN_004010e0();
 undefined4 __fastcall FUN_00401100();
