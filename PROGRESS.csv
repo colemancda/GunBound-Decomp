@@ -594,7 +594,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00450b80,73,DispatchActiveObjectSlot3_Keys1000To100000,false,1,0,RAW-src
 00450bd0,73,DispatchActiveObjectSlot3_Keys100000To190000,false,1,0,RAW-src
 00450c20,387,FUN_00450c20,false,1,1,RAW-src
-00450dd0,63,FUN_00450dd0,false,1,0,RAW-src
+00450dd0,63,DispatchActiveObjectSlot3_KeysAbove200000,false,1,0,RAW-src
 00450e10,160,HitTestMobilesAndJewels,false,15,3,RAW-src
 00450eb0,364,ApplyImpactToBattleEntities,false,24,4,RAW-src
 00451030,180,FindTornadoHazardAt,false,21,3,RAW-src
