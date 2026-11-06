@@ -1740,7 +1740,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005167c0,269,InitMpegSynthesisTables,false,3,3,RAW-src
 005168d0,94,SynthesizeMpeg16FullMono,false,4,2,RAW-src
 005169e0,94,SynthesizeMpeg16FullMixDown,false,1,2,RAW-src
-00516a40,94,FUN_00516a40,false,1,2,RAW-src
+00516a40,94,SynthesizeMpeg16FullFirstChannel,false,1,2,RAW-src
 00516aa0,97,FUN_00516aa0,false,1,2,RAW-src
 00516b10,94,FUN_00516b10,false,1,2,RAW-src
 00516c20,94,FUN_00516c20,false,1,2,RAW-src
