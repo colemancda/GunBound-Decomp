@@ -153,7 +153,7 @@ DecodeMpegAudioFrame(int param_1,undefined4 param_2,int param_3,undefined4 param
     pbVar7 = pbVar7 + 1;
     *puVar5 = (uint)bVar4;
     puVar5 = puVar6;
-  } while ((int)puVar6 < 0x5637cc);
+  } while (puVar6 < &DAT_005637bc + 4);
   DAT_005a99e8 = DAT_005637c8 + DAT_005637c4 + DAT_005637c0 + DAT_005637bc;
   _DAT_00f25ee8 =
        *(int *)(&DAT_005638ec + (*(int *)(param_1 + 0x14) + *(int *)(param_1 + 4) * 4) * 4);
@@ -175,7 +175,7 @@ DecodeMpegAudioFrame(int param_1,undefined4 param_2,int param_3,undefined4 param
       piVar9 = piVar8 + 1;
       *piVar8 = *piVar8 << 1;
       piVar8 = piVar9;
-    } while ((int)piVar9 < 0x5637cc);
+    } while (piVar9 < (int *)&DAT_005637bc + 4);
     DAT_005a99e8 = DAT_005a99e8 * 2;
     DAT_00563770 = DAT_00563770 * 2;
   }

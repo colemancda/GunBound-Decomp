@@ -1920,10 +1920,15 @@ extern uint32_t DAT_00557fd8;
 extern uint32_t DAT_00563730;
 extern uint32_t DAT_00563770;
 extern uint32_t DAT_00563774;
-extern uint32_t DAT_005637bc;
-extern uint32_t DAT_005637c0;
-extern uint32_t DAT_005637c4;
-extern uint32_t DAT_005637c8;
+/* The four per-band sub-band counts at 0x5637bc..0x5637cb: DecodeMpegAudioFrame fills them with a
+ * 4-iteration pointer loop (bound `cmp eax,0x5637cc`), doubles them with another, and the layer II
+ * reader walks them at +0,+4,+8,+12 (`mov edi,[eax+0x5637bc]`, eax < 0x10).  One object; the old
+ * per-cell DAT_ names are its elements. */
+extern uint32_t g_mpegBandCount[4];
+#define DAT_005637bc (g_mpegBandCount[0])
+#define DAT_005637c0 (g_mpegBandCount[1])
+#define DAT_005637c4 (g_mpegBandCount[2])
+#define DAT_005637c8 (g_mpegBandCount[3])
 extern uint32_t DAT_005637d4;
 extern uint32_t DAT_005637e8;
 extern uint32_t DAT_0056382c;

@@ -1858,10 +1858,7 @@ uint32_t DAT_00557fd8;
 uint32_t DAT_00563730;
 uint32_t DAT_00563770;
 uint32_t DAT_00563774;
-uint32_t DAT_005637bc;
-uint32_t DAT_005637c0;
-uint32_t DAT_005637c4;
-uint32_t DAT_005637c8;
+uint32_t g_mpegBandCount[4] = { 3, 8, 12, 7 }; /* orig .data 0x5637bc..0x5637cb (rewritten per frame) */
 uint32_t DAT_005637d4;
 uint32_t DAT_005637e8;
 uint32_t DAT_0056382c;
