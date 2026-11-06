@@ -517,8 +517,6 @@ uint8_t DAT_006a64ac;
 uint8_t DAT_006a64bc;
 uint8_t DAT_006a64c0;
 uint8_t DAT_006a76fc;
-uint8_t DAT_006a9b73;
-uint8_t DAT_006a9b74;
 uint8_t DAT_006aa424;
 uint8_t DAT_006aa44c;
 uint8_t DAT_006aa47b;
