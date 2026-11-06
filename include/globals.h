@@ -2113,9 +2113,13 @@ extern uint32_t DAT_005a9884;
  * (0x5a9888..0x5a9987, 0x100 bytes, up to the 0x5a9988 byte table) and DAT_005a9888 names element 0. */
 extern float g_mpegPow2Tab[64];
 #define DAT_005a9888 (g_mpegPow2Tab[0])
-extern uint32_t DAT_005a9988;
-extern uint32_t DAT_005a9989;
-extern uint32_t DAT_005a998a;
+/* 32 triples of signed bytes (digit-3 decode, value-1) at 0x5a9988..0x5a99e7; DecodeMpegAudioFrame's
+ * one-time init fills it through a walking pointer bounded by 0x5a99e8, the next object. The readers
+ * index it by byte (edi + 0x5a9988/9/a), so the three DAT names are elements 0..2. */
+extern int8_t g_mpegTriple3Tab[96];
+#define DAT_005a9988 (g_mpegTriple3Tab[0])
+#define DAT_005a9989 (g_mpegTriple3Tab[1])
+#define DAT_005a998a (g_mpegTriple3Tab[2])
 extern uint32_t DAT_005a99e8;
 extern uint32_t DAT_005a99ec;
 extern uint32_t DAT_005a99f0;

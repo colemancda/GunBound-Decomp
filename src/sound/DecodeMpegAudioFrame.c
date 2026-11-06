@@ -50,7 +50,7 @@ DecodeMpegAudioFrame(int param_1,undefined4 param_2,int param_3,undefined4 param
       pfVar12 = pfVar12 + 1;
       local_c = local_c + -1;
     } while (pfVar12 < &DAT_005a9888 + 64);
-    puVar16 = &DAT_005a9988;
+    puVar16 = (undefined1 *)&DAT_005a9988;
     do {
       iVar1 = 0;
       iVar3 = iVar10;
@@ -61,7 +61,7 @@ DecodeMpegAudioFrame(int param_1,undefined4 param_2,int param_3,undefined4 param
       } while (iVar1 < 3);
       puVar16 = puVar16 + 3;
       iVar10 = iVar10 + 1;
-    } while ((int)puVar16 < 0x5a99e8);
+    } while (puVar16 < (undefined1 *)&DAT_005a9988 + 96);
     iVar10 = 0;
     puVar16 = &DAT_005ab708;
     do {
