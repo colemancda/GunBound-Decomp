@@ -20,7 +20,7 @@
  * the array embedded at their object's +8: `lea eax,[edi+1]` at
  * 0x43d5f4 with esi = ecx+8 in InsertChecksumStateRecord, and
  * `lea eax,[ebx+1]` at 0x43d7e6 with esi = eax+8 (set once at
- * 0x43d78d/0x43d792) in FUN_0043d780. Both are `lea`, an address, not
+ * 0x43d78d/0x43d792) in ParseChecksumStateRecordList. Both are `lea`, an address, not
  * the load callsite_regs.py renders them as.
  */
 #include "ghidra_types.h"

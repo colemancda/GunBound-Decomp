@@ -46,7 +46,7 @@ struct GbFirePayload {            /* wire offset = 0x21 + member offset */
     u8  firedByte;    /* +0x2b: copied into the firer's record, not relayed */
     u16 shotData[8];  /* +0x2c..+0x3b: the server-resolved shot block */
     u8  flag3c;       /* +0x3c */
-    /* +0x3d: trailing data (consumed by FUN_0043d780) */
+    /* +0x3d: trailing data (consumed by ParseChecksumStateRecordList) */
 };
 
 /* Avatar Store opcode 0x6002 - the in-memory inventory item the handler

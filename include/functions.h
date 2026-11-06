@@ -614,7 +614,7 @@ void FUN_0043c860();
 void __thiscall InsertChecksumStateRecord();
 uint __fastcall FindChecksumStateRecord();
 void AppendChecksumStateRecordList(int regEax);
-int FUN_0043d780(byte *param_1,int regEax);
+int ParseChecksumStateRecordList(byte *param_1,int regEax);
 undefined4 GrowChecksumStateArray(uint regEax,int *regEsi);
 void FUN_0043d910(undefined4 *regEax);
 void FUN_0043d930(undefined4 *regEsi);
