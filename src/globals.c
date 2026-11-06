@@ -2344,7 +2344,6 @@ uint32_t DAT_00989680;
 uint32_t g_serverSelectRecordCount;         /* 0xe54ca4 - count/valid flag */
 uint8_t  g_serverSelectRecords[21 * 12];    /* 0xe54ca8 - record[0] == old DAT_00e54ca8/cac/cb0 */
 /* DAT_00e9c578: moved to globals_sized.c (0x224 CValueGuard cell). */
-uint32_t DAT_00e9cd30;
 uint32_t DAT_00f25840;
 uint32_t DAT_00f25844;
 uint32_t DAT_00f25848;

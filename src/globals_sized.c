@@ -97,10 +97,12 @@ unsigned char DAT_00e9bed8[0x224];   /* slot 19, opcode 0x168 */
  * No symbol referenced anywhere in the tree falls inside any of the four
  * ranges (verified 2026-08-16); nothing declared them before, which is why
  * those four files were parked on the flip checklist. */
-unsigned char DAT_00e9da08[6 * 0x224];   /* FUN_004ac260's table */
-unsigned char DAT_00e9e6e0[6 * 0x224];   /* FUN_004ac330's table */
-unsigned char DAT_00e9f3b8[6 * 0x224];   /* FUN_004ac400's table */
-unsigned char DAT_00ea0090[6 * 0x224];   /* FUN_004ac4d0's table */
+/* ADDENDUM: these four tables and the one at 0xe9cd30 are slices of ONE 30-cell array.
+ * FUN_005438d0 destroys it as `_eh_vector_destructor_iterator_(0xe9cd30, 0x224, 0x1e, ...)`
+ * (push 0x1e / push 0x224 / push 0xe9cd30 at 0x5438d5), and the five bases are exactly
+ * 6 cells apart (0xe9cd30, 0xe9da08, 0xe9e6e0, 0xe9f3b8, 0xea0090).  FUN_004ac180 walks
+ * from cell (n-1) of the first slice to `cmp ebp, 0xe9da08`, i.e. the end of that slice. */
+unsigned char g_guardCells[30 * 0x224];
 
 /* The named-texture-cache singleton (was the 1-byte DAT_00eb1bd8).
  * Constructed by InitTextureCache from the CRT static-initializer

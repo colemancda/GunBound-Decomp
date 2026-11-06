@@ -1054,10 +1054,13 @@ extern uint8_t DAT_00e9bed8;
  * FUN_004ac260 / FUN_004ac330 / FUN_004ac400 / FUN_004ac4d0 as
  * `<index> * 0x224 + <base>`.  Real storage in globals_sized.c; these stay
  * uint8_t so `&DAT_...` keeps its unsigned char * type. */
-extern uint8_t DAT_00e9da08;   /* guard table, indexed by FUN_004ac260 */
-extern uint8_t DAT_00e9e6e0;   /* guard table, indexed by FUN_004ac330 */
-extern uint8_t DAT_00e9f3b8;   /* guard table, indexed by FUN_004ac400 */
-extern uint8_t DAT_00ea0090;   /* guard table, indexed by FUN_004ac4d0 */
+/* ...and all five 6-cell tables (the four above plus 0xe9cd30) are slices of one 30-cell array. */
+extern uint8_t g_guardCells[30 * 0x224];
+#define DAT_00e9cd30 (g_guardCells[0 * 6 * 0x224])   /* slice 0, walked by FUN_004ac180 */
+#define DAT_00e9da08 (g_guardCells[1 * 6 * 0x224])   /* guard table, indexed by FUN_004ac260 */
+#define DAT_00e9e6e0 (g_guardCells[2 * 6 * 0x224])   /* guard table, indexed by FUN_004ac330 */
+#define DAT_00e9f3b8 (g_guardCells[3 * 6 * 0x224])   /* guard table, indexed by FUN_004ac400 */
+#define DAT_00ea0090 (g_guardCells[4 * 6 * 0x224])   /* guard table, indexed by FUN_004ac4d0 */
 
 
 /* WinMain value-guard slot cells with no prior declaration - real
@@ -2328,7 +2331,6 @@ extern uint8_t  g_serverSelectRecords[21 * 12]; /* 0xe54ca8, 12 bytes/record */
 /* WinMain value-guard slot 18 - declared with its 19 siblings above; the
  * full 0x224-byte storage is in globals_sized.c. */
 extern uint32_t DAT_00e9c578;
-extern uint32_t DAT_00e9cd30;
 extern uint32_t DAT_00f25840;
 extern uint32_t DAT_00f25844;
 extern uint32_t DAT_00f25848;

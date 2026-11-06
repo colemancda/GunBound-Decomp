@@ -49,7 +49,7 @@ void FUN_004ac180(int param_1)
       }
       puVar1 = puVar1 + 0x224;
       local_c = local_c + 1;
-    } while ((int)puVar1 < 0xe9da08);
+    } while (puVar1 < &DAT_00e9cd30 + 6 * 0x224);
   }
   return;
 }
