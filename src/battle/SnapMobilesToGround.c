@@ -29,6 +29,10 @@
  */
 #include "ghidra_types.h"
 
+/* Slot 5 is a genuine C++ virtual: this in ECX (0x43a632 mov ecx,esi), result in
+ * EAX (0x43a63c mov edi,eax, pushed at 0x43a640). */
+typedef int (__fastcall *MobileGroundYFn)(void *thisPtr);
+
 
 void SnapMobilesToGround(void)
 
@@ -49,7 +53,7 @@ void SnapMobilesToGround(void)
       }
     }
     for (piVar2 = (int *)piVar4[4]; piVar4 != piVar2; piVar2 = (int *)piVar2[4]) {
-      (**(code **)(*piVar2 + 0x14))();
+      uVar3 = (**(MobileGroundYFn *)(*piVar2 + 0x14))(piVar2);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x43a647
        * (`lea edi,[esi+0xb30]`, esi = this file's own loop variable piVar2,
