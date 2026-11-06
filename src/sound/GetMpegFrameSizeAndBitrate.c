@@ -1,13 +1,25 @@
-/* FUN_00514950 - 0x00514950 in the original binary.
+/* GetMpegFrameSizeAndBitrate - 0x00514950 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Return the MPEG frame length and store the stream bitrate (bps) through
+ * param_4.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * LIKELY. Calls ParseMpegFrameHeader and returns its frame length; the
+ * sole caller, DecodeSoundBufferChunk, stores the result at obj+0x54 and
+ * passes it as the byte count to DecodeMpegAudioFrame(obj+0x58, size,
+ * ...), and passes obj+0x8c as param_4. param_4 receives the table kbps
+ * value times 1000 (or a value derived from the frame length when the
+ * bitrate index is 0, free format), so it is bits per second. The role of
+ * obj+0x8c downstream was not traced further, hence LIKELY.
  */
 #include "ghidra_types.h"
 
 
-int FUN_00514950(undefined4 param_1,undefined4 param_2,byte *param_3,int *param_4)
+int GetMpegFrameSizeAndBitrate(undefined4 param_1,undefined4 param_2,byte *param_3,int *param_4)
 
 {
   int iVar1;

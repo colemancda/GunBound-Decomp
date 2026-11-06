@@ -1730,7 +1730,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00513900,2912,FUN_00513900,false,1,0,RAW-src
 005144e0,476,FUN_005144e0,false,1,1,RAW-src
 005146c0,648,ParseMpegFrameHeader,false,1,0,RAW-src
-00514950,412,FUN_00514950,false,2,1,RAW-src
+00514950,412,GetMpegFrameSizeAndBitrate,false,2,1,RAW-src
 00514af0,102,ConsumeMpegBits,false,84,0,RAW-src
 00514cc0,286,FUN_00514cc0,false,3,3,RAW-src
 00514fc0,1118,FUN_00514fc0,false,3,3,RAW-src

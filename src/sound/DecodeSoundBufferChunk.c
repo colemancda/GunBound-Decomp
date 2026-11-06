@@ -82,7 +82,7 @@ LAB_004ef344:
               *(undefined4 *)(param_1 + 0xa4) = 0;
               cVar1 = RefillSoundStreamBuffer();
               if (cVar1 != '\0') {
-                iVar2 = FUN_00514950(*(undefined4 *)(param_1 + 0x98),*(undefined4 *)(param_1 + 0xa4)
+                iVar2 = GetMpegFrameSizeAndBitrate(*(undefined4 *)(param_1 + 0x98),*(undefined4 *)(param_1 + 0xa4)
                                      ,param_1 + 0x58,param_1 + 0x8c);
                 *(int *)(param_1 + 0x54) = iVar2;
                 if (iVar2 == 0) {
