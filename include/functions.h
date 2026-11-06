@@ -580,7 +580,7 @@ void SpawnFloatingNumberPopup();
 void FUN_00436980(undefined4 param_1,int param_2,int param_3,int param_4);
 void SpawnCrashEffect(undefined4 param_1,undefined4 param_2,int regEbx);
 void FUN_00436b50();
-void FUN_00436bd0();
+void SpawnCrashParticleAlphaBlend();
 void __thiscall FUN_00436cd0(int param_1,int param_2,int param_3);
 void FUN_00436dc0();
 void FUN_00436ec0();

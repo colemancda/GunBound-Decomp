@@ -307,7 +307,7 @@ int  FindFirewallHazardAt(int x, int regEax);
 int  FindTornadoHazardAt(int x, int regEax);
 int  FindLightningHazardAt(int x, int regEax);
 void FUN_00436dc0(int a, int b, unsigned int c);
-void FUN_00436bd0(int a, int b, unsigned int c);
+void SpawnCrashParticleAlphaBlend(int a, int b, unsigned int c);
 void FUN_00436ec0(int a, int b);
 /* Point-vs-entities hit test; registry and x recovered 2026-08-28 - see
  * src/unnamed/HitTestMobilesAndJewels.c. */
@@ -1168,7 +1168,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 EnterCriticalSection(&g_valueGuardLock);
                 iVar13 = PeekPacketChecksumState((void *)(&gce4));
                 LeaveCriticalSection(&g_valueGuardLock);
-                FUN_00436bd0(local_15a4 - iVar13, local_15b4 - iVar12, *reinterpret_cast<unsigned int *>(pCVar17->m_pad3d + 0x1e13));
+                SpawnCrashParticleAlphaBlend(local_15a4 - iVar13, local_15b4 - iVar12, *reinterpret_cast<unsigned int *>(pCVar17->m_pad3d + 0x1e13));
                 if (gf08.tableHandle != 0) { ScrambleChecksumGuardBytes(gf08.tableHandle,&g_valueGuardKeyTable); TreeInsert(local_1580,&g_valueGuardMap); pCVar17 = local_159c; }
                 if (gce4.tableHandle != 0) { ScrambleChecksumGuardBytes(gce4.tableHandle,&g_valueGuardKeyTable); TreeInsert(local_1580,&g_valueGuardMap); pCVar17 = local_159c; }
             }
@@ -1369,7 +1369,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                     EnterCriticalSection(&g_valueGuardLock);
                     local_15b0[0] = PeekPacketChecksumState((void *)(&g230));
                     LeaveCriticalSection(&g_valueGuardLock);
-                    FUN_00436bd0(local_15b8 - local_15b0[0], local_15a4 - iVar13, *reinterpret_cast<unsigned int *>(pCVar17->m_pad3d + 0x1e13));
+                    SpawnCrashParticleAlphaBlend(local_15b8 - local_15b0[0], local_15a4 - iVar13, *reinterpret_cast<unsigned int *>(pCVar17->m_pad3d + 0x1e13));
                     uVar14 = g678.tableHandle;
                     if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); local_15b0[0] = uVar14; TreeInsert(local_1580,&g_valueGuardMap); pCVar17 = local_159c; }
                     uVar14 = g230.tableHandle;

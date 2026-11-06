@@ -5,7 +5,7 @@
  * verbatim ports" section for status.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
- * cell at both argless PeekPacketChecksumState() calls: both &DAT_00e9ba40 (the FUN_00436bd0 emitter family).
+ * cell at both argless PeekPacketChecksumState() calls: both &DAT_00e9ba40 (the SpawnCrashParticleAlphaBlend emitter family).
  *
  * DROPPED-ARGUMENT FIX (2026-09-20): the sole call site (battle/
  * DetonateItemShot.c) only passed 3 of the 4 declared params, and the

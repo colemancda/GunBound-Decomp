@@ -1,17 +1,41 @@
-/* FUN_00436bd0 - 0x00436bd0 in the original binary.
+/* SpawnCrashParticleAlphaBlend - 0x00436bd0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at all 3 argless PeekPacketChecksumState() calls (3 C : 3 orig,
  * goto-free zip) - three plain globals (&DAT_00e9ba40 x2, &DAT_00e9bed8).
+ *
+ * Evidence. The constructor it calls, FUN_004aa4d0 (0x50-byte object),
+ * stamps class id 0x2e631 and installs vtable 0x556544. The class-id switch
+ * in FUN_00450c20, the draw pass that binds the "CrashTexture" texture once
+ * and then walks the layers, puts 0x2e631 in the group drawn with blend
+ * mode 1 (SRCALPHA / INVSRCALPHA, ordinary alpha) and 0x2e633 in the
+ * additive group (mode 2, SRCALPHA / ONE). The other spawner of the same
+ * shape, FUN_00436dc0, builds class 0x2e633, so the two particle spawners
+ * differ by blend mode, and the names say so. SpawnCrashEffect (class
+ * 0x2e644, also additive) is the detonation-time sibling and is named from
+ * the same texture.
+ *
+ * Callers. All 18 binary sites (SimulateProjectileFrame and the Simulate*
+ * bullet bodies, two each) load EAX with ctx + 0x6a7f70 and push (x, y,
+ * value); the port reads the same flag at ctx + 0x6a7f74 directly instead of
+ * taking EAX, and the earlier audit of that helper family found the register
+ * uniform. The spawn is gated on a roll: rand() % 200 must be below
+ * DAT_005f2f54 times the third argument, where DAT_005f2f54 is the 1..3
+ * value HandleMouseInput stores from a three-position option and
+ * CarveTerrainCrater and SpawnCraterDebris also scale by. The particle is
+ * placed at (x, y) plus a random offset of up to 20 less a global bias
+ * (+0x38, +0x3c), given a random variant (+0x44), and registered. LIKELY:
+ * "particle" is the class's role as a short-lived textured sprite; the exact
+ * visual (smoke, dust) is not established, and a trail role is not claimed.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00436bd0(int param_1,int param_2,int param_3)
+void SpawnCrashParticleAlphaBlend(int param_1,int param_2,int param_3)
 
 {
   char cVar1;

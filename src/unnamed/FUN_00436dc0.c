@@ -6,7 +6,7 @@
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at all 3 argless PeekPacketChecksumState() calls (3 C : 3 orig,
- * goto-free zip) - three plain globals, cell for cell FUN_00436bd0's twin.
+ * goto-free zip) - three plain globals, cell for cell SpawnCrashParticleAlphaBlend's twin.
  */
 #include "ghidra_types.h"
 
