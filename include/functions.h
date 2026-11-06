@@ -1920,7 +1920,7 @@ void FindFirstImpactAlongStep_YMajor(int *param_1,int *param_2,int param_3,int p
 
 void __cdecl MpegSynthWindow8HalfInterleaved(int param_3,undefined4 param_4,int param_5);
 void __cdecl MpegSynthWindow8Quarter(int param_3,undefined4 param_4,int param_5);
-void __cdecl FUN_0051faa2(int param_3,undefined4 param_4,int param_5);
+void __cdecl MpegSynthWindow8QuarterInterleaved(int param_3,undefined4 param_4,int param_5);
 
 void FUN_004ebdd0(int param_1,int param_2,int param_3,byte param_4,uint param_5,char param_6,int regEax);
 

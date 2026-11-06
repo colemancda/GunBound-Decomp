@@ -1834,7 +1834,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0051f184,722,MpegSynthWindow8Half,false,1,0,RAW-src
 0051f456,722,MpegSynthWindow8HalfInterleaved,false,1,0,RAW-src
 0051f728,890,MpegSynthWindow8Quarter,false,1,0,RAW-src
-0051faa2,890,FUN_0051faa2,false,1,0,RAW-src
+0051faa2,890,MpegSynthWindow8QuarterInterleaved,false,1,0,RAW-src
 0051fe1c,29,RemoveAll,false,1,1,EXCLUDED-msvc-crt-atl
 0051fe39,39,operator[],false,1,1,EXCLUDED-msvc-crt-atl
 0051fe60,23,~CComCritSecLock<ATL::CComCriticalSection>,false,1,1,EXCLUDED-msvc-crt-atl
