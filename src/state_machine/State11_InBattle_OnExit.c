@@ -703,7 +703,7 @@ LAB_004bd75c:
     *puVar10 = 0;
     puVar10 = puVar10 + 1;
   }
-  FUN_004e4220(&DAT_006a7708 + g_clientContext);
+  ReleaseStageResources(&DAT_006a7708 + g_clientContext);
   FUN_004f3060(&DAT_006a7f88 + g_clientContext);
   _DAT_00e98abc = timeGetTime();
   iVar7 = g_clientContext;

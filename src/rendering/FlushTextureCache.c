@@ -20,7 +20,7 @@
  * every caller (a custom register convention). Recovered from disassembly:
  * the prologue reads [ebx+0x1b4]/[ebx+0x114] without ever setting EBX, and
  * all five call sites load EBX immediately before the call - four with
- * &g_textureCache (ShutdownDirectDraw, FUN_004e4220,
+ * &g_textureCache (ShutdownDirectDraw, ReleaseStageResources,
  * State07_AvatarStore_OnExit x2) and DestroyTextureCache with its own
  * container argument. Promoted to an explicit `int param_1`. Left unfixed
  * this read garbage EBX and faulted at `mov [ebx+0x401bc],edx` under the
