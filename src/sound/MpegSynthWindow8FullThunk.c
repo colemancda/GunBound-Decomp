@@ -11,8 +11,7 @@
  * again and does call 0x51ea90, then add esp,0xc and ret; it is ordinary
  * cdecl and not a bare jmp. Called from the single-output drivers
  * 0x516f80, 0x517090, 0x5170f0 and 0x517150, which pass the ring buffer
- * base 0x5af144 (or 0x5ae940 for the second channel), the ring offset and
- * the output pointer. The target is named MpegSynthWindow8Full from its
+ * base 0x5af144, the ring offset and the output pointer. The target is named MpegSynthWindow8Full from its
  * own callers (the window geometry the drivers impose).
  */
 #include "ghidra_types.h"

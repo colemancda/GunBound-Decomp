@@ -11,8 +11,7 @@
  * again and does call 0x51e3c4, then add esp,0xc and ret; it is ordinary
  * cdecl and not a bare jmp. Called from the single-output drivers
  * 0x516d50, 0x516e60, 0x516ec0 and 0x516f20, which pass the ring buffer
- * base 0x5af144 (or 0x5ae940 for the second channel), the ring offset and
- * the output pointer. The target is named MpegSynthWindow16Quarter from
+ * base 0x5af144, the ring offset and the output pointer. The target is named MpegSynthWindow16Quarter from
  * its own callers (the window geometry the drivers impose).
  */
 #include "ghidra_types.h"
