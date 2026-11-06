@@ -305,7 +305,7 @@ LAB_004735e2:
       cVar8 = PeekPacketChecksumBool();
       iVar12 = local_15a8;
       if (cVar8 != '\0') {
-        FUN_00436ec0(local_15a8,local_15b8);
+        SpawnCrashParticleAdditive_2e634(local_15a8,local_15b8);
       }
       iVar17 = local_15a8;
       if ((((iVar12 < 0) || (*(int *)(&g_nCameraBoundX + g_clientContext) <= iVar12)) || (local_15b8 < 0))
@@ -566,7 +566,7 @@ LAB_00473e6c:
         cVar8 = PeekPacketChecksumBool();
         iVar17 = local_15bc;
         if (cVar8 != '\0') {
-          FUN_00436ec0(local_15bc,local_15a8);
+          SpawnCrashParticleAdditive_2e634(local_15bc,local_15a8);
         }
         iVar14 = local_15a8;
         if ((((-1 < iVar17) && (iVar17 < *(int *)(&g_nCameraBoundX + g_clientContext))) &&

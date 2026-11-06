@@ -296,7 +296,7 @@ LAB_004937c8:
         }
         cVar8 = PeekPacketChecksumBool();
         if (cVar8 != '\0') {
-          FUN_00436ec0(local_15ac,local_159c);
+          SpawnCrashParticleAdditive_2e634(local_15ac,local_159c);
         }
         if (((char)param_1[0xfe7] == '\x01') &&
            (((((local_15ac < 0 || (*(int *)(&g_nCameraBoundX + g_clientContext) <= local_15ac)) ||
@@ -553,7 +553,7 @@ LAB_0049410b:
         }
         cVar8 = PeekPacketChecksumBool();
         if (cVar8 != '\0') {
-          FUN_00436ec0(local_15ac,local_159c);
+          SpawnCrashParticleAdditive_2e634(local_15ac,local_159c);
         }
         if (((((local_15ac < 0) || (*(int *)(&g_nCameraBoundX + g_clientContext) <= local_15ac)) ||
              (local_159c < 0)) ||

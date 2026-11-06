@@ -313,7 +313,7 @@ LAB_0048bc2e:
         }
         cVar1 = PeekPacketChecksumBool((byte *)(local_15b4 + 0x3918));
         if (cVar1 != '\0') {
-          FUN_00436ec0(local_15b8,local_15bc);
+          SpawnCrashParticleAdditive_2e634(local_15b8,local_15bc);
         }
         cVar1 = HitTestMobilesAndJewels(local_15bc,(int)(&DAT_006a7f88 + g_clientContext),local_15b8);
         iVar3 = local_15b4;
@@ -620,7 +620,7 @@ LAB_0048c664:
         }
         cVar1 = PeekPacketChecksumBool((byte *)(local_15b4 + 0x3918));
         if (cVar1 != '\0') {
-          FUN_00436ec0(local_15c4,local_15b8);
+          SpawnCrashParticleAdditive_2e634(local_15c4,local_15b8);
         }
         cVar1 = HitTestMobilesAndJewels(local_15b8,(int)(&DAT_006a7f88 + g_clientContext),local_15c4);
         iVar3 = local_15b4;

@@ -346,7 +346,7 @@ LAB_00485c3d:
         cVar8 = PeekPacketChecksumBool();
         iVar9 = local_15b8;
         if (cVar8 != '\0') {
-          FUN_00436ec0(iVar11,local_15b8);
+          SpawnCrashParticleAdditive_2e634(iVar11,local_15b8);
         }
         if (iVar11 < 0) {
 LAB_0048631a:
@@ -637,7 +637,7 @@ LAB_0048661d:
         iVar11 = local_15a4;
         iVar9 = local_15c0;
         if (cVar8 != '\0') {
-          FUN_00436ec0(local_15c0,local_15a4);
+          SpawnCrashParticleAdditive_2e634(local_15c0,local_15a4);
         }
         if (iVar9 < 0) {
 LAB_00486cde:

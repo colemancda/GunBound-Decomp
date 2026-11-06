@@ -583,7 +583,7 @@ void FUN_00436b50();
 void SpawnCrashParticleAlphaBlend();
 void __thiscall FUN_00436cd0(int param_1,int param_2,int param_3);
 void SpawnCrashParticleAdditive();
-void FUN_00436ec0();
+void SpawnCrashParticleAdditive_2e634();
 void FUN_00436fd0();
 void FUN_00437150();
 uint FindFreeMineKey(int regEax);

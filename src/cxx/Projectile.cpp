@@ -308,7 +308,7 @@ int  FindTornadoHazardAt(int x, int regEax);
 int  FindLightningHazardAt(int x, int regEax);
 void SpawnCrashParticleAdditive(int a, int b, unsigned int c);
 void SpawnCrashParticleAlphaBlend(int a, int b, unsigned int c);
-void FUN_00436ec0(int a, int b);
+void SpawnCrashParticleAdditive_2e634(int a, int b);
 /* Point-vs-entities hit test; registry and x recovered 2026-08-28 - see
  * src/unnamed/HitTestMobilesAndJewels.c. */
 char HitTestMobilesAndJewels(int y, int registry, int x);
@@ -1174,7 +1174,7 @@ void CProjectile::SimulateFrame(int stepDelta)
             }
             iVar12 = local_15a4;
             cVar8 = PeekPacketChecksumBool(pCVar17->m_pad3d + 0x38db);
-            if (cVar8 != '\0') { FUN_00436ec0(iVar12, local_15b4); }
+            if (cVar8 != '\0') { SpawnCrashParticleAdditive_2e634(iVar12, local_15b4); }
             iVar13 = local_15a4;
             if (-1 < iVar12 && iVar12 < *reinterpret_cast<int *>(&g_nCameraBoundX + g_clientContext) &&
                 -1 < local_15b4 && local_15b4 < *reinterpret_cast<int *>(&g_nCameraBoundY + g_clientContext) &&
@@ -1377,7 +1377,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 }
                 iVar13 = local_15b8;
                 cVar8 = PeekPacketChecksumBool(pCVar17->m_pad3d + 0x38db);
-                if (cVar8 != '\0') { FUN_00436ec0(iVar13, local_15a4); }
+                if (cVar8 != '\0') { SpawnCrashParticleAdditive_2e634(iVar13, local_15a4); }
                 iVar15 = local_15a4;
                 if (-1 < iVar13 && iVar13 < *reinterpret_cast<int *>(&g_nCameraBoundX + g_clientContext) &&
                     -1 < local_15a4 && local_15a4 < *reinterpret_cast<int *>(&g_nCameraBoundY + g_clientContext) &&
