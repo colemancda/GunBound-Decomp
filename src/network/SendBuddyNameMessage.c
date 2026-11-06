@@ -10,7 +10,7 @@
  * call [edx+0x30]`, which DispatchP2PMessage.c already spells
  * `(**(code **)(**(int **)(param_3 + 0x1ab0) + 0x30))(param_4)`.  So edi is
  * param_4, the same pointer the neighbouring case arm hands to
- * FUN_004fcee0 as a `char *`.
+ * SendBuddyNameMessage_3000 as a `char *`.
  *
  * NAMED 2026-08-27 (was SendBuddyNameMessage).  Sends a control message whose entire
  * payload is a 16-byte peer name, with the message type chosen by the

@@ -1497,7 +1497,7 @@ undefined4 DecryptStoredStringTo(undefined4 param_1,undefined4 param_2,int regEa
 int DecryptedStoredStringCompareNoCase(undefined4 param_1,undefined4 param_2,int regEax);
 undefined4 DecryptContextBuffer(int outBase,int ctx);
 void SendBuddyNameMessage(undefined4 param_1,char *regEax,int regEbx);
-void FUN_004fcee0(char *regEax,int regEbx);
+void SendBuddyNameMessage_3000(char *regEax,int regEbx);
 undefined4 FUN_004fcf10(undefined4 param_1,undefined4 param_2,undefined4 regEdi,int *regEax,undefined4 regEbx);
 void FUN_004fcf70(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,int regEbx,int *regEdi);
 undefined4 FUN_004fd030(unsigned short regAx);
