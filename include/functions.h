@@ -1904,7 +1904,7 @@ void __cdecl MpegSynthWindow16Quarter(int param_3,int param_4,int param_5);
 void __cdecl MpegSynthWindow16QuarterInterleaved(int param_3,int param_4,int param_5);
 void __cdecl MpegSynthWindow8Full(int param_3,int param_4,int param_5);
 void __cdecl MpegSynthWindow8FullInterleaved(int param_3,int param_4,int param_5);
-void __cdecl FUN_0051f184(int param_3,undefined4 param_4,int param_5);
+void __cdecl MpegSynthWindow8Half(int param_3,undefined4 param_4,int param_5);
 
 /* CRT/ATL atexit registrants under src/unnamed/msvc_crt_atl.  These are
  * referenced only as bare function pointers -- `_atexit(FUN_00543210);` --

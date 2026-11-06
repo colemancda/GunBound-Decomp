@@ -1,8 +1,26 @@
-/* FUN_0051f184 - 0x0051f184 in the original binary.
+/* MpegSynthWindow8Half - 0x0051f184 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * MPEG audio polyphase synthesis window: 8-bit PCM, half band (16 samples
+ * per call), contiguous output.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Sole caller is its thunk MpegSynthWindow8HalfThunk (0x51afb0), which is
+ * called once per block by the four single-output drivers 0x5171c0 (Mono),
+ * 0x5172d0, 0x517330 and 0x517390 (table slots 20, 22, 23, 24 of
+ * 0x563a60). Each advances out by 0x10 = 16 samples x 1 bytes, so the
+ * output is contiguous.
+ * The drivers step the ring offset DAT_005ae93c by 0x10 and mask it with
+ * 0xff, and the table index is col + (downsample + eightBit*3)*5 with
+ * downsample 1 (subband count 0x20 >> downsample = 16) and eightBit 1, as
+ * installed by SetupMpegLayerIDecoder, SetupMpegLayerIIIDecoder and
+ * DecodeMpegAudioFrame. Raw table bytes at 0x563a60 give slot 20 = driver
+ * 0x5171c0.
+ * In the body (consistent with, not the basis for, the name): stores are
+ * bytes (value shr 8) at stride 1, clip to 0x7fff / -0x8000.
  *
  * SIGNATURE CORRECTED (2026-08-25).  Same hand-written-asm shape as
  * FUN_0051f456 and its two siblings: entry `push ebp; lea ebp,[esp+8];
@@ -15,7 +33,7 @@
 #include "ghidra_types.h"
 
 
-void __cdecl FUN_0051f184(int param_3,undefined4 param_4,int param_5)
+void __cdecl MpegSynthWindow8Half(int param_3,undefined4 param_4,int param_5)
 {
   float *pfVar1;
   float *pfVar2;
