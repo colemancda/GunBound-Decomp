@@ -710,7 +710,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00471470,213,DestroyFirewallHazard,false,1,2,RAW-src
 00471550,1332,RenderFirewallHazard,false,1,9,RAW-src
 00471a90,91,TickWeatherHazardLifetime,false,2,4,RAW-src
-00471af0,72,FUN_00471af0,false,1,0,RAW-src
+00471af0,72,InitFlameEffect,false,1,0,RAW-src
 00471b40,301,FUN_00471b40,false,1,0,RAW-src
 00471c70,130,TickFlameEffect,false,2,4,RAW-src
 00471d00,190,DrawFlameEffect,false,1,1,RAW-src

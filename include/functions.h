@@ -841,7 +841,7 @@ undefined4 * InitFirewallHazard();
 void * __thiscall DeleteFirewallHazard();
 void DestroyFirewallHazard();
 void __fastcall RenderFirewallHazard();
-void __fastcall FUN_00471af0();
+undefined4 * __fastcall InitFlameEffect(undefined4 param_1,undefined4 param_2,undefined4 *regEax);
 void FUN_00471b40(uint spriteKey, uint sortKey, int rowBase, int stride);
 int __fastcall TickFlameEffect();
 void * __thiscall Mobile12_ScalarDtor(void *param_1,int param_2);
