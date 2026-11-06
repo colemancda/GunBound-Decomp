@@ -15,7 +15,7 @@
  * both read and treat as the angle (the latter tests it against a 90..270
  * degree window for the facing flag), and the 23 binary call sites (15 source files) are
  * the Detonate/Animate routines of the Bullet projectile classes plus
- * FUN_004513b0 / FUN_0046c990. What the two source cells are (the name
+ * FUN_004513b0 / AnimateShot_Type13. What the two source cells are (the name
  * says nothing about them) is deliberately not claimed.
  *
  * NOT DONE: the object pointer arrives in ESI (lea edi,[esi+0x1c2c] at
