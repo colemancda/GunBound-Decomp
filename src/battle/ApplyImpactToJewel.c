@@ -1,8 +1,17 @@
-/* FUN_00478cb0 - 0x00478cb0 in the original binary.
+/* ApplyImpactToJewel - 0x00478cb0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_00478cb0): the layer-100006 handler of
+ * ApplyImpactToBattleEntities (0x450eb0).  The parent walks registry layer
+ * 0x186a6 and calls this with (node, impact x, impact y, source projectile)
+ * for every node whose dead flag (+0x14) is clear.  0x186a6 is the jewel
+ * class id (HitTestJewel's layer-100006 loop, SpawnJewel / InitJewel).  Like
+ * the mobile handler it is one of the two the parent's header says reach
+ * SpawnDamagePopup.  The name claims only "apply the impact to a jewel".
+ * LIKELY.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * 2026-09-02: FindSpriteFrame's register args recovered from orig
  * 0x4798b8-0x4798c9 - see the site comment.
@@ -33,7 +42,7 @@
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3,int regEdi)
+void ApplyImpactToJewel(int *param_1,int param_2,undefined4 param_3,int regEdi)
 
 {
   char cVar1;

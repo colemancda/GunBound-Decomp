@@ -12,7 +12,7 @@
  * active-object registry (this = g_clientContext + 0x6a7f88) and calls one
  * per-entity handler for each - class 100001 (player mobiles, InitMobile)
  * -> ApplyImpactToMobile, class 100006 (jewels, HitTestJewel's id) ->
- * FUN_00478cb0, class 100003 (mines, InitMine) -> FUN_00499650 only when
+ * ApplyImpactToJewel, class 100003 (mines, InitMine) -> FUN_00499650 only when
  * param_5 is set (ExplodeMine passes 0, so a mine blast does not reach
  * other mines), class 200002 (0x30d42, item cases, SpawnItemCase's
  * InitProjectile id) -> FUN_00477650. The mobile and jewel handlers are
@@ -94,7 +94,7 @@ LAB_00450f26:
     cVar1 = *(char *)(iVar3 + 0x15);
     while (cVar1 == '\0') {
       if (*(char *)(iVar3 + 0x14) == '\0') {
-        FUN_00478cb0(iVar3,param_2,param_3,param_4);
+        ApplyImpactToJewel(iVar3,param_2,param_3,param_4);
       }
       iVar3 = *(int *)(iVar3 + 0x10);
       cVar1 = *(char *)(iVar3 + 0x15);

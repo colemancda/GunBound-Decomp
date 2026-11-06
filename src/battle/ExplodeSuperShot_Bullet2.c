@@ -107,7 +107,7 @@ void __fastcall ExplodeSuperShot_Bullet2(int param_1)
                  * (piVar6[2]); `mov edx,[esp+0x20]` = uVar4Saved
                  * unmodified (see the SAVED comment above) - no `neg`
                  * on this path, unlike the sibling sites in
-                 * FUN_00478cb0/ApplyImpactToMobile/FUN_0045ea40/FUN_0048f300. */
+                 * ApplyImpactToJewel/ApplyImpactToMobile/FUN_0045ea40/FUN_0048f300. */
                 SpawnDamagePopup(piVar6[2],uVar4Saved,uVar4,uVar3);
                 local_4 = 0xffffffff;
                 ScrubChecksumGuard();

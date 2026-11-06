@@ -564,7 +564,7 @@ LAB_00490184:
      * 2 register args (ECX,EDX) ahead of these 2 stack args - this call
      * only ever passed the stack pair.  Orig 0x49043c/0x49043f/
      * 0x490447: `mov ecx,[ebx+8]` then `add ecx,0x32` (ebx=iVar7, this
-     * function's own object local, matching FUN_00478cb0's identical
+     * function's own object local, matching ApplyImpactToJewel's identical
      * *(int*)(this+8)+0x32 pattern); `mov edx,[esp+0x10]` = iVar14
      * (see the CAPTURED comment above), negated at 0x49044a. */
     SpawnDamagePopup(*(int *)(iVar7 + 2) + 0x32,-iVar14,local_2480[0],uVar8);

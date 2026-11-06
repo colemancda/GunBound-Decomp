@@ -873,7 +873,7 @@ void DestroyJewel(undefined4 *param_1);
 void __fastcall FUN_004784a0(undefined4 param_1,uint param_2,int param_3,int param_4,uint regEax);
 void FUN_004785f0();
 char FUN_00478a80();
-void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3,int regEdi);
+void ApplyImpactToJewel(int *param_1,int param_2,undefined4 param_3,int regEdi);
 void __fastcall FUN_00479910();
 int __fastcall TickJewelFrame();
 void __fastcall RenderJewel();

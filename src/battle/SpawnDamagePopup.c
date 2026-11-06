@@ -37,7 +37,7 @@
  * of them) silently compiled passing only param_3/param_4 on the stack
  * and dropped param_1/param_2 (the two registers) entirely. Each site's
  * ECX/EDX reconstructed independently from its own disasm - see each
- * call site's own comment (src/unnamed/FUN_00478cb0.c,
+ * call site's own comment (src/battle/ApplyImpactToJewel.c,
  * src/battle/ApplyImpactToMobile.c, src/unnamed/FUN_0045ea40.c (x1),
  * src/unnamed/FUN_0048f300.c (x2), src/battle/ExplodeSuperShot_Bullet2.c).
  * Pattern: ECX is always `*(int *)(obj + 8)` (sometimes `+ 0x32` on top),

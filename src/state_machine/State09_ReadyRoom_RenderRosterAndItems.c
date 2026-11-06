@@ -24,7 +24,7 @@
  *    ctx + (P*0xb + b)*0x7d28 + 0x1a2390 (per-slot, + local_a4c*0x224) or
  *    + 0x1a2c20 (not per-slot).  Those four peeks are now captured into
  *    the new iGuardTable local so the index can be written out.  Same
- *    arena-index idiom as FUN_00478cb0.
+ *    arena-index idiom as ApplyImpactToJewel.
  *  - The two peeks after the EncodeChecksumDeltaMul calls (0x4d8745 /
  *    0x4d88e0) read the helper's arg2 scratch, local_684 / local_8a8 (the
  *    delta helpers return arg2 - see tools/sweep_guard_instructions.md).
