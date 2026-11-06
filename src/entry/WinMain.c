@@ -234,8 +234,11 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     DAT_00588f48 = QuantizeRefreshRate(GetDeviceCaps(local_db4,0x74));
     if (DAT_00588f48 == 0) {
       lpData = (LPBYTE)GetDisplayConfigFromRegistry();
-      /* ECX = the ReadRegistryDword return (0x40dd74 mov ecx,eax). */
-      local_db0 = (LPBYTE)QuantizeRefreshRate(ReadRegistryDword(0x10));
+      /* ECX = the ReadRegistryDword return (0x40dd74 mov ecx,eax).
+       * ReadRegistryDword's own register args at 0x40dd5e-0x40dd6c:
+       * push 0x10 (stack), ecx = 0x258 (600), edx = 0x320 (800) -> the
+       * "modes %d,%d,%d" key "modes 16,800,600". */
+      local_db0 = (LPBYTE)QuantizeRefreshRate(ReadRegistryDword(0x258,0x320,0x10));
       if (local_db0 < lpData) {
         local_dac = 4;
         LVar5 = RegOpenKeyExA(HKEY_CURRENT_USER,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,

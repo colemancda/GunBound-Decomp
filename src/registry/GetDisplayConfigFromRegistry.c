@@ -18,14 +18,18 @@ undefined4 GetDisplayConfigFromRegistry(void)
   HDC hdc;
   int iVar1;
   undefined4 uVar2;
+  int iVar3;
+  int iVar4;
   
   uVar2 = 0;
   hdc = GetDC((HWND)0x0);
   if (hdc != (HDC)0x0) {
+    /* 0x40c63b..0x40c64e: stack arg = BITSPIXEL (0xc), ECX = VERTRES (10),
+     * EDX = HORZRES (8). */
     iVar1 = GetDeviceCaps(hdc,0xc);
-    GetDeviceCaps(hdc,10);
-    GetDeviceCaps(hdc,8);
-    uVar2 = ReadRegistryDword(iVar1);
+    iVar3 = GetDeviceCaps(hdc,10);
+    iVar4 = GetDeviceCaps(hdc,8);
+    uVar2 = ReadRegistryDword(iVar3,iVar4,iVar1);
     ReleaseDC((HWND)0x0,hdc);
   }
   return uVar2;

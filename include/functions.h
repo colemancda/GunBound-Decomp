@@ -73,7 +73,7 @@ void PostTurnEvent();
 undefined4 QueueOutgoingPacketField();
 void SubFromPacketChecksum(void *self,int param_1);
 undefined4 GetDisplayConfigFromRegistry();
-undefined4 __fastcall ReadRegistryDword(); /* returns the _atol result (EAX) */
+undefined4 __fastcall ReadRegistryDword(undefined4 param_1, undefined4 param_2, undefined4 param_3); /* returns the _atol result (EAX) */
 void __fastcall WriteRegistryDword();
 undefined4 __thiscall BlitRLESprite(int param_1,undefined4 param_2,undefined4 param_3,byte *rleData);
 undefined4 BlitSprite16bpp(int frame,int param_1,int param_2,int outerKey);
