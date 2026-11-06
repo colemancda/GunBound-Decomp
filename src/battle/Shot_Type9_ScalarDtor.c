@@ -19,7 +19,7 @@
 void * __thiscall Shot_Type9_ScalarDtor(void *param_1,int param_2)
 
 {
-  FUN_0049cc60((undefined4 *)param_1);
+  Shot_Type9_DtorBody((undefined4 *)param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

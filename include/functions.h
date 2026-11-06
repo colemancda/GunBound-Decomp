@@ -995,7 +995,7 @@ void Mobile06_Destructor(undefined4 *regEax);
 void __thiscall Mobile06_MainAction();
 void __fastcall FUN_0049c13f();
 void * __thiscall Shot_Type9_ScalarDtor();
-void FUN_0049cc60(undefined4 *regEax);
+void Shot_Type9_DtorBody(undefined4 *regEax);
 void __fastcall FUN_0049d270();
 void FUN_0049e420();
 void __fastcall FUN_0049e470();
