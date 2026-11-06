@@ -1413,7 +1413,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fdc80,109,CreateCommEngineNotifyWindow,false,1,2,RAW-src
 004fdd30,97,ResolveHostAddress,false,1,4,RAW-src
 004fdda0,40,CommEngineShutdownConnection,false,2,2,RAW-src
-004fddd0,288,FUN_004fddd0,false,1,8,RAW-src
+004fddd0,288,CommEngineDrainAndCloseConnections,false,1,8,RAW-src
 004fdef0,3,CGameState_NoOpVirtual_B,false,33,0,RAW-src
 004fdf00,204,InitCommP2PNotifyWindow,false,1,5,RAW-src
 004fdfd0,136,DestroyCommEngine,false,1,6,RAW-src

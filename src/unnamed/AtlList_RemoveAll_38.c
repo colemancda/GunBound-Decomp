@@ -11,7 +11,7 @@
  * m_pHead, m_pTail (+4) and m_pFree (+0x10) = NULL, free the plex chain at
  * m_pBlocks (+0xc) block by block and clear it. Callers:
  * DestroyCommP2POwner (ESI = owner+4, the list), CommConnectionList_Erase
- * (the inlined FreeNode tail: when the count reaches zero), FUN_004fddd0
+ * (the inlined FreeNode tail: when the count reaches zero), CommEngineDrainAndCloseConnections
  * (same tail) and AtlList_FreeNode_38 - FreeNode's last act in ATL is to
  * call RemoveAll when the count reaches zero, and that is what the three
  * inlined tails and the out-of-line one do. LIKELY on the suffix only: the

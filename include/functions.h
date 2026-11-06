@@ -1528,7 +1528,7 @@ void FUN_004fdc50(int regEax,int regEsi);
 void CreateCommEngineNotifyWindow(undefined4 *regEsi);
 undefined4 ResolveHostAddress(undefined4 param_1,undefined4 param_2,char *regEax);
 undefined4 CommEngineShutdownConnection(int *param_1,int regEsi);
-void FUN_004fddd0();
+void CommEngineDrainAndCloseConnections(int param_1,int *regEbx);
 void DestroyCommEngine(undefined4 *regEsi);
 undefined4 CreateBoundSocket(char *regEax,int regEsi);
 void StringMap_SetAt_1c(int param_1,undefined4 regEdi,int *regEsi);

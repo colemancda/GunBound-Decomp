@@ -51,7 +51,9 @@ LAB_004fd2a0:
     iVar1 = shutdown(s,2);
     if (iVar1 == -1) goto LAB_004fd2a0;
   }
-  FUN_004fddd0(3000);
+  /* DROPPED-REG FIX: orig 0x4fd253 `lea ebx,[edi+4]` is still live at the
+   * call (0x4fd2b0); the engine sub-object, the same one passed above. */
+  CommEngineDrainAndCloseConnections(3000,(int *)(param_1 + 1));
 LAB_004fd2b5:
   if ((void *)param_1[0x69e] != (void *)0x0) {
     _free((void *)param_1[0x69e]);

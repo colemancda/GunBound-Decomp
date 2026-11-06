@@ -11,7 +11,7 @@
  * node onto the free list (node->m_pNext = m_pFree (+0x10), m_pFree =
  * node), decrement m_nElements (+8) and call RemoveAll
  * (AtlList_RemoveAll_38) when the count reaches zero.
- * CommConnectionList_Erase and FUN_004fddd0 carry the same sequence
+ * CommConnectionList_Erase and CommEngineDrainAndCloseConnections carry the same sequence
  * inlined. Sole caller is AtlList_RemoveAll_38, whose loop pops the head
  * and hands it here. LIKELY on the suffix only: the body is stride-
  * independent and the 0x38 comes from the one list that uses it.
