@@ -154,7 +154,7 @@ LAB_004ef25f:
             }
             goto LAB_004ef344;
           }
-          uVar11 = FUN_0050f890(*(undefined4 *)(param_1 + 0x9c),
+          uVar11 = DecodeMpegFrameDispatch(*(undefined4 *)(param_1 + 0x9c),
                                 *(int *)(param_1 + 0xa8) + *(int *)(param_1 + 0xac));
           iVar2 = (int)uVar11;
           if (iVar2 < 1) goto LAB_004ef25f;

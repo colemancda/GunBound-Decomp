@@ -1796,7 +1796,7 @@ undefined4 PanelManager_PrependNode();
 void PanelManager_GrowNodePool();
 uint FUN_0050f3f0(int,int);
 void __fastcall FUN_0050f840(int param_1,int param_2);
-undefined8 FUN_0050f890(); /* 64-bit result used from EDX:EAX at call sites */
+undefined8 DecodeMpegFrameDispatch(); /* 64-bit result used from EDX:EAX at call sites */
 undefined8 DecodeMpegLayerIISamples();
 void FUN_0050fd90();
 void FUN_0050fe50();

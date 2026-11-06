@@ -1719,7 +1719,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050f770,66,ScrollListWidget_IsOverThumb,false,1,1,PARITY-cxx-ScrollBar.cpp
 0050f7c0,114,FUN_0050f7c0,false,1,0,TODO
 0050f840,67,FUN_0050f840,false,1,0,RAW-src
-0050f890,20,FUN_0050f890,false,1,1,RAW-src
+0050f890,20,DecodeMpegFrameDispatch,false,1,1,RAW-src
 0050f8b0,1247,DecodeMpegLayerIISamples,false,4,4,RAW-src
 0050fd90,180,FUN_0050fd90,false,1,0,RAW-src
 0050fe50,571,FUN_0050fe50,false,1,0,RAW-src
