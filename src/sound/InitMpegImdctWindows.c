@@ -1,15 +1,31 @@
-/* FUN_00519c80 - 0x00519c80 in the original binary.
+/* InitMpegImdctWindows - 0x00519c80 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Fill the Layer III IMDCT window table (0xf25b00).
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Fetches its destination from GetMpegImdctWindowTable (0x517d00, the
+ * accessor for 0xf25b00) and writes four 36-float windows back to back
+ * (0x90 floats): type 0 is sin((i+0.5)*pi/36); type 1 (start) is the first
+ * 18 long-sine samples, 6 ones, 6 falling short-sine samples and 6 zeros;
+ * type 2 is one 12-point short sine followed by zeros; type 3 (stop) is 6
+ * zeros, 6 rising short-sine samples, 6 ones and 18 falling long-sine
+ * samples. That is the ISO 11172-3 block type 0..3 window set (the code
+ * then sign-flips parts of the tables, not analysed further). The
+ * consumer, the windowed overlap-add body at 0x51b667 (via the 0x517d10
+ * wrapper), reads the table at block_type*0x24 floats. Its only caller is
+ * InitMpegLayerIIITables (0x519c65), which calls it last, after the
+ * intensity-stereo builders.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_00519c80(void)
+void InitMpegImdctWindows(void)
 
 {
   double dVar1;

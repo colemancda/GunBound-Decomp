@@ -1858,7 +1858,7 @@ int FUN_00518e30();
 void ReadMpegLayerIIIScalefactors();
 void ReadMpegLayerIIIScalefactorsLSF();
 undefined4 InitMpegLayerIIITables();
-void FUN_00519c80();
+void InitMpegImdctWindows();
 void FUN_00519ef0();
 void InitMpegIntensityStereoRatios();
 void InitMpegIntensityStereoLSFTables();

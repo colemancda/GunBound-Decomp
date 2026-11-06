@@ -90,7 +90,7 @@ undefined4 InitMpegLayerIIITables(void)
   InitMpegIntensityStereoRatios();
   InitMpegIntensityStereoLSFTables();
   FUN_00519ef0();
-  FUN_00519c80();
+  InitMpegImdctWindows();
   return 0;
 }
 
