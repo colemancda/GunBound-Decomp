@@ -4,7 +4,7 @@
  * (CommP2POwner_ProcessPacket's this - 0x2c8; the call site is
  * `lea ebx,[edi-0x2c8]` before the call at 0x501857).  Walks every occupied bucket chain of
  * the peer table at engine+0x290 (bucket array +0x290, count +0x294,
- * bucket total +0x298) and passes each record's id to FUN_00503a50
+ * bucket total +0x298) and passes each record's id to RemoveP2PPeerRecord
  * (0x503a50), taking the successor before the removal.  The sole caller is
  * CommP2POwner_ProcessPacket's 0x1011 arm (taken when the status word at
  * pkt+4 is 0 and the frame is longer than 0x1d bytes), where it is
@@ -23,7 +23,7 @@
  * a local on the line directly above the call:
  * `local_4970 = (undefined4 *)(param_1 + -0x2c8)`.
  *
- * FUN_00503a50 PROTOTYPED (2026-10-29): the call at 0x503c2c pushes EBP
+ * RemoveP2PPeerRecord PROTOTYPED (2026-10-29): the call at 0x503c2c pushes EBP
  * (the id, iVar3) then EBX (regEbx, the engine object), matching the
  * callee's two stack arguments (`ret 8` at 0x503b97); only a cast added.
  */
@@ -70,7 +70,7 @@ joined_r0x00503be3:
         }
       } while (iVar5 == 0);
     }
-    FUN_00503a50((undefined4 *)regEbx,iVar3);
+    RemoveP2PPeerRecord((undefined4 *)regEbx,iVar3);
     iVar3 = iVar5;
   } while( true );
 }

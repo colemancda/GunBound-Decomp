@@ -1636,7 +1636,7 @@ undefined4 __fastcall GetConnectionSocketIfListed(undefined4 *param_1,int regEax
 undefined4 __thiscall GetConnectionLocalAddressIfListed(undefined4 *param_1,char *param_2,char *param_3,int regEax);
 void FUN_005039a0(int param_1,undefined4 param_2,int *param_3,undefined4 regEax,undefined4 regEdi,undefined4 regEbx);
 void FUN_00503a10(undefined4 regEax,undefined4 regEdi);
-void FUN_00503a50(undefined4 *param_1,int param_2);
+void RemoveP2PPeerRecord(undefined4 *param_1,int param_2);
 void RemoveAllP2PPeers(int regEbx);
 undefined4 __thiscall CommP2POwner_ReassemblePackets(undefined4 *param_1,ushort *param_2,uint param_3);
 void CopyNameField_e(int regEsi,int regEdi);

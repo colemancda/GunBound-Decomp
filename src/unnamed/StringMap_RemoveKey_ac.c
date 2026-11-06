@@ -9,7 +9,7 @@
  * node+0xa4, hand it to StringMap_FreeNode_ac (0x5040a5 / 0x5040c0) and
  * return true.
  *
- * The one binary caller, FUN_00503a50 at 0x503b8b, passes `lea
+ * The one binary caller, RemoveP2PPeerRecord at 0x503b8b, passes `lea
  * eax,[ebp+0x290]` - the id-keyed P2P peer table HasP2PPeerRecord
  * tests - and in EDX the 16-char id it has just copied into a local
  * (`lea edx,[esp+0x12]`), as its last act before returning.
@@ -33,7 +33,7 @@
  * stack arguments (plain `ret`).  So the Ghidra __fastcall label was
  * wrong: the port is now a plain function taking the key (EDX) and the
  * map (EAX) as trailing register parameters, the repo's promotion idiom.
- * C site fixed: 0x503b8b in FUN_00503a50 (EAX = `lea eax,[ebp+0x290]` at
+ * C site fixed: 0x503b8b in RemoveP2PPeerRecord (EAX = `lea eax,[ebp+0x290]` at
  * 0x503b81, EDX = `lea edx,[esp+0x12]` at 0x503b87).
  */
 #include "ghidra_types.h"

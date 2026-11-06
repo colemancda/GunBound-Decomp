@@ -1,8 +1,25 @@
-/* FUN_00503a50 - 0x00503a50 in the original binary.
+/* RemoveP2PPeerRecord - 0x00503a50 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (batch 35), LIKELY (was FUN_00503a50).  Removes a peer from the P2P
+ * peer table: stack = (engine object, 16-char id), `ret 8`.  After the
+ * FindP2PPeerRecord lookup it runs the record's dependants - the hash map
+ * at record+0x50 and the 0x1750-stride datagram array at record+0x80 -
+ * through the P2P sub-object's virtual slot 0 (0x504800, six arguments:
+ * 0, id, port, address, port, address; that slot is uncarved, so what it
+ * does with them is NOT established and the name does not claim a
+ * notification), then copies the id (capped at 16, NUL-terminated) and
+ * erases it with StringMap_RemoveKey_ac on engine+0x290, the table
+ * FindP2PPeerRecord and HasP2PPeerRecord search.  Callers:
+ * CommP2POwner_ProcessPacket's 0x3fff arm calls it for an entry whose flag
+ * byte is zero and then also removes the id from the +0x17fc map
+ * (StringMap_RemoveKey_1c) - the removal half of the update/remove pair
+ * with FUN_005039a0 - and RemoveAllP2PPeers calls it for
+ * every record.  The first draft said "AndNotify"; dropped because nothing
+ * outside this body shows the slot-0 call is a notification.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * StringMap_RemoveKey_ac CALL RECOVERED (2026-10-29): it was called with no
  * arguments; now passes the key (EDX, 0x503b87) and the peer table at
@@ -23,7 +40,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00503a50(undefined4 *param_1,int param_2)
+void RemoveP2PPeerRecord(undefined4 *param_1,int param_2)
 
 {
   undefined4 *puVar1;

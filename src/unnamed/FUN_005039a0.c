@@ -10,7 +10,7 @@
  * 16-char id the branch just assembled, the string UpsertP2PPeerRecord's param_2
  * copy loop consumes -- not sa_data+10 (the 08-25 note missed the pushes).
  * EDI is loaded at 0x5023d9 from [esp+0x20] = local_4970 = param_1 - 0x2c8,
- * the engine object, matching the else-branch twin FUN_00503a50(local_4970,
+ * the engine object, matching the else-branch twin RemoveP2PPeerRecord(local_4970,
  * &local_496c); the [esp+0x14]=local_497c read at 0x50240c is the post-call
  * EDI RESTORE the 08-25 note mistook for the input.  EBX is `xor esi,esi /
  * mov si,[ebx]` (0x5023ee/0x5023f0) then `mov ebx,esi` (0x502401): the
