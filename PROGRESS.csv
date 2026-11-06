@@ -836,7 +836,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004907f0,32,DeleteSuperShot_Bullet9,false,1,2,RAW-src
 00490810,13,DestroySuperShot_Bullet9,false,1,1,RAW-src
 00490820,4628,DetonateSuperShot_Bullet9,false,1,45,RAW-src
-00491a40,199,FUN_00491a40,false,12,4,RAW-src
+00491a40,199,IsProjectileInLandBounds,false,12,4,RAW-src
 00491b10,32,DeleteSuperMine,false,1,2,RAW-src
 00491b30,13,DestroySuperMine,false,1,1,RAW-src
 00491b40,1685,ExplodeSuperMine,false,1,19,RAW-src

@@ -964,7 +964,7 @@ undefined4 * InitSuperShot_Bullet9(undefined4 *regEsi);
 void * __thiscall DeleteSuperShot_Bullet9();
 void DestroySuperShot_Bullet9(undefined4 *regEax);
 void __fastcall DetonateSuperShot_Bullet9();
-int __fastcall FUN_00491a40();
+int __fastcall IsProjectileInLandBounds(int param_1);
 void * __thiscall DeleteSuperMine();
 void DestroySuperMine(undefined4 *regEax);
 void __fastcall ExplodeSuperMine();
