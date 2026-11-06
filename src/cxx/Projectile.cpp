@@ -261,13 +261,18 @@ void NoOpMethod(void);
 
 extern int g_clientContext;             /* _DAT_005b3484 */
 extern unsigned char g_replayContext;  /* 0xe55ce0 - battle/replay turn-event buffer sized in globals_sized.c; declared scalar and always used as &g_replayContext, the same offset-macro idiom as globals.h */
-extern unsigned char DAT_006a7708;      /* address anchors: only ever used as    */
-extern unsigned char DAT_006a773c;      /* "&DAT_xxx + g_clientContext" bases -  */
-extern unsigned char DAT_006a7758;      /* declared as 1-byte so that arithmetic */
-extern unsigned char DAT_006a7f70;      /* on them matches the raw port exactly. */
-extern unsigned char DAT_006a7f8c;
-extern unsigned char DAT_006a7f88;
-extern unsigned char DAT_006a7f74;
+/* Address anchors: client-context arena offsets, only ever used as
+ * "&DAT_xxx + g_clientContext" bases. They are fixed-address byte cells
+ * (the same macros as globals.h), NOT linker symbols - an extern here would
+ * name a symbol that does not exist and would add the linker address to the
+ * arena base. */
+#define DAT_006a7708 (*(unsigned char *)(0x006a7708))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7708 + <arena base> */
+#define DAT_006a773c (*(unsigned char *)(0x006a773c))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a773c + <arena base> */
+extern unsigned char DAT_006a7758;
+#define DAT_006a7f70 (*(unsigned char *)(0x006a7f70))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7f70 + <arena base> */
+#define DAT_006a7f8c (*(unsigned char *)(0x006a7f8c))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7f8c + <arena base> */
+#define DAT_006a7f88 (*(unsigned char *)(0x006a7f88))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7f88 + <arena base> */
+#define DAT_006a7f74 (*(unsigned char *)(0x006a7f74))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7f74 + <arena base> */
 /* The camera/terrain-state globals below are ALSO used only as
  * "&sym + g_clientContext" ctx-relative bases (each is really a field in
  * the per-connection client-context arena, its link-time address serving
@@ -277,7 +282,10 @@ extern unsigned char DAT_006a7f74;
  * an earlier revision of this file did) made `&g_nCameraX + g_clientContext`
  * scale by 4 AND several sites dropped the `+ g_clientContext` entirely,
  * reading the wrong link-time global - a real bug, now fixed. */
-extern unsigned char g_nCameraBoundX, g_nCameraBoundY, g_nCameraX, g_nCameraY;
+#define g_nCameraBoundX (*(unsigned char *)(0x6a7720))  /* arena offset, same fixed-address form as globals.h; only used as &g_nCameraBoundX + <arena base> */
+#define g_nCameraBoundY (*(unsigned char *)(0x6a7724))  /* arena offset, same fixed-address form as globals.h; only used as &g_nCameraBoundY + <arena base> */
+#define g_nCameraX (*(unsigned char *)(0x6a7710))  /* arena offset, same fixed-address form as globals.h; only used as &g_nCameraX + <arena base> */
+#define g_nCameraY (*(unsigned char *)(0x6a7714))  /* arena offset, same fixed-address form as globals.h; only used as &g_nCameraY + <arena base> */
 extern unsigned char g_nCameraScrollX, g_nCameraScrollY;
 extern unsigned char DAT_006a7736, DAT_006a7f6c;
 #define DAT_006a7734 (*(unsigned char *)(0x006a7734))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7734 + <arena base> */
@@ -285,7 +293,8 @@ extern unsigned char DAT_006a7750, DAT_006a7754;
 #define DAT_006a7730 (*(unsigned char *)(0x006a7730))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7730 + <arena base> */
 #define DAT_006a772c (*(unsigned char *)(0x006a772c))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a772c + <arena base> */
 #define DAT_006a770c (*(unsigned char *)(0x006a770c))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a770c + <arena base> */
-extern unsigned char DAT_005f3768, DAT_005f376c;
+#define DAT_005f3768 (*(unsigned char *)(0x005f3768))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_005f3768 + <arena base> */
+extern unsigned char DAT_005f376c;
 extern void *PTR_FUN_0055658c;
 
 /* SimulateProjectileFrame's additional dependencies. */
