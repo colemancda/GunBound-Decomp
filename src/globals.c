@@ -498,8 +498,6 @@ uint32_t DAT_006777e8[8];
  * the end of the whole executable image and faulted. */
 uint32_t DAT_006790c0[0x8000];
 uint8_t DAT_0067e348;
-uint8_t DAT_0067e3cd;
-uint8_t DAT_0067e3ce;
 uint8_t DAT_0067ec60;
 uint8_t DAT_0067ec64;
 uint8_t DAT_0067ec68;
