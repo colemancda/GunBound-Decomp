@@ -2448,8 +2448,7 @@ uint32_t DAT_00f25e04;
 uint8_t *DAT_00f25e08;
 uint32_t DAT_00f25e0c;
 uint32_t DAT_00f25e10;
-uint32_t DAT_00f25e20;
-uint32_t DAT_00f25e78;
+uint32_t g_mpegBandWidthTab[35]; /* runtime-filled once per frame header (orig 0xf25e20 is past the raw image) */
 uint32_t DAT_00f25ed0;
 uint32_t DAT_00f25ee0;
 uint32_t DAT_00f25ee4;

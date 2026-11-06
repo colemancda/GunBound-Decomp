@@ -146,7 +146,7 @@ LAB_005164e7:
     iVar9 = iVar9 + 1;
     *piVar7 = *(int *)(&DAT_005443a4 + iVar1) - *(int *)(&DAT_005443a0 + iVar1);
     piVar7 = piVar6;
-  } while ((int)piVar6 < 0xf25e78);
+  } while ((uint *)piVar6 < &DAT_00f25e20 + 22);
   iVar9 = 0;
   piVar7 = &DAT_00f25e78;
   do {
@@ -155,7 +155,7 @@ LAB_005164e7:
     iVar9 = iVar9 + 1;
     *piVar7 = *(int *)(&DAT_00544400 + iVar1) - *(int *)(&DAT_005443fc + iVar1);
     piVar7 = piVar6;
-  } while ((int)piVar6 < 0xf25eac);
+  } while ((uint *)piVar6 < &DAT_00f25e78 + 13);
   FUN_00519aa0();
   FUN_0051a120();
   InitMpegSynthesisTables();

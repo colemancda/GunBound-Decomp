@@ -2543,8 +2543,11 @@ extern uint32_t DAT_00f25e04;
 extern uint8_t *DAT_00f25e08; /* used dereferenced as a byte-stream cursor at call sites */
 extern uint32_t DAT_00f25e0c;
 extern uint32_t DAT_00f25e10;
-extern uint32_t DAT_00f25e20;
-extern uint32_t DAT_00f25e78;
+/* Scale-factor band widths: 22 long-block words at 0xf25e20..0xf25e77 followed by 13 short-block words
+ * at 0xf25e78..0xf25eab.  FUN_005163d0 fills the two runs with loops bounded by 0xf25e78 and 0xf25eac. */
+extern uint32_t g_mpegBandWidthTab[35];
+#define DAT_00f25e20 (g_mpegBandWidthTab[0])
+#define DAT_00f25e78 (g_mpegBandWidthTab[22])
 extern uint32_t DAT_00f25ed0;
 extern uint32_t DAT_00f25ee0;
 extern uint32_t DAT_00f25ee4;

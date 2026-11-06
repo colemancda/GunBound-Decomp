@@ -172,7 +172,7 @@ void FUN_00518560(int param_1,int *param_2,int param_3,int param_4,undefined4 *p
         piVar8 = piVar8 + 1;
         local_50 = (int *)((int)local_50 + 1);
         local_4c = local_4c + 1;
-      } while ((int)piVar8 < 0xf25eac);
+      } while ((uint *)piVar8 < &DAT_00f25e78 + 13);
     }
     _memmove((void *)(param_1 + iVar7 * 4),&DAT_005b05fc,(iVar7 * 0x3fffffff + local_68) * 4);
     *param_2 = local_68;

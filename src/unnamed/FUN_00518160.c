@@ -45,7 +45,7 @@ void FUN_00518160(int param_1,int param_2,int param_3,int param_4,int param_5)
       piVar10 = &DAT_00f25e20 + iVar4;
       do {
         iVar4 = *piVar10;
-        iVar5 = (*(int *)(param_2 + -0xf25e20 + (int)piVar10) + param_5 * 8) * 8;
+        iVar5 = (*(int *)(param_2 + ((int)piVar10 - (int)&DAT_00f25e20)) + param_5 * 8) * 8;
         fVar2 = *(float *)(&DAT_005b0144 + iVar5);
         fVar3 = *(float *)(&DAT_005b0148 + iVar5);
         iVar5 = 0;
@@ -64,7 +64,7 @@ void FUN_00518160(int param_1,int param_2,int param_3,int param_4,int param_5)
           } while (iVar5 < iVar4);
         }
         piVar10 = piVar10 + 1;
-      } while ((int)piVar10 < 0xf25e74);
+      } while ((uint *)piVar10 < &DAT_00f25e20 + 21);
     }
   }
   else if (iVar4 < 0xc) {
@@ -105,7 +105,7 @@ void FUN_00518160(int param_1,int param_2,int param_3,int param_4,int param_5)
       }
       piVar10 = piVar10 + 1;
       piVar8 = piVar8 + 1;
-    } while ((int)piVar10 < 0xf25ea8);
+    } while ((uint *)piVar10 < &DAT_00f25e78 + 12);
     return;
   }
   return;
