@@ -1010,7 +1010,7 @@ undefined4 __fastcall InitRiderEffect();
 void FUN_004a27d0(uint spriteKey, uint sortKey, int rowBase, int stride);
 undefined4 * InitPrimaryShot_Bullet4();
 void * __thiscall DeletePrimaryShot_Bullet4();
-void FUN_004a2bc0();
+void DestroyPrimaryShot_Bullet4(undefined4 *param_1);
 void __fastcall DetonatePrimaryShot_Bullet4();
 void __fastcall AnimatePrimaryShot_Bullet4();
 undefined4 * InitShot2_Bullet2();
