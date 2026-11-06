@@ -810,7 +810,7 @@ void State11_InBattle_ClearEffectTextures(void)
   }
   DispatchActiveObjectSlot3_Keys1000To100000((int)(&DAT_006a7f88 + g_clientContext));
   FlushCompositorLayer(2,(int)&g_spriteDrawBatchPool);
-  FUN_00450bd0((int)(&DAT_006a7f88 + g_clientContext));
+  DispatchActiveObjectSlot3_Keys100000To190000((int)(&DAT_006a7f88 + g_clientContext));
   if (iVar2 != 0) {
     piVar1 = *(int **)(*(int *)(iVar2 + 0x94) + 0x110);
     (**(code **)(*piVar1 + 0x80))(piVar1,0);

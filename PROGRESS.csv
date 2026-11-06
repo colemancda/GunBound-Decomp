@@ -592,7 +592,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00450860,60,DrawActiveObjectLayers,false,4,0,RAW-src
 004508a0,729,RenderWeatherHazards,false,1,5,RAW-src
 00450b80,73,DispatchActiveObjectSlot3_Keys1000To100000,false,1,0,RAW-src
-00450bd0,73,FUN_00450bd0,false,1,0,RAW-src
+00450bd0,73,DispatchActiveObjectSlot3_Keys100000To190000,false,1,0,RAW-src
 00450c20,387,FUN_00450c20,false,1,1,RAW-src
 00450dd0,63,FUN_00450dd0,false,1,0,RAW-src
 00450e10,160,HitTestMobilesAndJewels,false,15,3,RAW-src

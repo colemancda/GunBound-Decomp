@@ -730,7 +730,7 @@ void FUN_00450810(int regEbx);
 void DrawActiveObjectLayers(int regEbx);
 void RenderWeatherHazards();
 void DispatchActiveObjectSlot3_Keys1000To100000(int regEbx);
-void FUN_00450bd0(int regEbx);
+void DispatchActiveObjectSlot3_Keys100000To190000(int regEbx);
 void FUN_00450c20();
 void FUN_00450dd0(int regEbx);
 void __thiscall ApplyImpactToBattleEntities(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,char param_5,undefined4 param_6,undefined4 param_7);
