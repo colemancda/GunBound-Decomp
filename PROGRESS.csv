@@ -1745,7 +1745,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00516b10,94,SynthesizeMpeg16HalfMono,false,1,2,RAW-src
 00516c20,94,SynthesizeMpeg16HalfMixDown,false,1,2,RAW-src
 00516c80,94,SynthesizeMpeg16HalfFirstChannel,false,1,2,RAW-src
-00516ce0,97,FUN_00516ce0,false,1,2,RAW-src
+00516ce0,97,SynthesizeMpeg16HalfSecondChannel,false,1,2,RAW-src
 00516d50,92,FUN_00516d50,false,1,2,RAW-src
 00516e60,92,FUN_00516e60,false,1,2,RAW-src
 00516ec0,92,FUN_00516ec0,false,1,2,RAW-src
