@@ -432,7 +432,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
         param_1[param_1[0x227] + 0x2a8] = (uint)*(ushort *)(param_2 + 0x23);
         param_1[param_1[0x227] + 0x3a8] = *(int *)(param_2 + 0x25);
         param_1[param_1[0x227] + 0x328] = (uint)bVar16;
-        FUN_004ccc60(param_1);
+        SortPlayerSpawnEntries((int)param_1);
         param_1[0x227] = param_1[0x227] + 1;
         *unaff_FS_OFFSET = local_14;
         return;

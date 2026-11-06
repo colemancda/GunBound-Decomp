@@ -1097,7 +1097,7 @@ void FinishTurnAndSelectNext();
 void FUN_004cbda0();
 void FUN_004cc5c0();
 void __stdcall SortHitLogEntries(int param_1);
-void FUN_004ccc60();
+void __stdcall SortPlayerSpawnEntries(int param_1);
 void FUN_004ccd10();
 void FUN_004ce3d0();
 void FUN_004ce610();
