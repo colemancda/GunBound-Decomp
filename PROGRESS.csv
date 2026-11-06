@@ -1754,7 +1754,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00517090,94,SynthesizeMpeg8FullMixDown,false,1,2,RAW-src
 005170f0,94,SynthesizeMpeg8FullFirstChannel,false,1,2,RAW-src
 00517150,97,SynthesizeMpeg8FullSecondChannel,false,1,2,RAW-src
-005171c0,94,FUN_005171c0,false,1,2,RAW-src
+005171c0,94,SynthesizeMpeg8HalfMono,false,1,2,RAW-src
 005172d0,94,FUN_005172d0,false,1,2,RAW-src
 00517330,94,FUN_00517330,false,1,2,RAW-src
 00517390,97,FUN_00517390,false,1,2,RAW-src

@@ -1828,7 +1828,7 @@ void SynthesizeMpeg8FullMono();
 void SynthesizeMpeg8FullMixDown();
 void SynthesizeMpeg8FullFirstChannel();
 void SynthesizeMpeg8FullSecondChannel();
-void FUN_005171c0();
+void SynthesizeMpeg8HalfMono();
 void FUN_005172d0();
 void FUN_00517330();
 void FUN_00517390();
