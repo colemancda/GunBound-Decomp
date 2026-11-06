@@ -1811,7 +1811,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0051afb0,24,MpegSynthWindow8HalfThunk,false,5,1,RAW-src
 0051afd0,24,MpegSynthWindow8HalfInterleavedThunk,false,4,1,RAW-src
 0051aff0,24,MpegSynthWindow8QuarterThunk,false,5,1,RAW-src
-0051b010,24,FUN_0051b010,false,4,1,RAW-src
+0051b010,24,MpegSynthWindow8QuarterInterleavedThunk,false,4,1,RAW-src
 0051b030,1030,FUN_0051b030,false,1,0,RAW-src
 0051b436,561,FUN_0051b436,false,1,0,RAW-src
 0051b667,3841,FUN_0051b667,false,1,0,RAW-src
