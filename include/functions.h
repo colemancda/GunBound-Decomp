@@ -1041,7 +1041,7 @@ void DestroyShot2_Bullet16(undefined4 *regEax);
 void __fastcall DetonateShot2_Bullet16();
 undefined4 * InitThor();
 void * __thiscall DeleteThor();
-void FUN_004abcc0();
+void DestroyThor();
 void FUN_004ac180();
 undefined4 __fastcall FUN_004ac260();
 undefined4 __fastcall FUN_004ac330();

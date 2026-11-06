@@ -19,7 +19,7 @@
 void * __thiscall DeleteThor(void *param_1,int param_2)
 
 {
-  FUN_004abcc0(param_1);
+  DestroyThor(param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }
