@@ -599,7 +599,7 @@ uint SpawnCraterDebris();
 void SpawnThor(undefined4 param_1,int param_2,int regEsi);
 undefined4 FUN_00439e40();
 undefined4 InitChecksumSeed();
-void FUN_0043a5f0();
+void SnapMobilesToGround();
 void FUN_0043a670();
 void FUN_0043bda0();
 void FUN_0043c3c0();

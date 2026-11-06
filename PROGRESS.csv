@@ -458,7 +458,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00439d90,168,SpawnThor,false,1,5,RAW-src
 00439e40,1754,FUN_00439e40,false,1,17,RAW-src
 0043a530,192,InitChecksumSeed,false,105,3,RAW-src
-0043a5f0,115,FUN_0043a5f0,false,4,3,RAW-src
+0043a5f0,115,SnapMobilesToGround,false,4,3,RAW-src
 0043a670,2254,FUN_0043a670,false,1,7,RAW-src
 0043af40,2132,ApplyBlastDamage,false,38,10,RAW-src
 0043b7a0,1518,FUN_0043b7a0,false,1,13,RAW-src

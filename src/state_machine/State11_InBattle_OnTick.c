@@ -1679,7 +1679,7 @@ LAB_004c08c8:
     pcVar16 = (code *)EnterCriticalSection;
   }
   else {
-    FUN_0043a5f0();
+    SnapMobilesToGround();
     FUN_004d0e90();
     local_3d60 = (int *)0xc300;
     TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);

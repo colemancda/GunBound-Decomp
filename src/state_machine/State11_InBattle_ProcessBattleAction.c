@@ -683,7 +683,7 @@ LAB_004b7c01:
             }
             cVar2 = PacketChecksumEquals(iVar10,0xffffffff);
             if (cVar2 != '\0') {
-              FUN_0043a5f0();
+              SnapMobilesToGround();
               FUN_004d0e90(piVar7);
               local_27f0 = (undefined *)0xc300;
               TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
@@ -718,7 +718,7 @@ LAB_004b7c01:
           case 0xf:
             cVar2 = PacketChecksumEquals(g_clientContext + 0x621e8,0xffffffff);
             if (cVar2 != '\0') {
-              FUN_0043a5f0();
+              SnapMobilesToGround();
               FUN_004d0e90(param_1);
               local_27f0 = (undefined *)0xc300;
               TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);

@@ -61,7 +61,7 @@ void FUN_0043bda0(void)
       piVar4 = (int *)piVar4[7];
       uVar11 = piVar4[1];
     }
-    FUN_0043a5f0();
+    SnapMobilesToGround();
     piVar16 = (int *)piVar4[4];
     if (piVar4 == piVar16) break;
     do {
