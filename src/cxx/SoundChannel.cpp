@@ -8,7 +8,7 @@ extern void *PTR_LAB_005574e8[5];
 extern void *PTR_LAB_005574cc[7];
 extern int  *g_secondarySoundBuffers;   /* registry of "stream reader" handles, indexed by m_bufferIndex */
 extern u32   DAT_00588f44;   /* default volume/pan-ish constant poked into new primary channels */
-void FUN_004ef870(void *arg);        /* __beginthread thunk -> AudioStreamThreadProc (0x4ef870) */
+void AudioStreamThreadStart(void *arg);        /* __beginthread thunk -> AudioStreamThreadProc (0x4ef870) */
 void CloseSpriteReadState(void);     /* shared stream-reader teardown, despite the sprite-ish name */
 /* process.h's real declaration is guarded by `#ifdef _MT`, which this
  * project's build doesn't define - declared directly here instead,
@@ -37,7 +37,7 @@ CSoundChannel::CSoundChannel()
     m_decoding = 0;
     InitializeCriticalSection(&m_lock);
     m_running = 1;
-    m_threadHandle = (void *)_beginthread(FUN_004ef870, 0, this);
+    m_threadHandle = (void *)_beginthread(AudioStreamThreadStart, 0, this);
     if (m_threadHandle == 0) {
         m_running = 0;
     }

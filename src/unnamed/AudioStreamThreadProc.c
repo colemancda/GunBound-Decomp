@@ -3,10 +3,10 @@
  * The DirectSound streaming worker-thread body: a double-buffered loop that WaitForMultipleObjects on the sound object's 2 position-notification events (100ms timeout), calling the object's refill method (vtable slot 0, given the event index) to decode+fill the just-played buffer half, plus a periodic tick (slot 1); loops while the running flag (obj+0x10) is set. See ARCHITECTURE.md audio section.
  *
  * DROPPED REGISTER ARGUMENT (unaff_ESI): the sound-object pointer arrives
- * via FUN_004ef870's forwarded __beginthread argument, not a real
+ * via AudioStreamThreadStart's forwarded __beginthread argument, not a real
  * parameter - Ghidra's decompile read it as an uninitialized local,
  * which crashed on the very first `[unaff_ESI+4]` field read. Promoted
- * to a real parameter; see FUN_004ef870.c for the register-recovery
+ * to a real parameter; see AudioStreamThreadStart.c for the register-recovery
  * detail.
  *
  * CALLING-CONVENTION CAST MISMATCH: both vtable calls (slot 0 "refill",

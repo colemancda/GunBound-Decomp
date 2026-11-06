@@ -1351,7 +1351,7 @@ void __fastcall FUN_004ef5b0();
 void __thiscall FUN_004ef610();
 void FUN_004ef7e0();
 void FUN_004ef820(undefined4 *regEax);
-void FUN_004ef870();
+void AudioStreamThreadStart();
 void AudioStreamThreadProc();
 /* EnumZBufferFormats callback - __stdcall (orig ends in `ret 8`); full
  * signature so the decoration is _FUN_004ef970@8, matching the definition.

@@ -34,7 +34,7 @@ undefined4 *FUN_004ef3a0(undefined4 *unaff_ESI)
   *(undefined1 *)(unaff_ESI + 0x13) = 0;
   InitializeCriticalSection((LPCRITICAL_SECTION)(unaff_ESI + 8));
   *(undefined1 *)(unaff_ESI + 4) = 1;
-  uVar1 = __beginthread(FUN_004ef870,0,unaff_ESI);
+  uVar1 = __beginthread(AudioStreamThreadStart,0,unaff_ESI);
   unaff_ESI[1] = uVar1;
   if (uVar1 == 0) {
     *(undefined1 *)(unaff_ESI + 4) = 0;
