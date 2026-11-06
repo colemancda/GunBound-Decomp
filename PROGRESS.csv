@@ -900,7 +900,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004a7040,13,DestroyShot2_Bullet8,false,1,1,RAW-src
 004a7050,4878,SimulateShot_Bullet8n_8s_Item,false,3,23,RAW-src
 004a8360,8545,DetonateShot2_Bullet8,false,1,39,RAW-src
-004aa4d0,69,FUN_004aa4d0,false,1,0,RAW-src
+004aa4d0,69,InitCrashParticleAlphaBlend,false,1,0,RAW-src
 004aa520,409,FUN_004aa520,false,1,4,RAW-src
 004aa830,142,InitBlastEffect,false,3,4,RAW-src
 004aa8c0,32,BlastEffect_ScalarDtor,false,1,2,RAW-src

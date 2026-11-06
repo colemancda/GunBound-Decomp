@@ -8,7 +8,7 @@
  * cell at all 3 argless PeekPacketChecksumState() calls (3 C : 3 orig,
  * goto-free zip) - three plain globals (&DAT_00e9ba40 x2, &DAT_00e9bed8).
  *
- * Evidence. The constructor it calls, FUN_004aa4d0 (0x50-byte object),
+ * Evidence. The constructor it calls, InitCrashParticleAlphaBlend (0x50-byte object),
  * stamps class id 0x2e631 and installs vtable 0x556544. The class-id switch
  * in FUN_00450c20, the draw pass that binds the "CrashTexture" texture once
  * and then walks the layers, puts 0x2e631 in the group drawn with blend
@@ -58,7 +58,7 @@ void SpawnCrashParticleAlphaBlend(int param_1,int param_2,int param_3)
         iVar2 = 0;
       }
       else {
-        iVar2 = FUN_004aa4d0();
+        iVar2 = (int)InitCrashParticleAlphaBlend((undefined4 *)pvVar3);
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar4 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
