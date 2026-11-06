@@ -5,7 +5,7 @@
  * section for status.
  *
  * Evidence (outside the body): callers DecodeSoundBufferChunk and
- * FUN_004ef610 (sound streaming) use it to restart the open entry stream.
+ * SoundChannel_FillBufferChunk (sound streaming) use it to restart the open entry stream.
  * It resets the position at +0x1014 to 0 and the remaining counter at
  * +0x1010 to the entry's value, then decodes the first block through
  * DecodeXFSEntryBlock when the entry is compressed.

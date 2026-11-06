@@ -1348,7 +1348,7 @@ void __thiscall PollSoundBufferPosition();
 undefined4 *SoundChannel_Construct(); /* __thiscall ctor: call sites use the returned this-pointer */
 void SoundChannel_Destruct();
 void __fastcall SoundChannel_Stop();
-void __thiscall FUN_004ef610();
+void __thiscall SoundChannel_FillBufferChunk();
 void SoundChannel_ConstructBase();
 void SoundChannel_DestructBase(undefined4 *regEax);
 void AudioStreamThreadStart();

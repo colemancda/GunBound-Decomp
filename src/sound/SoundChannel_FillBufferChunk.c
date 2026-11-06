@@ -1,13 +1,36 @@
-/* FUN_004ef610 - 0x004ef610 in the original binary.
+/* SoundChannel_FillBufferChunk - 0x004ef610 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (batch 41), LIKELY. Slot 4 (+0x10) of vtable 0x5574e8, the
+ * secondary sound channel's (find_vtable_refs: 0x4ef610 at .data
+ * 0x5574f8), refilling one half of the channel's streaming DirectSound
+ * buffer from its open XFS entry stream.
+ *
+ * Evidence outside the body: PollSoundBufferPosition (0x4ef450, slot 1)
+ * reads the play cursor with IDirectSoundBuffer::GetCurrentPosition and,
+ * when it crosses into the other half (compares against m_half * chunk
+ * size, DAT_00588f44), calls `call [vtbl+0x10]` with m_half (+0x40) and
+ * then flips m_half; slot 2 (the start, 0x4ef4c0) calls it with 1 for the
+ * first fill and stores its byte third argument at +0x3c. So the stack
+ * argument is the half selector (0 refills the second half, nonzero the
+ * first, Lock offset = (arg != 0) - 1 & chunkSize), NOT a looping flag;
+ * the looping flag is +0x3c.
+ *
+ * What it does: under the lock at +0x20 it Locks that half (IDirectSoundBuffer
+ * vtable +0x2c, DAT_00588f44 bytes), pulls PCM into it with
+ * ReadXFSEntryByte, and Unlocks (+0x4c). If the stream ran short it
+ * either rewinds with RewindXFSEntryStream and keeps reading (+0x3c set)
+ * or pads the rest with silence (0x80 bytes for 8-bit, else 0) and, once
+ * the padding has been written, calls StopSoundChannel on the channel.
+ * Whether "FillBufferChunk" is the original's own word is unknown.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004ef610(int param_1,int param_2)
+void __thiscall SoundChannel_FillBufferChunk(int param_1,int param_2)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
