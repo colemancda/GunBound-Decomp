@@ -729,7 +729,7 @@ void TickActiveObjectLayers(int regEbx);
 void FUN_00450810(int regEbx);
 void DrawActiveObjectLayers(int regEbx);
 void RenderWeatherHazards();
-void FUN_00450b80(int regEbx);
+void DispatchActiveObjectSlot3_Keys1000To100000(int regEbx);
 void FUN_00450bd0(int regEbx);
 void FUN_00450c20();
 void FUN_00450dd0(int regEbx);
