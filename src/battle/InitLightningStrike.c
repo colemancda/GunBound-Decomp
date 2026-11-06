@@ -1,14 +1,22 @@
-/* FUN_00481fb0 - 0x00481fb0 in the original binary.
+/* InitLightningStrike - 0x00481fb0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Constructor of the lightning-strike object, class key 0x1f7.  Its sole
+ * caller is SpawnLightningStrike (0x00436070), which calls it right after
+ * operator_new(0x4a8) and pushes the new object as the one stack argument
+ * (ret 4); it returns that object in EAX.  It stamps class key 0x1f7 at +4
+ * and installs vtable 0x00556194, whose slot 3 (0x00482130) is the draw
+ * routine SpawnLightningStrike's note describes, and zero-inits the two
+ * guard cells at +0x38 and +0x25c that the spawner then fills.  Same
+ * constructor idiom as InitTornadoHazard.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_00481fb0(undefined4 *param_1)
+undefined4 * InitLightningStrike(undefined4 *param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;

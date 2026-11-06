@@ -9,7 +9,7 @@
  * in the same layer 0x1f7, and an Effect/Hazard contrast is not something
  * the tree or the binary establishes. This name says only what this spawn is.
  *
- * Evidence. It allocates 0x4a8 bytes, runs FUN_00481fb0 (which stamps layer
+ * Evidence. It allocates 0x4a8 bytes, runs InitLightningStrike (which stamps layer
  * key 0x1f7 and vtable 0x556194), stores the x argument in the guard cell at
  * +0x38 and the y argument, clamped to g_nCameraBoundY, at +0x25c, then
  * RegisterActiveObject links it into the g_clientContext + 0x6a7f88 list.
@@ -48,15 +48,15 @@ void SpawnLightningStrike(undefined4 param_1,undefined4 param_2,int param_3)
     pvVar2 = operator_new(0x4a8);
     local_4 = 0;
     if (pvVar2 != (void *)0x0) {
-      FUN_00481fb0(pvVar2);
+      InitLightningStrike(pvVar2);
     }
     local_4 = 0xffffffff;
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
      * 0x4360dd (`lea edi,[esi + 0x38]`, esi = the object just
-     * constructed above via FUN_00481fb0(pvVar2), not this function's
+     * constructed above via InitLightningStrike(pvVar2), not this function's
      * own (unused) param_1): cell is pvVar2+0x38, the same checksum-cell
-     * offset FUN_00481fb0.c/InitTornadoHazard.c zero-init/use for their own
+     * offset InitLightningStrike.c/InitTornadoHazard.c zero-init/use for their own
      * `this`. `pvVar2` is `void *`, so byte offsets use
      * `(int)pvVar2 + N`. See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)pvVar2 + 0x38, param_2);
@@ -67,7 +67,7 @@ void SpawnLightningStrike(undefined4 param_1,undefined4 param_2,int param_3)
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
      * 0x436113 (`lea edi,[esi + 0x25c]`, esi = pvVar2, same object as
-     * above): cell is pvVar2+0x25c, matching FUN_00481fb0.c's second
+     * above): cell is pvVar2+0x25c, matching InitLightningStrike.c's second
      * cell offset. See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)pvVar2 + 0x25c, param_3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
