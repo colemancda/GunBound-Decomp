@@ -1448,7 +1448,7 @@ void *PTR_LAB_005574cc[7] = {
   (void *)0, (void *)FUN_004eef00, (void *)DecodeSoundBufferChunk,
   (void *)NoOpMethodStdcall1, (void *)NoOpMethod,
 };
-/* Same shape as PTR_LAB_005574cc but the FUN_004ef7e0-installed
+/* Same shape as PTR_LAB_005574cc but the SoundChannel_ConstructBase-installed
  * bring-up vtable (set briefly during construction, before
  * FUN_004eebe0/SoundChannel_Construct swap in PTR_LAB_005574e8 then
  * PTR_LAB_005574cc) - recovered from orig .data at 0x5574e0-0x5574ec:

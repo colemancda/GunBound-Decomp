@@ -1,5 +1,5 @@
 /* CSoundChannel / CPrimaryStreamChannel - promoted from the raw C ports
- * src/unnamed/FUN_004ef7e0.c (shared base construction),
+ * src/sound/SoundChannel_ConstructBase.c (shared base construction),
  * src/sound/SoundChannel_Construct.c (secondary-channel ctor),
  * src/sound/SoundChannel_Stop.c (secondary-channel stop),
  * src/unnamed/FUN_004eebe0.c (primary-channel ctor), and
@@ -39,11 +39,11 @@
  * the shared first stage of CPrimaryStreamChannel's construction - the
  * secondary channel simply IS this class fully constructed (no further
  * specialization), matching SoundChannel_Construct doing nothing beyond the
- * shared setup FUN_004ef7e0/SoundChannel_Construct both perform.
+ * shared setup SoundChannel_ConstructBase/SoundChannel_Construct both perform.
  */
 class CSoundChannel {
 public:
-    /* FUN_004ef7e0 + SoundChannel_Construct's shared setup, combined (both always
+    /* SoundChannel_ConstructBase + SoundChannel_Construct's shared setup, combined (both always
      * ran back-to-back at every real call site - see SoundChannel_Construct.c).
      * Leaves vtable = PTR_LAB_005574e8 (the "channel fully constructed,
      * no primary-only extras" state). */

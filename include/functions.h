@@ -1349,7 +1349,7 @@ undefined4 *SoundChannel_Construct(); /* __thiscall ctor: call sites use the ret
 void FUN_004ef3f0();
 void __fastcall SoundChannel_Stop();
 void __thiscall FUN_004ef610();
-void FUN_004ef7e0();
+void SoundChannel_ConstructBase();
 void FUN_004ef820(undefined4 *regEax);
 void AudioStreamThreadStart();
 void AudioStreamThreadProc();

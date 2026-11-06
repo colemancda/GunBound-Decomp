@@ -37,7 +37,7 @@
  * apparently never carved this range out as its own function boundary
  * (the preceding FUN_004ef3f0 ends at 0x4ef44d, immediately before this
  * one's 0x4ef450 entry). Raw disassembly-derived body kept below in a
- * comment for whoever picks this back up; see FUN_004ef7e0.c's header
+ * comment for whoever picks this back up; see SoundChannel_ConstructBase.c's header
  * comment for register-recovery context of this whole subsystem.
  */
 #include "ghidra_types.h"

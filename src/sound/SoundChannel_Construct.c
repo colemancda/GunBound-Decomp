@@ -5,7 +5,7 @@
  * caller InitDirectSound.c) as an uninitialized local instead of a real
  * parameter. Confirmed via objdump at 0x4ee77e (`mov esi,eax; call
  * 0x4ef3a0` right after `operator_new(0x50)`). Promoted to a real
- * parameter, forwarded to FUN_004ef7e0 (also confirmed via objdump at
+ * parameter, forwarded to SoundChannel_ConstructBase (also confirmed via objdump at
  * 0x4ef3a1: `mov ebx,esi` before that call).
  *
  * RETURN VALUE: Ghidra emitted a bare `return;` (MSVC falls through
@@ -41,7 +41,7 @@ undefined4 *SoundChannel_Construct(undefined4 *unaff_ESI)
 {
   uintptr_t uVar1;
 
-  FUN_004ef7e0(unaff_ESI);
+  SoundChannel_ConstructBase(unaff_ESI);
   *unaff_ESI = &PTR_LAB_005574e8;
   unaff_ESI[5] = 0;
   unaff_ESI[0xe] = 0xffffffff;
