@@ -287,7 +287,8 @@ extern unsigned char DAT_006a7758;
 #define g_nCameraX (*(unsigned char *)(0x6a7710))  /* arena offset, same fixed-address form as globals.h; only used as &g_nCameraX + <arena base> */
 #define g_nCameraY (*(unsigned char *)(0x6a7714))  /* arena offset, same fixed-address form as globals.h; only used as &g_nCameraY + <arena base> */
 extern unsigned char g_nCameraScrollX, g_nCameraScrollY;
-extern unsigned char DAT_006a7736, DAT_006a7f6c;
+extern unsigned char DAT_006a7f6c;
+#define DAT_006a7736 (*(unsigned char *)(0x006a7736))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7736 + <arena base> */
 #define DAT_006a7734 (*(unsigned char *)(0x006a7734))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7734 + <arena base> */
 extern unsigned char DAT_006a7750, DAT_006a7754;
 #define DAT_006a7730 (*(unsigned char *)(0x006a7730))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a7730 + <arena base> */
