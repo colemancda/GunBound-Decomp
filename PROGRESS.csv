@@ -431,7 +431,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004368f0,132,SpawnFloatingNumberPopup,false,15,3,RAW-src
 00436980,318,FUN_00436980,false,1,7,RAW-src
 00436ac0,131,SpawnCrashEffect,false,23,8,RAW-src
-00436b50,120,FUN_00436b50,false,2,8,RAW-src
+00436b50,120,SpawnCrashParticleAdditive_556488,false,2,8,RAW-src
 00436bd0,252,SpawnCrashParticleAlphaBlend,false,18,8,RAW-src
 00436cd0,228,SpawnCrashParticleAlphaBlend_2e632,false,1,8,RAW-src
 00436dc0,252,SpawnCrashParticleAdditive,false,18,8,RAW-src

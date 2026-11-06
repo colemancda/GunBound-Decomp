@@ -337,7 +337,7 @@ LAB_0048780a:
     }
     uVar5 = PeekChecksumStateUnderLock(param_1 + 0x45e);
     uVar6 = PeekChecksumStateUnderLock(param_1 + 0x3d5);
-    FUN_00436b50(uVar6,uVar5);
+    SpawnCrashParticleAdditive_556488(uVar6,uVar5);
     if (param_1[0xfe7] == -1) {
       param_1[0xfe7] = 0;
     }

@@ -6,7 +6,7 @@
  * vtable 0x00555ccc and initialises +0x48/+0x4c to 0x40/0xc4 against
  * this one's 0x20/0x100; the two are different classes in the same blend
  * group, so the vtable address is the suffix. Evidence from outside the
- * body: its sole caller, FUN_00436b50 (0x00436b6c), calls it right after
+ * body: its sole caller, SpawnCrashParticleAdditive_556488 (0x00436b6c), calls it right after
  * operator_new(0x50) with the allocation in EAX and takes the returned
  * EAX as the object (mov edi,eax) to place at +0x38/+0x3c and register;
  * FUN_00450c20 lists key 0x2e644 in the blend-mode-2 (SRCALPHA / ONE)

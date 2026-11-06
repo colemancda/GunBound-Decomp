@@ -23,8 +23,8 @@
  * at g_clientContext + 0x6a7f74, the same flag the rest of the effect family
  * checks.
  *
- * FUN_00436b50 is its near-twin: same class, same guard, same random variant,
- * but no subtype -- called only from DetonateShot2_Bullet13 and
+ * SpawnCrashParticleAdditive_556488 is its near-twin: same class, same guard, same random variant,
+ * but no subtype and a different class (same key 0x2e644, vtable 0x556488) -- called only from DetonateShot2_Bullet13 and
  * DetonateSuperShot_Bullet13.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
