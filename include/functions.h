@@ -1825,7 +1825,7 @@ void SynthesizeMpeg16QuarterMixDown();
 void SynthesizeMpeg16QuarterFirstChannel();
 void SynthesizeMpeg16QuarterSecondChannel();
 void SynthesizeMpeg8FullMono();
-void FUN_00517090();
+void SynthesizeMpeg8FullMixDown();
 void FUN_005170f0();
 void FUN_00517150();
 void FUN_005171c0();
