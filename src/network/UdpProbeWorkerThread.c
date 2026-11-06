@@ -123,7 +123,7 @@ void __fastcall UdpProbeWorkerThread(int param_1)
           iVar4 = *(int *)(param_1 + 0x44de4) + 1;
           *(int *)(param_1 + 0x44de4) = iVar4;
           if (iVar4 < 0xb) {
-            FUN_004e6b90();
+            ResendUnackedBroadcastDatagrams(param_1);
             goto LAB_004e6ae3;
           }
           uVar8 = 0;

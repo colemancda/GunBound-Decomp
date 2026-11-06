@@ -1218,7 +1218,7 @@ void ReplayContext_Destructor();
 undefined4 ProcessUdpProbeDatagram(int param_1);
 void __fastcall UdpProbeWorkerThread();
 void FUN_004e6b50();
-void FUN_004e6b90();
+void ResendUnackedBroadcastDatagrams(int unaff_ESI);
 void __fastcall EncodeUdpProbeHeader(int param_1,undefined4 *param_2,int param_3,int param_4,int param_5);
 void EncryptEventBroadcast(int ctx);
 void DecryptEventBroadcast(undefined4 *param_1, uint param_2, int ctx);
