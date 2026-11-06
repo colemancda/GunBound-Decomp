@@ -864,7 +864,7 @@ void __fastcall DetonateItemShot();
 void * __thiscall ItemCase_ScalarDtor();
 void ItemCase_DtorBody(undefined4 *regEax);
 void FUN_00476f80();
-void FUN_00477140(int regEsi);
+void ExplodeItemCase(int regEsi);
 void ApplyImpactToItemCase();
 void __fastcall FUN_00477930();
 undefined4 * InitJewel();

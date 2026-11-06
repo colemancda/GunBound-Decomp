@@ -1,8 +1,20 @@
-/* FUN_00477140 - 0x00477140 in the original binary.
+/* ExplodeItemCase - 0x00477140 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_00477140): the item case's explosion body, reached only
+ * from ApplyImpactToItemCase (0x477650) when the impact point is within the
+ * case's radius.  The object is in ESI.  Evidence for the class: that caller
+ * is the layer-0x30d42 handler (SpawnItemCase's id).  Evidence for the verb:
+ * the body is the post-detonation set that ExplodeMine (0x497ad0) and the
+ * other Explode bodies run - ten-cell crater block through
+ * ApplyCraterExcavation, RebuildTerrainColumnCache,
+ * ApplyImpactToBattleEntities, SpawnCrashEffect, SpawnFlameEffect and a
+ * sound.  Unlike ExplodeMine it is a plain call, not a vtable slot (the
+ * ItemCase vtable 0x555fbc has only 8 slots), and it passes param_5 = 1 to
+ * ApplyImpactToBattleEntities where ExplodeMine passes 0.  LIKELY.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 18 argless PeekPacketChecksumState() calls (peek status
@@ -23,7 +35,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00477140(int regEsi)
+void ExplodeItemCase(int regEsi)
 
 {
   int iCraterX;

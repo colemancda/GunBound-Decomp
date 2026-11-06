@@ -734,7 +734,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00476f50,32,ItemCase_ScalarDtor,false,1,2,RAW-src
 00476f70,13,ItemCase_DtorBody,false,1,1,RAW-src
 00476f80,442,FUN_00476f80,false,1,9,RAW-src
-00477140,1291,FUN_00477140,false,1,14,RAW-src
+00477140,1291,ExplodeItemCase,false,1,14,RAW-src
 00477650,716,ApplyImpactToItemCase,false,1,10,RAW-src
 00477930,634,FUN_00477930,false,1,10,RAW-src
 00477bb0,1286,InitJewel,false,1,6,RAW-src
