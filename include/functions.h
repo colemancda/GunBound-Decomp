@@ -1020,7 +1020,7 @@ void __fastcall DetonateShot2_Bullet2();
 undefined4 * InitProjectileLightningHazard();
 void * __thiscall DeleteProjectileLightningHazard();
 void DestroyProjectileLightningHazard();
-void __fastcall FUN_004a6b10();
+void __fastcall RenderProjectileLightningHazard();
 undefined4 * InitShot2_Bullet8(undefined4 *regEsi);
 void * __thiscall DeleteShot2_Bullet8();
 void DestroyShot2_Bullet8(undefined4 *regEax);

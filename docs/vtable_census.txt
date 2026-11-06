@@ -1033,7 +1033,7 @@ vtable 0x556510  installs=2  slots=5  UNCARVED=1
    0: 0x4a69d0  FUN_004a69d0
    1: 0x461c60  ResolveNamedState
    2: 0x4a6aa0  UNCARVED
-   3: 0x4a6b10  FUN_004a6b10
+   3: 0x4a6b10  RenderProjectileLightningHazard
    4: 0x429800  NoOpMethod
 
 vtable 0x556524  installs=2  slots=8

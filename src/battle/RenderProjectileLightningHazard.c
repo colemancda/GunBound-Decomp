@@ -1,8 +1,20 @@
-/* FUN_004a6b10 - 0x004a6b10 in the original binary.
+/* RenderProjectileLightningHazard - 0x004a6b10 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_004a6b10): slot 3 (+0xc) of vtable 0x556510, whose
+ * slot 0 is DeleteProjectileLightningHazard (0x4a69d0); the only vtable
+ * reference is 0x55651c, and InitProjectileLightningHazard (0x4a6920)
+ * stamps it.  Slot 3 of this five-slot effect shape is the draw virtual:
+ * RenderLightningHazard (0x46e020) holds it in vtable 0x555e74, and
+ * RenderFirewallHazard / RenderTornadoHazard take slot 3 of their own, so
+ * the spelling is Render.  The body agrees: it converts the position
+ * cells to screen space against the camera and binds the "Lightning"
+ * texture
+ * (FindTextureCacheEntryByName) before emitting the quad strip.  Sibling of
+ * RenderLightningStrike (0x482130, vtable 0x556194).
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at both argless PeekPacketChecksumState() calls - each reads the
@@ -16,7 +28,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __fastcall FUN_004a6b10(int param_1)
+void __fastcall RenderProjectileLightningHazard(int param_1)
 
 {
   int iVar1;
