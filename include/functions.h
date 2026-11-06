@@ -1902,7 +1902,7 @@ void __cdecl MpegSynthWindow16Half(int param_3,undefined4 param_4,int param_5);
 void __cdecl MpegSynthWindow16HalfInterleaved(int param_3,undefined4 param_4,int param_5);
 void __cdecl MpegSynthWindow16Quarter(int param_3,int param_4,int param_5);
 void __cdecl MpegSynthWindow16QuarterInterleaved(int param_3,int param_4,int param_5);
-void __cdecl FUN_0051ea90(int param_3,int param_4,int param_5);
+void __cdecl MpegSynthWindow8Full(int param_3,int param_4,int param_5);
 void __cdecl FUN_0051ee0a(int param_3,int param_4,int param_5);
 void __cdecl FUN_0051f184(int param_3,undefined4 param_4,int param_5);
 
