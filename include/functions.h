@@ -1109,7 +1109,7 @@ void __fastcall AdvanceTurnQueue();
 void FUN_004cfb20(int regEsi);
 void FUN_004cfd20(int regEax);
 void FUN_004d0260();
-void FUN_004d09c0();
+void ResetPerSlotCounters(int regEax);
 void BeginNewTurn(int *param_1,undefined2 *param_2,uint regEax);
 undefined4 FUN_004d0dd0();
 void FUN_004d0e90();

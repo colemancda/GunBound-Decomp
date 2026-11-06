@@ -276,7 +276,7 @@ void FinishTurnAndSelectNext(int param_1)
     } while (local_70c < 0x8900);
   }
 LAB_004cb8d4:
-  FUN_004d09c0();
+  ResetPerSlotCounters(param_1);
   local_708 = 0xf0000000;
   local_70c = -1;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

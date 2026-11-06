@@ -549,7 +549,7 @@ LAB_004bbe6b:
       *(byte *)(param_1 + 0x22fd) = bVar4;
       *(byte *)(param_1 + 0x22fe) = *(byte *)(param_1 + 0x22fc) + bVar4 + -0x34;
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      FUN_004d09c0();
+      ResetPerSlotCounters(param_1);
       *(undefined4 *)(&DAT_006a64b8 + g_clientContext) = 0;
       _DAT_00e98abc = timeGetTime();
       DAT_00e98ab8 = 1;

@@ -1289,7 +1289,7 @@ LAB_004b7fb2:
           local_27e0 = param_1;
         } while (local_27e4 < 0x8900);
       }
-      FUN_004d09c0();
+      ResetPerSlotCounters((int)local_27ec);
       goto LAB_004b7fb2;
     }
   }

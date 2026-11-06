@@ -389,7 +389,7 @@ void FUN_004ccd10(int *param_1)
     } while (local_704 < 0x8900);
   }
 LAB_004cd6de:
-  FUN_004d09c0();
+  ResetPerSlotCounters((int)param_1);
   iVar7 = g_clientContext;
   *(undefined1 *)(param_1 + 0x468) = 0;
   if (*(int *)(iVar7 + 0x621e4) != 0) {
