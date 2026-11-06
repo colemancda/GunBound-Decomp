@@ -225,7 +225,7 @@ void GameTick(void)
     }
     iVar5 = (*(D3DBeginSceneFn *)(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
     if (iVar5 == 0) {
-      FUN_004f3ea0();
+      ResetTextureCachePool();
       (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x30))
                 (g_gameStateVTableArray[g_currentGameState]);
       if (DAT_00793610 != '\0') {
@@ -249,7 +249,7 @@ LAB_00413510:
     }
     iVar5 = (*(D3DBeginSceneFn *)(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
     if (iVar5 == 0) {
-      FUN_004f3ea0();
+      ResetTextureCachePool();
       (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x38))
                 (g_gameStateVTableArray[g_currentGameState]);
       if (DAT_00793610 != '\0') {

@@ -1452,7 +1452,7 @@ undefined * __thiscall SlerpQuaternionsToScratch(float *param_1,double param_2,f
 void * AllocTextureCacheNode();
 void InitTextureCachePool();
 void DestroyTextureCachePool();
-void FUN_004f3ea0();
+void ResetTextureCachePool();
 void FUN_004f3ee0();
 void FlushSpriteBatch();
 uint InitTextureAtlasPage(int param_1,undefined1 *page,undefined1 formatId);
