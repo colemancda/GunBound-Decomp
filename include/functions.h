@@ -1897,7 +1897,7 @@ void __cdecl MpegAntialias(int param_3,int param_4);
 void __cdecl FUN_0051c93a(float *param_3,undefined4 *param_4);
 void __cdecl FUN_0051d044(float *param_3,undefined4 *param_4);
 void __cdecl MpegSynthWindow16Full(int param_3,int param_4,int param_5);
-void __cdecl FUN_0051dae5(int param_3,int param_4,int param_5);
+void __cdecl MpegSynthWindow16FullInterleaved(int param_3,int param_4,int param_5);
 void __cdecl FUN_0051de4a(int param_3,undefined4 param_4,int param_5);
 void __cdecl FUN_0051e107(int param_3,undefined4 param_4,int param_5);
 void __cdecl FUN_0051e3c4(int param_3,int param_4,int param_5);
