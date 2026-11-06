@@ -1481,7 +1481,7 @@ bool CChannelUserListPanel::HitTest(int x, int y)
  * the class inherited the base slots. find_vtable_refs.py finds each
  * only in this vtable, and callsite_regs.py finds no direct calls.
  *
- * Both locate the buddy row under the point with 0x505ec0 (FUN_00505ec0:
+ * Both locate the buddy row under the point with 0x505ec0 (BuddyPanel_HitTestRow:
  * ECX = x, EDX = this, ESI = y). It returns the list's scroll base
  * (DAT_00e54da8, [0xe54da8]) plus the band index, or -1, and itself
  * stores a hit into +0x90. The rows are seven 0x1d-pixel bands inside
@@ -1516,14 +1516,14 @@ bool CChannelUserListPanel::HitTest(int x, int y)
  * point. Like the other panel HitTest overrides there is no child
  * broadcast. Neither body calls a virtual of its own object: the CPanel
  * press is a direct call, so the forward qualifies it. */
-extern "C" int __fastcall FUN_00505ec0(int x, int panel, int regEsi);
+extern "C" int __fastcall BuddyPanel_HitTestRow(int x, int panel, int regEsi);
 extern "C" int FindActiveObjectByIndex(int regEax, int regEdi);
 extern "C" int PanelManager_FindByName(int regEax, char *regEbx);
 
 bool CBuddyPanel::OnMouseDown(int x, int y)
 {
     bool took = CPanel::OnMouseDown(x, y);
-    int row = FUN_00505ec0(x, (int)this, y);
+    int row = BuddyPanel_HitTestRow(x, (int)this, y);
     if (row != -1) {
         m_unk90 = row;
     }
@@ -1540,7 +1540,7 @@ bool CBuddyPanel::OnMouseDown(int x, int y)
 
 bool CBuddyPanel::HitTest(int x, int y)
 {
-    int row = FUN_00505ec0(x, (int)this, y);
+    int row = BuddyPanel_HitTestRow(x, (int)this, y);
     if (row != -1) {
         int node = FindActiveObjectByIndex((int)DAT_00e53e88, row);
         if (node != 0) {
