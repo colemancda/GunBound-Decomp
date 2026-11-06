@@ -543,7 +543,6 @@ uint8_t DAT_006aa62d;
 uint8_t DAT_006aa664;
 uint8_t DAT_006aa666;
 uint8_t DAT_006aa668;
-uint8_t DAT_006aa66a;
 uint8_t DAT_006aa66e;
 uint8_t DAT_006aa674;
 uint32_t DAT_006b90f8; /* holds a void* from AllocSpriteRegistryNode (was uint8_t, which
