@@ -34,7 +34,7 @@ undefined4 InitMpegLayerIIITables(void)
   double dVar8;
   double _Y;
   
-  pfVar2 = (float *)FUN_00518520();
+  pfVar2 = (float *)GetMpegGlobalGainTable();
   iVar4 = 0;
   do {
     dVar8 = _pow(2.0,(double)(iVar4 + -0x9c) * _DAT_00544ac0);
