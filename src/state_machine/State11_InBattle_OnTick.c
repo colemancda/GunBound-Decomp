@@ -2098,7 +2098,7 @@ LAB_004c1acb:
     }
   }
   SyncChatTypingState(&DAT_006a647c + iVar6,1);
-  FUN_004e39b0((int *)(&DAT_006a7708 + g_clientContext));
+  TickStage((int *)(&DAT_006a7708 + g_clientContext));
   *unaff_FS_OFFSET = uStack_20;
   return;
 }

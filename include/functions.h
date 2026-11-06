@@ -1175,7 +1175,7 @@ undefined4 LoadSoundConfig();
 undefined4 * FindSoundFileName(int *param_1,uchar *regEbx);
 undefined4 * FUN_004e3810();
 void FUN_004e38f0();
-void FUN_004e39b0(int *regEsi);
+void TickStage(int *regEsi);
 void DrawStageDecorationParallax();
 int __fastcall DrawStageDecorationBase();
 void LoadStageLandFile(int param_1, char *name);
