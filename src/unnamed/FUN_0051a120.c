@@ -21,7 +21,7 @@ void FUN_0051a120(void)
   float10 fVar7;
   double dVar8;
   
-  iVar3 = FUN_005180e0();
+  iVar3 = GetMpegIntensityRatioTable();
   dVar8 = FID_conflict__cos(1.0);
   iVar5 = 0;
   pfVar4 = (float *)(iVar3 + 0x40);

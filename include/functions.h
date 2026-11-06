@@ -1842,7 +1842,7 @@ int FUN_00517d40();
 void FUN_00518080();
 void MpegFrequencyInversionThunk();
 undefined * GetMpegAntialiasCsCaTable();
-undefined * FUN_005180e0();
+undefined * GetMpegIntensityRatioTable();
 undefined * FUN_005180f0();
 void MpegAntialiasThunk();
 void ApplyMpegMidSideStereo();
