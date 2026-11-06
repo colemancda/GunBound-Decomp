@@ -141,7 +141,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
         g_keyboardDeviceTimerBlock[0x4a] = 0xcb;
         g_keyboardDeviceTimerBlock[0x4b] = 0xcd;
         g_keyboardDeviceTimerBlock[0x658] = 0x39;
-        FUN_004f0100();
+        SetAnisotropicFilteringAndEdgeAntialias(1);  /* AL = 1 (mov al,1 at 0x40ecc5) */
         /* 0x40ed0f-0x40ed20: eax = 0x795070 (the input-event ring) stored
          * to three objects' queue fields. 0xe9bea0 is +0x10 of the first
          * active-object registry (0xe9be90, ctor 0x405f00, 0x18 bytes);

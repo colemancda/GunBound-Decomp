@@ -1263,7 +1263,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004efaa0,1262,InitDirectDraw,false,1,9,RAW-src
 004eff90,217,ShutdownDirectDraw,false,1,6,RAW-src
 004f0070,134,PresentFrame,false,1,0,RAW-src
-004f0100,208,FUN_004f0100,false,1,0,RAW-src
+004f0100,208,SetAnisotropicFilteringAndEdgeAntialias,false,1,0,RAW-src
 004f01d0,91,SetBlendMode,false,2,0,RAW-src
 004f0230,141,CreateTextureAtlasSurface,false,1,0,RAW-src
 004f02c0,92,LockBackBuffer,false,4,0,RAW-src

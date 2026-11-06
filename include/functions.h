@@ -1358,7 +1358,7 @@ void AudioStreamThreadProc();
  * An empty-paren cdecl decl here mis-cleans the stack when wine's ddraw
  * invokes it as __stdcall (crash at EIP=0xdd in SetupZBuffer). */
 undefined4 __stdcall EnumZBufferFormatsCallback(undefined4 *, undefined4 *);
-void FUN_004f0100();
+void SetAnisotropicFilteringAndEdgeAntialias(char in_AL);
 void SetBlendMode(int regEax);
 bool __fastcall CreateTextureAtlasSurface(undefined4 param_1,undefined4 param_2,int param_3);
 void ResetWindowClipper();
