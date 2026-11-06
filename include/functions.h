@@ -1192,7 +1192,7 @@ void ApplyCraterExcavation(int param_1,int param_2,int param_3,undefined4 param_
                            undefined4 param_8,int terrainCtx,int impactX,int impactY);
 void __fastcall DarkenTerrainScorchRow(int param_1,uint param_2,uint param_3,int regEax);
 void RebuildTerrainColumnCache();
-void FUN_004e4f50();
+void SpawnStageDecoration();
 void ComputeShotViewBounds(int regEsi,uint regEax);
 void __fastcall State01_Title_OnTick(int);
 undefined4 * __thiscall FUN_004e5430();

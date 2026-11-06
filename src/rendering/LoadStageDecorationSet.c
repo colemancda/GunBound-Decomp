@@ -167,7 +167,7 @@ LAB_004e3f75:
     }
     _sprintf(local_100,&DAT_00557234,param_2,iVar11);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004e4f50(param_1,iVar11,local_100);
+    SpawnStageDecoration(param_1,iVar11,local_100);
     cVar1 = *(char *)(g_clientContext + 0x45578);
     iVar11 = iVar11 + 1;
   }
