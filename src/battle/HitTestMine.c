@@ -15,7 +15,7 @@
  *
  * Callers use it for the CHAIN REACTION, exactly as with jewels: on a hit
  * they peek the mine's X, column-scan the terrain for the ground row under
- * it, and run the FUN_00436070 / ApplyBlastDamage / SpawnBlastEffect trio at
+ * it, and run the SpawnLightningStrike / ApplyBlastDamage / SpawnBlastEffect trio at
  * that point - a blast sets off nearby mines.
  *
  * ABI: param_1 is a PHANTOM.  Ghidra marks the function __fastcall, but ECX

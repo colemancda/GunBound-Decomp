@@ -71,7 +71,7 @@ void __thiscall SpawnLightningBlastEffect(undefined4 param_1,undefined4 param_2,
     iVar11 = 10000;
 LAB_00435034:
     iVar9 = iVar11;
-    FUN_00436070(&DAT_006a7f70 + g_clientContext,param_3,iVar11);
+    SpawnLightningStrike(&DAT_006a7f70 + g_clientContext,param_3,iVar11);
     ApplyBlastDamage(param_3,iVar11,0,0x1e,0x1e,0x1e,0xff);
     pvVar4 = operator_new(0x3fa0);
     local_4 = 0;

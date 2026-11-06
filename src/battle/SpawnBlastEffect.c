@@ -45,7 +45,7 @@
  *     the peek whose result Ghidra had discarded immediately above the
  *     call.
  * The cross-check that pins the ORDER: every caller pairs this call with
- * ApplyBlastDamage / FUN_00436070 / SpawnProjectileLightningHazard on the
+ * ApplyBlastDamage / SpawnLightningStrike / SpawnProjectileLightningHazard on the
  * same impact point, and those take (X, Y) - this one takes (Y, X).
  * Verified per site by push-depth normalisation against a capstone
  * disassembly of all 36 raw-C call sites (the Ghidra stack-local names

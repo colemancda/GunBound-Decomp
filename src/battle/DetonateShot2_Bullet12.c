@@ -546,7 +546,7 @@ LAB_004afe5d:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     (*pcVar20)(&g_valueGuardLock);
-    FUN_00436070(&DAT_006a7f70 + g_clientContext,puVar28,iVar4);
+    SpawnLightningStrike(&DAT_006a7f70 + g_clientContext,puVar28,iVar4);
     puVar28 = (undefined *)0x1;
     if (0 < param_1[0xfe5]) {
       puVar28 = (undefined *)param_1[0xfe5];

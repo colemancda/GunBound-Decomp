@@ -181,7 +181,7 @@ int SetGuardedBool(int value, int guardPtr);
 char PacketChecksumGreaterEqual(void *cell, unsigned int value);
 char CheckBothGuardedBools(void);
 void SyncOutgoingChecksumField(void *self, int arg1, void *cell);
-void FUN_00436070(void *base, unsigned int a, void *b);
+void SpawnLightningStrike(void *base, unsigned int a, void *b);
 void ApplyBlastDamage(unsigned int a, void *b, int c, void *d, int e, unsigned int f, unsigned char g);
 /* __fastcall, 10 args: the first two are the REGISTER pair the whole tree
  * used to drop - y = ECX (terrain row), x = EDX (terrain column).  See
@@ -653,7 +653,7 @@ void CProjectile::DetonateProjectile()
         EnterCriticalSection(&g_valueGuardLock);
         uVar8 = PeekPacketChecksumState((void *)(this->m_pad3d + 0xf17));
         LeaveCriticalSection(&g_valueGuardLock);
-        FUN_00436070(&DAT_006a7f70 + g_clientContext, uVar8, puStack_af4);
+        SpawnLightningStrike(&DAT_006a7f70 + g_clientContext, uVar8, puStack_af4);
         local_ae8 = 1;
         if (0 < (int)self->m_field3f94) local_ae8 = self->m_field3f94;
         EnterCriticalSection(&g_valueGuardLock);

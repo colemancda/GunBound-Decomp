@@ -597,7 +597,15 @@ LAB_004517be:
     (*pcVar16)();
     uStack_b68 = (int **)puStack_b4c;
     uStack_b6c = (undefined *)piStack_b48;
-    FUN_00436070(&DAT_006a7f70 + g_clientContext);
+    /* 2026-11-06: this call passed only the registry. Orig 0x4517be-0x4517f4:
+     * EnterCriticalSection, Peek of the cell at param_1 + 0x3d5 (lea edi,
+     * [esi+0xf54]; the same cell peeked at the top of this block), Leave,
+     * then mov edx,[esp+0x18] (the ground row, iImpactY after the 0x2710
+     * fallback) / mov eax,[esp+0x1c] (the Peek result) and push edx, eax,
+     * registry. */
+    iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
+    (*pcVar16)();
+    SpawnLightningStrike(&DAT_006a7f70 + g_clientContext,iVar4,iImpactY);
     puStack_b44 = (undefined4 *)0x1;
     if (0 < param_1[0xfe5]) {
       puStack_b44 = (undefined4 *)param_1[0xfe5];

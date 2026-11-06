@@ -87,7 +87,7 @@ void __fastcall ExplodeSuperShot_Bullet8(int param_1)
       }
       local_10 = 10000;
 LAB_0048398a:
-      FUN_00436070(&DAT_006a7f70 + g_clientContext,iVar5,local_10);
+      SpawnLightningStrike(&DAT_006a7f70 + g_clientContext,iVar5,local_10);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar2 = PeekPacketChecksumState((void *)(param_1 + 0x35ec));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -150,7 +150,7 @@ LAB_0048398a:
       }
       local_10 = 10000;
 LAB_00483b89:
-      FUN_00436070(&DAT_006a7f70 + g_clientContext,iVar5,local_10);
+      SpawnLightningStrike(&DAT_006a7f70 + g_clientContext,iVar5,local_10);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar2 = PeekPacketChecksumState((void *)(param_1 + 0x35ec));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -226,7 +226,7 @@ LAB_00483b89:
       }
       local_10 = 10000;
 LAB_00483e2e:
-      FUN_00436070(&DAT_006a7f70 + g_clientContext,iVar5,local_10);
+      SpawnLightningStrike(&DAT_006a7f70 + g_clientContext,iVar5,local_10);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar2 = PeekPacketChecksumState((void *)(param_1 + 0x35ec));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

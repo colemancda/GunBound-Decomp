@@ -461,7 +461,7 @@ LAB_0044e02e:
     piVar1 = param_1 + 0x3d5;
     iVar8 = iVar6;
     uVar7 = PeekChecksumStateUnderLock(piVar1);
-    FUN_00436070(&DAT_006a7f70 + g_clientContext,uVar7,iVar8);
+    SpawnLightningStrike(&DAT_006a7f70 + g_clientContext,uVar7,iVar8);
     iVar8 = 1;
     if (0 < param_1[0xfe5]) {
       iVar8 = param_1[0xfe5];

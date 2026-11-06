@@ -424,7 +424,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00435800,705,SpawnTornadoHazard,false,1,13,RAW-src
 00435ad0,705,SpawnFirewallHazard,false,1,13,RAW-src
 00435da0,705,SpawnLightningHazard,false,1,13,RAW-src
-00436070,215,FUN_00436070,false,34,7,RAW-src
+00436070,215,SpawnLightningStrike,false,34,7,RAW-src
 00436150,207,SpawnProjectileLightningHazard,false,4,7,RAW-src
 00436220,1594,SpawnItemCase,false,1,11,RAW-src
 00436860,133,SpawnDamagePopup,false,6,5,RAW-src

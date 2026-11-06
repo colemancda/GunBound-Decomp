@@ -324,7 +324,7 @@ LAB_004ab0f1:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_ad4 = (int *)PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00436070(&DAT_006a7f70 + g_clientContext,local_ad4,iVar7);
+    SpawnLightningStrike(&DAT_006a7f70 + g_clientContext,local_ad4,iVar7);
     local_ad4 = (int *)0x1;
     if (0 < param_1[0xfe5]) {
       local_ad4 = (int *)param_1[0xfe5];

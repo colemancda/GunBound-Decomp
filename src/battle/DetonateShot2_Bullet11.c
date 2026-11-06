@@ -329,7 +329,7 @@ LAB_0047479a:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00436070(&DAT_006a7f70 + g_clientContext,uVar8,puStack_b04);
+    SpawnLightningStrike(&DAT_006a7f70 + g_clientContext,uVar8,puStack_b04);
     iStack_af4 = 1;
     if (0 < param_1[0xfe5]) {
       iStack_af4 = param_1[0xfe5];

@@ -571,7 +571,7 @@ void __thiscall SpawnLightningBlastEffect();
 void SpawnTornadoHazard();
 void SpawnFirewallHazard();
 void SpawnLightningHazard();
-void FUN_00436070();
+void SpawnLightningStrike();
 void SpawnProjectileLightningHazard();
 void SpawnItemCase();
 void __fastcall SpawnDamagePopup(int param_1,int param_2,undefined4 param_3,undefined4 param_4);

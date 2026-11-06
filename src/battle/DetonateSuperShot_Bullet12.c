@@ -287,7 +287,7 @@ LAB_004ae9a8:
     uVar9 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar12,0);
     uVar11 = uVar9;
     uVar10 = PeekChecksumStateUnderLock(piVar2);
-    FUN_00436070(&DAT_006a7f70 + g_clientContext,uVar10,uVar11);
+    SpawnLightningStrike(&DAT_006a7f70 + g_clientContext,uVar10,uVar11);
     iVar7 = 1;
     if (0 < param_1[0xfe5]) {
       iVar7 = param_1[0xfe5];

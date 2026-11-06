@@ -12,7 +12,7 @@
  * 0x46b680-0x46c98e) rather than the json hints, because this decompile
  * is goto-shuffled (the cVar4=='\0' body at lines ~74-259 lives at
  * 0x46c3ab+, AFTER the LAB_0046bdae tail). Landmarks used per site
- * (FUN_00436070/0x436070, ApplyBlastDamage, FindFirstImpactAlongRay, FUN_00432320,
+ * (SpawnLightningStrike/0x436070, ApplyBlastDamage, FindFirstImpactAlongRay, FUN_00432320,
  * ApplyCraterExcavation/0x4e4970, FUN_00450eb0/436ac0/4372f0/437150,
  * InitChecksumSeed/0x43a530, the rand() scramble tail). Notable
  * recoveries: ebx is param_1 up front but is reloaded from
@@ -304,7 +304,7 @@ LAB_0046b7ca:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00436070(&DAT_006a7f70 + g_clientContext,uVar8,puStack_af4);
+    SpawnLightningStrike(&DAT_006a7f70 + g_clientContext,uVar8,puStack_af4);
     local_ae8 = 1;
     if (0 < param_1[0xfe5]) {
       local_ae8 = param_1[0xfe5];

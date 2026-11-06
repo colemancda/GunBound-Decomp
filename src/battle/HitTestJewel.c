@@ -18,7 +18,7 @@
  *
  * Callers use it for the CHAIN REACTION: on a hit they peek the jewel's
  * +0x25c X, column-scan the terrain for the ground row under it, and run the
- * whole FUN_00436070 / ApplyBlastDamage / SpawnBlastEffect detonation trio at
+ * whole SpawnLightningStrike / ApplyBlastDamage / SpawnBlastEffect detonation trio at
  * that point.
  *
  * ABI: param_1 is a PHANTOM.  Ghidra marks the function __fastcall, but ECX

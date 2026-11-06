@@ -1,14 +1,35 @@
-/* FUN_00436070 - 0x00436070 in the original binary.
+/* SpawnLightningStrike - 0x00436070 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Name. The candidate was SpawnProjectileLightningEffect, rejected: the
+ * sibling SpawnProjectileLightningHazard (0x436150) builds a second object
+ * in the same layer 0x1f7, and an Effect/Hazard contrast is not something
+ * the tree or the binary establishes. This name says only what this spawn is.
+ *
+ * Evidence. It allocates 0x4a8 bytes, runs FUN_00481fb0 (which stamps layer
+ * key 0x1f7 and vtable 0x556194), stores the x argument in the guard cell at
+ * +0x38 and the y argument, clamped to g_nCameraBoundY, at +0x25c, then
+ * RegisterActiveObject links it into the g_clientContext + 0x6a7f88 list.
+ * RenderWeatherHazards maps layer 0x1f7 to the texture s_Lightning, and the
+ * vtable slot 3 (0x482130) draws with FindTextureCacheEntryByName("Lightning")
+ * as a column of 0x100-pixel quads running upward from the screen position of
+ * (+0x38, +0x25c), with a per-segment offset array at +0x488, i.e. a bolt
+ * anchored at that point. The callers supply that point: the ones read
+ * (DetonateProjectile, DetonateShot1_Bullet9_16, FUN_004513b0 and
+ * SpawnLightningBlastEffect, of 35 sites) first scan the terrain column at
+ * the impact x downward from row 0 for the first solid pixel (10000 if
+ * none) and pass the registry cell, the x, and that ground row.
+ * SpawnLightningBlastEffect calls it immediately before ApplyBlastDamage
+ * at the same point. LIKELY: the name rests on the texture and the draw
+ * shape, not on a documented class name.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00436070(undefined4 param_1,undefined4 param_2,int param_3)
+void SpawnLightningStrike(undefined4 param_1,undefined4 param_2,int param_3)
 
 {
   char cVar1;
