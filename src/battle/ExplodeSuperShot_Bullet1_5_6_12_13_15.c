@@ -123,7 +123,7 @@ void __fastcall ExplodeSuperShot_Bullet1_5_6_12_13_15(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00437150(uVar5,uVar4,0x3c,uVar3);
+  SpawnCrashParticleBurst(uVar5,uVar4,0x3c,uVar3);
   iVar1 = g_clientContext;
   cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar2 != '\x01') {

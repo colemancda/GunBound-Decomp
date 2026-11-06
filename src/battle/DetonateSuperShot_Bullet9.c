@@ -562,7 +562,7 @@ LAB_00490f39:
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   apuStack_adc[0] = (undefined4 *)PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00437150(apuStack_adc[0],uVar19,0x3c,uVar8);
+  SpawnCrashParticleBurst(apuStack_adc[0],uVar19,0x3c,uVar8);
   iVar5 = g_clientContext;
   cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar4 != '\x01') {

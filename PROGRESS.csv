@@ -437,7 +437,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00436dc0,252,SpawnCrashParticleAdditive,false,18,8,RAW-src
 00436ec0,268,SpawnCrashParticleAdditive_2e634,false,18,8,RAW-src
 00436fd0,370,FUN_00436fd0,false,2,7,RAW-src
-00437150,408,FUN_00437150,false,21,7,RAW-src
+00437150,408,SpawnCrashParticleBurst,false,21,7,RAW-src
 004372f0,200,SpawnFlameEffect,false,32,9,RAW-src
 004373c0,196,SpawnSuperFlameEffect,false,9,9,RAW-src
 00437490,94,FindFreeMineKey,false,4,0,RAW-src

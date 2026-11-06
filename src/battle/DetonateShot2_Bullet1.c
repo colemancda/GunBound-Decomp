@@ -367,7 +367,7 @@ LAB_00468fef:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar18 = PeekPacketChecksumState((void *)(piStack_ae8 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00437150(uVar18,uVar17,0x3c,uVar8);
+    SpawnCrashParticleBurst(uVar18,uVar17,0x3c,uVar8);
     iVar5 = g_clientContext;
     cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar4 != '\x01') {
@@ -486,7 +486,7 @@ LAB_0046942b:
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar18 = PeekPacketChecksumState((void *)(piStack_ae8 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00437150(uVar18,uVar17,0x3c,uVar8);
+  SpawnCrashParticleBurst(uVar18,uVar17,0x3c,uVar8);
   iVar5 = g_clientContext;
   cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar4 != '\x01') {

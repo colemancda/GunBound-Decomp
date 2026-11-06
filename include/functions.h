@@ -585,7 +585,7 @@ void __thiscall FUN_00436cd0(int param_1,int param_2,int param_3);
 void SpawnCrashParticleAdditive();
 void SpawnCrashParticleAdditive_2e634();
 void FUN_00436fd0();
-void FUN_00437150();
+void SpawnCrashParticleBurst();
 uint FindFreeMineKey(int regEax);
 void __fastcall ExplodeOldestMine();
 void __fastcall FUN_00437ae0();

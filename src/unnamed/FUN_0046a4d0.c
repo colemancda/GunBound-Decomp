@@ -146,7 +146,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_adc[0] = (int *)PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00437150(local_adc[0],uVar9,0x3c,uVar8);
+    SpawnCrashParticleBurst(local_adc[0],uVar9,0x3c,uVar8);
     iVar5 = g_clientContext;
     cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar4 != '\x01') {

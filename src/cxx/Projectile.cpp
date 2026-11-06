@@ -209,7 +209,7 @@ void RebuildTerrainColumnCache(void *base);
 void ApplyImpactToBattleEntities(int self, void *a, unsigned int b, void *c, int d, int e, int f);
 void SpawnCrashEffect(unsigned int a, unsigned int b, int regEbx);
 void SpawnFlameEffect(int a, void *b, unsigned int c, unsigned int d, void *e);
-void FUN_00437150(unsigned int a, unsigned int b, int c, unsigned int d);
+void SpawnCrashParticleBurst(unsigned int a, unsigned int b, int c, unsigned int d);
 char InitChecksumSeed(void);
 char CompareChecksumExceeds(void *cellA, void *cellB);
 void AcquireSoundChannel(int a);
@@ -876,7 +876,7 @@ LAB_004579de:
     EnterCriticalSection(&g_valueGuardLock);
     uVar22 = PeekPacketChecksumState((void *)(pCStack_ad8->m_pad3d + 0xf17));
     LeaveCriticalSection(&g_valueGuardLock);
-    FUN_00437150(uVar22, uVar21, 0x3c, uVar8);
+    SpawnCrashParticleBurst(uVar22, uVar21, 0x3c, uVar8);
     iVar5 = g_clientContext;
     cVar4 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
     if (cVar4 != '\x01') {

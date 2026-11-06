@@ -1,8 +1,28 @@
-/* FUN_00437150 - 0x00437150 in the original binary.
+/* SpawnCrashParticleBurst - 0x00437150 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Evidence (LIKELY, name is a role guess). Callers: all 21 binary sites
+ * (tools/callsite_regs.py; tools/count_call_args.py counts 22 source sites
+ * including the cxx extern) are detonation or explosion bodies (Detonate*,
+ * Explode*, plus FUN_004513b0, FUN_0046a4d0, FUN_0046b680, FUN_0049d270).
+ * Each loads EAX with ctx + 0x6a7f70 and pushes (x, y, 0x3c, n), so arg3 is
+ * always the 0x3c scatter span and arg4 a per-site count factor. EAX is the
+ * effects-guard block the same helper family takes (see
+ * SpawnCrashParticleAdditive); the port reads its +4 flag at ctx + 0x6a7f74
+ * directly, so no call site needs an extra argument. ret 0x10 matches the
+ * four declared parameters.
+ * Unlike the probabilistic CrashParticle spawners there is no rand() gate:
+ * it spawns DAT_005f2f54 (the 1..3 effects option) times arg4 particles in
+ * a loop, each scattered within +-span/2 of (x, y). The inline object is
+ * 0x58 bytes with class id 0x2e633 at +4, the CrashTexture additive class
+ * SpawnCrashParticleAdditive documents, but with vtable 0x555ce0 (that one
+ * installs 0x556308 through FUN_0048dcc0), so it is a distinct class
+ * sharing the id. Burst, because it emits a counted batch at once.
+ * The particle role is
+ * not established beyond class id and texture.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at all 3 argless PeekPacketChecksumState() calls (3 C : 3 orig,
@@ -11,7 +31,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00437150(int param_1,int param_2,int param_3,int param_4)
+void SpawnCrashParticleBurst(int param_1,int param_2,int param_3,int param_4)
 
 {
   char cVar1;
