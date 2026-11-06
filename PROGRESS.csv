@@ -905,7 +905,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004aa830,142,InitBlastEffect,false,3,4,RAW-src
 004aa8c0,32,BlastEffect_ScalarDtor,false,1,2,RAW-src
 004aa8e0,13,BlastEffect_DtorBody,false,1,1,RAW-src
-004aa8f0,905,FUN_004aa8f0,false,1,12,RAW-src
+004aa8f0,905,AnimateBlastEffect,false,1,12,RAW-src
 004aac80,32,FUN_004aac80,false,2,2,RAW-src
 004aaca0,13,FUN_004aaca0,false,1,1,RAW-src
 004aacd0,675,FUN_004aacd0,false,1,1,RAW-src

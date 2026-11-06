@@ -1031,7 +1031,7 @@ void __fastcall FUN_004aa520();
 undefined4 InitBlastEffect(undefined4 *regEsi);
 void * __thiscall BlastEffect_ScalarDtor();
 void BlastEffect_DtorBody(undefined4 *regEax);
-void __fastcall FUN_004aa8f0();
+void __fastcall AnimateBlastEffect();
 void * __thiscall FUN_004aac80();
 void FUN_004aaca0(undefined4 *regEax);
 void __fastcall FUN_004aacd0();

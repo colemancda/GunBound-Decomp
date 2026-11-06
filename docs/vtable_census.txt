@@ -1063,7 +1063,7 @@ vtable 0x556558  installs=1  slots=5  UNCARVED=1
 vtable 0x55656c  installs=2  slots=8
    0: 0x4aa8c0  BlastEffect_ScalarDtor
    1: 0x461c60  ResolveNamedState
-   2: 0x4aa8f0  FUN_004aa8f0
+   2: 0x4aa8f0  AnimateBlastEffect
    3: 0x429800  NoOpMethod
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame

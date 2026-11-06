@@ -1,8 +1,19 @@
-/* FUN_004aa8f0 - 0x004aa8f0 in the original binary.
+/* AnimateBlastEffect - 0x004aa8f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_004aa8f0): slot 2 (+0x8) of vtable 0x55656c, whose
+ * slot 0 is BlastEffect_ScalarDtor (0x4aa8c0); the only vtable reference
+ * is 0x556574.  InitBlastEffect installs that vtable (0x4aa844).
+ * Verb choice: slot 2 is the per-frame virtual TickActiveObjectLayers
+ * dispatches on every registry object (AnimateProjectileTick in 27
+ * vtables), so it is spelled Animate like the other slot-2 overrides.  The
+ * class's slot 6 already holds the base DetonateProjectile, so naming this
+ * one Detonate would put two Detonate virtuals in one vtable.  The body is
+ * the one-shot blast: it sets the dead flag at +0x14 on its first tick and
+ * runs the crater / impact / crash / flame set once.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 17 argless PeekPacketChecksumState() calls (peek status
@@ -18,7 +29,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004aa8f0(int param_1)
+void __fastcall AnimateBlastEffect(int param_1)
 
 {
   int iCraterX;

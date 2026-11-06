@@ -60,7 +60,7 @@ Slot roles come from `src/cxx/Projectile.h`: 0 Delete, 1 SetState, 2 Animate,
 | UNIDENTIFIED | `0x55631c` | `FUN_0044d990` | `AnimateProjectileTick` | `SimulateProjectileFrame` | `DetonateSuperShot_Bullet3_5_14` | `ExplodeSuperShot_Bullet1_5_6_12_13_15` |
 | UNIDENTIFIED | `0x556340` | `FUN_0048f260` | `FUN_00490780` | `SimulateProjectileFrame` | `DetonateProjectile` | - |
 | UNIDENTIFIED | `0x556468` | `FUN_0049cc40` | *uncarved* | `SimulateProjectileFrame` | `DetonateShot_Type9` | - |
-| UNIDENTIFIED | `0x55656c` | `FUN_004aa8c0` | `FUN_004aa8f0` | `SimulateProjectileFrame` | `DetonateProjectile` | - |
+| UNIDENTIFIED | `0x55656c` | `FUN_004aa8c0` | `AnimateBlastEffect` | `SimulateProjectileFrame` | `DetonateProjectile` | - |
 | UNIDENTIFIED | `0x55658c` | `FUN_004aac80` | *uncarved* | `SimulateProjectileFrame` | `DetonateProjectile` | - |
 
 52 vtables in the family; 37 identified, 15 not.
