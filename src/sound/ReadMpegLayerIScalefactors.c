@@ -1,15 +1,26 @@
-/* FUN_00513850 - 0x00513850 in the original binary.
+/* ReadMpegLayerIScalefactors - 0x00513850 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Read the Layer I scalefactor indices: one 6-bit index per subband with
+ * nonzero allocation.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * LIKELY. Called at 0x513808 by the Layer I frame decoder at 0x5133c0
+ * (slot 3 of the 0x563aec table; Layer I per header field +8 == 3 as in
+ * SetupMpegLayerIDecoder). ISO 11172-3 Layer I frame order is allocation,
+ * scalefactors, samples, and this runs between the two; it reads 6 bits
+ * per nonzero-allocation subband (DAT_00563b44 bands) and multiplies the
+ * 6-bit table entry (0x5a9888) by the per-band step.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_00513850(void)
+void ReadMpegLayerIScalefactors(void)
 
 {
   int iVar1;

@@ -1726,7 +1726,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005100a0,11837,ReadMpegLayerIISubbandSamples,false,1,0,RAW-src
 00512f80,1041,DecodeMpegAudioFrame,false,2,4,RAW-src
 005133a0,21,FUN_005133a0,false,2,0,RAW-src
-00513850,168,FUN_00513850,false,1,0,RAW-src
+00513850,168,ReadMpegLayerIScalefactors,false,1,0,RAW-src
 00513900,2912,FUN_00513900,false,1,0,RAW-src
 005144e0,476,SetupMpegLayerIDecoder,false,1,1,RAW-src
 005146c0,648,ParseMpegFrameHeader,false,1,0,RAW-src
