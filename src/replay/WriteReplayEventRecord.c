@@ -418,7 +418,7 @@ LAB_004111c0:
         if (*(short *)pbVar22 == 0) {
           *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
           FUN_0041c230();
-          FUN_0041b7e0();
+          ClearChatLog(0,g_clientContext);
           ResetReplayContext((int)&g_replayContext);
           iVar19 = g_clientContext;
           *(uint *)(g_clientContext + 0x41340) = (uint)*(ushort *)(param_3 + 2);

@@ -304,7 +304,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0041b4b0,505,RenderWrappedText,false,11,0,RAW-src
 0041b6b0,49,RebuildChannelUserIndex,false,1,0,RAW-src
 0041b6f0,233,FUN_0041b6f0,false,1,0,RAW-src
-0041b7e0,82,FUN_0041b7e0,false,3,0,RAW-src
+0041b7e0,82,ClearChatLog,false,3,0,RAW-src
 0041b840,118,FUN_0041b840,false,2,0,RAW-src
 0041b8c0,1039,AppendChatLogEntry,false,20,6,RAW-src
 0041bce0,887,FUN_0041bce0,false,1,4,RAW-src
