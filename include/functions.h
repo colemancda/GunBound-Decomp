@@ -1289,7 +1289,7 @@ float SinDegrees(int angle);
 float CosDegrees(int angle);
 void __fastcall SetClipRect();
 void LoadBitmapFont();
-void FUN_004eaeb0(int param_1,int param_2,byte *param_3,int regEax);
+void BlitFullWidthGlyphClipped(int param_1,int param_2,byte *param_3,int regEax);
 void __thiscall BlitFontGlyphClipped();
 void __thiscall DrawWideGlyph();
 void DrawNarrowGlyph(int param_1,int param_2,int param_3,byte *regEax);

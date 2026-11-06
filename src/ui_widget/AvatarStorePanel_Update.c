@@ -57,7 +57,7 @@
  * 7 arguments and read unaff_ register artifacts. Both were rewritten
  * from the disassembly first. Every callee this makes live was checked:
  * Widget_DrawSelf, BlitSpriteText, FindSpriteFrame, BlitSprite16bpp,
- * BlitSpriteClipped, BlitRLESprite (and its glyph plotters FUN_004eaeb0
+ * BlitSpriteClipped, BlitRLESprite (and its glyph plotters BlitFullWidthGlyphClipped
  * and BlitFontGlyphClipped), PeekPacketChecksumState and the two row
  * renderers all take their register arguments as parameters, and
  * tools/dropped_reg_backlog.py lists none of them.
