@@ -489,7 +489,7 @@ includes), so no raw-ported file needed editing to pick these up.
   addresses, and shouldn't be declared as globals at all. The rest are
   probably real and simply need adding. Not re-generated in bulk this
   pass — one (`DAT_0058bb04`) was added by hand since it was blocking
-  `unnamed/FUN_0041eb80.c`; expect more of these to surface as
+  `battle/GetItemDescriptionByIcon.c`; expect more of these to surface as
   individual compile failures while working through the FAIL list.
 - **String literals have their real, actual content** — extracted
   directly from the binary's data section (not placeholders), since the

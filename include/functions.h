@@ -431,7 +431,7 @@ undefined4 GetItemQuantityByIcon();
 uint FUN_0041ea30();
 uint FUN_0041eaa0();
 int FindItemRecordByIcon();
-undefined * FUN_0041eb80();
+undefined * GetItemDescriptionByIcon();
 void SpawnWeatherHazards(int param_1,char *regEax);
 void __fastcall FUN_0041ee10();
 void FUN_0041f200(int param_1,int regEax);

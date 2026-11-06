@@ -441,7 +441,7 @@ extern void * DAT_0058b248;
 extern uint8_t DAT_0058b8d6;
 /* Missing from the original scan (see src/README.md's "Global
  * variables" section for the known ~1159-address gap this was pulled
- * from) - added by hand since it was blocking FUN_0041eb80.c. */
+ * from) - added by hand since it was blocking GetItemDescriptionByIcon.c. */
 extern uint8_t DAT_0058bb04;
 /* g_valueGuardLock (was DAT_005a9068) - the value-guard / packet-encode
  * CRITICAL_SECTION, entered by WinMain before anything could have

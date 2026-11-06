@@ -878,7 +878,7 @@ extern "C" void __fastcall ItemDescriptionTooltip_Update(int this_);
 extern "C" void *GetLocalizedString(void *table, int id);
 extern "C" unsigned char g_localizedStringTable;
 extern "C" int FindItemRecordByIcon(int ctx, int itemId);
-extern "C" char *FUN_0041eb80(int ctx, int itemId);
+extern "C" char *GetItemDescriptionByIcon(int ctx, int itemId);
 
 void CRoomPasswordDialog::OnCommand(int evt, int id, int arg)
 {
@@ -1116,7 +1116,7 @@ extern "C" void FUN_00509410(void *manager, const char *text)
  * +0x4c 0, frame 0x2710/10, rect (0x156, 0x17d, 0xab, 0x8b)
  * (0x50965e-0x50968b). The name returned by 0x41eb10 (FindItemRecordByIcon,
  * pushed ctx and id) is copied to +0x90 (0x509697-0x5096a8). The
- * description from 0x41eb80 (FUN_0041eb80, the same two arguments) becomes
+ * description from 0x41eb80 (GetItemDescriptionByIcon, the same two arguments) becomes
  * the CStaticText (0x17, 0x22, 0x8c, 0x4c, desc, 0xffff), followed by the
  * Register. The raw port also wrote through an uninitialised
  * unaff_FS_OFFSET (the SEH link at 0x5095d0-0x5095e2), which this port
@@ -1145,7 +1145,7 @@ extern "C" void BuildItemDescriptionTooltip(void *manager, int itemId)
         while ((*dst++ = *src++) != 0) {}
     }
     p->AddChild(CreateStaticTextWidget(0x17, 0x22, 0x8c, 0x4c,
-        FUN_0041eb80(g_clientContext, itemId), 0xffff));
+        GetItemDescriptionByIcon(g_clientContext, itemId), 0xffff));
     PanelManager_Register(manager, p);
 }
 
