@@ -493,7 +493,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
         param_1[param_1[0x26] + 0xa7] = (uint)*(ushort *)(param_2 + 0x23);
         param_1[param_1[0x26] + 0x127] = (uint)*(byte *)(param_2 + 0x25);
         param_1[param_1[0x26] + 0x1a7] = (uint)*(byte *)(param_2 + 0x26);
-        FUN_004ccbb0(param_1);
+        SortHitLogEntries((int)param_1);
         param_1[0x26] = param_1[0x26] + 1;
         *unaff_FS_OFFSET = local_14;
         return;

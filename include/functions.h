@@ -1096,7 +1096,7 @@ void __fastcall State11_InBattle_RenderHud();
 void FinishTurnAndSelectNext();
 void FUN_004cbda0();
 void FUN_004cc5c0();
-void FUN_004ccbb0();
+void __stdcall SortHitLogEntries(int param_1);
 void FUN_004ccc60();
 void FUN_004ccd10();
 void FUN_004ce3d0();

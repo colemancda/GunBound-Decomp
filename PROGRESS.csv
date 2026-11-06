@@ -976,7 +976,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004cbda0,1080,FUN_004cbda0,false,3,16,RAW-src
 004cc1e0,977,HandleTurnTimeoutSlot,false,1,11,RAW-src
 004cc5c0,1428,FUN_004cc5c0,false,2,18,RAW-src
-004ccbb0,171,FUN_004ccbb0,false,1,0,RAW-src
+004ccbb0,171,SortHitLogEntries,false,1,0,RAW-src
 004ccc60,171,FUN_004ccc60,false,1,0,RAW-src
 004ccd10,5809,FUN_004ccd10,false,1,37,RAW-src
 004ce3d0,556,FUN_004ce3d0,false,2,14,RAW-src
