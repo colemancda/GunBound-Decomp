@@ -1,15 +1,33 @@
-/* FUN_004e3810 - 0x004e3810 in the original binary.
+/* Stage_Construct - 0x004e3810 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004e3810 mean this function.)
+ *
+ * Evidence (LIKELY, from the object's identity). Its only caller is
+ * ClientContext_Constructor (orig 0x416845), which passes ctx+0x6a7708
+ * by the arena offset; that is the stage object TickStage (0x4e39b0),
+ * LoadStageLandFile and ReleaseStageResources take as their object. This
+ * body initialises the cells those functions use: the camera position
+ * pairs at +0..+0xc that TickStage eases, the flag byte at +0x2d that
+ * it tests, the counters at +0x48/+0x4c and flag at +0x50, and the
+ * buffer pointers at +0x34/+0x38/+0x3c/+0x44 that ReleaseStageResources
+ * frees (+0x34/+0x38 are the ones LoadStageLandFile allocates). All are
+ * zeroed here, and the embedded registry at +0x85c that TickStage ticks
+ * is built (ActiveObjectRegistry_BaseConstructor). It is the
+ * constructor, not a loader: it allocates only the 0x308-byte scene-node
+ * member stored at +0x30 and no stage data. The twin is Stage_Destruct
+ * (0x4e38f0). The name follows the Foo_Construct form used by the other
+ * Construct functions in the tree.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 * FUN_004e3810(undefined4 *param_1)
+undefined4 * Stage_Construct(undefined4 *param_1)
 
 {
   float fVar1;

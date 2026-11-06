@@ -544,7 +544,7 @@ int ClientContext_Constructor(int param_1)
   *(undefined4 *)(&DAT_006a76fc + param_1) = 0;
   *(undefined4 *)(&DAT_006a7700 + param_1) = 0;
   SUBFIELD(local_4,0,undefined1) = 0x51;
-  FUN_004e3810(&DAT_006a7708 + param_1);
+  Stage_Construct(&DAT_006a7708 + param_1);
   FUN_0042b010((int)(&DAT_006a7f70 + param_1));
   SUBFIELD(local_4,0,undefined1) = 0x53;
   ActiveObjectRegistry_BaseConstructor((undefined4 *)(param_1 + 0x6a7f88));
