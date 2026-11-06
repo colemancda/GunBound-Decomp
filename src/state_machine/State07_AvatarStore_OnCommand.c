@@ -61,7 +61,7 @@
  *     SetGuardedBool 0x406500), 0x4462a5 (else arm after `or eax,-1`),
  *     0x4462e0 (after `cmp [ebp+0x32c58],6`), 0x44630c (after `inc
  *     [ebp+0x32c58]`), 0x44635e (after the suffix-string stores),
- *     0x4463fc (after FUN_004f1c00).
+ *     0x4463fc (after DestroyActiveObjectLayerObjects).
  *   case 0x1a (lea esi 0x4465a9): 0x4465fe, 0x446622.
  *   iVar3==3 arm (QueueOutgoingPacketField 0x40a470, lea esi 0x446790):
  *     0x4467a8 (PeekPacketChecksumBool follows), 0x446806 (+1, +0x22c),
@@ -549,7 +549,7 @@ LAB_004457e7:
           case 3:
             local_4518 = &DAT_00666d73;
           }
-          FUN_004f1c00(0x7530,(int)&g_spriteRegistry);
+          DestroyActiveObjectLayerObjects(0x7530,(int)&g_spriteRegistry);
           iVar3 = AtlArray_GetAt_450((int *)(g_clientContext + 0x44e20),
                              PeekChecksumStateUnderLock(iVar3)); /* 0x4463fc */
           uVar4 = PeekChecksumStateUnderLock(iVar3 + 0x22c);

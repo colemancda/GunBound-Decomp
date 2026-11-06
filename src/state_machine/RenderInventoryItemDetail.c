@@ -107,7 +107,7 @@ void RenderInventoryItemDetail(int param_1)
       pcVar13 = (code *)EnterCriticalSection;
     }
     iVar5 = *(int *)(g_clientContext + 0x44bec);
-    FUN_004f1c00(0x9c40,(int)&g_spriteRegistry);
+    DestroyActiveObjectLayerObjects(0x9c40,(int)&g_spriteRegistry);
     if (iVar5 == 0) {
       (*pcVar13)(&g_valueGuardLock);
       iVar5 = _rand();

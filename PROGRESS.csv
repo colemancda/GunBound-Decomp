@@ -1295,7 +1295,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f1790,301,LoadSpriteSet,false,779,8,RAW-src
 004f18c0,393,LoadSpriteSetFrame,false,5,10,RAW-src
 004f1a50,423,FUN_004f1a50,false,2,10,RAW-src
-004f1c00,60,FUN_004f1c00,false,2,0,RAW-src
+004f1c00,60,DestroyActiveObjectLayerObjects,false,2,0,RAW-src
 004f1c40,255,FUN_004f1c40,false,1,0,RAW-src
 004f1d40,59,FUN_004f1d40,false,3,2,RAW-src
 004f1d80,20,FUN_004f1d80,false,1,1,RAW-src

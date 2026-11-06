@@ -1397,7 +1397,7 @@ void FUN_004f1750(undefined4 *regEax);
 int LoadSpriteSet();
 int LoadSpriteSetFrame(undefined4 param_1,undefined4 param_2,int param_3,char *imgName);
 int FUN_004f1a50(undefined4 param_1,undefined4 param_2,int param_3,int param_4,char *imgName);
-void __fastcall FUN_004f1c00(uint param_1,int regEax);
+void __fastcall DestroyActiveObjectLayerObjects(uint param_1,int regEax);
 undefined4 * __fastcall FUN_004f1c40();
 void __fastcall FUN_004f1d40();
 void FUN_004f1d80(int regEsi);
