@@ -467,8 +467,6 @@ uint8_t DAT_005f375c;
 uint8_t DAT_005f3760;
 uint8_t DAT_005f376c;
 uint8_t DAT_005f3770;
-uint8_t DAT_005f3771;
-uint8_t DAT_005f3772;
 uint8_t DAT_00666d73;
 /* DAT_00673628: the ASCII bitmap-font glyph table - promoted to the real
  * 0xc00-byte array in globals_sized.c (256 glyphs x 12 bytes). */
