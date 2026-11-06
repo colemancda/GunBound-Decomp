@@ -1862,7 +1862,7 @@ uint32_t g_mpegBandCount[4] = { 3, 8, 12, 7 }; /* orig .data 0x5637bc..0x5637cb 
 uint32_t DAT_005637d4;
 uint32_t DAT_005637e8;
 uint32_t DAT_0056382c;
-uint32_t DAT_005638ec;
+uint32_t g_mpegSampleRateTab[8] = { 22050, 24000, 16000, 1, 44100, 48000, 32000, 1 }; /* orig .data 0x5638ec..0x56390b */
 uint32_t DAT_0056390c;
 uint32_t DAT_00563a4c;
 uint32_t DAT_00563ad8;
