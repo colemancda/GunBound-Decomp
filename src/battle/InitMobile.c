@@ -7,7 +7,7 @@
  * (*obj = &PTR_FUN_00555c68 - which CreateMobile then overrides with the
  * concrete type's vtable), and constructs the embedded sub-object at obj+0xe
  * (FUN_0044fb40). Only reached from mobile-creation paths (CreateMobile and the
- * type-0xd wrapper FUN_0046cb60).
+ * type-0xd wrapper Mobile13_Construct).
  *
  * Function IDENTITY is confirmed (mobile base ctor); the BODY is a raw/near-
  * verbatim Ghidra port, not hand-verified. See src/README.md's "Raw/verbatim

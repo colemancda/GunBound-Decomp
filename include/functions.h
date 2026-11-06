@@ -818,7 +818,7 @@ void __fastcall FUN_0046b680();
 void __fastcall FUN_0046c990();
 undefined4 * InitSuperShot_Bullet14(undefined4 *regEsi);
 void __fastcall ExplodeSuperShot_Bullet14();
-undefined4 FUN_0046cb60(undefined4 *regEsi,undefined4 regEax);
+undefined4 Mobile13_Construct(undefined4 *regEsi,undefined4 regEax);
 void * __thiscall Mobile13_ScalarDtor(void *param_1,int param_2);
 void Mobile13_Destructor(undefined4 *regEax);
 int __fastcall FUN_0046cbb0();

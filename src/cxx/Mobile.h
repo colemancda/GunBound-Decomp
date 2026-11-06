@@ -167,7 +167,7 @@ public:
     u8   m_pad908[0xa50d];
     char m_name[0xd];          /* +0xae15: CreateMobile copies the player name here (0xD stride; 2nd string at +0xae22) */
     u8   m_padae22[0x11ce];
-    u32  m_type13Field;        /* +0xbff0: set to 2 by the type-13 ctor FUN_0046cb60 (0 for other types) */
+    u32  m_type13Field;        /* +0xbff0: set to 2 by the type-13 ctor Mobile13_Construct (0 for other types) */
     u8   m_padbff4[0x11e0];    /* tail padding to the confirmed 0xd1d4 size */
 };
 #pragma pack(pop)
