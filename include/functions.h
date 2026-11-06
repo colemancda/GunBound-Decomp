@@ -869,7 +869,7 @@ void FUN_00477650();
 void __fastcall FUN_00477930();
 undefined4 * InitJewel();
 void * __thiscall DeleteJewel();
-void FUN_004780e0();
+void DestroyJewel(undefined4 *param_1);
 void __fastcall FUN_004784a0(undefined4 param_1,uint param_2,int param_3,int param_4,uint regEax);
 void FUN_004785f0();
 char FUN_00478a80();

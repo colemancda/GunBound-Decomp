@@ -13,7 +13,7 @@
 void * __thiscall DeleteJewel(void *param_1,int param_2)
 
 {
-  FUN_004780e0(param_1);
+  DestroyJewel(param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

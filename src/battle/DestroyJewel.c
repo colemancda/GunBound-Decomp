@@ -1,13 +1,22 @@
-/* FUN_004780e0 - 0x004780e0 in the original binary.
+/* DestroyJewel - 0x004780e0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Destructor body behind the scalar-deleting wrapper DeleteJewel
+ * (0x004780c0), slot 0 of vtable 0x555fdc: the wrapper does push this;
+ * call 0x004780e0 and then frees the object when bit 0 of its flag
+ * argument is set.  This body stores 0x555fdc into *this, tears down the
+ * object's members, and finishes by storing the base vtable 0x0055752c
+ * (whose slot 0 is 0x004f2df0) before ret 4.  Unlike the projectile
+ * destructors it does not chain to DestroyProjectile; the object arrives
+ * as a stack argument.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004780e0(undefined4 *param_1)
+void DestroyJewel(undefined4 *param_1)
 
 {
   int *piVar1;
