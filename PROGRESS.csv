@@ -1783,7 +1783,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00518960,1220,FUN_00518960,false,3,0,RAW-src
 00518e30,1070,FUN_00518e30,false,1,0,RAW-src
 00519260,650,ReadMpegLayerIIIScalefactors,false,1,1,RAW-src
-005194f0,1456,FUN_005194f0,false,1,1,RAW-src
+005194f0,1456,ReadMpegLayerIIIScalefactorsLSF,false,1,1,RAW-src
 00519aa0,468,InitMpegLayerIIITables,false,1,12,RAW-src
 00519c80,617,FUN_00519c80,false,1,3,RAW-src
 00519ef0,546,FUN_00519ef0,false,1,4,RAW-src

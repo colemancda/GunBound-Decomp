@@ -1,13 +1,22 @@
-/* FUN_005194f0 - 0x005194f0 in the original binary.
+/* ReadMpegLayerIIIScalefactorsLSF - 0x005194f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Read the Layer III scalefactors for one granule and channel (MPEG-2 LSF
+ * path).
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Called from DecodeMpegLayerIIIGranule when DAT_005ae34c == 0 (the lower-
+ * sampling-frequency case), as the alternative to
+ * ReadMpegLayerIIIScalefactors. Decodes scalefac_compress with the 400 /
+ * 500 thresholds and the intensity-stereo branch (180) of ISO 13818-3.
  */
 #include "ghidra_types.h"
 
 
-void FUN_005194f0(undefined4 *param_1,undefined4 *param_2,int param_3,int *param_4)
+void ReadMpegLayerIIIScalefactorsLSF(undefined4 *param_1,undefined4 *param_2,int param_3,int *param_4)
 
 {
   uint uVar1;

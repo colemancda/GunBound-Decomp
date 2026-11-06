@@ -1856,7 +1856,7 @@ void FUN_00518560();
 void FUN_00518960();
 int FUN_00518e30();
 void ReadMpegLayerIIIScalefactors();
-void FUN_005194f0();
+void ReadMpegLayerIIIScalefactorsLSF();
 undefined4 InitMpegLayerIIITables();
 void FUN_00519c80();
 void FUN_00519ef0();

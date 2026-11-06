@@ -68,7 +68,7 @@ void DecodeMpegLayerIIIGranule(undefined4 param_1,int *param_2)
       DAT_005ae920 = DAT_005ae920 + (&DAT_005ae800)[iVar8 * 0x12];
       DAT_00f25e10 = &DAT_005aba38 + ((int)(DAT_005ae920 + 0x27) >> 3);
       if (DAT_005ae34c == 0) {
-        FUN_005194f0(&DAT_005ae358 + iVar8 * 0xf8,&DAT_005ae800 + iVar8 * 0x12,
+        ReadMpegLayerIIIScalefactorsLSF(&DAT_005ae358 + iVar8 * 0xf8,&DAT_005ae800 + iVar8 * 0x12,
                      DAT_005aba2c & local_18,&DAT_005ae7b0);
       }
       else {
