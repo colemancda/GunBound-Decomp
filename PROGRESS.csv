@@ -858,7 +858,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00498070,1581,FUN_00498070,false,1,9,RAW-src
 004986a0,1203,FUN_004986a0,false,2,8,RAW-src
 00498b60,2796,AnimateMine,false,1,22,RAW-src
-00499650,729,FUN_00499650,false,1,9,RAW-src
+00499650,729,ApplyImpactToMine,false,1,9,RAW-src
 00499ed0,20,InitSuperShot_Bullet7,false,1,1,RAW-src
 00499ef0,4012,DetonateSuperShot_Bullet7,false,1,39,RAW-src
 0049aeb0,4512,SimulateShot_Bullet7n_9s_7p_9p,false,4,23,RAW-src

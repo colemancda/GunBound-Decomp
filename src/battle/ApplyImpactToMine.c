@@ -1,8 +1,19 @@
-/* FUN_00499650 - 0x00499650 in the original binary.
+/* ApplyImpactToMine - 0x00499650 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_00499650): the layer-100003 handler of
+ * ApplyImpactToBattleEntities (0x450eb0), called with (node, impact x,
+ * impact y, source projectile) for every live mine node, and only when the
+ * parent's param_5 is set (ExplodeMine passes 0, so a mine blast does not
+ * reach other mines).  0x186a3 is the mine class id (InitMine stamps it via
+ * InitProjectile).  The decisive link is on the callee side: when the mine
+ * lies within a squared radius of the impact point it copies a byte from the
+ * source and calls virtual slot 8 (+0x20) of the mine, and slot 8 of the
+ * mine vtable is ExplodeMine (0x497ad0, vtable reference 0x556410) - the
+ * impact sets off other mines.  LIKELY.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at all 6 argless PeekPacketChecksumState() calls, from
@@ -23,7 +34,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00499650(int *param_1,undefined4 param_2,undefined4 param_3,int param_4)
+void ApplyImpactToMine(int *param_1,undefined4 param_2,undefined4 param_3,int param_4)
 
 {
   char cVar1;

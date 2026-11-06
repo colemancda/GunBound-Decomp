@@ -12,7 +12,7 @@
  * &DAT_00e9ba40, &DAT_00796aa0, and param_4+0x2f74 (read back through
  * the arg's frame slot; param_4 is the same object whose +0x2908 cell
  * the round-1 DeltaDiv already passes explicitly).  This function and
- * its twin (FUN_00477650/FUN_00499650) check each other cell for cell.
+ * its twin (FUN_00477650/ApplyImpactToMine) check each other cell for cell.
  */
 #include "ghidra_types.h"
 

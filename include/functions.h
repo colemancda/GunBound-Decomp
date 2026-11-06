@@ -986,7 +986,7 @@ void __fastcall ExplodeMine();
 void FUN_00498070();
 int FUN_004986a0();
 void __fastcall AnimateMine();
-void FUN_00499650();
+void ApplyImpactToMine();
 undefined4 * InitSuperShot_Bullet7(undefined4 *regEsi);
 void __fastcall DetonateSuperShot_Bullet7();
 void __thiscall SimulateShot_Bullet7n_9s_7p_9p();
