@@ -655,7 +655,7 @@ vtable 0x555fdc  installs=2  slots=5
 vtable 0x556008  installs=2  slots=8
    0: 0x47aad0  KnightFlameShot_ScalarDtor
    1: 0x461c60  ResolveNamedState
-   2: 0x47ab00  FUN_0047ab00
+   2: 0x47ab00  AnimateKnightFlameShot
    3: 0x458690  PublishProjectileTrackingState
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame

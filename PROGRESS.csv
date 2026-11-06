@@ -749,7 +749,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0047a960,355,RenderJewel,false,1,4,RAW-src
 0047aad0,32,KnightFlameShot_ScalarDtor,false,1,2,RAW-src
 0047aaf0,13,KnightFlameShot_DtorBody,false,1,1,RAW-src
-0047ab00,83,FUN_0047ab00,false,1,4,RAW-src
+0047ab00,83,AnimateKnightFlameShot,false,1,4,RAW-src
 0047ab60,32,Mobile14_ScalarDtor,false,1,2,RAW-src
 0047ab80,13,Mobile14_Destructor,false,1,1,RAW-src
 0047ab90,1754,Mobile14_MainAction,false,1,14,RAW-src

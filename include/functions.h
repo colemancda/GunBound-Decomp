@@ -879,7 +879,7 @@ int __fastcall TickJewelFrame();
 void __fastcall RenderJewel();
 void * __thiscall KnightFlameShot_ScalarDtor();
 void KnightFlameShot_DtorBody(undefined4 *regEax);
-void __fastcall FUN_0047ab00();
+void __fastcall AnimateKnightFlameShot();
 void * __thiscall Mobile14_ScalarDtor(void *param_1,int param_2);
 void Mobile14_Destructor(undefined4 *regEax);
 void __thiscall Mobile14_MainAction();
