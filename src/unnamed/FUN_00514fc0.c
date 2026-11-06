@@ -160,7 +160,7 @@ undefined8 FUN_00514fc0(byte *param_1,undefined4 *param_2)
         } while (iVar4 < DAT_005ae7dc);
       }
       local_8 = local_8 + 0x24;
-    } while ((int)local_8 < 0x5ae928);
+    } while (local_8 < (int *)&DAT_005ae808 + 2 * 0x24);
     iVar4 = DAT_005aba30 + DAT_005ae33c;
     DAT_005ae930 = DAT_005ae934 - DAT_005ae7f0;
     DAT_005ae350 = iVar4;

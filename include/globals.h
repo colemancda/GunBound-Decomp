@@ -2187,24 +2187,28 @@ extern uint32_t DAT_005ae7e8;
 extern uint32_t DAT_005ae7ec;
 extern uint32_t DAT_005ae7f0;
 extern uint32_t DAT_005ae7f8;
-extern uint32_t DAT_005ae800;
-extern uint32_t DAT_005ae804;
-extern uint32_t DAT_005ae808;
-extern uint32_t DAT_005ae80c;
-extern uint32_t DAT_005ae810;
-extern uint32_t DAT_005ae814;
-extern uint32_t DAT_005ae818;
-extern uint32_t DAT_005ae81c;
-extern uint32_t DAT_005ae820;
-extern uint32_t DAT_005ae824;
-extern uint32_t DAT_005ae828;
-extern uint32_t DAT_005ae82c;
-extern uint32_t DAT_005ae830;
-extern uint32_t DAT_005ae834;
-extern uint32_t DAT_005ae838;
-extern uint32_t DAT_005ae83c;
-extern uint32_t DAT_005ae840;
-extern uint32_t DAT_005ae844;
+/* Per-channel MPEG frame state: two 0x90-byte records (72 words) at 0x5ae800..0x5ae91f. FUN_00514fc0
+ * walks them with a pointer starting at 0x5ae808 and stepping 0x90 until `cmp esi,0x5ae928`
+ * (= 0x5ae808 + 2 * 0x90); the next objects 0x5ae920.. are separate scalars. */
+extern uint32_t g_mpegChannelInfo[72];
+#define DAT_005ae800 (g_mpegChannelInfo[0])
+#define DAT_005ae804 (g_mpegChannelInfo[1])
+#define DAT_005ae808 (g_mpegChannelInfo[2])
+#define DAT_005ae80c (g_mpegChannelInfo[3])
+#define DAT_005ae810 (g_mpegChannelInfo[4])
+#define DAT_005ae814 (g_mpegChannelInfo[5])
+#define DAT_005ae818 (g_mpegChannelInfo[6])
+#define DAT_005ae81c (g_mpegChannelInfo[7])
+#define DAT_005ae820 (g_mpegChannelInfo[8])
+#define DAT_005ae824 (g_mpegChannelInfo[9])
+#define DAT_005ae828 (g_mpegChannelInfo[10])
+#define DAT_005ae82c (g_mpegChannelInfo[11])
+#define DAT_005ae830 (g_mpegChannelInfo[12])
+#define DAT_005ae834 (g_mpegChannelInfo[13])
+#define DAT_005ae838 (g_mpegChannelInfo[14])
+#define DAT_005ae83c (g_mpegChannelInfo[15])
+#define DAT_005ae840 (g_mpegChannelInfo[16])
+#define DAT_005ae844 (g_mpegChannelInfo[17])
 extern uint32_t DAT_005ae920;
 extern uint32_t DAT_005ae924;
 extern uint32_t DAT_005ae928;
