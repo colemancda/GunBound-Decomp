@@ -17,7 +17,9 @@
  * bit (pos & 0x1f) of dword (pos >> 5) of the bitset storage.  The
  * caller's own next lines are the matching write side `word |= 1 << pos`
  * under the same `local_243 < 8` guard.  ECX = &reference is the hidden
- * this; the ports of both callers currently pass nothing in it.
+ * this. Both callers now build the pair: 0x4e6331/0x4e6339 store
+ * {ebx+0x148, byte [esp+0x4d]} and 0x4e6521/0x4e6525 store {ebx+0x144, the
+ * same byte}; [esp+0x4d] is local_243 (sStack_246 is [esp+0x4a]).
  */
 #include "ghidra_types.h"
 

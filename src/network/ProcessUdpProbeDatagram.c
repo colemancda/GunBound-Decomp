@@ -59,6 +59,7 @@ undefined4 ProcessUdpProbeDatagram(int param_1)
   uint uVar4;
   DWORD DVar5;
   int iVar6;
+  int bsRef[2];
   short sVar7;
   ushort *puVar8;
   int *piVar9;
@@ -150,7 +151,8 @@ undefined4 ProcessUdpProbeDatagram(int param_1)
   local_274 = local_23b;
   local_26c = 0;
   iVar6 = __stricmp((char *)&local_278,(char *)(param_1 + (local_243 + 5) * 0x18));
-  if ((iVar6 != 0) || (cVar3 = BitsetReference_ToBool(), sVar7 = sStack_246, cVar3 == '\x01')) {
+  if ((iVar6 != 0) || (bsRef[0] = param_1 + 0x148, bsRef[1] = (uint)local_243,
+      cVar3 = BitsetReference_ToBool(bsRef), sVar7 = sStack_246, cVar3 == '\x01')) {
     *(undefined1 *)(param_1 + 0x4527c) = 5;
     return 1;
   }
@@ -297,7 +299,9 @@ LAB_004e64e4:
   }
   if ((*(int *)(param_1 + 0x44de0) != 0) &&
      (*(short *)(param_1 + 0x45284 + (uint)local_243 * 2) == local_227)) {
-    cVar3 = BitsetReference_ToBool();
+    bsRef[0] = param_1 + 0x144;
+    bsRef[1] = (uint)local_243;
+    cVar3 = BitsetReference_ToBool(bsRef);
     if ((cVar3 == '\x01') && (local_225 == *(char *)(local_243 + 0x45294 + param_1))) {
       if ((local_243 < 8) &&
          (*(uint *)(param_1 + 0x13c + (uint)(local_243 >> 5) * 4) =

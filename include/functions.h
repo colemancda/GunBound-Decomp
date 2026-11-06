@@ -478,7 +478,7 @@ void FUN_00426210();
 void ShowChatBanNotice(int ctx);
 void SyncOutgoingChecksumField(void *self,int param_1,undefined4 param_2);
 int * __fastcall CString_Construct();
-undefined4 __fastcall BitsetReference_ToBool();
+undefined4 __fastcall BitsetReference_ToBool(int *param_1);
 void Bitset_ThrowInvalidPosition();
 void __fastcall AtlArray_RemoveAt_CString(int param_1,int *regEbx,int regEsi);
 int AtlArray_GetAt_450(int *param_1,uint regEax);
