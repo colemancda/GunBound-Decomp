@@ -27,7 +27,7 @@
  *   RemoveDirectLinkBuddyNode (0x401eec)   container=param_1, key=
  *       EBX=ESI=incoming EAX (`mov esi,eax` at 0x401ee7, `mov
  *       ebx,esi` at 0x401eea) -- regEax in the source, the SAME key
- *       FUN_00401c50 is given two lines later.
+ *       FindDirectLinkBuddyIndexByName is given two lines later.
  *   EnsureChatLogPanelForPeer (0x402601)   container=param_1 (`mov
  *       eax,[esp+0xc]`, the first stack arg once the 2 prologue pushes
  *       are accounted for), key=EBX=param_2 (`mov ebx,ebp` at

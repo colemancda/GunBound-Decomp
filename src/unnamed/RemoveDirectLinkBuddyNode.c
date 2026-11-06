@@ -8,7 +8,7 @@
  *
  * NAMED (2026-10-26), HIGH. The delete counterpart of
  * UpsertDirectLinkBuddyNode: looks the node up by name
- * (FindDirectLinkBuddyNode, FUN_00401c50), compacts a parallel 0x7f-entry
+ * (FindDirectLinkBuddyNode, FindDirectLinkBuddyIndexByName), compacts a parallel 0x7f-entry
  * array around the removed slot, frees an owned buffer at +0x17a8,
  * unlinks the node from its
  * container's doubly-linked list, and calls its own vtable slot 0
@@ -22,7 +22,7 @@
  * DispatchDirectLinkMessengerPacket.)
  *
  * DROPPED REGISTER RECOVERED (2026-08-24): EAX is a NAME string -- the key
- * FUN_00401c50(param_1, char *) searches the list for.  Seven call sites,
+ * FindDirectLinkBuddyIndexByName(param_1, char *) searches the list for.  Seven call sites,
  * five different sources, each pinned individually:
  *   FUN_00402cf0 (2)   its own regEdi, the char * it was itself given
  *   DispatchDirectLinkPacket (2)   (char *)param_3 + 1 -- the name one byte into the
@@ -64,7 +64,7 @@ void RemoveDirectLinkBuddyNode(int param_1,char *regEax)
   
   puVar2 = (undefined4 *)FindDirectLinkBuddyNode(param_1, regEax);
   if (puVar2 != (undefined4 *)0x0) {
-    iVar3 = FUN_00401c50(param_1,regEax);
+    iVar3 = FindDirectLinkBuddyIndexByName(param_1,regEax);
     if (iVar3 < 0x7f) {
       puVar6 = (undefined4 *)(param_1 + 0x15b0 + iVar3 * 4);
       puVar7 = (undefined4 *)(param_1 + 0x15ac + iVar3 * 4);
