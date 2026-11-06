@@ -415,7 +415,7 @@ LAB_0044469b:
                     /* WARNING: Subroutine does not return */
               ThrowCxxException(0x80070057);
             }
-            FUN_0044c370(*(int *)(*(int *)(g_clientContext + 0x44e20) + uVar11 * 0x450 + 4));
+            DecrementAvatarItemOrdinalsAbove(*(int *)(*(int *)(g_clientContext + 0x44e20) + uVar11 * 0x450 + 4));
             /* INDEX RECOVERED (2026-10-29), orig 0x44496b: EAX = the
              * PeekChecksumStateUnderLock result (`push edi; call 0x40a4d0`
              * at 0x444953/0x444954, EDI = this+0x3054c from 0x444916),
@@ -528,7 +528,7 @@ LAB_00444d76:
                     /* WARNING: Subroutine does not return */
           ThrowCxxException(0x80070057);
         }
-        FUN_0044c370(*(int *)(*(int *)(g_clientContext + 0x44e20) + uVar11 * 0x450 + 4));
+        DecrementAvatarItemOrdinalsAbove(*(int *)(*(int *)(g_clientContext + 0x44e20) + uVar11 * 0x450 + 4));
         /* INDEX RECOVERED (2026-10-29), orig 0x444dad: EAX = the
          * PeekChecksumStateUnderLock result (`push esi; call 0x40a4d0` at
          * 0x444d95/0x444d96, ESI = this+0x3054c = iVar4 from 0x444d58);

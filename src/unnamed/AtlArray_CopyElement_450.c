@@ -106,7 +106,7 @@
  * server's AvatarInventoryResponse.Item.field, documented at that offset);
  * EquipAvatarPart reads +0x22c as the part code, taking bits 16-19 as the
  * category nibble (`sar eax,0x10 / and al,0xf`) and bits 0-14 as the part
- * id; FUN_0044c370 decrements the +4 dword of every record above a
+ * id; DecrementAvatarItemOrdinalsAbove decrements the +4 dword of every record above a
  * threshold and both its call sites pass the removed record's own +4, so +4
  * is a display index renumbered after a removal; and FUN_0044be40, the
  * _qsort comparator FUN_0044bf00 hands the +0x44e40 array with width 0x450,

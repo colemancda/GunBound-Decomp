@@ -691,7 +691,7 @@ void RenderInventoryItemDetail();
 undefined4 FUN_0044be40();
 void FUN_0044bf00();
 int NextAvatarItemOrdinal(void);
-void FUN_0044c370(int regEbx);
+void DecrementAvatarItemOrdinalsAbove(int regEbx);
 int FUN_0044c3d0();
 void FUN_0044c460(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,int regEax,uint regEdi,int regEbx);
 void RemoveInventoryItems(int regEbx,int regEax,int *regEdi);
