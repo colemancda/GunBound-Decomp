@@ -605,6 +605,7 @@ extern int32_t g_nCameraScrollY;
 #define g_nCameraBoundX (*(uint8_t *)(0x6a7720))  /* client-context arena offset 0x6a7720; see the arena-offset note */
 #define g_nCameraBoundY (*(uint8_t *)(0x6a7724))  /* client-context arena offset 0x6a7724; see the arena-offset note */
 #define DAT_006a772c (*(uint8_t *)(0x006a772c))  /* client-context arena offset 0x006a772c; see the arena-offset note */
+#define DAT_006a7730 (*(uint8_t *)(0x006a7730))  /* client-context arena offset 0x006a7730; see the arena-offset note */
 #define DAT_006a773c (*(uint8_t *)(0x006a773c))  /* client-context arena offset 0x006a773c; see the arena-offset note */
 #define DAT_006a7740 (*(uint8_t *)(0x006a7740))  /* client-context arena offset 0x006a7740; see the arena-offset note */
 extern uint8_t DAT_006a7758;
@@ -2280,7 +2281,6 @@ extern uint32_t DAT_006a76e4;
 #define DAT_006a76e8 (*(uint8_t *)(0x006a76e8))  /* client-context arena offset 0x006a76e8; see the arena-offset note */
 extern uint32_t DAT_006a76ec;
 extern uint32_t DAT_006a7700;
-extern uint32_t DAT_006a7730;
 extern uint32_t DAT_006a7734;
 extern uint32_t DAT_006a7736;
 extern uint32_t DAT_006a7750;
