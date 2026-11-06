@@ -1898,7 +1898,10 @@ unsigned char g_mpegAllocSrcTab[320] = { /* orig .data 0x56390c..0x563a4b, read 
   0, 1, 2, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 1, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
-uint32_t DAT_00563a4c;
+unsigned char g_mpegBandCountTab[20] = { /* orig .data 0x563a4c..0x563a5f, read only */
+  3, 8, 12, 4, 3, 8, 12, 7, 2, 0, 6, 0, 2, 0, 10, 0,
+  4, 0, 7, 19
+};
 uint32_t DAT_00563ad8;
 uint32_t DAT_00563afc;
 uint32_t DAT_00563b44;

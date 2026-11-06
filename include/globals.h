@@ -1940,7 +1940,8 @@ extern uint32_t g_mpegSampleRateTab[8];
 #define DAT_005638ec (*(unsigned char *)g_mpegSampleRateTab) /* callers take &DAT_005638ec + byteOffset */
 extern unsigned char g_mpegAllocSrcTab[320];
 #define DAT_0056390c (g_mpegAllocSrcTab[0]) /* byte table 0x56390c..0x563a4b; callers take &DAT_0056390c + byteOffset */
-extern uint32_t DAT_00563a4c;
+extern unsigned char g_mpegBandCountTab[20];
+#define DAT_00563a4c (g_mpegBandCountTab[0]) /* byte table 0x563a4c..0x563a5f; callers take &DAT_00563a4c + byteOffset */
 extern uint32_t DAT_00563ad8;
 extern uint32_t DAT_00563afc;
 extern uint32_t DAT_00563b44;
