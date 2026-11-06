@@ -2531,9 +2531,13 @@ extern uint32_t DAT_00f25c44;
 extern uint32_t DAT_00f25c48;
 extern uint32_t DAT_00f25c4c;
 extern uint32_t DAT_00f25d3c;
-extern uint32_t DAT_00f25d40;
-extern uint32_t DAT_00f25d44;
-extern uint32_t DAT_00f25d98;
+/* Scale-factor band start offsets: 22 long-block words at 0xf25d40..0xf25d97 followed by 13 short-block
+ * words (x3) at 0xf25d98..0xf25dcb, read as one flat table (`[0xf25d40 + type * 0x16 + band]` at
+ * 0x518160's 0x51817f).  FUN_005163d0 fills the two runs with loops bounded by 0xf25d98 and 0xf25dcc. */
+extern uint32_t g_mpegBandStartTab[35];
+#define DAT_00f25d40 (g_mpegBandStartTab[0])
+#define DAT_00f25d44 (g_mpegBandStartTab[1])
+#define DAT_00f25d98 (g_mpegBandStartTab[22])
 extern uint32_t DAT_00f25e00;
 extern uint32_t DAT_00f25e04;
 extern uint8_t *DAT_00f25e08; /* used dereferenced as a byte-stream cursor at call sites */

@@ -128,7 +128,7 @@ LAB_005164e7:
     iVar9 = iVar9 + 1;
     *puVar2 = *(undefined4 *)(&DAT_005443a4 + iVar1 * 4);
     puVar2 = puVar5;
-  } while ((int)puVar5 < 0xf25d98);
+  } while (puVar5 < &DAT_00f25d40 + 22);
   iVar9 = 0;
   piVar7 = &DAT_00f25d98;
   do {
@@ -137,7 +137,7 @@ LAB_005164e7:
     iVar9 = iVar9 + 1;
     *piVar7 = *(int *)(&DAT_00544400 + iVar1 * 4) * 3;
     piVar7 = piVar6;
-  } while ((int)piVar6 < 0xf25dcc);
+  } while ((uint *)piVar6 < &DAT_00f25d98 + 13);
   iVar9 = 0;
   piVar7 = &DAT_00f25e20;
   do {
