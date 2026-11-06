@@ -1802,7 +1802,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0051ad70,305,FUN_0051ad70,false,2,1,RAW-src
 0051aeb0,24,MpegSynthWindow16FullThunk,false,5,1,RAW-src
 0051aed0,24,MpegSynthWindow16FullInterleavedThunk,false,4,1,RAW-src
-0051aef0,24,FUN_0051aef0,false,5,1,RAW-src
+0051aef0,24,MpegSynthWindow16HalfThunk,false,5,1,RAW-src
 0051af10,24,FUN_0051af10,false,4,1,RAW-src
 0051af30,24,FUN_0051af30,false,5,1,RAW-src
 0051af50,24,FUN_0051af50,false,4,1,RAW-src

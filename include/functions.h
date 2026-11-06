@@ -1875,7 +1875,7 @@ void FUN_0051ac80();
 void FUN_0051ad70();
 void MpegSynthWindow16FullThunk();
 void MpegSynthWindow16FullInterleavedThunk();
-void FUN_0051aef0();
+void MpegSynthWindow16HalfThunk();
 void FUN_0051af10();
 void FUN_0051af30();
 void FUN_0051af50();
