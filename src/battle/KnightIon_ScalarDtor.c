@@ -19,7 +19,7 @@
 void * __thiscall KnightIon_ScalarDtor(void *param_1,int param_2)
 
 {
-  FUN_0047be00(param_1);
+  KnightIon_DtorBody(param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }
