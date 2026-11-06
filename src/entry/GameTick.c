@@ -333,9 +333,9 @@ LAB_00413791:
           (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
         }
         (*(D3DSetTextureFn *)(*g_pD3DDevice7 + 0x8c))(g_pD3DDevice7,0,0);
-        FUN_004edaa0(0xffffffff,0xffffffff,800,0xffffffff,0xffffffff,
+        DrawFilledTriangle(0xffffffff,0xffffffff,800,0xffffffff,0xffffffff,
                      DAT_0056d11c[DAT_0056d108],0xff000000);
-        FUN_004edaa0(800,600 - DAT_0056d11c[DAT_0056d108],800,600,0xffffffff,600,0xff000000);
+        DrawFilledTriangle(800,600 - DAT_0056d11c[DAT_0056d108],800,600,0xffffffff,600,0xff000000);
         goto LAB_00413791;
       }
 LAB_004137a9:

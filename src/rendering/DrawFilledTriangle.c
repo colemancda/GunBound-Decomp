@@ -1,9 +1,26 @@
-/* FUN_004edaa0 - 0x004edaa0 in the original binary.
+/* DrawFilledTriangle - 0x004edaa0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (batch 36), LIKELY. Draws one flat-coloured screen-space triangle
+ * through the D3D7 device: it scales three (x, y) pairs from the 800x600
+ * virtual screen by the display scale (DAT_00588f50/54 times the
+ * _DAT_00557fc0/_DAT_00557fbc factors) into the first three vertices of
+ * the static buffer DAT_00ea0e28 (stride 0x24), stamps the colour (EAX)
+ * into each vertex's diffuse field, and issues DrawPrimitive (device
+ * vtable +100) with D3DPT_TRIANGLEFAN (6), vertex format 0x244 and a vertex
+ * count of 3, which is a single triangle.
+ *
+ * Evidence is the two GameTick calls (call sites 0x413754 and 0x413789).
+ * Each runs with the texture slot cleared (SetTexture(0, 0)) and the blend
+ * mode forced to 1, passes `mov eax,0xff000000` (opaque black) and three
+ * vertices: the first (-1,-1), (800,-1), (-1,t) with t = DAT_0056d11c[DAT_0056d108], the
+ * second (800,600-t), (800,600), (-1,600). Those are two opposite corner
+ * triangles of the 800x600 screen, each one triangle. The purpose of the
+ * effect is not established here; "Filled" only means untextured solid
+ * colour, there is no outline mode.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -26,7 +43,7 @@ typedef HRESULT (WINAPI *DrawPrimitiveFn)(void *, DWORD, DWORD, LPVOID, DWORD, D
  * 7th, register-passed (EAX) argument. Recovered via objdump at both of
  * GameTick.c's call sites (orig 0x41374f/0x413784): `mov eax,0xff000000`
  * immediately before each call, no intervening EAX write. */
-void FUN_004edaa0(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,undefined4 color)
+void DrawFilledTriangle(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,undefined4 color)
 
 {
   DAT_00ea0e28 = (float)param_1 * _DAT_00557fc0 * _DAT_00588f50;
