@@ -444,7 +444,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00437500,225,ExplodeOldestMine,false,2,0,RAW-src
 004375f0,626,SpawnMine,false,2,13,RAW-src
 00437870,624,SpawnSuperMine,false,1,14,RAW-src
-00437ae0,90,FUN_00437ae0,false,2,0,RAW-src
+00437ae0,90,RemoveCrystalFragment,false,2,0,RAW-src
 00437b40,591,SpawnCrystalShot,false,1,12,RAW-src
 00437d90,478,SpawnSuperCrystalShot,false,1,13,RAW-src
 00437f70,399,SpawnLaserIon,false,2,10,RAW-src

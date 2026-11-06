@@ -36,7 +36,7 @@ void SpawnSuperCrystalShot(undefined4 param_1,undefined4 param_2,undefined4 para
   *unaff_FS_OFFSET = &local_c;
   cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 4));
   if (cVar1 == '\0') {
-    FUN_00437ae0();
+    RemoveCrystalFragment(0,param_4);
     piVar2 = operator_new(0x3fa4);
     local_4 = 0;
     piVar7 = (int *)0x0;

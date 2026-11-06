@@ -38,7 +38,7 @@ void SpawnCrystalShot(undefined4 param_1,undefined4 param_2,undefined4 param_3,u
   /* Windows SEH __try/__except frame setup stripped - handler body
    * (LAB_0053795b) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
-  FUN_00437ae0();
+  RemoveCrystalFragment(0,param_4);
   piVar2 = operator_new(0x3fd4);
   local_4 = 0;
   if (piVar2 == (int *)0x0) {

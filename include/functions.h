@@ -588,7 +588,7 @@ void FUN_00436fd0();
 void SpawnCrashParticleBurst();
 uint FindFreeMineKey(int regEax);
 void __fastcall ExplodeOldestMine();
-void __fastcall FUN_00437ae0();
+void __fastcall RemoveCrystalFragment(undefined4 param_1,uint param_2);
 void SpawnLaserIon();
 void SpawnKnightIon();
 void SpawnSpeechBalloon(int regEcx,int regEax,char *regEbx);
