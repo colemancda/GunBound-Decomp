@@ -1,8 +1,20 @@
-/* FUN_0047ca40 - 0x0047ca40 in the original binary.
+/* AnimateKnightIon - 0x0047ca40 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_0047ca40): slot 2 (+0x8) of vtable 0x556078, whose
+ * slot 0 is KnightIon_ScalarDtor (0x47bde0); the only vtable reference is
+ * 0x556080.  Slot 2 is the projectile Animate virtual (AnimateProjectileTick
+ * 0x48f1c0 in the sibling 8-slot projectile vtables, e.g. 0x556098's).
+ * This is the Knight ion aura object that SpawnKnightIon builds (class id
+ * 100005, texture "knightion"); its body calls UpdateIonTargetAngle three
+ * times and fires SpawnKnightFlameShot from it.
+ * NOTE: SpawnKnightFlameShot's header places this function at "slot 18 of
+ * vtable 0x556038".  That is only the same address (0x556038 + 18 * 4 =
+ * 0x556080) read through a vtable that is too long: 0x556038 is the 8-slot
+ * type-14 mobile vtable (its MainAction is 0x47ab90) and ends at 0x556054.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 36 argless PeekPacketChecksumState() calls (worklist 36:36).
@@ -25,7 +37,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0047ca40(int *param_1)
+void __fastcall AnimateKnightIon(int *param_1)
 
 {
   int *piVar1;

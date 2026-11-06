@@ -6,7 +6,7 @@
  *       00553d2c / s_knightflame_00553d20 + "%d") - a member of Knight's
  *       dedicated knightbullet/knightflame/knightion asset family, so
  *       unambiguously the Knight mobile; and
- *   (2) its sole caller FUN_0047ca40 sits at slot 18 of mobile TYPE 14's
+ *   (2) its sole caller AnimateKnightIon sits at slot 18 of mobile TYPE 14's
  *       vtable (0x556038), and type 14 == Knight (internal type; the
  *       151blast.xes effect it fires = sound-file mobile-id 151 = type
  *       14 + 1, one of the 3/3 corroborations of the vtable geometry).
@@ -20,7 +20,7 @@
  * FIXED (2026-07-16): this function's own 13 incoming cdecl stack
  * parameters were entirely dropped (declared `void FUN_004305c0(void)`,
  * matching the K&R-empty style in functions.h) even though its 8 real
- * call sites in FUN_0047ca40.c already pass 13 arguments each against
+ * call sites in AnimateKnightIon.c already pass 13 arguments each against
  * that stale K&R declaration. angr-confirmed the frame layout
  * (`sub esp,0x8a8` + 4 pushes before the first real body instruction,
  * so param N sits at caller-relative [esp+0x8c4+4*N] within the body) -

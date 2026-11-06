@@ -368,7 +368,7 @@ Concretely, that means:
   - `unnamed/FUN_0047b2f0.c` (sub-byte-field access plus a
     `stack0xfffff524` raw-stack reference, plus its own SEH frame
     plumbing not stripped yet)
-  - `unnamed/FUN_0047c040.c`, `unnamed/FUN_0047ca40.c` (sub-byte-field
+  - `unnamed/FUN_0047c040.c`, `unnamed/AnimateKnightIon.c` (sub-byte-field
     access, plus their own SEH frame plumbing not stripped yet)
   - `unnamed/FUN_0047c3f0.c` (`float10` - x87 extended-precision local
     with no portable equivalent - plus sub-byte-field access and its

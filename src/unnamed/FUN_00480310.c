@@ -7,7 +7,7 @@
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 27 argless PeekPacketChecksumState() calls (worklist 27:27;
  * the 8 Encode cells were already fixed 2026-07-15).  Sibling of
- * FUN_0047ca40: this=ESI, cells this+0x264 (param_1+0x99) / +0x40
+ * AnimateKnightIon: this=ESI, cells this+0x264 (param_1+0x99) / +0x40
  * (param_1+0x10), the GetPlayerRecordBySlot record (frame[0x14], the C's
  * iVar5) +0x90c, g_clientContext+0x45354 and the 0x796aa0 global.  Four
  * chained returns - the discarded EncodeChecksumDeltaAdd/Sub results at

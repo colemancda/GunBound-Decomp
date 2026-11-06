@@ -893,7 +893,7 @@ void __fastcall BlitSpriteFrameTo32x32Buffer(undefined4 param_1,uint param_2,int
 void UpdateIonTargetAngle();
 void FUN_0047c040(int param_1,int param_2,int param_3,int param_4,int *regEsi);
 void FUN_0047c3f0(int param_1,int param_2,int *regEsi);
-void __fastcall FUN_0047ca40();
+void __fastcall AnimateKnightIon();
 undefined4 * InitSuperShot_Bullet15(undefined4 *regEsi);
 void __fastcall DetonateSuperShot_Bullet15();
 undefined4 * __fastcall InitSuperFlameEffect(undefined4 param_1,undefined4 param_2,undefined4 *regEax);

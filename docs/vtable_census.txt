@@ -685,7 +685,7 @@ vtable 0x556058  installs=2  slots=8
 vtable 0x556078  installs=2  slots=8  UNCARVED=1
    0: 0x47bde0  FUN_0047bde0
    1: 0x461c60  ResolveNamedState
-   2: 0x47ca40  FUN_0047ca40
+   2: 0x47ca40  AnimateKnightIon
    3: 0x47dc00  UNCARVED
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
