@@ -19,7 +19,7 @@
 void * __thiscall LaserIon_ScalarDtor(void *param_1,int param_2)
 
 {
-  FUN_0047fa50(param_1);
+  LaserIon_DtorBody(param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

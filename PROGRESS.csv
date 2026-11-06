@@ -777,7 +777,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0047f2d0,1754,Mobile09_MainAction,false,1,14,RAW-src
 0047f9e0,74,InitLaserIon,false,1,1,RAW-src
 0047fa30,31,LaserIon_ScalarDtor,false,1,2,RAW-src
-0047fa50,128,FUN_0047fa50,false,1,1,RAW-src
+0047fa50,128,LaserIon_DtorBody,false,1,1,RAW-src
 0047fad0,1039,FUN_0047fad0,false,1,10,RAW-src
 0047fee0,1069,FUN_0047fee0,false,1,11,RAW-src
 00480310,3479,FUN_00480310,false,1,19,RAW-src
