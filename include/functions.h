@@ -1849,7 +1849,7 @@ void ApplyMpegMidSideStereo();
 void ApplyMpegIntensityStereo(int param_1,int param_2,int param_3,int param_4,int param_5);
 void ApplyMpegIntensityStereoLSF();
 undefined * GetMpegGlobalGainTable();
-undefined * FUN_00518530();
+undefined * GetMpegScalefactorGainTable();
 undefined * FUN_00518540();
 undefined * FUN_00518550();
 void FUN_00518560();

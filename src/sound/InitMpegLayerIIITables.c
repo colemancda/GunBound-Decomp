@@ -42,7 +42,7 @@ undefined4 InitMpegLayerIIITables(void)
     iVar4 = iVar4 + 1;
     pfVar2 = pfVar2 + 1;
   } while (iVar4 < 0x106);
-  pfVar2 = (float *)FUN_00518530();
+  pfVar2 = (float *)GetMpegScalefactorGainTable();
   iVar4 = 0;
   do {
     iVar4 = iVar4 + 1;
