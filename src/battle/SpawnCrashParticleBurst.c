@@ -7,7 +7,7 @@
  * Evidence (LIKELY, name is a role guess). Callers: all 21 binary sites
  * (tools/callsite_regs.py; tools/count_call_args.py counts 22 source sites
  * including the cxx extern) are detonation or explosion bodies (Detonate*,
- * Explode*, plus FUN_004513b0, DetonateDropBombProjectile, DetonateShot_Type13, FUN_0049d270).
+ * Explode*, plus FUN_004513b0, DetonateDropBombProjectile, DetonateShot_Type13, DetonateShot_Type9).
  * Each loads EAX with ctx + 0x6a7f70 and pushes (x, y, 0x3c, n), so arg3 is
  * always the 0x3c scatter span and arg4 a per-site count factor. EAX is the
  * effects-guard block the same helper family takes (see

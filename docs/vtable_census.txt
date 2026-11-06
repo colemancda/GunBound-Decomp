@@ -982,7 +982,7 @@ vtable 0x556468  installs=3  slots=8  UNCARVED=2
    3: 0x47f1c0  UNCARVED
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
-   6: 0x49d270  FUN_0049d270
+   6: 0x49d270  DetonateShot_Type9
    7: 0x458850  IsProjectileInBounds
 
 vtable 0x556488  installs=1  slots=5  UNCARVED=1

@@ -996,7 +996,7 @@ void __thiscall Mobile06_MainAction();
 void __fastcall FUN_0049c13f();
 void * __thiscall Shot_Type9_ScalarDtor();
 void Shot_Type9_DtorBody(undefined4 *regEax);
-void __fastcall FUN_0049d270();
+void __fastcall DetonateShot_Type9();
 undefined4 * InitCrashParticleAdditive_556488(undefined4 *regEax);
 void __fastcall FUN_0049e470();
 undefined4 * InitShot2_Bullet13();

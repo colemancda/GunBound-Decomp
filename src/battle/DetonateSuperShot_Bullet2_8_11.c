@@ -24,7 +24,7 @@
  * 0x48474d-0x484927.
  *
  * DETONATION-TWIN FAMILY, shorter variant: cell for cell the same as
- * DetonateProjectile / FUN_0049d270 with the 8-cell crater block moved
+ * DetonateProjectile / DetonateShot_Type9 with the 8-cell crater block moved
  * out into a callee.  DetonateSuperShot_Bullet2_8_11, FUN_00499ef0 and FUN_0048e1d0 are
  * LINE-FOR-LINE twins of each other (identical C apart from the tail's
  * line offsets and one global), fingerprinted by
