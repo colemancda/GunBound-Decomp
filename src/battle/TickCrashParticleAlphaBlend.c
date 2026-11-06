@@ -1,8 +1,17 @@
-/* FUN_004aa520 - 0x004aa520 in the original binary.
+/* TickCrashParticleAlphaBlend - 0x004aa520 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_004aa520): slot 2 (+0x8) of vtable 0x556544, the
+ * per-frame virtual TickActiveObjectLayers dispatches (slot 0
+ * DeletePoisonedBaseObject, slot 4 NoOpMethod: the five-slot effect shape
+ * of TickFlameEffect).  The vtable is stamped by InitCrashParticleAlphaBlend
+ * (0x4aa4ff), constructed by SpawnCrashParticleAlphaBlend.  Near-twin of
+ * TickCrashParticleAlphaBlend_2e632 (0x489310, vtable 0x556250): the same
+ * age limit from DAT_00794bf0, frame-index step and X/Y drift, minus the -5
+ * in the Y step.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 8 argless PeekPacketChecksumState() calls (peek status
@@ -15,7 +24,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004aa520(int param_1)
+void __fastcall TickCrashParticleAlphaBlend(int param_1)
 
 {
   int iVar1;

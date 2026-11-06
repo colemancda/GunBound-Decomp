@@ -1049,7 +1049,7 @@ vtable 0x556524  installs=2  slots=8
 vtable 0x556544  installs=1  slots=5  UNCARVED=1
    0: 0x40ca00  DeletePoisonedBaseObject
    1: 0x461c60  ResolveNamedState
-   2: 0x4aa520  FUN_004aa520
+   2: 0x4aa520  TickCrashParticleAlphaBlend
    3: 0x4aa6c0  UNCARVED
    4: 0x429800  NoOpMethod
 

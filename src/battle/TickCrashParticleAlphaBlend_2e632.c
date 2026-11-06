@@ -16,7 +16,7 @@
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at all 8 argless PeekPacketChecksumState() calls (8 C : 8 orig,
  * goto-free zip), from tools/guard_cell_resolve.py over
- * 0x489310-0x4894b8.  Cell-for-cell twin of FUN_004aa520: &DAT_00794bf0,
+ * 0x489310-0x4894b8.  Cell-for-cell twin of TickCrashParticleAlphaBlend: &DAT_00794bf0,
  * &DAT_00e9bed8, then two rounds of g_clientContext+0x5b1ac / +0x5af88 /
  * &DAT_00e9ba40.  All plain globals, no bases or chained returns.
  */
