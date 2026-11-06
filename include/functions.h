@@ -1815,7 +1815,7 @@ void InitMpegSynthesisTables();
 void SynthesizeMpeg16FullMono();
 void SynthesizeMpeg16FullMixDown();
 void SynthesizeMpeg16FullFirstChannel();
-void FUN_00516aa0();
+void SynthesizeMpeg16FullSecondChannel();
 void FUN_00516b10();
 void FUN_00516c20();
 void FUN_00516c80();
