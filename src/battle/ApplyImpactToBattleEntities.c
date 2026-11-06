@@ -11,7 +11,7 @@
  * projectile as param 4. Callees: it walks four entity layers of the
  * active-object registry (this = g_clientContext + 0x6a7f88) and calls one
  * per-entity handler for each - class 100001 (player mobiles, InitMobile)
- * -> FUN_0045db20, class 100006 (jewels, HitTestJewel's id) ->
+ * -> ApplyImpactToMobile, class 100006 (jewels, HitTestJewel's id) ->
  * FUN_00478cb0, class 100003 (mines, InitMine) -> FUN_00499650 only when
  * param_5 is set (ExplodeMine passes 0, so a mine blast does not reach
  * other mines), class 200002 (0x30d42, item cases, SpawnItemCase's
@@ -22,7 +22,7 @@
  * each handler does is not established, so the name claims only "apply
  * the impact to the entities" and no damage-specific effect.
  *
- * DROPPED-ARGUMENT FIX (2026-09-20): the FUN_0045db20(iVar3,param_2,
+ * DROPPED-ARGUMENT FIX (2026-09-20): the ApplyImpactToMobile(iVar3,param_2,
  * param_3,param_6,param_7) call was missing its own leading `this` stack
  * arg. Orig 0x450ee9-0x450f01: `mov edi,[esp+0x24]` / `mov ebx,[esp+0x2c]`
  * (this function's own param_6/param_7, pulled once before the loop),
@@ -80,7 +80,7 @@ ApplyImpactToBattleEntities(int param_1,undefined4 param_2,undefined4 param_3,un
   iVar3 = *(int *)(iVar3 + 0x10);
   cVar1 = *(char *)(iVar3 + 0x15);
   while (cVar1 == '\0') {
-    FUN_0045db20(param_4,iVar3,param_2,param_3,param_6,param_7);
+    ApplyImpactToMobile(param_4,iVar3,param_2,param_3,param_6,param_7);
     iVar3 = *(int *)(iVar3 + 0x10);
     cVar1 = *(char *)(iVar3 + 0x15);
   }

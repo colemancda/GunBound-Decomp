@@ -1,8 +1,19 @@
-/* FUN_0045db20 - 0x0045db20 in the original binary.
+/* ApplyImpactToMobile - 0x0045db20 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_0045db20): the layer-100001 handler of
+ * ApplyImpactToBattleEntities (0x450eb0), which walks the active-object
+ * registry layer 0x186a1 and calls this once per node.  That id is the
+ * mobile's class id (InitMobile stamps 0x186a1 at +0x4).  Call shape:
+ * ECX = the impact's source projectile (the parent's own param_4), then five
+ * stack args (the layer node, impact x, y and the parent's param_6/param_7),
+ * ret 0x14.  Of the four layer handlers the parent calls, this and
+ * ApplyImpactToJewel are the ones that reach SpawnDamagePopup.  The name
+ * claims only "apply the impact to a mobile", like its parent, not any
+ * particular damage formula.  LIKELY.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * 2026-09-02: FindSpriteFrame's register args recovered from orig
  * 0x45e9f6-0x45ea07 - see the site comment.
@@ -34,7 +45,7 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void __thiscall
-FUN_0045db20(int param_1,int *param_2,int param_3,undefined4 param_4,char param_5,int param_6)
+ApplyImpactToMobile(int param_1,int *param_2,int param_3,undefined4 param_4,char param_5,int param_6)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not

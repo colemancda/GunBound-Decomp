@@ -767,7 +767,7 @@ int CommitTurnDelay(int param_1,int regEax);
 uint FUN_0045d640();
 int FUN_0045d692();
 void __thiscall
-FUN_0045db20(int param_1,int *param_2,int param_3,undefined4 param_4,char param_5,int param_6);
+ApplyImpactToMobile(int param_1,int *param_2,int param_3,undefined4 param_4,char param_5,int param_6);
 void FUN_0045ea40();
 undefined4 FUN_0045ec30(int regEax);
 void __fastcall UpdateMobileEmotionState();

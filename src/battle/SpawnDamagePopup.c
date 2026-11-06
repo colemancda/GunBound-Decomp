@@ -38,7 +38,7 @@
  * and dropped param_1/param_2 (the two registers) entirely. Each site's
  * ECX/EDX reconstructed independently from its own disasm - see each
  * call site's own comment (src/unnamed/FUN_00478cb0.c,
- * src/unnamed/FUN_0045db20.c, src/unnamed/FUN_0045ea40.c (x1),
+ * src/battle/ApplyImpactToMobile.c, src/unnamed/FUN_0045ea40.c (x1),
  * src/unnamed/FUN_0048f300.c (x2), src/battle/ExplodeSuperShot_Bullet2.c).
  * Pattern: ECX is always `*(int *)(obj + 8)` (sometimes `+ 0x32` on top),
  * where `obj` is that call site's own object/this pointer; EDX is

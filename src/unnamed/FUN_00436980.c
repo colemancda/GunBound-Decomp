@@ -18,7 +18,7 @@
  * (g_clientContext+0x6a7f70) and is untouched through the 3 pushes up to
  * the call, so param_1 = g_clientContext+0x6a7f74 (the +4 the callee adds
  * before its PeekPacketChecksumBool call - the same guard-cell family as
- * FUN_0045db20's own `PeekPacketChecksumBool(g_clientContext+0x6a7f74)`).
+ * ApplyImpactToMobile's own `PeekPacketChecksumBool(g_clientContext+0x6a7f74)`).
  * Declaring it plain (no calling-convention qualifier) lets the value
  * travel as an ordinary 4th... 1st stack argument instead, which is
  * semantically equivalent since nothing else in this TU depends on the
