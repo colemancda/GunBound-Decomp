@@ -257,7 +257,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
       }
       SetMusicVolume();
     }
-    FUN_004eeb70();
+    SetEffectsEnabled(*(int *)(param_1 + 0x11bc) != 0);
     if (*(int *)(param_1 + 0x11bc) != 0) {
       SetEffectsVolume();
       return;
@@ -461,7 +461,7 @@ LAB_004b8aeb:
       }
       SetMusicVolume();
     }
-    FUN_004eeb70();
+    SetEffectsEnabled(*(int *)(param_1 + 0x11bc) != 0);
     if (*(int *)(param_1 + 0x11bc) != 0) {
       SetEffectsVolume();
       return;

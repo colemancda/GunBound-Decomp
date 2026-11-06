@@ -1244,7 +1244,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004eeae0,39,StopSoundChannel,false,12,0,RAW-src
 004eeb10,30,SetMusicVolume,false,9,0,RAW-src
 004eeb30,61,SetEffectsVolume,false,9,0,RAW-src
-004eeb70,98,FUN_004eeb70,false,2,0,RAW-src
+004eeb70,98,SetEffectsEnabled,false,2,0,RAW-src
 004eebe0,143,FUN_004eebe0,false,1,3,RAW-src
 004eec70,152,RefillSoundStreamBuffer,false,4,1,RAW-src
 004eef00,125,FUN_004eef00,false,1,4,RAW-src
