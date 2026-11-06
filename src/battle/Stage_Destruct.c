@@ -1,8 +1,27 @@
-/* FUN_004e38f0 - 0x004e38f0 in the original binary.
+/* Stage_Destruct - 0x004e38f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004e38f0 mean this function.)
+ *
+ * (In the FIX notes below, FUN_004e3810 is now Stage_Construct.)
+ *
+ * Evidence (LIKELY, from the object's identity). Its only caller is
+ * ClientContext_Destructor (orig 0x419005), which passes the same arena
+ * slot ctx+0x6a7708 that ClientContext_Constructor hands to
+ * Stage_Construct (0x4e3810), the stage object TickStage and
+ * ReleaseStageResources work on. It undoes the constructor: deletes the
+ * scene-node member at +0x30 that Stage_Construct allocates, frees the
+ * buffers at +0x34/+0x38/+0x3c/+0x44 (the same four ReleaseStageResources
+ * frees), and tears down the embedded registry at +0x85c that
+ * Stage_Construct built. ReleaseStageResources is the per-battle unload
+ * that leaves the object alive; this one ends its lifetime, hence
+ * Destruct, matching the Stage_Construct name. callsite_regs also lists
+ * 0x53b665 and 0x53bd75 with no enclosing function; they sit in the
+ * exception-handler stub area past the code and were not examined as
+ * call sites.
  *
  * FIX (2026-11-03): the +0x85c registry's sentinel delete passes `this`.
  * 0x4e3987-0x4e3992 is `mov ecx,[esi+4] / mov edx,[ecx] / push 1 / call
@@ -40,7 +59,7 @@
 typedef void *(*LayerNodeDeleteFn)(void *self,int flags);
 
 
-void FUN_004e38f0(int param_1)
+void Stage_Destruct(int param_1)
 
 {
   

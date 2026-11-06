@@ -1174,7 +1174,7 @@ void __fastcall FUN_004e2b20();
 undefined4 LoadSoundConfig();
 undefined4 * FindSoundFileName(int *param_1,uchar *regEbx);
 undefined4 * Stage_Construct();
-void FUN_004e38f0();
+void Stage_Destruct();
 void TickStage(int *regEsi);
 void DrawStageDecorationParallax();
 int __fastcall DrawStageDecorationBase();

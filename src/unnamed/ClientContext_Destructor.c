@@ -135,7 +135,7 @@ void ClientContext_Destructor(int param_1)
     _free(*(void **)(&DAT_006a7f78 + param_1));
   }
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x51);
-  FUN_004e38f0(&DAT_006a7708 + param_1);
+  Stage_Destruct(&DAT_006a7708 + param_1);
   if (*(void **)(&DAT_006a76f4 + param_1) != (void *)0x0) {
     _free(*(void **)(&DAT_006a76f4 + param_1));
   }
