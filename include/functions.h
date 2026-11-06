@@ -642,7 +642,7 @@ void __thiscall State10_Loading_OnGameEvent();
 void State10_Loading_AppendChatLine(void *thisPtr,char *param_1,undefined4 param_2,undefined4 param_3);
 int __fastcall State10_Loading_Render(int param_1);
 void FUN_00442d50();
-void FUN_00442e00(uint regEax);
+void RenderLoadingPlayerRow(uint regEax,int regEdi);
 void FUN_004430c0();
 void LoadReadyRoomSlotAvatar(int regEax); /* 0x4431a0 - unpack the ready-room avatar copy (+0x501fe) -> LoadAvatarSprites */
 void __fastcall State06_Logo2_OnTick(int);

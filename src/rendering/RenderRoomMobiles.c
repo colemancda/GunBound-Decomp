@@ -5,7 +5,7 @@
  * verbatim ports" section for status.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
- * cell at the file's one argless PeekPacketChecksumState() call: one entry of the 0x448-stride per-slot table at g_clientContext+0x477ec (the same table FUN_004cfd20/FUN_00442e00 read).  The index register is a folded-away cursor - frame[0x20], zeroed at entry and stepped 0x448 in the loop tail at 0x4dca46, in lockstep with local_10 - so it is local_10 * 0x448.
+ * cell at the file's one argless PeekPacketChecksumState() call: one entry of the 0x448-stride per-slot table at g_clientContext+0x477ec (the same table FUN_004cfd20/RenderLoadingPlayerRow read).  The index register is a folded-away cursor - frame[0x20], zeroed at entry and stepped 0x448 in the loop tail at 0x4dca46, in lockstep with local_10 - so it is local_10 * 0x448.
  */
 #include "ghidra_types.h"
 

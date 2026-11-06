@@ -35,7 +35,7 @@
  * stride nickname array (see FUN_00507310.c, State03_GameRoomList_
  * ProcessPacket.c:350/353, ApplyBattleActionToContext.c:120 - same base +
  * stride pattern) - the user's login/nickname string, matching the same
- * shape as FUN_00442e00.c's analogous BlitRLESprite call.
+ * shape as RenderLoadingPlayerRow.c's analogous BlitRLESprite call.
  *
  * RECOVERED (2026-07-27): the four sprite blits and the two FindSpriteFrame
  * lookups had all of their register-passed arguments dropped (FindSpriteFrame
