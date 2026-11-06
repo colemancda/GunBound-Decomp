@@ -916,7 +916,7 @@ void DestroyPrimaryShot_Bullet10(undefined4 *regEax);
 void __fastcall DetonatePrimaryShot_Bullet10();
 undefined4 * InitCrashParticleAdditive_2e634(undefined4 *regEax);
 undefined4 * InitLightningStrike(undefined4 *param_1);
-void * __thiscall FUN_00482060();
+void * __thiscall DeleteLightningStrike();
 void FUN_00482080();
 void __fastcall FUN_00482130();
 undefined4 * InitShot1_Bullet8(undefined4 *regEsi);
