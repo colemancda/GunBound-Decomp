@@ -72,7 +72,7 @@ void DecodeMpegLayerIIIGranule(undefined4 param_1,int *param_2)
                      DAT_005aba2c & local_18,&DAT_005ae7b0);
       }
       else {
-        FUN_00519260(&DAT_005ae358 + iVar8 * 0xf8,&DAT_005ae800 + iVar8 * 0x12,*local_8,iVar1);
+        ReadMpegLayerIIIScalefactors(&DAT_005ae358 + iVar8 * 0xf8,&DAT_005ae800 + iVar8 * 0x12,*local_8,iVar1);
       }
       iVar10 = (&DAT_005ae804)[iVar8 * 0x12] * 2;
       if (iVar10 - DAT_00563d8c != 0 && DAT_00563d8c <= iVar10) {

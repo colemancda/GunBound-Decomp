@@ -1,13 +1,25 @@
-/* FUN_00519260 - 0x00519260 in the original binary.
+/* ReadMpegLayerIIIScalefactors - 0x00519260 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Read the Layer III scalefactors for one granule and channel (MPEG-1
+ * path).
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Called from DecodeMpegLayerIIIGranule when DAT_005ae34c != 0.
+ * DAT_005ae34c is a header bit read at 0x515b90 right after the 0xfff sync
+ * (the ID bit, one bit after the 12-bit sync) and indexes the bitrate
+ * tables as [bit][bitrate index] at 0x515b90 and 0x514fc0, so it is the
+ * MPEG-1 / MPEG-2 selector. Uses the (slen1, slen2) table at 0x5448e8,
+ * whose 16 entries (0,0),(0,1),(0,2),(0,3),(3,0),... match ISO 11172-3 for
+ * scalefac_compress.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00519260(undefined4 *param_1,int param_2,int param_3,int param_4)
+void ReadMpegLayerIIIScalefactors(undefined4 *param_1,int param_2,int param_3,int param_4)
 
 {
   undefined4 uVar1;
