@@ -43,13 +43,13 @@ DecodeMpegAudioFrame(int param_1,undefined4 param_2,int param_3,undefined4 param
       iVar3 = iVar1;
     } while (iVar1 < 0x44);
     local_c = 0;
-    pfVar12 = (float *)&DAT_005a9888;
+    pfVar12 = &DAT_005a9888;
     do {
       dVar18 = _pow(2.0,(double)local_c / _DAT_00544368);
       *pfVar12 = (float)((float10)dVar18 * (float10)_DAT_00544360);
       pfVar12 = pfVar12 + 1;
       local_c = local_c + -1;
-    } while ((int)pfVar12 < 0x5a9988);
+    } while (pfVar12 < &DAT_005a9888 + 64);
     puVar16 = &DAT_005a9988;
     do {
       iVar1 = 0;

@@ -2133,7 +2133,7 @@ uint32_t DAT_005a9684;
 uint32_t DAT_005a9688;
 uint32_t DAT_005a9784;
 uint32_t DAT_005a9884;
-uint32_t DAT_005a9888;
+float g_mpegPow2Tab[64]; /* runtime-filled (orig 0x5a9888 is past the raw image, zero-fill) */
 uint32_t DAT_005a9988;
 uint32_t DAT_005a9989;
 uint32_t DAT_005a998a;

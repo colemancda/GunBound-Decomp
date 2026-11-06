@@ -2092,7 +2092,11 @@ extern uint32_t DAT_005a9684;
 extern uint32_t DAT_005a9688;
 extern uint32_t DAT_005a9784;
 extern uint32_t DAT_005a9884;
-extern uint32_t DAT_005a9888;
+/* 64-float table filled by DecodeMpegAudioFrame's one-time init (2^(-n/k) scale factors) and
+ * indexed as `fld [idx*4 + 0x5a9888]`; the init loop walks it as ONE run, so it is one object
+ * (0x5a9888..0x5a9987, 0x100 bytes, up to the 0x5a9988 byte table) and DAT_005a9888 names element 0. */
+extern float g_mpegPow2Tab[64];
+#define DAT_005a9888 (g_mpegPow2Tab[0])
 extern uint32_t DAT_005a9988;
 extern uint32_t DAT_005a9989;
 extern uint32_t DAT_005a998a;
