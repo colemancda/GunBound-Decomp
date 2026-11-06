@@ -1804,7 +1804,7 @@ void FUN_005100a0();
 void FUN_005133a0();
 void FUN_00513850();
 void FUN_00513900();
-int FUN_005146c0();
+int ParseMpegFrameHeader();
 int FUN_00514950();
 undefined4 ConsumeMpegBits();
 void FUN_00514cc0();

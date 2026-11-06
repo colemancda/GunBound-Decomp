@@ -14,7 +14,7 @@ int FUN_00514950(undefined4 param_1,undefined4 param_2,byte *param_3,int *param_
   int iVar2;
   
   *param_4 = 0;
-  iVar1 = FUN_005146c0(param_1,param_2,param_3);
+  iVar1 = ParseMpegFrameHeader(param_1,param_2,param_3);
   if (iVar1 == 0) {
     return 0;
   }
