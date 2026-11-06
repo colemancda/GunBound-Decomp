@@ -1,15 +1,30 @@
-/* FUN_005163d0 - 0x005163d0 in the original binary.
+/* SetupMpegLayerIIIDecoder - 0x005163d0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Per-stream setup for Layer III: scalefactor band tables, MPEG-1/LSF
+ * choice and frame-decoder installation.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * DecodeMpegAudioFrame calls it only when header field +8 == 1, which is
+ * Layer III in the ISO layer bits (01). It fills the 22 long-block and 13
+ * short-block scalefactor band tables (0xf25d40, 0xf25d98, 0xf25e20,
+ * 0xf25e78) from the table at 0x5443a4, calls InitMpegLayerIIITables and
+ * InitMpegSynthesisTables, zeroes the synthesis overlap buffer, and sets
+ * PTR_FUN_00563da8 = DecodeMpegLayerIIISamples when header ID (+4) == 1
+ * (MPEG-1) and the unnamed decoder at 0x5159d0 otherwise (that one calls
+ * the 0x515b90 header parse and one granule). The Layer III dispatch
+ * trampoline at 0x514fa0 (slot 1 of the 0x563aec table) calls through
+ * 0x563da8.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_005163d0(byte *param_1,undefined4 param_2,int param_3,undefined4 param_4,uint param_5,
+void SetupMpegLayerIIIDecoder(byte *param_1,undefined4 param_2,int param_3,undefined4 param_4,uint param_5,
                  int param_6)
 
 {

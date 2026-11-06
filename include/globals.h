@@ -2533,7 +2533,7 @@ extern uint32_t DAT_00f25c4c;
 extern uint32_t DAT_00f25d3c;
 /* Scale-factor band start offsets: 22 long-block words at 0xf25d40..0xf25d97 followed by 13 short-block
  * words (x3) at 0xf25d98..0xf25dcb, read as one flat table (`[0xf25d40 + type * 0x16 + band]` at
- * 0x518160's 0x51817f).  FUN_005163d0 fills the two runs with loops bounded by 0xf25d98 and 0xf25dcc. */
+ * 0x518160's 0x51817f).  SetupMpegLayerIIIDecoder fills the two runs with loops bounded by 0xf25d98 and 0xf25dcc. */
 extern uint32_t g_mpegBandStartTab[35];
 #define DAT_00f25d40 (g_mpegBandStartTab[0])
 #define DAT_00f25d44 (g_mpegBandStartTab[1])
@@ -2544,14 +2544,14 @@ extern uint8_t *DAT_00f25e08; /* used dereferenced as a byte-stream cursor at ca
 extern uint32_t DAT_00f25e0c;
 extern uint32_t DAT_00f25e10;
 /* Scale-factor band widths: 22 long-block words at 0xf25e20..0xf25e77 followed by 13 short-block words
- * at 0xf25e78..0xf25eab.  FUN_005163d0 fills the two runs with loops bounded by 0xf25e78 and 0xf25eac. */
+ * at 0xf25e78..0xf25eab.  SetupMpegLayerIIIDecoder fills the two runs with loops bounded by 0xf25e78 and 0xf25eac. */
 extern uint32_t g_mpegBandWidthTab[35];
 #define DAT_00f25e20 (g_mpegBandWidthTab[0])
 #define DAT_00f25e78 (g_mpegBandWidthTab[22])
 extern uint32_t DAT_00f25ed0;
 extern uint32_t DAT_00f25ee0;
 extern uint32_t DAT_00f25ee4;
-/* Synthesis overlap buffers: 2304 words (4 x 0x240) at 0xf25f00..0xf282ff.  FUN_005163d0 zeroes the
+/* Synthesis overlap buffers: 2304 words (4 x 0x240) at 0xf25f00..0xf282ff.  SetupMpegLayerIIIDecoder zeroes the
  * whole run in a loop ended by `cmp eax,0xf28300`; the readers address it as 0x240-word rows from
  * 0xf25f00 and (FUN_00514cc0) from 0xf27100 = row 2. */
 extern uint32_t g_mpegSynthBuf[2304];
