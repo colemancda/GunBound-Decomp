@@ -512,7 +512,7 @@ extern uint32_t DAT_005b3488;
  * every writer indexes g_screenSurface + (y * g_screenPitch + x) * 2. */
 extern uint32_t g_screenPitch;
 extern uint8_t g_fullWidthFontGlyphs;
-extern uint8_t DAT_005f2f38;
+#define DAT_005f2f38 (*(uint8_t *)(0x005f2f38))  /* client-context arena offset 0x005f2f38; see the arena-offset note */
 #define DAT_005f2f3c (*(uint8_t *)(0x005f2f3c))  /* client-context arena offset 0x005f2f3c; see the arena-offset note */
 extern uint8_t DAT_005f2f40;
 #define DAT_005f2f4c (*(uint8_t *)(0x005f2f4c))  /* client-context arena offset 0x005f2f4c; see the arena-offset note */

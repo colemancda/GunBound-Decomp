@@ -458,7 +458,6 @@ uint32_t DAT_005b3488;
 uint32_t g_screenPitch;
 /* g_fullWidthFontGlyphs (was DAT_005b3628, the full-width/CJK bitmap-font
  * glyph table) is sized to 0xc0000 in globals_sized.c - see the comment there. */
-uint8_t DAT_005f2f38;
 uint8_t DAT_005f2f40;
 uint8_t DAT_005f2f58;
 uint8_t DAT_005f3158;
