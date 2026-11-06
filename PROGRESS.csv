@@ -760,7 +760,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0047bde0,31,KnightIon_ScalarDtor,false,1,2,RAW-src
 0047be00,128,KnightIon_DtorBody,false,1,1,RAW-src
 0047be80,334,BlitSpriteFrameTo32x32Buffer,false,4,0,RAW-src
-0047bfd0,101,FUN_0047bfd0,false,6,4,RAW-src
+0047bfd0,101,UpdateIonTargetAngle,false,6,4,RAW-src
 0047c040,934,FUN_0047c040,false,1,10,RAW-src
 0047c3f0,1615,FUN_0047c3f0,false,1,12,RAW-src
 0047ca40,4507,FUN_0047ca40,false,1,19,RAW-src

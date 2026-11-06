@@ -890,7 +890,7 @@ void __fastcall DetonatePrimaryShot_Bullet15();
 void * __thiscall KnightIon_ScalarDtor();
 void KnightIon_DtorBody();
 void __fastcall BlitSpriteFrameTo32x32Buffer(undefined4 param_1,uint param_2,int param_3,int param_4,uint regEax);
-void FUN_0047bfd0();
+void UpdateIonTargetAngle();
 void FUN_0047c040(int param_1,int param_2,int param_3,int param_4,int *regEsi);
 void FUN_0047c3f0(int param_1,int param_2,int *regEsi);
 void __fastcall FUN_0047ca40();
