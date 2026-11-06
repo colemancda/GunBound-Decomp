@@ -1369,7 +1369,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f70b0,157,EncodePacketBlocks,false,2,1,RAW-src
 004f7150,184,DecodePacketBlocks,false,1,1,RAW-src
 004f7210,146,EncodeP2PPacketBlocks,false,3,1,RAW-src
-004f72b0,175,FUN_004f72b0,false,2,1,RAW-src
+004f72b0,175,DecodeP2PPacketBlocks,false,2,1,RAW-src
 004f7360,20,FUN_004f7360,false,2,0,RAW-src
 004f7380,593,Sha1Absorb,false,9,2,RAW-src
 004f7600,169,Sha1Final,false,3,1,RAW-src

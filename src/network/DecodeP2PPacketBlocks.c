@@ -1,8 +1,21 @@
-/* FUN_004f72b0 - 0x004f72b0 in the original binary.
+/* DecodeP2PPacketBlocks - 0x004f72b0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004f72b0 mean this function.)
+ *
+ * Evidence (HIGH on the pairing). It is the inverse of the named
+ * EncodeP2PPacketBlocks (0x4f7210): that one stages [tag][12 bytes] per
+ * block and encrypts with EncodeCipherBlock, tag = *(schedule + 0x20c);
+ * this one decrypts each 16-byte block with DecodeCipherBlock, requires
+ * the first dword to equal the same *(schedule + 0x20c) and keeps the
+ * other 12 bytes. The tree already has the same Encode/Decode pair for
+ * the non-P2P variant (EncodePacketBlocks / DecodePacketBlocks), which is
+ * why Decode rather than Decrypt. Callers are the two arms of
+ * CommP2POwner_ProcessPacket (packet types 0x2010 and 0x2021), which hand
+ * it the received ciphertext and a local output record.
  *
  * RECOVERED (2026-07-19): the decode twin of EncodeP2PPacketBlocks - it consumes
  * 16-byte cipher blocks and emits 12 plaintext bytes each, checking the
@@ -25,7 +38,7 @@
 
 
 undefined4 __thiscall
-FUN_004f72b0(undefined4 *param_1,int param_2,int param_3,int param_4,uint inputLen)
+DecodeP2PPacketBlocks(undefined4 *param_1,int param_2,int param_3,int param_4,uint inputLen)
 
 {
   short sVar1;

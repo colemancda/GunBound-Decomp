@@ -1478,10 +1478,10 @@ undefined4 EncodePacketBlocks(unsigned char *input, int inputLen, int schedule, 
 undefined4 __thiscall DecodePacketBlocks(undefined4 *param_1, int param_2, unsigned short param_3, unsigned int *param_4, int param_5, unsigned int byteLen);
 /* RECOVERED (2026-07-19): both take dropped ECX/EAX register args - see the
  * .c files' headers for the disassembly. EncodeP2PPacketBlocks is EncodePacketBlocks
- * without the opcode addend; FUN_004f72b0 is its decode twin. */
+ * without the opcode addend; DecodeP2PPacketBlocks is its decode twin. */
 undefined4 EncodeP2PPacketBlocks(undefined4 param_1, int param_2, int param_3, unsigned char *input,
                         int inputLen);
-undefined4 __thiscall FUN_004f72b0(undefined4 *param_1, int param_2, int param_3, int param_4,
+undefined4 __thiscall DecodeP2PPacketBlocks(undefined4 *param_1, int param_2, int param_3, int param_4,
                         unsigned int inputLen);
 byte __fastcall FUN_004f7360();
 void Sha1Absorb(int param_1, unsigned char *param_2, unsigned int length);

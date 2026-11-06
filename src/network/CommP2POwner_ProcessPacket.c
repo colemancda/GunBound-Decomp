@@ -153,7 +153,7 @@ undefined4 __thiscall CommP2POwner_ProcessPacket(int param_1,int param_2,int par
        * The port dropped ECX entirely and shifted every remaining argument
        * left by one, so the schedule landed in the output slot. */
       if ((0xf < param_3) &&
-         (cVar4 = (char)FUN_004f72b0((undefined4 *)&local_1788,
+         (cVar4 = (char)DecodeP2PPacketBlocks((undefined4 *)&local_1788,
                                      *(int *)(param_1 + 0x1784),(int)puVar1,6000,(uint)param_3),
           cVar4 != '\0')) {
         local_4970 = local_2ef6;
@@ -560,7 +560,7 @@ LAB_00501b17:
        * 0x2010 site above except `lea ecx,[esp+0x334]` (= esp_b+0x328 =
        * local_4668) is the OUTPUT buffer, and the guard is `cmp eax,0x30`. */
       if ((0x2f < param_3) &&
-         (cVar4 = (char)FUN_004f72b0(&local_4668,*(int *)(param_1 + 0x1784),(int)puVar1,6000,
+         (cVar4 = (char)DecodeP2PPacketBlocks(&local_4668,*(int *)(param_1 + 0x1784),(int)puVar1,6000,
                                      (uint)param_3),
           cVar4 != '\0')) {
         /* RECOVERED (2026-08-28), orig 0x502185/0x502195: the decoded block
