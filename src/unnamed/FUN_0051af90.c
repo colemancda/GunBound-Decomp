@@ -10,7 +10,7 @@
 void FUN_0051af90(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
-  FUN_0051ee0a(param_1,param_2,param_3);
+  MpegSynthWindow8FullInterleaved(param_1,param_2,param_3);
   return;
 }
 
