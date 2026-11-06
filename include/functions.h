@@ -1857,7 +1857,7 @@ void FUN_00518960();
 int FUN_00518e30();
 void FUN_00519260();
 void FUN_005194f0();
-undefined4 FUN_00519aa0();
+undefined4 InitMpegLayerIIITables();
 void FUN_00519c80();
 void FUN_00519ef0();
 void FUN_0051a120();

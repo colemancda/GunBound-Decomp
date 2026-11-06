@@ -1,15 +1,27 @@
-/* FUN_00519aa0 - 0x00519aa0 in the original binary.
+/* InitMpegLayerIIITables - 0x00519aa0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Build the Layer III lookup tables: gain, power and antialias
+ * coefficients.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * Called only from SetupMpegLayerIIIDecoder. It fills a pow(2, (i-0x9c)*k)
+ * gain table (0x106 entries), a 64-entry |x|^(1/3)*x table (x^(4/3), the
+ * ISO requantiser), 2^(n*k) tables for subblock gain and scalefactor
+ * multipliers, and derives the antialias cs/ca pairs (1/sqrt(1+ci^2) and
+ * ci/sqrt(1+ci^2)) from the ISO 11172-3 ci coefficients at 0x544a88. Those
+ * cs/ca values are what MpegAntialias reads, so the table identity is
+ * corroborated from the consumer side as well.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 FUN_00519aa0(void)
+undefined4 InitMpegLayerIIITables(void)
 
 {
   float fVar1;

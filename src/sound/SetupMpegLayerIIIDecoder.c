@@ -171,7 +171,7 @@ LAB_005164e7:
     *piVar7 = *(int *)(&DAT_00544400 + iVar1) - *(int *)(&DAT_005443fc + iVar1);
     piVar7 = piVar6;
   } while ((uint *)piVar6 < &DAT_00f25e78 + 13);
-  FUN_00519aa0();
+  InitMpegLayerIIITables();
   FUN_0051a120();
   InitMpegSynthesisTables();
   puVar2 = &DAT_005ada3c;
