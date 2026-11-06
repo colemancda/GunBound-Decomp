@@ -1001,7 +1001,7 @@ void FUN_0049e420();
 void __fastcall FUN_0049e470();
 undefined4 * InitShot2_Bullet13();
 void * __thiscall DeleteShot2_Bullet13();
-void FUN_0049e5d0();
+void DestroyShot2_Bullet13(undefined4 *param_1);
 void __thiscall SimulateShot2_Bullet13();
 void __fastcall DetonateShot2_Bullet13();
 void __fastcall AnimateShot2_Bullet13();
