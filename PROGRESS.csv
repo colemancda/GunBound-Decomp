@@ -355,7 +355,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004258e0,118,RemoveMuteListEntry,false,1,4,RAW-src
 00425960,107,ClearMuteList,false,1,4,RAW-src
 004259d0,82,FindMuteListIndex,false,11,2,RAW-src
-00425a30,133,FUN_00425a30,false,2,3,RAW-src
+00425a30,133,DecodeHostMigrationRoomSummary,false,2,3,RAW-src
 00425ac0,450,HitTestLocalMobile,false,5,7,RAW-src
 00425c90,463,HitTestJewel,false,3,6,RAW-src
 00425e60,460,HitTestMine,false,3,6,RAW-src

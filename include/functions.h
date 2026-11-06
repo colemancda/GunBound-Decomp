@@ -467,7 +467,7 @@ void AddMuteListEntry(char *regEsi,int regEax);
 void RemoveMuteListEntry(undefined4 param_1,int regEax);
 void ClearMuteList(int regEbx);
 uint FindMuteListIndex(uchar *param_1,int regEdi);
-void FUN_00425a30(int param_1,byte *regEax);
+void DecodeHostMigrationRoomSummary(int param_1,byte *regEax);
 uint HitTestLocalMobile();
 undefined4 FindUserIdByNickname(char *param_1,char *regEax,int regEcx);
 undefined4 FindNicknameByUserId(char *param_1,char *regEax,int regEcx);
