@@ -938,7 +938,7 @@ void * __thiscall Mobile01_ScalarDtor(void *param_1,int param_2);
 void Mobile01_Destructor(undefined4 *regEax);
 void __thiscall Mobile01_MainAction();
 undefined4 * InitCrashParticleAlphaBlend_2e632(undefined4 *regEax);
-void __fastcall FUN_00489310();
+void __fastcall TickCrashParticleAlphaBlend_2e632();
 void * __thiscall Mobile04_ScalarDtor(void *param_1,int param_2);
 void Mobile04_Destructor(undefined4 *regEax);
 void __thiscall Mobile04_MainAction();
