@@ -21,11 +21,11 @@
  * 0x5182ea; the entry reads use every one of [esp+0x1c/0x20/0x24/0x28/
  * 0x2c] at various push depths, matching param_1..param_5 as declared).
  * The sole call site (DecodeMpegLayerIIIGranule.c) only pushed 4 args, matching its
- * sibling call to FUN_005182f0 3 lines above minus that sibling's extra
+ * sibling call to ApplyMpegIntensityStereoLSF 3 lines above minus that sibling's extra
  * 4th (`&DAT_005ae7b0`) buffer arg AND its trailing flag arg. Orig
  * 0x515809-0x515860: `mov eax,[0x5ae348]` / `push eax` happens once,
  * BEFORE the `test ecx,ecx; je ...` branch that selects between
- * FUN_005182f0 and this function - i.e. DAT_005ae348 is pushed FIRST
+ * ApplyMpegIntensityStereoLSF and this function - i.e. DAT_005ae348 is pushed FIRST
  * (deepest = LAST/5th param) on both branches, and is simply the missing
  * trailing arg here. Fix: append `DAT_005ae348` at the call site.
  */

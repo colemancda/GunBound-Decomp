@@ -163,7 +163,7 @@ void DecodeMpegLayerIIIGranule(undefined4 param_1,int *param_2)
   }
   if (DAT_005aba2c != 0) {
     if (DAT_005ae34c == 0) {
-      FUN_005182f0(&DAT_00f25f00 + iVar1 * 0x240,&DAT_005ae450 + iVar1 * 0x1f0,
+      ApplyMpegIntensityStereoLSF(&DAT_00f25f00 + iVar1 * 0x240,&DAT_005ae450 + iVar1 * 0x1f0,
                    &DAT_005ae740 + iVar1 * 0x38,&DAT_005ae7b0,
                    *(undefined4 *)(&DAT_005ae7cc + iVar1 * 8),DAT_005ae348);
     }

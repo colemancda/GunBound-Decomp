@@ -1,13 +1,21 @@
-/* FUN_005182f0 - 0x005182f0 in the original binary.
+/* ApplyMpegIntensityStereoLSF - 0x005182f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Intensity stereo for the MPEG-2 LSF path.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * LIKELY. Called from DecodeMpegLayerIIIGranule when DAT_005aba2c != 0 and
+ * DAT_005ae34c == 0, the LSF alternative to ApplyMpegIntensityStereo; same
+ * arguments plus one extra table argument (&DAT_005ae7b0) before the
+ * trailing DAT_005ae348.
  */
 #include "ghidra_types.h"
 
 
-void FUN_005182f0(int param_1,int param_2,int param_3,int *param_4,int param_5,int param_6)
+void ApplyMpegIntensityStereoLSF(int param_1,int param_2,int param_3,int *param_4,int param_5,int param_6)
 
 {
   int iVar1;
