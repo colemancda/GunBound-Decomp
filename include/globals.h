@@ -1931,7 +1931,8 @@ extern uint32_t g_mpegBandCount[4];
 #define DAT_005637c8 (g_mpegBandCount[3])
 extern uint32_t DAT_005637d4;
 extern uint32_t DAT_005637e8;
-extern uint32_t DAT_0056382c;
+extern unsigned char g_mpegBandSelTab[192];
+#define DAT_0056382c (g_mpegBandSelTab[0]) /* byte table 0x56382c..0x5638eb; callers take &DAT_0056382c + byteOffset */
 /* Eight dwords at 0x5638ec..0x56390b: MPEG sample rates (22050,24000,16000,_,44100,48000,32000,_),
  * read only as `mov r32,[idx*4 + 0x5638ec]`.  The ported code spells it `*(int *)(&DAT_005638ec +
  * idx*4)`, i.e. BYTE arithmetic, so the DAT_ name is a byte lvalue over the real array. */
