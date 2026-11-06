@@ -1760,7 +1760,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00517390,97,SynthesizeMpeg8HalfSecondChannel,false,1,2,RAW-src
 00517400,92,SynthesizeMpeg8QuarterMono,false,1,2,RAW-src
 00517510,92,SynthesizeMpeg8QuarterMixDown,false,1,2,RAW-src
-00517570,92,FUN_00517570,false,1,2,RAW-src
+00517570,92,SynthesizeMpeg8QuarterFirstChannel,false,1,2,RAW-src
 005175d0,95,FUN_005175d0,false,1,2,RAW-src
 00517690,195,FUN_00517690,false,6,2,RAW-src
 00517d00,6,GetMpegImdctWindowTable,false,1,0,RAW-src

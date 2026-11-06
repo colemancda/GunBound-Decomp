@@ -1834,7 +1834,7 @@ void SynthesizeMpeg8HalfFirstChannel();
 void SynthesizeMpeg8HalfSecondChannel();
 void SynthesizeMpeg8QuarterMono();
 void SynthesizeMpeg8QuarterMixDown();
-void FUN_00517570();
+void SynthesizeMpeg8QuarterFirstChannel();
 void FUN_005175d0();
 void FUN_00517690();
 undefined4 * GetMpegImdctWindowTable();
