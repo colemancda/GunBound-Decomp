@@ -1800,7 +1800,7 @@ undefined8 DecodeMpegFrameDispatch(); /* 64-bit result used from EDX:EAX at call
 undefined8 DecodeMpegLayerIISamples();
 void ReadMpegLayerIIScfsi();
 void ReadMpegLayerIIScalefactors();
-void FUN_005100a0();
+void ReadMpegLayerIISubbandSamples();
 void FUN_005133a0();
 void FUN_00513850();
 void FUN_00513900();

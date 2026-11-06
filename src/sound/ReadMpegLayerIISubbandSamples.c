@@ -1,15 +1,26 @@
-/* FUN_005100a0 - 0x005100a0 in the original binary.
+/* ReadMpegLayerIISubbandSamples - 0x005100a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Read and dequantise the Layer II subband samples (3 groups per subband).
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section.
+ *
+ * Evidence for the name (all from outside the body):
+ * LIKELY. Third reader called from DecodeMpegLayerIISamples, directly
+ * followed by the synthesis call through PTR_FUN_005637cc, so its output
+ * is the subband sample array at 0xf25f00 that synthesis consumes.
+ * Switches over the quantization class (0..0x25) and decodes grouped codes
+ * using the digit-3 / digit-5 / digit-9 triple tables that
+ * DecodeMpegAudioFrame builds (0x5a9988, 0x5a9cf4); the per-class cases
+ * were not individually verified against the ISO quantization-class table.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_005100a0(void)
+void ReadMpegLayerIISubbandSamples(void)
 
 {
   float *pfVar1;

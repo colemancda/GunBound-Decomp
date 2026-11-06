@@ -1723,7 +1723,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050f8b0,1247,DecodeMpegLayerIISamples,false,4,4,RAW-src
 0050fd90,180,ReadMpegLayerIIScfsi,false,1,0,RAW-src
 0050fe50,571,ReadMpegLayerIIScalefactors,false,1,0,RAW-src
-005100a0,11837,FUN_005100a0,false,1,0,RAW-src
+005100a0,11837,ReadMpegLayerIISubbandSamples,false,1,0,RAW-src
 00512f80,1041,DecodeMpegAudioFrame,false,2,4,RAW-src
 005133a0,21,FUN_005133a0,false,2,0,RAW-src
 00513850,168,FUN_00513850,false,1,0,RAW-src

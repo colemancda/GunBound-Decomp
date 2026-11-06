@@ -189,7 +189,7 @@ undefined8 DecodeMpegLayerIISamples(byte *param_1,undefined4 param_2)
     (&DAT_005ab91c)[iVar2] = 0x24;
     ReadMpegLayerIIScfsi();
     ReadMpegLayerIIScalefactors();
-    FUN_005100a0();
+    ReadMpegLayerIISubbandSamples();
     (*(code *)PTR_FUN_005637cc)(&DAT_00f25f00,param_2,0x24);
     iVar2 = DAT_005a9884 + DAT_005a99ec;
     uVar6 = DAT_005a99f0;
