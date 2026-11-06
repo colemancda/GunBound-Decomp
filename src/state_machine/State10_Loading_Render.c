@@ -109,7 +109,7 @@ int __fastcall State10_Loading_Render(int param_1)
         BlitSpriteClipped(0x17,0x243,0x10c,0x2710);
       }
     }
-    FUN_00442d50(param_1);
+    RenderLoadingPlayerRows(param_1);
   }
   SetClipRect(0x6b, 0x1b8, 0x257, 0);
   if ((g_screenSurface != 0) && (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,0x16), iVar5 != 0)) {
