@@ -3,10 +3,11 @@
  * RENAMED (from FUN_0046c990): slot 2 (+0x8) of vtable 0x555e0c, whose
  * slot 0 is Shot_Type13_ScalarDtor (0x46b650).  Slot 2 is the projectile
  * Animate virtual, where AnimateProjectileTick (0x48f1c0) sits in the base
- * vtables.  Its body is that function's with extra steps: the same
- * slot-6 virtual call, UpdateProjectileAngle, AdvanceSpriteAnimation and
- * the +0x3920 / +0x3d6c counter Encodes, plus a guarded slot-1 call
- * (ResolveNamedState) when the +0x34 flag is set.
+ * vtables.  Its body is that function's with extra steps: the slot-6
+ * virtual call (here made only when +0x24 is non-zero),
+ * UpdateProjectileAngle, AdvanceSpriteAnimation and the +0x3920 / +0x3d6c
+ * counter Encodes, plus a slot-1 call (ResolveNamedState) when the +0x34
+ * flag is set.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"

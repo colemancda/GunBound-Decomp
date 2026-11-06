@@ -6,8 +6,12 @@
  *       00553d2c / s_knightflame_00553d20 + "%d") - a member of Knight's
  *       dedicated knightbullet/knightflame/knightion asset family, so
  *       unambiguously the Knight mobile; and
- *   (2) its sole caller AnimateKnightIon sits at slot 18 of mobile TYPE 14's
- *       vtable (0x556038), and type 14 == Knight (internal type; the
+ *   (2) its sole caller AnimateKnightIon is slot 2 of the KnightIon object's
+ *       vtable (0x556078, reference 0x556080) - NOT slot 18 of mobile TYPE
+ *       14's vtable 0x556038 as first written: that vtable is 8 slots long
+ *       and merely lies 0x48 bytes before the same address.  The ion is the
+ *       Knight aura (texture "knightion"), and type 14 == Knight
+ *       (internal type; the
  *       151blast.xes effect it fires = sound-file mobile-id 151 = type
  *       14 + 1, one of the 3/3 corroborations of the vtable geometry).
  * Fired in an 8x loop from a secondary action state (not the primary

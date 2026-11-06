@@ -3,8 +3,8 @@
  * RENAMED (2026-07-16, from FUN_0042f4b0): projectile-shot spawner for
  * mobile TYPE 9 (structural sibling of the confirmed SpawnKnightFlameShot
  * and of SpawnPrimaryShot/SpawnSuperShot). Mobile type CONFIRMED via
- * vtable geometry - its sole caller AnimateLaserIon is a type-9 mobile
- * method; the effect it fires is flame10/101blast. The "_Type9" suffix
+ * vtable geometry - its sole caller AnimateLaserIon (slot 2 of the laser mobile's
+ * ion aura) is a type-9 mobile method; the effect it fires is flame10/101blast. The "_Type9" suffix
  * is the confirmed mobile type; the mobile NAME is not confirmable (no
  * name-bearing asset, and the repo has no mobile-type->name map). Raw/
  * near-verbatim Ghidra body - see src/README.md.

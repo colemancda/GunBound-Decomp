@@ -1,7 +1,8 @@
 /* SpawnItemCase - 0x00436220 in the original binary.
  *
  * NAMED 2026-08-19 (was FUN_00436220).  Spawns the ITEM CASE:
- * operator_new(0x3f9c), class id 100002 via InitProjectile, texture
+ * operator_new(0x3f9c), class id 200002 (0x30d42, per the InitProjectile
+ * call below) via InitProjectile, texture
  * FindPreloadedTextureByName("itemcase") (0x553c38), state "normal", and the
  * "caseflame" (0x553c78) effect.  Distinct from SpawnDropCaseProjectile
  * (0x434ac0), which is the falling "dropcase" projectile - this one is the
