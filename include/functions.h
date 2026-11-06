@@ -1851,7 +1851,7 @@ void ApplyMpegIntensityStereoLSF();
 undefined * GetMpegGlobalGainTable();
 undefined * GetMpegScalefactorGainTable();
 undefined * GetMpegPow43Table();
-undefined * FUN_00518550();
+undefined * GetMpegSubblockGainTable();
 void FUN_00518560();
 void FUN_00518960();
 int FUN_00518e30();

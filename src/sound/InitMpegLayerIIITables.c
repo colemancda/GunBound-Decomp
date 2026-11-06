@@ -68,7 +68,7 @@ undefined4 InitMpegLayerIIITables(void)
     iVar4 = iVar4 + 1;
     pfVar2 = pfVar2 + 1;
   } while (iVar4 < 0x40);
-  pfVar2 = (float *)FUN_00518550();
+  pfVar2 = (float *)GetMpegSubblockGainTable();
   iVar4 = 0;
   do {
     dVar8 = _pow(2.0,(double)iVar4 * _DAT_00544ab0);
