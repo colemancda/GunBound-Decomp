@@ -761,7 +761,7 @@ vtable 0x556194  installs=2  slots=5  UNCARVED=1
    0: 0x482060  FUN_00482060
    1: 0x461c60  ResolveNamedState
    2: 0x4a6aa0  UNCARVED
-   3: 0x482130  FUN_00482130
+   3: 0x482130  RenderLightningStrike
    4: 0x429800  NoOpMethod
 
 vtable 0x5561a8  installs=2  slots=8

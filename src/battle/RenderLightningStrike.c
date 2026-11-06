@@ -1,8 +1,20 @@
-/* FUN_00482130 - 0x00482130 in the original binary.
+/* RenderLightningStrike - 0x00482130 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (from FUN_00482130): slot 3 (+0xc) of vtable 0x556194, whose
+ * slot 0 is DeleteLightningStrike (0x482060); the only vtable reference is
+ * 0x5561a0, and InitLightningStrike (0x481fb0) stamps it.  Slot 3 of this
+ * five-slot effect shape is the draw virtual: RenderLightningHazard
+ * (0x46e020) holds it in vtable 0x555e74, and RenderFirewallHazard /
+ * RenderTornadoHazard take slot 3 of their own, so the spelling is
+ * Render.  The body agrees: it converts the object's position cells
+ * (+0x38 / +0x25c) to screen space against g_nCameraX / g_nCameraY,
+ * binds the "Lightning" texture (FindTextureCacheEntryByName,
+ * s_Lightning_00555b90) and emits the vertical quad strip into the sprite
+ * vertex buffer, alpha taken from the frame counter at +0x484.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at both argless PeekPacketChecksumState() calls: both are the chained return of the DeltaAdd(...,400) / DeltaAdd(...,0x26) that closes each round (0x482184, 0x48229f), discarded, captured in a new uVar8 - FUN_00477930's shape.
@@ -12,7 +24,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __fastcall FUN_00482130(int param_1)
+void __fastcall RenderLightningStrike(int param_1)
 
 {
   float fVar1;

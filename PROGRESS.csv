@@ -789,7 +789,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00481fb0,165,InitLightningStrike,false,1,1,RAW-src
 00482060,31,DeleteLightningStrike,false,1,2,RAW-src
 00482080,163,DestroyLightningStrike,false,1,2,RAW-src
-00482130,964,FUN_00482130,false,1,8,RAW-src
+00482130,964,RenderLightningStrike,false,1,8,RAW-src
 00482500,20,InitShot1_Bullet8,false,1,1,RAW-src
 00482520,32,DeleteShot1_Bullet8,false,1,2,RAW-src
 00482540,13,DestroyShot1_Bullet8,false,1,1,RAW-src
