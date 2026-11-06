@@ -2131,7 +2131,7 @@ uint32_t DAT_005a965c;
 uint8_t *DAT_005a9680;
 uint32_t DAT_005a9684;
 uint32_t DAT_005a9688;
-uint32_t DAT_005a9784;
+uint32_t g_mpegAllocTab[64]; /* runtime-filled on every DecodeMpegAudioFrame call before any read */
 uint32_t DAT_005a9884;
 float g_mpegPow2Tab[64]; /* runtime-filled (orig 0x5a9888 is past the raw image, zero-fill) */
 uint32_t DAT_005a9988;

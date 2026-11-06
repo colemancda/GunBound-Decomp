@@ -2090,7 +2090,11 @@ extern uint32_t DAT_005a965c;
 extern uint8_t *DAT_005a9680; /* used dereferenced as a byte-stream cursor at call sites */
 extern uint32_t DAT_005a9684;
 extern uint32_t DAT_005a9688;
-extern uint32_t DAT_005a9784;
+/* 64-dword bit-allocation table: DecodeMpegAudioFrame copies four 16-byte rows of a byte table
+ * into it (zero-extended) and the layer II reader indexes it as `mov r32,[idx*4 + 0x5a9784]`.
+ * 0x5a9784..0x5a9883, ends at the separate scalar DAT_005a9884. */
+extern uint32_t g_mpegAllocTab[64];
+#define DAT_005a9784 (g_mpegAllocTab[0])
 extern uint32_t DAT_005a9884;
 /* 64-float table filled by DecodeMpegAudioFrame's one-time init (2^(-n/k) scale factors) and
  * indexed as `fld [idx*4 + 0x5a9888]`; the init loop walks it as ONE run, so it is one object

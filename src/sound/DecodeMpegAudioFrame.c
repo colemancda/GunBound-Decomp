@@ -144,7 +144,7 @@ DecodeMpegAudioFrame(int param_1,undefined4 param_2,int param_3,undefined4 param
       puVar6 = puVar5;
     } while (iVar3 < 0x10);
     puVar15 = puVar15 + 0x10;
-  } while ((int)puVar5 < 0x5a9884);
+  } while (puVar5 < &DAT_005a9784 + 64);
   pbVar7 = &DAT_00563a4c + param_6 * 4;
   puVar5 = (uint *)&DAT_005637bc;
   do {
