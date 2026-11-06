@@ -12,11 +12,11 @@
  *     id-keyed peer table InitCommP2PNotifyWindow builds; either way it
  *     then writes the two (ip, port) pairs param_3/param_4 and
  *     param_5/param_6 into the record at node+0x14 (the pointer
- *     FindP2PPeerRecord returns) - the fields FUN_005039a0 compares
+ *     FindP2PPeerRecord returns) - the fields UpdateP2PPeerRecordIfChanged compares
  *     and FUN_004fe110 sends to;
  *   - its callers supply those pairs from outside: CommP2PReceiveDatagram
  *     passes the recvfrom sender address twice (0x4ff968) after a
- *     FindP2PPeerRecord miss, FUN_005039a0 passes addresses parsed from
+ *     FindP2PPeerRecord miss, UpdateP2PPeerRecordIfChanged passes addresses parsed from
  *     a CommP2POwner_ProcessPacket packet, and FUN_004fe110 /
  *     FUN_00503a10 pass zeros to create an address-less record.
  * After the write it clears the record's pending flag (record+0x1c),
@@ -75,7 +75,7 @@
  *     function's param_2;
  *   0x4ff968 (CommP2PReceiveDatagram): `mov ecx,ebp` (0x4ff966), EBP = its param_1;
  *   0x503a2e (FUN_00503a10): `mov ecx,edi` (0x503a2c) = its regEdi;
- *   0x5039f7 (FUN_005039a0): `mov ecx,edi`, already passed as regEdi.
+ *   0x5039f7 (UpdateP2PPeerRecordIfChanged): `mov ecx,edi`, already passed as regEdi.
  * In every case the ECX value is also the map pushed to the neighbouring
  * FindP2PPeerRecord call (witness).  Declared here as the erased-__thiscall
  * cdecl shape (this first), matching the definition.

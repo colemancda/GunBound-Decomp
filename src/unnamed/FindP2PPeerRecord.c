@@ -40,7 +40,7 @@
  *   CommP2PReceiveDatagram 0x4ff854, 0x4ff937, 0x4ff977: &local_3188 (`lea esi,
  *     [esp+0x20]` with two pushes pending = the 17-byte id the caller just
  *     assembled from the packet at [esp+0x18..0x28]);
- *   FUN_005039a0 0x5039ae: regEax (`mov esi,eax` at 0x5039a6);
+ *   UpdateP2PPeerRecordIfChanged 0x5039ae: regEax (`mov esi,eax` at 0x5039a6);
  *   FUN_00503a10 0x503a1a, 0x503a39: regEax (`mov esi,eax` at 0x503a12,
  *     preserved across UpsertP2PPeerRecord);
  *   RemoveP2PPeerRecord 0x503a67: param_2 (`mov ebx,[esp+0x20]` at 0x503a54,

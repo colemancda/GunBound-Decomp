@@ -643,7 +643,7 @@ LAB_00501b17:
           local_495c = 0;
           if ((bool)local_4902) {
             local_4980 = (char *)((int)puVar15 + 0x1d);
-            FUN_005039a0(*(undefined4 *)pcVar12,*(undefined2 *)((int)puVar15 + 0x15),
+            UpdateP2PPeerRecordIfChanged(*(undefined4 *)pcVar12,*(undefined2 *)((int)puVar15 + 0x15),
                          *(undefined4 *)((int)puVar15 + 0x17),
                          (undefined4)&local_496c,(undefined4)local_4970,
                          (undefined4)*(ushort *)((int)puVar15 + 0x1b));

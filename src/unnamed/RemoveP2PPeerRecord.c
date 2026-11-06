@@ -13,7 +13,7 @@
  * CommP2POwner_ProcessPacket's 0x3fff arm calls it for an entry whose flag
  * byte is zero and then also removes the id from the +0x17fc map
  * (StringMap_RemoveKey_1c) - the removal half of the update/remove pair
- * with FUN_005039a0 - and RemoveAllP2PPeers calls it for
+ * with UpdateP2PPeerRecordIfChanged - and RemoveAllP2PPeers calls it for
  * every record.  The first draft said "AndNotify"; dropped because nothing
  * outside this body shows the slot-0 call is a notification.
  *

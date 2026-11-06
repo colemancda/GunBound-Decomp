@@ -1,8 +1,23 @@
-/* FUN_005039a0 - 0x005039a0 in the original binary.
+/* UpdateP2PPeerRecordIfChanged - 0x005039a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED (batch 35), LIKELY (was FUN_005039a0).  Applies one peer entry of a
+ * 0x3fff peer-list update that carries addresses.  EAX = the 16-char id,
+ * EDI = the engine object, stack = (ip, port, ip2) with the second port in
+ * EBX.  It calls FindP2PPeerRecord; if the record exists, its first dword
+ * is non-zero and all four address fields (+8, +0xc, +0x10, +0x14) already
+ * equal the incoming ones, it only clears the pending flag record+0x1c and
+ * returns (the "unchanged" arm); otherwise it falls through to
+ * UpsertP2PPeerRecord with the incoming addresses.  The caller
+ * (CommP2POwner_ProcessPacket, orig 0x502403) reaches it only when the
+ * entry's flag byte at +0x10 is non-zero; the else arm of the same branch
+ * calls RemoveP2PPeerRecord and drops the id from the secondary maps, so
+ * the flag selects update versus remove.  The name covers the unchanged
+ * shortcut: it avoids the full Upsert (and its datagram flush) when the
+ * address is the same.  LIKELY, as for the other P2P peer helpers.
+ *
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  *
  * EAX, EDI, EBX RECOVERED (2026-08-31, correcting the 2026-08-25 pass).  At
  * the one site, 0x502403 in CommP2POwner_ProcessPacket, THREE pushes are pending, so
@@ -25,7 +40,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_005039a0(int param_1,undefined4 param_2,int *param_3,undefined4 regEax,
+void UpdateP2PPeerRecordIfChanged(int param_1,undefined4 param_2,int *param_3,undefined4 regEax,
                   undefined4 regEdi,undefined4 regEbx)
 
 {
