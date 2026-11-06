@@ -2183,9 +2183,7 @@ uint32_t DAT_005ab500;
 uint32_t DAT_005ab604;
 uint32_t DAT_005ab608;
 uint32_t DAT_005ab704;
-uint32_t DAT_005ab708;
-uint32_t DAT_005ab709;
-uint32_t DAT_005ab70a;
+int8_t g_mpegTriple5Tab[384]; /* runtime-filled once (orig 0x5ab708 is past the raw image) */
 uint32_t DAT_005ab88c;
 uint32_t DAT_005ab890;
 uint32_t DAT_005ab8d4;
