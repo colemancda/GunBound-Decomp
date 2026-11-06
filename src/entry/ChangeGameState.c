@@ -55,7 +55,7 @@ void ChangeGameState(int newStateId)
     *(undefined4 *)(g_activeObjectRegistry + 0xc) = 0;
     *(undefined4 *)(g_activeObjectRegistry2 + 8) = 0;
     SweepActiveObjectRegistry((int)&g_activeObjectRegistry2);
-    FUN_005098e0((int)&g_uiPanelManager, 10000);
+    PanelManager_PruneBelowId((int)&g_uiPanelManager, 10000);
     if (newStateId == 0xf) {
       PostQuitMessage(0);
       return;

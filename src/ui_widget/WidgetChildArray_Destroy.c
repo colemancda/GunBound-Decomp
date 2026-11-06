@@ -4,7 +4,7 @@
  * vtable (0x557f58), then for each child in the +0xc/+0x10 child array
  * destroys the child's own subtree, frees the child, and compacts the array;
  * finally frees the array backing store. Called directly (not via vtable) by
- * CPanelManager::PruneByKey (FUN_005098e0) to tear down a pruned panel.
+ * CPanelManager::PruneByKey (PanelManager_PruneBelowId) to tear down a pruned panel.
  *
  * FIXED (2026-07-20): two bugs that never fired while this was dead code
  * (its only caller, the panel prune, was a no-op stub until now):

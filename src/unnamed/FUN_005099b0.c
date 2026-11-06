@@ -5,7 +5,7 @@
  * "dirty"/"hovered" flag reset between game states). in_EAX arrives via
  * a dropped EAX register - orig 0x412455: `mov eax, 0xe53c40`
  * (DAT_00e53c40 / g_uiPanelManager), same call sequence and same
- * not-yet-recovered PanelManager struct as FUN_005098e0 (see that
+ * not-yet-recovered PanelManager struct as PanelManager_PruneBelowId (see that
  * file's comment) - stubbed for the same reason, pending that
  * subsystem's real layout.
  *

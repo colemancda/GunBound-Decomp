@@ -1732,7 +1732,7 @@ void BuildItemDescriptionTooltip();
 void HideStoreItemTooltipPanel(int regEax);
 int PanelManager_FindByName(int regEax, char *regEbx);
 void BuildAvatarShopIpConfirmDialog(int esiArg);
-void FUN_005098e0(int, int);
+void PanelManager_PruneBelowId(int, int);
 void __fastcall PanelManager_BringToFront(int param_1,int param_2);
 void FUN_005099b0();
 undefined4 * BuildWorldListPanel();

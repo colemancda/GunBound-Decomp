@@ -1,6 +1,6 @@
-/* FUN_005098e0 - 0x005098e0 in the original binary.
+/* PanelManager_PruneBelowId - 0x005098e0 in the original binary.
  *
- * CPanelManager::PruneByKey - the sole caller ChangeGameState.c passes
+ * Earlier note, kept: CPanelManager::PruneByKey - the sole caller ChangeGameState.c passes
  * threshold 10000, so on every state change this destroys every registered
  * panel whose key (+0x24) is BELOW 10000, i.e. the state-specific panels
  * (WorldList 0x2328, LobbyChat 0x2329, ChannelUserList 0x232a, ...), while
@@ -26,10 +26,25 @@
  * (WidgetChildArray_Destroy = the +0x50e560 dtor) and freed; when the count
  * hits zero the whole pool is released (PanelManager_ReleasePool 0x509fd0).
  * The original advances to the next node BEFORE unlinking the current one.
+ *
+ * NAMED (batch 35), CERTAIN on the verb, LIKELY on "Id" (was
+ * FUN_005098e0).  Every panel carries m_typeId at +0x20 and m_id at
+ * +0x24 (Widget.h); this destroys each registered panel whose m_id is BELOW the
+ * threshold.  The sole caller, ChangeGameState (orig 0x412349: `mov
+ * eax,0xe53c40` = g_uiPanelManager, then push 10000), runs it on every
+ * state change, so the state-specific panels (ids 0x2328.. - WorldList,
+ * LobbyChat, ChannelUserList) die while the BuddyPanel (20000) survives.
+ * "Below" rather than "by" because the compare is `cmp [panel+0x24],
+ * threshold / jge skip`, i.e. strictly less-than, not equality.  The
+ * manager arrives in EAX (`mov edi,eax`), threshold is the one stack arg
+ * (`ret 4`); the port passes both as ordinary arguments.
+ *
+ * GameStateMachine.cpp's file-local extern and call used to declare a
+ * single int and DROPPED the manager; it now passes g_uiPanelManager.
  */
 #include "ghidra_types.h"
 
-void FUN_005098e0(int manager, int threshold)
+void PanelManager_PruneBelowId(int manager, int threshold)
 
 {
   int *node;

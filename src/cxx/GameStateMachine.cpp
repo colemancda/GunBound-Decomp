@@ -33,7 +33,8 @@ extern const char s_cursor_005524e8[];
 extern const char s_normal_00552230[];
 
 void SweepActiveObjectRegistry(void *registry);        /* active-object sweep (called twice, once per registry) */
-void FUN_005098e0(int key);               /* destroy the UI panels registered under key */
+extern unsigned char g_uiPanelManager[0x1c];
+void PanelManager_PruneBelowId(int manager, int threshold); /* destroy UI panels whose id is below threshold */
 void AppendPersistentButtonName(void *slot); /* per-slot register-arg index dropped by Ghidra */
 void *FindPreloadedTextureByName(const char *name);
 void ResolveNamedState(const char *cursorName);/* select the named cursor */
@@ -102,7 +103,7 @@ void ChangeGameState(int newStateId)
     *(unsigned int *)(g_activeObjectRegistry + 0xc) = 0;
     *(unsigned int *)(g_activeObjectRegistry2 + 8) = 0;
     SweepActiveObjectRegistry(g_activeObjectRegistry2);
-    FUN_005098e0(10000);
+    PanelManager_PruneBelowId((int)g_uiPanelManager, 10000);
     if (newStateId == 0xf) {
         PostQuitMessage(0);
         return;
