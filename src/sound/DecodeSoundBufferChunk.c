@@ -12,7 +12,7 @@ void __thiscall DecodeSoundBufferChunk(int param_1,int param_2)
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
-  undefined stack0xffffffc8;
+  undefined4 stack0xffffffc8[6];
   LPCRITICAL_SECTION lpCriticalSection;
   char cVar1;
   int iVar2;
@@ -91,7 +91,7 @@ LAB_004ef344:
                 }
                 iVar2 = DecodeMpegAudioFrame(param_1 + 0x58,iVar2,0,0,0,DAT_00588f3c);
                 if (iVar2 != 0) {
-                  FUN_005133a0(&stack0xffffffc8);
+                  GetMpegOutputFormat(stack0xffffffc8);
                   goto LAB_004ef13b;
                 }
               }

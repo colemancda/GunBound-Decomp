@@ -1801,7 +1801,7 @@ undefined8 DecodeMpegLayerIISamples();
 void ReadMpegLayerIIScfsi();
 void ReadMpegLayerIIScalefactors();
 void ReadMpegLayerIISubbandSamples();
-void FUN_005133a0();
+void GetMpegOutputFormat(undefined4 *param_1);
 void ReadMpegLayerIScalefactors();
 void ReadMpegLayerISubbandSamples();
 int ParseMpegFrameHeader();
