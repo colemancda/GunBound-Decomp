@@ -1040,7 +1040,7 @@ void * __thiscall DeleteShot2_Bullet16();
 void DestroyShot2_Bullet16(undefined4 *regEax);
 void __fastcall DetonateShot2_Bullet16();
 undefined4 * InitThor();
-void * __thiscall FUN_004abca0();
+void * __thiscall DeleteThor();
 void FUN_004abcc0();
 void FUN_004ac180();
 undefined4 __fastcall FUN_004ac260();
