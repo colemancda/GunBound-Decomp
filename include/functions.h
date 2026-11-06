@@ -998,7 +998,7 @@ void * __thiscall Shot_Type9_ScalarDtor();
 void Shot_Type9_DtorBody(undefined4 *regEax);
 void __fastcall DetonateShot_Type9();
 undefined4 * InitCrashParticleAdditive_556488(undefined4 *regEax);
-void __fastcall FUN_0049e470();
+void __fastcall TickCrashParticleAdditive_556488();
 undefined4 * InitShot2_Bullet13();
 void * __thiscall DeleteShot2_Bullet13();
 void DestroyShot2_Bullet13(undefined4 *param_1);
