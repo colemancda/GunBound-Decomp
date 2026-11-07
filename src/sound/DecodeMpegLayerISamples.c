@@ -56,7 +56,7 @@ undefined8 DecodeMpegLayerISamples(byte *param_1,undefined4 param_2)
   uint uVar8;
   uint uVar9;
   uint uVar10;
-  uint uVar11;
+  float fScale;
   
   DAT_005ab704 = 0;
   uVar8 = 0;
@@ -113,14 +113,14 @@ undefined8 DecodeMpegLayerISamples(byte *param_1,undefined4 param_2)
       if ((int)DAT_00563770 <= iVar4) {
         DAT_005ab8d4 = DAT_005ab8d4 + DAT_00563b00[uVar10];
       }
-      uVar11 = DAT_005ab8dc[uVar10];
-      (&DAT_005a9684)[iVar4] = uVar11;
+      fScale = DAT_005ab8dc[uVar10];
+      (&DAT_005a9684)[iVar4] = fScale;
       iVar3 = iVar3 + -1;
       if (iVar3 < 0) {
         (&DAT_005ab608)[iVar4] = uVar10;
         (&DAT_005ab91c)[iVar4] = uVar10 + 0xf;
         (&DAT_005ab920)[iVar4] = uVar10 + 0xf;
-        (&DAT_005a9688)[iVar4] = uVar11;
+        (&DAT_005a9688)[iVar4] = fScale;
         iVar4 = iVar4 + 1;
       }
       iVar4 = iVar4 + 1;

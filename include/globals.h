@@ -2139,8 +2139,9 @@ extern uint32_t DAT_005a9640;
 extern uint32_t g_tt800Mag01[2];
 #define DAT_005a965c (g_tt800Mag01[0])
 extern uint8_t *DAT_005a9680; /* used dereferenced as a byte-stream cursor at call sites */
-extern uint32_t DAT_005a9684;
-extern uint32_t DAT_005a9688;
+extern float g_mpegSbScaleTab[64];
+#define DAT_005a9684 (g_mpegSbScaleTab[0])
+#define DAT_005a9688 (g_mpegSbScaleTab[1])
 /* 64-dword bit-allocation table: DecodeMpegAudioFrame copies four 16-byte rows of a byte table
  * into it (zero-extended) and the layer II reader indexes it as `mov r32,[idx*4 + 0x5a9784]`.
  * 0x5a9784..0x5a9883, ends at the separate scalar DAT_005a9884. */
@@ -2181,8 +2182,9 @@ extern int16_t g_mpegTriple9Tab[3072];
 extern uint32_t DAT_005ab4f4;
 extern uint32_t DAT_005ab4fc;
 extern uint32_t DAT_005ab500;
-extern uint32_t DAT_005ab604;
-extern uint32_t DAT_005ab608;
+extern int g_mpegSbAllocTab[64];
+#define DAT_005ab604 (g_mpegSbAllocTab[0])
+#define DAT_005ab608 (g_mpegSbAllocTab[1])
 extern uint32_t DAT_005ab704;
 /* 128 triples of signed bytes (digit-5 decode, value-2) at 0x5ab708..0x5ab887; DecodeMpegAudioFrame's
  * one-time init fills it through a walking pointer bounded by 0x5ab888, the next object. The readers
@@ -2191,17 +2193,19 @@ extern int8_t g_mpegTriple5Tab[384];
 #define DAT_005ab708 (g_mpegTriple5Tab[0])
 #define DAT_005ab709 (g_mpegTriple5Tab[1])
 #define DAT_005ab70a (g_mpegTriple5Tab[2])
-extern uint32_t DAT_005ab88c;
-extern uint32_t DAT_005ab890;
+extern float g_mpegLevelRecipTab[18];
+#define DAT_005ab88c (g_mpegLevelRecipTab[0])
+#define DAT_005ab890 (g_mpegLevelRecipTab[1])
 extern uint32_t DAT_005ab8d4;
 /* Layer I per-allocation runtime table, 16 words at 0x5ab8dc..0x5ab91c (just below the allocation list DAT_005ab91c) */
-extern uint32_t DAT_005ab8dc[16];
 /* 15 floats at 0x5ab8e0..0x5ab91b: SetupMpegLayerIDecoder's one-time init stores 2.0/(n-1) for n = 4, 8, 16, ...
  * through a walking pointer bounded by 0x5ab91c, the next object. */
-extern float g_mpegReciprocalTab[15];
-#define DAT_005ab8e0 (g_mpegReciprocalTab[0])
-extern uint32_t DAT_005ab91c;
-extern uint32_t DAT_005ab920;
+extern float g_mpegReciprocalTab[16];
+#define DAT_005ab8dc g_mpegReciprocalTab
+#define DAT_005ab8e0 (g_mpegReciprocalTab[1])
+extern int g_mpegSbAllocList[67];
+#define DAT_005ab91c (g_mpegSbAllocList[0])
+#define DAT_005ab920 (g_mpegSbAllocList[1])
 extern uint32_t DAT_005aba28;
 extern uint32_t DAT_005aba2c;
 extern uint32_t DAT_005aba30;

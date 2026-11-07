@@ -22,11 +22,12 @@ undefined8 DecodeMpegLayerIISamples(byte *param_1,undefined4 param_2)
   uint uVar8;
   uint uVar9;
   int *piVar10;
-  undefined4 *local_24;
+  float *local_24;
+  float fLevel;
   int *local_20;
   int local_1c;
   int *local_18;
-  undefined4 *local_14;
+  float *local_14;
   int local_10;
   int local_c;
   int local_8;
@@ -154,15 +155,15 @@ undefined8 DecodeMpegLayerIISamples(byte *param_1,undefined4 param_2)
           if (DAT_00563770 <= iVar2) {
             DAT_005ab8d4 = DAT_005ab8d4 + DAT_00563774[iVar1];
           }
-          uVar6 = *(undefined4 *)(&DAT_005ab88c + iVar1 * 4);
-          *local_24 = uVar6;
+          fLevel = g_mpegLevelRecipTab[iVar1];
+          *local_24 = fLevel;
           local_8 = local_8 + -1;
           if (local_8 < 0) {
             *local_20 = iVar1;
             iVar2 = iVar2 + 1;
             *piVar10 = iVar1 + 0x12;
             *local_18 = iVar1 + 0x12;
-            *local_14 = uVar6;
+            *local_14 = fLevel;
             param_1 = (byte *)((int)param_1 + 4);
             local_24 = local_24 + 1;
             local_20 = local_20 + 1;

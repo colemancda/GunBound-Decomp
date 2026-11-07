@@ -2237,8 +2237,7 @@ uint32_t DAT_005a9624;
 uint32_t DAT_005a9640;
 uint32_t g_tt800Mag01[2] = { 0x00000000u, 0x8ebfd028u }; /* initialised in the image at 0x5a965c */
 uint8_t *DAT_005a9680;
-uint32_t DAT_005a9684;
-uint32_t DAT_005a9688;
+float g_mpegSbScaleTab[64]; /* 0x5a9684..0x5a9783: per-subband scale, runtime-filled each frame; next object is g_mpegAllocTab. DAT_005a9688 is the odd-channel view (element 1) */
 uint32_t g_mpegAllocTab[64]; /* runtime-filled on every DecodeMpegAudioFrame call before any read */
 uint32_t DAT_005a9884;
 float g_mpegPow2Tab[64]; /* runtime-filled (orig 0x5a9888 is past the raw image, zero-fill) */
@@ -2251,17 +2250,13 @@ int16_t g_mpegTriple9Tab[3072]; /* runtime-filled once (orig 0x5a9cf4 is past th
 uint32_t DAT_005ab4f4;
 uint32_t DAT_005ab4fc;
 uint32_t DAT_005ab500;
-uint32_t DAT_005ab604;
-uint32_t DAT_005ab608;
+int g_mpegSbAllocTab[64]; /* 0x5ab604..0x5ab703: per-subband allocation, runtime-filled each frame; next object is DAT_005ab704. DAT_005ab608 is the odd-channel view (element 1) */
 uint32_t DAT_005ab704;
 int8_t g_mpegTriple5Tab[384]; /* runtime-filled once (orig 0x5ab708 is past the raw image) */
-uint32_t DAT_005ab88c;
-uint32_t DAT_005ab890;
+float g_mpegLevelRecipTab[18]; /* 0x5ab88c..0x5ab8d3: element 0 is never written (allocation 0), elements 1..17 = 2.0 / level count, filled by DecodeMpegAudioFrame; next object is DAT_005ab8d4 */
 uint32_t DAT_005ab8d4;
-uint32_t DAT_005ab8dc[16];
-float g_mpegReciprocalTab[15]; /* runtime-filled once (orig 0x5ab8e0 is past the raw image) */
-uint32_t DAT_005ab91c;
-uint32_t DAT_005ab920;
+float g_mpegReciprocalTab[16]; /* 0x5ab8dc..0x5ab91b: element 0 never written, elements 1..15 = 2.0 / (2^n - 1) filled once by SetupMpegLayerIDecoder from 0x5ab8e0; next object is g_mpegSbAllocList */
+int g_mpegSbAllocList[67]; /* 0x5ab91c..0x5aba27: allocation list (two sentinels after the last subband), runtime-filled each frame; next object is DAT_005aba28. DAT_005ab920 is the odd-channel view (element 1) */
 uint32_t DAT_005aba28;
 uint32_t DAT_005aba2c;
 uint32_t DAT_005aba30;
