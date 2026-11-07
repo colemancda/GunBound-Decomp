@@ -137,7 +137,8 @@ LAB_00437779:
   iVar2 = PeekPacketChecksumState((void *)((int)piVar7 + 0x35ec));
   (*pcVar8)(&g_valueGuardLock);
   piVar7[0xfeb] = iVar2;
-  RegisterActiveObject(0, 0, (undefined4 *)0);
+  /* EDX = [0x5b3484] + 0x6a7f88, EDI = ebp, the mine whose +0x35ec cell is read and +0x3fac written just before (original call at 0x437848); the port had passed (0,0,NULL). */
+  RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar7);
 LAB_0043784d:
   return;
 }
