@@ -2184,7 +2184,7 @@ extern uint8_t g_mpegBitReservoir[0x2000];
 extern uint32_t DAT_005ada38;
 /* Layer III IMDCT / frequency-inversion output scratch: 0x240 dwords at 0x5ada3c..0x5ae33c.
  * SetupMpegLayerIIIDecoder clears it with `mov ecx,0x240 / rep stosd` (0x516761-0x516768) and
- * FUN_00514cc0 hands its base to the IMDCT, inversion and polyphase callbacks; the next
+ * SynthesizeMpegLayerIIIStereo hands its base to the IMDCT, inversion and polyphase callbacks; the next
  * object is the scalar DAT_005ae33c. */
 extern uint32_t g_mpegImdctOut[0x240];
 #define DAT_005ada3c (g_mpegImdctOut[0])
@@ -2208,8 +2208,9 @@ extern uint8_t g_mpegBlockState[0x70];
 /* LSF intensity-stereo table, 0x5ae7b0..0x5ae7cc (7 words; passed by address). */
 extern uint32_t g_mpegLsfIntensityTab[7];
 #define DAT_005ae7b0 (g_mpegLsfIntensityTab[0])
-/* Per-granule last-nonzero-line counts, 4 words at 0x5ae7cc..0x5ae7dc indexed gr + ch*2
- * (DAT_005ae7d0 is element 1). */
+/* Per-granule/channel last-nonzero-line counts, 4 words at 0x5ae7cc..0x5ae7dc. The Layer III
+ * synthesis drivers (SynthesizeMpegLayerIII*) index them [granule * 2 + channel]
+ * (`[granule*8 + 0x5ae7cc]` / `[granule*8 + 0x5ae7d0]`); DAT_005ae7d0 is element 1. */
 extern uint32_t g_mpegBandLimit[4];
 #define DAT_005ae7cc (g_mpegBandLimit[0])
 #define DAT_005ae7d0 (g_mpegBandLimit[1])
@@ -2605,7 +2606,7 @@ extern uint32_t DAT_00f25ee0;
 extern uint32_t DAT_00f25ee4;
 /* Synthesis overlap buffers: 2304 words (4 x 0x240) at 0xf25f00..0xf282ff.  SetupMpegLayerIIIDecoder zeroes the
  * whole run in a loop ended by `cmp eax,0xf28300`; the readers address it as 0x240-word rows from
- * 0xf25f00 and (FUN_00514cc0) from 0xf27100 = row 2. */
+ * 0xf25f00 and (SynthesizeMpegLayerIIIStereo) from 0xf27100 = row 2. */
 extern uint32_t g_mpegSynthBuf[2304];
 #define DAT_00f25f00 (g_mpegSynthBuf[0])
 extern double DAT_00544360;
