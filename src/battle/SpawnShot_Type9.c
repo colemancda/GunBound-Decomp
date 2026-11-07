@@ -717,7 +717,8 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
       TreeInsert();
     }
   }
-  RegisterActiveObject(0, 0, (undefined4 *)0);
+  /* EDX = [0x5b3484] + 0x6a7f88, EDI = ebp, the projectile (its +0x18/+0x38/+0x3894 stores match piVar3 at 0x42f5b1-0x42f5bf) (original call at 0x430595); the port had passed (0,0,NULL). */
+  RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar3);
   *unaff_FS_OFFSET = iStack_84;
   return;
 }
