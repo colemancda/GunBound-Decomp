@@ -692,7 +692,8 @@ LAB_00496a28:
        * with no interposed writer and no bypass edge). */
       cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar3 == '\0') {
-        RegisterActiveObject(0, 0, (undefined4 *)0);
+        /* EDX = ctx+0x6a7f88, EDI = [esp+0x18] (reloaded into ebx at 0x496a3c, the delete target in the else branch) (original call at 0x496aba); the port had passed (0,0,NULL). */
+        RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)puVar27);
       }
       else {
         (**(code **)*puVar27)(1);
