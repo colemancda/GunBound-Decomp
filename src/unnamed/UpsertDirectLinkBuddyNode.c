@@ -122,7 +122,8 @@ UpsertDirectLinkBuddyNode(char *param_1,int param_2,char param_3,undefined4 para
       *(undefined4 *)((int)puVar4 + 0x35) = param_6[1];
       *(undefined4 *)((int)puVar4 + 0x39) = param_6[2];
       *(undefined4 *)((int)puVar4 + 0x3d) = param_6[3];
-      cVar2 = RegisterActiveObject(0, 0, (undefined4 *)0);
+      /* EDX = ebp, the first stack argument (param_2, also the FindDirectLinkBuddyNode argument), EDI = eax, the buddy node whose +0x31..+0x3d cells are written just before (original call at 0x401e1b); the port had passed (0,0,NULL). */
+      cVar2 = RegisterActiveObject(0, param_2, (undefined4 *)puVar4);
       if (cVar2 != '\0') {
         iVar3 = *(int *)(param_2 + 0xc10) + 1;
         *(int *)(param_2 + 0xc10) = iVar3;
