@@ -221,7 +221,8 @@ LAB_00438814:
       SpawnSpeechBalloon((int)uVar1,g_clientContext + 0x6a7f70,pcVar9);
     }
   }
-  RegisterActiveObject(0, 0, (undefined4 *)0);
+  /* EDX = [0x5b3484] + 0x6a7f88, EDI = esi, the jewel (vtable call [eax+4] through esi, +0x19f4 cell encoded) (original call at 0x4388ab); the port had passed (0,0,NULL). */
+  RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar6);
 LAB_004388b4:
   *unaff_FS_OFFSET = local_c;
   return;
