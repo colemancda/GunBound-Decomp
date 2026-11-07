@@ -70,7 +70,8 @@ void SpawnCrashEffect(undefined4 param_1,undefined4 param_2,int regEbx)
     iVar5 = _rand();
     *(int *)(iVar3 + 0x18) = regEbx;
     *(int *)(iVar3 + 0x44) = iVar5 % iVar4;
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = [0x5b3484] + 0x6a7f88, EDI = the effect just built (+0x18/+0x44 stored through edi just before) (original call at 0x436b39); the port had passed (0,0,NULL). */
+    RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)iVar3);
   }
   return;
 }
