@@ -41,7 +41,8 @@ void SpawnThor(undefined4 param_1,int param_2,int regEsi)
     iVar3 = FindPreloadedTextureByName(&DAT_00553b88);
     piVar4[7] = iVar3;
     (**(code **)(*piVar4 + 4))(s_normal_00552230);
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = [0x5b3484] + 0x6a7f88, EDI = the Thor object just built (vtable call [edx+4] through edi) (original call at 0x439e20); the port had passed (0,0,NULL). */
+    RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar4);
   }
   return;
 }
