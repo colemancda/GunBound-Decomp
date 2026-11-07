@@ -16,8 +16,10 @@
  * sequence, inlined), clears the worker run flag, SetEvents the worker,
  * runs DestroyConnectionObject on the sub-object and frees it, then
  * scrambles the two value-guard cells at +0x98 and +0x2bc into
- * g_valueGuardMap. The port still carries Ghidra's SEH frame artifact
- * (unaff_FS_OFFSET).
+ * g_valueGuardMap. The MSVC try-frame (push -1 / push 0x537cae / fs:[0]
+ * chain at 0x4d22d0-0x4d22de, unlinked at 0x4d23da) that Ghidra rendered as
+ * unaff_FS_OFFSET writes is stripped, as in FUN_00401a70 (7fe47ba3): the
+ * pointer was never assigned, so the prologue write was a certain fault.
  *
  * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
  * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
@@ -31,16 +33,9 @@ void TeardownConnectionObject(int param_1)
 {
   int iVar1;
   void *_Memory;
-  undefined4 *unaff_FS_OFFSET;
   undefined1 auStack_14 [8];
-  undefined4 uStack_c;
-  undefined1 *puStack_8;
-  undefined4 local_4;
   
-  puStack_8 = &LAB_00537cae;
-  uStack_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &uStack_c;
-  local_4 = 0;
+  /* Windows SEH __try frame setup stripped (handler LAB_00537cae). */
   _free(*(void **)(param_1 + 0x84e8));
   iVar1 = *(int *)(param_1 + 0x84e0);
   if (iVar1 != 0) {
@@ -68,12 +63,10 @@ void TeardownConnectionObject(int param_1)
     ScrambleChecksumGuardBytes(*(int *)(param_1 + 700),&g_valueGuardKeyTable);
     TreeInsert(auStack_14,&g_valueGuardMap);
   }
-  local_4 = 0xffffffff;
   if (*(int *)(param_1 + 0x98) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x98),&g_valueGuardKeyTable);
     TreeInsert(auStack_14,&g_valueGuardMap);
   }
-  *unaff_FS_OFFSET = uStack_c;
   return;
 }
 
