@@ -10,7 +10,7 @@
 undefined4 ConsumeMpegBits(int param_1)
 
 {
-  byte bVar1;
+  uint uVar1;
   
   if (DAT_00f25e04 < param_1) {
     for (; DAT_00f25e04 < 0x19; DAT_00f25e04 = DAT_00f25e04 + 8) {
@@ -18,13 +18,12 @@ undefined4 ConsumeMpegBits(int param_1)
       DAT_00f25e08 = DAT_00f25e08 + 1;
     }
   }
-  bVar1 = (byte)(DAT_00f25e04 - param_1);
   DAT_00f25e04 = DAT_00f25e04 - param_1;
-  DAT_00f25e00 = DAT_00f25e00 - ((DAT_00f25e00 >> (bVar1 & 0x1f)) << (bVar1 & 0x1f));
-  /* Ghidra emitted a bare `return;` in a value-returning function;
-   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
-   * (-Wreturn-mismatch). This path's result is unused by callers -
-   * return 0 to satisfy both toolchains without inventing a value. */
-  return 0;
+  /* 0x514b3e-0x514b4f: eax = bits >> cnt is the returned value (the next
+   * param_1 bits); the remainder bits - (eax << cnt) stay in the buffer.
+   * The port used to `return 0` here on the claim that no caller used the
+   * result; every Layer III header and side-info reader does. */
+  uVar1 = DAT_00f25e00 >> ((byte)DAT_00f25e04 & 0x1f);
+  DAT_00f25e00 = DAT_00f25e00 - (uVar1 << ((byte)DAT_00f25e04 & 0x1f));
+  return uVar1;
 }
-
