@@ -58,8 +58,7 @@ void FUN_00518560(int param_1,int *param_2,int param_3,int param_4,undefined4 *p
     do {
       bVar6 = false;
       fVar5 = fVar2 * *(float *)(&DAT_005b0efc +
-                                ((*(int *)(&DAT_00563df4 +
-                                          (uVar11 + *(int *)(param_4 + 0x3c) * 0x16) * 4) +
+                                ((g_mpegPretab[uVar11 + *(int *)(param_4 + 0x3c) * 0x16] +
                                  *(int *)(param_4 + 0x40) * 4) * 0x20 +
                                 *(int *)(param_3 + -0xf25e20 + (int)local_50)) * 4);
       local_4c = (int *)*local_50;

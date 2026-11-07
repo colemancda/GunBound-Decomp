@@ -133,12 +133,12 @@ undefined4 FUN_00515b90(int param_1)
   }
   if (0 < (int)uVar2) {
     if (DAT_005aba34 == 0) {
-      iVar3 = *(int *)(&DAT_00563d0c + (DAT_005ae34c * 0x10 + uVar2) * 4) * 0x5a0;
+      iVar3 = g_mpegL3BitrateTab[DAT_005ae34c * 0x10 + uVar2] * 0x5a0;
     }
     else {
-      iVar3 = *(int *)(&DAT_00563d0c + (DAT_005ae34c * 0x10 + uVar2) * 4) * 0xb40;
+      iVar3 = g_mpegL3BitrateTab[DAT_005ae34c * 0x10 + uVar2] * 0xb40;
     }
-    DAT_005aba30 = iVar3 / *(int *)(&DAT_00563cec + (DAT_005ae924 + DAT_005ae34c * 4) * 4);
+    DAT_005aba30 = iVar3 / g_mpegL3RateTab[DAT_005ae924 + DAT_005ae34c * 4];
   }
   if (iVar7 < 8) {
     for (; iVar7 < 0x19; iVar7 = iVar7 + 8) {

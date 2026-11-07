@@ -84,8 +84,8 @@ undefined8 DecodeMpegLayerIIISamples(byte *param_1,undefined4 *param_2)
       ConsumeMpegBits(4);
     }
     if (0 < iHdrBitrateIdx) {
-      DAT_005aba30 = (*(int *)(&DAT_00563d0c + (DAT_005ae34c * 0x10 + iHdrBitrateIdx) * 4) * 0xb40) /
-                     *(int *)(&DAT_00563cec + (DAT_005ae924 + DAT_005ae34c * 4) * 4);
+      DAT_005aba30 = (g_mpegL3BitrateTab[DAT_005ae34c * 0x10 + iHdrBitrateIdx] * 0xb40) /
+                     g_mpegL3RateTab[DAT_005ae924 + DAT_005ae34c * 4];
     }
     DAT_005ae7f0 = ConsumeMpegBits(9);
     bVar11 = DAT_005ae7e8 != 3;

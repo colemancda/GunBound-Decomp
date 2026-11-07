@@ -1905,11 +1905,9 @@ uint32_t DAT_00557a40;
 uint32_t DAT_00557a44;
 uint32_t DAT_00557fd8;
 uint32_t DAT_00563730[16] = { 0x40, 0x40, 0x40, 0x40, 0x8, 0x10, 0x18, 0x20, 0x40, 0x40, 0x40, 0x40, 0x20, 0x20, 0x20, 0x20 };
-uint32_t DAT_00563770;
+uint32_t DAT_00563770 = 0x6; /* orig .data initial value */
 uint32_t DAT_00563774[18] = { 0x0, 0x5, 0x7, 0x9, 0xa, 0xc, 0xf, 0x12, 0x15, 0x18, 0x1b, 0x1e, 0x21, 0x24, 0x27, 0x2a, 0x2d, 0x30 };
 uint32_t g_mpegBandCount[4] = { 3, 8, 12, 7 }; /* orig .data 0x5637bc..0x5637cb (rewritten per frame) */
-uint32_t DAT_005637d4;
-uint32_t DAT_005637e8;
 unsigned char g_mpegBandSelTab[192] = { /* orig .data 0x56382c..0x5638eb, read only */
   1, 255, 255, 255, 2, 255, 2, 0, 0, 0, 1, 1, 1, 1, 1, 255,
   0, 255, 255, 255, 2, 255, 2, 0, 0, 0, 0, 0, 0, 0, 0, 255,
@@ -1952,22 +1950,48 @@ unsigned char g_mpegBandCountTab[20] = { /* orig .data 0x563a4c..0x563a5f, read 
   4, 0, 7, 19
 };
 uint32_t DAT_00563ad8[5] = { 1, 2, 1, 1, 1 };
-uint32_t DAT_00563afc;
+uint32_t DAT_00563afc = 0x1; /* orig .data initial value */
 uint32_t DAT_00563b00[16] = { 0, 2, 3, 4, 5, 6, 7, 8, 9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf, 0x10 };
-uint32_t DAT_00563b44;
-uint32_t DAT_00563b48;
-uint32_t DAT_00563b4c;
-uint32_t DAT_00563bcc;
-uint32_t DAT_00563bec;
-uint32_t DAT_00563c6c;
-uint32_t DAT_00563cec;
-uint32_t DAT_00563d0c;
-uint32_t DAT_00563d8c;
-uint32_t DAT_00563d90;
-uint32_t DAT_00563d94;
-uint32_t DAT_00563d98;
-uint32_t DAT_00563df0;
-uint32_t DAT_00563df4;
+uint32_t DAT_00563b44 = 0x20; /* orig .data initial value */
+uint32_t DAT_00563b48 = 0x1; /* orig .data initial value */
+int g_mpegLayer2NbalTab[5] = { /* orig .data 0x5637d4..0x5637e7; Layer II allocation field widths per subband group (4 used, loop bound 0x10 bytes); next object is g_mpegLayer2LevelTab */
+  4, 4, 3, 2, 0,
+};
+int g_mpegLayer2LevelTab[17] = { /* orig .data 0x5637e8..0x56382b; 17 quantiser level counts 3,5,7,9,15..65535, the fill loop in DecodeMpegAudioFrame runs 0x44 bytes and the next object is the byte table at 0x56382c */
+  3, 5, 7, 9, 0xf, 0x1f, 0x3f, 0x7f, 0xff,
+  0x1ff, 0x3ff, 0x7ff, 0xfff, 0x1fff, 0x3fff, 0x7fff, 0xffff,
+};
+int g_mpegBitrateTabL2[32] = { /* orig .data 0x563b4c..0x563bcb; Layer II bitrates in kbps, index headerID * 16 + bitrateIdx; ends where g_mpegFrameRateTab starts */
+  0, 8, 0x10, 0x18, 0x20, 0x28, 0x30, 0x38, 0x40, 0x50, 0x60, 0x70, 0x80, 0x90, 0xa0, 0,
+  0, 0x20, 0x30, 0x38, 0x40, 0x50, 0x60, 0x70, 0x80, 0xa0, 0xc0, 0xe0, 0x100, 0x140, 0x180, 0,
+};
+int g_mpegFrameRateTab[8] = { /* orig .data 0x563bcc..0x563beb; sample rate / 100 (negative = reserved), index (sampleRateIdx + 4 * headerID); ends where g_mpegBitrateTabL1 starts */
+  0x1b9, 0x1e0, 0x140, -999, 0x372, 0x3c0, 0x280, -999,
+};
+int g_mpegBitrateTabL1[32] = { /* orig .data 0x563bec..0x563c6b; Layer I bitrates in kbps, index headerID * 16 + bitrateIdx */
+  0, 0x20, 0x30, 0x38, 0x40, 0x50, 0x60, 0x70, 0x80, 0x90, 0xa0, 0xb0, 0xc0, 0xe0, 0x100, 0,
+  0, 0x20, 0x40, 0x60, 0x80, 0xa0, 0xc0, 0xe0, 0x100, 0x120, 0x140, 0x160, 0x180, 0x1a0, 0x1c0, 0,
+};
+int g_mpegBitrateTabL3[32] = { /* orig .data 0x563c6c..0x563ceb; Layer III bitrates in kbps, index headerID * 16 + bitrateIdx */
+  0, 8, 0x10, 0x18, 0x20, 0x28, 0x30, 0x38, 0x40, 0x50, 0x60, 0x70, 0x80, 0x90, 0xa0, 0,
+  0, 0x20, 0x28, 0x30, 0x38, 0x40, 0x50, 0x60, 0x70, 0x80, 0xa0, 0xc0, 0xe0, 0x100, 0x140, 0,
+};
+int g_mpegL3RateTab[8] = { /* orig .data 0x563cec..0x563d0b; same eight sample-rate / 100 values as g_mpegFrameRateTab, read by the Layer III header paths */
+  0x1b9, 0x1e0, 0x140, -999, 0x372, 0x3c0, 0x280, -999,
+};
+int g_mpegL3BitrateTab[32] = { /* orig .data 0x563d0c..0x563d8b; Layer III bitrates in kbps again (frame-size path), ends at DAT_00563d8c */
+  0, 8, 0x10, 0x18, 0x20, 0x28, 0x30, 0x38, 0x40, 0x50, 0x60, 0x70, 0x80, 0x90, 0xa0, 0,
+  0, 0x20, 0x28, 0x30, 0x38, 0x40, 0x50, 0x60, 0x70, 0x80, 0xa0, 0xc0, 0xe0, 0x100, 0x140, 0,
+};
+int g_mpegPretab[44] = { /* orig .data 0x563df4..0x563ea3; [2][22] pretab rows indexed preflag * 22 + sfb, ends where the Huffman descriptor array at 0x563ea8 begins */
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 3, 3, 3, 2, 0,
+};
+uint32_t DAT_00563d8c = 0x240; /* orig .data initial value */
+uint32_t DAT_00563d90 = 0x240; /* orig .data initial value */
+uint32_t DAT_00563d94 = 0x240; /* orig .data initial value */
+uint32_t DAT_00563d98 = 0x20; /* orig .data initial value */
+uint32_t DAT_00563df0 = 0x1; /* orig .data initial value */
 uint32_t DAT_00568100;
 uint32_t DAT_00568101;
 uint32_t DAT_00568184;
@@ -2491,7 +2515,7 @@ double DAT_00558048 = 90.0; /* orig .data 0x4056800000000000; only x87 QWORD ope
 float DAT_00558068 = 0.248f; /* orig .data 0x3e7df3b6; only x87 DWORD operands reference it */
 double DAT_00558070 = 0.06977777928113937; /* orig .data 0x3fb1dcf4e0000000; only x87 QWORD operands reference it */
 double DAT_00558078 = 1000.0; /* orig .data 0x408f400000000000; only x87 QWORD operands reference it */
-uint32_t DAT_00563d9c;
+uint32_t DAT_00563d9c = 0x20; /* orig .data initial value */
 float DAT_005687f8 = 0.5f; /* orig .data 0x3f000000; only x87 DWORD fmul operands reference it */
 uint32_t DAT_005688a4;
 uint32_t DAT_005688a8;

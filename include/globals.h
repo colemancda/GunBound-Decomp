@@ -1940,6 +1940,24 @@ extern uint32_t DAT_00557a40;
 extern uint32_t DAT_00557a44;
 extern uint32_t DAT_00557fd8;
 /* Joint-stereo bound table, 16 words at 0x563730 up to DAT_00563770 (raw 40 40 40 40 8 10 18 20 40 40 40 40 20 20 20 20 hex). */
+extern int g_mpegLayer2NbalTab[5]; /* 0x5637d4 */
+extern int g_mpegLayer2LevelTab[17]; /* 0x5637e8 */
+extern int g_mpegBitrateTabL2[32]; /* 0x563b4c */
+extern int g_mpegFrameRateTab[8]; /* 0x563bcc */
+extern int g_mpegBitrateTabL1[32]; /* 0x563bec */
+extern int g_mpegBitrateTabL3[32]; /* 0x563c6c */
+extern int g_mpegL3RateTab[8]; /* 0x563cec */
+extern int g_mpegL3BitrateTab[32]; /* 0x563d0c */
+extern int g_mpegPretab[44]; /* 0x563df4 */
+#define DAT_005637d4 (g_mpegLayer2NbalTab[0])
+#define DAT_005637e8 (g_mpegLayer2LevelTab[0])
+#define DAT_00563b4c (g_mpegBitrateTabL2[0])
+#define DAT_00563bcc (g_mpegFrameRateTab[0])
+#define DAT_00563bec (g_mpegBitrateTabL1[0])
+#define DAT_00563c6c (g_mpegBitrateTabL3[0])
+#define DAT_00563cec (g_mpegL3RateTab[0])
+#define DAT_00563d0c (g_mpegL3BitrateTab[0])
+#define DAT_00563df4 (g_mpegPretab[0])
 extern uint32_t DAT_00563730[16];
 extern uint32_t DAT_00563770;
 /* Layer II per-allocation step table, 18 words at 0x563774 up to 0x5637bc (raw 0 5 7 9 a c f 12 15 18 1b 1e 21 24 27 2a 2d 30 hex). */
@@ -1953,8 +1971,6 @@ extern uint32_t g_mpegBandCount[4];
 #define DAT_005637c0 (g_mpegBandCount[1])
 #define DAT_005637c4 (g_mpegBandCount[2])
 #define DAT_005637c8 (g_mpegBandCount[3])
-extern uint32_t DAT_005637d4;
-extern uint32_t DAT_005637e8;
 extern unsigned char g_mpegBandSelTab[192];
 #define DAT_0056382c (g_mpegBandSelTab[0]) /* byte table 0x56382c..0x5638eb; callers take &DAT_0056382c + byteOffset */
 /* Eight dwords at 0x5638ec..0x56390b: MPEG sample rates (22050,24000,16000,_,44100,48000,32000,_),
@@ -1973,18 +1989,11 @@ extern uint32_t DAT_00563afc;
 extern uint32_t DAT_00563b00[16];
 extern uint32_t DAT_00563b44;
 extern uint32_t DAT_00563b48;
-extern uint32_t DAT_00563b4c;
-extern uint32_t DAT_00563bcc;
-extern uint32_t DAT_00563bec;
-extern uint32_t DAT_00563c6c;
-extern uint32_t DAT_00563cec;
-extern uint32_t DAT_00563d0c;
 extern uint32_t DAT_00563d8c;
 extern uint32_t DAT_00563d90;
 extern uint32_t DAT_00563d94;
 extern uint32_t DAT_00563d98;
 extern uint32_t DAT_00563df0;
-extern uint32_t DAT_00563df4;
 extern uint32_t DAT_00568100;
 extern uint32_t DAT_00568101;
 extern uint32_t DAT_00568184;

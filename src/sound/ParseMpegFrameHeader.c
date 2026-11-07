@@ -69,12 +69,12 @@ int ParseMpegFrameHeader(char *param_1,uint param_2,undefined4 *param_3)
       iVar2 = param_3[4];
       if (0 < iVar2) {
         if (iVar5 == 3) {
-          return (*(int *)(&DAT_00563bec + (param_3[1] * 0x10 + iVar2) * 4) * 0xf0) /
-                 *(int *)(&DAT_00563bcc + (param_3[5] + param_3[1] * 4) * 4) << 2;
+          return (g_mpegBitrateTabL1[param_3[1] * 0x10 + iVar2] * 0xf0) /
+                 g_mpegFrameRateTab[param_3[5] + param_3[1] * 4] << 2;
         }
         if (iVar5 == 2) {
           iVar5 = param_3[1];
-          iVar2 = *(int *)(&DAT_00563b4c + (iVar5 * 0x10 + iVar2) * 4);
+          iVar2 = g_mpegBitrateTabL2[iVar5 * 0x10 + iVar2];
         }
         else {
           if (iVar5 != 1) {
@@ -83,15 +83,15 @@ int ParseMpegFrameHeader(char *param_1,uint param_2,undefined4 *param_3)
           iVar5 = param_3[1];
           if (iVar5 == 0) {
             if (!bVar1) {
-              return (*(int *)(&DAT_00563c6c + iVar2 * 4) * 0x5a0) /
-                     *(int *)(&DAT_00563bcc + param_3[5] * 4);
+              return (g_mpegBitrateTabL3[iVar2] * 0x5a0) /
+                     g_mpegFrameRateTab[param_3[5]];
             }
-            return (*(int *)(&DAT_00563c6c + iVar2 * 4) * 0xb40) /
-                   *(int *)(&DAT_00563bcc + param_3[5] * 4);
+            return (g_mpegBitrateTabL3[iVar2] * 0xb40) /
+                   g_mpegFrameRateTab[param_3[5]];
           }
-          iVar2 = *(int *)(&DAT_00563c6c + (iVar5 * 0x10 + iVar2) * 4);
+          iVar2 = g_mpegBitrateTabL3[iVar5 * 0x10 + iVar2];
         }
-        return (iVar2 * 0xb40) / *(int *)(&DAT_00563bcc + (param_3[5] + iVar5 * 4) * 4);
+        return (iVar2 * 0xb40) / g_mpegFrameRateTab[param_3[5] + iVar5 * 4];
       }
       iVar5 = 0x18;
       param_3 = (undefined4 *)0x1;
