@@ -82,7 +82,8 @@ int FUN_004f1a50(undefined4 param_1,undefined4 param_2,int param_3,int param_4,c
             iVar1 = FUN_004f1520();
             pvVar2 = local_8;
             if (iVar1 == -1) break;
-            RegisterActiveObject(0, 0, (undefined4 *)0);
+            /* EDX = [esp+0x28], the first stack argument (param_1, the registry; param_2 sits at [esp+0x2c]), EDI = ebp, the sprite frame node built just before (original call at 0x4f1b5f); the port had passed (0,0,NULL). */
+            RegisterActiveObject(0, param_1, (undefined4 *)puVar3);
             local_14 = local_14 + 1;
             pvVar2 = local_8;
             iVar1 = local_c;
