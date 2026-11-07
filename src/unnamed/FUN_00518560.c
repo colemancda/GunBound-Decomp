@@ -12,7 +12,7 @@ void FUN_00518560(int param_1,int *param_2,int param_3,int param_4,undefined4 *p
 {
   int iVar1;
   float fVar2;
-  float fVar3;
+  int iVal;
   int iVar4;
   float fVar5;
   bool bVar6;
@@ -24,8 +24,6 @@ void FUN_00518560(int param_1,int *param_2,int param_3,int param_4,undefined4 *p
   float *pfVar12;
   uint uVar13;
   double dVar14;
-  undefined4 uVar15;
-  undefined4 uVar16;
   int local_68;
   int *local_5c;
   int *local_58;
@@ -69,21 +67,26 @@ void FUN_00518560(int param_1,int *param_2,int param_3,int param_4,undefined4 *p
         pfVar9 = (float *)(param_1 + local_68 * 4);
         local_68 = local_68 + (int)local_4c;
         do {
-          fVar3 = *pfVar9;
-          if (fVar3 == 0.0) {
+          /* The quantised value is an INTEGER (5186 41: `mov eax,[esi] / test
+           * eax,eax`, then `cmp eax,-0x20` / `cmp eax,0x20`); the decompile
+           * typed the walking pointer as float and read it as one. */
+          iVal = *(int *)pfVar9;
+          if (iVal == 0) {
             *pfVar9 = 0.0;
           }
           else {
             bVar6 = true;
-            if (((int)fVar3 < -0x20) || (0x1f < (int)fVar3)) {
-              uVar16 = 0x3fd55555;
-              uVar15 = 0x60000000;
-              dVar14 = _fabs((double)(int)fVar3);
-              dVar14 = _pow(dVar14,(double)CONCAT44(uVar16,uVar15));
-              *pfVar9 = (float)dVar14 * fVar5 * (float)(int)fVar3;
+            if ((iVal < -0x20) || (0x1f < iVal)) {
+              /* the exponent is the double 0x3fd5555560000000 (= (double)
+               * (float)(1/3), 0.3333333432674408) pushed as two dwords; the
+               * decompile's (double)CONCAT44() converted that 64-bit integer
+               * to a double (4.6e18) instead of reinterpreting its bits. */
+              dVar14 = _fabs((double)iVal);
+              dVar14 = _pow(dVar14,0.3333333432674408);
+              *pfVar9 = (float)(dVar14 * (double)fVar5 * (double)iVal);
             }
             else {
-              *pfVar9 = fVar5 * *(float *)(&DAT_005b137c + (int)fVar3 * 4);
+              *pfVar9 = fVar5 * *(float *)(&DAT_005b137c + iVal * 4);
             }
           }
           pfVar9 = pfVar9 + 1;
@@ -144,11 +147,9 @@ void FUN_00518560(int param_1,int *param_2,int param_3,int param_4,undefined4 *p
               else {
                 bVar6 = true;
                 if ((iVar4 < -0x20) || (0x1f < iVar4)) {
-                  uVar16 = 0x3fd55555;
-                  uVar15 = 0x60000000;
                   dVar14 = _fabs((double)iVar4);
-                  dVar14 = _pow(dVar14,(double)CONCAT44(uVar16,uVar15));
-                  fVar5 = (float)dVar14 * fVar2 * (float)iVar4;
+                  dVar14 = _pow(dVar14,0.3333333432674408);
+                  fVar5 = (float)(dVar14 * (double)fVar2 * (double)iVar4);
                 }
                 else {
                   fVar5 = fVar2 * *(float *)(&DAT_005b137c + iVar4 * 4);
