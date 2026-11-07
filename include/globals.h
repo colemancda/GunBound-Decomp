@@ -2175,7 +2175,12 @@ extern uint32_t DAT_005aba28;
 extern uint32_t DAT_005aba2c;
 extern uint32_t DAT_005aba30;
 extern uint32_t DAT_005aba34;
-extern uint32_t DAT_005aba38;
+/* Layer III bit-reservoir (main_data) buffer: 0x2000 bytes at 0x5aba38..0x5ada38 (the
+ * next object is the scalar DAT_005ada38). DecodeMpegLayerIIISamples bounds its copy at
+ * 0x2000 and memmoves within it; the old lone uint32 let those copies run into whatever the
+ * linker placed next. Byte-typed so `&DAT_005aba38 + n` is a byte offset as in the original. */
+extern uint8_t g_mpegBitReservoir[0x2000];
+#define DAT_005aba38 (g_mpegBitReservoir[0])
 extern uint32_t DAT_005ada38;
 extern uint32_t DAT_005ada3c;
 extern uint32_t DAT_005ae33c;
@@ -2183,21 +2188,34 @@ extern uint32_t DAT_005ae344;
 extern uint32_t DAT_005ae348;
 extern uint32_t DAT_005ae34c;
 extern uint32_t DAT_005ae350;
-extern uint32_t DAT_005ae358;
-extern uint32_t DAT_005ae450;
-extern uint32_t DAT_005ae740;
-extern uint32_t DAT_005ae74c;
-extern uint32_t DAT_005ae75c;
-extern uint32_t DAT_005ae760;
-extern uint32_t DAT_005ae7b0;
-extern uint32_t DAT_005ae7cc;
-extern uint32_t DAT_005ae7d0;
+/* Per-granule Layer III scalefactor records: 4 x 0xf8 bytes (granule index = gr + ch*2) at
+ * 0x5ae358..0x5ae738 (0x5ae738 is the next object). DAT_005ae450 is record 1. */
+extern uint8_t g_mpegGranuleInfo[0x3e0];
+#define DAT_005ae358 (g_mpegGranuleInfo[0])
+#define DAT_005ae450 (g_mpegGranuleInfo[0xf8])
+/* Per-channel Layer III stereo/block state: 2 x 0x38 bytes at 0x5ae740..0x5ae7b0, reached as
+ * `&DAT_005ae740 + ch*0x38` (and +0xc/+0x1c/+0x20 for the three named fields). */
+extern uint8_t g_mpegBlockState[0x70];
+#define DAT_005ae740 (g_mpegBlockState[0])
+#define DAT_005ae74c (g_mpegBlockState[0xc])
+#define DAT_005ae75c (g_mpegBlockState[0x1c])
+#define DAT_005ae760 (g_mpegBlockState[0x20])
+/* LSF intensity-stereo table, 0x5ae7b0..0x5ae7cc (7 words; passed by address). */
+extern uint32_t g_mpegLsfIntensityTab[7];
+#define DAT_005ae7b0 (g_mpegLsfIntensityTab[0])
+/* Per-granule last-nonzero-line counts, 4 words at 0x5ae7cc..0x5ae7dc indexed gr + ch*2
+ * (DAT_005ae7d0 is element 1). */
+extern uint32_t g_mpegBandLimit[4];
+#define DAT_005ae7cc (g_mpegBandLimit[0])
+#define DAT_005ae7d0 (g_mpegBandLimit[1])
 extern uint32_t DAT_005ae7dc;
 extern uint32_t DAT_005ae7e0;
 extern uint32_t DAT_005ae7e8;
 extern uint32_t DAT_005ae7ec;
 extern uint32_t DAT_005ae7f0;
-extern uint32_t DAT_005ae7f8;
+/* The two scfsi/side-info words at 0x5ae7f8/0x5ae7fc (0x5ae800 is g_mpegChannelInfo). */
+extern uint32_t g_mpegSideInfoWords[2];
+#define DAT_005ae7f8 (g_mpegSideInfoWords[0])
 /* Per-channel MPEG frame state: two 0x90-byte records (72 words) at 0x5ae800..0x5ae91f. DecodeMpegLayerIIISamples
  * walks them with a pointer starting at 0x5ae808 and stepping 0x90 until `cmp esi,0x5ae928`
  * (= 0x5ae808 + 2 * 0x90); the next objects 0x5ae920.. are separate scalars. */
@@ -2683,7 +2701,7 @@ extern uint32_t DAT_005ae738;
 #define _DAT_005ae738 DAT_005ae738
 extern uint32_t DAT_005ae7f4;
 #define _DAT_005ae7f4 DAT_005ae7f4
-extern uint32_t DAT_005ae7fc;
+#define DAT_005ae7fc (g_mpegSideInfoWords[1])
 #define _DAT_005ae7fc DAT_005ae7fc
 #define _DAT_005ae92c DAT_005ae92c
 extern uint32_t DAT_0079361c;

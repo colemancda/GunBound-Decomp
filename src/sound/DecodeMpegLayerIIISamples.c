@@ -167,7 +167,7 @@ undefined8 DecodeMpegLayerIIISamples(byte *param_1,undefined4 *param_2)
     DAT_005ae930 = DAT_005ae934 - DAT_005ae7f0;
     DAT_005ae350 = iVar4;
     if (0x1a24 < (int)DAT_005ae934) {
-      _memmove(&DAT_005aba38,&DAT_005aba38 + DAT_005ae930,DAT_005ae7f0);
+      _memmove(&DAT_005aba38,&DAT_005aba38 + DAT_005ae930,DAT_005ae7f0); /* byte offsets: DAT_005aba38 is the byte reservoir */
       DAT_005ae930 = 0;
       DAT_005ae934 = DAT_005ae7f0;
     }

@@ -20,8 +20,8 @@ void FUN_00514cc0(undefined4 param_1,uint param_2)
   
   iVar2 = 0;
   if (0 < DAT_005ae7dc) {
-    local_8 = (int *)(&DAT_005ae7cc + param_2 * 8);
-    local_4 = (undefined4 *)(&DAT_005ae7cc + (param_2 ^ 1) * 8);
+    local_8 = (int *)(&DAT_005ae7cc + param_2 * 2);
+    local_4 = (undefined4 *)(&DAT_005ae7cc + (param_2 ^ 1) * 2);
     piVar3 = &DAT_005ae814 + param_2 * 0x24;
     puVar5 = &DAT_00f25f00 + param_2 * 0x240;
     puVar4 = &DAT_00f25f00 + (param_2 ^ 1) * 0x240;
