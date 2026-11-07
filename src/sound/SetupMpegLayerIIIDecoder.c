@@ -26,7 +26,11 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void SetupMpegLayerIIIDecoder(byte *param_1,undefined4 param_2,int param_3,undefined4 param_4,uint param_5,
+/* Returns 1 on the normal path and 0 when the header is not Layer III: the original loads EAX
+ * with 0 at entry (0x5163d5) and 1 just before the final store (0x51679b), and
+ * DecodeMpegAudioFrame returns this value straight to its caller, which treats nonzero as
+ * "frame decoded".  The port was void, so that caller returned whatever EAX held. */
+undefined4 SetupMpegLayerIIIDecoder(byte *param_1,undefined4 param_2,int param_3,undefined4 param_4,uint param_5,
                  int param_6)
 
 {
@@ -43,7 +47,7 @@ void SetupMpegLayerIIIDecoder(byte *param_1,undefined4 param_2,int param_3,undef
   DAT_005ae930 = 0;
   DAT_005ae934 = 0;
   if (*(int *)(param_1 + 8) != 1) {
-    return;
+    return 0;
   }
   DAT_005aba28 = (-(uint)(*(int *)(param_1 + 4) != 0) & 2) + 6;
   DAT_005aba30 = param_2;
@@ -199,6 +203,5 @@ LAB_005164e7:
   if (*(int *)(param_1 + 4) != 1) {
     PTR_FUN_00563da8[0] = DecodeMpegLayerIIISamplesLSF;
   }
-  return;
+  return 1;
 }
-
