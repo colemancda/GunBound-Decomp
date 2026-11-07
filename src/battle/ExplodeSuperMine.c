@@ -242,7 +242,8 @@ void __fastcall ExplodeSuperMine(int param_1)
       iVar5 = FindPreloadedTextureByName(s_ssflame7_00554e94);
       piVar7[7] = iVar5;
       (**(code **)(*piVar7 + 4))(s_flame_00553d2c);
-      RegisterActiveObject(0, 0, (undefined4 *)0);
+      /* EDX = [0x5b3484] + 0x6a7f88, EDI = the flame effect just built (its +0x18 is stored 0x2072 through edi) (original call at 0x49219e); the port had passed (0,0,NULL). */
+      RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar7);
     }
     iVar5 = g_clientContext;
     *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;
