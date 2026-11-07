@@ -371,7 +371,8 @@ LAB_0043428c:
    * 0x35ec. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)piVar3 + 0x35ec),0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  RegisterActiveObject(0, 0, (undefined4 *)0);
+  /* EDX = [0x5b3484] + 0x6a7f88, EDI = esi, the projectile whose +0x35ec cell is encoded just before (original call at 0x434a99); the port had passed (0,0,NULL). */
+  RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar3);
 LAB_00434a9e:
   *unaff_FS_OFFSET = local_c;
   return;
