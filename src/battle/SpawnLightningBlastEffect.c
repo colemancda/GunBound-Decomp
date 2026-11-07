@@ -231,7 +231,8 @@ LAB_00435034:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField((void *)(iVar11 + 0x35ec),0x1e);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = [0x5b3484] + 0x6a7f88, EDI = esi, the effect whose +0x35ec cell is encoded just before (original call at 0x435669); the port had passed (0,0,NULL). */
+    RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)iVar11);
     iVar11 = g_clientContext;
     piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
     cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
