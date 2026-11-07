@@ -1734,7 +1734,7 @@ int PanelManager_FindByName(int regEax, char *regEbx);
 void BuildAvatarShopIpConfirmDialog(int esiArg);
 void PanelManager_PruneBelowId(int, int);
 void __fastcall PanelManager_BringToFront(int param_1,int param_2);
-void FUN_005099b0();
+void FUN_005099b0(int manager);
 undefined4 * BuildWorldListPanel();
 undefined4 *CreateScrollListWidget(); /* returns the new widget object */
 undefined4 * BuildLobbyChatPanel(int *panelManager,int selectedTab);

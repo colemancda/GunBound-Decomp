@@ -38,7 +38,7 @@ void PanelManager_PruneBelowId(int manager, int threshold); /* destroy UI panels
 void AppendPersistentButtonName(void *slot); /* per-slot register-arg index dropped by Ghidra */
 void *FindPreloadedTextureByName(const char *name);
 void ResolveNamedState(const char *cursorName);/* select the named cursor */
-void FUN_005099b0(void);
+void FUN_005099b0(int manager);
 void ResetWindowClipper(void);
 int __stdcall LoadSpriteSet(void *container, int key); /* .img name in EAX, .mp3 in EDI */
 extern unsigned char g_spriteRegistry[0x20];
@@ -116,7 +116,7 @@ void ChangeGameState(int newStateId)
     }
     g_cursorTexture = FindPreloadedTextureByName(s_cursor_005524e8);
     ResolveNamedState(s_normal_00552230);
-    FUN_005099b0();
+    FUN_005099b0((int)g_uiPanelManager);
     g_gameStateVTableArray[newStateId]->OnEnter();
     g_currentGameState = newStateId;
     ResetWindowClipper();
