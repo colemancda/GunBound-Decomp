@@ -23,6 +23,6 @@
 undefined4 * GetMpegImdctWindowTable(void)
 
 {
-  return &DAT_00f25b00;
+  return (undefined4 *)g_mpegImdctWinTab;
 }
 

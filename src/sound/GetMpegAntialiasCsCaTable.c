@@ -21,6 +21,6 @@
 undefined * GetMpegAntialiasCsCaTable(void)
 
 {
-  return &DAT_00f25ac0;
+  return (undefined *)g_mpegAntialiasTab;
 }
 

@@ -1130,8 +1130,11 @@ void *PTR_DAT_00555cc8;
 void *PTR_DAT_00555e2c;
 /* statically initialised to 0x5a99f4 in the original .data (0x563b40); every code ref is a load */
 char *PTR_DAT_00563b40 = (char *)g_mpegScaleTab;
-void *PTR_DAT_00568800;
-void *PTR_DAT_00568810;
+/* Table-pointer records at 0x568800 (36-point set) and 0x568810 (12-point set): three float table pointers each and a pad
+ * word (raw 0xf25900 0xf25960 0xf259a0 0 | 0xf258c0 0xf258e0 0xf25a30 0). FUN_00519ef0 reads them through
+ * FUN_0051c660 / FUN_0051c670 and fills the tables, so the pointers must be set before it runs. */
+void *g_mpegImdctLongTabs[4] = { g_mpegImdctLongCos0, g_mpegImdctLongCos1, g_mpegImdctLongCos2, 0 };
+void *g_mpegImdctShortTabs[4] = { g_mpegImdctShortCos0, g_mpegImdctShortCos1, &DAT_00f25a30, 0 };
 /* GetLocalizedString's not-found fallback return value. Was zero-init
  * (BSS), but the original binary's own .data has this as a COMPILE-TIME
  * CONSTANT (not runtime-constructed): raw bytes at the original address
@@ -2355,118 +2358,14 @@ uint8_t  g_serverSelectRecords[21 * 12];    /* 0xe54ca8 - record[0] == old DAT_0
 uint32_t g_tt800State[25]; /* runtime-seeded on first use (orig 0xf25840 is past the raw image) */
 uint32_t DAT_00f258a4;
 uint32_t DAT_00f258a8;
-uint32_t DAT_00f258c0;
-uint32_t DAT_00f258c4;
-uint32_t DAT_00f258c8;
-uint32_t DAT_00f258cc;
-uint32_t DAT_00f258d0;
-uint32_t DAT_00f258d4;
-uint32_t DAT_00f258e0;
-uint32_t DAT_00f258e4;
-uint32_t DAT_00f258e8;
-uint32_t DAT_00f25900;
-uint32_t DAT_00f25904;
-uint32_t DAT_00f25908;
-uint32_t DAT_00f2590c;
-uint32_t DAT_00f25910;
-uint32_t DAT_00f25914;
-uint32_t DAT_00f25918;
-uint32_t DAT_00f2591c;
-uint32_t DAT_00f25920;
-uint32_t DAT_00f25924;
-uint32_t DAT_00f25928;
-uint32_t DAT_00f2592c;
-uint32_t DAT_00f25930;
-uint32_t DAT_00f25934;
-uint32_t DAT_00f25938;
-uint32_t DAT_00f2593c;
-uint32_t DAT_00f25940;
-uint32_t DAT_00f25944;
-uint32_t DAT_00f25960;
-uint32_t DAT_00f25964;
-uint32_t DAT_00f25968;
-uint32_t DAT_00f2596c;
-uint32_t DAT_00f25970;
-uint32_t DAT_00f25974;
-uint32_t DAT_00f25978;
-uint32_t DAT_00f2597c;
-uint32_t DAT_00f25980;
-uint32_t DAT_00f259b0;
-uint32_t DAT_00f259b4;
-uint32_t DAT_00f259b8;
-uint32_t DAT_00f259bc;
-uint32_t DAT_00f259c0;
-uint32_t DAT_00f259c4;
-uint32_t DAT_00f259c8;
-uint32_t DAT_00f259cc;
-uint32_t DAT_00f259d0;
-uint32_t DAT_00f259e0;
-uint32_t DAT_00f259e4;
-uint32_t DAT_00f259e8;
-uint32_t DAT_00f259ec;
-uint32_t DAT_00f259f0;
-uint32_t DAT_00f259f4;
-uint32_t DAT_00f259f8;
-uint32_t DAT_00f259fc;
-uint32_t DAT_00f25a10;
-uint32_t DAT_00f25a14;
-uint32_t DAT_00f25a18;
-uint32_t DAT_00f25a1c;
-uint32_t DAT_00f25a20;
-uint32_t DAT_00f25a24;
-uint32_t DAT_00f25a28;
-uint32_t DAT_00f25a2c;
 float g_mpegCosTab[31]; /* runtime-filled by InitMpegSynthesisTables (orig 0xf25a40 is past the raw image) */
-uint32_t DAT_00f25ac0;
-uint32_t DAT_00f25b00;
-uint32_t DAT_00f25b04;
-uint32_t DAT_00f25b08;
-uint32_t DAT_00f25b0c;
-uint32_t DAT_00f25b10;
-uint32_t DAT_00f25b14;
-uint32_t DAT_00f25b18;
-uint32_t DAT_00f25b1c;
-uint32_t DAT_00f25b20;
-uint32_t DAT_00f25b24;
-uint32_t DAT_00f25b28;
-uint32_t DAT_00f25b2c;
-uint32_t DAT_00f25b30;
-uint32_t DAT_00f25b34;
-uint32_t DAT_00f25b38;
-uint32_t DAT_00f25b3c;
-uint32_t DAT_00f25b40;
-uint32_t DAT_00f25b44;
-uint32_t DAT_00f25b48;
-uint32_t DAT_00f25b4c;
-uint32_t DAT_00f25b50;
-uint32_t DAT_00f25b54;
-uint32_t DAT_00f25b58;
-uint32_t DAT_00f25b5c;
-uint32_t DAT_00f25b60;
-uint32_t DAT_00f25b64;
-uint32_t DAT_00f25b68;
-uint32_t DAT_00f25b6c;
-uint32_t DAT_00f25b70;
-uint32_t DAT_00f25b74;
-uint32_t DAT_00f25b78;
-uint32_t DAT_00f25b7c;
-uint32_t DAT_00f25b80;
-uint32_t DAT_00f25b84;
-uint32_t DAT_00f25b88;
-uint32_t DAT_00f25b8c;
-uint32_t DAT_00f25c20;
-uint32_t DAT_00f25c24;
-uint32_t DAT_00f25c28;
-uint32_t DAT_00f25c2c;
-uint32_t DAT_00f25c30;
-uint32_t DAT_00f25c34;
-uint32_t DAT_00f25c38;
-uint32_t DAT_00f25c3c;
-uint32_t DAT_00f25c40;
-uint32_t DAT_00f25c44;
-uint32_t DAT_00f25c48;
-uint32_t DAT_00f25c4c;
-uint32_t DAT_00f25d3c;
+float g_mpegImdctLongCos0[18]; /* runtime-filled by FUN_00519ef0 through the table records at 0x568800/0x568810 (orig 0xf25900 is past the raw image) */
+float g_mpegImdctLongCos1[9]; /* runtime-filled by FUN_00519ef0 through the table records at 0x568800/0x568810 (orig 0xf25960 is past the raw image) */
+float g_mpegImdctLongCos2[36]; /* runtime-filled by FUN_00519ef0 through the table records at 0x568800/0x568810 (orig 0xf259a0 is past the raw image) */
+float g_mpegImdctShortCos0[6]; /* runtime-filled by FUN_00519ef0 through the table records at 0x568800/0x568810 (orig 0xf258c0 is past the raw image) */
+float g_mpegImdctShortCos1[3]; /* runtime-filled by FUN_00519ef0 through the table records at 0x568800/0x568810 (orig 0xf258e0 is past the raw image) */
+float g_mpegAntialiasTab[16]; /* runtime-filled by InitMpegLayerIIITables via GetMpegAntialiasCsCaTable (orig 0xf25ac0 is past the raw image); ends at g_mpegImdctWinTab */
+float g_mpegImdctWinTab[144]; /* runtime-filled by InitMpegImdctWindows (orig 0xf25b00 is past the raw image); ends at g_mpegBandStartTab */
 uint32_t g_mpegBandStartTab[35]; /* runtime-filled once per frame header (orig 0xf25d40 is past the raw image) */
 uint32_t DAT_00f25e00;
 uint32_t DAT_00f25e04;
@@ -2534,22 +2433,7 @@ uint32_t DAT_005ae340;
 uint32_t DAT_005ae738;
 uint32_t DAT_005ae7f4;
 uint32_t DAT_0079361c;
-uint32_t DAT_00f25a30;
-uint32_t DAT_00f25ac4;
-uint32_t DAT_00f25ac8;
-uint32_t DAT_00f25acc;
-uint32_t DAT_00f25ad0;
-uint32_t DAT_00f25ad4;
-uint32_t DAT_00f25ad8;
-uint32_t DAT_00f25adc;
-uint32_t DAT_00f25ae0;
-uint32_t DAT_00f25ae4;
-uint32_t DAT_00f25ae8;
-uint32_t DAT_00f25aec;
-uint32_t DAT_00f25af0;
-uint32_t DAT_00f25af4;
-uint32_t DAT_00f25af8;
-uint32_t DAT_00f25afc;
+float DAT_00f25a30; /* the one-element short-block table (third pointer of the 0x568810 record) */
 uint32_t DAT_00f25ee8;
 uint32_t DAT_00f25eec;
 uint32_t DAT_00f25ef0;
