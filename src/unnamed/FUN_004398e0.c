@@ -203,7 +203,8 @@ LAB_004399d4:
       puVar5[0xfe8] = iVar4 * *(int *)(iVar12 + 0x3f94);
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
-        RegisterActiveObject(0, 0, (undefined4 *)0);
+        /* EDX = [0x5b3484] + 0x6a7f88, EDI = ebp, the projectile whose +0x3fa8..+0x3fb4 cells are written just before and which the else branch deletes (original call at 0x439d6c); the port had passed (0,0,NULL). */
+        RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)puVar5);
       }
       else {
         (**(code **)*puVar5)(1);
