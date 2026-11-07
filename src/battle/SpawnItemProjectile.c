@@ -224,7 +224,8 @@ void SpawnItemProjectile(byte param_1,undefined4 param_2,int param_3,int param_4
   *(undefined4 *)((int)piVar6 + 0x3817) = SUBFIELD(s_itemblast_xes_00553cf8,4,undefined4);
   *(undefined4 *)((int)piVar6 + 0x381b) = SUBFIELD(s_itemblast_xes_00553cf8,8,undefined4);
   *(undefined2 *)((int)piVar6 + 0x381f) = SUBFIELD(s_itemblast_xes_00553cf8,12,undefined2);
-  RegisterActiveObject(0, 0, (undefined4 *)0);
+  /* EDX = [0x5b3484] + 0x6a7f88, EDI = ebp, the projectile whose +0x3920 cell and itemblast string are written just before (original call at 0x431d69); the port had passed (0,0,NULL). */
+  RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar6);
   *unaff_FS_OFFSET = pvVar1;
   return;
 }
