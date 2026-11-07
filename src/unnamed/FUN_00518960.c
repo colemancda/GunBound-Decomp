@@ -23,9 +23,9 @@ void FUN_00518960(uint *param_1,int param_2,int param_3)
   
   if (0 < param_2) {
     param_2 = param_2 >> 1;
-    pbVar1 = (&PTR_DAT_00568180)[param_3 * 3];
-    iVar3 = *(int *)(&DAT_00568184 + param_3 * 0xc);
-    iVar2 = *(int *)(&DAT_00568188 + param_3 * 0xc);
+    pbVar1 = g_mpegHuffDesc[param_3].table;
+    iVar3 = g_mpegHuffDesc[param_3].linbits;
+    iVar2 = g_mpegHuffDesc[param_3].kind;
     if (iVar2 == 1) {
       param_3 = 0;
       if (0 < param_2) {

@@ -1422,7 +1422,6 @@ extern const char PTR_DAT_00555650[];  /* "%8d" */
 extern void *PTR_DAT_00555cc8;
 extern void *PTR_DAT_00555e2c;
 extern char *PTR_DAT_00563b40; /* char *, not void *: call sites do byte-offset arithmetic on it (see the g_pD3DDevice7 comment) */
-extern void *PTR_DAT_00568180;
 extern void *PTR_DAT_00568800;
 extern void *PTR_DAT_00568810;
 extern void *PTR_DAT_0056d460;
@@ -1994,10 +1993,23 @@ extern uint32_t DAT_00563d90;
 extern uint32_t DAT_00563d94;
 extern uint32_t DAT_00563d98;
 extern uint32_t DAT_00563df0;
-extern uint32_t DAT_00568100;
-extern uint32_t DAT_00568101;
-extern uint32_t DAT_00568184;
-extern uint32_t DAT_00568188;
+/* Layer III Huffman data lives in src/sound/MpegHuffmanTables.c (raw from the original image). */
+#ifndef MPEG_HUFF_DESC_DEFINED /* globals.h has no include guard and a struct cannot be redefined */
+#define MPEG_HUFF_DESC_DEFINED
+typedef struct MpegHuffDesc {
+  unsigned char *table;  /* code tree inside g_mpegHuffBlob */
+  int linbits;
+  int kind;
+} MpegHuffDesc;
+#endif
+extern unsigned char g_mpegHuffBlob[16984];  /* 0x563ea8 */
+extern MpegHuffDesc g_mpegHuffDesc[34];      /* 0x568180, 12-byte records */
+extern unsigned char g_mpegCount1Tab[128];   /* 0x568100, 64 (length, value) pairs */
+#define DAT_00568100 (g_mpegCount1Tab[0])
+#define DAT_00568101 (g_mpegCount1Tab[1])
+#define PTR_DAT_00568180 (g_mpegHuffDesc[0].table)
+#define DAT_00568184 (g_mpegHuffDesc[0].linbits)
+#define DAT_00568188 (g_mpegHuffDesc[0].kind)
 /* The 264-float window table at 0x568318..0x568737 (initialised .data, read-only, every
  * access an x87 DWORD fld through a register).  MpegSynthWindow16Full and its 11 clones
  * (51dae5/51de4a/51e107/51e3c4/51e729/51ea90/51ee0a/51f184/51f456/51f728/51faa2) start a

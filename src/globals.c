@@ -1130,7 +1130,6 @@ void *PTR_DAT_00555cc8;
 void *PTR_DAT_00555e2c;
 /* statically initialised to 0x5a99f4 in the original .data (0x563b40); every code ref is a load */
 char *PTR_DAT_00563b40 = (char *)g_mpegScaleTab;
-void *PTR_DAT_00568180;
 void *PTR_DAT_00568800;
 void *PTR_DAT_00568810;
 /* GetLocalizedString's not-found fallback return value. Was zero-init
@@ -1992,10 +1991,6 @@ uint32_t DAT_00563d90 = 0x240; /* orig .data initial value */
 uint32_t DAT_00563d94 = 0x240; /* orig .data initial value */
 uint32_t DAT_00563d98 = 0x20; /* orig .data initial value */
 uint32_t DAT_00563df0 = 0x1; /* orig .data initial value */
-uint32_t DAT_00568100;
-uint32_t DAT_00568101;
-uint32_t DAT_00568184;
-uint32_t DAT_00568188;
 /* The window table is ONE 264-float object (see globals.h); DAT_00568654/5686d4/568714 are
  * interior macros into it, so the walkers' pointer arithmetic stays inside it. */
 float DAT_00568318[264] = { /* orig .data 0x568318..0x568737; the MP3 synthesis window MpegSynthWindow16Full and its 11 clones walk */

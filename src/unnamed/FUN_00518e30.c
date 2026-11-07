@@ -44,9 +44,9 @@ int FUN_00518e30(int param_1,int param_2,int param_3,uint param_4)
           }
         }
         uVar4 = DAT_00f25e00 >> ((char)DAT_00f25e04 - 6U & 0x1f);
-        DAT_00f25e04 = DAT_00f25e04 - (uint)(byte)(&DAT_00568100)[uVar4 * 2];
-        param_3 = param_3 - (uint)(byte)(&DAT_00568100)[uVar4 * 2];
-        uVar6 = (uint)(byte)(&DAT_00568101)[uVar4 * 2];
+        DAT_00f25e04 = DAT_00f25e04 - (uint)g_mpegCount1Tab[uVar4 * 2];
+        param_3 = param_3 - (uint)g_mpegCount1Tab[uVar4 * 2];
+        uVar6 = (uint)g_mpegCount1Tab[uVar4 * 2 + 1];
         DAT_00f25e00 = DAT_00f25e00 -
                        ((DAT_00f25e00 >> ((byte)DAT_00f25e04 & 0x1f)) << ((byte)DAT_00f25e04 & 0x1f)
                        );
@@ -85,7 +85,7 @@ int FUN_00518e30(int param_1,int param_2,int param_3,uint param_4)
           }
           param_3 = param_3 + -1;
         }
-        if (((&DAT_00568101)[uVar4 * 2] & 1) != 0) {
+        if ((g_mpegCount1Tab[uVar4 * 2 + 1] & 1) != 0) {
           DAT_00f25e04 = DAT_00f25e04 + -1;
           uVar4 = DAT_00f25e00 >> ((byte)DAT_00f25e04 & 0x1f);
           DAT_00f25e00 = DAT_00f25e00 - (uVar4 << ((byte)DAT_00f25e04 & 0x1f));
