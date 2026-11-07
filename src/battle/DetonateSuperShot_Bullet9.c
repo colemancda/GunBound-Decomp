@@ -515,7 +515,8 @@ LAB_00490ea2:
        * with no interposed writer and no bypass edge). */
       cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar4 == '\0') {
-        RegisterActiveObject(0, 0, (undefined4 *)0);
+        /* EDX = ctx+0x6a7f88, EDI = [esp+0x18] (reloaded into ebx at 0x490eb6, the delete target in the else branch) (original call at 0x490f34); the port had passed (0,0,NULL). */
+        RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)puStack_aec);
       }
       else {
         (**(code **)*puStack_aec)(1);
