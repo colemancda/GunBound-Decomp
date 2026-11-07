@@ -496,7 +496,8 @@ LAB_0045793d:
        * same ctx flag in this function. */
       cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar4 == '\0') {
-        RegisterActiveObject(0, 0, (undefined4 *)0);
+        /* EDX = ctx+0x6a7f88, EDI = [esp+0x14], the same slot the else branch deletes (original call at 0x4579d9); the port had passed (0,0,NULL). */
+        RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)puStack_af4);
       }
       else {
         (**(code **)*puStack_af4)(1);
