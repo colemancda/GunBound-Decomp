@@ -568,7 +568,8 @@ LAB_004457e7:
                                            0x2710);
           }
           *(undefined4 *)(iVar3 + 0x448) = 0;
-          RegisterActiveObject(0, 0, (undefined4 *)0);
+          /* EDX = 0xe9c0fc (&g_activeObjectRegistry2), EDI = eax, the text box just built (+0x448 stored through it) (original call at 0x4464ca); the port had passed (0,0,NULL). */
+          RegisterActiveObject(0, (int)&g_activeObjectRegistry2, (undefined4 *)iVar3);
           pvVar5 = operator_new(0x458);
           if (pvVar5 == (void *)0x0) {
             iVar3 = 0;
@@ -578,7 +579,8 @@ LAB_004457e7:
                                            0x2710);
           }
           *(undefined4 *)(iVar3 + 0x448) = 0;
-          RegisterActiveObject(0, 0, (undefined4 *)0);
+          /* EDX = 0xe9c0fc (&g_activeObjectRegistry2), EDI = eax, the text box just built (+0x448 stored through it) (original call at 0x446516); the port had passed (0,0,NULL). */
+          RegisterActiveObject(0, (int)&g_activeObjectRegistry2, (undefined4 *)iVar3);
           ActivateTextBoxById(0,0x2710,(int)&g_activeObjectRegistry2,0);
           local_4 = local_4 & 0xffffff00;
           AvatarPartWorkspace_Destruct();
