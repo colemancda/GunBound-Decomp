@@ -83,7 +83,8 @@ void SpawnLaserIon(undefined4 param_1,int param_2,int param_3,uint param_4,undef
    * state value. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)piVar4 + 0x17e4, uVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  RegisterActiveObject(0, 0, (undefined4 *)0);
+  /* EDX = [0x5b3484] + 0x6a7f88, EDI = ebp, the projectile whose +0x17e4 cell is encoded just before (original call at 0x4380e5); the port had passed (0,0,NULL). */
+  RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar4);
   *unaff_FS_OFFSET = pvVar1;
   return;
 }
