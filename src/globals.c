@@ -238,12 +238,12 @@ uint8_t DAT_00569e10;
 uint8_t DAT_00569e2c;
 uint8_t DAT_00569e48;
 uint8_t DAT_00569e68;
-uint32_t DAT_0056d108;
-uint32_t g_cursorAnchorX;
-uint32_t g_cursorAnchorY;
-uint32_t g_serverWaitTicks;   /* was DAT_0056d118 - server-reply wait counter (PLEASE WAIT overlay); see globals.h */
+uint32_t DAT_0056d108 = 0xffffffff; /* orig .data 0x56d108: -1 = no state transition running (ProcessInputEventQueue gates on == -1) */
+uint32_t g_cursorAnchorX = 400; /* orig .data 0x56d10c (screen centre) */
+uint32_t g_cursorAnchorY = 300; /* orig .data 0x56d110 */
+uint32_t g_serverWaitTicks = 0xffffffff;   /* was DAT_0056d118 - server-reply wait counter (PLEASE WAIT overlay); see globals.h */
 const uint32_t DAT_0056d11c[11] = {2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 1024};
-uint8_t DAT_0056d350;
+/* DAT_0056d350: the 11-dword table indexed by the room-size byte is in globals_sized.c. */
 uint32_t DAT_0056d3d8 = 0xffffffff; /* orig .data 0x56d3d8 */
 uint32_t DAT_0056d3dc = 0xffffffff; /* orig .data 0x56d3dc */
 uint8_t DAT_0056d3e0;
@@ -306,8 +306,8 @@ uint8_t g_eventKeyBlock[0x20] = {
 /* DAT_0056dd30/DAT_0056de30 (the 256-byte LZHUF d_code/d_len tables)
  * live as lzhuf_d_code/lzhuf_d_len in src/lzhuf/lzhuf_tables.c now -
  * FUN_004ea6e0, their only user, indexes those directly. */
-uint32_t g_clipMaxX;
-uint32_t g_clipMaxY;
+uint32_t g_clipMaxX = 799; /* orig .data 0x56df30 (full-screen clip) */
+uint32_t g_clipMaxY = 599; /* orig .data 0x56df34 */
 uint16_t DAT_00588f38 = 0x2; /* orig .data 0x588f38 */
 uint32_t DAT_00588f3c = 0x5622; /* orig .data 0x588f3c */
 uint16_t DAT_00588f40 = 0x10; /* orig .data 0x588f40 */
@@ -1902,7 +1902,7 @@ uint32_t DAT_00557324 = 0x5453; /* orig .data 0x557324 */
 uint32_t DAT_00557328 = 0x6f1d2b60; /* orig .data 0x557328 */
 uint32_t DAT_0055732c = 0x11cfd5a0; /* orig .data 0x55732c */
 uint32_t DAT_00557330 = 0x4544c7bf; /* orig .data 0x557330 */
-uint32_t DAT_00557334;
+uint32_t DAT_00557334 = 0x5453; /* orig .data 0x557334 ("ST") */
 uint32_t DAT_00557fd8;
 uint32_t DAT_00563730[16] = { 0x40, 0x40, 0x40, 0x40, 0x8, 0x10, 0x18, 0x20, 0x40, 0x40, 0x40, 0x40, 0x20, 0x20, 0x20, 0x20 };
 uint32_t DAT_00563770 = 0x6; /* orig .data initial value */
