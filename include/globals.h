@@ -2182,7 +2182,12 @@ extern uint32_t DAT_005aba34;
 extern uint8_t g_mpegBitReservoir[0x2000];
 #define DAT_005aba38 (g_mpegBitReservoir[0])
 extern uint32_t DAT_005ada38;
-extern uint32_t DAT_005ada3c;
+/* Layer III IMDCT / frequency-inversion output scratch: 0x240 dwords at 0x5ada3c..0x5ae33c.
+ * SetupMpegLayerIIIDecoder clears it with `mov ecx,0x240 / rep stosd` (0x516761-0x516768) and
+ * FUN_00514cc0 hands its base to the IMDCT, inversion and polyphase callbacks; the next
+ * object is the scalar DAT_005ae33c. */
+extern uint32_t g_mpegImdctOut[0x240];
+#define DAT_005ada3c (g_mpegImdctOut[0])
 extern uint32_t DAT_005ae33c;
 extern uint32_t DAT_005ae344;
 extern uint32_t DAT_005ae348;
@@ -2245,9 +2250,14 @@ extern uint32_t DAT_005ae92c;
 extern uint32_t DAT_005ae930;
 extern uint32_t DAT_005ae934;
 extern uint32_t DAT_005ae93c;
-extern uint32_t DAT_005ae940;
+/* The two polyphase synthesis FIFOs: 0x200 dwords each (InitMpegSynthesisTables clears each with
+ * `mov ecx,0x200 / rep stosd`; the drivers index them with `& 0x1ff`). 0x5ae940..0x5af140 is
+ * channel 1, then the scalar DAT_005af140 (its write index), then 0x5af144..0x5af944 channel 0. */
+extern uint32_t g_mpegSynthFifoB[0x200];
+#define DAT_005ae940 (g_mpegSynthFifoB[0])
 extern uint32_t DAT_005af140;
-extern uint32_t DAT_005af144;
+extern uint32_t g_mpegSynthFifoA[0x200];
+#define DAT_005af144 (g_mpegSynthFifoA[0])
 extern uint32_t DAT_005af944;
 extern uint32_t DAT_005b0144;
 extern uint32_t DAT_005b0148;
