@@ -485,7 +485,8 @@ LAB_004ada51:
         (**(code **)(*param_1 + 0x20))();
         goto LAB_004ae0cf;
       }
-      RegisterActiveObject(0, 0, (undefined4 *)0);
+      /* EDX = [0x5b3484] + 0x6a7f88, EDI = [esp+0x14], which 0x4ada65 loaded into ebx as the object whose +0x3fa0..+0x3fa4 cells are written just before (original call at 0x4adaed); the port had passed (0,0,NULL). */
+      RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)puStack_af0);
       goto LAB_004adaf2;
     }
   }
