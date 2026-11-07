@@ -106,7 +106,8 @@ void SpawnSuperCrystalShot(undefined4 param_1,undefined4 param_2,undefined4 para
      * call ever passed. Orig 0x437f3c: `mov ecx,8` right before the
      * call (literal, same constant as the non-super SpawnCrystalShot). */
     FUN_0041da80(8,g_clientContext,piVar7,1,1,1);
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = [0x5b3484] + 0x6a7f88, EDI = ebp, the projectile also passed to FUN_0041da80 just before (original call at 0x437f54); the port had passed (0,0,NULL). */
+    RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar7);
   }
   *unaff_FS_OFFSET = local_c;
   return;
