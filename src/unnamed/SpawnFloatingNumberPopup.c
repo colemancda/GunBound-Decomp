@@ -62,7 +62,8 @@ void SpawnFloatingNumberPopup(undefined4 param_1,undefined4 param_2,undefined4 p
     puVar2[0xf] = param_2;
     puVar2[0xe] = param_1;
     puVar2[0x11] = param_3;
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = [0x5b3484] + 0x6a7f88, EDI = eax, the popup whose +0x38/+0x3c/+0x44 are stored just before (original call at 0x43696b); the port had passed (0,0,NULL). */
+    RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)puVar2);
   }
   return;
 }
