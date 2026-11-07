@@ -28,7 +28,6 @@ undefined8 DecodeMpegLayerIIISamples(byte *param_1,undefined4 *param_2)
 {
   undefined1 uVar1;
   int iVar2;
-  undefined4 uVar3;
   size_t _Size;
   int iVar4;
   uint uVar5;
@@ -103,13 +102,15 @@ undefined8 DecodeMpegLayerIIISamples(byte *param_1,undefined4 *param_2)
       local_4 = 0x15;
     }
     _DAT_005ae340 = (uint)bVar11;
+    /* Side info (0x51518a-0x5152e8): every ConsumeMpegBits result is stored
+     * to the cell named by the mov that follows each call. Ghidra dropped
+     * each EAX return and the stores read stale locals. */
     iVar8 = 0;
     iVar2 = 0;
     if (iVar4 != 0) {
       puVar10 = &DAT_005ae7f8;
       do {
-        ConsumeMpegBits(4);
-        *puVar10 = uVar3;
+        *puVar10 = ConsumeMpegBits(4);        /* 0x515197 -> [edi] */
         iVar8 = iVar8 + 1;
         puVar10 = puVar10 + 1;
         iVar2 = DAT_005ae7dc;
@@ -121,59 +122,40 @@ undefined8 DecodeMpegLayerIIISamples(byte *param_1,undefined4 *param_2)
       piVar9 = local_8;
       if (0 < iVar2) {
         do {
-          ConsumeMpegBits(0xc);
-          piVar9[-2] = iVar2;
-          ConsumeMpegBits(9);
-          piVar9[-1] = iVar2;
-          ConsumeMpegBits(8);
-          iVar2 = iVar2 + DAT_005ae928;
+          piVar9[-2] = ConsumeMpegBits(0xc);   /* 0x5151c1 -> [esi-8] */
+          piVar9[-1] = ConsumeMpegBits(9);     /* 0x5151c8 -> [esi-4] */
+          iVar2 = ConsumeMpegBits(8) + DAT_005ae928; /* 0x5151d2 */
           bVar11 = DAT_005ae348 != 0;
-          *piVar9 = iVar2;
+          *piVar9 = iVar2;                     /* [esi] */
           if (bVar11) {
             *piVar9 = iVar2 + -2;
           }
-          ConsumeMpegBits(4);
-          piVar9[1] = iVar2;
-          ConsumeMpegBits(1);
+          piVar9[1] = ConsumeMpegBits(4);      /* 0x5151f8 -> [esi+4] */
+          iVar2 = ConsumeMpegBits(1);          /* 0x5151ff -> [esi+8] */
           piVar9[2] = iVar2;
           if (iVar2 == 0) {
             piVar9[4] = 0;
             piVar9[3] = 0;
-            ConsumeMpegBits(5);
-            piVar9[5] = iVar2;
-            ConsumeMpegBits(5);
-            piVar9[6] = iVar2;
-            ConsumeMpegBits(5);
-            piVar9[7] = iVar2;
-            ConsumeMpegBits(4);
-            piVar9[0xb] = iVar2;
-            ConsumeMpegBits(3);
-            piVar9[0xc] = iVar2;
+            piVar9[5] = ConsumeMpegBits(5);    /* [esi+0x14] */
+            piVar9[6] = ConsumeMpegBits(5);    /* [esi+0x18] */
+            piVar9[7] = ConsumeMpegBits(5);    /* [esi+0x1c] */
+            piVar9[0xb] = ConsumeMpegBits(4);  /* [esi+0x2c] */
+            piVar9[0xc] = ConsumeMpegBits(3);  /* [esi+0x30] */
           }
           else {
-            ConsumeMpegBits(2);
-            piVar9[3] = iVar2;
-            ConsumeMpegBits(1);
-            piVar9[4] = iVar2;
-            ConsumeMpegBits(5);
-            piVar9[5] = iVar2;
-            ConsumeMpegBits(5);
-            piVar9[6] = iVar2;
-            ConsumeMpegBits(3);
-            piVar9[8] = iVar2;
-            ConsumeMpegBits(3);
-            piVar9[9] = iVar2;
-            ConsumeMpegBits(3);
-            piVar9[10] = iVar2;
+            piVar9[3] = ConsumeMpegBits(2);    /* [esi+0xc] */
+            piVar9[4] = ConsumeMpegBits(1);    /* [esi+0x10] */
+            piVar9[5] = ConsumeMpegBits(5);    /* [esi+0x14] */
+            piVar9[6] = ConsumeMpegBits(5);    /* [esi+0x18] */
+            piVar9[8] = ConsumeMpegBits(3);    /* [esi+0x20] */
+            piVar9[9] = ConsumeMpegBits(3);    /* [esi+0x24] */
+            piVar9[10] = ConsumeMpegBits(3);   /* [esi+0x28] */
             piVar9[0xb] = 7;
             piVar9[0xc] = 0xd;
           }
-          ConsumeMpegBits(1);
-          piVar9[0xd] = iVar2;
-          ConsumeMpegBits(1);
-          piVar9[0xe] = iVar2;
-          ConsumeMpegBits(1);
-          piVar9[0xf] = iVar2;
+          piVar9[0xd] = ConsumeMpegBits(1);    /* [esi+0x34] */
+          piVar9[0xe] = ConsumeMpegBits(1);    /* [esi+0x38] */
+          piVar9[0xf] = ConsumeMpegBits(1);    /* [esi+0x3c] */
           iVar4 = iVar4 + 1;
           piVar9 = piVar9 + 0x12;
           iVar2 = DAT_005ae7dc;
