@@ -89,7 +89,9 @@ void SpawnCrashParticleBurst(int param_1,int param_2,int param_3,int param_4)
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar4 = _rand();
       puVar5[0x15] = iVar4 % 0x15 - iVar3;
-      RegisterActiveObject(0, 0, (undefined4 *)0);
+      /* EDX = ctx+0x6a7f88 (the battle entity registry), EDI = the object just
+       * built; the port had passed (0,0,NULL). */
+RegisterActiveObject(0,(int)g_clientContext + 0x6a7f88,(undefined4 *)puVar5);
       local_8 = local_8 + 1;
     } while (local_8 < (int)((uint)(byte)(&DAT_005f2f54)[g_clientContext] * param_4));
   }

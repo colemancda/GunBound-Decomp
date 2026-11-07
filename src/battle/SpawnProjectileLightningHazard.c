@@ -56,7 +56,9 @@ void SpawnProjectileLightningHazard(undefined4 param_1,undefined4 param_2,undefi
     EncodeOutgoingPacketField(iVar3 + 0x25c, param_3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     *(undefined1 *)(iVar3 + 0x4a8) = param_4;
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = ctx+0x6a7f88 (the battle entity registry), EDI = the object just
+       * built; the port had passed (0,0,NULL). */
+RegisterActiveObject(0,(int)g_clientContext + 0x6a7f88,(undefined4 *)iVar3);
   }
   return;
 }
