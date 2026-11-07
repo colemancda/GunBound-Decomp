@@ -83,7 +83,8 @@ void __fastcall ExplodeSuperShot_Bullet4(int param_1)
     iVar3 = FindPreloadedTextureByName(s_ssflame4_00555170);
     piVar6[7] = iVar3;
     (**(code **)(*piVar6 + 4))(s_flame_00553d2c);
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = [0x5b3484] + 0x6a7f88, EDI = the flame effect just built (its +0x18 is stored 0x206f through edi) (original call at 0x4ad392); the port had passed (0,0,NULL). */
+    RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar6);
   }
   *unaff_FS_OFFSET = uStack_14;
   return;
