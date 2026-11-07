@@ -50,9 +50,9 @@ void InitMpegIntensityStereoRatios(void)
     pfVar4[-0x10] = (float)dVar2;
     dVar1 = (double)fVar7 / dVar1;
     pfVar4[-0xf] = (float)dVar1;
-    fVar6 = (float10)FUN_00527f34(0,0x40000000);
+    fVar6 = (float10)FUN_00527f34(2.0);
     *pfVar4 = (float)(fVar6 * (float10)dVar2);
-    fVar6 = (float10)FUN_00527f34(0,0x40000000);
+    fVar6 = (float10)FUN_00527f34(2.0);
     pfVar4[1] = (float)(fVar6 * (float10)dVar1);
     iVar5 = iVar5 + 1;
     pfVar4 = pfVar4 + 2;

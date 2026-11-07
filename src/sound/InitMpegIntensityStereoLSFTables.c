@@ -42,7 +42,7 @@ void InitMpegIntensityStereoLSFTables(void)
   double dStack_10;
   
   local_18[0] = 1.0;
-  fVar8 = (float10)FUN_00527f34(0,0x40000000);
+  fVar8 = (float10)FUN_00527f34(2.0);
   local_18[1] = (float)fVar8;
   iVar4 = GetMpegIntensityStereoLSFTable();
   iStack_38 = 0;
