@@ -740,7 +740,7 @@ LAB_004b9bb0:
           uVar20 = 0x202;
         }
         else {
-          cVar4 = FUN_00415230();
+          cVar4 = FUN_00415230(acStack_80);
           if (cVar4 == '\0') {
             QueueBroadcastEvent((*(char *)(g_clientContext + 0xebee5) != '\0') + 0x4002,(int)&g_replayContext);
             pcVar22 = acStack_80;

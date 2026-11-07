@@ -22,7 +22,7 @@ char PeekPacketChecksumBool(unsigned char *cell); /* replay-playback mode check 
 void FetchActiveTextInputText(int editState, char *out); /* read the EDIT control's text into out[128] */
 char ParseChatSlashCommand(int ctx, char *text); /* slash-command handler (true = consumed) */
 char CheckChatWordFilter(char *text);          /* "message too long" check */
-char FUN_00415230(void);                /* "not allowed right now" check */
+char FUN_00415230(char *in_EBX);                /* "not allowed right now" check */
 void QueueBroadcastEvent(int type, int replayCtx);
 /* ECX is a dead incoming register (0x4e6db0 opens `xor ecx,ecx`); EDX is
  * the byte count and the stack arg the source. The context base arrives
@@ -74,7 +74,7 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
             int msgId;
             if (CheckChatWordFilter(text) == 1) {
                 msgId = 0x202;
-            } else if (FUN_00415230() == 0) {
+            } else if (FUN_00415230(text) == 0) {
                 QueueBroadcastEvent(1,(int)&g_replayContext);
                 AppendBroadcastString(0, strlen(text), text, (int)&g_replayContext);
                 BroadcastQueuedEvent();

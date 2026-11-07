@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00415230(void)
+undefined4 FUN_00415230(char *param_1)
 
 {
   char cVar1;
@@ -16,15 +16,14 @@ undefined4 FUN_00415230(void)
   int iVar3;
   int iVar4;
   undefined4 *puVar5;
+  /* EBX (param_1) is the chat text: both strstr calls at 0x41529b and
+   * 0x4152ad push it as the haystack (needles: blob2 at [esp+0x88], then its
+   * reverse at [esp+8]). Callers load it into EBX at 0x43e7b7, 0x4b9dbe,
+   * 0x4d6778, 0x505b7a, 0x50775a. */
   char local_188;
   undefined4 local_187;
   char local_108 [128];
   undefined1 local_88 [132];
-  /* BuildSystemInfoBlob's 2nd output (orig ESI, dropped) - NOT verified
-   * against this call site's original disassembly; added only to satisfy
-   * the now-2-parameter signature (see BuildSystemInfoBlob.c). Revisit if
-   * this code path is ever exercised. */
-  undefined4 systemInfoBlob2[6];
 
   local_188 = '\0';
   puVar5 = &local_187;
@@ -35,7 +34,10 @@ undefined4 FUN_00415230(void)
   *(undefined2 *)puVar5 = 0;
   *(undefined1 *)((int)puVar5 + 2) = 0;
   pcVar2 = local_108;
-  BuildSystemInfoBlob(local_88, systemInfoBlob2);
+  /* Orig 0x41525a-0x415262: arg 1 = [esp+0x108], ESI = [esp+0x88] (the
+   * second output) which is the buffer strlen'd at 0x41526c - Ghidra's
+   * local_108 - so the second output goes straight into local_108. */
+  BuildSystemInfoBlob(local_88, (undefined4 *)local_108);
   do {
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;
@@ -50,9 +52,9 @@ undefined4 FUN_00415230(void)
       pcVar2 = pcVar2 + -1;
     } while (iVar4 < iVar3);
   }
-  iVar3 = FUN_00525ea0();
+  iVar3 = FUN_00525ea0(param_1,local_108);
   if (iVar3 == 0) {
-    iVar3 = FUN_00525ea0();
+    iVar3 = FUN_00525ea0(param_1,&local_188);
     if (iVar3 == 0) {
       return 0;
     }

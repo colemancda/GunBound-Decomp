@@ -77,7 +77,7 @@ void CChatLogPanel_SubmitWhisper(int param_1)
       uVar8 = 0x202;
     }
     else {
-      cVar1 = FUN_00415230();
+      cVar1 = FUN_00415230((char *)*(undefined4 *)(param_1 + 0x50));
       if (cVar1 == '\0') {
         SendWhisperByNickname(&DAT_00e53e88,param_1 + 0x90,*(undefined4 *)(param_1 + 0x50));
         goto LAB_00505bbe;

@@ -101,7 +101,7 @@ void __thiscall LobbyChatPanel_OnCommand(int param_1,int param_2,uint param_3,un
             (**(code **)(iVar2 + 0x28))(g_gameStateVTableArray[3],uVar7,uVar8,uVar9);
           }
           else {
-            cVar3 = FUN_00415230();
+            cVar3 = FUN_00415230((char *)puVar5);
             iVar2 = g_connectionContextA;
             if (cVar3 == '\0') {
               *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;

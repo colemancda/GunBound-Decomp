@@ -370,7 +370,7 @@ void SendPlayResult();
 void BlendARGB4444Texel(ushort *dest,ushort *src);
 void __fastcall BlitAvatarPartToCanvas(uint frameIdx,uint key,int canvas);
 void LoadAvatarSprites(); /* 0x4141b0 - resolve avatar equip codes (head/body/glasses/flag) to {gender}{cat}%05d.img sprites */
-undefined4 FUN_00415230();
+undefined4 FUN_00415230(char *param_1);
 undefined1 FUN_004152d0();
 void __fastcall FUN_004153b0();
 void FUN_00415410(undefined4 *regEsi);
