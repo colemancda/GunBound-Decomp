@@ -67,7 +67,8 @@ void SpawnSpeechBalloon(int regEcx,int regEax,char *regEbx)
       InitSpeechBalloon(0,(undefined4 *)pvVar3,regEcx);
     }
     SetSpeechBalloonText((int)pvVar3,regEbx);
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = [0x5b3484] + 0x6a7f88, EDI = the balloon just built (passed to SetSpeechBalloonText as ecx at 0x438338) (original call at 0x43834b); the port had passed (0,0,NULL). */
+    RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)pvVar3);
   }
   return;
 }
