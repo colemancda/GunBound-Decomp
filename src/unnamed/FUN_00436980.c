@@ -72,7 +72,8 @@ void FUN_00436980(undefined4 param_1,int param_2,int param_3,int param_4)
       iVar3 = _rand();
       puVar5[0x11] = iVar3 % 10 + 10;
       *(undefined2 *)(puVar5 + 0x12) = param_4;
-      RegisterActiveObject(0, 0, (undefined4 *)0);
+      /* EDX = [0x5b3484] + 0x6a7f88, EDI = edi, the particle whose +0x44/+0x48 are stored just before (original call at 0x436a91); the port had passed (0,0,NULL). */
+      RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)puVar5);
       iVar6 = iVar6 + 1;
     } while (iVar6 < (int)((uint)(byte)(&DAT_005f2f54)[g_clientContext] * 2));
   }
