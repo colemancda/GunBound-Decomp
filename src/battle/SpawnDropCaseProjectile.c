@@ -172,7 +172,8 @@ void SpawnDropCaseProjectile(undefined4 param_1,int param_2)
     *(undefined4 *)((int)piVar2 + 0x3817) = SUBFIELD(s_caseblast_xes_00553c68,4,undefined4);
     *(undefined4 *)((int)piVar2 + 0x381b) = SUBFIELD(s_caseblast_xes_00553c68,8,undefined4);
     *(undefined2 *)((int)piVar2 + 0x381f) = SUBFIELD(s_caseblast_xes_00553c68,12,undefined2);
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = [0x5b3484] + 0x6a7f88, EDI = esi, the projectile whose +0x3920 cell is encoded just before (original call at 0x434f98); the port had passed (0,0,NULL). */
+    RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar2);
   }
   *unaff_FS_OFFSET = local_c;
   return;
