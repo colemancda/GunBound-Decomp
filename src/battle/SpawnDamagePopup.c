@@ -87,7 +87,8 @@ void __fastcall SpawnDamagePopup(int param_1,int param_2,undefined4 param_3,unde
     *(undefined4 *)(iVar2 + 0x3c) = param_4;
     *(int *)(iVar2 + 0x48) = param_2;
     *(undefined4 *)(iVar2 + 0x38) = param_3;
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = [0x5b3484] + 0x6a7f88, EDI = eax, the popup just built (+0x38/+0x3c/+0x48 stored through it) (original call at 0x4368db); the port had passed (0,0,NULL). */
+    RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)iVar2);
   }
   return;
 }
