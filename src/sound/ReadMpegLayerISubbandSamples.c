@@ -40,7 +40,7 @@ void ReadMpegLayerISubbandSamples(void)
     iVar9 = 0;
     uVar6 = DAT_005ab91c;
     while (uVar6 < 0x20) {
-      switch((int)(&switchD_0051392e__switchdataD_00514460)[uVar6]) {
+      switch((int)switchD_0051392e__switchdataD_00514460[uVar6]) {
       case 0x513935:
         puVar10[iVar9] = 0;
         break;

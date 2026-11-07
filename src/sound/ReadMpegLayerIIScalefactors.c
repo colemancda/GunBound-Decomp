@@ -38,7 +38,7 @@ void ReadMpegLayerIIScalefactors(void)
     pbVar6 = DAT_005a9680;
     uVar7 = DAT_005ab4fc;
     do {
-      switch((int)(&switchD_0050fe76__switchdataD_0051008c)[uVar7]) {
+      switch((int)switchD_0050fe76__switchdataD_0051008c[uVar7]) {
       case 0x50fe7d:
         if (iVar3 < 0x12) {
           for (; iVar3 < 0x19; iVar3 = iVar3 + 8) {

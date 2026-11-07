@@ -2921,8 +2921,15 @@ uint32_t uRam005490a8;
 uint32_t uRamfffffff8;
 
 /* Jumptable markers - see globals.h. */
-uint8_t *switchD_0050fe76__switchdataD_0051008c;
-uint8_t *switchD_0051392e__switchdataD_00514460;
+uint32_t switchD_0050fe76__switchdataD_0051008c[5] = { /* orig .text 0x51008c..0x51009f (jump table; the case labels of ReadMpegLayerIIScalefactors are these original addresses; the caller bounds the index below 5) */
+  0x50fe7d, 0x50feec, 0x50ff7d, 0x50ffe8, 0x510074,
+};
+uint32_t switchD_0051392e__switchdataD_00514460[32] = { /* orig .text 0x514460..0x5144df (jump table; the case labels of ReadMpegLayerISubbandSamples are these original addresses; the caller loops while the index is below 0x20; code starts at 0x5144e0) */
+  0x513935, 0x513941, 0x5139a7, 0x513a10, 0x513a79, 0x513ae1, 0x513b4a, 0x513bb3,
+  0x513c1b, 0x513c87, 0x513cf3, 0x513d5e, 0x513dca, 0x513e36, 0x513ea1, 0x513f0d,
+  0x513f21, 0x513f6c, 0x513fb9, 0x514006, 0x514053, 0x5140a0, 0x5140ed, 0x51413a,
+  0x51418a, 0x5141da, 0x51422a, 0x51427a, 0x5142f3, 0x514369, 0x51444a, 0x514407,
+};
 
 /* see include/globals.h - shared scratch for unrecovered guarded-bool sites */
 unsigned char g_guardScratchUnrecovered[4];

@@ -1856,8 +1856,8 @@ extern uint32_t uRamfffffff8;
  * with __ for :: (not C). Address-only markers like the LAB_ labels:
  * the raw ports index off &<symbol> and switch on the entries as
  * integers. */
-extern uint8_t *switchD_0050fe76__switchdataD_0051008c;
-extern uint8_t *switchD_0051392e__switchdataD_00514460;
+extern uint32_t switchD_0050fe76__switchdataD_0051008c[5];
+extern uint32_t switchD_0051392e__switchdataD_00514460[32];
 
 /* Shared scratch cell for guarded-bool call sites whose real cell pointer is
  * still unrecovered (see src/network/SetGuardedBool.c). Writing here keeps
