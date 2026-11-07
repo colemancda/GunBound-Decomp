@@ -84,8 +84,8 @@ SetupMpegLayerIDecoder(int param_1,undefined4 param_2,int param_3,undefined4 par
   if (*(int *)(param_1 + 0x20) == 3) {
     iVar5 = 0;
   }
-  DAT_00f25ee0 = (&DAT_00563ad8)[iVar5];
-  PTR_FUN_005637cc = (&PTR_FUN_00563a60)[iVar5 + (param_3 + uVar6 * 3) * 5];
+  DAT_00f25ee0 = DAT_00563ad8[iVar5];
+  PTR_FUN_005637cc = PTR_FUN_00563a60[iVar5 + (param_3 + uVar6 * 3) * 5];
   _DAT_005ab4f8 = DAT_00f25ee0 * (0x180 >> (bVar4 & 0x1f));
   DAT_005a99f0 = _DAT_005ab4f8;
   if (uVar6 == 0) {

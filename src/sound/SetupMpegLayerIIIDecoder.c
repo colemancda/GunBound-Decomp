@@ -14,10 +14,12 @@
  * 0xf25e78) from the table at 0x5443a4, calls InitMpegLayerIIITables and
  * InitMpegSynthesisTables, zeroes the synthesis overlap buffer, and sets
  * PTR_FUN_00563da8 = DecodeMpegLayerIIISamples when header ID (+4) == 1
- * (MPEG-1) and the unnamed decoder at 0x5159d0 otherwise (that one calls
- * the 0x515b90 header parse and one granule). The Layer III dispatch
- * trampoline at 0x514fa0 (slot 1 of the 0x563aec table) calls through
- * 0x563da8.
+ * (MPEG-1) and DecodeMpegLayerIIISamplesLSF (0x5159d0, one granule per
+ * frame) otherwise. The Layer III dispatch trampoline
+ * DecodeMpegLayerIIIDispatch at 0x514fa0 (slot 1 of the 0x563aec table) calls
+ * through word 0 of 0x563da8; words 1..12 of that 13-word table are the
+ * polyphase drivers indexed at the PTR_FUN_00563da0 assignment, and
+ * PTR_FUN_00563da4 comes from the 5-word table at 0x563ddc.
  */
 #include "ghidra_types.h"
 
@@ -109,13 +111,13 @@ LAB_005164e7:
   if (param_5 != 0) {
     DAT_00f25ee0 = 1;
   }
-  PTR_FUN_00563da0 = (&PTR_FUN_00563da8)[DAT_00f25ee0 + (param_3 + uVar8 * 3) * 2];
+  PTR_FUN_00563da0 = PTR_FUN_00563da8[DAT_00f25ee0 + (param_3 + uVar8 * 3) * 2];
   iVar4 = param_5 + 1;
   if (*(int *)(param_1 + 0x20) == 3) {
     iVar4 = 0;
   }
   _DAT_005ae738 = _DAT_005ae738 * DAT_00f25ee0;
-  PTR_FUN_00563da4 = (&PTR_LAB_00563ddc)[iVar4];
+  PTR_FUN_00563da4 = PTR_LAB_00563ddc[iVar4];
   if (uVar8 == 0) {
     DAT_005ae344 = _DAT_005ae738 * 2;
     _DAT_005ae92c = 0;
@@ -193,9 +195,9 @@ LAB_005164e7:
       iVar4 = iVar4 + -1;
     } while (iVar4 != 0);
   } while (puVar2 < &DAT_00f25f00 + 2304);
-  PTR_FUN_00563da8 = DecodeMpegLayerIIISamples;
+  PTR_FUN_00563da8[0] = DecodeMpegLayerIIISamples;
   if (*(int *)(param_1 + 4) != 1) {
-    PTR_FUN_00563da8 = &LAB_005159d0;
+    PTR_FUN_00563da8[0] = DecodeMpegLayerIIISamplesLSF;
   }
   return;
 }

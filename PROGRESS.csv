@@ -1726,6 +1726,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005100a0,11837,ReadMpegLayerIISubbandSamples,false,1,0,RAW-src
 00512f80,1041,DecodeMpegAudioFrame,false,2,4,RAW-src
 005133a0,21,GetMpegOutputFormat,false,2,0,RAW-src
+005133c0,1154,DecodeMpegLayerISamples,false,1,2,RAW-src
 00513850,168,ReadMpegLayerIScalefactors,false,1,0,RAW-src
 00513900,2912,ReadMpegLayerISubbandSamples,false,1,0,RAW-src
 005144e0,476,SetupMpegLayerIDecoder,false,1,1,RAW-src
@@ -1736,8 +1737,10 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00514c10,169,SynthesizeMpegLayerIIISecondChannel,false,1,3,RAW-src
 00514cc0,286,SynthesizeMpegLayerIIIStereo,false,3,3,RAW-src
 00514de0,437,SynthesizeMpegLayerIIIMixDown,false,1,5,RAW-src
+00514fa0,20,DecodeMpegLayerIIIDispatch,false,1,1,RAW-src
 00514fc0,1118,DecodeMpegLayerIIISamples,false,3,3,RAW-src
 00515420,1441,DecodeMpegLayerIIIGranule,false,3,10,RAW-src
+005159d0,448,DecodeMpegLayerIIISamplesLSF,false,1,3,RAW-src
 00515b90,2103,FUN_00515b90,false,1,1,RAW-src
 005163d0,1002,SetupMpegLayerIIIDecoder,false,1,3,RAW-src
 005167c0,269,InitMpegSynthesisTables,false,3,3,RAW-src

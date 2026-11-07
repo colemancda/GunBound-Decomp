@@ -92,7 +92,7 @@ DecodeMpegAudioFrame(int param_1,undefined4 param_2,int param_3,undefined4 param
     } while (psVar13 < &DAT_005a9cf4 + 3072);
     DAT_00563afc = 0;
   }
-  PTR_FUN_005637d0 = (&PTR_FUN_00563aec)[*(uint *)(param_1 + 8) & 3];
+  PTR_FUN_005637d0 = PTR_FUN_00563aec[*(uint *)(param_1 + 8) & 3];
   if (*(int *)(param_1 + 8) == 3) {
     uVar2 = SetupMpegLayerIDecoder(param_1,param_2,param_3,param_4,param_5,param_6);
     return uVar2;
@@ -183,7 +183,7 @@ DecodeMpegAudioFrame(int param_1,undefined4 param_2,int param_3,undefined4 param
   if (*(int *)(param_1 + 0x20) == 3) {
     iVar10 = 0;
   }
-  DAT_00f25ee0 = (&DAT_00563ad8)[iVar10];
+  DAT_00f25ee0 = DAT_00563ad8[iVar10];
   PTR_FUN_005637cc = (&PTR_FUN_00563a60)[iVar10 + (param_3 + uVar11 * 3) * 5];
   _DAT_005ab4f8 = DAT_00f25ee0 * (0x480 >> (bVar4 & 0x1f));
   DAT_005a99f0 = _DAT_005ab4f8;

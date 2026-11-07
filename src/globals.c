@@ -1368,13 +1368,45 @@ void *PTR_FUN_005575a8 = (void *)CommP2POwner_ProcessPacket;   /* see 0x557594 *
 /* PTR_FUN_00557cfc: moved to src/globals_sized.c - it is the CPanelManager
  * VTABLE (8 slots), not a lone pointer. See that file. */
 void *PTR_FUN_00557f80;
-void *PTR_FUN_005637cc;
-void *PTR_FUN_005637d0;
-void *PTR_FUN_00563a60;
-void *PTR_FUN_00563aec;
-void *PTR_FUN_00563da0;
-void *PTR_FUN_00563da4;
-void *PTR_FUN_00563da8;
+/* Layer I/II synthesis drivers: 30 words, index col + (downsample + eightBit*3) * 5 with col
+ * 0 mono, 1 stereo, 2 mix down, 3 first channel, 4 second channel. Raw words 5168d0 516930
+ * 5169e0 516a40 516aa0 | 516b10 516b70 516c20 516c80 516ce0 | 516d50 516db0 516e60 516ec0 516f20 |
+ * 516f80 516fe0 517090 5170f0 517150 | 5171c0 517220 5172d0 517330 517390 | 517400 517460
+ * 517510 517570 5175d0. The runtime variable PTR_FUN_005637cc starts as slot 0. */
+void *PTR_FUN_005637cc = (void *)SynthesizeMpeg16FullMono;
+void *PTR_FUN_005637d0 = (void *)DecodeMpegLayerIISamples;   /* initial word, set per frame by DecodeMpegAudioFrame */
+void *PTR_FUN_00563a60[30] = {
+  (void *)SynthesizeMpeg16FullMono, (void *)SynthesizeMpeg16FullStereo, (void *)SynthesizeMpeg16FullMixDown,
+  (void *)SynthesizeMpeg16FullFirstChannel, (void *)SynthesizeMpeg16FullSecondChannel, (void *)SynthesizeMpeg16HalfMono,
+  (void *)SynthesizeMpeg16HalfStereo, (void *)SynthesizeMpeg16HalfMixDown, (void *)SynthesizeMpeg16HalfFirstChannel,
+  (void *)SynthesizeMpeg16HalfSecondChannel, (void *)SynthesizeMpeg16QuarterMono, (void *)SynthesizeMpeg16QuarterStereo,
+  (void *)SynthesizeMpeg16QuarterMixDown, (void *)SynthesizeMpeg16QuarterFirstChannel, (void *)SynthesizeMpeg16QuarterSecondChannel,
+  (void *)SynthesizeMpeg8FullMono, (void *)SynthesizeMpeg8FullStereo, (void *)SynthesizeMpeg8FullMixDown,
+  (void *)SynthesizeMpeg8FullFirstChannel, (void *)SynthesizeMpeg8FullSecondChannel, (void *)SynthesizeMpeg8HalfMono,
+  (void *)SynthesizeMpeg8HalfStereo, (void *)SynthesizeMpeg8HalfMixDown, (void *)SynthesizeMpeg8HalfFirstChannel,
+  (void *)SynthesizeMpeg8HalfSecondChannel, (void *)SynthesizeMpeg8QuarterMono, (void *)SynthesizeMpeg8QuarterStereo,
+  (void *)SynthesizeMpeg8QuarterMixDown, (void *)SynthesizeMpeg8QuarterFirstChannel, (void *)SynthesizeMpeg8QuarterSecondChannel,
+};
+/* Frame decoders by header layer bits (raw words 50f8b0 514fa0 50f8b0 5133c0). Bits 00 is reserved
+ * in ISO 11172-3; the original maps it to the Layer II decoder like bits 10. */
+void *PTR_FUN_00563aec[4] = {
+  (void *)DecodeMpegLayerIISamples, (void *)DecodeMpegLayerIIIDispatch,
+  (void *)DecodeMpegLayerIISamples, (void *)DecodeMpegLayerISamples,
+};
+void *PTR_FUN_00563da0 = (void *)MpegPolyphase16FullInterleaved;   /* initial 0x517690 */
+void *PTR_FUN_00563da4 = (void *)SynthesizeMpegLayerIIIStereo;   /* initial 0x514cc0 */
+/* Word 0 is the active Layer III sample decoder (initial 0x514fc0), words 1..12 the polyphase
+ * drivers, indexed outChannels(1|2) + (downsample + eightBit*3) * 2. Raw words 514fc0 517630
+ * 517690 517760 5177c0 517880 5178e0 5179a0 517a00 517ac0 517b20 517be0 517c40. */
+void *PTR_FUN_00563da8[13] = {
+  (void *)DecodeMpegLayerIIISamples,
+  (void *)MpegPolyphase16Full, (void *)MpegPolyphase16FullInterleaved,
+  (void *)MpegPolyphase16Half, (void *)MpegPolyphase16HalfInterleaved,
+  (void *)MpegPolyphase16Quarter, (void *)MpegPolyphase16QuarterInterleaved,
+  (void *)MpegPolyphase8Full, (void *)MpegPolyphase8FullInterleaved,
+  (void *)MpegPolyphase8Half, (void *)MpegPolyphase8HalfInterleaved,
+  (void *)MpegPolyphase8Quarter, (void *)MpegPolyphase8QuarterInterleaved,
+};
 void *PTR_FUN_0056d0f0;
 void *PTR_LAB_0054b450;
 void *PTR_LAB_0054b458;
@@ -1522,7 +1554,13 @@ void *PTR_LAB_00557ee0;
 void *PTR_LAB_00557f08;
 void *PTR_LAB_00557f30;
 void *PTR_LAB_00557f58;
-void *PTR_LAB_00563ddc;
+/* Layer III channel synthesis drivers (raw words 514b60 514cc0 514de0 514b60 514c10), same
+ * mono/stereo/mix down/first/second columns as PTR_FUN_00563a60. */
+void *PTR_LAB_00563ddc[5] = {
+  (void *)SynthesizeMpegLayerIIIFirstChannel, (void *)SynthesizeMpegLayerIIIStereo,
+  (void *)SynthesizeMpegLayerIIIMixDown, (void *)SynthesizeMpegLayerIIIFirstChannel,
+  (void *)SynthesizeMpegLayerIIISecondChannel,
+};
 void *vtable_ButtonWidget[32];
 /* Full-prototype redeclarations for the vtable initializers below.
  * functions.h deliberately declares these K&R-empty (so unmigrated
@@ -1875,8 +1913,9 @@ unsigned char g_mpegBandCountTab[20] = { /* orig .data 0x563a4c..0x563a5f, read 
   3, 8, 12, 4, 3, 8, 12, 7, 2, 0, 6, 0, 2, 0, 10, 0,
   4, 0, 7, 19
 };
-uint32_t DAT_00563ad8;
+uint32_t DAT_00563ad8[5] = { 1, 2, 1, 1, 1 };
 uint32_t DAT_00563afc;
+uint32_t DAT_00563b00[16] = { 0, 2, 3, 4, 5, 6, 7, 8, 9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf, 0x10 };
 uint32_t DAT_00563b44;
 uint32_t DAT_00563b48;
 uint32_t DAT_00563b4c;
@@ -2157,6 +2196,7 @@ int8_t g_mpegTriple5Tab[384]; /* runtime-filled once (orig 0x5ab708 is past the 
 uint32_t DAT_005ab88c;
 uint32_t DAT_005ab890;
 uint32_t DAT_005ab8d4;
+uint32_t DAT_005ab8dc[16];
 float g_mpegReciprocalTab[15]; /* runtime-filled once (orig 0x5ab8e0 is past the raw image) */
 uint32_t DAT_005ab91c;
 uint32_t DAT_005ab920;
@@ -2189,6 +2229,7 @@ uint32_t DAT_005ae928;
 uint32_t DAT_005ae92c;
 uint32_t DAT_005ae930;
 uint32_t DAT_005ae934;
+uint32_t DAT_005ae938;
 uint32_t DAT_005ae93c;
 uint32_t g_mpegSynthFifoB[0x200];
 uint32_t DAT_005af140;
@@ -2606,7 +2647,6 @@ void *PTR_s_92blast_xes_0056d330;
 /* Code-label address markers - see globals.h. */
 uint8_t LAB_00401000;
 uint8_t LAB_00401060;
-uint8_t LAB_005159d0;
 uint8_t LAB_005282a8;
 uint8_t LAB_0052847c;
 uint8_t LAB_0052e890;

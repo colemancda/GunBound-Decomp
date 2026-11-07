@@ -1548,13 +1548,23 @@ extern void *PTR_FUN_00557550;
 extern void *PTR_FUN_005575a8;
 extern void *PTR_FUN_00557cfc;
 extern void *PTR_FUN_00557f80;
+/* Active Layer I/II synthesis driver (static initial value 0x5168d0 = SynthesizeMpeg16FullMono). */
 extern void *PTR_FUN_005637cc;
 extern void *PTR_FUN_005637d0;
-extern void *PTR_FUN_00563a60;
-extern void *PTR_FUN_00563aec;
+/* Layer I/II synthesis drivers, 30 words at 0x563a60 (the next object is DAT_00563ad8):
+ * index col + (downsample + eightBit*3) * 5, col 0 mono, 1 stereo, 2 mix down, 3 first channel,
+ * 4 second channel. */
+extern void *PTR_FUN_00563a60[30];
+/* Frame decoders by header layer bits, 4 words at 0x563aec (the next object is DAT_00563afc). */
+extern void *PTR_FUN_00563aec[4];
+/* Active Layer III polyphase driver (static initial value 0x517690) and channel synthesis driver
+ * (initial 0x514cc0); both are written by SetupMpegLayerIIIDecoder. */
 extern void *PTR_FUN_00563da0;
 extern void *PTR_FUN_00563da4;
-extern void *PTR_FUN_00563da8;
+/* 13 words at 0x563da8: word 0 is the active Layer III sample decoder (SetupMpegLayerIIIDecoder
+ * overwrites it; initial 0x514fc0), words 1..12 the polyphase drivers, indexed
+ * outChannels + (downsample + eightBit*3) * 2 (the next object is 0x563ddc). */
+extern void *PTR_FUN_00563da8[13];
 extern void *PTR_FUN_0056d0f0;
 extern void *PTR_LAB_0054b450;
 extern void *PTR_LAB_0054b458;
@@ -1595,7 +1605,9 @@ extern void *PTR_LAB_00557ee0;
 extern void *PTR_LAB_00557f08;
 extern void *PTR_LAB_00557f30;
 extern void *PTR_LAB_00557f58;
-extern void *PTR_LAB_00563ddc;
+/* Layer III channel synthesis drivers, 5 words at 0x563ddc, indexed by the same mono/stereo/mix
+ * down/first/second column as PTR_FUN_00563a60. */
+extern void *PTR_LAB_00563ddc[5];
 extern void *vtable_ButtonWidget[32];
 extern void *vtable_State01_Title[32];
 extern void *vtable_State02_ServerSelect[32];
@@ -1619,7 +1631,6 @@ extern void *vtable_State03_GameRoomList[32]; /* was vtable_State3_NetworkSessio
  * `&LAB_<address>` reference under src/. */
 extern uint8_t LAB_00401000;
 extern uint8_t LAB_00401060;
-extern uint8_t LAB_005159d0;
 extern uint8_t LAB_005282a8;
 extern uint8_t LAB_0052847c;
 extern uint8_t LAB_0052e890;
@@ -1949,8 +1960,11 @@ extern unsigned char g_mpegAllocSrcTab[320];
 #define DAT_0056390c (g_mpegAllocSrcTab[0]) /* byte table 0x56390c..0x563a4b; callers take &DAT_0056390c + byteOffset */
 extern unsigned char g_mpegBandCountTab[20];
 #define DAT_00563a4c (g_mpegBandCountTab[0]) /* byte table 0x563a4c..0x563a5f; callers take &DAT_00563a4c + byteOffset */
-extern uint32_t DAT_00563ad8;
+/* Output channel count per column (raw 1 2 1 1 1), 5 words at 0x563ad8 up to PTR_FUN_00563aec. */
+extern uint32_t DAT_00563ad8[5];
 extern uint32_t DAT_00563afc;
+/* Layer I per-allocation step table (0x563b00, 16 words: 0 2 3 4 .. 0xf 0x10) read by DecodeMpegLayerISamples */
+extern uint32_t DAT_00563b00[16];
 extern uint32_t DAT_00563b44;
 extern uint32_t DAT_00563b48;
 extern uint32_t DAT_00563b4c;
@@ -2165,6 +2179,8 @@ extern int8_t g_mpegTriple5Tab[384];
 extern uint32_t DAT_005ab88c;
 extern uint32_t DAT_005ab890;
 extern uint32_t DAT_005ab8d4;
+/* Layer I per-allocation runtime table, 16 words at 0x5ab8dc..0x5ab91c (just below the allocation list DAT_005ab91c) */
+extern uint32_t DAT_005ab8dc[16];
 /* 15 floats at 0x5ab8e0..0x5ab91b: SetupMpegLayerIDecoder's one-time init stores 2.0/(n-1) for n = 4, 8, 16, ...
  * through a walking pointer bounded by 0x5ab91c, the next object. */
 extern float g_mpegReciprocalTab[15];
@@ -2250,6 +2266,7 @@ extern uint32_t DAT_005ae928;
 extern uint32_t DAT_005ae92c;
 extern uint32_t DAT_005ae930;
 extern uint32_t DAT_005ae934;
+extern uint32_t DAT_005ae938; /* Layer III LSF granule parity, toggled per frame by DecodeMpegLayerIIISamplesLSF */
 extern uint32_t DAT_005ae93c;
 /* The two polyphase synthesis FIFOs: 0x200 dwords each (InitMpegSynthesisTables clears each with
  * `mov ecx,0x200 / rep stosd`; the drivers index them with `& 0x1ff`). 0x5ae940..0x5af140 is

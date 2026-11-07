@@ -1797,6 +1797,7 @@ void PanelManager_GrowNodePool();
 uint ScrollListWidget_PositionFromThumbY(int,int);
 void __fastcall ScrollListWidget_ScrollBy(int param_1,int param_2);
 undefined8 DecodeMpegFrameDispatch(); /* 64-bit result used from EDX:EAX at call sites */
+undefined8 DecodeMpegLayerISamples(); /* EDX:EAX = (output bytes, frame bytes) */
 undefined8 DecodeMpegLayerIISamples();
 void ReadMpegLayerIIScfsi();
 void ReadMpegLayerIIScalefactors();
@@ -1817,7 +1818,9 @@ void SynthesizeMpegLayerIIIFirstChannel();
 void SynthesizeMpegLayerIIISecondChannel();
 void SynthesizeMpegLayerIIIStereo();
 void SynthesizeMpegLayerIIIMixDown();
+undefined8 DecodeMpegLayerIIIDispatch(); /* EDX:EAX passed through from [0x563da8] */
 undefined8 DecodeMpegLayerIIISamples();
+undefined8 DecodeMpegLayerIIISamplesLSF(); /* EDX:EAX = (output bytes, frame bytes) */
 void DecodeMpegLayerIIIGranule();
 undefined4 FUN_00515b90();
 void InitMpegSynthesisTables();
