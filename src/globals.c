@@ -3553,16 +3553,6 @@ const char s_invalid_map_set_T_iterator_00552000[] = "invalid map/set<T> iterato
 const char s_CCommP2P_Notify_Window_00557b34[] = "CCommP2P<> Notify Window";
 const char s_invalid_bitset_N_position_00552c4c[] = "invalid bitset<N> position";
 const char s_vector_T_too_long_00557260[] = "vector<T> too long";
-void *PTR_s_101blast_xes_0056d2b4;
-void *PTR_s_11blast_xes_0056d290;
-void *PTR_s_121blast_xes_0056d33c;
-void *PTR_s_12blast_xes_0056d310;
-void *PTR_s_142blast_xes_0056d344;
-void *PTR_s_151blast_xes_0056d2c8;
-void *PTR_s_72blast_xes_0056d2e8;
-void *PTR_s_72blast_xes_0056d328;
-void *PTR_s_92blast_xes_0056d2f0;
-void *PTR_s_92blast_xes_0056d330;
 
 /* Code-label address markers - see globals.h. */
 uint8_t LAB_00401000;

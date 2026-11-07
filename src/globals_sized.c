@@ -511,3 +511,63 @@ uint32_t DAT_00557a40[61] = {0x11, 0x17, 0x1d, 0x25, 0x29, 0x35, 0x43, 0x53, 0x6
  * `iVar3 % iVar1`, so the all-zero port table divided by zero).  Values are the
  * original's: 2,2,1,2,2,1,2,2,2,2,2 (the dwords after it are unrelated). */
 uint32_t DAT_0056d350[11] = {2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2};
+
+/* ---- The blast-effect filename pointer table at 0x56d290 (round 19) ----
+ * 48 char* entries (3 rows of 16, row = effect family): SpawnBlastEffect /
+ * SpawnPrimaryShot / FUN_00432320 read (&PTR_s_11blast_xes_0056d290)[row * 0x10 + col], and
+ * SpawnMine / SpawnShot_Type13 read single slots by value.  The port had ten
+ * separate NULL pointer cells (one per Ghidra label inside the table), so the
+ * indexed reads ran off the first cell into whatever followed and the single
+ * reads gave NULL.  The other nine names are slot macros in globals.h.  The
+ * original entries point into a string pool at 0x55289c..0x5529b4 (repeats
+ * share a string); string literals stand in for the pool. */
+void *PTR_s_11blast_xes_0056d290[48] = {
+    (void *)"11blast.xes",
+    (void *)"22blast.xes",
+    (void *)"31blast.xes",
+    (void *)"42blast.xes",
+    (void *)"51blast.xes",
+    (void *)"62blast.xes",
+    (void *)"71blast.xes",
+    (void *)"82blast.xes",
+    (void *)"91blast.xes",
+    (void *)"101blast.xes",
+    (void *)"111blast.xes",
+    (void *)"121blast.xes",
+    (void *)"132blast.xes",
+    (void *)"142blast.xes",
+    (void *)"151blast.xes",
+    (void *)"91blast.xes",
+    (void *)"12blast.xes",
+    (void *)"22blast.xes",
+    (void *)"32blast.xes",
+    (void *)"42blast.xes",
+    (void *)"52blast.xes",
+    (void *)"62blast.xes",
+    (void *)"72blast.xes",
+    (void *)"82blast.xes",
+    (void *)"92blast.xes",
+    (void *)"101blast.xes",
+    (void *)"112blast.xes",
+    (void *)"121blast.xes",
+    (void *)"132blast.xes",
+    (void *)"142blast.xes",
+    (void *)"151blast.xes",
+    (void *)"22blast.xes",
+    (void *)"12blast.xes",
+    (void *)"22blast.xes",
+    (void *)"31blast.xes",
+    (void *)"42blast.xes",
+    (void *)"51blast.xes",
+    (void *)"62blast.xes",
+    (void *)"72blast.xes",
+    (void *)"82blast.xes",
+    (void *)"92blast.xes",
+    (void *)"101blast.xes",
+    (void *)"112blast.xes",
+    (void *)"121blast.xes",
+    (void *)"11blast.xes",
+    (void *)"142blast.xes",
+    (void *)"151blast.xes",
+    (void *)"23blast.xes"
+};

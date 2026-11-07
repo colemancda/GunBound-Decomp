@@ -2991,13 +2991,13 @@ extern const char s_CCommP2P_Notify_Window_00557b34[];
  * from the binary. */
 extern const char s_invalid_bitset_N_position_00552c4c[];
 extern const char s_vector_T_too_long_00557260[];
-extern void *PTR_s_101blast_xes_0056d2b4;
+#define PTR_s_101blast_xes_0056d2b4 (*(&PTR_s_11blast_xes_0056d290 + 9)) /* slot 9 of the blast-filename table - see globals_sized.c */
 extern void *PTR_s_11blast_xes_0056d290;
-extern void *PTR_s_121blast_xes_0056d33c;
-extern void *PTR_s_12blast_xes_0056d310;
-extern void *PTR_s_142blast_xes_0056d344;
-extern void *PTR_s_151blast_xes_0056d2c8;
-extern void *PTR_s_72blast_xes_0056d2e8;
-extern void *PTR_s_72blast_xes_0056d328;
-extern void *PTR_s_92blast_xes_0056d2f0;
-extern void *PTR_s_92blast_xes_0056d330;
+#define PTR_s_121blast_xes_0056d33c (*(&PTR_s_11blast_xes_0056d290 + 43)) /* slot 43 of the blast-filename table - see globals_sized.c */
+#define PTR_s_12blast_xes_0056d310 (*(&PTR_s_11blast_xes_0056d290 + 32)) /* slot 32 of the blast-filename table - see globals_sized.c */
+#define PTR_s_142blast_xes_0056d344 (*(&PTR_s_11blast_xes_0056d290 + 45)) /* slot 45 of the blast-filename table - see globals_sized.c */
+#define PTR_s_151blast_xes_0056d2c8 (*(&PTR_s_11blast_xes_0056d290 + 14)) /* slot 14 of the blast-filename table - see globals_sized.c */
+#define PTR_s_72blast_xes_0056d2e8 (*(&PTR_s_11blast_xes_0056d290 + 22)) /* slot 22 of the blast-filename table - see globals_sized.c */
+#define PTR_s_72blast_xes_0056d328 (*(&PTR_s_11blast_xes_0056d290 + 38)) /* slot 38 of the blast-filename table - see globals_sized.c */
+#define PTR_s_92blast_xes_0056d2f0 (*(&PTR_s_11blast_xes_0056d290 + 24)) /* slot 24 of the blast-filename table - see globals_sized.c */
+#define PTR_s_92blast_xes_0056d330 (*(&PTR_s_11blast_xes_0056d290 + 40)) /* slot 40 of the blast-filename table - see globals_sized.c */
