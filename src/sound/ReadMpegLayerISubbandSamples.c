@@ -29,9 +29,10 @@ void ReadMpegLayerISubbandSamples(void)
   byte *pbVar7;
   int iVar8;
   int iVar9;
-  undefined4 *puVar10;
+  float *puVar10; /* the subband sample buffer holds dequantised floats (it was undefined4*, so every
+                   * float expression stored below was converted to an integer) */
   
-  puVar10 = &DAT_00f25f00;
+  puVar10 = (float *)&DAT_00f25f00;
   iVar8 = 0;
   uVar4 = DAT_005ab4f4;
   iVar5 = DAT_005ab704;
