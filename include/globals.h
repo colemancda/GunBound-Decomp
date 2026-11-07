@@ -1902,7 +1902,8 @@ extern int g_mpegLsfSfbTab[72];           /* 0x544968: [18][4] nr_of_sfb */
 extern float DAT_00544a88[8];
 extern uint32_t DAT_0054b460;
 extern uint32_t DAT_00551b78;
-extern uint32_t DAT_00551b79;
+/* byte after DAT_00551b78 (SHA-1 padding walk) - see globals.c */
+#define DAT_00551b79 (*(uint32_t *)((uint8_t *)&DAT_00551b78 + 1))
 extern uint32_t DAT_00551b7c;
 extern uint32_t DAT_00551e2c;
 extern uint32_t DAT_00551e30;

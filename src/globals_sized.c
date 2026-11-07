@@ -468,3 +468,9 @@ uint32_t DAT_005535b0[2] = {0x74697865, 0x00000000}; /* ASCII 'exit' */
 uint32_t DAT_005532e4[6] = {0xf0b8beb8, 0xc2b4babd, 0xb6eebe20, 0x20d4b0bb, 0xeebec9b0, 0x0000003f}; /* EUC-KR+ASCII '........ ...... ....?' */
 uint32_t DAT_00553588[2] = {0x64756f6c, 0x00000000}; /* ASCII 'loud' */
 uint32_t DAT_005535d8[1] = {0x0000f5bb}; /* EUC-KR+ASCII '..' */
+
+/* The 16-byte key EncodeHandshakeBlock is called with in
+ * CommP2POwner_ProcessPacket (&DAT_00551b7c); orig .data 0x551b7c =
+ * 2c 45 92 6c f3 39 66 42 b6 70 d0 06 a1 fa 81 82 (the dword after it,
+ * 0x13 at 0x551b8c, is a separate object).  It was a zero dword. */
+uint32_t DAT_00551b7c[4] = {0x6c92452c, 0x426639f3, 0x06d070b6, 0x8281faa1};

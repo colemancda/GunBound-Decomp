@@ -1856,9 +1856,13 @@ int g_mpegLsfSfbTab[72] = { /* orig .data 0x544968..0x544a87; 18 rows of 4 (nr_o
 };
 float DAT_00544a88[8] = { -0.6f, -0.535f, -0.33f, -0.185f, -0.095f, -0.041f, -0.0142f, -0.0037f }; /* orig .data 0x544a88..0x544aa7 */
 /* DAT_0054b460: string bytes now in globals_sized.c (orig .data 0x54b460, 2 bytes) */
-uint32_t DAT_00551b78;
-uint32_t DAT_00551b79;
-uint32_t DAT_00551b7c;
+/* 0x551b78: the SHA-1 padding bytes Sha1Final reads (80 00 00 00; orig .data).
+ * DAT_00551b79 is the byte after it (offset macro in globals.h): Sha1Final
+ * walks pbVar5 from DAT_00551b78 (case 1) or DAT_00551b79 (case 0) across
+ * both, so they must be one contiguous object - it was two separate zero
+ * dwords, which also left the 0x80 terminator byte out of every digest. */
+uint32_t DAT_00551b78 = 0x80;
+/* DAT_00551b7c (the 16-byte handshake key): storage in globals_sized.c. */
 /* DAT_00551e2c: string bytes now in globals_sized.c (orig .data 0x551e2c, 2 bytes) */
 /* DAT_00551e30: string bytes now in globals_sized.c (orig .data 0x551e30, 2 bytes) */
 const char DAT_00551ec4[] = "%+5d"; /* orig .data 0x551ec4, was a zeroed uint32_t */
