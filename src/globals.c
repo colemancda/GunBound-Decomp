@@ -1130,7 +1130,8 @@ const char PTR_DAT_00555500[] = "p%s"; /* orig .data 0x555500, was a zeroed void
 const char PTR_DAT_00555650[] = "%8d"; /* orig .data 0x555650, was a zeroed void * */
 void *PTR_DAT_00555cc8;
 void *PTR_DAT_00555e2c;
-char *PTR_DAT_00563b40;
+/* statically initialised to 0x5a99f4 in the original .data (0x563b40); every code ref is a load */
+char *PTR_DAT_00563b40 = (char *)g_mpegScaleTab;
 void *PTR_DAT_00568180;
 void *PTR_DAT_00568800;
 void *PTR_DAT_00568810;
@@ -2146,8 +2147,7 @@ int8_t g_mpegTriple3Tab[96]; /* runtime-filled once (orig 0x5a9988 is past the r
 uint32_t DAT_005a99e8;
 uint32_t DAT_005a99ec;
 uint32_t DAT_005a99f0;
-uint32_t DAT_005a99f4;
-uint32_t DAT_005a99f8;
+float g_mpegScaleTab[192]; /* runtime-filled (orig 0x5a99f4, three rows of 64) */
 int16_t g_mpegTriple9Tab[3072]; /* runtime-filled once (orig 0x5a9cf4 is past the raw image) */
 uint32_t DAT_005ab4f4;
 uint32_t DAT_005ab4fc;

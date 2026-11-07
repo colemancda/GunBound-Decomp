@@ -54,7 +54,7 @@ void ReadMpegLayerIIScalefactors(void)
         *(float *)((int)&DAT_005a99f4 + iVar4) =
              (float)(&DAT_005a9888)[uVar7] * *(float *)((int)&DAT_005a9684 + iVar4);
         uVar7 = uVar1 >> ((byte)iVar3 & 0x1f);
-        *(float *)(iVar4 + 0x5a9af4) =
+        *(float *)((int)&DAT_005a99f4 + iVar4 + 0x100) =
              (float)(&DAT_005a9888)[uVar7] * *(float *)((int)&DAT_005a9684 + iVar4);
         uVar1 = uVar1 - (uVar7 << ((byte)iVar3 & 0x1f));
         break;
@@ -71,7 +71,7 @@ void ReadMpegLayerIIScalefactors(void)
         fVar8 = (float)(&DAT_005a9888)[uVar7] * *(float *)((int)&DAT_005a9684 + iVar4);
         uVar1 = uVar1 - (uVar7 << ((byte)iVar3 & 0x1f));
         *(float *)((int)&DAT_005a99f4 + iVar4) = fVar8;
-        *(float *)(iVar4 + 0x5a9af4) = fVar8;
+        *(float *)((int)&DAT_005a99f4 + iVar4 + 0x100) = fVar8;
         break;
       case 0x50ff7d:
         if (iVar3 < 6) {
@@ -109,8 +109,8 @@ void ReadMpegLayerIIScalefactors(void)
         uVar1 = uVar1 - (_DAT_005ab888 << ((byte)iVar3 & 0x1f));
         DAT_005ab4f4 = uVar1;
 LAB_00510068:
-        *(float *)(iVar4 + 0x5a9af4) = fVar8;
-        *(float *)(iVar4 + 0x5a9bf4) = fVar8;
+        *(float *)((int)&DAT_005a99f4 + iVar4 + 0x100) = fVar8;
+        *(float *)((int)&DAT_005a99f4 + iVar4 + 0x200) = fVar8;
       case 0x510074:
         goto switchD_0050fe76_caseD_510074;
       }
@@ -118,7 +118,7 @@ LAB_00510068:
       _DAT_005ab888 = uVar1 >> ((byte)iVar3 & 0x1f);
       iVar5 = _DAT_005ab888 << ((byte)iVar3 & 0x1f);
       DAT_005ab704 = iVar3;
-      *(float *)(iVar4 + 0x5a9bf4) =
+      *(float *)((int)&DAT_005a99f4 + iVar4 + 0x200) =
            (float)(&DAT_005a9888)[_DAT_005ab888] * *(float *)((int)&DAT_005a9684 + iVar4);
       uVar1 = uVar1 - iVar5;
       DAT_005ab4f4 = uVar1;

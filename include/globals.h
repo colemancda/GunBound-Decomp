@@ -2133,8 +2133,15 @@ extern int8_t g_mpegTriple3Tab[96];
 extern uint32_t DAT_005a99e8;
 extern uint32_t DAT_005a99ec;
 extern uint32_t DAT_005a99f0;
-extern uint32_t DAT_005a99f4;
-extern uint32_t DAT_005a99f8;
+/* The Layer I/II scalefactor-product table: three rows of 64 floats at
+ * 0x5a99f4-0x5a9cf4 (row stride 0x100 as in ReadMpegLayerIIScalefactors'
+ * stores to +0x5a99f4/+0x5a9af4/+0x5a9bf4; the next object, g_mpegTriple9Tab,
+ * starts at 0x5a9cf4). Every access is a dword float op (fmul/fstp) or an
+ * address into the rows. DAT_005a99f8 is the second element, read as the
+ * start of the odd-channel view. PTR_DAT_00563b40 points at the table. */
+extern float g_mpegScaleTab[192];
+#define DAT_005a99f4 (g_mpegScaleTab[0])
+#define DAT_005a99f8 (g_mpegScaleTab[1])
 /* 1024 triples of signed words (digit-9 decode, value-4) at 0x5a9cf4..0x5ab4f3; DecodeMpegAudioFrame's
  * one-time init fills it through a walking pointer bounded by 0x5ab4f4, the next object. The readers
  * index it by word (ecx + 0x5a9cf4/6/8), so the three DAT names are elements 0..2. */
