@@ -74,7 +74,8 @@ void FUN_00436fd0(int param_1,int param_2,int param_3,int param_4,int param_5)
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar6 = _rand();
           puVar4[0x11] = iVar6 % iVar5;
-          RegisterActiveObject(0, 0, (undefined4 *)0);
+          /* EDX = [0x5b3484] + 0x6a7f88, EDI = edi, the particle whose +0x44 is stored just before (original call at 0x437108); the port had passed (0,0,NULL). */
+          RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)puVar4);
         }
         param_3 = param_3 + (param_2 - param_5);
         local_8 = local_8 + (param_1 - param_4);
