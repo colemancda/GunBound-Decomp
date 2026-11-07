@@ -26,22 +26,17 @@
 void SoundChannel_Destruct(undefined4 *param_1)
 
 {
-  undefined4 *unaff_FS_OFFSET;
-  undefined4 local_c;
-  undefined1 *puStack_8;
-  undefined4 local_4;
-  
-  local_c = *unaff_FS_OFFSET;
-  puStack_8 = &LAB_00537bd8;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try frame (fs:[0] chain, handler LAB_00537bd8) stripped:
+   * Ghidra's unaff_FS_OFFSET was never assigned, so the prologue write
+   * faulted. Same treatment as TeardownConnectionObject / FUN_00401a70. */
   *param_1 = &PTR_LAB_005574e8;
-  local_4 = 0;
   *(undefined1 *)(param_1 + 4) = 0;
   SetEvent((HANDLE)param_1[2]);
-  SoundChannel_Stop();
+  /* 0x4ef423: mov ecx,esi - SoundChannel_Stop is __fastcall(this); the call
+   * passed nothing. */
+  SoundChannel_Stop((int)param_1);
   DeleteCriticalSection((LPCRITICAL_SECTION)(param_1 + 8));
   SoundChannel_DestructBase(param_1);
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 
