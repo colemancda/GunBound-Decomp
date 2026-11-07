@@ -59,7 +59,7 @@ double fcos(double x)  { return cos(x); }
 double fptan(double x) { return tan(x); }
 double SQRT(double x)  { return sqrt(x); }
 double _fabs(double x) { return fabs(x); }
-double FID_conflict__cos(double x) { return cos(x); } /* Ghidra-renamed cos */
+double FID_conflict__cos(double x) { return atan(x); } /* misnamed by FID: the original at 0x527d50 is atan (fld1 / fpatan) */
 
 /* asm() labels force the EXACT symbol the raw ports reference (Ghidra's
  * _stricmp source name -> __stricmp symbol). */

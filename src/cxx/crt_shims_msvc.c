@@ -107,7 +107,7 @@ double fsin(double x)  { return sin(x); }
 double fcos(double x)  { return cos(x); }
 double fptan(double x) { return tan(x); }
 double SQRT(double x)  { return sqrt(x); }
-double FID_conflict__cos(double x) { return cos(x); } /* Ghidra-renamed cos */
+double FID_conflict__cos(double x) { return atan(x); } /* misnamed by FID: the original at 0x527d50 is atan (fld1 / fpatan) */
 
 /* --- Startup hook: initialize the static CRITICAL_SECTIONs ---
  * WinMain's first act is EnterCriticalSection(&g_valueGuardLock); in the

@@ -1,16 +1,16 @@
 /* FUN_00527ff4 - 0x00527ff4 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * CRT sin: `lea edx,[esp+4] / call __fload_withFB` loads the double
+ * argument, then the body runs fsin at 0x528012. The decompiler showed it as a
+ * void function that never returns (the loader is a register-convention
+ * helper), which left every caller with an implicit int-returning
+ * declaration; it is a plain double -> double function, result in ST0.
  */
 #include "ghidra_types.h"
+#include <math.h>
 
-
-void FUN_00527ff4(void)
+double FUN_00527ff4(double x)
 
 {
-                    /* WARNING: Subroutine does not return */
-  __fload_withFB();
+  return sin(x);
 }
-

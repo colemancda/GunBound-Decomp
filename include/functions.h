@@ -1930,4 +1930,20 @@ void FUN_00543280(void);
 void FUN_005438f0(void);
 void FUN_00543960(void);
 
+/* x87 math callees of the MPEG decoder. Ghidra shows them as void/int-less
+ * calls, and an implicit declaration makes MSVC read the result from EAX
+ * instead of ST0, so every table built from them (the Layer III gain,
+ * window, intensity-stereo and synthesis tables) came out as garbage. All
+ * are cdecl, one double on the stack, result in ST0. Identities from the
+ * original: 0x527cb4 = cos (fcos), 0x527ff4 = sin (fsin), 0x527f34 = sqrt
+ * (fsqrt), 0x527d50 = atan (`fld1 / fpatan` at 0x527dfd; Ghidra's FID
+ * mislabelled it FID_conflict__cos, and every caller passes 1.0 to get
+ * pi / 4), 0x527a10 = pow, 0x527e6a = fabs. */
+double _pow(double a, double b);
+double _fabs(double x);
+double FID_conflict__cos(double x); /* atan, see above */
+double FUN_00527cb4(double x);      /* cos */
+double FUN_00527ff4(double x);      /* sin */
+double FUN_00527f34(double x);      /* sqrt */
+
 #endif
