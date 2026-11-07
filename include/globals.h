@@ -2258,20 +2258,37 @@ extern uint32_t g_mpegSynthFifoB[0x200];
 extern uint32_t DAT_005af140;
 extern uint32_t g_mpegSynthFifoA[0x200];
 #define DAT_005af144 (g_mpegSynthFifoA[0])
-extern uint32_t DAT_005af944;
-extern uint32_t DAT_005b0144;
-extern uint32_t DAT_005b0148;
-extern uint32_t DAT_005b01c4;
-extern uint32_t DAT_005b01e4;
-extern uint32_t DAT_005b01fc;
+/* The Layer III float tables, 0x5af944..0x5b13fc. Each was a lone uint32_t, but the table
+ * accessors (GetMpeg*Table) hand out their address and the Init* routines fill them through it,
+ * while the readers index them with byte offsets (`[reg*8 + 0x5b0144]`, `[idx*4 + 0x5b137c]`).
+ * Sizes are the distances to the next object, so the tables are exact and contiguous. They are
+ * byte arrays because every reader's arithmetic (as Ghidra printed it) is in bytes. */
+extern uint8_t g_mpegIntensityLsfTab[0x800];   /* 0x5af944..0x5b0144 */
+#define DAT_005af944 (g_mpegIntensityLsfTab[0])
+extern uint8_t g_mpegIntensityRatioTab[0x80];  /* 0x5b0144..0x5b01c4; 0x5b0148 is the second word */
+#define DAT_005b0144 (g_mpegIntensityRatioTab[0])
+#define DAT_005b0148 (g_mpegIntensityRatioTab[4])
+extern uint8_t g_mpegSubblockGainTab[0x20];    /* 0x5b01c4..0x5b01e4: 8 floats, InitMpegLayerIIITables */
+#define DAT_005b01c4 (g_mpegSubblockGainTab[0])
+/* Global gain table: InitMpegLayerIIITables fills 0x106 floats from GetMpegGlobalGainTable()
+ * = 0x5b01e4, i.e. exactly 0x418 bytes up to 0x5b05fc (g_mpegShortBlockScratch). 0x5b01fc is an
+ * interior address (element 6) that the dequantiser indexes directly. */
+extern uint8_t g_mpegGlobalGainTab[0x418];
+#define DAT_005b01e4 (g_mpegGlobalGainTab[0])
+#define DAT_005b01fc (g_mpegGlobalGainTab[0x18])
 /* Scratch of 576 floats (0x5b05fc..0x5b0efb, up to the 0x5b0efc table): FUN_00518560 fills it
  * through a walking pointer (stride 3 floats per window) and memmoves the result out, so it is one
  * object and DAT_005b05fc names element 0. */
 extern float g_mpegShortBlockScratch[576];
 #define DAT_005b05fc (g_mpegShortBlockScratch[0])
-extern uint32_t DAT_005b0efc;
-extern uint32_t DAT_005b12fc;
-extern uint32_t DAT_005b137c;
+extern uint8_t g_mpegScalefactorGainTab[0x400]; /* 0x5b0efc..0x5b12fc */
+#define DAT_005b0efc (g_mpegScalefactorGainTab[0])
+/* x^(4/3) table for x = -32..31: InitMpegLayerIIITables fills 0x40 floats (0x100 bytes) from
+ * GetMpegPow43Table() = 0x5b12fc, so 0x5b137c is element 32 (x = 0), the origin the dequantiser
+ * indexes with `[is*4 + 0x5b137c]`. */
+extern uint8_t g_mpegPow43Tab[0x100];
+#define DAT_005b12fc (g_mpegPow43Tab[0])
+#define DAT_005b137c (g_mpegPow43Tab[0x80])
 extern uint32_t DAT_005b13fc;
 extern uint32_t DAT_005c7fb8;
 #define DAT_005f2f44 (*(uint8_t *)(0x005f2f44))  /* client-context arena offset 0x005f2f44; see the arena-offset note */
