@@ -373,7 +373,8 @@ LAB_0042b60a:
       TreeInsert(auStack_4dc,&g_valueGuardMap);
     }
   }
-  RegisterActiveObject(0, 0, (undefined4 *)0);
+  /* EDX = [0x5b3484] + 0x6a7f88, EDI = ebp, the mobile whose +0x71f8 cell is encoded just before (original call at 0x42baa8); the port had passed (0,0,NULL). */
+  RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar3);
 LAB_0042bab0:
   *unaff_FS_OFFSET = local_c;
   return;
