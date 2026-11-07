@@ -513,7 +513,8 @@ void FUN_00432850(int param_1,int param_2)
         } while (iVar5 != 0);
         TreeInsert();
       }
-      RegisterActiveObject(0, 0, (undefined4 *)0);
+      /* EDX = [0x5b3484] + 0x6a7f88, EDI = esi, the projectile (its +0x3f90/+0x18/+0x38/+0x3894 stores match piVar3) (original call at 0x43379e); the port had passed (0,0,NULL). */
+      RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar3);
       local_1e10 = local_1e10 + 6;
       local_1e0c = local_1e0c + 1;
     } while (local_1e0c < param_2);
