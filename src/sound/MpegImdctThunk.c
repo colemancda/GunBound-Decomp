@@ -21,15 +21,25 @@
  * MpegFrequencyInversionThunk and then the synthesis callback, which is
  * the ISO order IMDCT, frequency inversion, polyphase. LIKELY: the 0x51b667
  * target itself is not yet renamed.
+ *
+ * Return value: 0x51b667 ends `popal; pop ebp; mov eax,[0x5687fc]; ret`, so
+ * it returns the new overlap/band state in EAX (also EDX, which popal
+ * restored), and every caller consumes it (0x514cc0 stores it back into
+ * the per-granule limit table and hands it to the frequency inversion).
+ * The wrapper adds esp,0x1c and returns without touching EAX, so it
+ * returns the callee's EAX; this port used to be void and relied on the
+ * compiler leaving EAX alone.
  */
 #include "ghidra_types.h"
 
 
-void MpegImdctThunk(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
+int MpegImdctThunk(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
                  undefined4 param_5,undefined4 param_6,undefined4 param_7)
 
 {
-  FUN_0051b667(param_1,param_2,param_3,param_4,param_5,param_6,param_7);
-  return;
+  undefined8 uVar1;
+  
+  uVar1 = FUN_0051b667(param_1,param_2,param_3,param_4,param_5,param_6,param_7);
+  return (int)uVar1;
 }
 
