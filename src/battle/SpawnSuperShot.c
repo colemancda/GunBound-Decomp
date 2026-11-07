@@ -819,7 +819,8 @@ LAB_0042f0e2:
       TreeInsert(&local_8ac,&g_valueGuardMap);
     }
   }
-  RegisterActiveObject(0, 0, (undefined4 *)0);
+  /* EDX = [0x5b3484] + 0x6a7f88, EDI = ebx, reloaded from [esp+0x18] at 0x42f41b (the object whose +0x2908 cell the tail encodes) (original call at 0x42f42d); the port had passed (0,0,NULL). */
+  RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar5);
   *unaff_FS_OFFSET = uStack_10;
   return;
 }
