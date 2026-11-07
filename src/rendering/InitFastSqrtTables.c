@@ -23,7 +23,24 @@
  * Sole caller InitGame.
  */
 #include "ghidra_types.h"
+#include <math.h>
 
+/* The binary stores the integer bit pattern to the stack, loads it with fld
+ * dword (a reinterpretation, not an int-to-float conversion), fsqrts it and
+ * stores the float back with fstp dword, then masks the stored BITS with
+ * 0x7fffff. Both directions are bit reinterpretations. */
+typedef union {
+  float f;
+  unsigned int u;
+} SqrtBits;
+
+static unsigned int SqrtMantissaBits(unsigned int bits)
+{
+  SqrtBits v;
+  v.u = bits;
+  v.f = (float)sqrt((double)v.f);
+  return v.u & 0x7fffff;
+}
 
 void InitFastSqrtTables(void)
 
@@ -32,10 +49,9 @@ void InitFastSqrtTables(void)
   
   uVar1 = 0;
   do {
-    DAT_006990c0[uVar1] = (uint)SQRT((float)((uVar1 | 0x3f8000) << 8)) & 0x7fffff;
-    DAT_006790c0[uVar1] = (uint)SQRT((float)((uVar1 | 0x400000) << 8)) & 0x7fffff;
+    DAT_006990c0[uVar1] = SqrtMantissaBits((uVar1 | 0x3f8000) << 8);
+    DAT_006790c0[uVar1] = SqrtMantissaBits((uVar1 | 0x400000) << 8);
     uVar1 = uVar1 + 1;
   } while (uVar1 < 0x8000);
   return;
 }
-
