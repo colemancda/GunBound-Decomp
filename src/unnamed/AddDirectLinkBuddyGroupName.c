@@ -16,8 +16,9 @@
  * member entries following it, and the index tags the members. The only
  * other reader of the table is FindDirectLinkBuddyGroupIndex, which looks
  * a name up in the 0xa2f0 arm (which upserts a single buddy node) and
- * passes the result as the same 4th argument. Calling the entries "groups" is the reading that
- * fits that header-plus-members shape; nothing outside the packet loop
+ * passes the result as the same 4th argument. Calling the entries "groups"
+ * is the reading that fits that header-plus-members shape; nothing outside
+ * the packet loop
  * confirms the word, which is why this is LIKELY.
  *
  * Mechanics: the table is 0x18-byte records at container + 0xc +
@@ -25,10 +26,11 @@
  * name is copied up to and including its NUL and the count is incremented.
  * ECX = the string, ESI = the container (&DAT_00e53e88).
  *
- * (FUN_00411b40 in the note below is now DispatchDirectLinkMessengerPacket.)
+ * (FUN_00411b40 in the note below is now
+ * DispatchDirectLinkMessengerPacket.)
  *
- * DROPPED REGISTERS ANALYSED, NOT APPLIED.  `ret 0`, so param_1 (ECX) and ESI
- * are the whole input.  At the sole call site (0x00411c65):
+ * DROPPED REGISTERS ANALYSED, NOT APPLIED.  `ret 0`, so param_1 (ECX) and
+ * ESI are the whole input.  At the sole call site (0x00411c65):
  *
  *   ecx = [esp + 0x60]        <- a caller stack local
  *   esi = 0xe53e88            -> &DAT_00e53e88
@@ -36,8 +38,8 @@
  * ESI is known; param_1 is a spill and is not.  Passing ESI's value alone
  * would land it in param_1, which is the wrong slot.
  *
- * ESI RECOVERED (2026-08-25): the DAT_00e53e88 object, appending a 0x18-byte
- * record -- text at +0xc + count*0x18, count at +0xc0c.
+ * ESI RECOVERED (2026-08-25): the DAT_00e53e88 object, appending a
+ * 0x18-byte record -- text at +0xc + count*0x18, count at +0xc0c.
  *
  * The stride is what confirms the caller's side.  FUN_00411b40's frame
  * constant is -0x168, pinned by four slots the source already names

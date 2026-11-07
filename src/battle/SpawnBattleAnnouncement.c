@@ -117,9 +117,9 @@
  * Keys 5 and 6 fail the `< 5` test deliberately, so they always replace
  * whatever banner is up.
  *
- * NOT FIXED HERE: the trailing RegisterActiveObject(0,0,0) has dropped
- * arguments.  0x4383f6-0x438408 loads EDX = g_clientContext+0x6a7f88
- * (the registry container) and EDI = the freshly built object.
+ * The trailing RegisterActiveObject call is fixed (rounds 14/15): at
+ * 0x4383f6-0x438408 EDX = g_clientContext+0x6a7f88 (the registry container)
+ * and EDI = the freshly built object, and the port now passes both.
  */
 #include "ghidra_types.h"
 
