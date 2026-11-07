@@ -1879,21 +1879,25 @@ extern unsigned char g_guardScratchUnrecovered[4];
  * the binary via pefile's RVA-to-file-offset mapping. */
 extern uint32_t DAT_00000006;
 extern uint32_t DAT_00007f00;
-extern uint32_t DAT_00544380;
-extern uint32_t DAT_005443a0;
-extern uint32_t DAT_005443a4;
-extern uint32_t DAT_005443f4;
-extern uint32_t DAT_005443fc;
-extern uint32_t DAT_00544400;
-extern uint32_t DAT_0054442c;
-extern uint32_t DAT_005445b4;
-extern uint32_t DAT_005445ec;
-extern uint32_t DAT_005448e8;
-extern uint32_t DAT_005448ec;
-extern uint32_t DAT_00544968;
-extern uint32_t DAT_0054496c;
-extern uint32_t DAT_00544970;
-extern uint32_t DAT_00544974;
+extern int g_mpegLayer3SampleRateTab[8];  /* 0x544380 */
+extern int g_mpegSfBandTab[333];          /* 0x5443a0: [9][37] = [0, 22 long ends, 0, 13 short ends] per row */
+extern int g_mpegSlenTab[32];             /* 0x5448e8: [16][2] (slen1, slen2) */
+extern int g_mpegLsfSfbTab[72];           /* 0x544968: [18][4] nr_of_sfb */
+#define DAT_00544380 (g_mpegLayer3SampleRateTab[0])
+#define DAT_005443a0 (g_mpegSfBandTab[0])
+#define DAT_005443a4 (g_mpegSfBandTab[1])
+#define DAT_005443f4 (g_mpegSfBandTab[21])
+#define DAT_005443fc (g_mpegSfBandTab[23])
+#define DAT_00544400 (g_mpegSfBandTab[24])
+#define DAT_0054442c (g_mpegSfBandTab[35])
+#define DAT_005445b4 (g_mpegSfBandTab[133])
+#define DAT_005445ec (g_mpegSfBandTab[147])
+#define DAT_005448e8 (g_mpegSlenTab[0])
+#define DAT_005448ec (g_mpegSlenTab[1])
+#define DAT_00544968 (g_mpegLsfSfbTab[0])
+#define DAT_0054496c (g_mpegLsfSfbTab[1])
+#define DAT_00544970 (g_mpegLsfSfbTab[2])
+#define DAT_00544974 (g_mpegLsfSfbTab[3])
 extern float DAT_00544a88[8];
 extern uint32_t DAT_0054b460;
 extern uint32_t DAT_00551b78;

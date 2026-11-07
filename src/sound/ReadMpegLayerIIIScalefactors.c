@@ -28,8 +28,8 @@ void ReadMpegLayerIIIScalefactors(undefined4 *param_1,int param_2,int param_3,in
   undefined4 *puVar4;
   int iVar5;
   
-  uVar3 = *(undefined4 *)(&DAT_005448e8 + *(int *)(param_2 + 0xc) * 8);
-  uVar1 = *(undefined4 *)(&DAT_005448ec + *(int *)(param_2 + 0xc) * 8);
+  uVar3 = g_mpegSlenTab[*(int *)(param_2 + 0xc) * 2];
+  uVar1 = g_mpegSlenTab[*(int *)(param_2 + 0xc) * 2 + 1];
   if (*(int *)(param_2 + 0x14) == 2) {
     if (*(int *)(param_2 + 0x18) == 0) {
       iVar5 = 6;

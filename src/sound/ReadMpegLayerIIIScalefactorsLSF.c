@@ -106,10 +106,10 @@ void ReadMpegLayerIIIScalefactorsLSF(undefined4 *param_1,undefined4 *param_2,int
     iVar8 = (uVar1 & 1) + 1;
   }
   iVar8 = iVar8 + iVar4 * 3;
-  iVar4 = (&DAT_0054496c)[iVar8 * 4];
-  iVar2 = (&DAT_00544968)[iVar8 * 4];
-  iVar12 = (&DAT_00544970)[iVar8 * 4];
-  iVar8 = (&DAT_00544974)[iVar8 * 4];
+  iVar4 = g_mpegLsfSfbTab[iVar8 * 4 + 1];
+  iVar2 = g_mpegLsfSfbTab[iVar8 * 4];
+  iVar12 = g_mpegLsfSfbTab[iVar8 * 4 + 2];
+  iVar8 = g_mpegLsfSfbTab[iVar8 * 4 + 3];
   if (param_3 != 0) {
     param_4[1] = iVar4;
     param_4[2] = iVar12;

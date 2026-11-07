@@ -59,7 +59,7 @@ void SetupMpegLayerIIIDecoder(byte *param_1,undefined4 param_2,int param_3,undef
     param_6 = 1000;
   }
   _DAT_00f25ee8 =
-       *(int *)(&DAT_00544380 + (*(int *)(param_1 + 0x14) + *(int *)(param_1 + 4) * 4) * 4);
+       g_mpegLayer3SampleRateTab[*(int *)(param_1 + 0x14) + *(int *)(param_1 + 4) * 4];
   if ((*param_1 & 1) == 0) {
     _DAT_00f25ee8 = _DAT_00f25ee8 / 2;
   }
@@ -77,12 +77,12 @@ void SetupMpegLayerIIIDecoder(byte *param_1,undefined4 param_2,int param_3,undef
     iVar4 = 2;
   }
   else if (iVar4 == 1) {
-    iVar9 = *(int *)(&DAT_005445ec + *(int *)(param_1 + 0x14) * 0x94);
-    DAT_00563d90 = *(int *)(&DAT_005445b4 + *(int *)(param_1 + 0x14) * 0x94);
+    iVar9 = g_mpegSfBandTab[(*(int *)(param_1 + 0x14) + 3) * 0x25 + 0x24];
+    DAT_00563d90 = g_mpegSfBandTab[(*(int *)(param_1 + 0x14) + 3) * 0x25 + 0x16];
     goto LAB_005164e7;
   }
-  iVar9 = *(int *)(&DAT_0054442c + (*(int *)(param_1 + 0x14) + iVar4 * 3) * 0x94);
-  DAT_00563d90 = *(int *)(&DAT_005443f4 + (*(int *)(param_1 + 0x14) + iVar4 * 3) * 0x94);
+  iVar9 = g_mpegSfBandTab[(*(int *)(param_1 + 0x14) + iVar4 * 3) * 0x25 + 0x23];
+  DAT_00563d90 = g_mpegSfBandTab[(*(int *)(param_1 + 0x14) + iVar4 * 3) * 0x25 + 0x15];
 LAB_005164e7:
   DAT_00563d94 = iVar9 * 3;
   DAT_00563d8c = DAT_00563d90 + 8;
@@ -143,7 +143,7 @@ LAB_005164e7:
     puVar5 = puVar2 + 1;
     iVar1 = (*(int *)(param_1 + 0x14) + iVar4) * 0x25 + iVar9;
     iVar9 = iVar9 + 1;
-    *puVar2 = *(undefined4 *)(&DAT_005443a4 + iVar1 * 4);
+    *puVar2 = g_mpegSfBandTab[iVar1 + 1];
     puVar2 = puVar5;
   } while (puVar5 < &DAT_00f25d40 + 22);
   iVar9 = 0;
@@ -152,25 +152,25 @@ LAB_005164e7:
     piVar6 = piVar7 + 1;
     iVar1 = (*(int *)(param_1 + 0x14) + iVar4) * 0x25 + iVar9;
     iVar9 = iVar9 + 1;
-    *piVar7 = *(int *)(&DAT_00544400 + iVar1 * 4) * 3;
+    *piVar7 = g_mpegSfBandTab[iVar1 + 0x18] * 3;
     piVar7 = piVar6;
   } while ((uint *)piVar6 < &DAT_00f25d98 + 13);
   iVar9 = 0;
   piVar7 = &DAT_00f25e20;
   do {
     piVar6 = piVar7 + 1;
-    iVar1 = ((*(int *)(param_1 + 0x14) + iVar4) * 0x25 + iVar9) * 4;
+    iVar1 = (*(int *)(param_1 + 0x14) + iVar4) * 0x25 + iVar9;
     iVar9 = iVar9 + 1;
-    *piVar7 = *(int *)(&DAT_005443a4 + iVar1) - *(int *)(&DAT_005443a0 + iVar1);
+    *piVar7 = g_mpegSfBandTab[iVar1 + 1] - g_mpegSfBandTab[iVar1];
     piVar7 = piVar6;
   } while ((uint *)piVar6 < &DAT_00f25e20 + 22);
   iVar9 = 0;
   piVar7 = &DAT_00f25e78;
   do {
     piVar6 = piVar7 + 1;
-    iVar1 = ((*(int *)(param_1 + 0x14) + iVar4) * 0x25 + iVar9) * 4;
+    iVar1 = (*(int *)(param_1 + 0x14) + iVar4) * 0x25 + iVar9;
     iVar9 = iVar9 + 1;
-    *piVar7 = *(int *)(&DAT_00544400 + iVar1) - *(int *)(&DAT_005443fc + iVar1);
+    *piVar7 = g_mpegSfBandTab[iVar1 + 0x18] - g_mpegSfBandTab[iVar1 + 0x17];
     piVar7 = piVar6;
   } while ((uint *)piVar6 < &DAT_00f25e78 + 13);
   InitMpegLayerIIITables();
