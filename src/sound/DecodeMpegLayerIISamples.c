@@ -96,7 +96,7 @@ undefined8 DecodeMpegLayerIISamples(byte *param_1,undefined4 param_2)
     }
     iVar5 = iVar5 + -4;
     uVar3 = uVar8 >> ((byte)iVar5 & 0x1f);
-    _DAT_005ab8d8 = *(int *)(&DAT_00563730 + uVar3 * 4);
+    _DAT_005ab8d8 = DAT_00563730[uVar3];
     uVar8 = uVar8 - (uVar3 << ((byte)iVar5 & 0x1f));
     if (uVar9 == 0) {
       if (iVar5 < 0x14) {
@@ -152,7 +152,7 @@ undefined8 DecodeMpegLayerIISamples(byte *param_1,undefined4 param_2)
           *piVar10 = iVar1;
           *(int *)param_1 = iVar1;
           if (DAT_00563770 <= iVar2) {
-            DAT_005ab8d4 = DAT_005ab8d4 + *(int *)(&DAT_00563774 + iVar1 * 4);
+            DAT_005ab8d4 = DAT_005ab8d4 + DAT_00563774[iVar1];
           }
           uVar6 = *(undefined4 *)(&DAT_005ab88c + iVar1 * 4);
           *local_24 = uVar6;

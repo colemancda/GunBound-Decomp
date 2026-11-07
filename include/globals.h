@@ -1935,9 +1935,11 @@ extern uint32_t DAT_0055794c;
 extern uint32_t DAT_00557a40;
 extern uint32_t DAT_00557a44;
 extern uint32_t DAT_00557fd8;
-extern uint32_t DAT_00563730;
+/* Joint-stereo bound table, 16 words at 0x563730 up to DAT_00563770 (raw 40 40 40 40 8 10 18 20 40 40 40 40 20 20 20 20 hex). */
+extern uint32_t DAT_00563730[16];
 extern uint32_t DAT_00563770;
-extern uint32_t DAT_00563774;
+/* Layer II per-allocation step table, 18 words at 0x563774 up to 0x5637bc (raw 0 5 7 9 a c f 12 15 18 1b 1e 21 24 27 2a 2d 30 hex). */
+extern uint32_t DAT_00563774[18];
 /* The four per-band sub-band counts at 0x5637bc..0x5637cb: DecodeMpegAudioFrame fills them with a
  * 4-iteration pointer loop (bound `cmp eax,0x5637cc`), doubles them with another, and the layer II
  * reader walks them at +0,+4,+8,+12 (`mov edi,[eax+0x5637bc]`, eax < 0x10).  One object; the old
@@ -2611,8 +2613,8 @@ extern uint32_t g_mpegBandStartTab[35];
 extern uint32_t DAT_00f25e00;
 extern uint32_t DAT_00f25e04;
 extern uint8_t *DAT_00f25e08; /* used dereferenced as a byte-stream cursor at call sites */
-extern uint32_t DAT_00f25e0c;
-extern uint32_t DAT_00f25e10;
+extern uint8_t *DAT_00f25e0c; /* start of the frame data the bit cursor DAT_00f25e08 walks */
+extern uint8_t *DAT_00f25e10; /* end-of-main-data pointer compared against the bit cursor DAT_00f25e08 */
 /* Scale-factor band widths: 22 long-block words at 0xf25e20..0xf25e77 followed by 13 short-block words
  * at 0xf25e78..0xf25eab.  SetupMpegLayerIIIDecoder fills the two runs with loops bounded by 0xf25e78 and 0xf25eac. */
 extern uint32_t g_mpegBandWidthTab[35];

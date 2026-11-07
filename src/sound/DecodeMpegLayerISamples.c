@@ -87,7 +87,7 @@ undefined8 DecodeMpegLayerISamples(byte *param_1,undefined4 param_2)
   L1_TAKE(uVar10,1);                    /* private bit */
   L1_REFILL(4);
   L1_TAKE(uVar10,4);                    /* mode + mode extension */
-  _DAT_005ab8d8 = (&DAT_00563730)[uVar10];
+  _DAT_005ab8d8 = DAT_00563730[uVar10];
   iVar3 = _DAT_005ab8d8;
   if (uVar9 == 0) {
     L1_REFILL(0x14);

@@ -47,7 +47,7 @@ undefined8 DecodeMpegLayerIIISamplesLSF(byte *param_1,undefined4 *param_2)
   iVar4 = 0;
   uVar7 = 0;
   DAT_00f25e08 = param_1;
-  DAT_00f25e0c = (uint32_t)param_1;
+  DAT_00f25e0c = param_1;
   DAT_00f25e04 = 0;
   DAT_00f25e00 = 0;
   do {

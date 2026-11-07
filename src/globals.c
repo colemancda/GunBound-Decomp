@@ -1866,9 +1866,9 @@ uint32_t DAT_0055794c;
 uint32_t DAT_00557a40;
 uint32_t DAT_00557a44;
 uint32_t DAT_00557fd8;
-uint32_t DAT_00563730;
+uint32_t DAT_00563730[16] = { 0x40, 0x40, 0x40, 0x40, 0x8, 0x10, 0x18, 0x20, 0x40, 0x40, 0x40, 0x40, 0x20, 0x20, 0x20, 0x20 };
 uint32_t DAT_00563770;
-uint32_t DAT_00563774;
+uint32_t DAT_00563774[18] = { 0x0, 0x5, 0x7, 0x9, 0xa, 0xc, 0xf, 0x12, 0x15, 0x18, 0x1b, 0x1e, 0x21, 0x24, 0x27, 0x2a, 0x2d, 0x30 };
 uint32_t g_mpegBandCount[4] = { 3, 8, 12, 7 }; /* orig .data 0x5637bc..0x5637cb (rewritten per frame) */
 uint32_t DAT_005637d4;
 uint32_t DAT_005637e8;
@@ -2419,8 +2419,8 @@ uint32_t g_mpegBandStartTab[35]; /* runtime-filled once per frame header (orig 0
 uint32_t DAT_00f25e00;
 uint32_t DAT_00f25e04;
 uint8_t *DAT_00f25e08;
-uint32_t DAT_00f25e0c;
-uint32_t DAT_00f25e10;
+uint8_t *DAT_00f25e0c;
+uint8_t *DAT_00f25e10;
 uint32_t g_mpegBandWidthTab[35]; /* runtime-filled once per frame header (orig 0xf25e20 is past the raw image) */
 uint32_t DAT_00f25ed0;
 uint32_t DAT_00f25ee0;
