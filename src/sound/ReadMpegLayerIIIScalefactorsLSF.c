@@ -141,11 +141,11 @@ void ReadMpegLayerIIIScalefactorsLSF(undefined4 *param_1,undefined4 *param_2,int
         puVar6 = param_1 + 0x24;
         param_2 = (undefined4 *)iVar2;
         do {
-          ConsumeMpegBits(uVar7);
+          uVar5 = ConsumeMpegBits(uVar7);
           puVar6[-0xd] = uVar5;
-          ConsumeMpegBits(uVar7);
+          uVar5 = ConsumeMpegBits(uVar7);
           *puVar6 = uVar5;
-          ConsumeMpegBits(uVar7);
+          uVar5 = ConsumeMpegBits(uVar7);
           puVar6[0xd] = uVar5;
           puVar6 = puVar6 + 1;
           param_2 = (undefined4 *)((int)param_2 + -1);
@@ -165,7 +165,7 @@ void ReadMpegLayerIIIScalefactorsLSF(undefined4 *param_1,undefined4 *param_2,int
       param_3 = 6;
       puVar6 = param_1;
       do {
-        ConsumeMpegBits(uVar7);
+        uVar5 = ConsumeMpegBits(uVar7);
         *puVar6 = uVar5;
         puVar6 = puVar6 + 1;
         param_3 = param_3 + -1;
@@ -190,11 +190,11 @@ void ReadMpegLayerIIIScalefactorsLSF(undefined4 *param_1,undefined4 *param_2,int
       iVar14 = iVar14 + iVar4;
       param_3 = iVar4;
       do {
-        ConsumeMpegBits(uVar9);
+        uVar5 = ConsumeMpegBits(uVar9);
         puVar6[-0xd] = uVar5;
-        ConsumeMpegBits(uVar9);
+        uVar5 = ConsumeMpegBits(uVar9);
         *puVar6 = uVar5;
-        ConsumeMpegBits(uVar9);
+        uVar5 = ConsumeMpegBits(uVar9);
         puVar6[0xd] = uVar5;
         puVar6 = puVar6 + 1;
         param_3 = param_3 + -1;
@@ -217,11 +217,11 @@ void ReadMpegLayerIIIScalefactorsLSF(undefined4 *param_1,undefined4 *param_2,int
       puVar6 = param_1 + iVar14 + 0x24;
       iVar14 = iVar14 + iVar12;
       do {
-        ConsumeMpegBits(uVar13);
+        uVar5 = ConsumeMpegBits(uVar13);
         puVar6[-0xd] = uVar5;
-        ConsumeMpegBits(uVar13);
+        uVar5 = ConsumeMpegBits(uVar13);
         *puVar6 = uVar5;
-        ConsumeMpegBits(uVar13);
+        uVar5 = ConsumeMpegBits(uVar13);
         puVar6[0xd] = uVar5;
         puVar6 = puVar6 + 1;
         iVar12 = iVar12 + -1;
@@ -243,11 +243,11 @@ void ReadMpegLayerIIIScalefactorsLSF(undefined4 *param_1,undefined4 *param_2,int
     else if (0 < iVar8) {
       param_1 = param_1 + iVar14 + 0x24;
       do {
-        ConsumeMpegBits(local_20);
+        uVar5 = ConsumeMpegBits(local_20);
         param_1[-0xd] = uVar5;
-        ConsumeMpegBits(local_20);
+        uVar5 = ConsumeMpegBits(local_20);
         *param_1 = uVar5;
-        ConsumeMpegBits(local_20);
+        uVar5 = ConsumeMpegBits(local_20);
         param_1[0xd] = uVar5;
         param_1 = param_1 + 1;
         iVar8 = iVar8 + -1;
@@ -271,7 +271,7 @@ void ReadMpegLayerIIIScalefactorsLSF(undefined4 *param_1,undefined4 *param_2,int
       param_2 = param_1;
       param_4 = (int *)iVar2;
       do {
-        ConsumeMpegBits(uVar7);
+        uVar5 = ConsumeMpegBits(uVar7);
         *param_2 = uVar5;
         param_2 = param_2 + 1;
         param_4 = (int *)((int)param_4 + -1);
@@ -293,7 +293,7 @@ void ReadMpegLayerIIIScalefactorsLSF(undefined4 *param_1,undefined4 *param_2,int
       param_3 = param_3 + iVar4;
       param_2 = (undefined4 *)iVar4;
       do {
-        ConsumeMpegBits(uVar9);
+        uVar5 = ConsumeMpegBits(uVar9);
         *puVar6 = uVar5;
         puVar6 = puVar6 + 1;
         param_2 = (undefined4 *)((int)param_2 + -1);
@@ -313,7 +313,7 @@ void ReadMpegLayerIIIScalefactorsLSF(undefined4 *param_1,undefined4 *param_2,int
       puVar6 = param_1 + param_3;
       param_3 = param_3 + iVar12;
       do {
-        ConsumeMpegBits(uVar13);
+        uVar5 = ConsumeMpegBits(uVar13);
         *puVar6 = uVar5;
         puVar6 = puVar6 + 1;
         iVar12 = iVar12 + -1;
@@ -331,7 +331,7 @@ void ReadMpegLayerIIIScalefactorsLSF(undefined4 *param_1,undefined4 *param_2,int
     else if (0 < iVar8) {
       param_1 = param_1 + param_3;
       do {
-        ConsumeMpegBits(local_20);
+        uVar5 = ConsumeMpegBits(local_20);
         *param_1 = uVar5;
         param_1 = param_1 + 1;
         iVar8 = iVar8 + -1;
