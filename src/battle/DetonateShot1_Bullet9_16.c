@@ -469,7 +469,8 @@ LAB_0046ec2d:
       puStack_af0[0xfe8] = iVar5 * param_1[0xfe5];
       cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar4 == '\0') {
-        RegisterActiveObject(0, 0, (undefined4 *)0);
+        /* EDX = ctx+0x6a7f88, EDI = [esp+0x18], the same slot the else branch deletes (original call at 0x46ecc9); the port had passed (0,0,NULL). */
+        RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)puStack_af0);
       }
       else {
         (**(code **)*puStack_af0)(1);
