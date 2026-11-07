@@ -54,7 +54,8 @@ SpawnSuperFlameEffect(char param_1,int param_2,int param_3,int param_4,int param
     iVar5 = FindPreloadedTextureByName(param_6);
     piVar3[7] = iVar5;
     (**(code **)(*piVar3 + 4))(s_flame_00553d2c);
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = [0x5b3484] + 0x6a7f88, EDI = the flame effect just built (vtable call [edx+4] through edi) (original call at 0x437479); the port had passed (0,0,NULL). */
+    RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar3);
   }
   return;
 }
