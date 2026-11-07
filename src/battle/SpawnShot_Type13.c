@@ -550,7 +550,8 @@ void SpawnShot_Type13(undefined4 param_1,undefined4 param_2,undefined4 param_3,
       TreeInsert();
     }
   }
-  RegisterActiveObject(0, 0, (undefined4 *)0);
+  /* EDX = [0x5b3484] + 0x6a7f88, EDI = ebp, the projectile allocated at 0x438909 (original call at 0x4395d7); the port had passed (0,0,NULL). */
+  RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar2);
   *unaff_FS_OFFSET = uStack_10;
   return;
 }
