@@ -138,7 +138,8 @@ void SpawnTornadoHazard(undefined4 param_1,int param_2,int param_3,undefined4 pa
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField((void *)(iVar6 + 0x484), param_4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = [0x5b3484] + 0x6a7f88, EDI = ebx, the hazard whose +0x484 cell is encoded just before (original call at 0x435aa1); the port had passed (0,0,NULL). */
+    RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)iVar6);
   }
 LAB_00435aaa:
   *unaff_FS_OFFSET = local_c;
