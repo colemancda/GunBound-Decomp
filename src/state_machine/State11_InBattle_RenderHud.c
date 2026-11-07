@@ -961,7 +961,10 @@ LAB_004c9ddb:
     }
   }
 LAB_004c9ef9:
-  switch(*(int *)(&DAT_005f2f44 + iVar6) / 10) {
+  /* Orig 0x4c9ef9/0x4ca0e1/0x4ca1dc/0x4ca3bb/0x4ca732 index off EDI, which was reloaded from
+   * [0x5b3484] (g_clientContext) at 0x4c9c12/0x4c9c87 and not written again before 0x4ca732 -
+   * NOT the stale iVar6 (reused as a scratch value elsewhere) the raw port used. */
+  switch(*(int *)(&DAT_005f2f44 + g_clientContext) / 10) {
   case 2:
     if ((g_screenSurface != 0) && (iVar7 = FindSpriteFrame((int)&g_spriteRegistry,0x3f3,1), iVar7 != 0)) {
       if (*(char *)(iVar7 + 0x18) == '\x01') {
@@ -1022,7 +1025,7 @@ LAB_004c9ef9:
       }
     }
   }
-  if ((&DAT_005f2f48)[iVar6] == '\0') {
+  if ((&DAT_005f2f48)[g_clientContext] == '\0') {
     if (g_screenSurface != 0) {
       iVar7 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar10 = *(uint *)(iVar7 + 4);
@@ -1053,7 +1056,7 @@ LAB_004c9ef9:
     }
   }
 LAB_004ca1dc:
-  switch(*(undefined4 *)(&DAT_005f2f4c + iVar6)) {
+  switch(*(undefined4 *)(&DAT_005f2f4c + g_clientContext)) {
   case 0:
     if ((g_screenSurface != 0) && (iVar7 = FindSpriteFrame((int)&g_spriteRegistry,0x3f3,1), iVar7 != 0)) {
       if (*(char *)(iVar7 + 0x18) == '\x01') {
@@ -1114,7 +1117,7 @@ LAB_004ca1dc:
       }
     }
   }
-  switch(*(undefined4 *)(&DAT_005f2f50 + iVar6)) {
+  switch(*(undefined4 *)(&DAT_005f2f50 + g_clientContext)) {
   case 0:
     if ((g_screenSurface != 0) && (iVar7 = FindSpriteFrame((int)&g_spriteRegistry,0x3f3,1), iVar7 != 0)) {
       if (*(char *)(iVar7 + 0x18) == '\x01') {
@@ -1223,7 +1226,7 @@ LAB_004ca1dc:
     }
   }
 LAB_004ca732:
-  if ((&DAT_005f2f55)[iVar6] == '\0') {
+  if ((&DAT_005f2f55)[g_clientContext] == '\0') {
     if (g_screenSurface != 0) {
       iVar7 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar10 = *(uint *)(iVar7 + 4);
