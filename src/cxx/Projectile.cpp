@@ -298,7 +298,10 @@ extern unsigned char g_replayContext;  /* 0xe55ce0 - battle/replay turn-event bu
 #define DAT_006a770c (*(unsigned char *)(0x006a770c))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a770c + <arena base> */
 #define DAT_005f3768 (*(unsigned char *)(0x005f3768))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_005f3768 + <arena base> */
 extern unsigned char DAT_005f376c;
-extern void *PTR_FUN_0055658c;
+/* The projectile class's vtable table (orig .data 0x55658c, 8 slots; globals.c).  The store at
+ * the `new` site below installs this table's ADDRESS (the original is `mov [eax],0x55658c`);
+ * it was declared as a scalar cell, so the object got the cell's value - a NULL vtable. */
+extern void *PTR_FUN_0055658c[8];
 
 /* SimulateProjectileFrame's additional dependencies. */
 unsigned int EncodeChecksumDeltaAdd(void *cell, void *out, int delta);

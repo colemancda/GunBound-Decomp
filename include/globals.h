@@ -1428,127 +1428,127 @@ extern void *g_mpegImdctShortTabs[4]; /* 0x568810 */
 #define PTR_DAT_00568810 (g_mpegImdctShortTabs[0])
 extern void *PTR_DAT_0056d460;
 extern uint8_t g_abItemRecords[2492];
-extern void *PTR_FUN_00544b5c;
-extern void *PTR_FUN_00544b68;
-extern void *PTR_FUN_00544b74;
+extern void *PTR_FUN_00544b5c[2]; /* function-pointer table, orig .data 0x544b5c - see globals.c */
+extern void *PTR_FUN_00544b68[2]; /* function-pointer table, orig .data 0x544b68 - see globals.c */
+extern void *PTR_FUN_00544b74[2]; /* function-pointer table, orig .data 0x544b74 - see globals.c */
 extern void *PTR_FUN_00551cb4;
 extern void *PTR_FUN_00551cf0;
 extern void *PTR_FUN_00551e88;
 extern void *PTR_FUN_0055208c[5]; /* text-box vtable - see globals.c */
 extern void *PTR_FUN_005520a0;
-extern void *PTR_FUN_00555aa4;
-extern void *PTR_FUN_00555ac4;
-extern void *PTR_FUN_00555af8;
-extern void *PTR_FUN_00555b18;
+extern void *PTR_FUN_00555aa4[8]; /* function-pointer table, orig .data 0x555aa4 - see globals.c */
+extern void *PTR_FUN_00555ac4[9]; /* function-pointer table, orig .data 0x555ac4 - see globals.c */
+extern void *PTR_FUN_00555af8[8]; /* function-pointer table, orig .data 0x555af8 - see globals.c */
+extern void *PTR_FUN_00555b18[8]; /* function-pointer table, orig .data 0x555b18 - see globals.c */
 extern void *PTR_FUN_00555b38[5]; /* State07 avatar-widget vtable - see globals.c */
-extern void *PTR_FUN_00555b54;
-extern void *PTR_FUN_00555b68;
+extern void *PTR_FUN_00555b54[5]; /* function-pointer table, orig .data 0x555b54 - see globals.c */
+extern void *PTR_FUN_00555b68[5]; /* function-pointer table, orig .data 0x555b68 - see globals.c */
 extern void *PTR_FUN_00555b7c;
-extern void *PTR_FUN_00555bd0;
-extern void *PTR_FUN_00555bf0;
-extern void *PTR_FUN_00555c14;
-extern void *PTR_FUN_00555c34;
-extern void *PTR_FUN_00555c54;
-extern void *PTR_FUN_00555c68;
-extern void *PTR_FUN_00555ccc;
-extern void *PTR_FUN_00555ce0;
-extern void *PTR_FUN_00555cf4;
-extern void *PTR_FUN_00555d14;
-extern void *PTR_FUN_00555d34;
-extern void *PTR_FUN_00555d54;
-extern void *PTR_FUN_00555d74;
-extern void *PTR_FUN_00555d98;
-extern void *PTR_FUN_00555dac;
-extern void *PTR_FUN_00555dcc;
-extern void *PTR_FUN_00555dec;
-extern void *PTR_FUN_00555e0c;
-extern void *PTR_FUN_00555e30;
-extern void *PTR_FUN_00555e54;
-extern void *PTR_FUN_00555e74;
-extern void *PTR_FUN_00555e88;
-extern void *PTR_FUN_00555ea8;
-extern void *PTR_FUN_00555ec8;
-extern void *PTR_FUN_00555edc;
-extern void *PTR_FUN_00555ef0;
-extern void *PTR_FUN_00555f04;
-extern void *PTR_FUN_00555f18;
-extern void *PTR_FUN_00555f38;
-extern void *PTR_FUN_00555f58;
-extern void *PTR_FUN_00555f7c;
-extern void *PTR_FUN_00555f9c;
-extern void *PTR_FUN_00555fbc;
-extern void *PTR_FUN_00555fdc;
-extern void *PTR_FUN_00556008;
-extern void *PTR_FUN_00556038;
-extern void *PTR_FUN_00556058;
-extern void *PTR_FUN_00556078;
-extern void *PTR_FUN_00556098;
-extern void *PTR_FUN_005560bc;
-extern void *PTR_FUN_005560d0;
-extern void *PTR_FUN_005560f0;
-extern void *PTR_FUN_00556110;
-extern void *PTR_FUN_00556160;
-extern void *PTR_FUN_00556180;
-extern void *PTR_FUN_00556194;
-extern void *PTR_FUN_005561a8;
-extern void *PTR_FUN_005561c8;
-extern void *PTR_FUN_005561ec;
-extern void *PTR_FUN_0055620c;
-extern void *PTR_FUN_00556230;
-extern void *PTR_FUN_00556250;
-extern void *PTR_FUN_00556264;
-extern void *PTR_FUN_00556284;
-extern void *PTR_FUN_005562a8;
-extern void *PTR_FUN_005562c8;
-extern void *PTR_FUN_005562f4;
-extern void *PTR_FUN_00556308;
-extern void *PTR_FUN_0055631c;
-extern void *PTR_FUN_00556340;
-extern void *PTR_FUN_00556360;
-extern void *PTR_FUN_00556380;
-extern void *PTR_FUN_005563a8;
-extern void *PTR_FUN_005563d0;
-extern void *PTR_FUN_005563f0;
-extern void *PTR_FUN_00556424;
-extern void *PTR_FUN_00556448;
-extern void *PTR_FUN_00556468;
-extern void *PTR_FUN_00556488;
-extern void *PTR_FUN_0055649c;
-extern void *PTR_FUN_005564bc;
-extern void *PTR_FUN_005564d0;
-extern void *PTR_FUN_005564f0;
-extern void *PTR_FUN_00556510;
-extern void *PTR_FUN_00556524;
-extern void *PTR_FUN_00556544;
-extern void *PTR_FUN_00556558;
-extern void *PTR_FUN_0055656c;
-extern void *PTR_FUN_0055658c;
-extern void *PTR_FUN_005565ac;
-extern void *PTR_FUN_005565cc;
-extern void *PTR_FUN_005565e4;
-extern void *PTR_FUN_005565f8;
-extern void *PTR_FUN_0055661c;
-extern void *PTR_FUN_00556640;
-extern void *PTR_FUN_00556660;
-extern void *PTR_FUN_00556680;
-extern void *PTR_FUN_005566a0;
-extern void *PTR_FUN_005566c0;
+extern void *PTR_FUN_00555bd0[8]; /* function-pointer table, orig .data 0x555bd0 - see globals.c */
+extern void *PTR_FUN_00555bf0[9]; /* function-pointer table, orig .data 0x555bf0 - see globals.c */
+extern void *PTR_FUN_00555c14[8]; /* function-pointer table, orig .data 0x555c14 - see globals.c */
+extern void *PTR_FUN_00555c34[8]; /* function-pointer table, orig .data 0x555c34 - see globals.c */
+extern void *PTR_FUN_00555c54[5]; /* function-pointer table, orig .data 0x555c54 - see globals.c */
+extern void *PTR_FUN_00555c68[8]; /* function-pointer table, orig .data 0x555c68 - see globals.c */
+extern void *PTR_FUN_00555ccc[5]; /* function-pointer table, orig .data 0x555ccc - see globals.c */
+extern void *PTR_FUN_00555ce0[5]; /* function-pointer table, orig .data 0x555ce0 - see globals.c */
+extern void *PTR_FUN_00555cf4[8]; /* function-pointer table, orig .data 0x555cf4 - see globals.c */
+extern void *PTR_FUN_00555d14[8]; /* function-pointer table, orig .data 0x555d14 - see globals.c */
+extern void *PTR_FUN_00555d34[8]; /* function-pointer table, orig .data 0x555d34 - see globals.c */
+extern void *PTR_FUN_00555d54[8]; /* function-pointer table, orig .data 0x555d54 - see globals.c */
+extern void *PTR_FUN_00555d74[9]; /* function-pointer table, orig .data 0x555d74 - see globals.c */
+extern void *PTR_FUN_00555d98[5]; /* function-pointer table, orig .data 0x555d98 - see globals.c */
+extern void *PTR_FUN_00555dac[8]; /* function-pointer table, orig .data 0x555dac - see globals.c */
+extern void *PTR_FUN_00555dcc[8]; /* function-pointer table, orig .data 0x555dcc - see globals.c */
+extern void *PTR_FUN_00555dec[8]; /* function-pointer table, orig .data 0x555dec - see globals.c */
+extern void *PTR_FUN_00555e0c[8]; /* function-pointer table, orig .data 0x555e0c - see globals.c */
+extern void *PTR_FUN_00555e30[9]; /* function-pointer table, orig .data 0x555e30 - see globals.c */
+extern void *PTR_FUN_00555e54[8]; /* function-pointer table, orig .data 0x555e54 - see globals.c */
+extern void *PTR_FUN_00555e74[5]; /* function-pointer table, orig .data 0x555e74 - see globals.c */
+extern void *PTR_FUN_00555e88[8]; /* function-pointer table, orig .data 0x555e88 - see globals.c */
+extern void *PTR_FUN_00555ea8[8]; /* function-pointer table, orig .data 0x555ea8 - see globals.c */
+extern void *PTR_FUN_00555ec8[5]; /* function-pointer table, orig .data 0x555ec8 - see globals.c */
+extern void *PTR_FUN_00555edc[5]; /* function-pointer table, orig .data 0x555edc - see globals.c */
+extern void *PTR_FUN_00555ef0[5]; /* function-pointer table, orig .data 0x555ef0 - see globals.c */
+extern void *PTR_FUN_00555f04[5]; /* function-pointer table, orig .data 0x555f04 - see globals.c */
+extern void *PTR_FUN_00555f18[8]; /* function-pointer table, orig .data 0x555f18 - see globals.c */
+extern void *PTR_FUN_00555f38[8]; /* function-pointer table, orig .data 0x555f38 - see globals.c */
+extern void *PTR_FUN_00555f58[9]; /* function-pointer table, orig .data 0x555f58 - see globals.c */
+extern void *PTR_FUN_00555f7c[8]; /* function-pointer table, orig .data 0x555f7c - see globals.c */
+extern void *PTR_FUN_00555f9c[8]; /* function-pointer table, orig .data 0x555f9c - see globals.c */
+extern void *PTR_FUN_00555fbc[8]; /* function-pointer table, orig .data 0x555fbc - see globals.c */
+extern void *PTR_FUN_00555fdc[5]; /* function-pointer table, orig .data 0x555fdc - see globals.c */
+extern void *PTR_FUN_00556008[8]; /* function-pointer table, orig .data 0x556008 - see globals.c */
+extern void *PTR_FUN_00556038[8]; /* function-pointer table, orig .data 0x556038 - see globals.c */
+extern void *PTR_FUN_00556058[8]; /* function-pointer table, orig .data 0x556058 - see globals.c */
+extern void *PTR_FUN_00556078[8]; /* function-pointer table, orig .data 0x556078 - see globals.c */
+extern void *PTR_FUN_00556098[9]; /* function-pointer table, orig .data 0x556098 - see globals.c */
+extern void *PTR_FUN_005560bc[5]; /* function-pointer table, orig .data 0x5560bc - see globals.c */
+extern void *PTR_FUN_005560d0[8]; /* function-pointer table, orig .data 0x5560d0 - see globals.c */
+extern void *PTR_FUN_005560f0[8]; /* function-pointer table, orig .data 0x5560f0 - see globals.c */
+extern void *PTR_FUN_00556110[8]; /* function-pointer table, orig .data 0x556110 - see globals.c */
+extern void *PTR_FUN_00556160[8]; /* function-pointer table, orig .data 0x556160 - see globals.c */
+extern void *PTR_FUN_00556180[5]; /* function-pointer table, orig .data 0x556180 - see globals.c */
+extern void *PTR_FUN_00556194[5]; /* function-pointer table, orig .data 0x556194 - see globals.c */
+extern void *PTR_FUN_005561a8[8]; /* function-pointer table, orig .data 0x5561a8 - see globals.c */
+extern void *PTR_FUN_005561c8[9]; /* function-pointer table, orig .data 0x5561c8 - see globals.c */
+extern void *PTR_FUN_005561ec[8]; /* function-pointer table, orig .data 0x5561ec - see globals.c */
+extern void *PTR_FUN_0055620c[9]; /* function-pointer table, orig .data 0x55620c - see globals.c */
+extern void *PTR_FUN_00556230[8]; /* function-pointer table, orig .data 0x556230 - see globals.c */
+extern void *PTR_FUN_00556250[5]; /* function-pointer table, orig .data 0x556250 - see globals.c */
+extern void *PTR_FUN_00556264[8]; /* function-pointer table, orig .data 0x556264 - see globals.c */
+extern void *PTR_FUN_00556284[9]; /* function-pointer table, orig .data 0x556284 - see globals.c */
+extern void *PTR_FUN_005562a8[8]; /* function-pointer table, orig .data 0x5562a8 - see globals.c */
+extern void *PTR_FUN_005562c8[9]; /* function-pointer table, orig .data 0x5562c8 - see globals.c */
+extern void *PTR_FUN_005562f4[5]; /* function-pointer table, orig .data 0x5562f4 - see globals.c */
+extern void *PTR_FUN_00556308[5]; /* function-pointer table, orig .data 0x556308 - see globals.c */
+extern void *PTR_FUN_0055631c[9]; /* function-pointer table, orig .data 0x55631c - see globals.c */
+extern void *PTR_FUN_00556340[8]; /* function-pointer table, orig .data 0x556340 - see globals.c */
+extern void *PTR_FUN_00556360[8]; /* function-pointer table, orig .data 0x556360 - see globals.c */
+extern void *PTR_FUN_00556380[10]; /* function-pointer table, orig .data 0x556380 - see globals.c */
+extern void *PTR_FUN_005563a8[8]; /* function-pointer table, orig .data 0x5563a8 - see globals.c */
+extern void *PTR_FUN_005563d0[8]; /* function-pointer table, orig .data 0x5563d0 - see globals.c */
+extern void *PTR_FUN_005563f0[10]; /* function-pointer table, orig .data 0x5563f0 - see globals.c */
+extern void *PTR_FUN_00556424[9]; /* function-pointer table, orig .data 0x556424 - see globals.c */
+extern void *PTR_FUN_00556448[8]; /* function-pointer table, orig .data 0x556448 - see globals.c */
+extern void *PTR_FUN_00556468[8]; /* function-pointer table, orig .data 0x556468 - see globals.c */
+extern void *PTR_FUN_00556488[5]; /* function-pointer table, orig .data 0x556488 - see globals.c */
+extern void *PTR_FUN_0055649c[8]; /* function-pointer table, orig .data 0x55649c - see globals.c */
+extern void *PTR_FUN_005564bc[5]; /* function-pointer table, orig .data 0x5564bc - see globals.c */
+extern void *PTR_FUN_005564d0[8]; /* function-pointer table, orig .data 0x5564d0 - see globals.c */
+extern void *PTR_FUN_005564f0[8]; /* function-pointer table, orig .data 0x5564f0 - see globals.c */
+extern void *PTR_FUN_00556510[5]; /* function-pointer table, orig .data 0x556510 - see globals.c */
+extern void *PTR_FUN_00556524[8]; /* function-pointer table, orig .data 0x556524 - see globals.c */
+extern void *PTR_FUN_00556544[5]; /* function-pointer table, orig .data 0x556544 - see globals.c */
+extern void *PTR_FUN_00556558[5]; /* function-pointer table, orig .data 0x556558 - see globals.c */
+extern void *PTR_FUN_0055656c[8]; /* function-pointer table, orig .data 0x55656c - see globals.c */
+extern void *PTR_FUN_0055658c[8]; /* function-pointer table, orig .data 0x55658c - see globals.c */
+extern void *PTR_FUN_005565ac[8]; /* function-pointer table, orig .data 0x5565ac - see globals.c */
+extern void *PTR_FUN_005565cc[5]; /* function-pointer table, orig .data 0x5565cc - see globals.c */
+extern void *PTR_FUN_005565e4[5]; /* function-pointer table, orig .data 0x5565e4 - see globals.c */
+extern void *PTR_FUN_005565f8[9]; /* function-pointer table, orig .data 0x5565f8 - see globals.c */
+extern void *PTR_FUN_0055661c[9]; /* function-pointer table, orig .data 0x55661c - see globals.c */
+extern void *PTR_FUN_00556640[8]; /* function-pointer table, orig .data 0x556640 - see globals.c */
+extern void *PTR_FUN_00556660[8]; /* function-pointer table, orig .data 0x556660 - see globals.c */
+extern void *PTR_FUN_00556680[8]; /* function-pointer table, orig .data 0x556680 - see globals.c */
+extern void *PTR_FUN_005566a0[8]; /* function-pointer table, orig .data 0x5566a0 - see globals.c */
+extern void *PTR_FUN_005566c0[24]; /* function-pointer table, orig .data 0x5566c0 - see globals.c */
 extern void *PTR_FUN_00556a40[5]; /* State09 room-slot object vtable - see globals.c */
 extern void *PTR_FUN_005572dc;
 extern void *PTR_FUN_005572e8[2];
-extern void *PTR_FUN_005572f0;
+extern void *PTR_FUN_005572f0[4]; /* function-pointer table, orig .data 0x5572f0 - see globals.c */
 extern void *PTR_FUN_00557300;
-extern void *PTR_FUN_0055745c;
-extern void *PTR_FUN_00557484;
+extern void *PTR_FUN_0055745c[10]; /* function-pointer table, orig .data 0x55745c - see globals.c */
+extern void *PTR_FUN_00557484[10]; /* function-pointer table, orig .data 0x557484 - see globals.c */
 extern void *PTR_FUN_00557524;
 extern void *PTR_FUN_00557528;
 extern void *PTR_FUN_00557530;
 extern void *PTR_FUN_00557534;
-extern void *PTR_FUN_00557538;
+extern void *PTR_FUN_00557538[6]; /* function-pointer table, orig .data 0x557538 - see globals.c */
 extern void *PTR_FUN_00557550;
 extern void *PTR_FUN_005575a8;
 extern void *PTR_FUN_00557cfc;
-extern void *PTR_FUN_00557f80;
+extern void *PTR_FUN_00557f80[11]; /* function-pointer table, orig .data 0x557f80 - see globals.c */
 /* Active Layer I/II synthesis driver (static initial value 0x5168d0 = SynthesizeMpeg16FullMono). */
 extern void *PTR_FUN_005637cc;
 extern void *PTR_FUN_005637d0;
@@ -1567,32 +1567,32 @@ extern void *PTR_FUN_00563da4;
  * outChannels + (downsample + eightBit*3) * 2 (the next object is 0x563ddc). */
 extern void *PTR_FUN_00563da8[13];
 extern void *PTR_FUN_0056d0f0;
-extern void *PTR_LAB_0054b450;
-extern void *PTR_LAB_0054b458;
-extern void *PTR_LAB_00550378;
+extern void *PTR_LAB_0054b450[2]; /* function-pointer table, orig .data 0x54b450 - see globals.c */
+extern void *PTR_LAB_0054b458[2]; /* function-pointer table, orig .data 0x54b458 - see globals.c */
+extern void *PTR_LAB_00550378[1]; /* function-pointer table, orig .data 0x550378 - see globals.c */
 extern void *PTR_LAB_00551cb8[14];
-extern void *PTR_LAB_00551cf4;
-extern void *PTR_LAB_005520a4;
-extern void *PTR_LAB_005520ac;
+extern void *PTR_LAB_00551cf4[14]; /* function-pointer table, orig .data 0x551cf4 - see globals.c */
+extern void *PTR_LAB_005520a4[2]; /* function-pointer table, orig .data 0x5520a4 - see globals.c */
+extern void *PTR_LAB_005520ac[2]; /* function-pointer table, orig .data 0x5520ac - see globals.c */
 extern void *PTR_LAB_00553fb0[12];
-extern void *PTR_LAB_00553ff8;
-extern void *PTR_LAB_00554000;
-extern void *PTR_LAB_005572e0;
-extern void *PTR_LAB_00557434;
+extern void *PTR_LAB_00553ff8[2]; /* function-pointer table, orig .data 0x553ff8 - see globals.c */
+extern void *PTR_LAB_00554000[2]; /* function-pointer table, orig .data 0x554000 - see globals.c */
+extern void *PTR_LAB_005572e0[2]; /* function-pointer table, orig .data 0x5572e0 - see globals.c */
+extern void *PTR_LAB_00557434[10]; /* function-pointer table, orig .data 0x557434 - see globals.c */
 extern void *PTR_LAB_005574cc[7];
 extern void *PTR_LAB_005574e0[4];
 extern void *PTR_LAB_005574e8[5];
 extern void *PTR_LAB_0055752c;
-extern void *PTR_LAB_0055755c;
+extern void *PTR_LAB_0055755c[4]; /* function-pointer table, orig .data 0x55755c - see globals.c */
 extern void *PTR_LAB_00557594;
-extern void *PTR_LAB_00557598;
-extern void *PTR_LAB_005575ac;
-extern void *PTR_LAB_005575b8;
+extern void *PTR_LAB_00557598[4]; /* function-pointer table, orig .data 0x557598 - see globals.c */
+extern void *PTR_LAB_005575ac[3]; /* function-pointer table, orig .data 0x5575ac - see globals.c */
+extern void *PTR_LAB_005575b8[4]; /* function-pointer table, orig .data 0x5575b8 - see globals.c */
 extern void *PTR_LAB_005575c8[17];
-extern void *PTR_LAB_00557610;
-extern void *PTR_LAB_00557654;
+extern void *PTR_LAB_00557610[17]; /* function-pointer table, orig .data 0x557610 - see globals.c */
+extern void *PTR_LAB_00557654[3]; /* function-pointer table, orig .data 0x557654 - see globals.c */
 extern void *PTR_LAB_00557b94;
-extern void *PTR_LAB_00557bbc;
+extern void *PTR_LAB_00557bbc[10]; /* function-pointer table, orig .data 0x557bbc - see globals.c */
 extern void *PTR_LAB_00557be4;
 extern void *PTR_LAB_00557c34;
 extern void *PTR_LAB_00557c84;
@@ -1605,7 +1605,7 @@ extern void *PTR_LAB_00557eb8;
 extern void *PTR_LAB_00557ee0;
 extern void *PTR_LAB_00557f08;
 extern void *PTR_LAB_00557f30;
-extern void *PTR_LAB_00557f58;
+extern void *PTR_LAB_00557f58[10]; /* function-pointer table, orig .data 0x557f58 - see globals.c */
 /* Layer III channel synthesis drivers, 5 words at 0x563ddc, indexed by the same mono/stereo/mix
  * down/first/second column as PTR_FUN_00563a60. */
 extern void *PTR_LAB_00563ddc[5];

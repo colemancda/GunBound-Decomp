@@ -4,6 +4,8 @@
 #include "globals.h"
 #include "functions.h" /* HandleSocketEvent/NoOpMethod (PTR_FUN_005572e8 init) */
 
+int __cdecl _purecall(void); /* the CRT pure-virtual trap, 0x525acd; abstract-class vtable slots */
+
 int32_t g_currentGameState;
 int32_t g_pendingGameState;
 char *g_gameStateVTableArray[16];
@@ -1145,9 +1147,18 @@ void *g_mpegImdctShortTabs[4] = { g_mpegImdctShortCos0, g_mpegImdctShortCos1, &D
 void *PTR_DAT_0056d460 = " ";
 /* 100 x 0x9bc (2492) item records; itemdata.dat loaded here. See FindItemRecordByIcon. */
 uint8_t g_abItemRecords[2492];  /* one record; array is up to 100 x 0x9bc, see FindItemRecordByIcon */
-void *PTR_FUN_00544b5c;
-void *PTR_FUN_00544b68;
-void *PTR_FUN_00544b74;
+void *PTR_FUN_00544b5c[2] = { /* orig .data 0x544b5c */
+    (void *)FUN_0040a080,
+    0 /* [1] 0x40a030 not ported */
+};
+void *PTR_FUN_00544b68[2] = { /* orig .data 0x544b68 */
+    (void *)FUN_0040a080,
+    0 /* [1] 0x40a030 not ported */
+};
+void *PTR_FUN_00544b74[2] = { /* orig .data 0x544b74 */
+    (void *)FUN_0040a080,
+    0 /* [1] 0x40a030 not ported */
+};
 /* The direct-link roster node's vtable (orig .data 0x551cb4): one slot,
  * 0x40ca00 (DeletePoisonedBaseObject); 0x551cb8 right after it is a
  * separately installed vtable (`mov [ebp+8],0x551cb8` at 0x401948).
@@ -1194,10 +1205,47 @@ void *PTR_FUN_0055208c[5] = {
   (void *)NoOpMethod,
 };
 void *PTR_FUN_005520a0 = (void *)FUN_0040cd60;   /* see 0x551cf0 above */
-void *PTR_FUN_00555aa4;
-void *PTR_FUN_00555ac4;
-void *PTR_FUN_00555af8;
-void *PTR_FUN_00555b18;
+void *PTR_FUN_00555aa4[8] = { /* orig .data 0x555aa4 */
+    (void *)DeleteShot1_Bullet7,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateShot_Bullet7n_9s_7p_9p,
+    (void *)DetonateShot1_Bullet7,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00555ac4[9] = { /* orig .data 0x555ac4 */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateSuperShot_Bullet1,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeSuperShot_Bullet1_5_6_12_13_15
+};
+void *PTR_FUN_00555af8[8] = { /* orig .data 0x555af8 */
+    (void *)Mobile00_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile00_MainAction
+};
+void *PTR_FUN_00555b18[8] = { /* orig .data 0x555b18 */
+    (void *)DeleteSuperShot_Bullet10,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateSuperShot_Bullet10,
+    (void *)IsProjectileInLandBounds
+};
 /* The State07-embedded avatar-preview widget's vtable (orig .data
  * 0x555b38, 5 slots; the constructor FUN_0044fb40 stamps it and
  * State07_AvatarStore_OnEnter dispatches slot 1 with a state name).
@@ -1212,98 +1260,875 @@ void *PTR_FUN_00555b38[5] = {
   (void *)FUN_0044fcb0,
   (void *)NoOpMethod, (void *)NoOpMethod,
 };
-void *PTR_FUN_00555b54;
-void *PTR_FUN_00555b68;
+void *PTR_FUN_00555b54[5] = { /* orig .data 0x555b54 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    (void *)FUN_0044fd70,
+    (void *)FUN_0044fff0,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00555b68[5] = { /* orig .data 0x555b68 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    (void *)NoOpMethod,
+    (void *)NoOpMethod,
+    (void *)NoOpMethod
+};
 void *PTR_FUN_00555b7c = (void *)FUN_004f3960;   /* see 0x551cf0 above */
-void *PTR_FUN_00555bd0;
-void *PTR_FUN_00555bf0;
-void *PTR_FUN_00555c14;
-void *PTR_FUN_00555c34;
-void *PTR_FUN_00555c54;
-void *PTR_FUN_00555c68;
-void *PTR_FUN_00555ccc;
-void *PTR_FUN_00555ce0;
-void *PTR_FUN_00555cf4;
-void *PTR_FUN_00555d14;
-void *PTR_FUN_00555d34;
-void *PTR_FUN_00555d54;
-void *PTR_FUN_00555d74;
-void *PTR_FUN_00555d98;
-void *PTR_FUN_00555dac;
-void *PTR_FUN_00555dcc;
-void *PTR_FUN_00555dec;
-void *PTR_FUN_00555e0c;
-void *PTR_FUN_00555e30;
-void *PTR_FUN_00555e54;
-void *PTR_FUN_00555e74;
-void *PTR_FUN_00555e88;
-void *PTR_FUN_00555ea8;
-void *PTR_FUN_00555ec8;
-void *PTR_FUN_00555edc;
-void *PTR_FUN_00555ef0;
-void *PTR_FUN_00555f04;
-void *PTR_FUN_00555f18;
-void *PTR_FUN_00555f38;
-void *PTR_FUN_00555f58;
-void *PTR_FUN_00555f7c;
-void *PTR_FUN_00555f9c;
-void *PTR_FUN_00555fbc;
-void *PTR_FUN_00555fdc;
-void *PTR_FUN_00556008;
-void *PTR_FUN_00556038;
-void *PTR_FUN_00556058;
-void *PTR_FUN_00556078;
-void *PTR_FUN_00556098;
-void *PTR_FUN_005560bc;
-void *PTR_FUN_005560d0;
-void *PTR_FUN_005560f0;
-void *PTR_FUN_00556110;
-void *PTR_FUN_00556160;
-void *PTR_FUN_00556180;
-void *PTR_FUN_00556194;
-void *PTR_FUN_005561a8;
-void *PTR_FUN_005561c8;
-void *PTR_FUN_005561ec;
-void *PTR_FUN_0055620c;
-void *PTR_FUN_00556230;
-void *PTR_FUN_00556250;
-void *PTR_FUN_00556264;
-void *PTR_FUN_00556284;
-void *PTR_FUN_005562a8;
-void *PTR_FUN_005562c8;
-void *PTR_FUN_005562f4;
-void *PTR_FUN_00556308;
-void *PTR_FUN_0055631c;
-void *PTR_FUN_00556340;
-void *PTR_FUN_00556360;
-void *PTR_FUN_00556380;
-void *PTR_FUN_005563a8;
-void *PTR_FUN_005563d0;
-void *PTR_FUN_005563f0;
-void *PTR_FUN_00556424;
-void *PTR_FUN_00556448;
-void *PTR_FUN_00556468;
-void *PTR_FUN_00556488;
-void *PTR_FUN_0055649c;
-void *PTR_FUN_005564bc;
-void *PTR_FUN_005564d0;
-void *PTR_FUN_005564f0;
-void *PTR_FUN_00556510;
-void *PTR_FUN_00556524;
-void *PTR_FUN_00556544;
-void *PTR_FUN_00556558;
-void *PTR_FUN_0055656c;
-void *PTR_FUN_0055658c;
-void *PTR_FUN_005565ac;
-void *PTR_FUN_005565cc;
-void *PTR_FUN_005565e4;
-void *PTR_FUN_005565f8;
-void *PTR_FUN_0055661c;
-void *PTR_FUN_00556640;
-void *PTR_FUN_00556660;
-void *PTR_FUN_00556680;
-void *PTR_FUN_005566a0;
-void *PTR_FUN_005566c0;
+void *PTR_FUN_00555bd0[8] = { /* orig .data 0x555bd0 */
+    (void *)FUN_00451380,
+    (void *)ResolveNamedState,
+    (void *)FUN_00452bf0,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)FUN_004513b0,
+    (void *)IsProjectileInLandBounds
+};
+void *PTR_FUN_00555bf0[9] = { /* orig .data 0x555bf0 */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x453f30 not ported */,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateSuperShot_Bullet6,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeSuperShot_Bullet1_5_6_12_13_15
+};
+void *PTR_FUN_00555c14[8] = { /* orig .data 0x555c14 */
+    (void *)Mobile05_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile05_MainAction
+};
+void *PTR_FUN_00555c34[8] = { /* orig .data 0x555c34 */
+    (void *)DeleteProjectile,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00555c54[5] = { /* orig .data 0x555c54 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x458ae0 not ported */,
+    0 /* [3] 0x458b00 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00555c68[8] = { /* orig .data 0x555c68 */
+    (void *)DeleteMobile,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)CGameState_NoOpVirtual_B
+};
+void *PTR_FUN_00555ccc[5] = { /* orig .data 0x555ccc */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x464250 not ported */,
+    0 /* [3] 0x464280 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00555ce0[5] = { /* orig .data 0x555ce0 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    (void *)TickCrashParticleBurst,
+    0 /* [3] 0x464390 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00555cf4[8] = { /* orig .data 0x555cf4 */
+    (void *)CrystalShot_ScalarDtor,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x465470 not ported */,
+    (void *)NoOpMethod,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00555d14[8] = { /* orig .data 0x555d14 */
+    (void *)DeleteShot2_Bullet9,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateShot_Bullet7n_9s_7p_9p,
+    (void *)DetonateShot2_Bullet9,
+    (void *)IsProjectileInLandBounds
+};
+void *PTR_FUN_00555d34[8] = { /* orig .data 0x555d34 */
+    (void *)Mobile08_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile08_MainAction
+};
+void *PTR_FUN_00555d54[8] = { /* orig .data 0x555d54 */
+    (void *)Mobile15_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile15_MainAction
+};
+void *PTR_FUN_00555d74[9] = { /* orig .data 0x555d74 */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x488880 PublishProjectileTrackingStateFacing, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateSuperShot_Bullet16,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeSuperShot_Bullet16
+};
+void *PTR_FUN_00555d98[5] = { /* orig .data 0x555d98 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x468660 not ported */,
+    0 /* [3] 0x4686b0 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00555dac[8] = { /* orig .data 0x555dac */
+    (void *)DeleteShot2_Bullet1,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateShot2_Bullet1,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00555dcc[8] = { /* orig .data 0x555dcc */
+    (void *)DropBombProjectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateDropBombProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00555dec[8] = { /* orig .data 0x555dec */
+    (void *)DropCaseProjectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateDropCaseProjectile,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateDropCaseProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00555e0c[8] = { /* orig .data 0x555e0c */
+    (void *)Shot_Type13_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateShot_Type13,
+    0 /* [3] 0x488880 PublishProjectileTrackingStateFacing, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateShot_Type13,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00555e30[9] = { /* orig .data 0x555e30 */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateSuperShot_Bullet3_5_14,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeSuperShot_Bullet14
+};
+void *PTR_FUN_00555e54[8] = { /* orig .data 0x555e54 */
+    (void *)Mobile13_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)Mobile13_ComputeGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile13_MainAction
+};
+void *PTR_FUN_00555e74[5] = { /* orig .data 0x555e74 */
+    (void *)DeleteLightningHazard,
+    (void *)ResolveNamedState,
+    (void *)TickWeatherHazardFrame,
+    (void *)RenderLightningHazard,
+    (void *)TickWeatherHazardLifetime
+};
+void *PTR_FUN_00555e88[8] = { /* orig .data 0x555e88 */
+    (void *)DeleteShot1_Bullet9_16,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateShot1_Bullet9_16,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00555ea8[8] = { /* orig .data 0x555ea8 */
+    (void *)DeletePrimaryShot_Bullet14,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    (void *)NoOpMethod,
+    (void *)NoOpMethod,
+    (void *)SimulatePrimaryShot_Bullet14,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00555ec8[5] = { /* orig .data 0x555ec8 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    (void *)FUN_004711f0,
+    0 /* [3] 0x471240 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00555edc[5] = { /* orig .data 0x555edc */
+    (void *)DeleteFirewallHazard,
+    (void *)ResolveNamedState,
+    (void *)TickWeatherHazardFrame,
+    (void *)RenderFirewallHazard,
+    (void *)TickWeatherHazardLifetime
+};
+void *PTR_FUN_00555ef0[5] = { /* orig .data 0x555ef0 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    (void *)TickFlameEffect,
+    0 /* [3] 0x471d00 DrawFlameEffect, no prototype/cxx */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00555f04[5] = { /* orig .data 0x555f04 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x471dc0 not ported */,
+    0 /* [3] 0x471df0 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00555f18[8] = { /* orig .data 0x555f18 */
+    (void *)Mobile12_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile12_MainAction
+};
+void *PTR_FUN_00555f38[8] = { /* orig .data 0x555f38 */
+    (void *)DeleteShot2_Bullet11,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateShot2_Bullet11,
+    (void *)DetonateShot2_Bullet11,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00555f58[9] = { /* orig .data 0x555f58 */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateSuperShot_Bullet2_8_11,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeSuperShot_Bullet11
+};
+void *PTR_FUN_00555f7c[8] = { /* orig .data 0x555f7c */
+    (void *)Mobile10_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile10_MainAction
+};
+void *PTR_FUN_00555f9c[8] = { /* orig .data 0x555f9c */
+    (void *)DeleteItemShot,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateShot_Bullet8n_8s_Item,
+    (void *)DetonateItemShot,
+    (void *)IsProjectileInLandBounds
+};
+void *PTR_FUN_00555fbc[8] = { /* orig .data 0x555fbc */
+    (void *)ItemCase_ScalarDtor,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x477920 not ported */,
+    (void *)FUN_00477930,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00555fdc[5] = { /* orig .data 0x555fdc */
+    (void *)DeleteJewel,
+    (void *)ResolveNamedState,
+    (void *)TickJewelFrame,
+    (void *)RenderJewel,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00556008[8] = { /* orig .data 0x556008 */
+    (void *)KnightFlameShot_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateKnightFlameShot,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00556038[8] = { /* orig .data 0x556038 */
+    (void *)Mobile14_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile14_MainAction
+};
+void *PTR_FUN_00556058[8] = { /* orig .data 0x556058 */
+    (void *)DeletePrimaryShot_Bullet15,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonatePrimaryShot_Bullet15,
+    (void *)IsProjectileInLandBounds
+};
+void *PTR_FUN_00556078[8] = { /* orig .data 0x556078 */
+    (void *)KnightIon_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateKnightIon,
+    0 /* [3] 0x47dc00 not ported */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00556098[9] = { /* orig .data 0x556098 */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateSuperShot_Bullet15,
+    (void *)IsProjectileInLandBounds,
+    (void *)ExplodeSuperShot_Bullet1_5_6_12_13_15
+};
+void *PTR_FUN_005560bc[5] = { /* orig .data 0x5560bc */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    (void *)TickFlameEffect,
+    0 /* [3] 0x47ead0 DrawSuperFlameEffect, no prototype/cxx */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_005560d0[8] = { /* orig .data 0x5560d0 */
+    (void *)FUN_0047eb90,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x47ebc0 not ported */,
+    0 /* [3] 0x47f1c0 not ported */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_005560f0[8] = { /* orig .data 0x5560f0 */
+    (void *)Mobile09_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile09_MainAction
+};
+void *PTR_FUN_00556110[8] = { /* orig .data 0x556110 */
+    (void *)LaserIon_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateLaserIon,
+    0 /* [3] 0x4810c0 not ported */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00556160[8] = { /* orig .data 0x556160 */
+    (void *)DeletePrimaryShot_Bullet10,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonatePrimaryShot_Bullet10,
+    (void *)IsProjectileInLandBounds
+};
+void *PTR_FUN_00556180[5] = { /* orig .data 0x556180 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x481e80 not ported */,
+    0 /* [3] 0x481ef0 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00556194[5] = { /* orig .data 0x556194 */
+    (void *)DeleteLightningStrike,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x4a6aa0 not ported */,
+    (void *)RenderLightningStrike,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_005561a8[8] = { /* orig .data 0x5561a8 */
+    (void *)DeleteShot1_Bullet8,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateShot_Bullet8n_8s_Item,
+    (void *)DetonateShot1_Bullet8,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_005561c8[9] = { /* orig .data 0x5561c8 */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateSuperShot_Bullet2_8_11,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeSuperShot_Bullet8
+};
+void *PTR_FUN_005561ec[8] = { /* orig .data 0x5561ec */
+    (void *)Mobile07_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile07_MainAction
+};
+void *PTR_FUN_0055620c[9] = { /* orig .data 0x55620c */
+    (void *)DeleteSuperShot_Bullet13,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x488780 not ported */,
+    0 /* [3] 0x488880 PublishProjectileTrackingStateFacing, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateSuperShot_Bullet13,
+    (void *)DetonateSuperShot_Bullet13,
+    (void *)IsProjectileInLandBounds,
+    (void *)ExplodeSuperShot_Bullet1_5_6_12_13_15
+};
+void *PTR_FUN_00556230[8] = { /* orig .data 0x556230 */
+    (void *)Mobile01_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile01_MainAction
+};
+void *PTR_FUN_00556250[5] = { /* orig .data 0x556250 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    (void *)TickCrashParticleAlphaBlend_2e632,
+    0 /* [3] 0x4894b0 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00556264[8] = { /* orig .data 0x556264 */
+    (void *)Mobile04_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile04_MainAction
+};
+void *PTR_FUN_00556284[9] = { /* orig .data 0x556284 */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateSuperShot_Bullet3,
+    0 /* [3] 0x488880 PublishProjectileTrackingStateFacing, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateSuperShot_Bullet3,
+    (void *)DetonateSuperShot_Bullet3_5_14,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeSuperShot_Bullet3
+};
+void *PTR_FUN_005562a8[8] = { /* orig .data 0x5562a8 */
+    (void *)Mobile02_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile02_MainAction
+};
+void *PTR_FUN_005562c8[9] = { /* orig .data 0x5562c8 */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateSuperShot_Bullet2_8_11,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeSuperShot_Bullet2
+};
+void *PTR_FUN_005562f4[5] = { /* orig .data 0x5562f4 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x48dbd0 not ported */,
+    0 /* [3] 0x48dc40 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00556308[5] = { /* orig .data 0x556308 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x48dd10 not ported */,
+    0 /* [3] 0x48dd80 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_0055631c[9] = { /* orig .data 0x55631c */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateSuperShot_Bullet3_5_14,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeSuperShot_Bullet1_5_6_12_13_15
+};
+void *PTR_FUN_00556340[8] = { /* orig .data 0x556340 */
+    (void *)SuperCrystalShot_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)FUN_00490780,
+    (void *)NoOpMethod,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00556360[8] = { /* orig .data 0x556360 */
+    (void *)DeleteSuperShot_Bullet9,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateShot_Bullet7n_9s_7p_9p,
+    (void *)DetonateSuperShot_Bullet9,
+    (void *)IsProjectileInLandBounds
+};
+void *PTR_FUN_00556380[10] = { /* orig .data 0x556380 */
+    (void *)DeleteSuperMine,
+    (void *)ResolveNamedState,
+    (void *)AnimateSuperMine,
+    0 /* [3] 0x499d50 not ported */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeSuperMine,
+    0 /* [9] 0x492f50 not ported */
+};
+void *PTR_FUN_005563a8[8] = { /* orig .data 0x5563a8 */
+    (void *)DeleteShot2_Bullet3,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateShot2_Bullet3,
+    (void *)DetonateShot2_Bullet3,
+    (void *)IsProjectileInLandBounds
+};
+void *PTR_FUN_005563d0[8] = { /* orig .data 0x5563d0 */
+    (void *)DeleteShot2_Bullet7,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x497730 not ported */,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateShot2_Bullet7,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_005563f0[10] = { /* orig .data 0x5563f0 */
+    (void *)DeleteMine,
+    (void *)ResolveNamedState,
+    (void *)AnimateMine,
+    0 /* [3] 0x499d50 not ported */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeMine,
+    0 /* [9] 0x499930 not ported */
+};
+void *PTR_FUN_00556424[9] = { /* orig .data 0x556424 */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateShot_Bullet7n_9s_7p_9p,
+    (void *)DetonateSuperShot_Bullet7,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    0 /* [8] 0x49c050 not ported */
+};
+void *PTR_FUN_00556448[8] = { /* orig .data 0x556448 */
+    (void *)Mobile06_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile06_MainAction
+};
+void *PTR_FUN_00556468[8] = { /* orig .data 0x556468 */
+    (void *)Shot_Type9_ScalarDtor,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x49cc70 not ported */,
+    0 /* [3] 0x47f1c0 not ported */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateShot_Type9,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00556488[5] = { /* orig .data 0x556488 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    (void *)TickCrashParticleAdditive_556488,
+    0 /* [3] 0x49e4c0 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_0055649c[8] = { /* orig .data 0x55649c */
+    (void *)DeleteShot2_Bullet13,
+    (void *)ResolveNamedState,
+    (void *)AnimateShot2_Bullet13,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateShot2_Bullet13,
+    (void *)DetonateShot2_Bullet13,
+    (void *)IsProjectileInLandBounds
+};
+void *PTR_FUN_005564bc[5] = { /* orig .data 0x5564bc */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x4a2920 TickRiderEffect, no prototype/cxx */,
+    0 /* [3] 0x4a2a00 DrawRiderEffect, no prototype/cxx */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_005564d0[8] = { /* orig .data 0x5564d0 */
+    (void *)DeletePrimaryShot_Bullet4,
+    (void *)ResolveNamedState,
+    (void *)AnimatePrimaryShot_Bullet4,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonatePrimaryShot_Bullet4,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_005564f0[8] = { /* orig .data 0x5564f0 */
+    (void *)DeleteShot2_Bullet2,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x4a6200 not ported */,
+    0 /* [3] 0x4a6840 not ported */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateShot2_Bullet2,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00556510[5] = { /* orig .data 0x556510 */
+    (void *)DeleteProjectileLightningHazard,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x4a6aa0 not ported */,
+    (void *)RenderProjectileLightningHazard,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00556524[8] = { /* orig .data 0x556524 */
+    (void *)DeleteShot2_Bullet8,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateShot_Bullet8n_8s_Item,
+    (void *)DetonateShot2_Bullet8,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00556544[5] = { /* orig .data 0x556544 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    (void *)TickCrashParticleAlphaBlend,
+    0 /* [3] 0x4aa6c0 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_00556558[5] = { /* orig .data 0x556558 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    (void *)TickButtonAnimation,
+    0 /* [3] 0x4aa760 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_0055656c[8] = { /* orig .data 0x55656c */
+    (void *)BlastEffect_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateBlastEffect,
+    (void *)NoOpMethod,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_0055658c[8] = { /* orig .data 0x55658c */
+    (void *)FUN_004aac80,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x4aacb0 not ported */,
+    (void *)FUN_004aacd0,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateProjectile,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_005565ac[8] = { /* orig .data 0x5565ac */
+    (void *)DeleteShot2_Bullet16,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x488880 PublishProjectileTrackingStateFacing, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateShot2_Bullet16,
+    (void *)IsProjectileInLandBounds
+};
+void *PTR_FUN_005565cc[5] = { /* orig .data 0x5565cc */
+    (void *)DeleteThor,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x4abda0 not ported */,
+    0 /* [3] 0x4abf60 not ported */,
+    (void *)NoOpMethod
+};
+void *PTR_FUN_005565e4[5] = { /* orig .data 0x5565e4 */
+    (void *)DeleteTornadoHazard,
+    (void *)ResolveNamedState,
+    (void *)TickTornadoHazardFrame,
+    (void *)RenderTornadoHazard,
+    (void *)TickTornadoHazardLifetime
+};
+void *PTR_FUN_005565f8[9] = { /* orig .data 0x5565f8 */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateSuperShot_Bullet4,
+    0 /* [3] 0x4ae1a0 not ported */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateSuperShot_Bullet4,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeSuperShot_Bullet4
+};
+void *PTR_FUN_0055661c[9] = { /* orig .data 0x55661c */
+    (void *)Projectile_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)AnimateProjectileTick,
+    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateSuperShot_Bullet12,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)ExplodeSuperShot_Bullet1_5_6_12_13_15
+};
+void *PTR_FUN_00556640[8] = { /* orig .data 0x556640 */
+    (void *)Mobile11_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile11_MainAction
+};
+void *PTR_FUN_00556660[8] = { /* orig .data 0x556660 */
+    (void *)DeleteShot2_Bullet12,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x4b1050 not ported */,
+    0 /* [3] 0x4b30e0 not ported */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateShot2_Bullet12,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_00556680[8] = { /* orig .data 0x556680 */
+    (void *)DeleteShot1_Bullet12,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x4b2aa0 not ported */,
+    0 /* [3] 0x4b30e0 not ported */,
+    (void *)NoOpMethod,
+    (void *)SimulateProjectileFrame,
+    (void *)DetonateShot1_Bullet12,
+    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+};
+void *PTR_FUN_005566a0[8] = { /* orig .data 0x5566a0 */
+    (void *)Mobile03_ScalarDtor,
+    (void *)ResolveNamedState,
+    (void *)SimulateMobileFrame,
+    (void *)RenderMobile,
+    (void *)NoOpMethod,
+    (void *)ComputeMobileGroundY,
+    (void *)State11_InBattle_HandleFireInput,
+    (void *)Mobile03_MainAction
+};
+void *PTR_FUN_005566c0[24] = { /* orig .data 0x5566c0 */
+    (void *)DeletePoisonedBaseObject,
+    (void *)ResolveNamedState,
+    0 /* [2] 0x4b3ce0 not ported */,
+    0 /* [3] 0x4b3d50 not ported */,
+    (void *)NoOpMethod,
+    0,
+    (void *)State11_InBattle_Delete,
+    (void *)State11_InBattle_ProcessPacket,
+    (void *)State11_InBattle_ProcessBattleAction,
+    (void *)CGameState_NoOpVirtual_B,
+    (void *)CGameState_NoOpVirtual_B,
+    (void *)State11_InBattle_HandleKeyInput,
+    (void *)State11_InBattle_HandleMouseInput,
+    (void *)State11_InBattle_OnEnter,
+    (void *)State11_InBattle_OnExit,
+    (void *)State11_InBattle_OnTick,
+    (void *)State11_InBattle_AppendChatLine,
+    (void *)RenderWindGaugeTick,
+    (void *)State11_InBattle_RenderWeatherHazards,
+    (void *)State11_InBattle_ClearEffectTextures,
+    (void *)State11_InBattle_Render,
+    (void *)State11_InBattle_RenderHud,
+    (void *)State11_InBattle_RenderModeIcons,
+    (void *)NoOpMethod
+};
 /* The room-slot objects' vtable (orig .data 0x556a40, 5 slots; stamped
  * by State09_ReadyRoom_OnEnter on the 0x38-byte objects at state+0x6fc,
  * one per room slot). Was a lone NULL `void *`. These objects are only
@@ -1340,7 +2165,12 @@ void *PTR_FUN_005572dc = (void *)FUN_004e5430;
  * PTR_FUN_005572dc immediately before it, so safe to type as a real
  * function-pointer array instead of a lone null placeholder. */
 void *PTR_FUN_005572e8[2] = { (void *)HandleSocketEvent, (void *)NoOpMethod };
-void *PTR_FUN_005572f0;
+void *PTR_FUN_005572f0[4] = { /* orig .data 0x5572f0 */
+    (void *)ReplayContext_ScalarDeletingDestructor,
+    (void *)UdpProbeWorkerThread,
+    (void *)NoOpMethod,
+    (void *)NoOpMethod
+};
 /* Vtable of the 0x308-byte scene-node subclass FUN_004e3810 allocates for
  * the stage registry's +0x30 member (and FUN_004e9b30 / the 0xe9b1e0 static
  * stamp). Slots read from the original .data 0x557300: 0 0x4e9b80 (scalar
@@ -1349,8 +2179,30 @@ void *PTR_FUN_005572f0;
  * SceneNode_UpdateWorldViewProjection, 5 0x4f3910. Only slot 0 is wired so
  * far (FUN_004e38f0 deletes through it); was a lone NULL. 2026-11-03. */
 void *PTR_FUN_00557300 = (void *)FUN_004e9b80;
-void *PTR_FUN_0055745c;
-void *PTR_FUN_00557484;
+void *PTR_FUN_0055745c[10] = { /* orig .data 0x55745c */
+    (void *)CInputDevice_ScalarDeletingDestructor,
+    (void *)KeyboardDevice_Initialize,
+    (void *)CInputDevice_Release,
+    0 /* [3] 0x4ede50 not ported */,
+    0 /* [4] 0x4ee060 not ported */,
+    0 /* [5] 0x4edd00 not ported */,
+    0 /* [6] 0x4ee080 not ported */,
+    0 /* [7] 0x4ee0a0 not ported */,
+    (void *)CGameState_NoOpVirtual_B,
+    (void *)KeyboardDevice_TickKeyTimers
+};
+void *PTR_FUN_00557484[10] = { /* orig .data 0x557484 */
+    (void *)CInputDevice_ScalarDeletingDestructor,
+    (void *)MouseDevice_Initialize,
+    (void *)CInputDevice_Release,
+    (void *)MouseDevice_Poll,
+    (void *)CGameState_NoOpVirtual_B,
+    0 /* [5] 0x4edd00 not ported */,
+    0 /* [6] 0x4ee500 not ported */,
+    0 /* [7] 0x4ee520 not ported */,
+    (void *)CGameState_NoOpVirtual_B,
+    (void *)MouseDevice_TickButtonTimers
+};
 /* LoadSpriteSet's per-entry sprite-object vtable slot 0 (dtor, called
  * from LoadSpriteSet.c on error via slot 0). Decoded from orig .data
  * 0x557524: FUN_004f14c0. Was a bare uninitialized global, so the dtor
@@ -1362,12 +2214,31 @@ void *PTR_FUN_00557524 = (void *)SpriteFrame_ScalarDtor;
 void *PTR_FUN_00557528 = (void *)FUN_004f3960;   /* see 0x551cf0 above */
 void *PTR_FUN_00557530 = (void *)FUN_004f2e20;
 void *PTR_FUN_00557534 = (void *)ActiveObjectRegistry_BaseScalarDtor;
-void *PTR_FUN_00557538;
+void *PTR_FUN_00557538[6] = { /* orig .data 0x557538 */
+    (void *)SceneNode_ScalarDtor,
+    (void *)NoOpMethodStdcall1,
+    (void *)NoOpMethod,
+    (void *)SceneNode_UpdateTransform,
+    (void *)SceneNode_UpdateWorldViewProjection,
+    0 /* [5] 0x4f3910 not ported */
+};
 void *PTR_FUN_00557550 = (void *)FUN_004f3960;   /* see 0x551cf0 above */
 void *PTR_FUN_005575a8 = (void *)CommP2POwner_ProcessPacket;   /* see 0x557594 */
 /* PTR_FUN_00557cfc: moved to src/globals_sized.c - it is the CPanelManager
  * VTABLE (8 slots), not a lone pointer. See that file. */
-void *PTR_FUN_00557f80;
+void *PTR_FUN_00557f80[11] = { /* orig .data 0x557f80 */
+    (void *)PanelManager_BaseScalarDtor,
+    (void *)PanelManager_DispatchMouseMove,
+    (void *)PanelManager_BaseDispatchMouseDown,
+    (void *)PanelManager_DispatchMouseUp,
+    (void *)PanelManager_DispatchRightMouseDown,
+    (void *)PanelManager_DispatchRightMouseUp,
+    (void *)NoOpMethod,
+    (void *)PanelManager_DispatchKeyDown,
+    (void *)PanelManager_DispatchKeyUp,
+    (void *)PanelManager_Update,
+    0 /* [10] 0x50f320 not ported */
+};
 /* Layer I/II synthesis drivers: 30 words, index col + (downsample + eightBit*3) * 5 with col
  * 0 mono, 1 stereo, 2 mix down, 3 first channel, 4 second channel. Raw words 5168d0 516930
  * 5169e0 516a40 516aa0 | 516b10 516b70 516c20 516c80 516ce0 | 516d50 516db0 516e60 516ec0 516f20 |
@@ -1407,10 +2278,22 @@ void *PTR_FUN_00563da8[13] = {
   (void *)MpegPolyphase8Half, (void *)MpegPolyphase8HalfInterleaved,
   (void *)MpegPolyphase8Quarter, (void *)MpegPolyphase8QuarterInterleaved,
 };
-void *PTR_FUN_0056d0f0;
-void *PTR_LAB_0054b450;
-void *PTR_LAB_0054b458;
-void *PTR_LAB_00550378;
+/* PTR_FUN_0056d0f0: the lazily-bound ATL code-page getter cell. Its initial value in the
+ * original .data is 0x401070 = AtlGetThreadACPThunk itself (which rebinds it on the first
+ * call, see that file); it was NULL here, so CString_LoadStringFromInstance's first
+ * `(*PTR_FUN_0056d0f0)()` called address 0. */
+void *PTR_FUN_0056d0f0 = (void *)AtlGetThreadACPThunk;
+void *PTR_LAB_0054b450[2] = { /* orig .data 0x54b450 */
+    (void *)NoOpMethodStdcall1,
+    (void *)NoOpMethod
+};
+void *PTR_LAB_0054b458[2] = { /* orig .data 0x54b458 */
+    (void *)NoOpMethodStdcall1,
+    (void *)FUN_00401200
+};
+void *PTR_LAB_00550378[1] = { /* orig .data 0x550378 */
+    0 /* [0] 0x520000 not ported */
+};
 /* The messenger's notify interface (orig .data 0x551cb8, 14 slots, read
  * from the original; was a lone NULL). The messenger object stamps it at
  * +8 (0x401948) and hands it to CreateCommP2POwner, which stores it as
@@ -1429,9 +2312,30 @@ void *PTR_LAB_00551cb8[14] = {
   (void *)MessengerNotify_OnBuddyRequest, (void *)MessengerNotify_OnBuddyAnswer, (void *)FUN_00404140,
   (void *)MessengerNotify_OnBuddyDelete, (void *)NoOpMethod,
 };
-void *PTR_LAB_00551cf4;
-void *PTR_LAB_005520a4;
-void *PTR_LAB_005520ac;
+void *PTR_LAB_00551cf4[14] = { /* orig .data 0x551cf4 */
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall
+};
+void *PTR_LAB_005520a4[2] = { /* orig .data 0x5520a4 */
+    (void *)NoOpMethodStdcall1,
+    (void *)NoOpMethod
+};
+void *PTR_LAB_005520ac[2] = { /* orig .data 0x5520ac */
+    (void *)NoOpMethodStdcall1,
+    (void *)FUN_004153b0
+};
 /* CGameState's shared "null object" vtable (states 0/pre-init and 15/quit
  * - see ARCHITECTURE.md's CGameState vtable table). Decoded byte-for-byte
  * from orig .data 0x553fb0-0x553fdb (12 x 4-byte slots). Slot 0 (scalar-
@@ -1457,10 +2361,30 @@ void *PTR_LAB_00553fb0[12] = {
   (void *)CGameState_NoOpVirtual_A,
   (void *)NoOpMethod,
 };
-void *PTR_LAB_00553ff8;
-void *PTR_LAB_00554000;
-void *PTR_LAB_005572e0;
-void *PTR_LAB_00557434;
+void *PTR_LAB_00553ff8[2] = { /* orig .data 0x553ff8 */
+    (void *)NoOpMethodStdcall1,
+    (void *)NoOpMethod
+};
+void *PTR_LAB_00554000[2] = { /* orig .data 0x554000 */
+    (void *)NoOpMethodStdcall1,
+    0 /* [1] 0x43d950 not ported */
+};
+void *PTR_LAB_005572e0[2] = { /* orig .data 0x5572e0 */
+    (void *)NoOpMethodStdcall1,
+    (void *)NoOpMethod
+};
+void *PTR_LAB_00557434[10] = { /* orig .data 0x557434 */
+    0 /* [0] 0x4edcb0 not ported */,
+    0 /* [1] 0x4edcd0 not ported */,
+    (void *)NoOpMethod,
+    (void *)NoOpMethod,
+    (void *)CGameState_NoOpVirtual_B,
+    0 /* [5] 0x4edd00 not ported */,
+    0 /* [6] 0x4edcd0 not ported */,
+    0 /* [7] 0x4edcd0 not ported */,
+    (void *)CGameState_NoOpVirtual_B,
+    (void *)NoOpMethod
+};
 /* Real 7-slot vtable (was a bare scalar) - the DirectSound streaming
  * object's runtime vtable, installed via `*unaff_ESI = &PTR_LAB_005574cc`
  * at the end of MusicChannel_Construct/SoundChannel_Construct (see those files' header
@@ -1507,7 +2431,12 @@ void *PTR_LAB_005574e8[5] = {
  * back as their last step (ScrubObjectVtable, FUN_004f2e10, ...). Was a
  * lone NULL. Filled 2026-11-03. */
 void *PTR_LAB_0055752c = (void *)FUN_004f2df0;
-void *PTR_LAB_0055755c;
+void *PTR_LAB_0055755c[4] = { /* orig .data 0x55755c */
+    0 /* [0] 0x4f47b0 not ported */,
+    (void *)_purecall,
+    (void *)NoOpMethod,
+    (void *)NoOpMethod
+};
 /* The CommP2P owner's +0x2f4 packet-handler sub-object: base vtable
  * 0x557594 (stamped at 0x4fd128) and derived 0x5575a8 (stamped over it at
  * 0x4fd147, again in the destructor at 0x4fd26c). One slot each in the
@@ -1515,11 +2444,24 @@ void *PTR_LAB_0055755c;
  * and 0x501770 (CommP2POwner_ProcessPacket). CommP2POwner_ReassemblePackets
  * already dispatches the slot as cdecl (this, frame, len). Both were lone
  * NULLs; filled 2026-11-03. */
-int __cdecl _purecall(void);
 void *PTR_LAB_00557594 = (void *)_purecall;
-void *PTR_LAB_00557598;
-void *PTR_LAB_005575ac;
-void *PTR_LAB_005575b8;
+void *PTR_LAB_00557598[4] = { /* orig .data 0x557598 */
+    (void *)_purecall,
+    (void *)CGameState_NoOpVirtual_B,
+    (void *)CGameState_NoOpVirtual_B,
+    (void *)CGameState_NoOpVirtual_B
+};
+void *PTR_LAB_005575ac[3] = { /* orig .data 0x5575ac */
+    0 /* [0] 0x504800 not ported */,
+    (void *)RequestP2PPeerByName,
+    0 /* [2] 0x5048d0 not ported */
+};
+void *PTR_LAB_005575b8[4] = { /* orig .data 0x5575b8 */
+    0 /* [0] 0x501750 not ported */,
+    0 /* [1] 0x501640 not ported */,
+    (void *)CommP2POwner_OnConnectionClosed,
+    (void *)CGameState_NoOpVirtual_B
+};
 /* The CommP2P owner's primary vtable (orig .data 0x5575c8, 17 slots, read
  * from the original; was a lone NULL). ConstructCommP2POwner/Destroy stamp
  * it at owner+0 and the client context's +0x1bdc listener calls through
@@ -1537,10 +2479,43 @@ void *PTR_LAB_005575c8[17] = {
   (void *)FUN_004fd960, (void *)FUN_004fda50, (void *)FUN_004fd9c0,
   (void *)FUN_004fdb40, (void *)FUN_004fdba0,
 };
-void *PTR_LAB_00557610;
-void *PTR_LAB_00557654;
+void *PTR_LAB_00557610[17] = { /* orig .data 0x557610 */
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall
+};
+void *PTR_LAB_00557654[3] = { /* orig .data 0x557654 */
+    (void *)_purecall,
+    (void *)_purecall,
+    (void *)_purecall
+};
 void *PTR_LAB_00557b94;
-void *PTR_LAB_00557bbc;
+void *PTR_LAB_00557bbc[10] = { /* orig .data 0x557bbc */
+    0 /* [0] 0x50e860 Widget_SetFocus, no prototype/cxx */,
+    0 /* [1] 0x50e3a0 Widget_OnDragMove, PARITY-cxx-Widget.cpp */,
+    0 /* [2] 0x505430 HandlePanelMouseDown, PARITY-cxx-Panel.cpp */,
+    0 /* [3] 0x50e4c0 Widget_OnMouseUp, no prototype/cxx */,
+    0 /* [4] 0x50e9c0 Widget_HitTest, PARITY-cxx-Widget.cpp */,
+    0 /* [5] 0x50ea50 Widget_DispatchKeyToChildren, PARITY-cxx-Widget.cpp */,
+    0 /* [6] 0x50eab0 Widget_DispatchMouseToChildren, PARITY-cxx-Widget.cpp */,
+    0 /* [7] 0x50eb10 Widget_OnCommandDefault, PARITY-cxx-Widget.cpp */,
+    0 /* [8] 0x50e520 Widget_DrawChildren, PARITY-cxx-Widget.cpp */,
+    (void *)Widget_DrawSelf
+};
 void *PTR_LAB_00557be4;
 void *PTR_LAB_00557c34;
 void *PTR_LAB_00557c84;
@@ -1553,7 +2528,18 @@ void *PTR_LAB_00557eb8;
 void *PTR_LAB_00557ee0;
 void *PTR_LAB_00557f08;
 void *PTR_LAB_00557f30;
-void *PTR_LAB_00557f58;
+void *PTR_LAB_00557f58[10] = { /* orig .data 0x557f58 */
+    0 /* [0] 0x50e860 Widget_SetFocus, no prototype/cxx */,
+    0 /* [1] 0x50e870 Widget_MouseMoveChildren, PARITY-cxx-Widget.cpp */,
+    0 /* [2] 0x50e8e0 Widget_MouseDownChildren, PARITY-cxx-Widget.cpp */,
+    0 /* [3] 0x50e950 Widget_MouseUpChildren, PARITY-cxx-Widget.cpp */,
+    0 /* [4] 0x50e9c0 Widget_HitTest, PARITY-cxx-Widget.cpp */,
+    0 /* [5] 0x50ea50 Widget_DispatchKeyToChildren, PARITY-cxx-Widget.cpp */,
+    0 /* [6] 0x50eab0 Widget_DispatchMouseToChildren, PARITY-cxx-Widget.cpp */,
+    0 /* [7] 0x50eb10 Widget_OnCommandDefault, PARITY-cxx-Widget.cpp */,
+    0 /* [8] 0x50e520 Widget_DrawChildren, PARITY-cxx-Widget.cpp */,
+    (void *)Widget_DrawChildrenDeep
+};
 /* Layer III channel synthesis drivers (raw words 514b60 514cc0 514de0 514b60 514c10), same
  * mono/stereo/mix down/first/second columns as PTR_FUN_00563a60. */
 void *PTR_LAB_00563ddc[5] = {
