@@ -288,7 +288,7 @@ extern uint16_t DAT_0055751c;
 extern uint32_t g_textureExt;        /* was DAT_00557554 - ".xtf" texture XFS ext */
 extern uint8_t g_textureExtNul;      /* was DAT_00557558 - its trailing NUL */
 extern uint32_t DAT_00557850;
-extern uint32_t DAT_00557854;
+#define DAT_00557854 (*(&DAT_00557850 + 1)) /* element 1 of the prime table - see globals_sized.c */
 extern float DAT_00557fb0;
 #define _DAT_00557fb0 DAT_00557fb0
 extern float DAT_00557fb4;
@@ -1935,11 +1935,11 @@ extern uint32_t DAT_0055732c;
 extern uint32_t DAT_00557330;
 extern uint32_t DAT_00557334;
 extern uint32_t DAT_00557660;
-extern uint32_t DAT_00557664;
+#define DAT_00557664 (*(&DAT_00557660 + 1)) /* element 1 of the prime table - see globals_sized.c */
 extern uint32_t DAT_00557948;
-extern uint32_t DAT_0055794c;
+#define DAT_0055794c (*(&DAT_00557948 + 1)) /* element 1 of the prime table - see globals_sized.c */
 extern uint32_t DAT_00557a40;
-extern uint32_t DAT_00557a44;
+#define DAT_00557a44 (*(&DAT_00557a40 + 1)) /* element 1 of the prime table - see globals_sized.c */
 extern uint32_t DAT_00557fd8;
 /* Joint-stereo bound table, 16 words at 0x563730 up to DAT_00563770 (raw 40 40 40 40 8 10 18 20 40 40 40 40 20 20 20 20 hex). */
 extern int g_mpegLayer2NbalTab[5]; /* 0x5637d4 */

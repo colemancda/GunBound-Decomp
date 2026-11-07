@@ -200,8 +200,6 @@ uint16_t DAT_0055751c = 0x4658;
  * texture. Recovered from the original .data section (2026-07-18). */
 uint32_t g_textureExt = 0x6674782e; /* ".xtf" little-endian */
 uint8_t g_textureExtNul = 0x00;        /* trailing NUL */
-uint32_t DAT_00557850;
-uint32_t DAT_00557854;
 float DAT_00557fb0 = 1.0f; /* orig .data 0x3f800000; only x87 DWORD operands reference it */
 float DAT_00557fb4 = 0.0f; /* orig .data 0x00000000; only x87 DWORD operands reference it */
 float DAT_00557fb8 = 0.5f; /* orig .data 0x3f000000; only x87 DWORD operands reference it */
@@ -1861,6 +1859,8 @@ float DAT_00544a88[8] = { -0.6f, -0.535f, -0.33f, -0.185f, -0.095f, -0.041f, -0.
  * walks pbVar5 from DAT_00551b78 (case 1) or DAT_00551b79 (case 0) across
  * both, so they must be one contiguous object - it was two separate zero
  * dwords, which also left the 0x80 terminator byte out of every digest. */
+/* The four 61-entry hash-table prime lists at 0x557660/0x557850/0x557948/0x557a40 are in
+ * globals_sized.c (each was a pair of unrelated zero dwords - the table was all zero). */
 uint32_t DAT_00551b78 = 0x80;
 /* DAT_00551b7c (the 16-byte handshake key): storage in globals_sized.c. */
 /* DAT_00551e2c: string bytes now in globals_sized.c (orig .data 0x551e2c, 2 bytes) */
@@ -1903,12 +1903,6 @@ uint32_t DAT_00557328 = 0x6f1d2b60; /* orig .data 0x557328 */
 uint32_t DAT_0055732c = 0x11cfd5a0; /* orig .data 0x55732c */
 uint32_t DAT_00557330 = 0x4544c7bf; /* orig .data 0x557330 */
 uint32_t DAT_00557334;
-uint32_t DAT_00557660;
-uint32_t DAT_00557664;
-uint32_t DAT_00557948;
-uint32_t DAT_0055794c;
-uint32_t DAT_00557a40;
-uint32_t DAT_00557a44;
 uint32_t DAT_00557fd8;
 uint32_t DAT_00563730[16] = { 0x40, 0x40, 0x40, 0x40, 0x8, 0x10, 0x18, 0x20, 0x40, 0x40, 0x40, 0x40, 0x20, 0x20, 0x20, 0x20 };
 uint32_t DAT_00563770 = 0x6; /* orig .data initial value */
