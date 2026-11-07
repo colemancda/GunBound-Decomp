@@ -184,7 +184,7 @@ DecodeMpegAudioFrame(int param_1,undefined4 param_2,int param_3,undefined4 param
     iVar10 = 0;
   }
   DAT_00f25ee0 = DAT_00563ad8[iVar10];
-  PTR_FUN_005637cc = (&PTR_FUN_00563a60)[iVar10 + (param_3 + uVar11 * 3) * 5];
+  PTR_FUN_005637cc = PTR_FUN_00563a60[iVar10 + (param_3 + uVar11 * 3) * 5];
   _DAT_005ab4f8 = DAT_00f25ee0 * (0x480 >> (bVar4 & 0x1f));
   DAT_005a99f0 = _DAT_005ab4f8;
   if (uVar11 == 0) {

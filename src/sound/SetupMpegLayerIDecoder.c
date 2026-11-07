@@ -40,7 +40,7 @@ SetupMpegLayerIDecoder(int param_1,undefined4 param_2,int param_3,undefined4 par
       iVar1 = iVar5 + -1;
       pfVar3 = pfVar2 + 1;
       iVar5 = iVar5 << 1;
-      *pfVar2 = (float)_DAT_00544378 / (float)iVar1;
+      *pfVar2 = (float)(_DAT_00544378 / (double)iVar1); /* double divide, then narrow (fdiv qword at 0x514515, fstp dword) */
       pfVar2 = pfVar3;
     } while (pfVar3 < &DAT_005ab8e0 + 15);
     DAT_00563b48 = 0;
