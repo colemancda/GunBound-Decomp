@@ -74,7 +74,8 @@ void __thiscall SpawnRiderEffect(int param_1,undefined4 param_2,int param_3,int 
     iVar5 = FindPreloadedTextureByName(s_rider_00553f98);
     piVar3[7] = iVar5;
     (**(code **)(*piVar3 + 4))(&DAT_00553f90);
-    RegisterActiveObject(0, 0, (undefined4 *)0);
+    /* EDX = [0x5b3484] + 0x6a7f88, EDI = the rider effect just built (vtable call [eax+4] through edi) (original call at 0x42bba1); the port had passed (0,0,NULL). */
+    RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar3);
   }
   return;
 }
