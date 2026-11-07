@@ -109,7 +109,8 @@ void __fastcall FUN_00479910(int *param_1)
       puVar7[0x12] = -iVar3;
       puVar7[0xe] = uVar6;
       puVar7[0xf] = uVar5;
-      RegisterActiveObject(0, 0, (undefined4 *)0);
+      /* EDX = [0x5b3484] + 0x6a7f88, EDI = eax, the object whose +0x38/+0x3c/+0x44/+0x48 are stored just before (original call at 0x479b36); the port had passed (0,0,NULL). */
+      RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)puVar7);
     }
     uStack_4 = 0xffffffff;
     if (iStack_21c != 0) {
