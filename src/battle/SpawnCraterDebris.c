@@ -106,7 +106,8 @@ uint SpawnCraterDebris(int *param_1,int param_2,int param_3,int param_4,int para
           }
           _sprintf(local_80,s_ani__02d_00553b98,uVar3 + 1);
           (**(code **)(*piVar8 + 4))(local_80);
-          uVar3 = RegisterActiveObject(0, 0, (undefined4 *)0);
+          /* EDX = [0x5b3484] + 0x6a7f88, EDI = the debris object (vtable call [edx+4] through edi immediately before) (original call at 0x4398bb); the port had passed (0,0,NULL). */
+          uVar3 = RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar8);
           local_94 = local_94 + -1;
         } while (local_94 != 0);
       }
