@@ -154,7 +154,7 @@ void __fastcall RenderMobile(int param_1)
       iVar9 = PeekChecksumStateUnderLock(param_1 + 0x1a2c);
       iVar8 = g_clientContext;
       *(undefined4 *)(g_clientContext + 0x1ff1c + (*(uint *)(param_1 + 8) & 7) * 0x18) =
-           *(undefined4 *)(&DAT_0056d468 + (iVar9 * 0x1e + *(int *)(param_1 + 0x24)) * 4);
+           DAT_0056d468[iVar9 * 0x1e + *(int *)(param_1 + 0x24)];
       BlitSpriteDirect(0,*(uint *)(param_1 + 0x18),(uVar13 * iVar10 + iVar14) * 0x80 + iVar5,
                        iVar10,*(uint *)(param_1 + 0x30));
       if (*(int *)(iVar8 + 0x1fe34 + (*(uint *)(param_1 + 8) >> 2 & 1) * 4) != 0) {

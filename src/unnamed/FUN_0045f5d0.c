@@ -92,6 +92,6 @@ LAB_0045f7ff:
     iVar2 = 5;
   }
   *unaff_FS_OFFSET = local_c;
-  return *(undefined4 *)(&DAT_005a960c + (iVar2 % 6) * 4);
+  return DAT_005a960c[iVar2 % 6];
 }
 

@@ -493,7 +493,7 @@ LAB_004a24a3:
                   iVar11 = iVar11 / 2;
                 }
                 QueueOutgoingPacketField
-                          ((int)*(short *)(&DAT_00598e7e + (iVar7 * 0x100 + iVar11) * 2));
+                          ((int)*(short *)((char *)&DAT_00598e7e + (iVar7 * 0x100 + iVar11) * 2));
                 goto LAB_004a2763;
               }
             }
@@ -505,7 +505,7 @@ LAB_004a24a3:
                 iVar11 = iVar11 / 2;
               }
               QueueOutgoingPacketField
-                        ((int)*(short *)(&DAT_00598e7e + (iVar7 * 0x100 + iVar11) * 2));
+                        ((int)*(short *)((char *)&DAT_00598e7e + (iVar7 * 0x100 + iVar11) * 2));
               goto LAB_004a2763;
             }
             QueueOutgoingPacketField(0x5a);
@@ -520,7 +520,7 @@ LAB_004a24a3:
                 iVar11 = iVar11 / 2) {
               iVar7 = iVar7 / 2;
             }
-            QueueOutgoingPacketField((int)*(short *)(&DAT_00598e7e + (iVar11 * 0x100 + iVar7) * 2));
+            QueueOutgoingPacketField((int)*(short *)((char *)&DAT_00598e7e + (iVar11 * 0x100 + iVar7) * 2));
           }
         }
         else if (iVar8 == iVar11) {
@@ -533,7 +533,7 @@ LAB_004a24a3:
               iVar11 = iVar11 / 2) {
             iVar7 = iVar7 / 2;
           }
-          QueueOutgoingPacketField((int)*(short *)(&DAT_00598e7e + (iVar11 * 0x100 + iVar7) * 2));
+          QueueOutgoingPacketField((int)*(short *)((char *)&DAT_00598e7e + (iVar11 * 0x100 + iVar7) * 2));
         }
       }
       else {

@@ -101,13 +101,13 @@ LAB_0045f51b:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x62f8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar2 = *(int *)(&DAT_005a9640 + (local_acc % 7) * 4);
+    iVar2 = (int)DAT_005a9640[local_acc % 7];
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x62f8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar2 = *(int *)(&DAT_005a9624 + (local_acc % 7) * 4);
+    iVar2 = (int)DAT_005a9624[local_acc % 7];
   }
   if (iVar4 < 1) {
     iVar2 = -iVar2;

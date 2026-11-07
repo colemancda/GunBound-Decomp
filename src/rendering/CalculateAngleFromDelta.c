@@ -45,6 +45,6 @@ int CalculateAngleFromDelta(int dx,int dy)
       dy = dy / 2) {
     dx = dx / 2;
   }
-  return (int)*(short *)(&DAT_00598e7e + (dy * 0x100 + dx) * 2);
+  return (int)*(short *)((char *)&DAT_00598e7e + (dy * 0x100 + dx) * 2);
 }
 

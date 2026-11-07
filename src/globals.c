@@ -248,8 +248,8 @@ const uint32_t DAT_0056d11c[11] = {2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 102
 /* DAT_0056d350: the 11-dword table indexed by the room-size byte is in globals_sized.c. */
 uint32_t DAT_0056d3d8 = 0xffffffff; /* orig .data 0x56d3d8 */
 uint32_t DAT_0056d3dc = 0xffffffff; /* orig .data 0x56d3dc */
-uint8_t DAT_0056d3e0;
-uint8_t DAT_0056d400;
+/* DAT_0056d3e0: initialised table, storage in globals_sized.c */
+/* DAT_0056d400: initialised table, storage in globals_sized.c */
 /* DAT_0056d440: string bytes now in globals_sized.c (orig .data 0x56d440, 5 bytes) */
 /* 0x0056d460: real storage is PTR_DAT_0056d460 below - see globals.h. */
 uint32_t DAT_0056dbe8 = 0xffffffff; /* orig .data 0x56dbe8 */
@@ -3206,17 +3206,17 @@ uint32_t g_synthIdxTab3[128] = { /* orig .data 0x569b48..0x569d47: a permutation
   112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127,
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
 };
-uint32_t DAT_0056d468;
-uint32_t DAT_00598e7e;
+/* DAT_0056d468: initialised table, storage in globals_sized.c */
+/* DAT_00598e7e: initialised table, storage in globals_sized.c */
 /* Real values read from the binary at 0x5a9050 (see globals.h). */
 const uint32_t g_fullnessGaugeThresholds[5] = { 1, 10, 30, 60, 100 };
 /* DAT_005a9290, DAT_005a9350 (4x4 float matrices, 0x40) and DAT_005a94b0
  * (quaternion scratch, 0x10) moved to globals_sized.c - real extents for
  * the scene-transform cluster. */
 uint32_t DAT_005a9550;
-uint32_t DAT_005a960c;
-uint32_t DAT_005a9624;
-uint32_t DAT_005a9640;
+/* DAT_005a960c: initialised table, storage in globals_sized.c */
+/* DAT_005a9624: initialised table, storage in globals_sized.c */
+/* DAT_005a9640: initialised table, storage in globals_sized.c */
 uint32_t g_tt800Mag01[2] = { 0x00000000u, 0x8ebfd028u }; /* initialised in the image at 0x5a965c */
 uint8_t *DAT_005a9680;
 float g_mpegSbScaleTab[64]; /* 0x5a9684..0x5a9783: per-subband scale, runtime-filled each frame; next object is g_mpegAllocTab. DAT_005a9688 is the odd-channel view (element 1) */

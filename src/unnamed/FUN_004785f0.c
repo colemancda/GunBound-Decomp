@@ -189,7 +189,7 @@ LAB_004789f7:
   {
     iVar4 = iVar4 / 2;
   }
-  sVar1 = *(short *)(&DAT_00598e7e + (iVar8 * 0x100 + iVar4) * 2);
+  sVar1 = *(short *)((char *)&DAT_00598e7e + (iVar8 * 0x100 + iVar4) * 2);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x478a59
    * (`lea edi,[ebx + 0xaf0]`, ebx = param_1, still live/unchanged since

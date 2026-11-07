@@ -174,7 +174,7 @@ LAB_00498abd:
   {
     iVar3 = iVar3 / 2;
   }
-  iVar2 = (int)*(short *)(&DAT_00598e7e + (iVar6 * 0x100 + iVar3) * 2);
+  iVar2 = (int)*(short *)((char *)&DAT_00598e7e + (iVar6 * 0x100 + iVar3) * 2);
   *(int *)(param_1 + 0x3fa4) = iVar2;
   if (0x10e < iVar2) {
     iVar2 = iVar2 + -0x168;

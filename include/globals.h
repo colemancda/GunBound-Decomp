@@ -2127,7 +2127,7 @@ extern uint32_t g_synthIdxTab2[512];
 #define DAT_00569348 (*(unsigned char *)g_synthIdxTab2) /* callers take &DAT_00569348 + byteOffset */
 extern uint32_t g_synthIdxTab3[128];
 #define DAT_00569b48 (*(unsigned char *)g_synthIdxTab3) /* callers take &DAT_00569b48 + byteOffset */
-extern uint32_t DAT_0056d468;
+extern uint32_t DAT_0056d468[480]; /* 16 rows x 30 dwords of colours, orig .data 0x56d468 - globals_sized.c */
 extern uint32_t DAT_00598e7e;
 /* g_fullnessGaugeThresholds (was DAT_005a9050) - read-only percentage
  * breakpoints {1,10,30,60,100} that bucket a server/room occupancy percent
@@ -2146,9 +2146,9 @@ extern uint8_t DAT_005a9350[0x40];
 extern uint8_t DAT_005a93f0[0x40];
 extern uint8_t DAT_005a94b0[0x10];
 extern uint32_t DAT_005a9550;
-extern uint32_t DAT_005a960c;
-extern uint32_t DAT_005a9624;
-extern uint32_t DAT_005a9640;
+extern uint32_t DAT_005a960c[6]; /* orig .data table, globals_sized.c */
+extern uint32_t DAT_005a9624[7]; /* orig .data table, globals_sized.c */
+extern uint32_t DAT_005a9640[7]; /* orig .data table, globals_sized.c */
 /* TT800 'mag01' table {0, 0x8ebfd028} at 0x5a965c, read by FUN_00504e90 as `[(x & 1) * 4 + 0x5a965c]`
  * (seven loads, all with a scale-4 index into a two-word table). */
 extern uint32_t g_tt800Mag01[2];
