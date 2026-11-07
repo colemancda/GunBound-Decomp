@@ -1162,7 +1162,8 @@ LAB_0042d667:
       TreeInsert(&uStack_8b4,&g_valueGuardMap);
     }
   }
-  RegisterActiveObject(0, 0, (undefined4 *)0);
+  /* EDX = [0x5b3484] + 0x6a7f88, EDI = [esp+0x14], the projectile object (its +0x2908 cell is addressed as [esp+0x14]+0x2908 at 0x42dd0a-0x42dd17, matching the local_8bc + 0xa42 tail encode) (original call at 0x42de03); the port had passed (0,0,NULL). */
+  RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)local_8bc);
   *unaff_FS_OFFSET = uStack_10;
   return;
 }
