@@ -212,7 +212,7 @@ LAB_004a2df0:
   local_d14 = PeekPacketChecksumState((void *)(param_1 + 0x99));
   EncodeOutgoingPacketField((void *)(param_1 + 0x99), local_d14 + PeekPacketChecksumState((void *)(param_1 + 0x1ab)));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  UpdateProjectileAngle();
+  UpdateProjectileAngle(param_1);
   EncodeChecksumDeltaAdd();
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

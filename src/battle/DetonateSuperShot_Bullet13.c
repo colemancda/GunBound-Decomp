@@ -352,7 +352,7 @@ LAB_0048780a:
     EncodeChecksumState(uVar5);
     puStack_8 = (undefined1 *)0xffffffff;
     ScrubChecksumGuard();
-    UpdateProjectileAngle();
+    UpdateProjectileAngle(param_1);
     if (cVar1 == '\0') {
       PeekChecksumStateUnderLock(param_1 + 0x70b);
     }

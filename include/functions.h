@@ -754,7 +754,7 @@ void DestroyProjectile();
 uint __fastcall FUN_00455b60();
 void __thiscall SimulateProjectileFrame();
 void __fastcall DetonateProjectile();
-void UpdateProjectileAngle();
+void UpdateProjectileAngle(int *self);
 undefined4 *InitMobile(); /* 0x458b80 - mobile base ctor (sets base vtable 0x555c68) */
 void * __thiscall DeleteMobile();
 void CMobile_BaseDestructor();

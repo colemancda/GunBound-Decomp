@@ -217,7 +217,7 @@ LAB_004af8b0:
   local_d14 = PeekPacketChecksumState((void *)(param_1 + 0x99));
   EncodeOutgoingPacketField((void *)(param_1 + 0x99), local_d14 + PeekPacketChecksumState((void *)(param_1 + 0x1ab)));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  UpdateProjectileAngle();
+  UpdateProjectileAngle(param_1);
   EncodeChecksumDeltaAdd();
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -305,7 +305,7 @@ LAB_004af8b0:
   EncodeOutgoingPacketField((void *)(param_1 + 0x11c9), uVar6);
   puVar28 = &g_valueGuardLock;
   (*pcVar20)(&g_valueGuardLock);
-  UpdateProjectileAngle();
+  UpdateProjectileAngle(param_1);
   (**(code **)(*param_1 + 0x14))();
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((void *)(param_1 + 0x122), uVar5);

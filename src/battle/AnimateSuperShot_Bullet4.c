@@ -25,7 +25,7 @@ void __fastcall AnimateSuperShot_Bullet4(int *param_1)
   
   if (param_1[0xfe8] == -1) {
     (**(code **)(*param_1 + 0x18))();
-    UpdateProjectileAngle();
+    UpdateProjectileAngle(param_1);
     AdvanceSpriteAnimation((int)param_1);
     cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0x391b);
     if (cVar1 != '\0') {

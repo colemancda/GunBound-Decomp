@@ -143,7 +143,7 @@ extern int g_valueGuardKeyTable;   /* guard-table base pointer cell (0x79376c) *
 void TreeInsert(void *scratch, void *guardMap);
 extern unsigned char g_valueGuardMap;  /* guard-cell std::map object (0x793770) */
 void AdvanceSpriteAnimation(void);
-void UpdateProjectileAngle(void);
+void UpdateProjectileAngle(int *self);
 char PeekPacketChecksumBool(unsigned char *cell);
 int PeekPacketChecksumState(void *self);
 void EncodeOutgoingPacketField(void *self, unsigned int value);
@@ -375,7 +375,7 @@ CProjectile::~CProjectile()
 void CProjectile::AnimateProjectileTick()
 {
     DetonateProjectile();
-    UpdateProjectileAngle();
+    UpdateProjectileAngle((int *)this);
     AdvanceSpriteAnimation();
     if (PeekPacketChecksumBool((unsigned char *)this + 0x391b) != 0) {
         EnterCriticalSection(&g_valueGuardLock);
