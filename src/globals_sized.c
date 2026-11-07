@@ -371,3 +371,100 @@ unsigned char g_mouseDeviceTimerBlock[0x5a8];
 /* DirectInput enumerated-device table (0x674f70, 16 x 0x244) filled by
  * EnumInputDevicesCallback; count is g_dinputDeviceCount in globals.c. */
 unsigned char g_dinputDeviceInstances[16 * 0x244];
+
+/* ---- Initialised string cells (round 19, whole-tree nonzero-initial-value scan) ----
+ * Each of these was a one-byte zero cell in globals.c although the original
+ * object is a NUL-terminated string in .data that callers pass by address
+ * (&DAT_x as a char*), so every such use saw an empty string. Bytes copied
+ * verbatim from orig/GunBound.gme .data; the cell keeps its header extern
+ * (uint8_t/uint32_t) and binds to this storage at link time. */
+uint32_t DAT_005532bc[7] = {0xd7c5babd, 0xf6c1ccc0, 0xc8f8bf20, 0x202d20ad, 0x6c68636a, 0x35376565, 0x00000000}; /* EUC-KR+ASCII '........ .... - jchlee75' */
+uint32_t DAT_005535e8[2] = {0x706c6568, 0x00000000}; /* ASCII 'help' */
+uint32_t DAT_0056d440[2] = {0xffffffff, 0x00000000}; /* EUC-KR+ASCII '....' */
+uint32_t DAT_00552e24[3] = {0xbabddac4, 0xbabdf0b8, 0x00000000}; /* EUC-KR+ASCII '........' */
+uint32_t DAT_00553648[1] = {0x00006272}; /* ASCII 'rb' */
+uint32_t DAT_005530ec[6] = {0xc720a5c0, 0xb1ceb7c1, 0xb8a1b7d7, 0x202d20d3, 0x65736f6c, 0x00696972}; /* EUC-KR+ASCII '.. .......... - loserii' */
+uint32_t DAT_005535dc[1] = {0x00006f74}; /* ASCII 'to' */
+uint32_t DAT_005530ac[6] = {0xf7beb5bf, 0xc4b6b82f, 0x20c3c6c9, 0x6373202d, 0x676e616a, 0x00000000}; /* EUC-KR+ASCII '........... - scjang' */
+uint32_t DAT_00555c90[2] = {0x64616564, 0x00000000}; /* ASCII 'dead' */
+uint32_t DAT_00551e2c[1] = {0x00000030}; /* ASCII '0' */
+uint32_t DAT_00552db4[12] = {0xecbbeeb9, 0xbb20bbc0, 0x20dfbea9, 0xcfb4d5c7, 0x202ed9b4, 0xfcbaaab3, 0xb020f8c1, 0xc0adb0c7, 0xc7b520bb, 0xe2b1a3c3, 0xc7a7c020, 0x000020d8}; /* EUC-KR+ASCII '...... .... ....... ...... ...... ...... .... ' */
+uint32_t DAT_0055310c[15] = {0xeebec4b4, 0xc2b4a1b0, 0xc6be202c, 0xc020cfb4, 0xb4a6c1cc, 0xc4b420c2, 0xf6b9eebe, 0xbf20b0b8, 0xb8aeb8ec, 0xd8c620a6, 0xc4c3b3b0, 0xedb0ceb5, 0x202d202e, 0xbf20afba, 0x00dfc1d5}; /* EUC-KR+ASCII '........, .... ...... ........ ...... ........... - .. ....' */
+uint32_t DAT_00556980[2] = {0x67617264, 0x00000000}; /* ASCII 'drag' */
+uint32_t DAT_00552728[2] = {0x6e65706f, 0x00000000}; /* ASCII 'open' */
+uint32_t DAT_00552ef0[11] = {0xb8b1a9b4, 0xb920aab3, 0xb0b6c1ab, 0xb7b520c7, 0xbcfab920, 0xd6c020f6, 0xba20c2b4, 0x20e1b0f1, 0xa1b0d1c7, 0x2e2ef6c1, 0x0000002e}; /* EUC-KR+ASCII '...... ...... .. .... .... .... .........' */
+uint32_t DAT_00552e30[14] = {0xedb0cfc7, 0xc0cdbd20, 0xbbb820ba, 0xd4b0203a, 0xbac0d3c0, 0xb9ebc320, 0x20ceb7cc, 0xe6b1f1c1, 0x20a7b620, 0xe5c0a1b0, 0xb9e7c020, 0xbfeebed5, 0x5e5e20e4, 0x0000002a}; /* EUC-KR+ASCII '.... .... ..: ...... ...... .... .. .... ........ ^^.' */
+uint32_t DAT_00552e14[4] = {0xb5bfeebf, 0xc4202d20, 0xb8babdda, 0x00babdf0}; /* EUC-KR+ASCII '.... - ........' */
+uint32_t DAT_00552f1c[4] = {0xaeb8fcb0, 0x62202d20, 0x6873616c, 0x00003534}; /* EUC-KR+ASCII '.... - blash45' */
+uint32_t DAT_00552f34[6] = {0xceb5f0b8, 0xb5f0b820, 0xceba20ce, 0xc7b5dac0, 0xe4bfbcbc, 0x00000021}; /* EUC-KR+ASCII '.... .... ..........!' */
+uint32_t DAT_00553bcc[2] = {0x706f7264, 0x00000000}; /* ASCII 'drop' */
+uint32_t DAT_0058b8d6[1] = {0x00430043}; /* ASCII 'C' */
+uint32_t DAT_00552d60[13] = {0xc5bddac0, 0xb020c7c0, 0xc0adb0c7, 0xbabd20ba, 0xceb7babd, 0xc5f6c120, 0xb4c3bdb5, 0x4f202ed9, 0xa1fea328, 0x3bfea3e4, 0x20272f29, 0xe3c7c0b4, 0x007ee3c7}; /* EUC-KR+ASCII "...... ...... ...... ......... O(......;).' ......~" */
+uint32_t PTR_DAT_00552788[1] = {0x006e7572}; /* ASCII 'run' */
+uint32_t DAT_0055328c[12] = {0xc020b9b9, 0xb0fdb5cc, 0xd9b420c9, 0xc5c3bd20, 0x20c2b4b0, 0xdfbec5b0, 0x20212121, 0xa1bffdc1, 0xba20aab3, 0xc1bbb3b8, 0x212121e0, 0x00000000}; /* EUC-KR+ASCII '.. ...... .. ...... ....!!! ...... ......!!!' */
+uint32_t DAT_00553b88[2] = {0x726f6874, 0x00000000}; /* ASCII 'thor' */
+uint32_t PTR_DAT_00555cc8[1] = {0x00656369}; /* ASCII 'ice' */
+uint32_t DAT_00553354[7] = {0xc1202121, 0x20c7b0f1, 0xb7ecbf20, 0x5ee7b7ea, 0xc120205e, 0x20c7b0f1, 0x00002121}; /* EUC-KR+ASCII '!! ....  ......^^  .... !!' */
+uint32_t DAT_00554060[2] = {0x6e6f6f6d, 0x00000000}; /* ASCII 'moon' */
+uint32_t DAT_00552e90[5] = {0xe2c7babc, 0x6843203a, 0x69746f61, 0xe1ab2063, 0x003b2d5f}; /* EUC-KR+ASCII '....: Chaotic .._-;' */
+uint32_t DAT_00553570[2] = {0xb0bfecb3, 0x00000000}; /* EUC-KR+ASCII '....' */
+uint32_t DAT_005533b0[6] = {0xdac0f0b5, 0xc620cec0, 0x20e5c0c0, 0x4579202d, 0x724f4f53, 0x00000049}; /* EUC-KR+ASCII '...... .... - yESOOrI' */
+uint32_t DAT_005531e0[6] = {0xc720a5c0, 0xb1ceb7c1, 0xb8a1b7d7, 0x202d20d3, 0x6e686f6a, 0x0035796e}; /* EUC-KR+ASCII '.. .......... - johnny5' */
+uint32_t DAT_00552ea4[6] = {0xf7bef7c1, 0xc7b0203a, 0xeebfd9b9, 0xbf20e5b5, 0xc0b5bfee, 0x000000da}; /* EUC-KR+ASCII '....: ........ ......' */
+uint32_t DAT_005533d0[13] = {0xccb9e7c0, 0xd9b4f8be, 0xbe20c2b4, 0xb8e2b1ea, 0xe8b520a6, 0xd9b4c2b4, 0xb820e9b8, 0x20ceb5f0, 0xc020a6c1, 0xc0f8b8df, 0xc1dab0cc, 0x54202ed2, 0x0020545f}; /* EUC-KR+ASCII '.......... ...... ........ .... .. ........... T_T ' */
+uint32_t DAT_00552de4[12] = {0xc7c7bfc4, 0xc120a6b8, 0xbea9bfd9, 0xd5c720df, 0xd9b4cfb4, 0xe3b4202e, 0xa6b8e8b9, 0xbef7b220, 0x20dfbeee, 0xcfb4d5c7, 0x202ed9b4, 0x00000000}; /* EUC-KR+ASCII '...... ...... ....... ...... ...... ....... ' */
+uint32_t DAT_00553390[8] = {0xfabcb9bf, 0x207ec6be, 0xc6bed2c7, 0xf6c1f6b9, 0xadbcb2b2, 0xa3b8ceba, 0x2e2ec5bc, 0x0000002e}; /* EUC-KR+ASCII '......~ .....................' */
+uint32_t DAT_00552e68[10] = {0xa1c2afc6, 0xe7be203a, 0xfac1a1c4, 0xe9b8cfc7, 0xbea1c420, 0x20ccc0e0, 0xa1bfe8b9, 0xc0afb920, 0x5f2d20bd, 0x00003b2d}; /* EUC-KR+ASCII '....: .......... ...... .... .... -_-;' */
+uint32_t PTR_DAT_00555e2c[1] = {0x00796c66}; /* ASCII 'fly' */
+uint32_t DAT_00553370[6] = {0xe6b0e8b9, 0xc0f0b520, 0xb3ccc0da, 0x202d20ca, 0x75726f6f, 0x00006173}; /* EUC-KR+ASCII '.... ........ - oorusa' */
+uint32_t DAT_00552d94[8] = {0xa1b0a6c1, 0xc0d5be20, 0x20ceb7b8, 0xdfbed8c7, 0x20d2c720, 0xe9b5cfc0, 0xcfb4d4c0, 0x002ed9b4}; /* EUC-KR+ASCII '.... ...... .... .. ...........' */
+uint32_t DAT_00553508[12] = {0xccc0d1b5, 0xc4cbbe20, 0xc4deb4e1, 0xb0cfc7e1, 0xe7bb20d4, 0xb020c2b4, 0x20b5b5cd, 0xccb9e7c0, 0xbbc0d6c0, 0xb020cdb0, 0xb8f6c1b0, 0x00002cb8}; /* EUC-KR+ASCII '.... ............ .... .... .......... ......,' */
+uint32_t DAT_00552ffc[5] = {0xf7beb5bf, 0xc4b6b82f, 0x20c3c6c9, 0x6863202d, 0x006f6b75}; /* EUC-KR+ASCII '........... - chuko' */
+uint32_t DAT_0055207c[2] = {0x6d756e45, 0x00000000}; /* ASCII 'Enum' */
+uint32_t DAT_00552ed4[7] = {0x7975cea8, 0x6fd8a820, 0xcda82077, 0xa820646e, 0x6c6c65df, 0x69d4a820, 0x00006867}; /* EUC-KR+ASCII '..uy ..ow ..nd ..ell ..igh' */
+uint32_t DAT_00552f90[5] = {0xa8b0d1c3, 0x2d20b6b5, 0x72697020, 0x61696e61, 0x00000000}; /* EUC-KR+ASCII '...... - pirania' */
+uint32_t DAT_00553b90[2] = {0x65726966, 0x00000000}; /* ASCII 'fire' */
+uint32_t DAT_00552d38[8] = {0xd9b9f0b8, 0xb020cfc0, 0xbfd9b9c7, 0x20e5b5ee, 0xdfb9b3b0, 0x2d20dac0, 0x68746520, 0x00617265}; /* EUC-KR+ASCII '...... ........ ...... - ethera' */
+uint32_t DAT_00552c68[2] = {0xfae6d1d2, 0x00000000}; /* EUC-KR+ASCII '....' */
+uint32_t DAT_00553200[8] = {0xe4c6a8c8, 0xf6c1ccc0, 0xc0f0b520, 0xb3ccc0da, 0x202d20ca, 0x69736564, 0x72656e67, 0x00000000}; /* EUC-KR+ASCII '........ ........ - designer' */
+uint32_t DAT_00553404[15] = {0xaec6f7c6, 0xcdbfa7b6, 0xb420c2b4, 0x20a5b8d9, 0xafc0dac0, 0xcdbfb5b5, 0xbccfbf20, 0xb8b5b5ba, 0xdfc320a6, 0xcfc7b8b1, 0xb820edb0, 0xbee9b5b8, 0xb4c0bdfa, 0x2ed9b4cf, 0x00000000}; /* EUC-KR+ASCII '.......... .... ........ ........ ........ .............' */
+uint32_t DAT_005535c4[2] = {0x6b63696b, 0x00000000}; /* ASCII 'kick' */
+uint32_t DAT_00553148[16] = {0xe9b5d7b1, 0xc720ccc0, 0xb4fabeb0, 0xbcbc20f8, 0xc7c0e8b0, 0xb5deb220, 0xd4c720b5, 0xbf20b2b2, 0x20aeb8ec, 0xa1bfe7b0, 0xb820adbc, 0xc1eebed6, 0x20e2b1b3, 0xaeb9a7b6, 0xd9b4ccc0, 0x0000002e}; /* EUC-KR+ASCII '...... ...... ...... .... .... .... ...... ........ .........' */
+uint32_t DAT_00552fac[7] = {0xa1b7e5b5, 0xbac0efb0, 0x20d6bf20, 0xaeb8ccc0, 0xb3c8be20, 0xc1c0bfaa, 0x000021f6}; /* EUC-KR+ASCII '........ .. .... ........!' */
+uint32_t DAT_00552f64[11] = {0xbac0b9b8, 0xb5ccc020, 0x20ccc0e9, 0xd3c0d4b0, 0xa1bfd3bc, 0xbd20adbc, 0xb7aec6ba, 0x20babdb9, 0xa8b2eec2, 0xa6b8e2b1, 0x00000000}; /* EUC-KR+ASCII '.... ...... .......... ........ ........' */
+uint32_t DAT_00552fc8[7] = {0xccc0b0b0, 0xb8cfc720, 0xc6be20e9, 0xb520dbc5, 0xb4b3b8e5, 0x2ed9b4cf, 0x00000000}; /* EUC-KR+ASCII '.... .... .... .........' */
+uint32_t DAT_005535f0[1] = {0x00000068}; /* ASCII 'h' */
+uint32_t DAT_00556770[2] = {0x6d657469, 0x00000000}; /* ASCII 'item' */
+uint32_t DAT_00553188[11] = {0xe9b5d7b1, 0xc820ccc0, 0xb8dac0a5, 0xbcbc20b8, 0xa1bff3bb, 0xbb20adbc, 0xc1f3b6e7, 0xd4b020f8, 0xb4c6be20, 0x2cf3b6cf, 0x00000000}; /* EUC-KR+ASCII '...... ...... ........ ...... .. ......,' */
+uint32_t DAT_00553554[7] = {0xd3c0d4b0, 0xb7c1c720, 0xb7d7b1ce, 0x20d3b8a1, 0x6f63202d, 0x6b69736d, 0x00000000}; /* EUC-KR+ASCII '.... .......... - comsik' */
+uint32_t DAT_00553258[10] = {0xf6b9adbc, 0xb0202620, 0x20d3c0d4, 0xf0b5f6b9, 0xb7c1c720, 0xb7d7b1ce, 0x20d3b8a1, 0x6572202d, 0x61726464, 0x006e6f67}; /* EUC-KR+ASCII '.... & .... .... .......... - reddragon' */
+uint32_t DAT_00553018[9] = {0xc3bd3432, 0xb5b5a3b0, 0xbac7b020, 0x20d2c7fc, 0xc020f6bc, 0xb0bbc0d6, 0xb0b020cd, 0xcfb4c0bd, 0x002ed9b4}; /* EUC-KR+ASCII '24...... ...... .. ...... .........' */
+uint32_t DAT_0054b460[1] = {0x00000020}; /* ASCII ' ' */
+uint32_t DAT_005535a4[2] = {0x6574756d, 0x00000000}; /* ASCII 'mute' */
+uint32_t DAT_0058bb04[1] = {0x00390039}; /* ASCII '9' */
+uint32_t DAT_0055303c[14] = {0xcfc0b8b8, 0xb0e2b120, 0xe3c720a1, 0xf6c1d8c7, 0xba20c5bd, 0xc0e9b5d0, 0xedb020ba, 0xb920e2b1, 0x20f9c2dd, 0xadbce7bb, 0xbde5b520, 0x20edb0c3, 0xe9b8cfc7, 0x00000000}; /* EUC-KR+ASCII '.... .... ........ ...... .... .... .... ...... ....' */
+uint32_t DAT_00553074[14] = {0xfcbac7b0, 0xbdadbf20, 0x20f7c8c9, 0xbcbccfc7, 0x2e2ee4bf, 0xbcd6c320, 0x20d1c7d2, 0xe7b7cfc7, 0x3220a1bf, 0xb0c3bd30, 0x20bac0a3, 0xbcbccfc7, 0x2e2ee4bf, 0x00000000}; /* EUC-KR+ASCII '.... ...... ........ ...... ...... 20...... ........' */
+uint32_t DAT_00552ebc[4] = {0xb5bfeebf, 0x6b202d20, 0x6867696e, 0x00007374}; /* EUC-KR+ASCII '.... - knights' */
+uint32_t DAT_00551e30[1] = {0x00000031}; /* ASCII '1' */
+uint32_t DAT_00552fe4[6] = {0xa6c1f0be, 0xbf20aab3, 0x20c2b4f4, 0xa5b0a6c1, 0x2e2eccc0, 0x00002e2e}; /* EUC-KR+ASCII '...... .... ..........' */
+uint32_t DAT_005535ac[1] = {0x00006f67}; /* ASCII 'go' */
+uint32_t DAT_005530cc[8] = {0xa3b0f8bc, 0xb0f8bc20, 0x20a1bfa3, 0xb8c8c4c8, 0xb320a1b0, 0x20f6c1b2, 0xd4b0cabe, 0x00002e2e}; /* EUC-KR+ASCII '.... ...... ...... .... ......' */
+uint32_t DAT_00553320[4] = {0x5f5e2876, 0x56292b5e, 0xc0eaba20, 0x00007ecc}; /* EUC-KR+ASCII 'v(^_^+)V ....~' */
+uint32_t DAT_005535b8[2] = {0x74697571, 0x00000000}; /* ASCII 'quit' */
+uint32_t DAT_005534cc[2] = {0x797a6f63, 0x00000000}; /* ASCII 'cozy' */
+uint32_t DAT_00553330[7] = {0xafb8b3c4, 0xb520cdc5, 0xc0dac0f0, 0x20cab3cc, 0x616a202d, 0x6e6f7965, 0x00000067}; /* EUC-KR+ASCII '...... ........ - jaeyong' */
+uint32_t DAT_00552218[1] = {0x00006277}; /* ASCII 'wb' */
+uint32_t DAT_00553478[5] = {0xb9c8e2b1, 0x2d20dac0, 0x646e6520, 0x61657264, 0x0000006d}; /* EUC-KR+ASCII '...... - enddream' */
+uint32_t PTR_DAT_005535c0[1] = {0x0079656b}; /* ASCII 'key' */
+uint32_t DAT_005532fc[7] = {0xafb8b3c4, 0xb520cdc5, 0xc0dac0f0, 0x20cab3cc, 0x6179202d, 0x32676e6f, 0x00000000}; /* EUC-KR+ASCII '...... ........ - yaong2' */
+uint32_t DAT_005534b4[6] = {0xe6b0e8b9, 0xc0f0b520, 0xb3ccc0da, 0x202d20ca, 0x797a6f63, 0x00000000}; /* EUC-KR+ASCII '.... ........ - cozy' */
+uint32_t DAT_00552f4c[6] = {0xeebec4be, 0xedb0bbb3, 0xbae0c720, 0xc1d8c7b9, 0x7ee6b1f6, 0x0000007e}; /* EUC-KR+ASCII '........ ..........~~' */
+uint32_t DAT_005531b4[11] = {0xbac0fec0, 0xc0c3bd20, 0x20a1bffd, 0xbac0d7c1, 0xb6e7bb20, 0xc0e9b5f7, 0xc6be20cc, 0xd9b4a7b8, 0xb020eebf, 0x2cbac0cd, 0x00000000}; /* EUC-KR+ASCII '.... ...... .... ........ ........ ....,' */
+uint32_t DAT_005535cc[1] = {0x0000006d}; /* ASCII 'm' */
+uint32_t DAT_005535f4[1] = {0x00002020}; /* ASCII '  ' */
+uint32_t DAT_005534d4[13] = {0xdac0a5c8, 0xc720adbc, 0xbdedb0cf, 0xb0bac0cd, 0xcfc720c5, 0xadbce9b8, 0xb4e7bb20, 0xcdb020c2, 0xc020b5b5, 0xc0ccb9e7, 0xb0bbc0d6, 0xb0b020cd, 0x002ed9b4}; /* EUC-KR+ASCII '...... .......... ...... .... .... .......... .....' */
+uint32_t DAT_00553440[14] = {0xb0a6c120, 0xc7b020a1, 0xeebfd9b9, 0xa6b8e5b5, 0xc0c3bd20, 0xb0cfc7db, 0x20c8b5d4, 0xafc0ccc0, 0xc520c2b4, 0xc0b8c5cf, 0xd4b020d3, 0xc8bed3c0, 0xadbca1bf, 0x00000000}; /* EUC-KR+ASCII ' .... .......... .......... ...... ...... ..........' */
+uint32_t DAT_005535b0[2] = {0x74697865, 0x00000000}; /* ASCII 'exit' */
+uint32_t DAT_005532e4[6] = {0xf0b8beb8, 0xc2b4babd, 0xb6eebe20, 0x20d4b0bb, 0xeebec9b0, 0x0000003f}; /* EUC-KR+ASCII '........ ...... ....?' */
+uint32_t DAT_00553588[2] = {0x64756f6c, 0x00000000}; /* ASCII 'loud' */
+uint32_t DAT_005535d8[1] = {0x0000f5bb}; /* EUC-KR+ASCII '..' */

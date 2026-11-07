@@ -41,14 +41,14 @@ uint8_t DAT_00551cb1;
  * and FUN_0041ef90 compare 7 bytes against it (`mov edi,0x551e24` at
  * 0x41ba1b / 0x41effe); the 0x403c0e.. sites push it. Was a zeroed byte. */
 const char DAT_00551e24[] = "\xbf\xee\xbf\xb5\xc6\xc0";
-uint16_t DAT_00551e34;
+uint16_t DAT_00551e34 = 0x203e; /* orig .data 0x551e34 */
 uint8_t DAT_00551e36;
 const char DAT_00551e78[] = "push"; /* mouse-press state name; was a zeroed 1-byte global (orig .data 0x551e78) */
 /* 0x00551ecc: real storage is PTR_DAT_00551ecc below - see globals.h. */
-uint8_t DAT_0055207c;
+/* DAT_0055207c: string bytes now in globals_sized.c (orig .data 0x55207c, 5 bytes) */
 const char DAT_00552084[] = "edit"; /* Win32 EDIT-control class name for the hidden global chat-input control (FUN_0040c670's CreateWindowExA) - was a zeroed 1-byte global (orig .rdata 0x552084), same class of bug as DAT_00551e78 above. With the class name reading as an empty string, CreateWindowExA silently failed (ERROR_CANNOT_FIND_WND_CLASS -> NULL HWND), so the control never existed: SetFocus/SetWindowLongA/ImmDisableIME in FUN_0040c670 all silently no-op'd on a NULL HWND, keyboard focus stayed on the main window instead of the (nonexistent) edit control, and chat typing never worked. */
-uint8_t DAT_00552218;
-uint8_t DAT_00552728;
+/* DAT_00552218: string bytes now in globals_sized.c (orig .data 0x552218, 3 bytes) */
+/* DAT_00552728: string bytes now in globals_sized.c (orig .data 0x552728, 5 bytes) */
 const char DAT_0055275c[] = "%02x"; /* orig .data 0x55275c (WinMain sscanf format), was a zeroed 1-byte global */
 /* 0x00552788: real storage is PTR_DAT_00552788 below - see globals.h. */
 /* Registry value-name strings for the broker "IP"/"Port" settings
@@ -66,86 +66,86 @@ const char DAT_0055275c[] = "%02x"; /* orig .data 0x55275c (WinMain sscanf forma
  * orig/GunBound.gme's .data (file offset 0x151690-0x15169c). */
 const char s_IP_00552898[] = "IP";
 const char s_Port_00552890[] = "Port";
-uint32_t DAT_00552c70;
+uint32_t DAT_00552c70 = 0x7461642e; /* orig .data 0x552c70 */
 uint8_t DAT_00552c74;
-uint16_t DAT_00552c78;
+uint16_t DAT_00552c78 = 0x666d; /* orig .data 0x552c78 */
 uint8_t DAT_00552c7a;
-uint16_t DAT_00552c7c;
-uint16_t DAT_00552c80;
-uint8_t DAT_00552d38;
-uint8_t DAT_00552d60;
-uint8_t DAT_00552d94;
-uint8_t DAT_00552db4;
-uint8_t DAT_00552de4;
-uint8_t DAT_00552e14;
-uint8_t DAT_00552e24;
-uint8_t DAT_00552e30;
-uint8_t DAT_00552e68;
-uint8_t DAT_00552e90;
-uint8_t DAT_00552ea4;
-uint8_t DAT_00552ebc;
-uint8_t DAT_00552ed4;
-uint8_t DAT_00552ef0;
-uint8_t DAT_00552f1c;
-uint8_t DAT_00552f34;
-uint8_t DAT_00552f4c;
-uint8_t DAT_00552f64;
-uint8_t DAT_00552f90;
-uint8_t DAT_00552fac;
-uint8_t DAT_00552fc8;
-uint8_t DAT_00552fe4;
-uint8_t DAT_00552ffc;
-uint8_t DAT_00553018;
-uint8_t DAT_0055303c;
-uint8_t DAT_00553074;
-uint8_t DAT_005530ac;
-uint8_t DAT_005530cc;
-uint8_t DAT_005530ec;
-uint8_t DAT_0055310c;
-uint8_t DAT_00553148;
-uint8_t DAT_00553188;
-uint8_t DAT_005531b4;
-uint8_t DAT_005531e0;
-uint8_t DAT_00553200;
-uint8_t DAT_00553258;
-uint8_t DAT_0055328c;
-uint8_t DAT_005532bc;
-uint8_t DAT_005532e4;
-uint8_t DAT_005532fc;
-uint8_t DAT_00553320;
-uint8_t DAT_00553330;
-uint8_t DAT_00553354;
-uint8_t DAT_00553370;
-uint8_t DAT_00553390;
-uint8_t DAT_005533b0;
-uint8_t DAT_005533d0;
-uint8_t DAT_00553404;
-uint8_t DAT_00553440;
-uint8_t DAT_00553478;
-uint8_t DAT_005534b4;
-uint8_t DAT_005534cc;
-uint8_t DAT_005534d4;
-uint8_t DAT_00553508;
-uint8_t DAT_00553554;
-uint8_t DAT_00553570;
-uint8_t DAT_00553588;
-uint8_t DAT_005535a4;
-uint8_t DAT_005535ac;
-uint8_t DAT_005535b0;
-uint8_t DAT_005535b8;
+uint16_t DAT_00552c7c = 0x67; /* orig .data 0x552c7c */
+uint16_t DAT_00552c80 = 0x62; /* orig .data 0x552c80 */
+/* DAT_00552d38: string bytes now in globals_sized.c (orig .data 0x552d38, 32 bytes) */
+/* DAT_00552d60: string bytes now in globals_sized.c (orig .data 0x552d60, 52 bytes) */
+/* DAT_00552d94: string bytes now in globals_sized.c (orig .data 0x552d94, 32 bytes) */
+/* DAT_00552db4: string bytes now in globals_sized.c (orig .data 0x552db4, 47 bytes) */
+/* DAT_00552de4: string bytes now in globals_sized.c (orig .data 0x552de4, 45 bytes) */
+/* DAT_00552e14: string bytes now in globals_sized.c (orig .data 0x552e14, 16 bytes) */
+/* DAT_00552e24: string bytes now in globals_sized.c (orig .data 0x552e24, 9 bytes) */
+/* DAT_00552e30: string bytes now in globals_sized.c (orig .data 0x552e30, 54 bytes) */
+/* DAT_00552e68: string bytes now in globals_sized.c (orig .data 0x552e68, 39 bytes) */
+/* DAT_00552e90: string bytes now in globals_sized.c (orig .data 0x552e90, 20 bytes) */
+/* DAT_00552ea4: string bytes now in globals_sized.c (orig .data 0x552ea4, 22 bytes) */
+/* DAT_00552ebc: string bytes now in globals_sized.c (orig .data 0x552ebc, 15 bytes) */
+/* DAT_00552ed4: string bytes now in globals_sized.c (orig .data 0x552ed4, 27 bytes) */
+/* DAT_00552ef0: string bytes now in globals_sized.c (orig .data 0x552ef0, 42 bytes) */
+/* DAT_00552f1c: string bytes now in globals_sized.c (orig .data 0x552f1c, 15 bytes) */
+/* DAT_00552f34: string bytes now in globals_sized.c (orig .data 0x552f34, 22 bytes) */
+/* DAT_00552f4c: string bytes now in globals_sized.c (orig .data 0x552f4c, 22 bytes) */
+/* DAT_00552f64: string bytes now in globals_sized.c (orig .data 0x552f64, 41 bytes) */
+/* DAT_00552f90: string bytes now in globals_sized.c (orig .data 0x552f90, 17 bytes) */
+/* DAT_00552fac: string bytes now in globals_sized.c (orig .data 0x552fac, 27 bytes) */
+/* DAT_00552fc8: string bytes now in globals_sized.c (orig .data 0x552fc8, 25 bytes) */
+/* DAT_00552fe4: string bytes now in globals_sized.c (orig .data 0x552fe4, 23 bytes) */
+/* DAT_00552ffc: string bytes now in globals_sized.c (orig .data 0x552ffc, 20 bytes) */
+/* DAT_00553018: string bytes now in globals_sized.c (orig .data 0x553018, 36 bytes) */
+/* DAT_0055303c: string bytes now in globals_sized.c (orig .data 0x55303c, 53 bytes) */
+/* DAT_00553074: string bytes now in globals_sized.c (orig .data 0x553074, 53 bytes) */
+/* DAT_005530ac: string bytes now in globals_sized.c (orig .data 0x5530ac, 21 bytes) */
+/* DAT_005530cc: string bytes now in globals_sized.c (orig .data 0x5530cc, 31 bytes) */
+/* DAT_005530ec: string bytes now in globals_sized.c (orig .data 0x5530ec, 24 bytes) */
+/* DAT_0055310c: string bytes now in globals_sized.c (orig .data 0x55310c, 60 bytes) */
+/* DAT_00553148: string bytes now in globals_sized.c (orig .data 0x553148, 62 bytes) */
+/* DAT_00553188: string bytes now in globals_sized.c (orig .data 0x553188, 41 bytes) */
+/* DAT_005531b4: string bytes now in globals_sized.c (orig .data 0x5531b4, 41 bytes) */
+/* DAT_005531e0: string bytes now in globals_sized.c (orig .data 0x5531e0, 24 bytes) */
+/* DAT_00553200: string bytes now in globals_sized.c (orig .data 0x553200, 29 bytes) */
+/* DAT_00553258: string bytes now in globals_sized.c (orig .data 0x553258, 40 bytes) */
+/* DAT_0055328c: string bytes now in globals_sized.c (orig .data 0x55328c, 45 bytes) */
+/* DAT_005532bc: string bytes now in globals_sized.c (orig .data 0x5532bc, 25 bytes) */
+/* DAT_005532e4: string bytes now in globals_sized.c (orig .data 0x5532e4, 22 bytes) */
+/* DAT_005532fc: string bytes now in globals_sized.c (orig .data 0x5532fc, 25 bytes) */
+/* DAT_00553320: string bytes now in globals_sized.c (orig .data 0x553320, 15 bytes) */
+/* DAT_00553330: string bytes now in globals_sized.c (orig .data 0x553330, 26 bytes) */
+/* DAT_00553354: string bytes now in globals_sized.c (orig .data 0x553354, 27 bytes) */
+/* DAT_00553370: string bytes now in globals_sized.c (orig .data 0x553370, 23 bytes) */
+/* DAT_00553390: string bytes now in globals_sized.c (orig .data 0x553390, 30 bytes) */
+/* DAT_005533b0: string bytes now in globals_sized.c (orig .data 0x5533b0, 22 bytes) */
+/* DAT_005533d0: string bytes now in globals_sized.c (orig .data 0x5533d0, 52 bytes) */
+/* DAT_00553404: string bytes now in globals_sized.c (orig .data 0x553404, 57 bytes) */
+/* DAT_00553440: string bytes now in globals_sized.c (orig .data 0x553440, 53 bytes) */
+/* DAT_00553478: string bytes now in globals_sized.c (orig .data 0x553478, 18 bytes) */
+/* DAT_005534b4: string bytes now in globals_sized.c (orig .data 0x5534b4, 21 bytes) */
+/* DAT_005534cc: string bytes now in globals_sized.c (orig .data 0x5534cc, 5 bytes) */
+/* DAT_005534d4: string bytes now in globals_sized.c (orig .data 0x5534d4, 52 bytes) */
+/* DAT_00553508: string bytes now in globals_sized.c (orig .data 0x553508, 47 bytes) */
+/* DAT_00553554: string bytes now in globals_sized.c (orig .data 0x553554, 25 bytes) */
+/* DAT_00553570: string bytes now in globals_sized.c (orig .data 0x553570, 5 bytes) */
+/* DAT_00553588: string bytes now in globals_sized.c (orig .data 0x553588, 5 bytes) */
+/* DAT_005535a4: string bytes now in globals_sized.c (orig .data 0x5535a4, 5 bytes) */
+/* DAT_005535ac: string bytes now in globals_sized.c (orig .data 0x5535ac, 3 bytes) */
+/* DAT_005535b0: string bytes now in globals_sized.c (orig .data 0x5535b0, 5 bytes) */
+/* DAT_005535b8: string bytes now in globals_sized.c (orig .data 0x5535b8, 5 bytes) */
 /* 0x005535c0: real storage is PTR_DAT_005535c0 below - see globals.h. */
-uint8_t DAT_005535c4;
-uint8_t DAT_005535cc;
-uint8_t DAT_005535d8;
-uint8_t DAT_005535dc;
-uint8_t DAT_005535e8;
-uint16_t DAT_005535f0;
-uint8_t DAT_005535f4;
-uint16_t DAT_00553620;
-uint16_t DAT_00553624;
+/* DAT_005535c4: string bytes now in globals_sized.c (orig .data 0x5535c4, 5 bytes) */
+/* DAT_005535cc: string bytes now in globals_sized.c (orig .data 0x5535cc, 2 bytes) */
+/* DAT_005535d8: string bytes now in globals_sized.c (orig .data 0x5535d8, 3 bytes) */
+/* DAT_005535dc: string bytes now in globals_sized.c (orig .data 0x5535dc, 3 bytes) */
+/* DAT_005535e8: string bytes now in globals_sized.c (orig .data 0x5535e8, 5 bytes) */
+/* DAT_005535f0: string bytes now in globals_sized.c (orig .data 0x5535f0, 2 bytes) */
+/* DAT_005535f4: string bytes now in globals_sized.c (orig .data 0x5535f4, 3 bytes) */
+uint16_t DAT_00553620 = 0x5d; /* orig .data 0x553620 */
+uint16_t DAT_00553624 = 0x205d; /* orig .data 0x553624 */
 uint8_t DAT_00553626;
-uint32_t DAT_00553628;
-uint8_t DAT_00553648;
+uint32_t DAT_00553628 = 0x20205d; /* orig .data 0x553628 */
+/* DAT_00553648: string bytes now in globals_sized.c (orig .data 0x553648, 3 bytes) */
 /* 0x553b68 "fire1" and 0x553b70 "fire2": mobile state names, pushed as
  * pointers (push 0x553b68 at 0x47ceaa, mov eax,0x553b70 at 0x45ee45, ...).
  * Were zeroed uint32_t + uint16_t pairs; Ghidra split each string where
@@ -154,26 +154,26 @@ uint8_t DAT_00553648;
  * these arrays (globals.h). Bytes copied from the original .data. */
 const char DAT_00553b68[8] = "fire1";
 const char DAT_00553b70[8] = "fire2";
-uint8_t DAT_00553b88;
-uint8_t DAT_00553bcc;
+/* DAT_00553b88: string bytes now in globals_sized.c (orig .data 0x553b88, 5 bytes) */
+/* DAT_00553bcc: string bytes now in globals_sized.c (orig .data 0x553bcc, 5 bytes) */
 /* 0x553f90 "move": a mobile state name, pushed as a pointer (push 0x553f90
  * at 0x42bb8b and 11 more). Was a zeroed byte; bytes from the original. */
 const char DAT_00553f90[] = "move";
-uint8_t DAT_00554060;
-uint32_t DAT_005554f8;
+/* DAT_00554060: string bytes now in globals_sized.c (orig .data 0x554060, 5 bytes) */
+uint32_t DAT_005554f8 = 0x676d692e; /* orig .data 0x5554f8 */
 uint8_t DAT_005554fc;
 /* 0x00555500: real storage is PTR_DAT_00555500 below - see globals.h. */
 const char s_loadstage_img_00555504[] = "loadstage.img";
-uint16_t DAT_00555a14;
+uint16_t DAT_00555a14 = 0x6d73; /* orig .data 0x555a14 */
 uint8_t DAT_00555a16;
-uint16_t DAT_00555a18;
+uint16_t DAT_00555a18 = 0x6673; /* orig .data 0x555a18 */
 uint8_t DAT_00555a1a;
-uint8_t DAT_00555c90;
-uint8_t DAT_00556770;
-uint32_t DAT_00556ae0;
-uint16_t DAT_00556ae4;
+/* DAT_00555c90: string bytes now in globals_sized.c (orig .data 0x555c90, 5 bytes) */
+/* DAT_00556770: string bytes now in globals_sized.c (orig .data 0x556770, 5 bytes) */
+uint32_t DAT_00556ae0 = 0x6d692e6c; /* orig .data 0x556ae0 */
+uint16_t DAT_00556ae4 = 0x67; /* orig .data 0x556ae4 */
 const char DAT_00557234[] = "%s%d"; /* orig .data 0x557234, was a zeroed 1-byte global */
-uint32_t DAT_00557258;
+uint32_t DAT_00557258 = 0x646e6c2e; /* orig .data 0x557258 */
 uint8_t DAT_0055725c;
 /* IID_IDirectInput8A. Passed as the REFIID to DirectInput8Create but was
  * declared uint8_t (1 byte); DirectInput8Create correctly rejected the
@@ -246,13 +246,13 @@ uint32_t g_cursorAnchorY;
 uint32_t g_serverWaitTicks;   /* was DAT_0056d118 - server-reply wait counter (PLEASE WAIT overlay); see globals.h */
 const uint32_t DAT_0056d11c[11] = {2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 1024};
 uint8_t DAT_0056d350;
-uint32_t DAT_0056d3d8;
-uint32_t DAT_0056d3dc;
+uint32_t DAT_0056d3d8 = 0xffffffff; /* orig .data 0x56d3d8 */
+uint32_t DAT_0056d3dc = 0xffffffff; /* orig .data 0x56d3dc */
 uint8_t DAT_0056d3e0;
 uint8_t DAT_0056d400;
-uint8_t DAT_0056d440;
+/* DAT_0056d440: string bytes now in globals_sized.c (orig .data 0x56d440, 5 bytes) */
 /* 0x0056d460: real storage is PTR_DAT_0056d460 below - see globals.h. */
-uint32_t DAT_0056dbe8;
+uint32_t DAT_0056dbe8 = 0xffffffff; /* orig .data 0x56dbe8 */
 /* DAT_0056dbf0 -> moved to globals_sized.c (the real 0xa0-byte AES login-key table) */
 /* DAT_0056dc30: per-connection-type magic/key table (0x56dc30), indexed
  * [0..2] by InitConnectionObject's connection index. Was a 1-byte placeholder;
@@ -310,10 +310,10 @@ uint8_t g_eventKeyBlock[0x20] = {
  * FUN_004ea6e0, their only user, indexes those directly. */
 uint32_t g_clipMaxX;
 uint32_t g_clipMaxY;
-uint16_t DAT_00588f38;
-uint32_t DAT_00588f3c;
-uint16_t DAT_00588f40;
-uint32_t DAT_00588f44;
+uint16_t DAT_00588f38 = 0x2; /* orig .data 0x588f38 */
+uint32_t DAT_00588f3c = 0x5622; /* orig .data 0x588f3c */
+uint16_t DAT_00588f40 = 0x10; /* orig .data 0x588f40 */
+uint32_t DAT_00588f44 = 0x15888; /* orig .data 0x588f44 */
 /* Display-mode config, statically initialised in the original's .data
  * (0x588f48). InitDirectDraw's fullscreen path feeds these to SetDisplayMode
  * (800x600x16) and SetupZBuffer relies on the resulting 16-bit back buffer
@@ -323,14 +323,14 @@ uint32_t DAT_00588f44;
  * floats (800.0/600.0) that the coordinate transforms in FUN_004eda*0 also
  * read. Values decoded from orig .data 0x588f48-0x588f60. */
 uint32_t DAT_00588f48 = 60;    /* refresh rate (WinMain may overwrite) */
-uint8_t DAT_00588f4c;
+uint8_t DAT_00588f4c = 0x1; /* orig .data 0x588f4c */
 float DAT_00588f50 = 800.0f;   /* screen width  */
 float DAT_00588f54 = 600.0f;   /* screen height */
 uint32_t DAT_00588f60 = 16;    /* bit depth */
-uint8_t DAT_00588f64;
+uint8_t DAT_00588f64 = 0x1; /* orig .data 0x588f64 */
 void * DAT_0058b248;
-uint8_t DAT_0058b8d6;
-uint8_t DAT_0058bb04;
+/* DAT_0058b8d6: string bytes now in globals_sized.c (orig .data 0x58b8d6, 2 bytes) */
+/* DAT_0058bb04: string bytes now in globals_sized.c (orig .data 0x58bb04, 2 bytes) */
 /* g_valueGuardLock, DAT_005a9084: moved to globals_sized.c - both are
  * CRITICAL_SECTIONs, a one-byte cell under-sizes them */
 /* DAT_005b1444 holds a pointer to the ATL::CAtlStringMgr vtable (real,
@@ -1120,14 +1120,14 @@ const char s_yesoori_005533c8[] = "yesoori";
 
 const char PTR_DAT_00551ecc[] = "%3d"; /* orig .data 0x551ecc, was a zeroed void * */
 const char PTR_DAT_00551ed0[] = "%5d"; /* orig .data 0x551ed0, was a zeroed void * */
-void *PTR_DAT_00552788;
-void *PTR_DAT_005535c0;
-void *PTR_DAT_00553c9c;
-void *PTR_DAT_00553ca8;
+/* PTR_DAT_00552788: string bytes now in globals_sized.c (orig .data 0x552788, 4 bytes) */
+/* PTR_DAT_005535c0: string bytes now in globals_sized.c (orig .data 0x5535c0, 4 bytes) */
+void * PTR_DAT_00553c9c = (void *)0x736578; /* orig .data 0x553c9c */
+void * PTR_DAT_00553ca8 = (void *)0x656d61; /* orig .data 0x553ca8 */
 const char PTR_DAT_00555500[] = "p%s"; /* orig .data 0x555500, was a zeroed void * */
 const char PTR_DAT_00555650[] = "%8d"; /* orig .data 0x555650, was a zeroed void * */
-void *PTR_DAT_00555cc8;
-void *PTR_DAT_00555e2c;
+/* PTR_DAT_00555cc8: string bytes now in globals_sized.c (orig .data 0x555cc8, 4 bytes) */
+/* PTR_DAT_00555e2c: string bytes now in globals_sized.c (orig .data 0x555e2c, 4 bytes) */
 /* statically initialised to 0x5a99f4 in the original .data (0x563b40); every code ref is a load */
 char *PTR_DAT_00563b40 = (char *)g_mpegScaleTab;
 /* Table-pointer records at 0x568800 (36-point set) and 0x568810 (12-point set): three float table pointers each and a pad
@@ -1855,12 +1855,12 @@ int g_mpegLsfSfbTab[72] = { /* orig .data 0x544968..0x544a87; 18 rows of 4 (nr_o
   6, 6, 3, 0,
 };
 float DAT_00544a88[8] = { -0.6f, -0.535f, -0.33f, -0.185f, -0.095f, -0.041f, -0.0142f, -0.0037f }; /* orig .data 0x544a88..0x544aa7 */
-uint32_t DAT_0054b460;
+/* DAT_0054b460: string bytes now in globals_sized.c (orig .data 0x54b460, 2 bytes) */
 uint32_t DAT_00551b78;
 uint32_t DAT_00551b79;
 uint32_t DAT_00551b7c;
-uint32_t DAT_00551e2c;
-uint32_t DAT_00551e30;
+/* DAT_00551e2c: string bytes now in globals_sized.c (orig .data 0x551e2c, 2 bytes) */
+/* DAT_00551e30: string bytes now in globals_sized.c (orig .data 0x551e30, 2 bytes) */
 const char DAT_00551ec4[] = "%+5d"; /* orig .data 0x551ec4, was a zeroed uint32_t */
 /* "%d" - the row-index sprintf format in RenderWorldListRow (the world
  * list's per-row number prefix, rendered via BlitSpriteText). Zeroed by our
@@ -1870,34 +1870,34 @@ const char DAT_00551ec4[] = "%+5d"; /* orig .data 0x551ec4, was a zeroed uint32_
  * which this "1" used to fault into) is a documented no-op - see
  * DrawFontString.c. (2026-07-18) */
 uint32_t g_rowIndexFormat = 0x00006425; /* "%d" little-endian */
-uint32_t DAT_00552c68;
-uint32_t DAT_00553b90;
-uint32_t DAT_00553bb4;
-uint32_t DAT_00553bb8;
+/* DAT_00552c68: string bytes now in globals_sized.c (orig .data 0x552c68, 5 bytes) */
+/* DAT_00553b90: string bytes now in globals_sized.c (orig .data 0x553b90, 5 bytes) */
+uint32_t DAT_00553bb4 = 0x6d616c66; /* orig .data 0x553bb4 */
+uint32_t DAT_00553bb8 = 0x33343165; /* orig .data 0x553bb8 */
 uint32_t DAT_00553bbc;
-uint32_t DAT_00553bf4;
-uint32_t DAT_00553bf8;
-uint32_t DAT_00553c18;
-uint32_t DAT_00553c1c;
-uint32_t DAT_00553c90;
-uint32_t DAT_00553c94;
-uint32_t DAT_00553c98;
-uint32_t DAT_00553ca0;
-uint32_t DAT_00553ca4;
+uint32_t DAT_00553bf4 = 0x6d616c66; /* orig .data 0x553bf4 */
+uint32_t DAT_00553bf8 = 0x323965; /* orig .data 0x553bf8 */
+uint32_t DAT_00553c18 = 0x6d616c66; /* orig .data 0x553c18 */
+uint32_t DAT_00553c1c = 0x323765; /* orig .data 0x553c1c */
+uint32_t DAT_00553c90 = 0x6d6d6168; /* orig .data 0x553c90 */
+uint32_t DAT_00553c94 = 0x6c627265; /* orig .data 0x553c94 */
+uint32_t DAT_00553c98 = 0x2e747361; /* orig .data 0x553c98 */
+uint32_t DAT_00553ca0 = 0x6d6d6168; /* orig .data 0x553ca0 */
+uint32_t DAT_00553ca4 = 0x6c667265; /* orig .data 0x553ca4 */
 const char DAT_00555654[] = "%02d"; /* orig .data 0x555654, was a zeroed uint32_t */
 /* "look" - the avatar-preview widget's blink/idle state name (orig .data
  * 0x555b4c; sat immediately after the 0x555b38 vtable). Was a bare
  * 4-byte uint32_t: as a string, "look" needs 5 bytes - the NUL was
  * whatever the linker placed next. */
 char DAT_00555b4c[8] = "look";
-uint32_t DAT_00556980;
-uint32_t DAT_00557318;
-uint32_t DAT_0055731c;
-uint32_t DAT_00557320;
-uint32_t DAT_00557324;
-uint32_t DAT_00557328;
-uint32_t DAT_0055732c;
-uint32_t DAT_00557330;
+/* DAT_00556980: string bytes now in globals_sized.c (orig .data 0x556980, 5 bytes) */
+uint32_t DAT_00557318 = 0x6f1d2b61; /* orig .data 0x557318 */
+uint32_t DAT_0055731c = 0x11cfd5a0; /* orig .data 0x55731c */
+uint32_t DAT_00557320 = 0x4544c7bf; /* orig .data 0x557320 */
+uint32_t DAT_00557324 = 0x5453; /* orig .data 0x557324 */
+uint32_t DAT_00557328 = 0x6f1d2b60; /* orig .data 0x557328 */
+uint32_t DAT_0055732c = 0x11cfd5a0; /* orig .data 0x55732c */
+uint32_t DAT_00557330 = 0x4544c7bf; /* orig .data 0x557330 */
 uint32_t DAT_00557334;
 uint32_t DAT_00557660;
 uint32_t DAT_00557664;
