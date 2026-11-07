@@ -625,7 +625,8 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
       TreeInsert();
     }
   }
-  RegisterActiveObject(0, 0, (undefined4 *)0);
+  /* EDX = [0x5b3484] + 0x6a7f88, EDI = ebp, the projectile whose +0x2908 cell is encoded in the tail (original call at 0x431787); the port had passed (0,0,NULL). */
+  RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar3);
   *unaff_FS_OFFSET = uStack_90;
   return;
 }
