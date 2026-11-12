@@ -229,10 +229,12 @@ void CScrollBar::Draw()
  * WorldListPanel_OnCommand (0x50d810) and BuddyPanel_OnCommand (0x505d20) are
  * slot 7 of 0x557f08 and 0x557be4, ChatLogPanel_OnCommand (0x5057f0) of
  * 0x557b94, and the base is Widget_OnCommandDefault (0x50eb10). It takes the
- * (evt, id, arg) triple (ret 0xc) that Label_OnMouseUp sends through its own
- * slot 7 as OnCommand(0, id, 0) when an arrow label is clicked, and it forwards
- * the result to its own parent through the parent's slot 7 (call [esi+0x1c]
- * at 0x50f82b with 0x2000, id, position), the same spine.
+ * (evt, id, arg) triple (ret 0xc) that child labels send through their
+ * parent's slot 7: Label_OnMouseUp reports evt 0 this way and CLabel::Draw
+ * re-fires evt 1 while the label is armed, which is the only event this
+ * function acts on (it returns at once unless evt == 1, 0x50f7c4). It then
+ * forwards the change to its own parent through the parent's slot 7 (call
+ * [esi+0x1c] at 0x50f82b with 0x2000, id, position), the same spine.
  */
 void CScrollBar::OnCommand(int evt, int id, int arg)
 {

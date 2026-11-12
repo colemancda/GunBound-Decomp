@@ -120,8 +120,8 @@ void CLabel::Update()
  * label vtable 0x557da0, the slot Widget_MouseMoveChildren calls on every
  * child (call [edx+4] at 0x50e8a9) and PanelManager_DispatchMouseMove on
  * every panel, and its direct callee is Widget_MouseMoveChildren (0x50e870,
- * call at 0x50e250). It stores the hover flag (+0x39) that Label_OnMouseUp's
- * sibling Update reads for the hover states. Its slot 3 neighbour is the
+ * call at 0x50e250). It stores the hover flag (+0x39) that CLabel's slot 9
+ * Update (0x505380) reads for the hover states. Its slot 3 neighbour is the
  * already named Label_OnMouseUp (0x5052e0).
  */
 bool CLabel::OnMouseMove(int x, int y)

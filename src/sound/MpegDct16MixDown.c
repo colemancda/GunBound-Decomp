@@ -10,8 +10,9 @@
  * mixed down to one output channel (their notes: reader 0x51aa00 averages
  * each interleaved float pair with the 0.5f constant at 0x544b00; confirmed
  * there, the constant reads 0.5 in the binary). Verified in the body: the
- * first and last pairs of the 32-float input are (in[2k] + in[2k+1]) * 0.5
- * before the same second-row (0xf25a80) factor step as MpegDct16.
+ * pairs taken from both ends of the input are (in[2k] + in[2k+1]) * 0.5
+ * (the first pair and the pairs down from in[28], in[29]; the last pair,
+ * in[30], in[31], is never read, matching MpegDct16's unread in[15]) before the same second-row (0xf25a80) factor step as MpegDct16.
  * It is to MpegDct16 what MpegDct32MixDown is to MpegDct32.
  */
 #include "ghidra_types.h"

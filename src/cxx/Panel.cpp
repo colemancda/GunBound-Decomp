@@ -1639,7 +1639,7 @@ extern "C" void ConnectToSelectedServer(int param_1, int serverIndex);
  * that name. This override ends with the base's own-rect result (m_hidden
  * gate and the +0x28/+0x30, +0x2c/+0x34 bounds, 0x50d712-0x50d78f), after
  * resolving the row with the already named WorldListRowHitTest (0x50df40,
- * call at 0x50d74a) and, for an online row that is not full with input
+ * call at 0x50d749) and, for an online row that is not full with input
  * enabled, calling the named ConnectToSelectedServer (0x4e1bf0). The slot is
  * dispatched by PanelManager_DispatchRightMouseDown (call [eax+0x10] at
  * 0x50f210), so it acts as a right-click hook that returns hit status. The
