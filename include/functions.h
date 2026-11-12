@@ -1888,7 +1888,7 @@ void InitMpegImdctWindows();
 void FUN_00519ef0();
 void InitMpegIntensityStereoRatios();
 void InitMpegIntensityStereoLSFTables();
-undefined4 * FUN_0051a420();
+undefined4 * GetMpegDct32CoefTable();
 void MpegDct32Thunk();
 void MpegDct32InterleavedThunk();
 void MpegDct32MixDown();

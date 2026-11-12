@@ -25,7 +25,7 @@ void InitMpegSynthesisTables(void)
   
   iVar3 = 0;
   if (DAT_00563df0 != 0) {
-    iVar1 = FUN_0051a420();
+    iVar1 = GetMpegDct32CoefTable();
     dVar8 = FID_conflict__cos(1.0);
     dVar8 = dVar8 * _DAT_005448e0;
     iVar5 = 0x10;
