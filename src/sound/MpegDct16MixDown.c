@@ -31,8 +31,12 @@ void MpegDct16MixDown(float *param_1,undefined4 param_2)
   float *pfVar6;
   float *pfVar7;
   int iVar8;
-  float local_80 [16];
-  float local_40 [16];
+  /* ONE contiguous 128-byte stack frame (the original's single sub-esp frame); Ghidra's separate
+   * locals are views of it, and the code indexes across them (split-stack-struct rule), so they
+   * must not be separate objects whose relative placement the compiler chooses. */
+  float frame[32];
+  float *local_80 = frame + 0;
+  float *local_40 = frame + 16;
   
   local_80[0] = (param_1[1] + *param_1) * _DAT_00544b00;
   local_80[8] = DAT_00f25a80 * local_80[0];

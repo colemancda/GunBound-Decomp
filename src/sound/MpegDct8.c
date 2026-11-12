@@ -32,8 +32,12 @@ void MpegDct8(float *param_1,undefined4 param_2)
   int iVar4;
   float *pfVar5;
   int iVar6;
-  float local_40 [8];
-  float local_20 [8];
+  /* ONE contiguous 64-byte stack frame (the original's single sub-esp frame); Ghidra's separate
+   * locals are views of it, and the code indexes across them (split-stack-struct rule), so they
+   * must not be separate objects whose relative placement the compiler chooses. */
+  float frame[16];
+  float *local_40 = frame + 0;
+  float *local_20 = frame + 8;
   
   local_40[0] = *param_1 + param_1[7];
   iVar4 = 3;
