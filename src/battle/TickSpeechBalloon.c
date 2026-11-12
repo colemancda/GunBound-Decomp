@@ -1,8 +1,21 @@
-/* FUN_0044fd70 - 0x0044fd70 in the original binary.
+/* TickSpeechBalloon - 0x0044fd70 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Slot 2 of the speech-balloon vtable 0x555b54, which InitSpeechBalloon
+ * (0x44fd00) installs on the class-500000 balloon object. Slot 3 of the same
+ * table is RenderSpeechBalloon (0x44fff0), and in the other entity vtables
+ * slot 2 is the per-frame step (AnimateProjectileTick, SimulateMobileFrame,
+ * TickJewelFrame, TickFlameEffect) with slot 3 the draw (RenderMobile). This
+ * one bumps the frame counter at +0x40, derives the balloon anchor
+ * (+0x38/+0x3c) from a player or jewel record looked up by the slot key at
+ * +8 (the key InitSpeechBalloon stamps), and sets the dead flag at +0x14
+ * (the same byte the other Tick slots set) after the counter at +0x2d8
+ * passes 0x50.
+ *
+ * (Was FUN_0044fd70; src/unnamed/FUN_004ce3d0.c still cites that name.)
  *
  * RENDER-CHAIN ARG FIX (2026-09-02): recovered the 2 argless
  * FindSpriteFrame() calls from per-site disasm.  These are NOT
@@ -17,7 +30,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0044fd70(int param_1)
+void __fastcall TickSpeechBalloon(int param_1)
 
 {
   undefined *puVar1;

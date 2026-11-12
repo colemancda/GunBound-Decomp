@@ -1244,7 +1244,7 @@ void *PTR_FUN_00555b38[5] = {
 void *PTR_FUN_00555b54[5] = { /* orig .data 0x555b54 */
     (void *)DeletePoisonedBaseObject,
     (void *)ResolveNamedState,
-    (void *)FUN_0044fd70,
+    (void *)TickSpeechBalloon,
     (void *)FUN_0044fff0,
     (void *)NoOpMethod
 };

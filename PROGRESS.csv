@@ -581,7 +581,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0044fc90,31,FUN_0044fc90,false,1,2,RAW-src
 0044fcb0,79,FUN_0044fcb0,false,1,2,RAW-src
 0044fd00,98,InitSpeechBalloon,false,1,0,RAW-src
-0044fd70,636,FUN_0044fd70,false,1,9,RAW-src
+0044fd70,636,TickSpeechBalloon,false,1,9,RAW-src
 0044fff0,1528,FUN_0044fff0,false,1,4,RAW-src
 00450600,75,SetSpeechBalloonText,false,1,1,RAW-src
 00450650,176,FUN_00450650,false,1,0,RAW-src
