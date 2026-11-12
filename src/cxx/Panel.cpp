@@ -1520,6 +1520,19 @@ extern "C" int __fastcall BuddyPanel_HitTestRow(int x, int panel, int regEsi);
 extern "C" int FindActiveObjectByIndex(int regEax, int regEdi);
 extern "C" int PanelManager_FindByName(int regEax, char *regEbx);
 
+/* BuddyPanel_OnMouseDown - 0x505c10 (PROGRESS.csv name), slot 2 of the
+ * buddy panel vtable 0x557be4.
+ *
+ * Evidence for the name (all from outside the body): slot 2 is the mouse
+ * down slot (Widget_MouseDownChildren calls [edx+8]; the same slot is
+ * WorldListPanel_OnMouseDown, 0x50d5a0, in 0x557f08, where the base entry is
+ * HandlePanelMouseDown, 0x505430). This override calls that base directly
+ * (call 0x505430 at 0x505c20), then asks the already named
+ * BuddyPanel_HitTestRow (0x505ec0, called at 0x505c2b) for the row under the
+ * point, stores a row other than -1 at +0x90 and, when the base did not
+ * take the press and the point is outside the panel rect, resets +0x90 to -1
+ * (0x505c68). BuddyPanel_HitTestRow's own header names this function as its
+ * slot 2 caller. */
 bool CBuddyPanel::OnMouseDown(int x, int y)
 {
     bool took = CPanel::OnMouseDown(x, y);
