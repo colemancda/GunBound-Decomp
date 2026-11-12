@@ -11,6 +11,10 @@
 #   AARCH64_CC   cross compiler (default: the batocera h616 buildroot gcc)
 #   JOBS         parallel compile jobs (default 4)
 #   OPT          optimisation level for the lifted code (default -O1)
+#   EXTRA_CFLAGS extra compiler flags for everything (e.g. -DRT_DYNAMIC_BASE)
+#   LIFT_FLAGS   extra lifter flags (e.g. --no-flag-liveness)
+#   VARIANT      suffix for the output directories, to keep an experimental build
+#                (other LIFT_FLAGS / EXTRA_CFLAGS) next to the normal one
 set -euo pipefail
 
 target="${1:-host}"
@@ -22,8 +26,9 @@ root="$(cd "$here/.." && pwd)"
 exe="${RECOMP_EXE:-$root/orig/GunBound.gme}"
 csv="$root/PROGRESS.csv"
 build="$here/build"
-gen="$build/gen"
-out="$build/$target"
+variant="${VARIANT:-}"
+gen="$build/gen$variant"
+out="$build/$target$variant"
 jobs="${JOBS:-4}"
 opt="${OPT:--O1}"
 
@@ -55,13 +60,14 @@ fi
 if [ "$need" = 1 ]; then
     echo "== lifting $exe"
     t0=$(date +%s)
-    python3 "$here/lift/lift.py" --pe "$exe" --csv "$csv" --out "$gen"
+    # shellcheck disable=SC2086
+    python3 "$here/lift/lift.py" --pe "$exe" --csv "$csv" --out "$gen" ${LIFT_FLAGS:-}
     touch "$stamp"
     echo "== lift took $(( $(date +%s) - t0 ))s"
 fi
 
 # ---- 2. compile + link through ninja
-cflags_common="-std=gnu11 -fno-strict-aliasing -fwrapv -fno-stack-protector -I$here/runtime -I$gen"
+cflags_common="-std=gnu11 -fno-strict-aliasing -fwrapv -fno-stack-protector -I$here/runtime -I$gen ${EXTRA_CFLAGS:-}"
 {
     echo "cc = $cc"
     echo "gen_cflags = $opt -foptimize-sibling-calls $cflags_common -w"

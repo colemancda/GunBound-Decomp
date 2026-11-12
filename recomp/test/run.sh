@@ -7,6 +7,7 @@
 # The native reference needs an x86 host that can run 32-bit programs; without one
 # (or for the aarch64 target, which runs under qemu-aarch64) the committed
 # expected.txt is used. --update rewrites expected.txt from the native reference.
+# EXTRA_CFLAGS adds compiler flags for the lifted harness (e.g. -DRT_DYNAMIC_BASE).
 set -euo pipefail
 
 target="${1:-host}"
@@ -68,7 +69,7 @@ for mode in liveness noliveness; do
     fi
     rt_srcs="$(ls "$recomp"/runtime/*.c | grep -v '/main\.c$')"
     # shellcheck disable=SC2086
-    "$cc" -std=gnu11 -O1 -fno-strict-aliasing -fwrapv -foptimize-sibling-calls -w \
+    "$cc" -std=gnu11 -O1 -fno-strict-aliasing -fwrapv -foptimize-sibling-calls -w ${EXTRA_CFLAGS:-} \
         -I"$recomp/runtime" -I"$gen" -I"$here" \
         "$gen"/chunk_*.c "$gen/tables.c" $rt_srcs "$here/lifted_main.c" -lm -o "$out/lifted_$mode"
     run=("$out/lifted_$mode")
