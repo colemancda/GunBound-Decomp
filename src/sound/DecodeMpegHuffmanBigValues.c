@@ -1,13 +1,30 @@
-/* FUN_00518960 - 0x00518960 in the original binary.
+/* DecodeMpegHuffmanBigValues - 0x00518960 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_00518960.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Called three times per channel from DecodeMpegLayerIIIGranule, once per
+ * region, as (output, region length in samples, table select): the three
+ * lengths are bounded by the band-boundary entries it clamps against the
+ * big_values * 2 limit (side-info field DAT_005ae804 * 2), and the third
+ * argument is the per-region table-select field of the side-info record
+ * (DAT_005ae81c, DAT_005ae820, DAT_005ae824: three consecutive fields, the
+ * ISO table_select[0..2]). The count1 decoder (DecodeMpegHuffmanCount1) is
+ * then called on the samples after that limit. Verified in the body: it
+ * indexes the descriptor array g_mpegHuffDesc (0x568180, 12-byte records)
+ * with that select to get the code table, linbits and a kind (1, 2, 3 or
+ * other = all zero), decodes samples in pairs (n >> 1), reads the
+ * escape linbits when a value reaches 15 (kind 3) and then one sign bit per
+ * nonzero value, from the shared bit reader state DAT_00f25e00..DAT_00f25e10.
+ * That is the ISO Layer III big_values Huffman pair decoding with
+ * linbits.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00518960(uint *param_1,int param_2,int param_3)
+void DecodeMpegHuffmanBigValues(uint *param_1,int param_2,int param_3)
 
 {
   byte *pbVar1;

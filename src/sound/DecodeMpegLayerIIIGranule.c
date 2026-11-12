@@ -87,10 +87,10 @@ void DecodeMpegLayerIIIGranule(undefined4 param_1,int *param_2)
       if (iVar10 < (int)(&DAT_00f25d40)[(&DAT_005ae834)[iVar8 * 0x12]]) {
         iVar4 = iVar10;
       }
-      FUN_00518960(local_14,iVar4,(&DAT_005ae81c)[iVar8 * 0x12]);
-      FUN_00518960(&DAT_00f25f00 + (int)param_2 + iVar4,local_c - iVar4,
+      DecodeMpegHuffmanBigValues(local_14,iVar4,(&DAT_005ae81c)[iVar8 * 0x12]);
+      DecodeMpegHuffmanBigValues(&DAT_00f25f00 + (int)param_2 + iVar4,local_c - iVar4,
                    (&DAT_005ae820)[iVar8 * 0x12]);
-      FUN_00518960(&DAT_00f25f00 + (int)param_2 + local_c,iVar10 - local_c,
+      DecodeMpegHuffmanBigValues(&DAT_00f25f00 + (int)param_2 + local_c,iVar10 - local_c,
                    (&DAT_005ae824)[iVar8 * 0x12]);
       iVar2 = FUN_00518e30(&DAT_00f25f00 + (int)param_2 + iVar10,DAT_00563d8c - iVar10,
                            (&DAT_005ae800)[iVar8 * 0x12] +
