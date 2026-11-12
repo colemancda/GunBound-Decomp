@@ -1889,7 +1889,7 @@ void FUN_00519ef0();
 void InitMpegIntensityStereoRatios();
 void InitMpegIntensityStereoLSFTables();
 undefined4 * FUN_0051a420();
-void FUN_0051a430();
+void MpegDct32Thunk();
 void FUN_0051a450();
 void FUN_0051a470();
 void FUN_0051a650();

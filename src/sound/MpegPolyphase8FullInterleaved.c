@@ -2,7 +2,7 @@
  *
  * Layer III polyphase synthesis driver: 8-bit PCM, full band,
  * interleaved stereo. Runs 18 time slots of 32 subband samples through the
- * dequantised-spectrum filter FUN_0051a430 and the window/output thunk
+ * dequantised-spectrum filter MpegDct32Thunk and the window/output thunk
  * MpegSynthWindow8FullInterleavedThunk.
  *
  * Evidence for the name (all from outside the body):
@@ -38,7 +38,7 @@ void MpegPolyphase8FullInterleaved(int param_1,int param_2,int param_3)
   if (param_3 == 0) {
     iVar1 = 0x12;
     do {
-      FUN_0051a430(param_1,&DAT_005af144 + DAT_005ae93c);
+      MpegDct32Thunk(param_1,&DAT_005af144 + DAT_005ae93c);
       MpegSynthWindow8FullInterleavedThunk(&DAT_005af144,DAT_005ae93c,param_2);
       param_1 = param_1 + 0x80;
       param_2 = param_2 + 0x40;
@@ -50,7 +50,7 @@ void MpegPolyphase8FullInterleaved(int param_1,int param_2,int param_3)
   iVar1 = 0x12;
   param_2 = param_2 + 1;
   do {
-    FUN_0051a430(param_1,&DAT_005ae940 + DAT_005af140);
+    MpegDct32Thunk(param_1,&DAT_005ae940 + DAT_005af140);
     MpegSynthWindow8FullInterleavedThunk(&DAT_005ae940,DAT_005af140,param_2);
     param_1 = param_1 + 0x80;
     DAT_005af140 = DAT_005af140 - 0x20 & 0x1ff;
