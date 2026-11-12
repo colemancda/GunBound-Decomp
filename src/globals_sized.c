@@ -400,7 +400,12 @@ unsigned char g_dinputDeviceInstances[16 * 0x244];
  * (uint8_t/uint32_t) and binds to this storage at link time. */
 uint32_t DAT_005532bc[7] = {0xd7c5babd, 0xf6c1ccc0, 0xc8f8bf20, 0x202d20ad, 0x6c68636a, 0x35376565, 0x00000000}; /* EUC-KR+ASCII '........ .... - jchlee75' */
 uint32_t DAT_005535e8[2] = {0x706c6568, 0x00000000}; /* ASCII 'help' */
-uint32_t DAT_0056d440[2] = {0xffffffff, 0x00000000}; /* EUC-KR+ASCII '....' */
+/* Not a string: the eight-dword table {-1,0,1,0,1,0,-1,0} that FUN_0041f200
+ * indexes with `x & 7` (0x41f4cc: add eax,[ecx*4+0x56d440]). The orig .data
+ * object runs 32 bytes, to the next referenced cell at 0x56d460; the string
+ * reading of its first dword gave it only two entries, so every index above 1
+ * read past the cell. */
+uint32_t DAT_0056d440[8] = {0xffffffff, 0x00000000, 0x00000001, 0x00000000, 0x00000001, 0x00000000, 0xffffffff, 0x00000000};
 uint32_t DAT_00552e24[3] = {0xbabddac4, 0xbabdf0b8, 0x00000000}; /* EUC-KR+ASCII '........' */
 uint32_t DAT_00553648[1] = {0x00006272}; /* ASCII 'rb' */
 uint32_t DAT_005530ec[6] = {0xc720a5c0, 0xb1ceb7c1, 0xb8a1b7d7, 0x202d20d3, 0x65736f6c, 0x00696972}; /* EUC-KR+ASCII '.. .......... - loserii' */
