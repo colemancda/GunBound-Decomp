@@ -2159,7 +2159,7 @@ void *PTR_FUN_005572f0[4] = { /* orig .data 0x5572f0 */
  * 0x4e9cc0 SceneNode_UpdateTransformAndCamera, 4 0x4f38a0
  * SceneNode_UpdateWorldViewProjection, 5 0x4f3910. Only slot 0 is wired so
  * far (FUN_004e38f0 deletes through it); was a lone NULL. 2026-11-03. */
-void *PTR_FUN_00557300 = (void *)FUN_004e9b80;
+void *PTR_FUN_00557300 = (void *)CameraNode_ScalarDtor;
 void *PTR_FUN_0055745c[10] = { /* orig .data 0x55745c */
     (void *)CInputDevice_ScalarDeletingDestructor,
     (void *)KeyboardDevice_Initialize,

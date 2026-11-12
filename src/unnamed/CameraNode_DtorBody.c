@@ -24,7 +24,7 @@
  * SceneNode that doubles as the scene camera.
  *
  * FIX (2026-11-03): the tail `jmp 0x4f33b0` (0x4e9ba6) keeps ECX = this;
- * FUN_004f33b0 now receives it. Callers: FUN_004e9b80 (this) and the
+ * FUN_004f33b0 now receives it. Callers: CameraNode_ScalarDtor (was FUN_004e9b80) and the
  * excluded CRT atexit stub 0x543290 (ECX = 0xe9b1e0).
  */
 #include "ghidra_types.h"
