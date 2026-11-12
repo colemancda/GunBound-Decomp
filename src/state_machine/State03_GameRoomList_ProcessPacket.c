@@ -507,7 +507,7 @@ switchD_00428058_default:
          * context. */
         QueueOutgoingPacketField((char)payload[1]);
         EncodeChecksumState(uVar13);
-        FUN_004e7340(0,PeekChecksumStateUnderLock(g_clientContext + 0x3b49c),
+        ReplayContext_CommitPendingSlot(0,PeekChecksumStateUnderLock(g_clientContext + 0x3b49c),
                      (int)&g_replayContext);
         uVar13 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         iVar10 = g_clientContext;
@@ -781,7 +781,7 @@ switchD_00428058_default:
       *(undefined4 *)(g_clientContext + 0x45918) = 0;
       QueueOutgoingPacketField((char)payload[1]);
       QueueOutgoingPacketField(*(undefined1 *)((int)payload + 3));
-      FUN_004e7340(0,PeekChecksumStateUnderLock(g_clientContext + 0x3b49c),
+      ReplayContext_CommitPendingSlot(0,PeekChecksumStateUnderLock(g_clientContext + 0x3b49c),
                    (int)&g_replayContext);
       iVar10 = g_clientContext;
       *(uint *)(g_clientContext + 0x44e60) = (uint)payload[2];
@@ -887,7 +887,7 @@ switchD_00428058_default:
           local_69c = local_69c + 1;
         } while (local_69c < (int)(uint)*(byte *)(g_clientContext + 0x45125));
       }
-      FUN_004e7340(0,PeekChecksumStateUnderLock(g_clientContext + 0x3b49c),
+      ReplayContext_CommitPendingSlot(0,PeekChecksumStateUnderLock(g_clientContext + 0x3b49c),
                    (int)&g_replayContext);
       _DAT_0056dc98 = *(undefined2 *)(g_clientContext + 0x44e60);
       _DAT_0056dc90 = *(undefined2 *)(g_clientContext + 0x3f804);

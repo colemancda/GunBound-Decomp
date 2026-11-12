@@ -1,9 +1,25 @@
-/* FUN_004e7340 - 0x004e7340 in the original binary.
+/* ReplayContext_CommitPendingSlot - 0x004e7340 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004e7340 mean this function.)
+ *
+ * NAMED (batch 48), LIKELY. Copies the context's staged peer record into
+ * slot N. The staged record is the one SetLocalPeerEndpoint (0x4e73e0,
+ * named) fills for the local player: address dword at +0x150, port at
+ * +0x158, slot at +0x15a, handle at +0x154 and name at +0x15d
+ * (QueueBroadcastEvent also copies +0x14c and +0x15d). This function
+ * stores those fields at +0x18/+0x58/+0x38/+0x68 + slot*{4,2} and +0x78 +
+ * slot*0x18, the same slot-table fields ReplayContext_SetSlot writes, sets
+ * bit slot in +0x140, writes the slot into +0x14c, zeroes the per-slot
+ * bytes at +0x3c0/+0x3c8, and writes a -1 handle written at +0x454c4 +
+ * slot*4. Callers: three State03_GameRoomList_ProcessPacket sites and
+ * WriteReplayEventRecord, each with the slot from a Peeked value (EDX) and
+ * EAX = &g_replayContext, the WriteReplayEventRecord site immediately
+ * after the SetLocalPeerEndpoint call. LIKELY: pending is the name's
+ * weakest word (the staged record is only demonstrably the local peer's).
  *
  * EAX RECOVERED and the CALL SITES RE-SLOTTED (2026-08-25).  The source
  * passed ZERO arguments to a function declared with two, so appending the
@@ -31,7 +47,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004e7340(undefined4 param_1,uint param_2,int regEax)
+void __fastcall ReplayContext_CommitPendingSlot(undefined4 param_1,uint param_2,int regEax)
 
 {
   uint *puVar1;

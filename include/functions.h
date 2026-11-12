@@ -1231,7 +1231,7 @@ void SendBroadcastEventToSlot(uint param_1, int regEax);
  * connection object (recovered). */
 undefined4 __fastcall SendUdpDatagram(int param_1, int param_2, char *param_3, int param_4,
                                      int connection);
-void __fastcall FUN_004e7340(undefined4 param_1,uint param_2,int regEax);
+void __fastcall ReplayContext_CommitPendingSlot(undefined4 param_1,uint param_2,int regEax);
 void SetLocalPeerEndpoint(int slot,int ctx,char *nameRec);
 void ResetReplayContext(int ctx);
 void __fastcall ReplayContext_SetSlot(int param_1,int param_2,int param_3,int param_4,char *param_5,uint regEax,int regEdi);
