@@ -2130,8 +2130,8 @@ extern float *DAT_0056881c;
 #define DAT_00568934 (g_mpegDct32Scratch[61])
 #define DAT_00568938 (g_mpegDct32Scratch[62])
 #define DAT_0056893c (g_mpegDct32Scratch[63])
-extern uint32_t DAT_00568940;
-extern uint32_t DAT_00569344;
+extern int DAT_00568940;
+extern int DAT_00569344;
 /* Index tables read as `mov r32, [idx*4 + base]` (x87 synthesis windows in MpegSynthWindow16Full and
  * clones).  The ported code spells every access `*(int *)(&DAT_xxxxxxxx + idx * 4)`, i.e. BYTE
  * arithmetic, so the DAT_ names are byte lvalues over the real uint32_t arrays (declaring them

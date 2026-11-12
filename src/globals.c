@@ -3011,8 +3011,8 @@ float g_mpegImdctScratch[33]; /* runtime scratch, orig 0x568738 (zero in the ima
 uint32_t DAT_005687fc;
 float *DAT_0056881c;
 float g_mpegDct32Scratch[64]; /* runtime scratch, orig 0x568840 (zero in the image) */
-uint32_t DAT_00568940;
-uint32_t DAT_00569344;
+int DAT_00568940; /* the synthesis windows' fistp scratch: compared SIGNED against 0x7fff/-0x8000 (cmp/jle, cmp/jge at 0x51d8c4/0x51d8d5), so not uint32_t */
+int DAT_00569344; /* the 8-bit synthesis windows' fistp scratch, compared signed like DAT_00568940 */
 /* The four MPEG synthesis index tables walked byte-wise by MpegSynthWindow16Full and its 11 clones
  * (see include/globals.h): each is a permutation of 0..n-1 in the original image. */
 uint32_t g_synthIdxTab0[512] = { /* orig .data 0x568944..0x569143: a permutation of 0..511 */
