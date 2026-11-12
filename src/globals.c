@@ -2270,7 +2270,7 @@ void *PTR_LAB_0054b450[2] = { /* orig .data 0x54b450 */
 };
 void *PTR_LAB_0054b458[2] = { /* orig .data 0x54b458 */
     (void *)NoOpMethodStdcall1,
-    (void *)FUN_00401200
+    (void *)HeartbeatWorker_OnTimeout
 };
 void *PTR_LAB_00550378[1] = { /* orig .data 0x550378 */
     0 /* [0] 0x520000 not ported */

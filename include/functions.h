@@ -143,7 +143,7 @@ void __fastcall FUN_004010e0();
 undefined4 __fastcall FUN_00401100();
 void HeartbeatWorker_Construct(undefined4 *regEsi);
 void HeartbeatWorker_Destruct(undefined4 *regEsi);
-void __fastcall FUN_00401200();
+void __fastcall HeartbeatWorker_OnTimeout();
 void __fastcall FUN_00401350();
 void __fastcall FUN_00401370();
 int FindStringNoCase();

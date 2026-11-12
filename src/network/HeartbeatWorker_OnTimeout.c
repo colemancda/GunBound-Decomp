@@ -1,13 +1,29 @@
-/* FUN_00401200 - 0x00401200 in the original binary.
+/* HeartbeatWorker_OnTimeout - 0x00401200 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00401200 mean this function.)
+ *
+ * NAMED (batch 48), LIKELY. Slot 1 of vtable 0x54b458, the derived vtable
+ * HeartbeatWorker_Construct installs (slot 0 is NoOpMethodStdcall1), and
+ * WorkerThread2EventLoop calls slot 1 on a 10 s wait timeout, so this is
+ * the periodic tick of the 0x7a767c block. The role evidence is outside
+ * the body: the counter it bumps at connection +0x84ec is zeroed by
+ * SendOutgoingPacket and FlushEncodedSocketBuffer (both write 0 there
+ * after a real send), so it counts idle ticks; after 30 of them (about 5
+ * minutes) it sends a header-only packet (length 6 at +0x44d0, opcode word
+ * 0 at +0x4d4) on g_connectionContextA, which is a keepalive. Every 12th
+ * tick, while the byte at this+0x10 is set, it also queues broadcast event
+ * 0x9001, and while the UDP flag is set it re-sends a 1-byte datagram.
+ * LIKELY, not CERTAIN: the Heartbeat label rests on the idle-counter
+ * reading and no server-side keepalive handler corroborates it.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00401200(int param_1)
+void __fastcall HeartbeatWorker_OnTimeout(int param_1)
 
 {
   int iVar1;
