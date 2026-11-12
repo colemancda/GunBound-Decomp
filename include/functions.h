@@ -1216,7 +1216,7 @@ uint CArray_Add_4004(undefined4 *param_1,int *regEbx);
 void AtlArray_RemoveAt_4004(int regEbx,int regEax,int *regEdi);
 undefined4 CArray_Grow_4004(uint regEax,int *regEsi);
 void QueueGameEvent(uint eventCode, uint value);
-undefined4 * FUN_004e5e00();
+undefined4 * ReplayContext_Construct();
 void * __thiscall ReplayContext_ScalarDeletingDestructor();
 void ReplayContext_Destructor();
 undefined4 ProcessUdpProbeDatagram(int param_1);

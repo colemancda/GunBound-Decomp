@@ -1,13 +1,24 @@
-/* FUN_004e5e00 - 0x004e5e00 in the original binary.
+/* ReplayContext_Construct - 0x004e5e00 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004e5e00 mean this function.)
+ *
+ * NAMED (batch 48), HIGH. Constructor of the g_replayContext object. Its
+ * sole caller is the MSVC dynamic initializer at 0x540e60 (push 0xe55ce0;
+ * call 0x4e5e00), which then registers 0x5432a0 with atexit, and 0x5432a0
+ * is push 0xe55ce0; call 0x4e6050 = ReplayContext_Destructor. The vtable
+ * it stamps at offset 0 (0x5572f0) is the one ReplayContext_Destructor re-
+ * stamps and whose slot 1 is UdpProbeWorkerThread. TurnEventSet_BuyHead's
+ * header already records that this function stores the set sentinel head
+ * at +0x45234.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_004e5e00(undefined4 *param_1)
+undefined4 * ReplayContext_Construct(undefined4 *param_1)
 
 {
   int iVar1;
