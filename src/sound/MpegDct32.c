@@ -42,11 +42,11 @@
 
 void __cdecl MpegDct32(float *param_3,undefined4 *param_4)
 {
-  undefined4 *puVar1;
+  float *puVar1;
   int iVar2;
   int iVar3;
   
-  DAT_0056881c = param_4;
+  DAT_0056881c = (float *)param_4;
   DAT_00568840 = *param_3 + param_3[0x1f];
   DAT_00568880 = (*param_3 - param_3[0x1f]) * DAT_00f25a40;
   DAT_00568844 = param_3[1] + param_3[0x1e];

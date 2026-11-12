@@ -3009,66 +3009,8 @@ float DAT_00568318[264] = { /* orig .data 0x568318..0x568737; the MP3 synthesis 
 };
 float g_mpegImdctScratch[33]; /* runtime scratch, orig 0x568738 (zero in the image) */
 uint32_t DAT_005687fc;
-uint32_t *DAT_0056881c;
-uint32_t DAT_00568840;
-uint32_t DAT_00568844;
-uint32_t DAT_00568848;
-uint32_t DAT_0056884c;
-uint32_t DAT_00568850;
-uint32_t DAT_00568854;
-uint32_t DAT_00568858;
-uint32_t DAT_0056885c;
-uint32_t DAT_00568860;
-uint32_t DAT_00568864;
-uint32_t DAT_00568868;
-uint32_t DAT_0056886c;
-uint32_t DAT_00568870;
-uint32_t DAT_00568874;
-uint32_t DAT_00568878;
-uint32_t DAT_0056887c;
-uint32_t DAT_00568880;
-uint32_t DAT_00568884;
-uint32_t DAT_00568888;
-uint32_t DAT_0056888c;
-uint32_t DAT_00568890;
-uint32_t DAT_00568894;
-uint32_t DAT_00568898;
-uint32_t DAT_0056889c;
-uint32_t DAT_005688a0;
-uint32_t DAT_005688b8;
-uint32_t DAT_005688bc;
-uint32_t DAT_005688c0;
-uint32_t DAT_005688c4;
-uint32_t DAT_005688c8;
-uint32_t DAT_005688cc;
-uint32_t DAT_005688d0;
-uint32_t DAT_005688d4;
-uint32_t DAT_005688d8;
-uint32_t DAT_005688dc;
-uint32_t DAT_005688e0;
-uint32_t DAT_005688e4;
-uint32_t DAT_005688e8;
-uint32_t DAT_005688ec;
-uint32_t DAT_005688f0;
-uint32_t DAT_005688f4;
-uint32_t DAT_005688f8;
-uint32_t DAT_005688fc;
-uint32_t DAT_00568900;
-uint32_t DAT_00568904;
-uint32_t DAT_00568908;
-uint32_t DAT_0056890c;
-uint32_t DAT_00568910;
-uint32_t DAT_00568914;
-uint32_t DAT_00568918;
-uint32_t DAT_0056891c;
-uint32_t DAT_00568920;
-uint32_t DAT_00568924;
-uint32_t DAT_00568928;
-uint32_t DAT_0056892c;
-uint32_t DAT_00568930;
-uint32_t DAT_00568934;
-uint32_t DAT_00568938;
-uint32_t DAT_0056893c;
+float *DAT_0056881c;
+float g_mpegDct32Scratch[64]; /* runtime scratch, orig 0x568840 (zero in the image) */
 uint32_t DAT_00568940;
 uint32_t DAT_00569344;
 /* The four MPEG synthesis index tables walked byte-wise by MpegSynthWindow16Full and its 11 clones
@@ -3331,11 +3273,6 @@ double DAT_00558070 = 0.06977777928113937; /* orig .data 0x3fb1dcf4e0000000; onl
 double DAT_00558078 = 1000.0; /* orig .data 0x408f400000000000; only x87 QWORD operands reference it */
 uint32_t DAT_00563d9c = 0x20; /* orig .data initial value */
 float DAT_005687f8 = 0.5f; /* orig .data 0x3f000000; only x87 DWORD fmul operands reference it */
-uint32_t DAT_005688a4;
-uint32_t DAT_005688a8;
-uint32_t DAT_005688ac;
-uint32_t DAT_005688b0;
-uint32_t DAT_005688b4;
 uint32_t DAT_00588f68;
 uint32_t DAT_00588f6c;
 uint32_t DAT_00588f70;
