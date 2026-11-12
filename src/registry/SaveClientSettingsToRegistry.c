@@ -39,13 +39,13 @@ void SaveClientSettingsToRegistry(void)
       pcVar3 = pcVar1;
       pcVar1 = pcVar3 + 1;
     } while (*pcVar3 != '\0');
-    RegSetValueExA(local_4,s_GameName_005527f4,0,3,&DAT_005b3368,(DWORD)(pcVar3 + -0x5b3367));
+    RegSetValueExA(local_4,s_GameName_005527f4,0,3,&DAT_005b3368,(DWORD)(pcVar3 - &DAT_005b3368 + 1));
     pcVar1 = &DAT_005b1cf0;
     do {
       pcVar3 = pcVar1;
       pcVar1 = pcVar3 + 1;
     } while (*pcVar3 != '\0');
-    RegSetValueExA(local_4,s_ChannelName_005527e8,0,3,&DAT_005b1cf0,(DWORD)(pcVar3 + -0x5b1cef));
+    RegSetValueExA(local_4,s_ChannelName_005527e8,0,3,&DAT_005b1cf0,(DWORD)(pcVar3 - &DAT_005b1cf0 + 1));
     RegCloseKey(local_4);
   }
   return;

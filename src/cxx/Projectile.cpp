@@ -140,6 +140,7 @@
 extern "C" {
 void ScrambleChecksumGuardBytes(int slot, int *guardTable);
 extern int g_valueGuardKeyTable;   /* guard-table base pointer cell (0x79376c) */
+extern unsigned int DAT_00553b90[2];  /* the 'fire' string cell (orig .data 0x553b90) */
 void TreeInsert(void *scratch, void *guardMap);
 extern unsigned char g_valueGuardMap;  /* guard-cell std::map object (0x793770) */
 void AdvanceSpriteAnimation(void);
@@ -735,7 +736,7 @@ void CProjectile::DetonateProjectile()
             iVar11 = FloatToInt64_0();
             iVar12 = FloatToInt64_0();
             iVar12 = reinterpret_cast<int>(apuStack_ad0[0]) - iVar12;
-            (*reinterpret_cast<void (**)(void *)>(*piVar18 + 4))(reinterpret_cast<void *>(0x553b90));
+            (*reinterpret_cast<void (**)(void *)>(*piVar18 + 4))(reinterpret_cast<void *>(DAT_00553b90));
             piVar18[0x11] = iVar10;
             apuStack_ad0[0] = reinterpret_cast<unsigned int *>(&DAT_006a7f74 + iVar5);
             cVar4 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
