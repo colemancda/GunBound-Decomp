@@ -1199,7 +1199,7 @@ void RebuildTerrainColumnCache();
 void SpawnStageDecoration();
 void ComputeShotViewBounds(int regEsi,uint regEax);
 void __fastcall State01_Title_OnTick(int);
-undefined4 * __thiscall FUN_004e5430();
+undefined4 * __thiscall CriticalSection_ScalarDtor();
 ulong __fastcall ResolveHostToIPv4Addr();
 undefined4 ConstructConnectionObject(undefined4 *, undefined4, undefined4);
 void DestroyConnectionObject(undefined4 *conn);
