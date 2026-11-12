@@ -17,9 +17,13 @@
  * when it is not the 10000 sentinel (the left scan's callers use -10000
  * and result + 1). Register shape differs from the left scan: ECX = row
  * (range-checked against +0x1c), EAX = start column, EDX = terrain
- * context. The port returns a constant 0 because Ghidra lost the real
- * result, which the binary leaves in EAX, so the callers' compare is
- * against 0 here (a known gap, not touched by this rename). LIKELY rather
+ * context. RESULT RECOVERED (bug round 22): the original
+ * returns the column in EAX (the 0x4e4446 inc eax / 0x4e444e exit) or
+ * loads 0x2710 at 0x4e4449; the port returned a constant 0, so every
+ * caller compared against 0 and the 10000 sentinel never fired. EAX (the
+ * start column) is the SECOND Peek at each of the five call sites and ECX
+ * (the row) the first, as in the left scan: all five callers now capture
+ * them as peekRow/peekCol and the result. LIKELY rather
  * than CERTAIN: the only outside evidence for the direction is the
  * sentinel/layout mirror of the named
  * left scan, not a caller that names the result.
@@ -27,25 +31,19 @@
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall ScanTerrainRightForSolid(int param_1,int param_2)
+int __fastcall ScanTerrainRightForSolid(int param_1,int param_2,int regEax)
 
 {
-  int in_EAX;
-  
   if ((-1 < param_1) && (param_1 < *(int *)(param_2 + 0x1c))) {
-    if (in_EAX < 0) {
-      in_EAX = 0;
+    if (regEax < 0) {
+      regEax = 0;
     }
-    if (in_EAX < *(int *)(param_2 + 0x18)) {
-      for (; *(char *)(*(int *)(param_2 + 0x18) * param_1 + *(int *)(param_2 + 0x34) + in_EAX) ==
-             '\0'; in_EAX = in_EAX + 1) {
+    if (regEax < *(int *)(param_2 + 0x18)) {
+      for (; *(char *)(*(int *)(param_2 + 0x18) * param_1 + *(int *)(param_2 + 0x34) + regEax) ==
+             '\0'; regEax = regEax + 1) {
       }
+      return regEax;
     }
   }
-  /* Ghidra emitted a bare `return;` in a value-returning function;
-   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
-   * (-Wreturn-mismatch). This path's result is unused by callers -
-   * return 0 to satisfy both toolchains without inventing a value. */
-  return 0;
+  return 10000;
 }
-
