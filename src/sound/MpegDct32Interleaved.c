@@ -1,8 +1,25 @@
-/* FUN_0051d044 - 0x0051d044 in the original binary.
+/* MpegDct32Interleaved - 0x0051d044 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_0051d044.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Its only caller is the 19-byte cdecl thunk MpegDct32InterleavedThunk
+ * (0x51a450). That thunk is what the full-band stereo drivers call on a
+ * channel-interleaved (L,R,L,R...) float source: SynthesizeMpeg16FullStereo
+ * and SynthesizeMpeg8FullStereo call it on the source and on source + 4,
+ * SynthesizeMpeg16FullFirstChannel passes the source as is, and
+ * SynthesizeMpeg16FullSecondChannel passes source + 4 (verified in those
+ * files), each followed by the full-band window thunk. So it reads one channel
+ * out of an interleaved pair, which is the Interleaved name the neighbouring
+ * MpegSynthWindow*Interleaved functions use for the same stride-2 layout.
+ * Verified in the binary: it reads in[0], in[2], ..., in[62] (the stride-2
+ * version of MpegDct32's in[i], in[31-i] pairs, so 0x3e is the partner of
+ * 0) against the same 16-entry row of g_mpegCosTab, and the rest of the
+ * body is the same butterfly and stride-8 output stores as MpegDct32.
+ * Same "Dct" justification as MpegDct32 (table rows 16/8/4/2/1 built by
+ * InitMpegSynthesisTables as 0.5/cos((2k+1)*pi/(4*rowsize))).
  *
  * SIGNATURE CORRECTED (2026-08-25).  Same hand-written-asm shape as
  * MpegSynthWindow8HalfInterleaved and its two siblings: entry `push ebp; lea ebp,[esp+8];
@@ -17,7 +34,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __cdecl FUN_0051d044(float *param_3,undefined4 *param_4)
+void __cdecl MpegDct32Interleaved(float *param_3,undefined4 *param_4)
 {
   undefined4 *puVar1;
   int iVar2;

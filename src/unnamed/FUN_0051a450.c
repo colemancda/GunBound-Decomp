@@ -10,7 +10,7 @@
 void FUN_0051a450(undefined4 param_1,undefined4 param_2)
 
 {
-  FUN_0051d044(param_1,param_2);
+  MpegDct32Interleaved(param_1,param_2);
   return;
 }
 
