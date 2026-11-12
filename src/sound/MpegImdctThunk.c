@@ -39,7 +39,7 @@ int MpegImdctThunk(undefined4 param_1,undefined4 param_2,undefined4 param_3,unde
 {
   undefined8 uVar1;
   
-  uVar1 = FUN_0051b667(param_1,param_2,param_3,param_4,param_5,param_6,param_7);
+  uVar1 = MpegImdct(param_1,param_2,param_3,param_4,param_5,param_6,param_7);
   return (int)uVar1;
 }
 

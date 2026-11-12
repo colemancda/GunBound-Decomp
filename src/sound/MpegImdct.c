@@ -1,10 +1,34 @@
-/* FUN_0051b667 - 0x0051b667 in the original binary.
+/* MpegImdct - 0x0051b667 in the original binary.
  *
  * (Note: FUN_00517d10 below is now MpegImdctThunk.)
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_0051b667.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Its sole caller is the existing 7-argument wrapper MpegImdctThunk
+ * (0x517d10), whose name by the tree's thunk convention (MpegAntialiasThunk
+ * -> MpegAntialias, MpegFrequencyInversionThunk -> MpegFrequencyInversion)
+ * is this function's name plus Thunk. The wrapper is called by the four
+ * Layer III hybrid-synthesis variants (SynthesizeMpegLayerIII*) and its
+ * result feeds MpegFrequencyInversionThunk and then the polyphase driver, the
+ * ISO order IMDCT, frequency inversion, polyphase. The body windows with
+ * the table at 0xf25b00 (GetMpegImdctWindowTable, filled by
+ * InitMpegImdctWindows for block types 0..3) at block_type * 0x90 bytes,
+ * with block type 2 mapped to 0 for the first (n + 17) / 18 blocks and the
+ * type-2 window (0xf25c20) used for the remaining blocks, and it adds the
+ * previous granule's overlap (second argument) into the output. It returns
+ * the new band limit through EAX (mov eax,[0x5687fc] after popal; read from
+ * the epilogue).
+ * The 36-point and 12-point transforms are inlined here (the first half
+ * repeats MpegImdct36's arithmetic over 0xf25900/0xf25960/0xf259a0), where
+ * MpegImdctViaKernels (0x517d40, same algorithm) calls the MpegImdct36 and
+ * MpegImdct12 kernels through their thunks. So this is the whole per-granule
+ * transform, not only the overlap-add step, which is why the name is
+ * MpegImdct rather than an OverlapAdd name.
+ * Scratch cells 0x568738.. are the same split-scalar open item as in
+ * MpegImdct36.
  *
  * SIGNATURE FIX (2026-09-20, no-prototype sweep). Ghidra's original
  * `undefined8 __fastcall FUN_0051b667(undefined4 param_1,undefined4
@@ -37,7 +61,7 @@
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
 
 undefined8
-FUN_0051b667(float *param_1,float *param_2,int param_3,int param_4,int param_5,int param_6,
+MpegImdct(float *param_1,float *param_2,int param_3,int param_4,int param_5,int param_6,
             int param_7)
 
 {

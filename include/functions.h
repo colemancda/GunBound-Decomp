@@ -1863,7 +1863,7 @@ void MpegPolyphase8QuarterInterleaved();
 undefined4 * GetMpegImdctWindowTable();
 int FUN_00517d40();
 void FUN_00518080();
-int MpegImdctThunk(); /* returns the new band state in EAX (FUN_0051b667's final mov eax,[0x5687fc]) */
+int MpegImdctThunk(); /* returns the new band state in EAX (MpegImdct's final mov eax,[0x5687fc]) */
 void MpegFrequencyInversionThunk();
 undefined * GetMpegAntialiasCsCaTable();
 undefined * GetMpegIntensityRatioTable();
@@ -1913,7 +1913,7 @@ void MpegSynthWindow8QuarterThunk();
 void MpegSynthWindow8QuarterInterleavedThunk();
 void __cdecl MpegImdct36(float *param_3);
 void __cdecl MpegImdct12(float *param_3);
-undefined8 FUN_0051b667(float *param_1,float *param_2,int param_3,int param_4,int param_5,int param_6,int param_7);
+undefined8 MpegImdct(float *param_1,float *param_2,int param_3,int param_4,int param_5,int param_6,int param_7);
 void __cdecl MpegFrequencyInversion(int param_3,int param_4);
 undefined ** GetMpegImdctLongTables();
 undefined ** GetMpegImdctShortTables();

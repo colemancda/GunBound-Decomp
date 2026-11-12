@@ -1837,7 +1837,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0051b010,24,MpegSynthWindow8QuarterInterleavedThunk,false,4,1,RAW-src
 0051b030,1030,MpegImdct36,false,1,0,RAW-src
 0051b436,561,MpegImdct12,false,1,0,RAW-src
-0051b667,3841,FUN_0051b667,false,1,0,RAW-src
+0051b667,3841,MpegImdct,false,1,0,RAW-src
 0051c568,245,MpegFrequencyInversion,false,1,0,RAW-src
 0051c660,6,GetMpegImdctLongTables,false,1,0,RAW-src
 0051c670,6,GetMpegImdctShortTables,false,1,0,RAW-src

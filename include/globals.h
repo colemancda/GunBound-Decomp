@@ -2525,7 +2525,7 @@ extern float g_mpegCosTab[31];
 #define DAT_00f25ab4 (g_mpegCosTab[29])  /* 0xf25ab4 */
 #define DAT_00f25ab8 (g_mpegCosTab[30])  /* 0xf25ab8 */
 /* Layer III IMDCT window table: 4 block types x 36 floats at 0xf25b00..0xf25d3f, filled by InitMpegImdctWindows through
- * GetMpegImdctWindowTable (0xf25b00) and read at [block_type * 0x24 + k] floats by FUN_0051b667 and FUN_00517d40
+ * GetMpegImdctWindowTable (0xf25b00) and read at [block_type * 0x24 + k] floats by MpegImdct and FUN_00517d40
  * (rows at 0xf25b00, 0xf25b90, 0xf25c20, 0xf25cb0). The next object is g_mpegBandStartTab at 0xf25d40, and the last
  * float (0xf25d3c) is the element the band-start lookups use as their one-below base. */
 extern float g_mpegImdctLongCos0[18]; /* 0xf25900 */

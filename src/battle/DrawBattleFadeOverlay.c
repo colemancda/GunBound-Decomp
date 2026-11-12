@@ -17,7 +17,7 @@
  *
  * SIGNATURE FIX (2026-09-21, no-prototype sweep). Ghidra's
  * `__fastcall FUN_004edb50(undefined4 param_1,int param_2,...)` was
- * wrong in TWO ways at once, on the FUN_0051b667 model (dfaf3f76):
+ * wrong in TWO ways at once, on the MpegImdct model (dfaf3f76):
  * `param_1` is a phantom - never read anywhere in the body - while the
  * real first value, EAX, was dropped into an unnamed `in_EAX` local
  * instead of being a formal parameter. Evidence: the entry reads
