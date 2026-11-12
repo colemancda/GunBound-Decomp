@@ -37,7 +37,7 @@ void SynthesizeMpeg16QuarterSecondChannel(int param_1,int param_2,int param_3)
   param_1 = param_1 + 4;
   if (0 < param_3) {
     do {
-      FUN_0051ac80(param_1,&DAT_005af144 + DAT_005ae93c);
+      MpegDct8Interleaved(param_1,&DAT_005af144 + DAT_005ae93c);
       MpegSynthWindow16QuarterThunk(&DAT_005af144,DAT_005ae93c,param_2);
       param_1 = param_1 + 0x100;
       param_2 = param_2 + 0x10;

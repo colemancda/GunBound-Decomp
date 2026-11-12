@@ -2,7 +2,7 @@
  *
  * Synthesis driver for 16-bit PCM, quarter band, two-channel stream written
  * as interleaved stereo: for each of param_3 slots both channels are
- * filtered (FUN_0051ac80 on the source and on the source + 4) into the two
+ * filtered (MpegDct8Interleaved on the source and on the source + 4) into the two
  * synthesis FIFOs and written through MpegSynthWindow16QuarterInterleavedThunk, the
  * second channel at output + 2 so the samples interleave.
  *
@@ -28,8 +28,8 @@ void SynthesizeMpeg16QuarterStereo(int param_1,int param_2,int param_3)
 {
   if (0 < param_3) {
     do {
-      FUN_0051ac80(param_1,&DAT_005af144 + DAT_005ae93c);
-      FUN_0051ac80(param_1 + 4,&DAT_005ae940 + DAT_005ae93c);
+      MpegDct8Interleaved(param_1,&DAT_005af144 + DAT_005ae93c);
+      MpegDct8Interleaved(param_1 + 4,&DAT_005ae940 + DAT_005ae93c);
       MpegSynthWindow16QuarterInterleavedThunk(&DAT_005af144,DAT_005ae93c,param_2);
       MpegSynthWindow16QuarterInterleavedThunk(&DAT_005ae940,DAT_005ae93c,param_2 + 2);
       param_1 = param_1 + 0x100;

@@ -1,15 +1,25 @@
-/* FUN_0051ac80 - 0x0051ac80 in the original binary.
+/* MpegDct8Interleaved - 0x0051ac80 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_0051ac80.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Called directly by the quarter-band drivers that read a channel-interleaved
+ * float source: SynthesizeMpeg16QuarterStereo and
+ * SynthesizeMpeg8QuarterStereo (on source and on source + 4) and the
+ * FirstChannel / SecondChannel drivers of both bit depths (second channel
+ * passes source + 4), each followed by the quarter-band window thunk.
+ * Verified in the binary: the same third-row (0xf25aa0) factors as MpegDct8
+ * applied to in[0], in[2] ... in[14] (stride 2 floats, in[0] with in[14]).
+ * It is to MpegDct8 what MpegDct32Interleaved is to MpegDct32.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0051ac80(float *param_1,undefined4 param_2)
+void MpegDct8Interleaved(float *param_1,undefined4 param_2)
 
 {
   int iVar1;
