@@ -135,7 +135,7 @@ void __thiscall LobbyChatPanel_OnCommand(int param_1,int param_2,uint param_3,un
                     /* WARNING: Subroutine does not return */
         ThrowCxxException(0x80070057);
       }
-      FUN_00506f30(*(int *)(*(int *)(param_1 + 0xc) + uVar6 * 4));
+      TextEntry_ClearText(*(int *)(*(int *)(param_1 + 0xc) + uVar6 * 4));
     }
   }
   else if ((param_2 == 0x2000) && (param_3 == 0)) {

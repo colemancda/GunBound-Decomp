@@ -1704,7 +1704,7 @@ void __thiscall RoomPasswordDialog_OnCommand();
 void __fastcall ItemDescriptionTooltip_Update();
 void __thiscall AvatarShopIpConfirmDialog_OnCommand();
 void ActivateLegacyTextInputField(int thisObj);
-void FUN_00506f30(int regEsi);
+void TextEntry_ClearText(int regEsi);
 void TextEntry_SetControlText(char *regEsi,int regEdi);
 undefined4 __thiscall TextEntry_DispatchKey(int param_1,int param_2);
 void __fastcall TextEntry_Update(int param_1);
