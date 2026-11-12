@@ -127,7 +127,7 @@ UpsertP2PPeerRecord(undefined4 *param_1,int param_2,int param_3,short param_4,in
     iVar5 = StringMap_FindOrInsert_ac((int *)((int)param_1 + 0x290),local_ae);
     *(int *)(iVar5 + 0x14) = 0;
     *(undefined2 *)(iVar5 + 0x18) = 0;
-    uVar6 = FUN_00504e90();
+    uVar6 = NextGlobalTT800Random();
     *(undefined4 *)(iVar5 + 0x2c) = uVar6;
     local_4 = 0xffffffff;
     if (*(void **)(local_9c + 0x80) != (void *)0x0) {

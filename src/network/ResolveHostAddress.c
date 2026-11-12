@@ -37,7 +37,7 @@ undefined4 ResolveHostAddress(undefined4 param_1,undefined4 param_2,char *regEax
       uVar8 = uVar8 + 1;
       pcVar2 = *ppcVar1;
     }
-    uVar6 = FUN_00504e90();
+    uVar6 = NextGlobalTT800Random();
     uVar3 = *(ulong *)phVar4->h_addr_list[uVar6 % uVar8];
   }
   /* DROPPED-REG FIX 2026-08-28: the manager for ConnectToHostPort's EBX

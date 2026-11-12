@@ -1671,7 +1671,7 @@ uint RequestP2PPeerByName(char *param_1,int regEcx);
 bool HasP2PPeerRecord(int param_1,int regEsi);
 void SeedTT800State(undefined4 *regEsi);
 uint __fastcall NextTT800Random(undefined4 param_1,int *param_2);
-uint FUN_00504e90();
+uint NextGlobalTT800Random();
 void __fastcall EncryptStringIntoContext(int param_1,int param_2,char *src);
 undefined1 __fastcall Widget_HitTestSelf(int param_1,int regEsi,int regEdi);
 void __fastcall Widget_DrawSelf(int param_1);

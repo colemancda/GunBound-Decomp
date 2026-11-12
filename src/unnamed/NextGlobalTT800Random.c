@@ -1,15 +1,29 @@
-/* FUN_00504e90 - 0x00504e90 in the original binary.
+/* NextGlobalTT800Random - 0x00504e90 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00504e90 mean this function.)
+ *
+ * NAMED (batch 48), HIGH. The process-global twin of NextTT800Random
+ * (0x504d80, whose state block lives in the crypto context). The identity
+ * is TT800: the two-word mag01 table {0, 0x8ebfd028} at 0x5a965c
+ * (g_tt800Mag01, noted in globals.h), a 25-word state (g_tt800State,
+ * 0xf25840) refilled when the index at 0xf258a4 reaches 0x19, and the same
+ * tempering masks 0x56b64a and 0xffffb716 NextTT800Random uses. Unlike
+ * that one it takes no state pointer: it lazily seeds the global state
+ * from GetTickCount, thread id, process id, time and GetVersion on first
+ * use. Callers consume it as one random 32-bit word: ResolveHostAddress
+ * picks a resolved address with `result % address_count`, and
+ * UpsertP2PPeerRecord stores it in a new record at +0x2c.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-uint FUN_00504e90(void)
+uint NextGlobalTT800Random(void)
 
 {
   DWORD DVar1;
