@@ -98,7 +98,7 @@ void CLabel::Update()
     CWidget::Update();
 }
 
-/* 0x50e210, vtable slot 1 (word at 0x557da4). CARVED 2026-10-30 - it was
+/* Label_OnMouseMove - 0x50e210 (PROGRESS.csv name), vtable slot 1 (word at 0x557da4). CARVED 2026-10-30 - it was
  * UNCARVED, so CLabel inherited CWidget::OnMouseMove, the bare child
  * broadcast, and the +0x39 hover flag that Update (0x505380) reads for
  * visual states 1 and 2 was never set. 97 bytes, ret 8:
@@ -114,7 +114,16 @@ void CLabel::Update()
  * The broadcast is a direct call to the base body, so it is the
  * non-virtual MouseMoveChildren here, not a virtual OnMouseMove.
  * find_vtable_refs.py puts 0x50e210 only in CLabel's vtable 0x557da0, and
- * callsite_regs.py finds no direct calls. */
+ * callsite_regs.py finds no direct calls.
+ *
+ * Evidence for the name (all from outside the body): slot 1 (+0x04) of the
+ * label vtable 0x557da0, the slot Widget_MouseMoveChildren calls on every
+ * child (call [edx+4] at 0x50e8a9) and PanelManager_DispatchMouseMove on
+ * every panel, and its direct callee is Widget_MouseMoveChildren (0x50e870,
+ * call at 0x50e250). It stores the hover flag (+0x39) that Label_OnMouseUp's
+ * sibling Update reads for the hover states. Its slot 3 neighbour is the
+ * already named Label_OnMouseUp (0x5052e0).
+ */
 bool CLabel::OnMouseMove(int x, int y)
 {
     m_unk39 = (u8)(!m_hidden && m_x < x && x < m_x + m_width &&
