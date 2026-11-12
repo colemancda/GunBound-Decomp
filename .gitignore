@@ -84,3 +84,7 @@ gamedir/
 #. VS Code
 .vscode/
 .claude/
+
+# Static recompilation outputs (generated lifted code, objects, binaries)
+recomp/build/
+__pycache__/
