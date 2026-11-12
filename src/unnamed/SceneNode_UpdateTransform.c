@@ -4,7 +4,7 @@
  * - the base-class half of the twin whose derived override is
  * SceneNode_UpdateTransformAndCamera (0x4e9cc0, slot 3 of 0x557300; the
  * base ctor FUN_004f3150 installs 0x557538 first, then the derived ctors
- * FUN_004e3810/FUN_004e9b30 overwrite with 0x557300).  Both twins walk
+ * FUN_004e3810/CameraNode_Construct overwrite with 0x557300).  Both twins walk
  * the child list at +0xd4 (next link +0xd8) re-invoking slot 3
  * (*vtbl+0xc) on each child, and both share slot 4
  * (SceneNode_UpdateWorldViewProjection, 0x4f38a0) and slot 5 (0x4f3910,

@@ -5,7 +5,7 @@
  * the derived-class override of the slot SceneNode_UpdateTransform
  * (0x4f37b0) fills in the base vtable at 0x557538.  The base ctor
  * FUN_004f3150 installs 0x557538 first and the two derived ctors
- * (FUN_004e3810 at 0x4e387b, FUN_004e9b30 at 0x4e9b43) overwrite it
+ * (FUN_004e3810 at 0x4e387b, CameraNode_Construct at 0x4e9b43) overwrite it
  * with 0x557300, which is what fixes base/derived.  The walk over the
  * child list at +0xd4 (next link +0xd8) re-invokes slot 3 (*vtbl+0xc)
  * on each child - the recursion that makes the slot identity, and the
