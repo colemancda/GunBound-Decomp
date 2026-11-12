@@ -373,7 +373,7 @@ void LoadAvatarSprites(); /* 0x4141b0 - resolve avatar equip codes (head/body/gl
 undefined4 FUN_00415230(char *param_1);
 undefined1 FUN_004152d0();
 void __fastcall FUN_004153b0();
-void FUN_00415410(undefined4 *regEsi);
+void WorkerThread_Construct(undefined4 *regEsi);
 int __fastcall AtlArray_GetAt(int *param_1,uint regEax);
 void __fastcall AtlArray_RemoveAt(undefined4 param_1,int param_2,int regEbx,int *regEdi);
 void thunk_FUN_00415560(int *regEax);

@@ -261,7 +261,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00415230,154,FUN_00415230,false,5,2,RAW-src
 004152d0,171,FUN_004152d0,false,2,1,RAW-src
 004153b0,86,FUN_004153b0,false,1,2,RAW-src
-00415410,57,FUN_00415410,false,1,1,RAW-src
+00415410,57,WorkerThread_Construct,false,1,1,RAW-src
 00415450,21,AtlArray_GetAt,false,4,1,RAW-src
 00415470,54,AtlArray_RemoveAt,false,1,2,RAW-src
 004154b0,5,thunk_FUN_00415560,true,1,1,RAW-src
