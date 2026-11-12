@@ -870,7 +870,7 @@ void ItemCase_DtorBody(undefined4 *regEax);
 void FUN_00476f80();
 void ExplodeItemCase(int regEsi);
 void ApplyImpactToItemCase();
-void __fastcall FUN_00477930();
+void __fastcall RenderItemCase();
 undefined4 * InitJewel();
 void * __thiscall DeleteJewel();
 void DestroyJewel(undefined4 *param_1);

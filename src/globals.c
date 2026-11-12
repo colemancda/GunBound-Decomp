@@ -1557,7 +1557,7 @@ void *PTR_FUN_00555fbc[8] = { /* orig .data 0x555fbc */
     (void *)ItemCase_ScalarDtor,
     (void *)ResolveNamedState,
     0 /* [2] 0x477920 not ported */,
-    (void *)FUN_00477930,
+    (void *)RenderItemCase,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,

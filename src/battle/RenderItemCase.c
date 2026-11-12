@@ -1,8 +1,17 @@
-/* FUN_00477930 - 0x00477930 in the original binary.
+/* RenderItemCase - 0x00477930 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Slot 3 of the ItemCase vtable 0x555fbc (slot 0 is ItemCase_ScalarDtor,
+ * and SpawnItemCase and ItemCase_DtorBody are the only code that stamps
+ * it). Slot 3 is the draw slot across the entity vtables (RenderMobile,
+ * and the speech balloon's RenderSpeechBalloon). The body is a single
+ * draw: it turns the object's +0xf54 and +0x1178 position cells into
+ * screen X and Y (minus the camera X and Y, plus fixed offsets), then
+ * blits frame +0x30 of sprite 0x1900 with BlitSprite16bpp or
+ * BlitSpriteClipped, and does nothing else.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at both argless PeekPacketChecksumState() calls: both are chained returns - the y round's final DeltaAdd (0x4779a2,
@@ -13,7 +22,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00477930(int param_1)
+void __fastcall RenderItemCase(int param_1)
 
 {
   int iVar1;
