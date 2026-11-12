@@ -12,7 +12,7 @@
  * same one Shutdown.c waits on as DAT_00e9c9c8, that being +4 of this block.
  *
  * At least four functions in this tree share the shape exactly, each writing
- * a different vtable first (FUN_004011b0, FUN_0043d9b0, SoundChannel_DestructBase): the
+ * a different vtable first (FUN_004011b0 = HeartbeatWorker_Destruct, FUN_0043d9b0, SoundChannel_DestructBase): the
  * same stop-and-join destructor for different classes.  Only this one is
  * named, because only this one has its object identified; naming the others
  * from the shape alone would assert a class this has not established.
