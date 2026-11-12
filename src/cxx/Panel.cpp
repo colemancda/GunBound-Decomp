@@ -547,7 +547,7 @@ extern "C" void BuildCreateRoomDialog(void *manager, int arg2, int arg3, char *r
     PanelManager_Register(&g_uiPanelManager, p);
 }
 
-/* 0x505df0 - CBuddyPanel::Update, vtable slot 9. The SAME "never wired into
+/* BuddyPanel_Update - 0x505df0 (PROGRESS.csv name), CBuddyPanel::Update, vtable slot 9. The SAME "never wired into
  * the C++ vtable" gap as CWorldListPanel::Update above: the port's
  * CBuddyPanel inherited CWidget::Update (child-broadcast only), so the
  * panel's own background frame (m_unk44=700 "buddy list.img" key, m_unk48=0
@@ -563,7 +563,21 @@ extern "C" void BuildCreateRoomDialog(void *manager, int arg2, int arg3, char *r
  * BlitSpriteText (0x4ed9f0), whose own header documents unrecovered dropped
  * register arguments (x in ECX, y in EBX, charset key in ESI). Wiring those
  * safely is its own unit of work; with no server buddy data the counts read
- * 0 and the row list is empty, so only the confirmed-safe frame draw runs. */
+ * 0 and the row list is empty, so only the confirmed-safe frame draw runs.
+ *
+ * Evidence for the name (all from outside the body): slot 9 (+0x24) of the
+ * buddy panel vtable 0x557be4, where the other panel classes have
+ * ChatLogPanel_Update (0x505890), LobbyChatPanel_Update (0x5078f0),
+ * AvatarStorePanel_Update and CreateRoomDialog_Update, and the base entry
+ * is Widget_DrawSelf (0x5054b0), which this function calls first
+ * (call 0x5054b0 at 0x505e06). Its row loop calls the already named
+ * RenderBuddyRow (0x505f10, call at 0x505ea3) once per visible row
+ * (FindActiveObjectByIndex on DAT_00e53e88, 7 rows from the list scroll
+ * base DAT_00e54da8), and RenderBuddyRow's header names this function as
+ * its caller. The same slot is called WorldListPanel_Draw (0x50dc40) in the
+ * tree; the Update spelling is the one used by the majority of slot 9
+ * overrides. Verified over the whole body (0x505df0-0x505eb8).
+ */
 void CBuddyPanel::Update()
 {
     if (m_hidden) {
