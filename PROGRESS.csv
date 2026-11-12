@@ -341,7 +341,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00423050,220,RecordChatHistoryEntry,false,1,0,RAW-src
 00423130,2278,ApplyBattleActionToContext,false,2,17,RAW-src
 00423a20,462,FUN_00423a20,false,3,11,RAW-src
-00423bf0,550,FUN_00423bf0,false,1,7,RAW-src
+00423bf0,550,State07_AvatarStore_LoadPartDatFiles,false,1,7,RAW-src
 00423e20,647,LoadAvatarPartRecord,false,9,5,RAW-src
 004240c0,801,LoadAvatarPartRecordByIndex,false,12,7,RAW-src
 00424400,1692,FUN_00424400,false,3,6,RAW-src

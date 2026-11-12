@@ -1,4 +1,16 @@
-/* FUN_00423bf0 - 0x00423bf0 in the original binary.
+/* State07_AvatarStore_LoadPartDatFiles - 0x00423bf0 in the original binary.
+ *
+ * (Notes in other files that still say FUN_00423bf0 mean this function.)
+ *
+ * NAMED (batch 48), LIKELY. Its sole caller is State07_AvatarStore_OnEnter
+ * (orig 0x447c6e), which passes g_clientContext, and
+ * LoadAvatarStoreCatalog's header (and EquipAvatarPart's) already describe
+ * it as the routine that sets up the per-gender, per-category part tables
+ * whose count cells that loader Peeks as loop bounds. The name keeps the
+ * generic Load verb: it opens the seven .dat tables (fb fh fg mb mh mg mf)
+ * from the avatar archive and only reads each leading u32 part count into
+ * the guard cells; it does not parse the part records
+ * (LoadAvatarPartRecord does).
  *
  * The avatar part-table counter: opens each per-gender/category part
  * table in avatar.xfs ({f,m}{b,h,g}.dat + mf.dat), reads its leading u32
@@ -40,7 +52,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00423bf0(int ctx)
+undefined4 State07_AvatarStore_LoadPartDatFiles(int ctx)
 
 {
   int archiveBase;

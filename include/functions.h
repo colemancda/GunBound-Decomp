@@ -450,7 +450,7 @@ void PruneExpiredRejoinBlockedRooms();
 void RecordChatHistoryEntry(int param_1,byte *param_2);
 void ApplyBattleActionToContext();
 void __fastcall FUN_00423a20();
-undefined4 FUN_00423bf0(int ctx); /* avatar part-table counter; derives archive=ctx+0xf6e8, encodes count cells ctx+0x5f3774.. (2026-08-11) */
+undefined4 State07_AvatarStore_LoadPartDatFiles(int ctx); /* avatar part-table counter; derives archive=ctx+0xf6e8, encodes count cells ctx+0x5f3774.. (2026-08-11) */
 uint LoadAvatarPartRecord(undefined4 param_1, int param_2, uint regEax, int regEsi);
 /* outRecord = the dropped ESI (orig call sites do `lea esi,...` before
  * `call 0x4240c0`) - the 0x17a4-byte guarded part record the loader
