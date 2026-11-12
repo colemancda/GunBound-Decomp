@@ -24,7 +24,7 @@ void FUN_00519ef0(void)
   double dVar10;
   int local_28;
   
-  puVar3 = (undefined4 *)FUN_0051c660();
+  puVar3 = (undefined4 *)GetMpegImdctLongTables();
   pfVar4 = (float *)*puVar3;
   pfVar8 = (float *)puVar3[1];
   pfVar5 = (float *)puVar3[2];
