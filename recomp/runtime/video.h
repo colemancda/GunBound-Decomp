@@ -45,6 +45,18 @@ extern uint8_t rt_mouse_buttons;   /* bit 0 left, bit 1 right, bit 2 middle */
 extern int rt_mouse_x, rt_mouse_y; /* last position in guest screen coordinates */
 void rt_mouse_take_motion(int *dx, int *dy, int *dz); /* relative motion since the last call */
 
+/* Raw input log for DirectInput's buffered data: every reader keeps its own cursor. */
+enum { RT_RAW_KEY = 1, RT_RAW_AXIS, RT_RAW_BUTTON };
+typedef struct RtRawInput {
+    int kind;
+    int code;  /* key: DirectInput key code; axis: 0 x, 1 y, 2 wheel; button: 0 left, 1 right, 2 middle */
+    int value; /* key/button: 0x80 down, 0 up; axis: relative motion */
+    uint32_t time_ms, seq;
+} RtRawInput;
+unsigned rt_input_position(void);
+/* Next event at *cursor; 0 when the reader has caught up. *overflow is set if events were lost. */
+int rt_input_read(unsigned *cursor, RtRawInput *out, int *overflow);
+
 int rt_write_png(const char *path, const uint8_t *rgb, int width, int height);
 
 #endif

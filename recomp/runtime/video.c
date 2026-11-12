@@ -40,6 +40,46 @@ void rt_mouse_take_motion(int *dx, int *dy, int *dz) {
     pthread_mutex_unlock(&frame_mu);
 }
 
+/* --------------------------------------------------------- raw input log */
+#define RAW_LOG 512
+static RtRawInput raw_log[RAW_LOG];
+static unsigned raw_head; /* total number of events ever logged */
+
+static void raw_push(int kind, int code, int value) {
+    pthread_mutex_lock(&frame_mu);
+    RtRawInput *e = &raw_log[raw_head % RAW_LOG];
+    e->kind = kind;
+    e->code = code;
+    e->value = value;
+    e->time_ms = (uint32_t)(rt_mono_ns() / 1000000ull);
+    e->seq = raw_head;
+    raw_head++;
+    pthread_mutex_unlock(&frame_mu);
+}
+
+unsigned rt_input_position(void) {
+    pthread_mutex_lock(&frame_mu);
+    unsigned h = raw_head;
+    pthread_mutex_unlock(&frame_mu);
+    return h;
+}
+
+int rt_input_read(unsigned *cursor, RtRawInput *out, int *overflow) {
+    int ok = 0;
+    pthread_mutex_lock(&frame_mu);
+    if (raw_head - *cursor > RAW_LOG) {
+        *cursor = raw_head - RAW_LOG;
+        if (overflow) *overflow = 1;
+    }
+    if (*cursor != raw_head) {
+        *out = raw_log[*cursor % RAW_LOG];
+        (*cursor)++;
+        ok = 1;
+    }
+    pthread_mutex_unlock(&frame_mu);
+    return ok;
+}
+
 /* ------------------------------------------------------------------- PNG
  * Stored (uncompressed) deflate blocks: no zlib needed, and the files are small
  * enough at 800x600. */
@@ -293,6 +333,8 @@ static void translate(const SDL_Event *e) {
         motion_dx += e->motion.xrel;
         motion_dy += e->motion.yrel;
         pthread_mutex_unlock(&frame_mu);
+        if (e->motion.xrel) raw_push(RT_RAW_AXIS, 0, e->motion.xrel);
+        if (e->motion.yrel) raw_push(RT_RAW_AXIS, 1, e->motion.yrel);
         queue_event(&ev);
         break;
     case SDL_MOUSEBUTTONDOWN:
@@ -309,6 +351,7 @@ static void translate(const SDL_Event *e) {
         uint8_t bit = b == 1 ? 1 : b == 3 ? 2 : 4;
         if (ev.down) rt_mouse_buttons |= bit;
         else rt_mouse_buttons &= (uint8_t)~bit;
+        raw_push(RT_RAW_BUTTON, b == 1 ? 0 : b == 3 ? 1 : 2, ev.down ? 0x80 : 0);
         queue_event(&ev);
         break;
     }
@@ -316,6 +359,7 @@ static void translate(const SDL_Event *e) {
         pthread_mutex_lock(&frame_mu);
         motion_dz += e->wheel.y * 120;
         pthread_mutex_unlock(&frame_mu);
+        raw_push(RT_RAW_AXIS, 2, e->wheel.y * 120);
         break;
     case SDL_KEYDOWN:
     case SDL_KEYUP: {
@@ -334,6 +378,7 @@ static void translate(const SDL_Event *e) {
             rt_vk_state[ev.code] &= 0x7F;
             rt_dik_state[ev.scan] = 0;
         }
+        if (!e->key.repeat) raw_push(RT_RAW_KEY, ev.scan, ev.down ? 0x80 : 0);
         queue_event(&ev);
         break;
     }
