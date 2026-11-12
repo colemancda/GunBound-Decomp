@@ -203,7 +203,7 @@ void CScrollBar::Draw()
     }
 }
 
-/* 0x50f7c0, vtable slot 7 (exported via DecompileAt - no raw port
+/* ScrollListWidget_OnCommand - 0x50f7c0 (PROGRESS.csv name), vtable slot 7 (exported via DecompileAt - no raw port
  * existed). The arrow stepper: a HELD arrow label re-fires evt 1 every
  * frame from its Draw (gated on the +0x38 armed flag), so this steps
  * the scroll position once per frame while held - the docs' "+/-1
@@ -222,7 +222,18 @@ void CScrollBar::Draw()
  * id==1's body (a pure code-layout/branch-ordering choice) plus a few
  * reversed-polarity comparisons (sets vs. setl, jg vs. jl) - not chased
  * further, diminishing returns relative to the other fixes in this
- * file. */
+ * file.
+ *
+ * Evidence for the name (all from outside the body): slot 7 (+0x1c) of the
+ * scroll bar vtable 0x557e90 is the OnCommand slot of every widget vtable:
+ * WorldListPanel_OnCommand (0x50d810) and BuddyPanel_OnCommand (0x505d20) are
+ * slot 7 of 0x557f08 and 0x557be4, ChatLogPanel_OnCommand (0x5057f0) of
+ * 0x557b94, and the base is Widget_OnCommandDefault (0x50eb10). It takes the
+ * (evt, id, arg) triple (ret 0xc) that Label_OnMouseUp sends through its own
+ * slot 7 as OnCommand(0, id, 0) when an arrow label is clicked, and it forwards
+ * the result to its own parent through the parent's slot 7 (call [esi+0x1c]
+ * at 0x50f82b with 0x2000, id, position), the same spine.
+ */
 void CScrollBar::OnCommand(int evt, int id, int arg)
 {
     if (evt == 1 && 0 < m_total) {
