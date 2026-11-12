@@ -1920,7 +1920,7 @@ undefined ** FUN_0051c670();
 void FUN_0051c680();
 void FUN_0051c690();
 void __cdecl MpegAntialias(int param_3,int param_4);
-void __cdecl FUN_0051c93a(float *param_3,undefined4 *param_4);
+void __cdecl MpegDct32(float *param_3,undefined4 *param_4);
 void __cdecl FUN_0051d044(float *param_3,undefined4 *param_4);
 void __cdecl MpegSynthWindow16Full(int param_3,int param_4,int param_5);
 void __cdecl MpegSynthWindow16FullInterleaved(int param_3,int param_4,int param_5);

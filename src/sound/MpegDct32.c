@@ -1,8 +1,31 @@
-/* FUN_0051c93a - 0x0051c93a in the original binary.
+/* MpegDct32 - 0x0051c93a in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_0051c93a.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Its only caller is the 19-byte cdecl pass-through MpegDct32Thunk (0x51a430),
+ * which the full-band single-channel drivers (SynthesizeMpeg16FullMono,
+ * SynthesizeMpeg8FullMono, MpegPolyphase16Full, MpegPolyphase8Full and the
+ * Layer III Interleaved ones) call as (32 subband samples, ring slot)
+ * immediately before the window thunk MpegSynthWindow16FullThunk /
+ * MpegSynthWindow8FullThunk. The coefficient table it multiplies by is
+ * g_mpegCosTab (0xf25a40, handed out by GetMpegDct32CoefTable), whose rows of
+ * 16, 8, 4, 2 and 1 values InitMpegSynthesisTables fills with
+ * 0.5 / cos((2k+1) * pi / (4 * rowsize)) (constants 0x5448d8 = 0.5 and
+ * 0x5448e0 = 4.0 read from the binary; rowsize 16, 8, 4, 2, 1 from that
+ * function's loop counter), i.e. the factor table of the fast 32-point DCT
+ * recursion. This function uses the 16-entry first row on the 16 sum/
+ * difference pairs in[i], in[31-i] (stride 4). The ISO 11172-3 name for the
+ * step is matrixing; "Dct" is kept (and used by the whole family) because
+ * the table builder is organised as the 16/8/4/2/1 DCT factor rows, and the
+ * half/quarter-band variants (MpegDct16, MpegDct8) are the same recursion
+ * entered at the second/third row for 0x20 >> shift subbands, shift being
+ * the downsample argument of SetupMpegLayerIIIDecoder.
+ * MpegDct32Interleaved (0x51d044) is this with the input offsets doubled.
+ * Outputs are stored at stride 8 into the ring slot passed as the second
+ * argument (verified against the stores at the end of the body).
  *
  * SIGNATURE CORRECTED (2026-08-25).  Same hand-written-asm shape as
  * MpegSynthWindow8HalfInterleaved and its two siblings: entry `push ebp; lea ebp,[esp+8];
@@ -17,7 +40,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __cdecl FUN_0051c93a(float *param_3,undefined4 *param_4)
+void __cdecl MpegDct32(float *param_3,undefined4 *param_4)
 {
   undefined4 *puVar1;
   int iVar2;

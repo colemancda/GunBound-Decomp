@@ -10,7 +10,7 @@
 void FUN_0051a430(undefined4 param_1,undefined4 param_2)
 
 {
-  FUN_0051c93a(param_1,param_2);
+  MpegDct32(param_1,param_2);
   return;
 }
 
