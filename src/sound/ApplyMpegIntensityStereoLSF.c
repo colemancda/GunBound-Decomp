@@ -63,7 +63,7 @@ void ApplyMpegIntensityStereoLSF(int param_1,int param_2,int param_3,int *param_
         piVar12 = (int *)(param_2 + 0x5c + (local_5c + iVar8) * 4);
         do {
           fVar2 = *(float *)(&DAT_005af944 + (local_54[iVar8] + *piVar12) * 8 + iVar11);
-          fVar3 = *(float *)(iVar11 + 0x5af948 + (local_54[iVar8] + *piVar12) * 8);
+          fVar3 = *(float *)((int)&DAT_005af944 + 4 + iVar11 + (local_54[iVar8] + *piVar12) * 8);
           iVar5 = (&DAT_00f25e78)[iVar8];
           if (0 < iVar5) {
             iVar1 = iVar10 * 4;
@@ -110,7 +110,7 @@ void ApplyMpegIntensityStereoLSF(int param_1,int param_2,int param_3,int *param_
     iVar8 = iVar8 * 4;
     do {
       iVar10 = *(int *)(param_2 + iVar8) + *(int *)((int)local_54 + iVar8);
-      fVar2 = *(float *)(iVar11 + 0x5af948 + iVar10 * 8);
+      fVar2 = *(float *)((int)&DAT_005af944 + 4 + iVar11 + iVar10 * 8);
       fVar3 = *(float *)(&DAT_005af944 + iVar10 * 8 + iVar11);
       iVar10 = *(int *)((int)&DAT_00f25e20 + iVar8);
       iVar5 = 0;
