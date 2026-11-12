@@ -1,8 +1,24 @@
-/* FUN_0051b436 - 0x0051b436 in the original binary.
+/* MpegImdct12 - 0x0051b436 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_0051b436.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Its only caller is the one-argument cdecl thunk MpegImdct12Thunk
+ * (0x51c690), which MpegImdctViaKernels (0x517d40) calls once per remaining
+ * subband block (those past the long-block limit, windowed with the type-2
+ * window at 0xf25c20) and then combines the 18 in-place results with
+ * short-window products. The tables it reads are the 12-point set built by
+ * InitMpegImdctKernelTables (GetMpegImdctShortTables record 0x568810: the
+ * entry loads edi=0xf258c0 and esi=0xf258e0 and multiplies by the scalar at
+ * 0xf25a30). It reads in[0], in[3], in[6], in[9], in[12], in[15] (6 inputs at
+ * stride 0xc bytes) and the same at offsets 1 and 2, i.e. three interleaved
+ * 12-point transforms per 18-sample block, which is the ISO short-block
+ * layout of three windows. MpegImdct36 is the long-block counterpart.
+ * OPEN ITEM (do not change yet): the asm loads eax=0x568738 as the base of a
+ * scratch array and indexes across it, while this port keeps those cells as
+ * separate scalars DAT_00568738.. DAT_00568778; same issue as MpegImdct36.
  *
  * SIGNATURE CORRECTED (2026-08-25).  Same hand-written-asm shape as
  * MpegSynthWindow8HalfInterleaved and its two siblings: entry `push ebp; lea ebp,[esp+8];
@@ -17,7 +33,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __cdecl FUN_0051b436(float *param_3)
+void __cdecl MpegImdct12(float *param_3)
 {
   float fVar1;
   float fVar2;

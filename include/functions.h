@@ -1912,7 +1912,7 @@ void MpegSynthWindow8HalfInterleavedThunk();
 void MpegSynthWindow8QuarterThunk();
 void MpegSynthWindow8QuarterInterleavedThunk();
 void __cdecl MpegImdct36(float *param_3);
-void __cdecl FUN_0051b436(float *param_3);
+void __cdecl MpegImdct12(float *param_3);
 undefined8 FUN_0051b667(float *param_1,float *param_2,int param_3,int param_4,int param_5,int param_6,int param_7);
 void __cdecl MpegFrequencyInversion(int param_3,int param_4);
 undefined ** GetMpegImdctLongTables();
