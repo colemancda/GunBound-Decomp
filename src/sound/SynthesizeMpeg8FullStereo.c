@@ -2,7 +2,7 @@
  *
  * Synthesis driver for 8-bit PCM, full band, two-channel stream written
  * as interleaved stereo: for each of param_3 slots both channels are
- * filtered (FUN_0051a450 on the source and on the source + 4) into the two
+ * filtered (MpegDct32InterleavedThunk on the source and on the source + 4) into the two
  * synthesis FIFOs and written through MpegSynthWindow8FullInterleavedThunk, the
  * second channel at output + 1 so the samples interleave.
  *
@@ -28,8 +28,8 @@ void SynthesizeMpeg8FullStereo(int param_1,int param_2,int param_3)
 {
   if (0 < param_3) {
     do {
-      FUN_0051a450(param_1,&DAT_005af144 + DAT_005ae93c);
-      FUN_0051a450(param_1 + 4,&DAT_005ae940 + DAT_005ae93c);
+      MpegDct32InterleavedThunk(param_1,&DAT_005af144 + DAT_005ae93c);
+      MpegDct32InterleavedThunk(param_1 + 4,&DAT_005ae940 + DAT_005ae93c);
       MpegSynthWindow8FullInterleavedThunk(&DAT_005af144,DAT_005ae93c,param_2);
       MpegSynthWindow8FullInterleavedThunk(&DAT_005ae940,DAT_005ae93c,param_2 + 1);
       param_1 = param_1 + 0x100;

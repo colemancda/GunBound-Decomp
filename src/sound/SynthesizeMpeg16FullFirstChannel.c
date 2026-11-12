@@ -36,7 +36,7 @@ void SynthesizeMpeg16FullFirstChannel(int param_1,int param_2,int param_3)
 {
   if (0 < param_3) {
     do {
-      FUN_0051a450(param_1,&DAT_005af144 + DAT_005ae93c);
+      MpegDct32InterleavedThunk(param_1,&DAT_005af144 + DAT_005ae93c);
       MpegSynthWindow16FullThunk(&DAT_005af144,DAT_005ae93c,param_2);
       param_1 = param_1 + 0x100;
       param_2 = param_2 + 0x40;
