@@ -720,7 +720,7 @@ void * __thiscall FUN_0044fc90();
 void __fastcall FUN_0044fcb0(int *param_1);
 undefined4 * __fastcall InitSpeechBalloon(undefined4 param_1,undefined4 *param_2,undefined4 regEax);
 void __fastcall TickSpeechBalloon();
-void __fastcall FUN_0044fff0();
+void __fastcall RenderSpeechBalloon();
 void __fastcall SetSpeechBalloonText(int param_1,char *regEax);
 int FUN_00450650();
 void __fastcall FUN_00450700(undefined4 param_1,undefined4 param_2,undefined4 *regEax);

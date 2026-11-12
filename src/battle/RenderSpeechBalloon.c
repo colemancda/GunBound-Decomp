@@ -1,13 +1,23 @@
-/* FUN_0044fff0 - 0x0044fff0 in the original binary.
+/* RenderSpeechBalloon - 0x0044fff0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * Slot 3 of the speech-balloon vtable 0x555b54 (InitSpeechBalloon
+ * installs it), the draw slot beside TickSpeechBalloon (0x44fd70) in
+ * slot 2; in the Mobile vtables slot 3 is likewise the draw
+ * (RenderMobile). Its inputs are the anchor TickSpeechBalloon writes at
+ * +0x38/+0x3c and the line count at +0x2d4 with 20-byte line slots from
+ * +0x2dc (the block InitSpeechBalloon zeroes at +0x2dc), and its effects
+ * are screen writes only: FillScreenRect for the body and
+ * BlitSprite16bpp or BlitSpriteClipped of frames 1-6 of sprite 0x2719
+ * for the border pieces.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0044fff0(int param_1)
+void __fastcall RenderSpeechBalloon(int param_1)
 
 {
   char cVar1;
