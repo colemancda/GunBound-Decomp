@@ -466,14 +466,6 @@ uint32_t DAT_005b3488;
 uint32_t g_screenPitch;
 /* g_fullWidthFontGlyphs (was DAT_005b3628, the full-width/CJK bitmap-font
  * glyph table) is sized to 0xc0000 in globals_sized.c - see the comment there. */
-uint8_t DAT_005f2f40;
-uint8_t DAT_005f2f58;
-uint8_t DAT_005f3158;
-uint8_t DAT_005f325c;
-uint8_t DAT_005f32dc;
-uint8_t DAT_005f375c;
-uint8_t DAT_005f3760;
-uint8_t DAT_005f376c;
 uint8_t DAT_00666d73;
 /* DAT_00673628: the ASCII bitmap-font glyph table - promoted to the real
  * 0xc00-byte array in globals_sized.c (256 glyphs x 12 bytes). */
@@ -502,10 +494,7 @@ uint32_t DAT_006777e8[8];
  * image, confirming the real size. Undersized, the fill loop wrote past
  * the end of the whole executable image and faulted. */
 uint32_t DAT_006790c0[0x8000];
-uint8_t DAT_0067e348;
 uint8_t DAT_0067ec60;
-uint8_t DAT_0067ec64;
-uint8_t DAT_0067ec68;
 /* DAT_0067ec70 is not a real global - it is arena offset 0x67ec70, now a
  * fixed-address offset-macro in globals.h (see the comment there). */
 /* 0x8000-entry sqrt lookup table, sibling of DAT_006790c0 above - see its
@@ -515,21 +504,7 @@ uint32_t DAT_006990c0[0x8000];
  * fixed-address offset-macro in globals.h (see the arena-offset note and
  * that macro's own 2026-07-31 comment - was a real global, the wild-
  * pointer bug behind the AVATAR-transition crash). */
-uint8_t DAT_006a6481;
-uint8_t DAT_006a64a4;
-uint8_t DAT_006a64a8;
-uint8_t DAT_006a64ac;
-uint8_t DAT_006a64bc;
-uint8_t DAT_006a64c0;
-uint8_t DAT_006a76fc;
 uint8_t DAT_006aa424;
-uint8_t DAT_006aa47b;
-uint8_t DAT_006aa47c;
-uint8_t DAT_006aa624;
-uint8_t DAT_006aa664;
-uint8_t DAT_006aa666;
-uint8_t DAT_006aa668;
-uint8_t DAT_006aa674;
 uint32_t DAT_006b90f8; /* holds a void* from AllocSpriteRegistryNode (was uint8_t, which
                         * truncated the pointer to 1 byte -> InitSpriteRegistryPool wrote
                         * through [byte+8] and faulted) */
@@ -3291,38 +3266,24 @@ uint8_t g_mpegPow43Tab[0x100];
 uint32_t DAT_005b13fc;
 uint32_t DAT_005c7fb8;
 uint32_t DAT_005f3774;
-uint32_t DAT_005f48a8;
 uint32_t DAT_005f4ab4;
 uint32_t DAT_005f5348;
 uint32_t DAT_00656369;
 uint32_t DAT_0067e5f0;
-uint32_t DAT_0067e608;
 uint32_t DAT_0067e814;
-uint32_t DAT_0067e82c;
 uint32_t DAT_0067ea38;
 uint32_t DAT_0067ec5c;
-uint32_t DAT_0067ec6c;
-uint32_t DAT_006a4c74;
-uint32_t DAT_006a4c78;
-uint32_t DAT_006a7700;
-uint32_t DAT_006a7fa8;
 uint32_t DAT_006a81b4;
 uint32_t DAT_006a9d98;
-uint32_t DAT_006a9db0;
 uint32_t DAT_006a9fbc;
-uint32_t DAT_006a9fd4;
 uint32_t DAT_006aa1e0;
-uint32_t DAT_006aa1f8;
 uint32_t DAT_006aa404;
 uint32_t DAT_006aa630;
 uint32_t DAT_006aa678;
 uint32_t DAT_006aa679;
 uint32_t DAT_006aa67a;
-uint32_t DAT_006aa690;
 uint32_t DAT_006aa89c;
-uint32_t DAT_006aa8b4;
 uint32_t DAT_006aaac0;
-uint32_t DAT_006aaac4;
 uint32_t DAT_007934c5;
 uint32_t DAT_00793668;
 uint32_t DAT_0079366c;

@@ -216,9 +216,11 @@ extern char g_chatInputActive;
  * buffer starts at +0x58 and the key-binding table at +0x658. */
 extern unsigned char g_keyboardDeviceTimerBlock[0xc5c];
 extern char DAT_007934c4;
-extern unsigned char DAT_006a6481;         /* ctx-indexed */
-extern unsigned char DAT_006a64a4, DAT_006a64a8, DAT_006a64ac; /* ctx bases */
-extern unsigned char DAT_005f2f40;         /* ctx-indexed */
+#define DAT_006a6481 (*(unsigned char *)(0x006a6481))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a6481 + <arena base> */
+#define DAT_006a64a4 (*(unsigned char *)(0x006a64a4))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a64a4 + <arena base> */
+#define DAT_006a64a8 (*(unsigned char *)(0x006a64a8))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a64a8 + <arena base> */
+#define DAT_006a64ac (*(unsigned char *)(0x006a64ac))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_006a64ac + <arena base> */
+#define DAT_005f2f40 (*(unsigned char *)(0x005f2f40))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_005f2f40 + <arena base> */
 extern int  DAT_005b3438;                  /* _DAT_005b3438 */
 extern unsigned char DAT_00794bf0, DAT_00e9ba40; /* guard cells (address taken) */
 extern unsigned char DAT_00553bcc, DAT_00551cb1;
@@ -246,7 +248,7 @@ void SpawnSuperShot(char owner, int a, int b, int c, unsigned int d, unsigned in
 extern char g_soundAvailable, DAT_00793568;
 extern int  g_soundChannels;
 extern unsigned char DAT_00794e48, DAT_007949c8;
-extern unsigned char DAT_005f376c;
+#define DAT_005f376c (*(unsigned char *)(0x005f376c))  /* arena offset, same fixed-address form as globals.h; only used as &DAT_005f376c + <arena base> */
 }
 
 /* 0x45c6e0 ComputeMobileGroundY, vtable slot 5 (shared; type 13 overrides
