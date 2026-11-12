@@ -1131,7 +1131,7 @@ const char PTR_DAT_00555650[] = "%8d"; /* orig .data 0x555650, was a zeroed void
 /* statically initialised to 0x5a99f4 in the original .data (0x563b40); every code ref is a load */
 char *PTR_DAT_00563b40 = (char *)g_mpegScaleTab;
 /* Table-pointer records at 0x568800 (36-point set) and 0x568810 (12-point set): three float table pointers each and a pad
- * word (raw 0xf25900 0xf25960 0xf259a0 0 | 0xf258c0 0xf258e0 0xf25a30 0). FUN_00519ef0 reads them through
+ * word (raw 0xf25900 0xf25960 0xf259a0 0 | 0xf258c0 0xf258e0 0xf25a30 0). InitMpegImdctKernelTables reads them through
  * GetMpegImdctLongTables / GetMpegImdctShortTables and fills the tables, so the pointers must be set before it runs. */
 void *g_mpegImdctLongTabs[4] = { g_mpegImdctLongCos0, g_mpegImdctLongCos1, g_mpegImdctLongCos2, 0 };
 void *g_mpegImdctShortTabs[4] = { g_mpegImdctShortCos0, g_mpegImdctShortCos1, &DAT_00f25a30, 0 };
@@ -3343,11 +3343,11 @@ uint32_t g_tt800State[25]; /* runtime-seeded on first use (orig 0xf25840 is past
 uint32_t DAT_00f258a4;
 uint32_t DAT_00f258a8;
 float g_mpegCosTab[31]; /* runtime-filled by InitMpegSynthesisTables (orig 0xf25a40 is past the raw image) */
-float g_mpegImdctLongCos0[18]; /* runtime-filled by FUN_00519ef0 through the table records at 0x568800/0x568810 (orig 0xf25900 is past the raw image) */
-float g_mpegImdctLongCos1[9]; /* runtime-filled by FUN_00519ef0 through the table records at 0x568800/0x568810 (orig 0xf25960 is past the raw image) */
-float g_mpegImdctLongCos2[36]; /* runtime-filled by FUN_00519ef0 through the table records at 0x568800/0x568810 (orig 0xf259a0 is past the raw image) */
-float g_mpegImdctShortCos0[6]; /* runtime-filled by FUN_00519ef0 through the table records at 0x568800/0x568810 (orig 0xf258c0 is past the raw image) */
-float g_mpegImdctShortCos1[3]; /* runtime-filled by FUN_00519ef0 through the table records at 0x568800/0x568810 (orig 0xf258e0 is past the raw image) */
+float g_mpegImdctLongCos0[18]; /* runtime-filled by InitMpegImdctKernelTables through the table records at 0x568800/0x568810 (orig 0xf25900 is past the raw image) */
+float g_mpegImdctLongCos1[9]; /* runtime-filled by InitMpegImdctKernelTables through the table records at 0x568800/0x568810 (orig 0xf25960 is past the raw image) */
+float g_mpegImdctLongCos2[36]; /* runtime-filled by InitMpegImdctKernelTables through the table records at 0x568800/0x568810 (orig 0xf259a0 is past the raw image) */
+float g_mpegImdctShortCos0[6]; /* runtime-filled by InitMpegImdctKernelTables through the table records at 0x568800/0x568810 (orig 0xf258c0 is past the raw image) */
+float g_mpegImdctShortCos1[3]; /* runtime-filled by InitMpegImdctKernelTables through the table records at 0x568800/0x568810 (orig 0xf258e0 is past the raw image) */
 float g_mpegAntialiasTab[16]; /* runtime-filled by InitMpegLayerIIITables via GetMpegAntialiasCsCaTable (orig 0xf25ac0 is past the raw image); ends at g_mpegImdctWinTab */
 float g_mpegImdctWinTab[144]; /* runtime-filled by InitMpegImdctWindows (orig 0xf25b00 is past the raw image); ends at g_mpegBandStartTab */
 uint32_t g_mpegBandStartTab[35]; /* runtime-filled once per frame header (orig 0xf25d40 is past the raw image) */

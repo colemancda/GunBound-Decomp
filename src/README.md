@@ -373,7 +373,7 @@ Concretely, that means:
   - `unnamed/FUN_0047c3f0.c` (`float10` - x87 extended-precision local
     with no portable equivalent - plus sub-byte-field access and its
     own SEH frame plumbing not stripped yet)
-  - `unnamed/FUN_00519ef0.c`, `sound/InitMpegIntensityStereoRatios.c`,
+  - `sound/InitMpegImdctKernelTables.c`, `sound/InitMpegIntensityStereoRatios.c`,
     `unnamed/SceneNode_UpdateTransformAndCamera.c`, `sound/InitMpegIntensityStereoLSFTables.c`,
     `unnamed/FUN_004f3af0.c` (`float10` - x87 extended-precision
     locals with no portable equivalent, same class as
