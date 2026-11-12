@@ -1551,6 +1551,23 @@ bool CBuddyPanel::OnMouseDown(int x, int y)
     return false;
 }
 
+/* BuddyPanel_HitTest - 0x505c90 (PROGRESS.csv name), slot 4 of the buddy
+ * panel vtable 0x557be4. LIKELY: the name follows the tree's established
+ * spelling of slot 4, it is not proven that slot 4 is a pure hit test.
+ *
+ * Evidence for the name: slot 4 is Widget_HitTest (0x50e9c0) in the base
+ * and the sibling overrides ChannelUserListPanel_HitTest and
+ * AvatarStorePanel_HitTest keep that name; like them this override finishes
+ * with the unchanged own-rect test (m_hidden gate, +0x28/+0x30 and
+ * +0x2c/+0x34 bounds, result in AL at 0x505ce7-0x505d19), which is the base
+ * contract, after a side effect. The side effect (buddy node lookup through
+ * FindActiveObjectByIndex 0x401c10, PanelManager_FindByName 0x509730 and
+ * then PanelManager_BringToFront 0x509960 or BuildChatLogPanel 0x509260)
+ * opens or raises the whisper window. Caveat: the only dispatcher found for
+ * this slot is PanelManager_DispatchRightMouseDown (call [eax+0x10] at
+ * 0x50f210, WM_RBUTTONDOWN), so the slot behaves like a right-click hook that
+ * returns hit status; the tree-wide HitTest spelling of slot 4 is kept
+ * rather than renaming one class. */
 bool CBuddyPanel::HitTest(int x, int y)
 {
     int row = BuddyPanel_HitTestRow(x, (int)this, y);
