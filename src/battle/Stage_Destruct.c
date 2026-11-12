@@ -88,7 +88,7 @@ void Stage_Destruct(int param_1)
     *(undefined4 *)(param_1 + 0x44) = 0;
   }
   *(undefined4 *)(param_1 + 0x85c) = &PTR_FUN_00557534;
-  FUN_004f3060((undefined4 *)(param_1 + 0x85c));
+  ActiveObjectRegistry_Clear((undefined4 *)(param_1 + 0x85c));
   if (*(undefined4 **)(param_1 + 0x860) != (undefined4 *)0x0) {
     (*(LayerNodeDeleteFn *)**(undefined4 **)(param_1 + 0x860))
         (*(void **)(param_1 + 0x860),1);

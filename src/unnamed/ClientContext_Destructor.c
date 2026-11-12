@@ -126,7 +126,7 @@ void ClientContext_Destructor(int param_1)
   }
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x53);
   *(undefined ***)(&DAT_006a7f88 + param_1) = &PTR_FUN_00557534;
-  FUN_004f3060(&DAT_006a7f88 + param_1);
+  ActiveObjectRegistry_Clear(&DAT_006a7f88 + param_1);
   if (*(undefined4 **)(&DAT_006a7f8c + param_1) != (undefined4 *)0x0) {
     (*(LayerNodeDeleteFn *)**(undefined4 **)(&DAT_006a7f8c + param_1))
         (*(void **)(&DAT_006a7f8c + param_1),1);

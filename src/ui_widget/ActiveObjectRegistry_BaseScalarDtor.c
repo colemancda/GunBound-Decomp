@@ -28,7 +28,7 @@ undefined4 * __thiscall ActiveObjectRegistry_BaseScalarDtor(undefined4 *param_1,
 
 {
   *param_1 = &PTR_FUN_00557534;
-  FUN_004f3060(param_1);
+  ActiveObjectRegistry_Clear(param_1);
   if ((undefined4 *)param_1[1] != (undefined4 *)0x0) {
     (*(LayerNodeDeleteFn *)*(undefined4 **)param_1[1])((void *)param_1[1],1);
   }

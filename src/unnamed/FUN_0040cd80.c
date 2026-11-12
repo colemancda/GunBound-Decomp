@@ -31,10 +31,10 @@ void FUN_0040cd80(undefined4 *param_1)
    * Same rationale as entry/InitGame.c - see src/README.md. */
   *param_1 = &PTR_FUN_005520a0;
   local_4 = 0;
-  FUN_004f3060(param_1);
+  ActiveObjectRegistry_Clear(param_1);
   local_4 = 0xffffffff;
   *param_1 = &PTR_FUN_00557534;
-  FUN_004f3060(param_1);
+  ActiveObjectRegistry_Clear(param_1);
   if ((undefined4 *)param_1[1] != (undefined4 *)0x0) {
     (*(LayerNodeDeleteFn *)*(undefined4 **)param_1[1])((void *)param_1[1],1);
   }

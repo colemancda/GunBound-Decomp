@@ -75,7 +75,7 @@ void FUN_004f1770(undefined4 *regEsi)
   undefined4 *unaff_ESI = regEsi;
   
   *unaff_ESI = &PTR_FUN_00557534;
-  FUN_004f3060(unaff_ESI);
+  ActiveObjectRegistry_Clear(unaff_ESI);
   if ((undefined4 *)unaff_ESI[1] != (undefined4 *)0x0) {
     (*(LayerNodeDeleteFn *)*(undefined4 **)unaff_ESI[1])((void *)unaff_ESI[1],1);
   }

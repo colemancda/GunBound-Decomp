@@ -1,9 +1,24 @@
-/* FUN_004f3060 - 0x004f3060 in the original binary.
+/* ActiveObjectRegistry_Clear - 0x004f3060 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_004f3060 mean this function.)
+ *
+ * NAMED (batch 48), HIGH. The destroy-all-layers member of the
+ * ActiveObjectRegistry class, so named in
+ * ActiveObjectRegistry_BaseConstructor's header, which lists it with the
+ * constructor, CreateActiveObjectLayer, RegisterActiveObject and
+ * SweepActiveObjectRegistry as one contiguous class block. Both base
+ * destructors (ActiveObjectRegistry_BaseScalarDtor and 0x4f2ee0) call it
+ * first and then delete the sentinel, and it ends by re-pointing the
+ * sentinel's +0x18/+0x1c outer links at itself, the empty state the
+ * constructor builds. It is also called outside any destructor, on a live
+ * registry: State09_ReadyRoom_OnCommand and
+ * State09_ReadyRoom_ProcessPacket call it on g_activeObjectRegistry2, and
+ * State11_InBattle_OnExit on the client-context registry at +0x6a7f88,
+ * which is why it is Clear rather than a Dtor.
  *
  * FIX (2026-11-03), the per-layer delete only: 0x4f308f-0x4f3095 is `mov
  * edx,[esi] / push 1 / mov ecx,esi / call [edx]`, ESI = a layer node off
@@ -23,7 +38,7 @@
 typedef void *(*LayerNodeDeleteFn)(void *self,int flags);
 
 
-void FUN_004f3060(int param_1)
+void ActiveObjectRegistry_Clear(int param_1)
 
 {
   undefined4 *puVar1;

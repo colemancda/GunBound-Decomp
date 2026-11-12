@@ -704,7 +704,7 @@ LAB_004bd75c:
     puVar10 = puVar10 + 1;
   }
   ReleaseStageResources(&DAT_006a7708 + g_clientContext);
-  FUN_004f3060(&DAT_006a7f88 + g_clientContext);
+  ActiveObjectRegistry_Clear(&DAT_006a7f88 + g_clientContext);
   _DAT_00e98abc = timeGetTime();
   iVar7 = g_clientContext;
   DAT_00e98ab8 = 0;

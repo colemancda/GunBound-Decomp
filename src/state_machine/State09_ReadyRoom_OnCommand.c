@@ -97,7 +97,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
         CommitActiveTextInput(*(int *)(g_activeObjectRegistry2 + 8));
       }
       *(int *)(g_activeObjectRegistry2 + 8) = 0;
-      FUN_004f3060(&g_activeObjectRegistry2);
+      ActiveObjectRegistry_Clear(&g_activeObjectRegistry2);
       hWnd = *(HWND *)(g_sharedTextInputControl + 4);
     }
     else {
@@ -111,7 +111,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
         CommitActiveTextInput(*(int *)(g_activeObjectRegistry2 + 8));
       }
       *(int *)(g_activeObjectRegistry2 + 8) = 0;
-      FUN_004f3060(&g_activeObjectRegistry2);
+      ActiveObjectRegistry_Clear(&g_activeObjectRegistry2);
       hWnd = *(HWND *)(g_sharedTextInputControl + 4);
     }
     SendMessageA(hWnd,0xc5,0x3c,0);

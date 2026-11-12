@@ -1434,7 +1434,7 @@ void __fastcall FUN_004f2ee0();
 undefined4 * CreateActiveObjectLayer();
 int __fastcall FindActiveObjectLayer(undefined4 param_1,uint param_2,int regEax);
 void SweepActiveObjectRegistry(int);
-void FUN_004f3060();
+void ActiveObjectRegistry_Clear();
 int FindSpriteFrame(int container,uint outerKey,uint innerKey); /* real prototype since 2026-09-02 - all 188 sites pass args */
 void PruneDeadActiveObjects(int regEbx);
 undefined4 * __fastcall FUN_004f3150(undefined4 param_1,undefined4 *param_2,undefined4 regEax);

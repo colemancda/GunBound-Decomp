@@ -1324,7 +1324,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f2f90,28,FindActiveObjectLayer,false,3,0,RAW-src
 004f2fb0,102,RegisterActiveObject,false,79,1,RAW-src
 004f3020,55,SweepActiveObjectRegistry,false,2,0,RAW-src
-004f3060,81,FUN_004f3060,false,17,0,RAW-src
+004f3060,81,ActiveObjectRegistry_Clear,false,17,0,RAW-src
 004f30c0,53,FindSpriteFrame,false,181,0,RAW-src
 004f3100,73,PruneDeadActiveObjects,false,3,0,RAW-src
 004f3150,573,FUN_004f3150,false,2,0,RAW-src

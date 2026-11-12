@@ -143,7 +143,7 @@ void __fastcall State09_ReadyRoom_OnEnter(int param_1)
   puVar3 = &DAT_006a7f88 + g_clientContext;
   *(undefined4 *)(g_clientContext + 0x449ba) = 0;
   *(undefined4 *)(iVar4 + 0x449be) = 0;
-  FUN_004f3060(puVar3);
+  ActiveObjectRegistry_Clear(puVar3);
   PreloadTexture(&g_textureCache,s_AvataTexture1_0055565c);
   PreloadTexture(&g_textureCache,s_AvataTexture2_00556914);
   PreloadTexture(&g_textureCache,s_AvataEffectTexture1_00556900);

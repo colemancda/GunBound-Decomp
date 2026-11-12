@@ -35,9 +35,9 @@ void FUN_00405f40(undefined4 *param_1)
    * (LAB_00537728) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
   *param_1 = &PTR_FUN_00551e88;
-  FUN_004f3060(param_1);
+  ActiveObjectRegistry_Clear(param_1);
   *param_1 = &PTR_FUN_00557534;
-  FUN_004f3060(param_1);
+  ActiveObjectRegistry_Clear(param_1);
   if ((undefined4 *)param_1[1] != (undefined4 *)0x0) {
     (*(LayerNodeDeleteFn *)*(undefined4 **)param_1[1])((void *)param_1[1],1);
   }
