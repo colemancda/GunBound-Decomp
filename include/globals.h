@@ -2489,7 +2489,7 @@ extern uint32_t DAT_00f258a4;
 extern uint32_t DAT_00f258a8;
 /* The 31-float DCT-32 coefficient table at 0xf25a40..0xf25abb (rows of 16, 8, 4, 2 and 1 cosine
  * reciprocals).  InitMpegSynthesisTables fills it through the pointer FUN_0051a420 returns:
- * 16 values at +0, 8 at +0x40, 4 at +0x60, 2 at +0x70, 1 at +0x78.  FUN_0051a470 and its
+ * 16 values at +0, 8 at +0x40, 4 at +0x60, 2 at +0x70, 1 at +0x78.  MpegDct32MixDown and its
  * clones then walk the sub-rows by pointer (0xf25a80, 0xf25aa0, 0xf25ab0, ending at 0xf25ab8), so it
  * is ONE object and every old DAT_ name is an element macro. */
 extern float g_mpegCosTab[31];

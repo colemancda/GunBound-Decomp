@@ -1891,7 +1891,7 @@ void InitMpegIntensityStereoLSFTables();
 undefined4 * FUN_0051a420();
 void MpegDct32Thunk();
 void MpegDct32InterleavedThunk();
-void FUN_0051a470();
+void MpegDct32MixDown();
 void FUN_0051a650();
 void FUN_0051a750();
 void FUN_0051a8b0();

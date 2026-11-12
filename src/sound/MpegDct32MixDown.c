@@ -1,15 +1,30 @@
-/* FUN_0051a470 - 0x0051a470 in the original binary.
+/* MpegDct32MixDown - 0x0051a470 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_0051a470.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Its only two callers are SynthesizeMpeg16FullMixDown and
+ * SynthesizeMpeg8FullMixDown, the full-band drivers for a two-channel stream
+ * mixed down to one output channel; each calls it as (interleaved L/R floats,
+ * ring slot) in the position where the mono drivers call MpegDct32Thunk,
+ * followed by the same full-band window thunk. Those drivers' own notes
+ * identify the 0x544b00 constant as 0.5f (confirmed here by reading the bytes
+ * in the binary: 0.5), and the body begins by averaging each interleaved pair,
+ * (in[2k] + in[2k+1]) * 0.5, from both ends of the 64-float input. That
+ * produces the 32 mixed samples, which it then runs through the same
+ * butterfly stages against the same g_mpegCosTab rows as MpegDct32 (first row
+ * at 0xf25a40, then 0xf25a80, 0xf25aa0, 0xf25ab0, 0xf25ab8), ending in four
+ * calls to the not yet named helper 0x51a650 (left alone; not part of this
+ * batch). Same "Dct" justification as MpegDct32.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0051a470(float *param_1,undefined4 param_2)
+void MpegDct32MixDown(float *param_1,undefined4 param_2)
 
 {
   float fVar1;
