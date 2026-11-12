@@ -74,7 +74,7 @@ vtable 0x54b450  installs=2  slots=2
 
 vtable 0x54b458  installs=2  slots=2
    0: 0x4038b0  NoOpMethodStdcall1
-   1: 0x401200  FUN_00401200
+   1: 0x401200  HeartbeatWorker_OnTimeout
 
 vtable 0x550378  installs=4  slots=1  UNCARVED=1
    0: 0x520000  UNCARVED
