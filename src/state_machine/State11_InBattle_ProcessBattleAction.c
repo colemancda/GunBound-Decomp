@@ -48,8 +48,6 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
-  undefined stack0xffffd806;
-  undefined stack0xffffd807;
   ushort uVar1;
   char cVar2;
   char cVar3;
@@ -190,7 +188,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
               pbVar14 = pbVar14 + 1;
               pbVar17 = pbVar17 + 1;
             }
-            (&stack0xffffd806)[param_3] = 0;
+            local_27d8[param_3 - 0x22] = 0;   /* orig 0x4b597d: mov byte [esp+edx+0x27],0 with edx = len-0x21: buf[count] */
             SpawnSpeechBalloon(*(byte *)(param_2 + 0x21) + 8,g_clientContext + 0x6a7f70,
                          (char *)local_27d8);
             *unaff_FS_OFFSET = local_14;
@@ -248,7 +246,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
                   puVar12 = (ushort *)((int)puVar12 + 1);
                   pbVar14 = pbVar14 + 1;
                 }
-                (&stack0xffffd807)[param_3] = 0;
+                local_27d8[param_3 - 0x21] = 0;   /* orig 0x4b56dc/0x4b58d8: mov byte [esp+ebx+0x28],0, ebx = len-0x21 */
                 SpawnSpeechBalloon((int)local_27e0,g_clientContext + 0x6a7f70,(char *)local_27d8);
                 iVar4 = GetPlayerRecordBySlot(g_clientContext);
                 iVar10 = g_clientContext + 0x45354;
@@ -349,7 +347,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
               puVar12 = (ushort *)((int)puVar12 + 1);
               pbVar14 = pbVar14 + 1;
             }
-            (&stack0xffffd807)[param_3] = 0;
+            local_27d8[param_3 - 0x21] = 0;   /* orig 0x4b56dc/0x4b58d8: mov byte [esp+ebx+0x28],0, ebx = len-0x21 */
             SpawnSpeechBalloon((int)local_27e0,g_clientContext + 0x6a7f70,(char *)local_27d8);
             iVar4 = GetPlayerRecordBySlot(g_clientContext);
             *(undefined1 *)(iVar4 + 0x900) = 1;

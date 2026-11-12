@@ -34,14 +34,12 @@
 undefined4 FindChooseEventCode(int *param_1,uchar *regEbx)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0x00000004;
+  /* &param_1: the original pushes the address of its own stack argument slot (entry+4) as the 3rd arg of StringMap_Find_10. */
   int iVar1;
   undefined1 local_8 [4];
   undefined1 local_4 [4];
   
-  iVar1 = StringMap_Find_10(local_4,local_8,&stack0x00000004,param_1,regEbx);
+  iVar1 = StringMap_Find_10(local_4,local_8,&param_1,param_1,regEbx);
   if (iVar1 != 0) {
     return *(undefined4 *)(iVar1 + 4);
   }

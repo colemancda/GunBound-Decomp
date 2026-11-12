@@ -33,9 +33,6 @@
 void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xffffff7f;
   char cVar1;
   undefined2 *puVar2;
   int iVar3;
@@ -54,7 +51,7 @@ void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax)
     pcVar4[(int)(local_80 + iVar3)] = cVar1;
     pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
-  puVar2 = (undefined2 *)&stack0xffffff7f;
+  puVar2 = (undefined2 *)(local_80 - 1);
   do {
     puVar7 = puVar2;
     puVar2 = (undefined2 *)((int)puVar7 + 1);
@@ -66,7 +63,7 @@ void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax)
     cVar1 = *pcVar4;
     pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
-  pcVar8 = &stack0xffffff7f;
+  pcVar8 = local_80 - 1;
   do {
     pcVar6 = pcVar8 + 1;
     pcVar8 = pcVar8 + 1;

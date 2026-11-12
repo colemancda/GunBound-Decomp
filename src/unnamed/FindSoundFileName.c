@@ -45,9 +45,7 @@
 undefined4 * FindSoundFileName(int *param_1,uchar *regEbx)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0x00000004;
+  /* &param_1: the original pushes the address of its own stack argument slot (entry+4) as the 3rd arg of StringMap_Find_10. */
   int *piVar1;
   undefined4 *puVar2;
   int iVar3;
@@ -69,7 +67,7 @@ undefined4 * FindSoundFileName(int *param_1,uchar *regEbx)
    * it.  The store was folded away by Ghidra - same as GetLocalizedString. */
   local_18 = (int)(puVar2 + 4);
   uStack_4 = 0;
-  iVar3 = StringMap_Find_10(auStack_10,auStack_14,&stack0x00000004,param_1,regEbx);
+  iVar3 = StringMap_Find_10(auStack_10,auStack_14,&param_1,param_1,regEbx);
   if (iVar3 != 0) {
     CString_Assign((int *)(iVar3 + 4),&local_18);
     /* 0x4e37a6 `mov esi,[esp+8]`: from here on the local is the ASSIGNED

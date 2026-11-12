@@ -17,9 +17,6 @@ FUN_0041ef90(int param_1,undefined1 param_2,byte param_3,undefined4 param_4,int 
             undefined4 param_6,undefined2 param_7)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xffffffeb;
   char cVar1;
   char *pcVar2;
   undefined4 *puVar3;
@@ -32,11 +29,7 @@ FUN_0041ef90(int param_1,undefined1 param_2,byte param_3,undefined4 param_4,int 
   char *pcVar8;
   undefined2 *puVar9;
   bool bVar10;
-  char acStackY_45805 [284637];
-  undefined4 local_14;
-  undefined4 local_10;
-  undefined4 local_c;
-  undefined1 local_8;
+  char acName [20];
   
   if (((7 < param_3) || (param_5 < 0)) || (0x80 < param_5)) {
     return 0;
@@ -73,10 +66,10 @@ FUN_0041ef90(int param_1,undefined1 param_2,byte param_3,undefined4 param_4,int 
   pcVar2 = (char *)(uVar5 * 0xd + 0x457f1 + param_1);
   do {
     cVar1 = *pcVar2;
-    pcVar2[(int)(acStackY_45805 + (uVar5 * -0xd - param_1))] = cVar1;
+    acName[(int)pcVar2 - (int)(uVar5 * 0xd + 0x457f1 + param_1)] = cVar1;
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
-  puVar9 = (undefined2 *)&stack0xffffffeb;
+  puVar9 = (undefined2 *)(acName - 1);
   do {
     pcVar2 = (char *)((int)puVar9 + 1);
     puVar9 = (undefined2 *)((int)puVar9 + 1);
@@ -84,10 +77,10 @@ FUN_0041ef90(int param_1,undefined1 param_2,byte param_3,undefined4 param_4,int 
   iVar4 = *(int *)(param_1 + 0x58b60);
   *puVar9 = DAT_00553620;
   puVar3 = (undefined4 *)((iVar4 + 0x6569) * 0xe + param_1);
-  *puVar3 = local_14;
-  puVar3[1] = local_10;
-  puVar3[2] = local_c;
-  *(undefined1 *)(puVar3 + 3) = local_8;
+  *puVar3 = *(undefined4 *)acName;
+  puVar3[1] = *(undefined4 *)(acName + 4);
+  puVar3[2] = *(undefined4 *)(acName + 8);
+  *(undefined1 *)(puVar3 + 3) = acName[12];
   /* DROPPED-REG FIX 2026-08-28: Ghidra kept these two strlen walks and
      discarded both results; they are the halves of the wrap offset -
      `mov ecx,eax` at 0x41f0c0 after the first, `lea edi,[eax+ecx+1]` at

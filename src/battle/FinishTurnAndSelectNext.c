@@ -50,7 +50,6 @@ void FinishTurnAndSelectNext(int param_1)
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
-  undefined stack0xfffff8dc;
   undefined stack0xfffff8e4;
   char cVar1;
   undefined2 uVar2;
@@ -216,8 +215,8 @@ void FinishTurnAndSelectNext(int param_1)
         iVar3 = iVar3 + 0xae15;
         iVar4 = iVar3;
         pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0x274);
-        _sprintf(&stack0xfffff8dc,pcVar7,iVar4,uVar6);
-        (**(code **)(*piStack_28 + 0x28))(&stack0xfffff8dc,4,3);
+        _sprintf(local_6f8,pcVar7,iVar4,uVar6);
+        (**(code **)(*piStack_28 + 0x28))(local_6f8,4,3);
         SpawnBattleAnnouncement(6);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));

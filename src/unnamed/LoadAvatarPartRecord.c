@@ -58,9 +58,6 @@
 uint LoadAvatarPartRecord(undefined4 param_1,int param_2,uint regEax,int regEsi)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xffffff80;
   char cVar1;
   uint uVar2;
   char *pcVar3;
@@ -83,20 +80,19 @@ uint LoadAvatarPartRecord(undefined4 param_1,int param_2,uint regEax,int regEsi)
   undefined4 local_c8;
   undefined4 local_c4;
   char local_c0 [63];
-  undefined1 auStack_81 [2];
-  undefined4 uStack_7f;
+  char acName [128];   /* orig [esp+0x94]: [0] = part letter, [1..127] zero-filled, then the path suffix */
   
-  puVar5 = &uStack_7f;
+  puVar5 = (undefined4 *)(acName + 1);
   for (iVar4 = 0x1f; iVar4 != 0; iVar4 = iVar4 + -1) {
     *puVar5 = 0;
     puVar5 = puVar5 + 1;
   }
   *(undefined2 *)puVar5 = 0;
   *(undefined1 *)((int)puVar5 + 2) = 0;
-  stack0xffffff80 = CONCAT11((undefined1)uStack_7f,(-((regEax & 0x8000) != 0) & 7U) + 0x66);
+  acName[0] = (char)((-((regEax & 0x8000) != 0) & 7U) + 0x66);
   switch(param_2) {
   case 0:
-    puVar6 = (undefined2 *)auStack_81;
+    puVar6 = (undefined2 *)(acName - 1);
     do {
       pcVar3 = (char *)((int)puVar6 + 1);
       puVar6 = (undefined2 *)((int)puVar6 + 1);
@@ -104,7 +100,7 @@ uint LoadAvatarPartRecord(undefined4 param_1,int param_2,uint regEax,int regEsi)
     *puVar6 = DAT_00552c80;
     break;
   case 1:
-    puVar6 = (undefined2 *)auStack_81;
+    puVar6 = (undefined2 *)(acName - 1);
     do {
       pcVar3 = (char *)((int)puVar6 + 1);
       puVar6 = (undefined2 *)((int)puVar6 + 1);
@@ -112,7 +108,7 @@ uint LoadAvatarPartRecord(undefined4 param_1,int param_2,uint regEax,int regEsi)
     *puVar6 = DAT_005535f0;
     break;
   case 2:
-    puVar6 = (undefined2 *)auStack_81;
+    puVar6 = (undefined2 *)(acName - 1);
     do {
       pcVar3 = (char *)((int)puVar6 + 1);
       puVar6 = (undefined2 *)((int)puVar6 + 1);
@@ -120,17 +116,17 @@ uint LoadAvatarPartRecord(undefined4 param_1,int param_2,uint regEax,int regEsi)
     *puVar6 = DAT_00552c7c;
     break;
   case 3:
-    stack0xffffff80 = DAT_00552c78;
-    SUBFIELD(uStack_7f,1,undefined1) = DAT_00552c7a;
+    *(undefined2 *)acName = DAT_00552c78;
+    acName[2] = DAT_00552c7a;
   }
-  puVar5 = (undefined4 *)auStack_81;
+  puVar5 = (undefined4 *)(acName - 1);
   do {
     puVar7 = puVar5;
     puVar5 = (undefined4 *)((int)puVar7 + 1);
   } while (*(char *)((int)puVar7 + 1) != '\0');
   *(undefined4 *)((int)puVar7 + 1) = DAT_00552c70;
   *(undefined1 *)((int)puVar7 + 5) = DAT_00552c74;
-  iVar4 = OpenXFSEntryStream((int)param_1 + 0xf6e8, (char *)auStack_81, 1, 0);
+  iVar4 = OpenXFSEntryStream((int)param_1 + 0xf6e8, acName, 1, 0);
   uVar2 = 0;
   if (iVar4 != 0) {
     ReadXFSEntryByte(iVar4,&local_108);

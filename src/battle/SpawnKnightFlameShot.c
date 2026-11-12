@@ -90,7 +90,7 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
    * map to a named local; declared so the raw port parses. */
   undefined stack0xfffff6a0;
   undefined stack0xfffff6b8;
-  undefined stack0xfffff6c0;
+  undefined1 auMulScratch [0x238];  /* EncodeChecksumDeltaMul (0x40a7d0) writes [arg2+0x220] and [arg2+0x14] */
   undefined4 *puVar1;
   char cVar2;
   int *piVar3;
@@ -567,7 +567,7 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     (*pcVar9)(&g_valueGuardLock);
     PeekPacketChecksumState((void *)&DAT_00e9c578);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    EncodeChecksumDeltaMul(piVar3 + 0x9b9,&stack0xfffff6c0,puVar13);
+    EncodeChecksumDeltaMul(piVar3 + 0x9b9,auMulScratch,puVar13);
     uStack_a8 = 0xc;
     (*pcVar9)(&g_valueGuardLock);
     PeekPacketChecksumState((void *)&DAT_00796aa0);

@@ -48,8 +48,8 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   undefined stack0xfffffb74;
   undefined stack0xfffffb78;
   undefined stack0xfffffb80;
-  undefined stack0xfffffb88;
-  undefined stack0xfffffb90;
+  undefined1 auAddScratchA [0x18];  /* CValueGuard-sized scratch for the two EncodeChecksumDeltaAdd out-params */
+  undefined1 auAddScratchB [0x18];
   int iVar1;
   undefined4 uVar2;
   int iVar3;
@@ -381,7 +381,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)((uint)*(byte *)(iVar8 + 0x3c) * 0x1120 + param_2 + 0x50464));
   (*pcVar5)(&g_valueGuardLock);
-  iVar1 = EncodeChecksumDeltaAdd((int)param_3 + 0x24c0,&stack0xfffffb90,(iVar1 / 2) / (int)puVar7);
+  iVar1 = EncodeChecksumDeltaAdd((int)param_3 + 0x24c0,auAddScratchA,(iVar1 / 2) / (int)puVar7);
   uStack_20 = 3;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = PeekPacketChecksumState((void *)iVar1);
@@ -403,7 +403,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)((uint)*(byte *)(iVar8 + 0x3c) * 0x1120 + param_2 + 0x50464));
   (*pcVar5)(&g_valueGuardLock);
-  iVar3 = EncodeChecksumDeltaAdd((int)param_3 + 0x26e4,&stack0xfffffb88,(iVar3 / 2) / (int)puVar6);
+  iVar3 = EncodeChecksumDeltaAdd((int)param_3 + 0x26e4,auAddScratchB,(iVar3 / 2) / (int)puVar6);
   uStack_28 = 4;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = PeekPacketChecksumState((void *)iVar3);

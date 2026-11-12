@@ -45,9 +45,6 @@
 void DisplayIncomingWhisper(undefined4 param_1,char *param_2,uint param_3,char *regEax)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xfffffdff;
   char cVar1;
   undefined2 *puVar2;
   char *in_EAX = regEax;
@@ -67,7 +64,7 @@ void DisplayIncomingWhisper(undefined4 param_1,char *param_2,uint param_3,char *
       pcVar4[(int)(local_200 + -(int)in_EAX)] = cVar1;
       pcVar4 = pcVar4 + 1;
     } while (cVar1 != '\0');
-    puVar2 = (undefined2 *)&stack0xfffffdff;
+    puVar2 = (undefined2 *)(local_200 - 1);
     do {
       puVar7 = puVar2;
       puVar2 = (undefined2 *)((int)puVar7 + 1);

@@ -48,9 +48,6 @@ void __thiscall
 ApplyImpactToMobile(int param_1,int *param_2,int param_3,undefined4 param_4,char param_5,int param_6)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xffffce39;
   bool bVar1;
   char *pcVar2;
   char cVar3;
@@ -68,8 +65,7 @@ ApplyImpactToMobile(int param_1,int *param_2,int param_3,undefined4 param_4,char
   undefined4 *unaff_FS_OFFSET;
   undefined4 local_31d4;
   undefined4 local_31cc;
-  undefined1 local_31c8 [3];
-  char acStack_31c5 [125];
+  char local_31c8 [128];   /* orig [esp+0x20]: sound-name buffer, one 128-byte object */
   undefined1 local_3148 [548];
   undefined1 local_2f24 [548];
   undefined1 local_2d00 [548];
@@ -419,7 +415,7 @@ LAB_0045e442:
           piVar12 = piVar12 + 0x89;
         } while (iVar6 < 4);
       }
-      (*(undefined4 *)local_31c8) = (undefined *)((uint)(*(undefined4 *)local_31c8) & 0xffffff00);
+      local_31c8[0] = 0;
       puVar13 = (undefined4 *)((int)local_31c8 + 1);
       for (iVar6 = 0x1f; iVar6 != 0; iVar6 = iVar6 + -1) {
         *puVar13 = 0;
@@ -440,8 +436,8 @@ LAB_0045e442:
         else {
           bVar1 = 0 < iVar6;
         }
-        (*(undefined4 *)local_31c8) = (undefined *)CONCAT31(stack0xffffce39,bVar1 * '\x04' + 'b');
-        pcVar2 = (char *)((int)&local_31cc + 3);
+        local_31c8[0] = (char)(bVar1 * 4 + 0x62);
+        pcVar2 = local_31c8 - 1;
         do {
           pcVar14 = pcVar2;
           pcVar2 = pcVar14 + 1;
@@ -451,7 +447,7 @@ LAB_0045e442:
         pcVar14[7] = s_damage_00555cc0[6];
       }
       else {
-        (*(undefined4 *)local_31c8) = &DAT_00656369;
+        *(undefined4 *)local_31c8 = 0x656369;   /* "ici" - orig 0x45e7d7 */
       }
       iVar6 = param_2[9];
       if (((iVar6 != 5) && (iVar6 != 6)) && ((iVar6 != 8 && (iVar6 != 10)))) {

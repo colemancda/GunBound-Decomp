@@ -45,9 +45,6 @@
 void LoadStageLandFile(int param_1, char *name)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xffffff7f;
   char cVar1;
   uint uVar2;
   int iVar3;
@@ -58,8 +55,7 @@ void LoadStageLandFile(int param_1, char *name)
   int iVar7;
   undefined4 *puVar8;
   bool bVar9;
-  char local_80 [4];
-  undefined1 local_7c [124];
+  char local_80 [128];
 
   in_EAX = name;
   
@@ -93,7 +89,7 @@ LAB_004e3ca5:
     in_EAX[(int)(local_80 + iVar3)] = cVar1;
     in_EAX = in_EAX + 1;
   } while (cVar1 != '\0');
-  puVar5 = (undefined4 *)&stack0xffffff7f;
+  puVar5 = (undefined4 *)(local_80 - 1);
   do {
     puVar8 = puVar5;
     puVar5 = (undefined4 *)((int)puVar8 + 1);

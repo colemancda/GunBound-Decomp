@@ -22,17 +22,13 @@
 void __fastcall State10_Loading_PreloadAssets(int param_1)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xffffff7f;
   undefined4 *puVar1;
   char cVar2;
   undefined4 uVar3;
   int iVar4;
   int iVar5;
   undefined4 *puVar6;
-  char acStack_80 [4];
-  undefined1 auStack_7c [124];
+  char acStack_80 [128];
   
   iVar4 = *(int *)(param_1 + 4);
   *(int *)(param_1 + 4) = iVar4 + 1;
@@ -47,7 +43,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     uVar3 = FindPreloadedTextureByName(acStack_80);
     *(undefined4 *)(&DAT_006a7f70 + g_clientContext) = uVar3;
-    puVar1 = (undefined4 *)&stack0xffffff7f;
+    puVar1 = (undefined4 *)(acStack_80 - 1);
     do {
       puVar6 = puVar1;
       puVar1 = (undefined4 *)((int)puVar6 + 1);

@@ -83,7 +83,8 @@ void SpawnShot_Type13(undefined4 param_1,undefined4 param_2,undefined4 param_3,
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
-  undefined stack0xfffff740;
+  undefined stack0xfffff740;  /* dead TreeInsert scratch node (TreeInsert is a neutered stub) */
+  undefined1 auMulScratch [0x238];  /* EncodeChecksumDeltaMul (0x40a7d0) writes [arg2+0x220] and [arg2+0x14]; stack0xfffff740 aliased TreeInsert nodes too */
   char cVar1;
   int *piVar2;
   int iVar3;
@@ -492,7 +493,7 @@ void SpawnShot_Type13(undefined4 param_1,undefined4 param_2,undefined4 param_3,
     (*pcVar10)();
     PeekPacketChecksumState((void *)&DAT_00e9c578);
     (*pcVar9)(&g_valueGuardLock);
-    EncodeChecksumDeltaMul(piVar2 + 0x9b9,&stack0xfffff740,puVar12);
+    EncodeChecksumDeltaMul(piVar2 + 0x9b9,auMulScratch,puVar12);
     uStack_28 = 0xc;
     (*pcVar10)(&g_valueGuardLock);
     piStack_8d0 = (int *)PeekPacketChecksumState((void *)&DAT_00796aa0);

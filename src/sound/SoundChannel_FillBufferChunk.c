@@ -35,7 +35,7 @@ void __thiscall SoundChannel_FillBufferChunk(int param_1,int param_2)
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
-  undefined stack0xffffffd0;
+  char acHeaderSkip [16];   /* orig 0x4ef6ef: lea eax,[esp+0x28] with EAX=0x10 bytes - the stream-header re-read target */
   LPCRITICAL_SECTION lpCriticalSection;
   LONG *pLVar1;
   int *piVar2;
@@ -121,7 +121,7 @@ void __thiscall SoundChannel_FillBufferChunk(int param_1,int param_2)
               iVar3 = iVar3 + uVar4;
               uVar8 = uVar8 - uVar4;
               RewindXFSEntryStream();
-              ReadXFSEntryByte(*(undefined4 *)(param_1 + 0x14),&stack0xffffffd0);
+              ReadXFSEntryByte(*(undefined4 *)(param_1 + 0x14),acHeaderSkip);
               uVar4 = ReadXFSEntryByte(*(undefined4 *)(param_1 + 0x14),(int)pLVar1 + iVar3);
             } while (uVar4 != uVar8);
           }

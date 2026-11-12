@@ -43,9 +43,6 @@ DispatchP2PMessage(uint param_1,char *param_2,int param_3,undefined4 param_4,und
             uint param_6)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xffffe868;
   int *piVar1;
   char cVar2;
   uint uVar3;
@@ -54,6 +51,11 @@ DispatchP2PMessage(uint param_1,char *param_2,int param_3,undefined4 param_4,und
   char *pcVar6;
   char cVar7;
   char acStack_178c [6016];
+  /* case 0xc041 (orig 0x504a48-0x504a83): the first 8 bytes of the payload
+   * are copied to [esp+0x14] and NUL-terminated at +8 (esp+0x1c) - the
+   * sender-name string passed as argument 3 of the +0x24 virtual.  The port
+   * passed &stack0xffffe868, a stray one-byte local, and never filled it. */
+  char acName [12];
   undefined4 uStack_c;
   
   uStack_c = 0x504980;
@@ -95,6 +97,9 @@ DispatchP2PMessage(uint param_1,char *param_2,int param_3,undefined4 param_4,und
       (**(code **)(*piVar1 + 0x18))(piVar1,param_4,1,acStack_178c,param_5);
       return;
     case 0xc041:
+      *(undefined4 *)acName = *(undefined4 *)param_2;
+      *(undefined4 *)(acName + 4) = *(undefined4 *)(param_2 + 4);
+      acName[8] = '\0';
       pcVar5 = param_2 + 8;
       pcVar6 = acStack_178c;
       for (uVar3 = param_1 - 8 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
@@ -109,7 +114,7 @@ DispatchP2PMessage(uint param_1,char *param_2,int param_3,undefined4 param_4,und
       }
       piVar1 = *(int **)(param_3 + 0x1ab0);
       acStack_178c[param_1 - 8] = '\0';
-      (**(code **)(*piVar1 + 0x24))(piVar1,param_4,&stack0xffffe868,acStack_178c);
+      (**(code **)(*piVar1 + 0x24))(piVar1,param_4,acName,acStack_178c);
       return;
     case 0xc042:
       cVar2 = *param_2;

@@ -22,9 +22,6 @@
 void LoadStageDecorationSet(int param_1,char *param_2,char *regEax)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xfffffeff;
   char cVar1;
   uint uVar2;
   uint uVar3;
@@ -37,10 +34,8 @@ void LoadStageDecorationSet(int param_1,char *param_2,char *regEax)
   undefined4 *puVar10;
   int iVar11;
   bool bVar12;
-  char local_100 [4];
-  undefined1 local_fc [123];
-  undefined4 uStack_81;
-  undefined1 local_7c [124];
+  char local_100 [128];
+  char local_80 [128];
   
   iVar11 = -(int)regEax;
   do {
@@ -48,7 +43,7 @@ void LoadStageDecorationSet(int param_1,char *param_2,char *regEax)
     regEax[(int)(local_100 + iVar11)] = cVar1;
     regEax = regEax + 1;
   } while (cVar1 != '\0');
-  puVar9 = (undefined4 *)&stack0xfffffeff;
+  puVar9 = (undefined4 *)(local_100 - 1);
   do {
     puVar10 = puVar9;
     puVar9 = (undefined4 *)((int)puVar10 + 1);
@@ -58,10 +53,10 @@ void LoadStageDecorationSet(int param_1,char *param_2,char *regEax)
   pcVar5 = param_2;
   do {
     cVar1 = *pcVar5;
-    pcVar5[(int)&uStack_81 + (1 - (int)param_2)] = cVar1;
+    pcVar5[(int)local_80 + (-(int)param_2)] = cVar1;
     pcVar5 = pcVar5 + 1;
   } while (cVar1 != '\0');
-  puVar9 = &uStack_81;
+  puVar9 = (undefined4 *)(local_80 - 1);
   do {
     puVar10 = puVar9;
     puVar9 = (undefined4 *)((int)puVar10 + 1);
@@ -94,7 +89,7 @@ LAB_004e3e15:
     /* Orig 0x4e3e45: `lea eax,[esp+0x98]` here is a DIFFERENT buffer
      * than the site above - the param_2-derived name buffer anchored
      * at uStack_81, built by the copy loop right after local_100's. */
-    LoadSpriteSetFrame(&g_spriteRegistry,60000,1,(char *)&uStack_81);
+    LoadSpriteSetFrame(&g_spriteRegistry,60000,1,local_80);
   }
   iVar8 = g_clientContext;
   iVar11 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -160,7 +155,7 @@ LAB_004e3e95:
     uVar2 = iVar11 + 60000;
     if (uVar3 <= uVar2) break;
 LAB_004e3f75:
-    _sprintf((char *)((int)&uStack_81 + 1),s__s_d_img_0055723c,param_2,iVar11);
+    _sprintf(local_80,s__s_d_img_0055723c,param_2,iVar11);
     iVar8 = LoadSpriteSet(&g_spriteRegistry,uVar2);
     if (iVar8 == 0) {
       return;

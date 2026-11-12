@@ -12,7 +12,7 @@
  * the resolver sees the same base as `dword ptr [ecx + 0x10] + N`.  Cells:
  * g_clientContext+0xebcbc, iVar3 + 0x1c1c / 0x38 / 0x25c, and the global
  * 0xe9ba40.  The peek at 0x43ae10 reads the EncodeChecksumDeltaSub scratch
- * the line above hands it (&stack0xfffffdb4) - those helpers return their
+ * the line above hands it (auSubScratch) - those helpers return their
  * arg2, see tools/sweep_guard_instructions.md.
  */
 #include "ghidra_types.h"
@@ -23,7 +23,7 @@ void FUN_0043a670(void)
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
-  undefined stack0xfffffdb4;
+  undefined1 auSubScratch [0x18];  /* CValueGuard-sized (EncodeOutgoingPacketField writes +4..+0x17) */
   byte bVar1;
   int *piVar2;
   int iVar3;
@@ -265,10 +265,10 @@ LAB_0043a6b7:
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       }
     }
-    EncodeChecksumDeltaSub(iVar3 + 0x480,&stack0xfffffdb4,10);
+    EncodeChecksumDeltaSub(iVar3 + 0x480,auSubScratch,10);
     uStack_20 = 0;
     (*pcVar13)(&g_valueGuardLock);
-    PeekPacketChecksumState((void *)((char *)&stack0xfffffdb4));
+    PeekPacketChecksumState((void *)auSubScratch);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     (*pcVar13)(&g_valueGuardLock);
     iVar8 = PeekPacketChecksumState((void *)(iVar3 + 0x25c));
