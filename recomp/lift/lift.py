@@ -228,6 +228,63 @@ class Emitter:
         raise AssertionError("unhandled control instruction " + mn)
 
 
+def repair_scope_tables(an):
+    """Recover SEH scope-table handler fields that the import rebuilder overwrote.
+
+    The tool that rebuilt this dump's import table took the handler field of some
+    `__try/__finally` scope tables for IAT slots (each funclet leads to
+    LeaveCriticalSection) and listed them as imports of ntdll, so the loader would
+    replace them with import stubs. A scope-table entry is {enclosing level,
+    filter, handler}; a single-entry `__finally` table reads {-1, 0, handler}. The
+    owning function names the table (`push offset table; call __SEH_prolog`) and,
+    on the normal path out of the guarded block, resets its try level and calls
+    the funclet directly (`or dword ptr [ebp-4], -1; call funclet`): that call
+    target is the lost handler address.
+
+    Returns (patches, problems): patches is a list of (slot va, handler va)."""
+    img = an.img
+    insns = an.insns
+    order = sorted(insns)
+    pos = {a: i for i, a in enumerate(order)}
+    pushes = {}
+    for a in order:
+        ins = insns[a]
+        if ins.mn == "push" and ins.ops and ins.ops[0].t == "i":
+            pushes.setdefault(ins.ops[0].imm, []).append(a)
+    patches, problems = [], []
+    for va, dll, name in img.imports:
+        if img.in_text(va):
+            continue
+        table = va - 8
+        if not (img.has(table, 12) and img.u32(table) == 0xFFFFFFFF and img.u32(table + 4) == 0):
+            continue
+        sites = pushes.get(table, [])
+        if not sites:
+            continue  # an ordinary IAT slot that happens to follow {-1, 0}
+        targets = set()
+        for site in sites:
+            i = pos[site]
+            prolog = an.direct_target(insns[order[i + 1]]) if insns[order[i + 1]].mn == "call" else None
+            for k in range(i + 2, min(i + 400, len(order) - 1)):
+                ins = insns[order[k]]
+                if order[k] - site > 0x600:
+                    break
+                if prolog is not None and ins.mn == "call" and an.direct_target(ins) == prolog:
+                    break  # the next function's SEH prolog
+                if ins.mn == "or" and ins.text.replace(" ", "") == "ordwordptr[ebp-4],0xffffffff":
+                    nxt = insns.get(ins.next)
+                    if nxt is not None and nxt.mn == "call":
+                        t = an.direct_target(nxt)
+                        if t is not None and site < t < site + 0x600:
+                            targets.add(t)
+        if len(targets) == 1:
+            patches.append((va, targets.pop()))
+        else:
+            problems.append("scope table %08x (import slot %08x %s!%s): %d candidate funclets" % (
+                table, va, dll, name, len(targets)))
+    return patches, problems
+
+
 def c_string(s):
     return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
 
@@ -270,6 +327,11 @@ def main():
     an = Analysis(img, seeds, names)
     an.run(scan_pointers=bool(args.pe) and not args.no_pointer_scan)
     t1 = time.time()
+
+    patches, patch_problems = repair_scope_tables(an)
+    for _, handler in patches:
+        an.add_start(handler, "seh-funclet")
+    an.explore()
 
     tr = Translator()
     em = Emitter(an, tr, flag_liveness=not args.no_flag_liveness)
@@ -320,6 +382,11 @@ def main():
         import zlib
         crc = zlib.crc32(img.bytes_at(img.text_start, img.text_end - img.text_start)) & 0xFFFFFFFF
         fh.write("const uint32_t rt_text_crc = 0x%08xu;\n" % crc)
+        fh.write("\n/* Data words the loader rewrites after mapping the image: {address, value}. */\n")
+        fh.write("const uint32_t rt_patches[][2] = {\n")
+        for va, val in patches:
+            fh.write("    {0x%08xu, 0x%08xu},\n" % (va, val))
+        fh.write("    {0, 0}\n};\nconst uint32_t rt_npatches = %d;\n" % len(patches))
     t2 = time.time()
 
     kinds = {}
@@ -346,6 +413,11 @@ def main():
     rep.append("undecodable targets  %d (decode failures: %d, overlapping decodes: %d)" % (
         em.stats["bad_targets"], len(an.badflow), an.overlaps))
     rep.append("rejected pointers    %d" % an.rejected_ptrs)
+    rep.append("scope tables repaired %d" % len(patches))
+    for va, val in patches:
+        rep.append("    %08x -> %08x" % (va, val))
+    for msg in patch_problems:
+        rep.append("    UNRESOLVED " + msg)
     trapped = {k: len(v) for k, v in tr.trapped.items()}
     total_trap = sum(trapped.values())
     rep.append("trapped mnemonics    %d sites, %d distinct" % (total_trap, len(tr.trapped)))

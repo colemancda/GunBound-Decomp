@@ -142,8 +142,14 @@ class Translator:
         raise Unsupported("operand")
 
     # ------------------------------------------------------------- dispatch
+    # Instructions with an atomic translation; a `lock` prefix on anything else is trapped
+    # rather than silently lifted as a plain read-modify-write.
+    LOCKABLE = ("xadd", "cmpxchg", "xchg")
+
     def translate(self, ins):
         try:
+            if ins.lock and ins.mn not in self.LOCKABLE:
+                raise Unsupported("lock " + ins.mn)
             if 0xD8 <= ins.opc[0] <= 0xDF and ins.mn.startswith("f"):
                 return self.x87(ins)
             fn = getattr(self, "t_" + ins.mn, None)
@@ -189,9 +195,12 @@ class Translator:
         d, s = ins.ops
         if d.t == "r" and s.t == "m":
             d, s = s, d
-        setup, rdx, wrx = self.dst(d)
         if s.t != "r":
             raise Unsupported("xchg form")
+        if d.t == "m" and d.size == 4:
+            # xchg with memory locks the bus whether or not a lock prefix is present
+            return Tr("uint32_t a = rt_atomic_xchg32(%s, %s); %s" % (self.ea(d), self.rd(s), self.wr(s, "a")))
+        setup, rdx, wrx = self.dst(d)
         return Tr("%suint32_t a = %s, b = %s; %s%s" % (setup, rdx, self.rd(s), wrx("b"), self.wr(s, "a")))
 
     def t_nop(self, ins):
@@ -394,6 +403,12 @@ class Translator:
     def t_xadd(self, ins):
         d, s = ins.ops
         sz = d.size
+        if ins.lock:
+            if d.t != "m" or sz != 4:
+                raise Unsupported("lock xadd form")
+            pre = "uint32_t b = %s; uint32_t a = rt_atomic_xadd32(%s, b); uint32_t r = a + b; %s" % (
+                self.rd(s, sz), self.ea(d), self.wr(s, "a"))
+            return Tr(pre, self.addsub_flags("add", sz))
         setup, rdx, wrx = self.dst(d)
         pre = "%suint32_t a = %s, b = %s; uint32_t r = %s; %s%s" % (
             setup, rdx, self.rd(s, sz), m("a + b", sz), self.wr(s, "a"), wrx("r"))
@@ -403,6 +418,12 @@ class Translator:
         d, s = ins.ops
         sz = d.size
         acc = {1: "AL", 2: "AX", 4: "EAX"}[sz]
+        if ins.lock:
+            if d.t != "m" or sz != 4:
+                raise Unsupported("lock cmpxchg form")
+            pre = "uint32_t a = EAX; uint32_t b = rt_atomic_cmpxchg32(%s, a, %s); uint32_t r = a - b; EAX = b; " % (
+                self.ea(d), self.rd(s, sz))
+            return Tr(pre, self.addsub_flags("sub", sz))
         setup, rdx, wrx = self.dst(d)
         pre = "%suint32_t a = %s, b = %s; uint32_t r = %s; if (r == 0) { %s} else { %s = b; } " % (
             setup, acc, rdx, m("a - b", sz), wrx(self.rd(s, sz)), acc)

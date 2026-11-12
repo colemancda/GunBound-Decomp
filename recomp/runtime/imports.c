@@ -16,9 +16,6 @@
 
 RtProcess g_proc;
 
-#define H(name) static uint32_t name(CPU *c, const uint32_t *a)
-#define UNUSED (void)c, (void)a
-
 #define INVALID_HANDLE 0xFFFFFFFFu
 #define H_STDIN 0x00000010u
 #define H_STDOUT 0x00000014u
@@ -27,10 +24,8 @@ RtProcess g_proc;
 #define H_FAKE_MODULE 0x7C800000u
 #define H_GENERIC 0x00000100u
 
-#define TEB_LAST_ERROR 0x34u
-
-static void set_last_error(CPU *c, uint32_t e) { st32(c->fs_base + TEB_LAST_ERROR, e); }
-static const char *gstr(uint32_t a) { return a ? (const char *)G(a) : "(null)"; }
+#define set_last_error rt_set_last_error
+#define gstr rt_gstr
 
 /* ------------------------------------------------------------ version */
 H(k32_GetVersion) { UNUSED; return 0x0A280105u; /* Windows XP 5.1 build 2600 */ }
@@ -136,7 +131,6 @@ H(k32_GetFileType) {
     return 0;
 }
 
-H(k32_GetCurrentThreadId) { UNUSED; return c->thread_id; }
 H(k32_GetCurrentProcessId) { UNUSED; return 0x00000A28u; }
 H(k32_GetCurrentProcess) { UNUSED; return 0xFFFFFFFFu; }
 
@@ -146,24 +140,17 @@ H(k32_SetLastError) { set_last_error(c, a[0]); return 0; }
 H(k32_ExitProcess) {
     UNUSED;
     fflush(stdout);
-    fprintf(stderr, "\nguest called ExitProcess(%u)\n", a[0]);
-    if (g_trace_imports) rt_print_import_stats();
-    exit((int)(a[0] & 0xFF));
+    rt_log("\nguest called ExitProcess(%u)\n", a[0]);
+    rt_print_import_stats();
+    rt_exit((int)(a[0] & 0xFF));
 }
 
 H(k32_TerminateProcess) {
     UNUSED;
     fflush(stdout);
-    fprintf(stderr, "\nguest called TerminateProcess(%#x, %u)\n", a[0], a[1]);
-    exit((int)(a[1] & 0xFF));
-}
-
-H(k32_SetUnhandledExceptionFilter) {
-    UNUSED;
-    static uint32_t filter;
-    uint32_t old = filter;
-    filter = a[0];
-    return old;
+    rt_log("\nguest called TerminateProcess(%#x, %u)\n", a[0], a[1]);
+    rt_print_import_stats();
+    rt_exit((int)(a[1] & 0xFF));
 }
 
 /* --------------------------------------------------------------- heap */
@@ -212,91 +199,8 @@ H(k32_IsBadReadPtr) { UNUSED; return !rt_guest_readable(a[0], a[1] ? a[1] : 1); 
 H(k32_IsBadWritePtr) { UNUSED; return !rt_guest_readable(a[0], a[1] ? a[1] : 1); }
 H(k32_IsBadCodePtr) { UNUSED; return !(a[0] >= rt_text_base && a[0] - rt_text_base < rt_text_size); }
 
-/* ---------------------------------------------------------------- TLS */
-static uint8_t tls_used[TLS_SLOT_COUNT];
-
-H(k32_TlsAlloc) {
-    UNUSED;
-    for (uint32_t i = 0; i < TLS_SLOT_COUNT; i++) {
-        if (!tls_used[i]) {
-            tls_used[i] = 1;
-            st32(c->fs_base + TEB_TLS_SLOTS + 4 * i, 0);
-            return i;
-        }
-    }
-    set_last_error(c, 8);
-    return 0xFFFFFFFFu;
-}
-
-H(k32_TlsFree) {
-    UNUSED;
-    if (a[0] >= TLS_SLOT_COUNT) return 0;
-    tls_used[a[0]] = 0;
-    return 1;
-}
-
-H(k32_TlsGetValue) {
-    if (a[0] >= TLS_SLOT_COUNT) {
-        set_last_error(c, 87);
-        return 0;
-    }
-    set_last_error(c, 0);
-    return ld32(c->fs_base + TEB_TLS_SLOTS + 4 * a[0]);
-}
-
-H(k32_TlsSetValue) {
-    if (a[0] >= TLS_SLOT_COUNT) {
-        set_last_error(c, 87);
-        return 0;
-    }
-    st32(c->fs_base + TEB_TLS_SLOTS + 4 * a[0], a[1]);
-    return 1;
-}
-
-/* -------------------------------------------------- critical sections
- * Single guest thread for now: only the bookkeeping fields are maintained. */
-H(k32_InitializeCriticalSection) {
-    UNUSED;
-    memset(G(a[0]), 0, 24);
-    st32(a[0] + 4, 0xFFFFFFFFu); /* LockCount */
-    return 0;
-}
-
-H(k32_DeleteCriticalSection) {
-    UNUSED;
-    memset(G(a[0]), 0, 24);
-    return 0;
-}
-
-H(k32_EnterCriticalSection) {
-    st32(a[0] + 4, ld32(a[0] + 4) + 1);
-    st32(a[0] + 8, ld32(a[0] + 8) + 1);
-    st32(a[0] + 12, c->thread_id);
-    return 0;
-}
-
-H(k32_LeaveCriticalSection) {
-    UNUSED;
-    uint32_t rec = ld32(a[0] + 8) - 1;
-    st32(a[0] + 8, rec);
-    st32(a[0] + 4, ld32(a[0] + 4) - 1);
-    if (rec == 0) st32(a[0] + 12, 0);
-    return 0;
-}
-
-H(k32_InterlockedExchange) {
-    UNUSED;
-    uint32_t old = ld32(a[0]);
-    st32(a[0], a[1]);
-    return old;
-}
-
 /* --------------------------------------------------------------- time */
-static uint64_t mono_ns(void) {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (uint64_t)ts.tv_sec * 1000000000ull + (uint64_t)ts.tv_nsec;
-}
+#define mono_ns rt_mono_ns
 
 H(k32_GetTickCount) { UNUSED; return (uint32_t)(mono_ns() / 1000000ull); }
 
@@ -329,12 +233,6 @@ H(k32_GetLocalTime) {
     st16(a[0] + 10, (uint16_t)tm.tm_min);
     st16(a[0] + 12, (uint16_t)tm.tm_sec);
     st16(a[0] + 14, (uint16_t)(ts.tv_nsec / 1000000));
-    return 0;
-}
-
-H(k32_Sleep) {
-    UNUSED;
-    usleep(a[0] * 1000u);
     return 0;
 }
 
@@ -501,9 +399,6 @@ H(k32_lstrlenA) { UNUSED; return a[0] ? (uint32_t)strlen((const char *)G(a[0])) 
 H(k32_lstrcmpA) { UNUSED; int r = strcmp(gstr(a[0]), gstr(a[1])); return (uint32_t)(r < 0 ? -1 : r > 0); }
 H(k32_lstrcatA) { UNUSED; strcat((char *)G(a[0]), (const char *)G(a[1])); return a[0]; }
 
-/* ------------------------------------------------------------- handles */
-H(k32_CloseHandle) { UNUSED; return 1; }
-
 /* LockResource and SetHandleCount are the same "return the argument" routine in NT's
  * kernel32, and the import rebuilder that produced this dump named both IAT slots
  * LockResource. The slot the CRT's _ioinit calls is really SetHandleCount. */
@@ -527,14 +422,12 @@ static const ImportDef defs[] = {
     {"kernel32.dll", "GetStdHandle", k32_GetStdHandle, 1, 0},
     {"kernel32.dll", "SetStdHandle", k32_SetStdHandle, 2, 0},
     {"kernel32.dll", "GetFileType", k32_GetFileType, 1, 0},
-    {"kernel32.dll", "GetCurrentThreadId", k32_GetCurrentThreadId, 0, 0},
     {"kernel32.dll", "GetCurrentProcessId", k32_GetCurrentProcessId, 0, 0},
     {"kernel32.dll", "GetCurrentProcess", k32_GetCurrentProcess, 0, 0},
     {"kernel32.dll", "GetLastError", k32_GetLastError, 0, 0},
     {"kernel32.dll", "SetLastError", k32_SetLastError, 1, 0},
     {"kernel32.dll", "ExitProcess", k32_ExitProcess, 1, 0},
     {"kernel32.dll", "TerminateProcess", k32_TerminateProcess, 2, 0},
-    {"kernel32.dll", "SetUnhandledExceptionFilter", k32_SetUnhandledExceptionFilter, 1, 0},
     {"kernel32.dll", "HeapCreate", k32_HeapCreate, 3, 0},
     {"kernel32.dll", "HeapDestroy", k32_HeapDestroy, 1, 0},
     {"kernel32.dll", "GetProcessHeap", k32_GetProcessHeap, 0, 0},
@@ -548,20 +441,10 @@ static const ImportDef defs[] = {
     {"kernel32.dll", "IsBadReadPtr", k32_IsBadReadPtr, 2, 0},
     {"kernel32.dll", "IsBadWritePtr", k32_IsBadWritePtr, 2, 0},
     {"kernel32.dll", "IsBadCodePtr", k32_IsBadCodePtr, 1, 0},
-    {"kernel32.dll", "TlsAlloc", k32_TlsAlloc, 0, 0},
-    {"kernel32.dll", "TlsFree", k32_TlsFree, 1, 0},
-    {"kernel32.dll", "TlsGetValue", k32_TlsGetValue, 1, 0},
-    {"kernel32.dll", "TlsSetValue", k32_TlsSetValue, 2, 0},
-    {"kernel32.dll", "InitializeCriticalSection", k32_InitializeCriticalSection, 1, 0},
-    {"kernel32.dll", "DeleteCriticalSection", k32_DeleteCriticalSection, 1, 0},
-    {"kernel32.dll", "EnterCriticalSection", k32_EnterCriticalSection, 1, 0},
-    {"kernel32.dll", "LeaveCriticalSection", k32_LeaveCriticalSection, 1, 0},
-    {"kernel32.dll", "InterlockedExchange", k32_InterlockedExchange, 2, 0},
     {"kernel32.dll", "GetTickCount", k32_GetTickCount, 0, 0},
     {"kernel32.dll", "QueryPerformanceCounter", k32_QueryPerformanceCounter, 1, 0},
     {"kernel32.dll", "GetSystemTimeAsFileTime", k32_GetSystemTimeAsFileTime, 1, 0},
     {"kernel32.dll", "GetLocalTime", k32_GetLocalTime, 1, 0},
-    {"kernel32.dll", "Sleep", k32_Sleep, 1, 0},
     {"kernel32.dll", "GetSystemInfo", k32_GetSystemInfo, 1, 0},
     {"kernel32.dll", "GetACP", k32_GetACP, 0, 0},
     {"kernel32.dll", "GetOEMCP", k32_GetOEMCP, 0, 0},
@@ -576,12 +459,7 @@ static const ImportDef defs[] = {
     {"kernel32.dll", "lstrlen", k32_lstrlenA, 1, 0},
     {"kernel32.dll", "lstrcmp", k32_lstrcmpA, 2, 0},
     {"kernel32.dll", "lstrcat", k32_lstrcatA, 2, 0},
-    {"kernel32.dll", "CloseHandle", k32_CloseHandle, 1, 0},
     {"kernel32.dll", "LockResource", k32_LockResource, 1, 0},
 };
 
-const ImportDef *rt_find_import_def(const char *dll, const char *name) {
-    for (size_t i = 0; i < sizeof defs / sizeof defs[0]; i++)
-        if (!strcasecmp(defs[i].dll, dll) && !strcmp(defs[i].name, name)) return &defs[i];
-    return NULL;
-}
+RT_EXPORT_IMPORTS(rt_imports_kernel, defs);

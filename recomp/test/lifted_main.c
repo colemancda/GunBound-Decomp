@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    g_cpu = &cpu;
+    rt_set_cpu(&cpu);
     cpu.fcw = 0x27F;
     out_buf = rt_sys_alloc(64);
     run_tests(argc > 2);

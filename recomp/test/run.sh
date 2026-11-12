@@ -71,7 +71,8 @@ for mode in liveness noliveness; do
     # shellcheck disable=SC2086
     "$cc" -std=gnu11 -O1 -fno-strict-aliasing -fwrapv -foptimize-sibling-calls -w ${EXTRA_CFLAGS:-} \
         -I"$recomp/runtime" -I"$gen" -I"$here" \
-        "$gen"/chunk_*.c "$gen/tables.c" $rt_srcs "$here/lifted_main.c" -lm -o "$out/lifted_$mode"
+        -DRT_NO_SDL "$gen"/chunk_*.c "$gen/tables.c" $rt_srcs "$here/lifted_main.c" -lm -pthread \
+        -o "$out/lifted_$mode"
     run=("$out/lifted_$mode")
     [ -n "$sysroot" ] && run=(qemu-aarch64 -L "$sysroot" "$out/lifted_$mode")
     if ! "${run[@]}" "$build/snippets.bin" > "$out/$mode.txt"; then

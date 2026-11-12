@@ -67,7 +67,7 @@ if [ "$need" = 1 ]; then
 fi
 
 # ---- 2. compile + link through ninja
-cflags_common="-std=gnu11 -fno-strict-aliasing -fwrapv -fno-stack-protector -I$here/runtime -I$gen ${EXTRA_CFLAGS:-}"
+cflags_common="-std=gnu11 -pthread -fno-strict-aliasing -fwrapv -fno-stack-protector -I$here/runtime -I$gen ${EXTRA_CFLAGS:-}"
 {
     echo "cc = $cc"
     echo "gen_cflags = $opt -foptimize-sibling-calls $cflags_common -w"
@@ -80,7 +80,7 @@ cflags_common="-std=gnu11 -fno-strict-aliasing -fwrapv -fno-stack-protector -I$h
     echo "  depfile = \$out.d"
     echo "  description = CC \$out"
     echo "rule link"
-    echo "  command = \$cc -o \$out \$in -lm"
+    echo "  command = \$cc -o \$out \$in -lm -pthread"
     echo "  description = LINK \$out"
     objs=""
     for src in "$gen"/chunk_*.c "$gen/tables.c"; do

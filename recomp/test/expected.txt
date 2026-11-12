@@ -97,6 +97,7 @@ t_xadd_cmpxchg vectors=968 hash=5d646e26
 t_wide_arith vectors=5929 hash=f20376ca
 t_stack vectors=484 hash=73c6f963
 t_calls vectors=484 hash=4a018803
+t_nonlocal vectors=512 hash=a7b7c6bc
 t_switch vectors=27 hash=78f37656
 t_switch2 vectors=43 hash=d8bb4e2b
 t_loops vectors=43 hash=03e27eb3

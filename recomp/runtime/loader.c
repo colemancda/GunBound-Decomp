@@ -106,5 +106,11 @@ void rt_load_pe(const char *path) {
             }
         }
     }
+    /* Words the lifter found to be wrong in the image (see repair_scope_tables in lift.py);
+     * these overwrite import stubs just stored above. */
+    for (uint32_t i = 0; i < rt_npatches; i++) st32(rt_patches[i][0], rt_patches[i][1]);
+
+    g_image.rsrc_rva = f32(oh + 96 + 2 * 8);
+    g_image.rsrc_size = f32(oh + 96 + 2 * 8 + 4);
     free(file);
 }

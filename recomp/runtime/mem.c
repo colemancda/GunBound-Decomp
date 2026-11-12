@@ -1,6 +1,7 @@
 /* Guest address space: one host mapping, a guest heap and a VirtualAlloc arena. */
 #define _GNU_SOURCE
 #include <errno.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/mman.h>
@@ -16,6 +17,9 @@ uint8_t *g_mem;
 #endif
 
 static uint32_t sys_brk = GUEST_STR_BASE;
+static pthread_mutex_t sys_mu = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t heap_mu = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t va_mu = PTHREAD_MUTEX_INITIALIZER;
 
 void rt_mem_init(void) {
 #ifdef RT_DYNAMIC_BASE
@@ -58,6 +62,7 @@ void rt_mem_commit(uint32_t addr, uint32_t size) {
 }
 
 uint32_t rt_sys_alloc(uint32_t size) {
+    pthread_mutex_lock(&sys_mu);
     uint32_t p = sys_brk;
     size = (size + 15) & ~15u;
     if (p + size > GUEST_SYS_BASE + GUEST_SYS_SIZE) {
@@ -65,6 +70,7 @@ uint32_t rt_sys_alloc(uint32_t size) {
         exit(2);
     }
     sys_brk += size;
+    pthread_mutex_unlock(&sys_mu);
     return p;
 }
 
@@ -79,7 +85,7 @@ uint32_t rt_sys_strdup(const char *s) {
  * Bump allocation with exact-size-class free lists. Each block has an 8-byte
  * header {capacity, requested size}; a freed block's requested size is
  * HEAP_FREE and its first payload dword links the class's free list.
- * Not thread safe yet (the guest is single threaded for now). */
+ * The public functions take heap_mu; the *_locked ones expect it held. */
 #define HEAP_HDR 8u
 #define HEAP_FREE 0xFFFFFFFFu
 #define HEAP_SMALL_MAX 2048u
@@ -108,7 +114,7 @@ static uint32_t heap_class(uint32_t size, uint32_t *cap) {
     return bin < HEAP_NCLASS ? bin : HEAP_NCLASS - 1;
 }
 
-uint32_t rt_heap_alloc(uint32_t size, int zero) {
+static uint32_t heap_alloc_locked(uint32_t size, int zero) {
     uint32_t cap;
     if (size > 0x10000000u) return 0;
     uint32_t bin = heap_class(size, &cap);
@@ -135,16 +141,16 @@ uint32_t rt_heap_alloc(uint32_t size, int zero) {
     return p;
 }
 
-uint32_t rt_heap_size(uint32_t p) {
+static uint32_t heap_size_locked(uint32_t p) {
     if (p < GUEST_HEAP_BASE + HEAP_HDR || p >= heap_brk || (p & 7)) return 0xFFFFFFFFu;
     uint32_t sz = ld32(p - 4);
     if (sz == HEAP_FREE || sz > ld32(p - 8)) return 0xFFFFFFFFu;
     return sz;
 }
 
-void rt_heap_free(uint32_t p) {
+static void heap_free_locked(uint32_t p) {
     if (!p) return;
-    if (rt_heap_size(p) == 0xFFFFFFFFu) {
+    if (heap_size_locked(p) == 0xFFFFFFFFu) {
         fprintf(stderr, "recomp: warning: free of invalid heap block %#x ignored\n", p);
         return;
     }
@@ -157,9 +163,9 @@ void rt_heap_free(uint32_t p) {
     heap_bins[bin] = p;
 }
 
-uint32_t rt_heap_realloc(uint32_t p, uint32_t size, int zero) {
-    if (!p) return rt_heap_alloc(size, zero);
-    uint32_t old = rt_heap_size(p);
+static uint32_t heap_realloc_locked(uint32_t p, uint32_t size, int zero) {
+    if (!p) return heap_alloc_locked(size, zero);
+    uint32_t old = heap_size_locked(p);
     if (old == 0xFFFFFFFFu) return 0;
     uint32_t cap = ld32(p - 8);
     if (size <= cap) {
@@ -167,17 +173,45 @@ uint32_t rt_heap_realloc(uint32_t p, uint32_t size, int zero) {
         st32(p - 4, size);
         return p;
     }
-    uint32_t q = rt_heap_alloc(size, 0);
+    uint32_t q = heap_alloc_locked(size, 0);
     if (!q) return 0;
     memcpy(G(q), G(p), old);
     if (zero) memset(G(q + old), 0, size - old);
-    rt_heap_free(p);
+    heap_free_locked(p);
+    return q;
+}
+
+uint32_t rt_heap_alloc(uint32_t size, int zero) {
+    pthread_mutex_lock(&heap_mu);
+    uint32_t p = heap_alloc_locked(size, zero);
+    pthread_mutex_unlock(&heap_mu);
+    return p;
+}
+
+uint32_t rt_heap_size(uint32_t p) {
+    pthread_mutex_lock(&heap_mu);
+    uint32_t n = heap_size_locked(p);
+    pthread_mutex_unlock(&heap_mu);
+    return n;
+}
+
+void rt_heap_free(uint32_t p) {
+    pthread_mutex_lock(&heap_mu);
+    heap_free_locked(p);
+    pthread_mutex_unlock(&heap_mu);
+}
+
+uint32_t rt_heap_realloc(uint32_t p, uint32_t size, int zero) {
+    pthread_mutex_lock(&heap_mu);
+    uint32_t q = heap_realloc_locked(p, size, zero);
+    pthread_mutex_unlock(&heap_mu);
     return q;
 }
 
 /* ---------------------------------------------------------- VirtualAlloc
  * Reservations are bump allocated at 64 KiB granularity and committed
- * immediately; MEM_COMMIT inside an existing reservation is a no-op. */
+ * immediately; MEM_COMMIT inside an existing reservation is a no-op. A released
+ * region is reused by a later reservation of the same size (thread stacks). */
 #define MEM_COMMIT 0x1000u
 #define MEM_RESERVE 0x2000u
 #define MEM_DECOMMIT 0x4000u
@@ -185,60 +219,106 @@ uint32_t rt_heap_realloc(uint32_t p, uint32_t size, int zero) {
 
 typedef struct VRegion {
     uint32_t base, size;
+    int free;
 } VRegion;
-static VRegion vregions[1024];
+static VRegion vregions[4096];
 static unsigned nvregions;
 static uint32_t va_brk = GUEST_VA_BASE;
 
 static VRegion *vregion_find(uint32_t addr) {
     for (unsigned i = 0; i < nvregions; i++)
-        if (addr >= vregions[i].base && addr - vregions[i].base < vregions[i].size) return &vregions[i];
+        if (!vregions[i].free && addr >= vregions[i].base && addr - vregions[i].base < vregions[i].size)
+            return &vregions[i];
     return NULL;
 }
 
 uint32_t rt_valloc(uint32_t addr, uint32_t size, uint32_t type, uint32_t protect) {
     (void)protect;
     if (size == 0) return 0;
+    uint32_t result = 0;
+    pthread_mutex_lock(&va_mu);
     if (addr) {
         VRegion *r = vregion_find(addr);
-        if (!r) return 0; /* placement at a caller-chosen address is not supported */
-        uint32_t lo = addr & ~0xFFFu;
-        if ((uint64_t)addr + size > (uint64_t)r->base + r->size) return 0;
-        return (type & MEM_RESERVE) ? r->base : lo;
+        /* placement at a caller-chosen address outside a reservation is not supported */
+        if (r && (uint64_t)addr + size <= (uint64_t)r->base + r->size)
+            result = (type & MEM_RESERVE) ? r->base : (addr & ~0xFFFu);
+    } else {
+        uint32_t sz = (size + 0xFFFF) & ~0xFFFFu;
+        for (unsigned i = 0; i < nvregions && !result && sz >= size; i++) {
+            if (vregions[i].free && vregions[i].size == sz) {
+                vregions[i].free = 0;
+                result = vregions[i].base;
+            }
+        }
+        if (!result && sz >= size && (uint64_t)va_brk + sz <= GUEST_VA_END &&
+            nvregions < sizeof vregions / sizeof vregions[0]) {
+            result = va_brk;
+            va_brk += sz;
+            rt_mem_commit(result, sz);
+            vregions[nvregions].base = result;
+            vregions[nvregions].size = sz;
+            vregions[nvregions].free = 0;
+            nvregions++;
+        }
     }
-    uint32_t sz = (size + 0xFFFF) & ~0xFFFFu;
-    if (sz < size || (uint64_t)va_brk + sz > GUEST_VA_END || nvregions == sizeof vregions / sizeof vregions[0])
-        return 0;
-    uint32_t base = va_brk;
-    va_brk += sz;
-    rt_mem_commit(base, sz);
-    vregions[nvregions].base = base;
-    vregions[nvregions].size = sz;
-    nvregions++;
-    return base;
+    pthread_mutex_unlock(&va_mu);
+    return result;
 }
 
 int rt_vfree(uint32_t addr, uint32_t size, uint32_t type) {
+    pthread_mutex_lock(&va_mu);
     VRegion *r = vregion_find(addr);
-    if (!r) return 0;
+    if (!r) {
+        pthread_mutex_unlock(&va_mu);
+        return 0;
+    }
     uint32_t lo, len;
     if (type & MEM_RELEASE) {
         lo = r->base;
         len = r->size;
+        r->free = 1;
     } else {
         lo = addr & ~0xFFFu;
         len = size ? ((addr + size + 0xFFF) & ~0xFFFu) - lo : r->base + r->size - lo;
     }
-    /* Drop the pages so a later commit reads zeros again; the address range is not reused. */
+    /* Drop the pages so that the range reads as zeros when it is committed or reused. */
     madvise(G(lo), len, MADV_DONTNEED);
+    pthread_mutex_unlock(&va_mu);
     return 1;
+}
+
+int rt_vquery(uint32_t addr, uint32_t *base, uint32_t *size) {
+    int found = 0;
+    pthread_mutex_lock(&va_mu);
+    VRegion *r = vregion_find(addr);
+    if (r) {
+        *base = r->base;
+        *size = r->size;
+        found = 1;
+    }
+    pthread_mutex_unlock(&va_mu);
+    if (found) return 1;
+    if (addr >= GUEST_SYS_BASE && addr < GUEST_STACK_TOP) {
+        *base = addr >= GUEST_STACK_LOW ? GUEST_STACK_LOW : GUEST_SYS_BASE;
+        *size = addr >= GUEST_STACK_LOW ? GUEST_STACK_TOP - GUEST_STACK_LOW : GUEST_SYS_SIZE;
+        return 1;
+    }
+    if (addr >= g_image.base && addr - g_image.base < g_image.size) {
+        *base = g_image.base;
+        *size = g_image.size;
+        return 1;
+    }
+    if (addr >= GUEST_HEAP_BASE && addr < heap_committed) {
+        *base = GUEST_HEAP_BASE;
+        *size = heap_committed - GUEST_HEAP_BASE;
+        return 1;
+    }
+    return 0;
 }
 
 int rt_guest_readable(uint32_t addr, uint32_t size) {
     uint64_t end = (uint64_t)addr + size;
-    if (addr >= GUEST_SYS_BASE && end <= GUEST_STACK_TOP) return 1;
-    if (addr >= g_image.base && end <= (uint64_t)g_image.base + g_image.size) return 1;
-    if (addr >= GUEST_HEAP_BASE && end <= heap_committed) return 1;
-    if (vregion_find(addr)) return 1;
-    return 0;
+    uint32_t base, len;
+    if (!rt_vquery(addr, &base, &len)) return 0;
+    return end <= (uint64_t)base + len;
 }

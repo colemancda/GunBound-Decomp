@@ -29,6 +29,9 @@ typedef struct CPU {
     double st[8];             /* x87 registers, physical order */
     uint32_t eflags_hi;       /* EFLAGS bits the lifted code does not model (ID, AC, ...) */
     uint32_t thread_id;
+    uint32_t ret_sp;          /* guest address of the stack slot the most recent `ret` popped */
+    uint32_t nl_eip, nl_slot; /* pending non-local return: target address and the slot it was popped from */
+    void *thread;             /* runtime bookkeeping for this guest thread (RtThread) */
 } CPU;
 
 #define EAX (c->r[0].d)
@@ -90,7 +93,7 @@ extern uint32_t g_ftab_base, g_ftab_size;
 
 void rt_call_slow(CPU *c, uint32_t addr);
 void rt_jmp_slow(CPU *c, uint32_t addr, uint32_t from);
-void rt_ret_mismatch(CPU *c, uint32_t expected) __attribute__((noreturn));
+int rt_ret_mismatch(CPU *c, uint32_t expected, uint32_t slot);
 void rt_unimplemented_insn(CPU *c, uint32_t addr, const char *mnemonic) __attribute__((noreturn));
 void rt_bad_code(CPU *c, uint32_t from, uint32_t target) __attribute__((noreturn));
 void rt_divide_error(CPU *c, uint32_t addr) __attribute__((noreturn));
@@ -120,17 +123,44 @@ static inline void rt_jmp(CPU *c, uint32_t a, uint32_t from) {
 }
 
 /* After a guest call returns, the address its `ret` popped must be the one the
- * call pushed. A mismatch means non-local control flow (SEH unwind, longjmp, a
- * rewritten return address); for now that is fatal. */
-#define RT_RETCHECK(ra) \
-    do { if (__builtin_expect(c->eip != (ra), 0)) { rt_ret_mismatch(c, (ra)); return; } } while (0)
+ * call pushed. A mismatch is a non-local return: the callee (or something below
+ * it) unwound the guest stack, as an SEH handler or a C++ catch does when it
+ * resumes in an outer function and that function then returns to *its* caller.
+ * Lifted functions keep no state in host locals, so the host stack is unwound by
+ * returning from every C frame until the one whose call pushed the address that
+ * was finally popped: the frame whose return address and stack slot both match.
+ *
+ * rt_ret_mismatch() implements the search. The first frame to see a mismatch
+ * records the real target in nl_eip/nl_slot and poisons eip with RT_NL_PENDING,
+ * which no call site expects, so every outer frame takes the slow path as well.
+ * It returns 1 in the frame that should resume and 0 where the frame must
+ * return. Matching on the slot keeps a recursive activation of the same call
+ * site from claiming a return that belongs to an outer one. */
+#define RT_NL_PENDING 0xFFFFFFF1u
+
+#define RT_RETCHECK(ra, slot) \
+    do { if (__builtin_expect(c->eip != (ra), 0) && !rt_ret_mismatch(c, (ra), (slot))) return; } while (0)
 
 #define PUSH32(v) do { uint32_t v_ = (v); ESP -= 4; st32(ESP, v_); } while (0)
 #define PUSH16(v) do { uint16_t v_ = (uint16_t)(v); ESP -= 2; st16(ESP, v_); } while (0)
-#define CALLF(fn, ra) do { ESP -= 4; st32(ESP, (ra)); fn(c); RT_RETCHECK(ra); } while (0)
+#define CALLF(fn, ra) \
+    do { uint32_t s_ = ESP - 4; ESP = s_; st32(s_, (ra)); fn(c); RT_RETCHECK(ra, s_); } while (0)
 #define CALLI(t, ra) \
-    do { uint32_t t_ = (t); ESP -= 4; st32(ESP, (ra)); rt_call(c, t_); RT_RETCHECK(ra); } while (0)
-#define RET(n) do { c->eip = ld32(ESP); ESP += 4 + (n); return; } while (0)
+    do { uint32_t t_ = (t); uint32_t s_ = ESP - 4; ESP = s_; st32(s_, (ra)); rt_call(c, t_); RT_RETCHECK(ra, s_); } while (0)
+#define RET(n) do { uint32_t s_ = ESP; c->ret_sp = s_; c->eip = ld32(s_); ESP = s_ + 4 + (n); return; } while (0)
+
+/* `lock`-prefixed read-modify-write instructions and `xchg` with memory are atomic. */
+static inline uint32_t rt_atomic_xadd32(uint32_t a, uint32_t v) {
+    return __atomic_fetch_add((uint32_t *)G(a), v, __ATOMIC_SEQ_CST);
+}
+static inline uint32_t rt_atomic_xchg32(uint32_t a, uint32_t v) {
+    return __atomic_exchange_n((uint32_t *)G(a), v, __ATOMIC_SEQ_CST);
+}
+/* Returns the value found at a; the exchange happened if that equals expect. */
+static inline uint32_t rt_atomic_cmpxchg32(uint32_t a, uint32_t expect, uint32_t v) {
+    __atomic_compare_exchange_n((uint32_t *)G(a), &expect, v, 0, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST);
+    return expect;
+}
 
 /* ------------------------------------------------------------------- flags */
 static inline uint8_t rt_pf(uint32_t r) { return (uint8_t)!__builtin_parity(r & 0xff); }

@@ -28,7 +28,7 @@ class Op:
 
 
 class Insn:
-    __slots__ = ("addr", "size", "mn", "ops", "rep", "opc", "modrm", "opsize16", "text")
+    __slots__ = ("addr", "size", "mn", "ops", "rep", "lock", "opc", "modrm", "opsize16", "text")
 
     @property
     def next(self):
@@ -76,10 +76,13 @@ class Analysis:
         ins.size = cs.size
         mn = cs.mnemonic
         ins.rep = None
+        ins.lock = False
         for p in ("rep ", "repe ", "repne ", "lock ", "notrack ", "bnd "):
             if mn.startswith(p):
                 if p.startswith("rep"):
                     ins.rep = p.strip()
+                elif p == "lock ":
+                    ins.lock = True
                 mn = mn[len(p):]
         ins.mn = mn
         ins.opc = tuple(cs.opcode[:3])

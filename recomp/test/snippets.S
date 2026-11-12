@@ -870,6 +870,72 @@
         add dword ptr [esp+4], 7
         jmp h_cdecl1
 
+/* Non-local control flow, shaped like the transfer into a C++ catch block: a deep
+ * callee restores the stack and frame pointers of an outer activation and jumps
+ * to a continuation label inside it, which then returns to its own caller.
+ * h_nl_level recurses through one call site, so every activation between the
+ * thrower and the catching one is a stale frame with the same return address.
+ *   b bits 0..2: recursion depth n     b bits 4..6: level that catches (none if > n) */
+        FN t_nonlocal
+        push ebp
+        mov ebp, esp
+        sub esp, 8                  /* [ebp-8], [ebp-4]: esp and ebp of the catching activation */
+        push ebx
+        push esi
+        push edi
+        lea ebx, [ebp-8]
+        mov dword ptr [ebx], 0
+        mov esi, [ebp+8]
+        mov edi, [ebp+12]
+        mov edx, edi
+        shr edx, 4
+        and edx, 7
+        and edi, 7
+        call h_nl_level
+        mov edx, [ebp+24]
+        mov [edx], esi
+        mov [edx+4], eax
+        pop edi
+        pop esi
+        pop ebx
+        leave
+        ret
+
+        FN h_nl_level               /* edi = this level, edx = catching level, esi = accumulator */
+        push ebp
+        mov ebp, esp
+        push edi
+        cmp edi, edx
+        jne 1f
+        mov [ebx], esp
+        mov [ebx+4], ebp
+1:      test edi, edi
+        jz 2f
+        dec edi
+        call h_nl_level
+        jmp 3f
+2:      call h_nl_throw
+3:      mov edi, [ebp-4]            /* the call returned normally */
+        lea esi, [esi*2+edi+1]
+        .globl h_nl_cont
+h_nl_cont:                          /* also the catch continuation of the catching level */
+        mov edi, [ebp-4]
+        rol esi, 5
+        xor esi, edi
+        mov eax, edi
+        pop edi
+        pop ebp
+        ret
+
+        FN h_nl_throw
+        cmp dword ptr [ebx], 0
+        je 1f
+        mov eax, offset h_nl_cont
+        mov esp, [ebx]
+        mov ebp, [ebx+4]
+        jmp eax
+1:      ret
+
         FN t_calls
         push ebx
         mov ebx, [esp+24]
