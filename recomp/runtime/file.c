@@ -190,8 +190,8 @@ static void file_close(void *obj) {
 /* CreateFileA(name, access, share, security, disposition, flags, template) */
 H(k32_CreateFileA) {
     const char *name = rt_gstr(a[0]);
-    /* The game opens its archives with OPEN_ALWAYS, some of them for reading only:
-     * the disposition alone does not make an open a write. */
+    /* The game opens its archives with OPEN_ALWAYS and read access: the disposition
+     * alone does not make an open a write. */
     int want_write = (a[1] & 0x50000000u) != 0 || a[4] == 2 || a[4] == 5;
     char host[768], game[768];
     int in_game = 0;
