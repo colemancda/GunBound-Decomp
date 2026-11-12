@@ -1441,7 +1441,12 @@ extern "C" CGameState *g_gameStateVTableArray[16]; /* 0x5b33f8 - the C tree
                                      * C linkage so both sides bind the same
                                      * symbol */
 
-/* The two state-3 lobby panels, CChannelUserListPanel (vtable 0x557cac)
+/* LobbyPanel_OnMouseDown (0x5078d0, was FUN_005078d0). Named from the
+ * vtable census: the only two classes that install this slot-2 word are
+ * the state-3 lobby panels, and its one effect is the state-3 field
+ * write below.
+ *
+ * The two state-3 lobby panels, CChannelUserListPanel (vtable 0x557cac)
  * and CLobbyChatPanel (0x557cd4), share slot 2 (+0x08), 0x5078d0, in
  * place of CPanel's 0x505430 (vtable 0x557bbc +0x08). Carved 2026-10-30;
  * it is 20 bytes:
@@ -1457,7 +1462,7 @@ extern "C" CGameState *g_gameStateVTableArray[16]; /* 0x5b33f8 - the C tree
  * so a press on either lobby panel clears that state-3 field and then
  * reaches the children only. CPanel's press core (drag arming, auto-focus)
  * does not run. Until now both classes inherited CPanel::OnMouseDown. */
-static bool FUN_005078d0(CWidget *self, int x, int y)
+static bool LobbyPanel_OnMouseDown(CWidget *self, int x, int y)
 {
     *(int *)((char *)g_gameStateVTableArray[3] + 0x124) = -1;
     return self->MouseDownChildren(x, y);
@@ -1465,12 +1470,12 @@ static bool FUN_005078d0(CWidget *self, int x, int y)
 
 bool CChannelUserListPanel::OnMouseDown(int x, int y)
 {
-    return FUN_005078d0(this, x, y);
+    return LobbyPanel_OnMouseDown(this, x, y);
 }
 
 bool CLobbyChatPanel::OnMouseDown(int x, int y)
 {
-    return FUN_005078d0(this, x, y);
+    return LobbyPanel_OnMouseDown(this, x, y);
 }
 
 /* CChannelUserListPanel slot 4 (+0x10) is 0x507310,
