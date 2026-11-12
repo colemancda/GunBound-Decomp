@@ -2328,7 +2328,7 @@ extern uint8_t g_mpegSubblockGainTab[0x20];    /* 0x5b01c4..0x5b01e4: 8 floats, 
 extern uint8_t g_mpegGlobalGainTab[0x418];
 #define DAT_005b01e4 (g_mpegGlobalGainTab[0])
 #define DAT_005b01fc (g_mpegGlobalGainTab[0x18])
-/* Scratch of 576 floats (0x5b05fc..0x5b0efb, up to the 0x5b0efc table): FUN_00518560 fills it
+/* Scratch of 576 floats (0x5b05fc..0x5b0efb, up to the 0x5b0efc table): DequantizeMpegLayerIIISpectrum fills it
  * through a walking pointer (stride 3 floats per window) and memmoves the result out, so it is one
  * object and DAT_005b05fc names element 0. */
 extern float g_mpegShortBlockScratch[576];

@@ -138,7 +138,7 @@ void DecodeMpegLayerIIIGranule(undefined4 param_1,int *param_2)
     puVar11 = &DAT_005ae800 + iVar1 * 0x24;
     puVar7 = &DAT_00f25f00 + iVar1 * 0x240;
     do {
-      FUN_00518560(puVar7,local_8,puVar9,puVar11,param_2,DAT_005aba28);
+      DequantizeMpegLayerIIISpectrum(puVar7,local_8,puVar9,puVar11,param_2,DAT_005aba28);
       local_8 = (undefined4 *)((int)local_8 + 4);
       local_18 = local_18 + 1;
       param_2 = (int *)((int)param_2 + 0x1c);

@@ -1,13 +1,35 @@
-/* FUN_00518560 - 0x00518560 in the original binary.
+/* DequantizeMpegLayerIIISpectrum - 0x00518560 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_00518560.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Called once per channel from DecodeMpegLayerIIIGranule after the Huffman
+ * decoders (DecodeMpegHuffmanBigValues / DecodeMpegHuffmanCount1) have
+ * filled the integer spectrum row (0xf25f00 + ch * 0x240 words) and before
+ * the mid/side, intensity stereo and MpegAntialias steps, as (spectrum row,
+ * &band limit, side-info record, scalefactor array, per-channel result
+ * record, DAT_005aba28 = the sample-rate band index). It reads exactly the
+ * tables InitMpegLayerIIITables builds through the already named accessors:
+ * the x^(4/3) table (GetMpegPow43Table, 0x5b12fc, 64 entries 0x20 biased,
+ * read at 0x5b137c + value * 4), the global-gain table
+ * (GetMpegGlobalGainTable, 0x5b01e4; base 0x5b01fc is entry 0x18), the
+ * scalefactor-gain table (GetMpegScalefactorGainTable, 0x5b0efc, addressed by
+ * (pretab[band] + scalefac_scale * 4) * 0x20 + scalefactor) and the subblock-gain
+ * table (GetMpegSubblockGainTable, 0x5b01c4), plus g_mpegPretab. Values
+ * outside the table's -32..31 range are computed with
+ * pow(|x|, 1/3) * x, i.e. x^(4/3). Block type 2 (record + 0x14) takes the
+ * short-block path (three windows of 0xd-stride scalefactor rows and subblock
+ * gain), which then reorders through the scratch at 0x5b05fc with a memmove;
+ * otherwise it is the long-block path. The ISO name for the step is
+ * requantization; "Dequantize" matches the tree's own use of "dequantised" for the
+ * Layer I/II sample readers.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00518560(int param_1,int *param_2,int param_3,int param_4,undefined4 *param_5,int param_6)
+void DequantizeMpegLayerIIISpectrum(int param_1,int *param_2,int param_3,int param_4,undefined4 *param_5,int param_6)
 
 {
   int iVar1;
