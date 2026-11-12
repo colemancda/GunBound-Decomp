@@ -28,10 +28,41 @@
 #define ERROR_NOT_OWNER 288u
 #define STILL_ACTIVE 259u
 
+/* The guest's clock. With --virtual-clock it is a counter that only the main
+ * thread advances, by a fixed step per reading and by the full duration of a
+ * Sleep, so a run shows the same frames on any machine at any speed: that is
+ * what lets the host build and the aarch64 build be compared frame by frame. */
+static uint64_t virtual_ns = 1000000000ull;
+#define VIRTUAL_STEP_NS 250000ull
+
+static int on_main_thread(void) {
+    CPU *c = rt_cpu();
+    return c && rt_thread_of(c) && rt_thread_of(c)->is_main;
+}
+
 uint64_t rt_mono_ns(void) {
+    if (g_opt.virtual_clock) {
+        if (on_main_thread()) return __atomic_add_fetch(&virtual_ns, VIRTUAL_STEP_NS, __ATOMIC_SEQ_CST);
+        return __atomic_load_n(&virtual_ns, __ATOMIC_SEQ_CST);
+    }
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
     return (uint64_t)ts.tv_sec * 1000000000ull + (uint64_t)ts.tv_nsec;
+}
+
+/* Let ns of guest time pass on the calling thread. */
+void rt_sleep_ns(uint64_t ns) {
+    if (g_opt.virtual_clock) {
+        if (on_main_thread()) __atomic_add_fetch(&virtual_ns, ns, __ATOMIC_SEQ_CST);
+        sched_yield();
+        return;
+    }
+    if (ns == 0) {
+        sched_yield();
+        return;
+    }
+    struct timespec ts = {.tv_sec = (time_t)(ns / 1000000000ull), .tv_nsec = (long)(ns % 1000000000ull)};
+    while (nanosleep(&ts, &ts) != 0 && errno == EINTR) {}
 }
 
 /* ------------------------------------------------------------ handle table */
@@ -370,12 +401,7 @@ H(k32_CloseHandle) {
 
 H(k32_Sleep) {
     UNUSED;
-    if (a[0] == 0) {
-        sched_yield();
-    } else {
-        struct timespec ts = {.tv_sec = a[0] / 1000, .tv_nsec = (long)(a[0] % 1000) * 1000000L};
-        while (nanosleep(&ts, &ts) != 0 && errno == EINTR) {}
-    }
+    rt_sleep_ns((uint64_t)a[0] * 1000000ull);
     return 0;
 }
 

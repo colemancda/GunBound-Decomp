@@ -22,6 +22,10 @@ static void usage(const char *argv0) {
             "  --frames N          exit after N presented frames\n"
             "  --scale N           window size as a multiple of 800x600 (default: 2 on a large display)\n"
             "  --fullscreen        full-screen window with the picture scaled to fit\n"
+            "  --input SCRIPT      synthetic input: \"FRAME:command;...\" with the commands move X Y,\n"
+            "                      down, up, rdown, rup, key VK DIK, text STRING, quit\n"
+            "  --virtual-clock     guest time advances with the main thread's work instead of real\n"
+            "                      time: runs are repeatable and as fast as the machine allows\n"
             "  --trace-imports     log every Win32 import call with its arguments and result\n"
             "  --verbose           log window messages, COM calls and file access\n",
             argv0);
@@ -95,6 +99,8 @@ int main(int argc, char **argv) {
         else if (!strcmp(o, "--frames") && has) g_opt.exit_after_frame = atoi(argv[++i]);
         else if (!strcmp(o, "--scale") && has) g_opt.scale = atoi(argv[++i]);
         else if (!strcmp(o, "--fullscreen")) g_opt.fullscreen = 1;
+        else if (!strcmp(o, "--virtual-clock")) g_opt.virtual_clock = 1;
+        else if (!strcmp(o, "--input") && has) snprintf(g_opt.input_script, sizeof g_opt.input_script, "%s", argv[++i]);
         else if (!strcmp(o, "--help") || !strcmp(o, "-h")) { usage(argv[0]); return 0; }
         else if (!strcmp(o, "--")) { i++; break; }
         else if (o[0] == '-' && o[1] == '-') { usage(argv[0]); return 2; }

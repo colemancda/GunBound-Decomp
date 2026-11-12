@@ -916,10 +916,7 @@ H(user_PeekMessageA) {
         /* The game spins on PeekMessage between frames; give the processor a rest. */
         static __thread uint64_t last_idle;
         uint64_t now = rt_mono_ns();
-        if (now - last_idle < 2000000ull) {
-            struct timespec ts = {0, 500000L};
-            nanosleep(&ts, NULL);
-        }
+        if (now - last_idle < 2000000ull) rt_sleep_ns(500000ull);
         last_idle = rt_mono_ns();
         return 0;
     }
@@ -937,8 +934,7 @@ H(user_GetMessageA) {
         if (r < 0) return 0;
         if (r > 0) break;
         if (rt_video_on_video_thread()) {
-            struct timespec ts = {0, 2000000L}; /* host input has no wake-up of its own */
-            nanosleep(&ts, NULL);
+            rt_sleep_ns(2000000ull); /* host input has no wake-up of its own */
             continue;
         }
         pthread_mutex_lock(&user_mu);

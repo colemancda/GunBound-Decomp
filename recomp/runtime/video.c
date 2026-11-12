@@ -1,6 +1,7 @@
 /* Host video and input (see video.h). Built without SDL when RT_NO_SDL is defined;
  * the program is then headless only. */
 #define _GNU_SOURCE
+#include <ctype.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +24,7 @@ static uint16_t *frame_px;          /* staged frame, RGB565, tightly packed */
 static int frame_w, frame_h, frame_dirty;
 static unsigned frame_count;
 static int motion_dx, motion_dy, motion_dz;
-static int video_open;
+static int video_open, have_window;
 static pthread_t video_thread;
 static int screen_w = 800, screen_h = 600;
 
@@ -78,6 +79,141 @@ int rt_input_read(unsigned *cursor, RtRawInput *out, int *overflow) {
     }
     pthread_mutex_unlock(&frame_mu);
     return ok;
+}
+
+/* ------------------------------------------------------------ input events
+ * Everything that enters the guest as input goes through these: they keep the
+ * shared key and button state, feed the raw log for DirectInput and queue the
+ * event that user32 turns into a window message. Video thread only. */
+static RtInputEvent pending[64];
+static int npending;
+
+static void queue_event(const RtInputEvent *ev) {
+    if (npending < (int)RT_COUNTOF(pending)) pending[npending++] = *ev;
+}
+
+static int clampi(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v; }
+
+static void input_mouse_move(int x, int y, int dx, int dy) {
+    RtInputEvent ev = {.type = RT_EV_MOUSE_MOVE};
+    ev.x = rt_mouse_x = clampi(x, 0, screen_w - 1);
+    ev.y = rt_mouse_y = clampi(y, 0, screen_h - 1);
+    pthread_mutex_lock(&frame_mu);
+    motion_dx += dx;
+    motion_dy += dy;
+    pthread_mutex_unlock(&frame_mu);
+    if (dx) raw_push(RT_RAW_AXIS, 0, dx);
+    if (dy) raw_push(RT_RAW_AXIS, 1, dy);
+    queue_event(&ev);
+}
+
+/* button: 1 left, 2 middle, 3 right */
+static void input_mouse_button(int button, int down, int clicks) {
+    RtInputEvent ev = {.type = RT_EV_MOUSE_BUTTON, .x = rt_mouse_x, .y = rt_mouse_y};
+    ev.code = button;
+    ev.down = down;
+    ev.repeat = clicks;
+    uint8_t bit = button == 1 ? 1 : button == 3 ? 2 : 4;
+    if (down) rt_mouse_buttons |= bit;
+    else rt_mouse_buttons &= (uint8_t)~bit;
+    raw_push(RT_RAW_BUTTON, button == 1 ? 0 : button == 3 ? 1 : 2, down ? 0x80 : 0);
+    queue_event(&ev);
+}
+
+static void input_wheel(int dz) {
+    pthread_mutex_lock(&frame_mu);
+    motion_dz += dz;
+    pthread_mutex_unlock(&frame_mu);
+    raw_push(RT_RAW_AXIS, 2, dz);
+}
+
+static void input_key(int vk, int dik, int down, int repeat) {
+    RtInputEvent ev = {.type = RT_EV_KEY};
+    ev.code = vk & 255;
+    ev.scan = dik & 255;
+    ev.down = down;
+    ev.repeat = repeat;
+    if (down) {
+        if (!repeat) rt_vk_state[ev.code] ^= 1;
+        rt_vk_state[ev.code] |= 0x80;
+        rt_dik_state[ev.scan] = 0x80;
+    } else {
+        rt_vk_state[ev.code] &= 0x7F;
+        rt_dik_state[ev.scan] = 0;
+    }
+    if (!repeat) raw_push(RT_RAW_KEY, ev.scan, down ? 0x80 : 0);
+    queue_event(&ev);
+}
+
+static void input_char(int ch) {
+    RtInputEvent ev = {.type = RT_EV_CHAR, .code = ch};
+    queue_event(&ev);
+}
+
+/* ------------------------------------------------------------ input script
+ * --input "FRAME:command;FRAME:command;...": synthetic input, applied once the
+ * given number of frames has been presented. It is what makes the input path
+ * testable without a display. Commands:
+ *   move X Y     pointer to (X, Y) in guest screen coordinates
+ *   down, up     left button;  rdown, rup  right button
+ *   key VK DIK   press and release a key (Windows virtual key and DirectInput code, hex)
+ *   text STRING  characters, as typed
+ *   quit         the window's close button */
+typedef struct ScriptStep {
+    unsigned frame;
+    char cmd[8];
+    int a, b;
+    char text[64];
+} ScriptStep;
+static ScriptStep script[64];
+static unsigned nscript, script_pos;
+static int script_parsed;
+
+static void script_parse(void) {
+    script_parsed = 1;
+    const char *p = g_opt.input_script;
+    while (*p && nscript < RT_COUNTOF(script)) {
+        ScriptStep *s = &script[nscript];
+        char step[128], rest[96] = "";
+        size_t len = strcspn(p, ";");
+        memset(s, 0, sizeof *s);
+        snprintf(step, sizeof step, "%.*s", (int)(len < sizeof step - 1 ? len : sizeof step - 1), p);
+        if (sscanf(step, " %u : %7s %95[^\n]", &s->frame, s->cmd, rest) < 2) {
+            rt_log("recomp: --input: cannot parse \"%s\"\n", step);
+            break;
+        }
+        if (!strcmp(s->cmd, "text")) snprintf(s->text, sizeof s->text, "%s", rest);
+        else if (!strcmp(s->cmd, "key")) sscanf(rest, "%x %x", (unsigned *)&s->a, (unsigned *)&s->b);
+        else sscanf(rest, "%d %d", &s->a, &s->b);
+        nscript++;
+        p += len;
+        while (*p == ';' || isspace((unsigned char)*p)) p++;
+    }
+}
+
+static void script_run(void) {
+    if (!script_parsed) script_parse();
+    unsigned now = rt_video_frames();
+    while (script_pos < nscript && script[script_pos].frame <= now && npending < 32) {
+        const ScriptStep *s = &script[script_pos++];
+        if (g_opt.verbose) rt_log("[input] frame %u: %s %d %d %s\n", now, s->cmd, s->a, s->b, s->text);
+        if (!strcmp(s->cmd, "move")) input_mouse_move(s->a, s->b, s->a - rt_mouse_x, s->b - rt_mouse_y);
+        else if (!strcmp(s->cmd, "down")) input_mouse_button(1, 1, 1);
+        else if (!strcmp(s->cmd, "up")) input_mouse_button(1, 0, 1);
+        else if (!strcmp(s->cmd, "rdown")) input_mouse_button(3, 1, 1);
+        else if (!strcmp(s->cmd, "rup")) input_mouse_button(3, 0, 1);
+        else if (!strcmp(s->cmd, "key")) {
+            input_key(s->a, s->b, 1, 0);
+            input_key(s->a, s->b, 0, 0);
+        } else if (!strcmp(s->cmd, "text")) {
+            for (const char *t = s->text; *t; t++) input_char((unsigned char)*t);
+        } else if (!strcmp(s->cmd, "quit")) {
+            RtInputEvent ev = {.type = RT_EV_QUIT};
+            queue_event(&ev);
+        } else {
+            rt_log("recomp: --input: unknown command \"%s\"\n", s->cmd);
+        }
+    }
 }
 
 /* ------------------------------------------------------------------- PNG
@@ -191,8 +327,6 @@ static SDL_Window *window;
 static SDL_Renderer *renderer;
 static SDL_Texture *texture;
 static int tex_w, tex_h;
-static RtInputEvent pending[8];
-static int npending;
 
 /* SDL scancode -> {Windows virtual key, DirectInput key code}. */
 static const struct { uint8_t vk, dik; } keymap[SDL_NUM_SCANCODES] = {
@@ -240,13 +374,9 @@ static const struct { uint8_t vk, dik; } keymap[SDL_NUM_SCANCODES] = {
     [SDL_SCANCODE_RALT] = {0x12, 0xB8}, [SDL_SCANCODE_RGUI] = {0x5C, 0xDC},
 };
 
-void rt_video_open(const char *title, int width, int height) {
-    screen_w = width;
-    screen_h = height;
-    if (video_open || g_opt.headless) return;
+static void sdl_open(const char *title, int width, int height) {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0) {
         rt_log("recomp: SDL_Init failed (%s); continuing without a window\n", SDL_GetError());
-        g_opt.headless = 1;
         return;
     }
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
@@ -267,18 +397,16 @@ void rt_video_open(const char *title, int width, int height) {
     if (window && !renderer) renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
     if (!window || !renderer) {
         rt_log("recomp: cannot create the SDL window (%s); continuing without one\n", SDL_GetError());
-        g_opt.headless = 1;
         return;
     }
     SDL_RenderSetLogicalSize(renderer, width, height);
     SDL_StartTextInput();
-    video_thread = pthread_self();
-    video_open = 1;
+    have_window = 1;
     rt_log("recomp: SDL window %dx%d for a %dx%d guest screen, video driver %s\n", w, h, width, height,
            SDL_GetCurrentVideoDriver());
 }
 
-static void flush_frame(void) {
+static void sdl_flush(void) {
     pthread_mutex_lock(&frame_mu);
     if (frame_dirty && frame_px) {
         if (!texture || tex_w != frame_w || tex_h != frame_h) {
@@ -299,24 +427,16 @@ static void flush_frame(void) {
     pthread_mutex_unlock(&frame_mu);
 }
 
-static void queue_event(const RtInputEvent *ev) {
-    if (npending < (int)RT_COUNTOF(pending)) pending[npending++] = *ev;
-}
-
-static int clampi(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v; }
-
-/* Translate one SDL event; returns the number of events queued. */
-static void translate(const SDL_Event *e) {
-    RtInputEvent ev;
-    memset(&ev, 0, sizeof ev);
+static void sdl_translate(const SDL_Event *e) {
     switch (e->type) {
-    case SDL_QUIT:
-        ev.type = RT_EV_QUIT;
+    case SDL_QUIT: {
+        RtInputEvent ev = {.type = RT_EV_QUIT};
         queue_event(&ev);
         break;
+    }
     case SDL_WINDOWEVENT:
         if (e->window.event == SDL_WINDOWEVENT_FOCUS_GAINED || e->window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-            ev.type = RT_EV_FOCUS;
+            RtInputEvent ev = {.type = RT_EV_FOCUS};
             ev.down = e->window.event == SDL_WINDOWEVENT_FOCUS_GAINED;
             queue_event(&ev);
         } else if (e->window.event == SDL_WINDOWEVENT_EXPOSED || e->window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
@@ -326,60 +446,26 @@ static void translate(const SDL_Event *e) {
         }
         break;
     case SDL_MOUSEMOTION:
-        ev.type = RT_EV_MOUSE_MOVE;
-        ev.x = rt_mouse_x = clampi(e->motion.x, 0, screen_w - 1);
-        ev.y = rt_mouse_y = clampi(e->motion.y, 0, screen_h - 1);
-        pthread_mutex_lock(&frame_mu);
-        motion_dx += e->motion.xrel;
-        motion_dy += e->motion.yrel;
-        pthread_mutex_unlock(&frame_mu);
-        if (e->motion.xrel) raw_push(RT_RAW_AXIS, 0, e->motion.xrel);
-        if (e->motion.yrel) raw_push(RT_RAW_AXIS, 1, e->motion.yrel);
-        queue_event(&ev);
+        input_mouse_move(e->motion.x, e->motion.y, e->motion.xrel, e->motion.yrel);
         break;
     case SDL_MOUSEBUTTONDOWN:
     case SDL_MOUSEBUTTONUP: {
         int b = e->button.button == SDL_BUTTON_LEFT ? 1 : e->button.button == SDL_BUTTON_RIGHT ? 3 :
                 e->button.button == SDL_BUTTON_MIDDLE ? 2 : 0;
         if (!b) break;
-        ev.type = RT_EV_MOUSE_BUTTON;
-        ev.x = rt_mouse_x = clampi(e->button.x, 0, screen_w - 1);
-        ev.y = rt_mouse_y = clampi(e->button.y, 0, screen_h - 1);
-        ev.code = b;
-        ev.down = e->type == SDL_MOUSEBUTTONDOWN;
-        ev.repeat = e->button.clicks;
-        uint8_t bit = b == 1 ? 1 : b == 3 ? 2 : 4;
-        if (ev.down) rt_mouse_buttons |= bit;
-        else rt_mouse_buttons &= (uint8_t)~bit;
-        raw_push(RT_RAW_BUTTON, b == 1 ? 0 : b == 3 ? 1 : 2, ev.down ? 0x80 : 0);
-        queue_event(&ev);
+        rt_mouse_x = clampi(e->button.x, 0, screen_w - 1);
+        rt_mouse_y = clampi(e->button.y, 0, screen_h - 1);
+        input_mouse_button(b, e->type == SDL_MOUSEBUTTONDOWN, e->button.clicks);
         break;
     }
     case SDL_MOUSEWHEEL:
-        pthread_mutex_lock(&frame_mu);
-        motion_dz += e->wheel.y * 120;
-        pthread_mutex_unlock(&frame_mu);
-        raw_push(RT_RAW_AXIS, 2, e->wheel.y * 120);
+        input_wheel(e->wheel.y * 120);
         break;
     case SDL_KEYDOWN:
     case SDL_KEYUP: {
         SDL_Scancode sc = e->key.keysym.scancode;
         if (sc >= SDL_NUM_SCANCODES || !keymap[sc].vk) break;
-        ev.type = RT_EV_KEY;
-        ev.code = keymap[sc].vk;
-        ev.scan = keymap[sc].dik;
-        ev.down = e->type == SDL_KEYDOWN;
-        ev.repeat = e->key.repeat;
-        if (ev.down) {
-            if (!e->key.repeat) rt_vk_state[ev.code] ^= 1;
-            rt_vk_state[ev.code] |= 0x80;
-            rt_dik_state[ev.scan] = 0x80;
-        } else {
-            rt_vk_state[ev.code] &= 0x7F;
-            rt_dik_state[ev.scan] = 0;
-        }
-        if (!e->key.repeat) raw_push(RT_RAW_KEY, ev.scan, ev.down ? 0x80 : 0);
-        queue_event(&ev);
+        input_key(keymap[sc].vk, keymap[sc].dik, e->type == SDL_KEYDOWN, e->key.repeat);
         break;
     }
     case SDL_TEXTINPUT: {
@@ -392,10 +478,7 @@ static void translate(const SDL_Event *e) {
                 while ((*p & 0xC0) == 0x80) p++;
                 continue;
             }
-            if (ch < 0x20 || ch > 0xFF) continue;
-            ev.type = RT_EV_CHAR;
-            ev.code = (int)ch;
-            queue_event(&ev);
+            if (ch >= 0x20 && ch <= 0xFF) input_char((int)ch);
         }
         break;
     }
@@ -404,53 +487,72 @@ static void translate(const SDL_Event *e) {
     }
 }
 
-int rt_video_poll(RtInputEvent *ev) {
-    if (!rt_video_on_video_thread()) return 0;
-    flush_frame();
+static void sdl_poll(void) {
     SDL_Event e;
-    while (npending == 0 && SDL_PollEvent(&e)) translate(&e);
-    if (npending == 0) return 0;
-    *ev = pending[0];
-    npending--;
-    memmove(pending, pending + 1, (size_t)npending * sizeof pending[0]);
-    return 1;
+    while (npending < 32 && SDL_PollEvent(&e)) sdl_translate(&e);
 }
 
 void rt_video_warp_mouse(int x, int y) {
-    if (!rt_video_on_video_thread()) return;
+    if (!have_window || !rt_video_on_video_thread()) return;
     int wx, wy;
     SDL_RenderLogicalToWindow(renderer, (float)x, (float)y, &wx, &wy);
     SDL_WarpMouseInWindow(window, wx, wy);
 }
 
 void rt_video_show_cursor(int show) {
-    if (rt_video_on_video_thread()) SDL_ShowCursor(show ? SDL_ENABLE : SDL_DISABLE);
+    if (have_window && rt_video_on_video_thread()) SDL_ShowCursor(show ? SDL_ENABLE : SDL_DISABLE);
 }
 
 void rt_video_set_title(const char *title) {
-    if (rt_video_on_video_thread()) SDL_SetWindowTitle(window, title);
+    if (have_window && rt_video_on_video_thread()) SDL_SetWindowTitle(window, title);
 }
 
 void rt_video_message_box(const char *caption, const char *text) {
-    if (rt_video_on_video_thread()) SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, caption, text, window);
+    if (have_window && rt_video_on_video_thread())
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, caption, text, window);
 }
 
 #else /* RT_NO_SDL */
 
-void rt_video_open(const char *title, int width, int height) {
-    (void)title;
-    screen_w = width;
-    screen_h = height;
-    g_opt.headless = 1;
-}
-static void flush_frame(void) {}
-int rt_video_poll(RtInputEvent *ev) { (void)ev; return 0; }
+static void sdl_open(const char *title, int width, int height) { (void)title, (void)width, (void)height; }
+static void sdl_flush(void) {}
+static void sdl_poll(void) {}
 void rt_video_warp_mouse(int x, int y) { (void)x, (void)y; }
 void rt_video_show_cursor(int show) { (void)show; }
 void rt_video_set_title(const char *title) { (void)title; }
 void rt_video_message_box(const char *caption, const char *text) { (void)caption, (void)text; }
 
 #endif
+
+/* The calling thread becomes the video thread, with or without a window. */
+void rt_video_open(const char *title, int width, int height) {
+    screen_w = width;
+    screen_h = height;
+    if (video_open) return;
+    rt_mouse_x = width / 2;
+    rt_mouse_y = height / 2;
+    if (!g_opt.headless) sdl_open(title, width, height);
+    video_thread = pthread_self();
+    video_open = 1;
+}
+
+static void flush_frame(void) {
+    if (have_window) sdl_flush();
+}
+
+int rt_video_poll(RtInputEvent *ev) {
+    if (!rt_video_on_video_thread()) return 0;
+    flush_frame();
+    if (npending == 0) {
+        if (g_opt.input_script[0]) script_run();
+        if (have_window) sdl_poll();
+    }
+    if (npending == 0) return 0;
+    *ev = pending[0];
+    npending--;
+    memmove(pending, pending + 1, (size_t)npending * sizeof pending[0]);
+    return 1;
+}
 
 void rt_video_present(const void *pixels, int width, int height, int pitch, int is555) {
     pthread_mutex_lock(&frame_mu);

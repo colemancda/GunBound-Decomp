@@ -165,7 +165,8 @@ void rt_waitable_set_exit_code(RtWaitable *w, uint32_t code);
 
 static inline void rt_set_last_error(CPU *c, uint32_t e) { st32(c->fs_base + TEB_LAST_ERROR, e); }
 static inline const char *rt_gstr(uint32_t a) { return a ? (const char *)G(a) : "(null)"; }
-uint64_t rt_mono_ns(void);
+uint64_t rt_mono_ns(void);        /* the guest's monotonic clock */
+void rt_sleep_ns(uint64_t ns);    /* let guest time pass on the calling thread */
 
 /* ---- process state shared by import handlers ---- */
 typedef struct RtProcess {
@@ -187,6 +188,8 @@ typedef struct RtOptions {
     int scale;             /* window size as a multiple of the guest screen, 0 = automatic */
     int fullscreen;        /* borderless full-screen window, letterboxed */
     int verbose;           /* log window messages and COM calls */
+    char input_script[1024]; /* synthetic input, see video.c */
+    int virtual_clock;     /* guest time is a counter advanced by the main thread */
 } RtOptions;
 extern RtOptions g_opt;
 

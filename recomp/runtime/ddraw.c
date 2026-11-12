@@ -745,8 +745,7 @@ H(dd_SetDisplayMode) {
 
 H(dd_WaitForVerticalBlank) {
     UNUSED;
-    struct timespec ts = {0, 1000000L};
-    nanosleep(&ts, NULL);
+    rt_sleep_ns(1000000ull);
     return DD_OK;
 }
 
