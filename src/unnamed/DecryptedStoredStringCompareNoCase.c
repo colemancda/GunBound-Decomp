@@ -17,43 +17,29 @@
  * stored string is is inferred.
  */
 #include "ghidra_types.h"
+#include <malloc.h>
 
 
-/* WARNING: Function: __chkstk replaced with injection: alloca_probe */
-/* WARNING: Unable to track spacebase fully for stack */
-/* WARNING: Type propagation algorithm not settling */
 
 int DecryptedStoredStringCompareNoCase(undefined4 param_1,undefined4 param_2,int regEax)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xfffffff4;
-  char cVar1;
   int iVar2;
-  size_t asStack_1c [4];
+  char *pBlock;
   
   if (*(int *)(regEax + 0x27c) != 0) {
     iVar2 = *(int *)(regEax + 0x280) + 0x10;
     iVar2 = (int)(iVar2 + (iVar2 >> 0x1f & 0xfU)) >> 4;
-    asStack_1c[3] = 0x4fce21;
-    if (&stack0xfffffff4 != (undefined1 *)(iVar2 * 0x10)) {
-      asStack_1c[iVar2 * -4 + 3] = 0x4fce2c;
-      /* RECOVERED (2026-07-19): EBX = the alloca'd output block (orig
-       * `mov ebx,esp` just before the call), EDI = regEax, this function's
-       * own crypto context. */
-      cVar1 = (char)DecryptContextBuffer((int)(&stack0xfffffff4 + iVar2 * -0x10),regEax);
-      if (cVar1 != '\0') {
-        asStack_1c[iVar2 * -4 + 3] = param_2;
-        asStack_1c[iVar2 * -4 + 2] = param_1;
-        asStack_1c[iVar2 * 0xfffffffcU + 1] = (size_t)(&stack0xfffffff4 + iVar2 * -0x10);
-        asStack_1c[iVar2 * -4] = 0x4fce3e;
-        iVar2 = __strnicmp((char *)asStack_1c[iVar2 * 0xfffffffcU + 1],
-                           (char *)asStack_1c[iVar2 * -4 + 2],asStack_1c[iVar2 * -4 + 3]);
-        return iVar2;
+    /* Real alloca of iVar2 * 16 bytes (orig 0x4fce01-0x4fce23); see
+     * DecryptStoredStringTo for what the raw stack-array form did wrong. */
+    pBlock = (char *)_alloca(iVar2 * 0x10);
+    if (pBlock != (char *)0x0) {
+      /* RECOVERED (2026-07-19): EBX = the alloca'd output block, EDI =
+       * regEax, this function's own crypto context. */
+      if ((char)DecryptContextBuffer((int)pBlock,regEax) != '\0') {
+        return __strnicmp(pBlock,(char *)param_1,(size_t)param_2);
       }
     }
   }
   return -1;
 }
-

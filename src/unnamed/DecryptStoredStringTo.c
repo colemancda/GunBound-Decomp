@@ -39,44 +39,36 @@
  * EAX-is-the-context shape and was fixed the same way.
  */
 #include "ghidra_types.h"
+#include <malloc.h>
 
 
-/* WARNING: Function: __chkstk replaced with injection: alloca_probe */
-/* WARNING: Unable to track spacebase fully for stack */
-/* WARNING: Type propagation algorithm not settling */
 
 undefined4 DecryptStoredStringTo(undefined4 param_1,undefined4 param_2,int regEax)
 
 {
-  /* Ghidra artifact: raw stack reference the decompiler could not
-   * map to a named local; declared so the raw port parses. */
-  undefined stack0xfffffff4;
-  char cVar1;
   int in_EAX = regEax;
   int iVar2;
-  size_t asStack_1c [4];
+  char *pBlock;
   
   if (*(int *)(in_EAX + 0x27c) != 0) {
     iVar2 = *(int *)(in_EAX + 0x280) + 0x10;
     iVar2 = (int)(iVar2 + (iVar2 >> 0x1f & 0xfU)) >> 4;
-    asStack_1c[3] = 0x4fcdb1;
-    if (&stack0xfffffff4 != (undefined1 *)(iVar2 * 0x10)) {
-      asStack_1c[iVar2 * -4 + 3] = 0x4fcdbc;
+    /* The original (0x4fcd91-0x4fcdb3) allocas iVar2 * 16 bytes (the size
+     * rounded to 16, then to 4) and keeps the block in EBX. The raw port
+     * wrote the call's return addresses into a four-word local array at
+     * negative indices and took a block address from the address of a one
+     * byte local, so the decrypt wrote below the frame. A real alloca is
+     * what the original does. */
+    pBlock = (char *)_alloca(iVar2 * 0x10);
+    if (pBlock != (char *)0x0) {
       /* RECOVERED (2026-07-19): EBX = the alloca'd output block (orig
        * `mov ebx,esp` just before the call), EDI = in_EAX, this function's
        * own crypto context. */
-      cVar1 = (char)DecryptContextBuffer((int)(&stack0xfffffff4 + iVar2 * -0x10),in_EAX);
-      if (cVar1 != '\0') {
-        asStack_1c[iVar2 * -4 + 3] = param_2;
-        asStack_1c[iVar2 * -4 + 2] = (size_t)(&stack0xfffffff4 + iVar2 * -0x10);
-        asStack_1c[iVar2 * -4 + 1] = param_1;
-        asStack_1c[iVar2 * -4] = 0x4fcdce;
-        _strncpy((char *)asStack_1c[iVar2 * -4 + 1],(char *)asStack_1c[iVar2 * -4 + 2],
-                 asStack_1c[iVar2 * -4 + 3]);
+      if ((char)DecryptContextBuffer((int)pBlock,in_EAX) != '\0') {
+        _strncpy((char *)param_1,pBlock,(size_t)param_2);
         return 1;
       }
     }
   }
   return 0;
 }
-
