@@ -1,15 +1,25 @@
-/* FUN_0051aa00 - 0x0051aa00 in the original binary.
+/* MpegDct16MixDown - 0x0051aa00 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_0051aa00.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Its only callers are SynthesizeMpeg16HalfMixDown and
+ * SynthesizeMpeg8HalfMixDown, the half-band drivers for a two-channel stream
+ * mixed down to one output channel (their notes: reader 0x51aa00 averages
+ * each interleaved float pair with the 0.5f constant at 0x544b00; confirmed
+ * there, the constant reads 0.5 in the binary). Verified in the body: the
+ * first and last pairs of the 32-float input are (in[2k] + in[2k+1]) * 0.5
+ * before the same second-row (0xf25a80) factor step as MpegDct16.
+ * It is to MpegDct16 what MpegDct32MixDown is to MpegDct32.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0051aa00(float *param_1,undefined4 param_2)
+void MpegDct16MixDown(float *param_1,undefined4 param_2)
 
 {
   float fVar1;
