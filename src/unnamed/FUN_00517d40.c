@@ -91,7 +91,7 @@ int FUN_00517d40(int param_1,float *param_2,float *param_3,float *param_4,int pa
     param_4 = param_3 + iVar6 + 0x120;
     iVar6 = iVar6 + (int)param_2;
     do {
-      FUN_0051c690(iVar11);
+      MpegImdct12Thunk(iVar11);
       iVar8 = 3;
       pfVar4 = (float *)(iVar11 + 0x24);
       pfVar5 = param_4;

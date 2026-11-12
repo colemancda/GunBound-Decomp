@@ -1918,7 +1918,7 @@ void __cdecl MpegFrequencyInversion(int param_3,int param_4);
 undefined ** GetMpegImdctLongTables();
 undefined ** GetMpegImdctShortTables();
 void MpegImdct36Thunk();
-void FUN_0051c690();
+void MpegImdct12Thunk();
 void __cdecl MpegAntialias(int param_3,int param_4);
 void __cdecl MpegDct32(float *param_3,undefined4 *param_4);
 void __cdecl MpegDct32Interleaved(float *param_3,undefined4 *param_4);
