@@ -82,7 +82,7 @@ void DequantizeMpegLayerIIISpectrum(int param_1,int *param_2,int param_3,int par
       fVar5 = fVar2 * *(float *)(&DAT_005b0efc +
                                 ((g_mpegPretab[uVar11 + *(int *)(param_4 + 0x3c) * 0x16] +
                                  *(int *)(param_4 + 0x40) * 4) * 0x20 +
-                                *(int *)(param_3 + -0xf25e20 + (int)local_50)) * 4);
+                                *(int *)(param_3 + ((int)local_50 - (int)&DAT_00f25e20))) * 4);
       local_4c = (int *)*local_50;
       if (0 < (int)local_4c) {
         pfVar9 = (float *)(param_1 + local_68 * 4);
