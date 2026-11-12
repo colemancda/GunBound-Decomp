@@ -240,7 +240,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
            EAX = the slot index (still the OLD local_d70; its reassignment
            to puVar26 moves below the call to match the binary's order),
            EDI = the +0x4585c dword. */
-        FUN_004e74c0((int)*(short *)(iVar19 + 0x4589c + iVar12),(int)&g_replayContext,
+        ReplayContext_SetSlot((int)*(short *)(iVar19 + 0x4589c + iVar12),(int)&g_replayContext,
                      *(int *)(iVar19 + 0x4587c + iVar20),
                      (int)*(short *)(iVar19 + 0x458ac + iVar12),(char *)local_d60,
                      (uint)local_d70,*(int *)(iVar19 + 0x4585c + iVar20));

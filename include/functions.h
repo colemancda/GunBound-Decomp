@@ -1234,7 +1234,7 @@ undefined4 __fastcall SendUdpDatagram(int param_1, int param_2, char *param_3, i
 void __fastcall FUN_004e7340(undefined4 param_1,uint param_2,int regEax);
 void SetLocalPeerEndpoint(int slot,int ctx,char *nameRec);
 void ResetReplayContext(int ctx);
-void __fastcall FUN_004e74c0(int param_1,int param_2,int param_3,int param_4,char *param_5,uint regEax,int regEdi);
+void __fastcall ReplayContext_SetSlot(int param_1,int param_2,int param_3,int param_4,char *param_5,uint regEax,int regEdi);
 void __fastcall ReplayContext_ClearSlot(undefined4 param_1,int param_2,uint regEsi);
 undefined4 __thiscall BroadcastRing_Push(ushort *param_1,int param_2,int regEax);
 uint __fastcall BroadcastRing_Pop(undefined4 param_1,int param_2,undefined4 *param_3,undefined4 *param_4);

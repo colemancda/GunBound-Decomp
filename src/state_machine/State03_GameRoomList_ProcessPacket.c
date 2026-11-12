@@ -879,7 +879,7 @@ switchD_00428058_default:
           /* DROPPED-REG FIX 2026-08-28: same re-slot as the
              WriteReplayEventRecord site; EAX = uVar20 (`mov eax,esi` at
              0x427db8). */
-          FUN_004e74c0((int)*(short *)(iVar10 + 0x4589c + uVar20 * 2),(int)&g_replayContext,
+          ReplayContext_SetSlot((int)*(short *)(iVar10 + 0x4589c + uVar20 * 2),(int)&g_replayContext,
                        *(int *)(iVar10 + 0x4587c + uVar20 * 4),
                        (int)*(short *)(iVar10 + 0x458ac + uVar20 * 2),
                        (char *)(iVar24 + 0x457f1 + iVar10),uVar20,
