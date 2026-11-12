@@ -92,7 +92,7 @@ void DecodeMpegLayerIIIGranule(undefined4 param_1,int *param_2)
                    (&DAT_005ae820)[iVar8 * 0x12]);
       DecodeMpegHuffmanBigValues(&DAT_00f25f00 + (int)param_2 + local_c,iVar10 - local_c,
                    (&DAT_005ae824)[iVar8 * 0x12]);
-      iVar2 = FUN_00518e30(&DAT_00f25f00 + (int)param_2 + iVar10,DAT_00563d8c - iVar10,
+      iVar2 = DecodeMpegHuffmanCount1(&DAT_00f25f00 + (int)param_2 + iVar10,DAT_00563d8c - iVar10,
                            (&DAT_005ae800)[iVar8 * 0x12] +
                            ((int)DAT_00f25e0c - (int)DAT_00f25e08) * 8 + DAT_00f25e04 + uVar6,
                            (&DAT_005ae844)[iVar8 * 0x12]);

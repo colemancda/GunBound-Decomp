@@ -1878,7 +1878,7 @@ undefined * GetMpegPow43Table();
 undefined * GetMpegSubblockGainTable();
 void FUN_00518560();
 void DecodeMpegHuffmanBigValues();
-int FUN_00518e30();
+int DecodeMpegHuffmanCount1();
 void ReadMpegLayerIIIScalefactors();
 void ReadMpegLayerIIIScalefactorsLSF();
 undefined4 InitMpegLayerIIITables();

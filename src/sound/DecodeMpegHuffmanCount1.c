@@ -1,13 +1,27 @@
-/* FUN_00518e30 - 0x00518e30 in the original binary.
+/* DecodeMpegHuffmanCount1 - 0x00518e30 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_00518e30.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Called once per channel from DecodeMpegLayerIIIGranule right after the
+ * three DecodeMpegHuffmanBigValues regions, on the samples from the
+ * big_values * 2 limit up to DAT_00563d8c, as (output, remaining sample count,
+ * remaining bit budget, table flag); the flag is a per-channel side-info field
+ * (DAT_005ae844). Its return value is added to the big_values limit to give
+ * the channel's band limit stored at DAT_005ae7cc, the position up to which
+ * the spectrum is nonzero. Verified in the body: it decodes quadruples
+ * (n >> 2) whose values are 0 or +-1 with one sign bit per set value; flag 0
+ * indexes g_mpegCount1Tab (0x568100, 64 length/value pairs) with a 6-bit
+ * code, a nonzero flag reads a fixed 4-bit code inverted (value = code ^ 0xf).
+ * That is the ISO count1 region with its two table choices (A: variable length,
+ * B: fixed 4 bits).
  */
 #include "ghidra_types.h"
 
 
-int FUN_00518e30(int param_1,int param_2,int param_3,uint param_4)
+int DecodeMpegHuffmanCount1(int param_1,int param_2,int param_3,uint param_4)
 
 {
   int iVar1;

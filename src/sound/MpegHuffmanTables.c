@@ -9,7 +9,7 @@
  * kind}; 32 big_values tables plus two further records, ending where the synthesis
  * window at 0x568318 starts. The tree pointers point into g_mpegHuffBlob.
  * g_mpegCount1Tab (0x568100..0x56817f): 64 (code length, value) byte pairs for the
- * 6-bit count1 lookup of FUN_00518e30; ends where g_mpegHuffDesc starts.
+ * 6-bit count1 lookup of DecodeMpegHuffmanCount1; ends where g_mpegHuffDesc starts.
  */
 #include "ghidra_types.h"
 
