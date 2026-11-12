@@ -102,7 +102,7 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
    1210b  0x557da0 10 ( 9/10)     1     ~Label_OnMouseUp
    1185b  0x557f58 10 (10/10)     0     ~Widget_DrawChildrenDeep
    1168b  0x5574cc  5 ( 3/ 5)     2     ~MusicChannel_Stop
-   1091b  0x557be4 10 (10/10)     0     ~BuddyPanel_OnCommand
+   1091b  0x557be4 10 (10/10)     0     ~BuddyPanel_OnMouseDown
    1059b  0x556194  5 ( 4/ 5)     1     ~DeleteLightningStrike
    1018b  0x5572f0  4 ( 3/ 3)     0     ~ReplayContext_ScalarDeletingDestructor
    1014b  0x557df0 10 (10/10)     0     ~EnterRoomNumberDialog_OnCommand
