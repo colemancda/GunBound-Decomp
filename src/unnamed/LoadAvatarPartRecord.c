@@ -66,20 +66,17 @@ uint LoadAvatarPartRecord(undefined4 param_1,int param_2,uint regEax,int regEsi)
   undefined2 *puVar6;
   undefined4 *puVar7;
   int local_108;
-  uint local_104;
-  char local_100 [23];
-  undefined1 local_e9;
-  undefined4 local_e8;
-  undefined4 local_e4;
-  undefined4 local_e0;
-  undefined4 local_dc;
-  undefined4 local_d8;
-  undefined4 local_d4;
-  undefined4 local_d0;
-  undefined4 local_cc;
-  undefined4 local_c8;
-  undefined4 local_c4;
-  char local_c0 [63];
+  /* The 0x84-byte on-disk part record, filled by one
+   * ReadXFSEntryByte(...,0x84) (orig 0x423f6c mov eax,0x84; dest
+   * [esp+0x10]) - contiguous (split-struct rule), same layout as
+   * LoadAvatarPartRecordByIndex. */
+  struct {
+    uint id;
+    char name[23];
+    char flag;
+    int  attrs[10];
+    char desc[63];
+  } rec;
   char acName [128];   /* orig [esp+0x94]: [0] = part letter, [1..127] zero-filled, then the path suffix */
   
   puVar5 = (undefined4 *)(acName + 1);
@@ -129,7 +126,7 @@ uint LoadAvatarPartRecord(undefined4 param_1,int param_2,uint regEax,int regEsi)
   iVar4 = OpenXFSEntryStream((int)param_1 + 0xf6e8, acName, 1, 0);
   uVar2 = 0;
   if (iVar4 != 0) {
-    ReadXFSEntryByte(iVar4,&local_108);
+    ReadXFSEntryByte(iVar4,(undefined4 *)&local_108,4);
     if ((int)(regEax & 0x7fff) < local_108) {
       /* FIXED (2026-08-11): dropped seek args - orig 0x423f55 `mov edx,ebx`
        * (ebx = regEax & 0x7fff, the part index, per the `and ebx,0x7fff` at
@@ -137,12 +134,12 @@ uint LoadAvatarPartRecord(undefined4 param_1,int param_2,uint regEax,int regEsi)
        * 0x423f3e `mov eax,ebp` (ebp = the open stream, this C's iVar4). */
       uVar2 = SkipXFSEntryBytes(0,(int)(regEax & 0x7fff) * 0x84,iVar4);
       if ((char)uVar2 != '\0') {
-        ReadXFSEntryByte(iVar4,&local_104);
+        ReadXFSEntryByte(iVar4,(undefined4 *)&rec,0x84);
         CloseSpriteReadState();
-        uVar2 = local_104;
-        if (local_104 == (regEax & 0x7fff)) {
-          QueueOutgoingPacketField(local_104);
-          pcVar3 = local_100;
+        uVar2 = rec.id;
+        if (rec.id == (regEax & 0x7fff)) {
+          QueueOutgoingPacketField(rec.id);
+          pcVar3 = rec.name;
           iVar4 = (regEsi + 0x224) - (int)pcVar3;
           do {
             cVar1 = *pcVar3;
@@ -153,18 +150,18 @@ uint LoadAvatarPartRecord(undefined4 param_1,int param_2,uint regEax,int regEsi)
             *(undefined1 *)(regEsi + 0x236) = 0;
           }
           *(undefined1 *)(regEsi + 0x237) = 0;
-          *(undefined1 *)(regEsi + 0x23b) = local_e9;
-          QueueOutgoingPacketField(local_e8);
-          QueueOutgoingPacketField(local_e4);
-          QueueOutgoingPacketField(local_e0);
-          QueueOutgoingPacketField(local_dc);
-          QueueOutgoingPacketField(local_d8);
-          QueueOutgoingPacketField(local_d4);
-          QueueOutgoingPacketField(local_d0);
-          QueueOutgoingPacketField(local_cc);
-          QueueOutgoingPacketField(local_c8);
-          QueueOutgoingPacketField(local_c4);
-          pcVar3 = local_c0;
+          *(undefined1 *)(regEsi + 0x23b) = rec.flag;
+          QueueOutgoingPacketField(rec.attrs[0]);
+          QueueOutgoingPacketField(rec.attrs[1]);
+          QueueOutgoingPacketField(rec.attrs[2]);
+          QueueOutgoingPacketField(rec.attrs[3]);
+          QueueOutgoingPacketField(rec.attrs[4]);
+          QueueOutgoingPacketField(rec.attrs[5]);
+          QueueOutgoingPacketField(rec.attrs[6]);
+          QueueOutgoingPacketField(rec.attrs[7]);
+          QueueOutgoingPacketField(rec.attrs[8]);
+          QueueOutgoingPacketField(rec.attrs[9]);
+          pcVar3 = rec.desc;
           iVar4 = (regEsi + 0x17a4) - (int)pcVar3;
           do {
             cVar1 = *pcVar3;

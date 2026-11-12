@@ -68,7 +68,7 @@ void __thiscall SoundChannel_FillBufferChunk(int param_1,int param_2)
     iVar3 = (**(code **)(*piVar2 + 0x2c))(piVar2,(param_2 != 0) - 1 & DAT_00588f44,DAT_00588f44);
     if (iVar3 == 0) {
       if (*(int *)(param_1 + 0x14) != 0) {
-        uVar4 = ReadXFSEntryByte(*(int *)(param_1 + 0x14),pLVar1);
+        uVar4 = ReadXFSEntryByte(*(int *)(param_1 + 0x14),pLVar1,DAT_00588f44);
         uVar8 = DAT_00588f44;
         iVar3 = 0;
         if (uVar4 != DAT_00588f44) {
@@ -121,8 +121,8 @@ void __thiscall SoundChannel_FillBufferChunk(int param_1,int param_2)
               iVar3 = iVar3 + uVar4;
               uVar8 = uVar8 - uVar4;
               RewindXFSEntryStream();
-              ReadXFSEntryByte(*(undefined4 *)(param_1 + 0x14),acHeaderSkip);
-              uVar4 = ReadXFSEntryByte(*(undefined4 *)(param_1 + 0x14),(int)pLVar1 + iVar3);
+              ReadXFSEntryByte(*(undefined4 *)(param_1 + 0x14),acHeaderSkip,0x10);
+              uVar4 = ReadXFSEntryByte(*(undefined4 *)(param_1 + 0x14),(int)pLVar1 + iVar3,uVar8);
             } while (uVar4 != uVar8);
           }
         }

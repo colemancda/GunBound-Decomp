@@ -52,7 +52,8 @@ undefined4 RefillSoundStreamBuffer(void)
       puVar5 = (undefined4 *)((int)puVar5 + 1);
     }
     iVar1 = ReadXFSEntryByte(*(undefined4 *)(unaff_EBX + 0x50),
-                             *(int *)(unaff_EBX + 0x98) + *(int *)(unaff_EBX + 0xa4));
+                             *(int *)(unaff_EBX + 0x98) + *(int *)(unaff_EBX + 0xa4),
+                             DAT_00588f44 - *(int *)(unaff_EBX + 0xa4));
     if (iVar1 == -1) {
       *(undefined4 *)(unaff_EBX + 0xa0) = 0;
       return 0;

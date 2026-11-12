@@ -55,7 +55,7 @@ struct XFSArchive;
 undefined4 OpenXFSArchive(struct XFSArchive *archive, LPCSTR path, int writeFlag, int param3);
 void ParseChooseEventLine(int *param_1,undefined4 param_2,undefined4 param_3);
 undefined4 ReadXFSEntry();
-uint ReadXFSEntryByte();
+uint ReadXFSEntryByte(undefined4 *readState, undefined4 *outBuf, uint count); /* count arrives in EAX in the original; ret 8 */
 void AddToPacketChecksum(void *self,int param_1);
 void BuildAssetPath(char *param_1, const char *param_2, ...);
 undefined4 EncodeChecksumState(int param_1);
