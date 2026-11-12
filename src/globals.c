@@ -5,6 +5,14 @@
 #include "functions.h" /* HandleSocketEvent/NoOpMethod (PTR_FUN_005572e8 init) */
 
 int __cdecl _purecall(void); /* the CRT pure-virtual trap, 0x525acd; abstract-class vtable slots */
+/* The three CProjectile virtuals that most projectile vtables share. Their
+ * ports (src/battle/*.c) are __fastcall(this), the ECX-this shape the
+ * original vtable dispatch uses, so they can sit in the tables directly:
+ * slot 3 0x458690 and slot 7 0x458850 (the latter in 40 tables), and the
+ * facing variant of slot 3, 0x488880. functions.h declares none of them. */
+void __fastcall PublishProjectileTrackingState(int param_1);
+bool __fastcall IsProjectileInBounds(int param_1);
+void __fastcall PublishProjectileTrackingStateFacing(int param_1);
 
 int32_t g_currentGameState;
 int32_t g_pendingGameState;
@@ -1209,21 +1217,21 @@ void *PTR_FUN_00555aa4[8] = { /* orig .data 0x555aa4 */
     (void *)DeleteShot1_Bullet7,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateShot_Bullet7n_9s_7p_9p,
     (void *)DetonateShot1_Bullet7,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00555ac4[9] = { /* orig .data 0x555ac4 */
     (void *)Projectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateSuperShot_Bullet1,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeSuperShot_Bullet1_5_6_12_13_15
 };
 void *PTR_FUN_00555af8[8] = { /* orig .data 0x555af8 */
@@ -1240,7 +1248,7 @@ void *PTR_FUN_00555b18[8] = { /* orig .data 0x555b18 */
     (void *)DeleteSuperShot_Bullet10,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateSuperShot_Bullet10,
@@ -1279,7 +1287,7 @@ void *PTR_FUN_00555bd0[8] = { /* orig .data 0x555bd0 */
     (void *)FUN_00451380,
     (void *)ResolveNamedState,
     (void *)FUN_00452bf0,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)FUN_004513b0,
@@ -1289,11 +1297,11 @@ void *PTR_FUN_00555bf0[9] = { /* orig .data 0x555bf0 */
     (void *)Projectile_ScalarDtor,
     (void *)ResolveNamedState,
     0 /* [2] 0x453f30 not ported */,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateSuperShot_Bullet6,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeSuperShot_Bullet1_5_6_12_13_15
 };
 void *PTR_FUN_00555c14[8] = { /* orig .data 0x555c14 */
@@ -1310,11 +1318,11 @@ void *PTR_FUN_00555c34[8] = { /* orig .data 0x555c34 */
     (void *)DeleteProjectile,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00555c54[5] = { /* orig .data 0x555c54 */
     (void *)DeletePoisonedBaseObject,
@@ -1355,13 +1363,13 @@ void *PTR_FUN_00555cf4[8] = { /* orig .data 0x555cf4 */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00555d14[8] = { /* orig .data 0x555d14 */
     (void *)DeleteShot2_Bullet9,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateShot_Bullet7n_9s_7p_9p,
     (void *)DetonateShot2_Bullet9,
@@ -1391,11 +1399,11 @@ void *PTR_FUN_00555d74[9] = { /* orig .data 0x555d74 */
     (void *)Projectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x488880 PublishProjectileTrackingStateFacing, no prototype/cxx */,
+    (void *)PublishProjectileTrackingStateFacing /* [3] 0x488880 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateSuperShot_Bullet16,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeSuperShot_Bullet16
 };
 void *PTR_FUN_00555d98[5] = { /* orig .data 0x555d98 */
@@ -1409,51 +1417,51 @@ void *PTR_FUN_00555dac[8] = { /* orig .data 0x555dac */
     (void *)DeleteShot2_Bullet1,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateShot2_Bullet1,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00555dcc[8] = { /* orig .data 0x555dcc */
     (void *)DropBombProjectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateDropBombProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00555dec[8] = { /* orig .data 0x555dec */
     (void *)DropCaseProjectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateDropCaseProjectile,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateDropCaseProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00555e0c[8] = { /* orig .data 0x555e0c */
     (void *)Shot_Type13_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateShot_Type13,
-    0 /* [3] 0x488880 PublishProjectileTrackingStateFacing, no prototype/cxx */,
+    (void *)PublishProjectileTrackingStateFacing /* [3] 0x488880 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateShot_Type13,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00555e30[9] = { /* orig .data 0x555e30 */
     (void *)Projectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateSuperShot_Bullet3_5_14,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeSuperShot_Bullet14
 };
 void *PTR_FUN_00555e54[8] = { /* orig .data 0x555e54 */
@@ -1477,11 +1485,11 @@ void *PTR_FUN_00555e88[8] = { /* orig .data 0x555e88 */
     (void *)DeleteShot1_Bullet9_16,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateShot1_Bullet9_16,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00555ea8[8] = { /* orig .data 0x555ea8 */
     (void *)DeletePrimaryShot_Bullet14,
@@ -1491,7 +1499,7 @@ void *PTR_FUN_00555ea8[8] = { /* orig .data 0x555ea8 */
     (void *)NoOpMethod,
     (void *)SimulatePrimaryShot_Bullet14,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00555ec8[5] = { /* orig .data 0x555ec8 */
     (void *)DeletePoisonedBaseObject,
@@ -1535,21 +1543,21 @@ void *PTR_FUN_00555f38[8] = { /* orig .data 0x555f38 */
     (void *)DeleteShot2_Bullet11,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateShot2_Bullet11,
     (void *)DetonateShot2_Bullet11,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00555f58[9] = { /* orig .data 0x555f58 */
     (void *)Projectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateSuperShot_Bullet2_8_11,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeSuperShot_Bullet11
 };
 void *PTR_FUN_00555f7c[8] = { /* orig .data 0x555f7c */
@@ -1566,7 +1574,7 @@ void *PTR_FUN_00555f9c[8] = { /* orig .data 0x555f9c */
     (void *)DeleteItemShot,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateShot_Bullet8n_8s_Item,
     (void *)DetonateItemShot,
@@ -1580,7 +1588,7 @@ void *PTR_FUN_00555fbc[8] = { /* orig .data 0x555fbc */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00555fdc[5] = { /* orig .data 0x555fdc */
     (void *)DeleteJewel,
@@ -1593,11 +1601,11 @@ void *PTR_FUN_00556008[8] = { /* orig .data 0x556008 */
     (void *)KnightFlameShot_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateKnightFlameShot,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00556038[8] = { /* orig .data 0x556038 */
     (void *)Mobile14_ScalarDtor,
@@ -1613,7 +1621,7 @@ void *PTR_FUN_00556058[8] = { /* orig .data 0x556058 */
     (void *)DeletePrimaryShot_Bullet15,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonatePrimaryShot_Bullet15,
@@ -1627,13 +1635,13 @@ void *PTR_FUN_00556078[8] = { /* orig .data 0x556078 */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00556098[9] = { /* orig .data 0x556098 */
     (void *)Projectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateSuperShot_Bullet15,
@@ -1655,7 +1663,7 @@ void *PTR_FUN_005560d0[8] = { /* orig .data 0x5560d0 */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_005560f0[8] = { /* orig .data 0x5560f0 */
     (void *)Mobile09_ScalarDtor,
@@ -1675,13 +1683,13 @@ void *PTR_FUN_00556110[8] = { /* orig .data 0x556110 */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00556160[8] = { /* orig .data 0x556160 */
     (void *)DeletePrimaryShot_Bullet10,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonatePrimaryShot_Bullet10,
@@ -1705,21 +1713,21 @@ void *PTR_FUN_005561a8[8] = { /* orig .data 0x5561a8 */
     (void *)DeleteShot1_Bullet8,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateShot_Bullet8n_8s_Item,
     (void *)DetonateShot1_Bullet8,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_005561c8[9] = { /* orig .data 0x5561c8 */
     (void *)Projectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateSuperShot_Bullet2_8_11,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeSuperShot_Bullet8
 };
 void *PTR_FUN_005561ec[8] = { /* orig .data 0x5561ec */
@@ -1736,7 +1744,7 @@ void *PTR_FUN_0055620c[9] = { /* orig .data 0x55620c */
     (void *)DeleteSuperShot_Bullet13,
     (void *)ResolveNamedState,
     0 /* [2] 0x488780 not ported */,
-    0 /* [3] 0x488880 PublishProjectileTrackingStateFacing, no prototype/cxx */,
+    (void *)PublishProjectileTrackingStateFacing /* [3] 0x488880 */,
     (void *)NoOpMethod,
     (void *)SimulateSuperShot_Bullet13,
     (void *)DetonateSuperShot_Bullet13,
@@ -1774,11 +1782,11 @@ void *PTR_FUN_00556284[9] = { /* orig .data 0x556284 */
     (void *)Projectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateSuperShot_Bullet3,
-    0 /* [3] 0x488880 PublishProjectileTrackingStateFacing, no prototype/cxx */,
+    (void *)PublishProjectileTrackingStateFacing /* [3] 0x488880 */,
     (void *)NoOpMethod,
     (void *)SimulateSuperShot_Bullet3,
     (void *)DetonateSuperShot_Bullet3_5_14,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeSuperShot_Bullet3
 };
 void *PTR_FUN_005562a8[8] = { /* orig .data 0x5562a8 */
@@ -1795,11 +1803,11 @@ void *PTR_FUN_005562c8[9] = { /* orig .data 0x5562c8 */
     (void *)Projectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateSuperShot_Bullet2_8_11,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeSuperShot_Bullet2
 };
 void *PTR_FUN_005562f4[5] = { /* orig .data 0x5562f4 */
@@ -1820,11 +1828,11 @@ void *PTR_FUN_0055631c[9] = { /* orig .data 0x55631c */
     (void *)Projectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateSuperShot_Bullet3_5_14,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeSuperShot_Bullet1_5_6_12_13_15
 };
 void *PTR_FUN_00556340[8] = { /* orig .data 0x556340 */
@@ -1835,13 +1843,13 @@ void *PTR_FUN_00556340[8] = { /* orig .data 0x556340 */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00556360[8] = { /* orig .data 0x556360 */
     (void *)DeleteSuperShot_Bullet9,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateShot_Bullet7n_9s_7p_9p,
     (void *)DetonateSuperShot_Bullet9,
@@ -1855,7 +1863,7 @@ void *PTR_FUN_00556380[10] = { /* orig .data 0x556380 */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeSuperMine,
     0 /* [9] 0x492f50 not ported */
 };
@@ -1863,7 +1871,7 @@ void *PTR_FUN_005563a8[8] = { /* orig .data 0x5563a8 */
     (void *)DeleteShot2_Bullet3,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateShot2_Bullet3,
     (void *)DetonateShot2_Bullet3,
@@ -1873,11 +1881,11 @@ void *PTR_FUN_005563d0[8] = { /* orig .data 0x5563d0 */
     (void *)DeleteShot2_Bullet7,
     (void *)ResolveNamedState,
     0 /* [2] 0x497730 not ported */,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateShot2_Bullet7,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_005563f0[10] = { /* orig .data 0x5563f0 */
     (void *)DeleteMine,
@@ -1887,7 +1895,7 @@ void *PTR_FUN_005563f0[10] = { /* orig .data 0x5563f0 */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeMine,
     0 /* [9] 0x499930 not ported */
 };
@@ -1895,11 +1903,11 @@ void *PTR_FUN_00556424[9] = { /* orig .data 0x556424 */
     (void *)Projectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateShot_Bullet7n_9s_7p_9p,
     (void *)DetonateSuperShot_Bullet7,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     0 /* [8] 0x49c050 not ported */
 };
 void *PTR_FUN_00556448[8] = { /* orig .data 0x556448 */
@@ -1920,7 +1928,7 @@ void *PTR_FUN_00556468[8] = { /* orig .data 0x556468 */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateShot_Type9,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00556488[5] = { /* orig .data 0x556488 */
     (void *)DeletePoisonedBaseObject,
@@ -1933,7 +1941,7 @@ void *PTR_FUN_0055649c[8] = { /* orig .data 0x55649c */
     (void *)DeleteShot2_Bullet13,
     (void *)ResolveNamedState,
     (void *)AnimateShot2_Bullet13,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateShot2_Bullet13,
     (void *)DetonateShot2_Bullet13,
@@ -1950,11 +1958,11 @@ void *PTR_FUN_005564d0[8] = { /* orig .data 0x5564d0 */
     (void *)DeletePrimaryShot_Bullet4,
     (void *)ResolveNamedState,
     (void *)AnimatePrimaryShot_Bullet4,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonatePrimaryShot_Bullet4,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_005564f0[8] = { /* orig .data 0x5564f0 */
     (void *)DeleteShot2_Bullet2,
@@ -1964,7 +1972,7 @@ void *PTR_FUN_005564f0[8] = { /* orig .data 0x5564f0 */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateShot2_Bullet2,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00556510[5] = { /* orig .data 0x556510 */
     (void *)DeleteProjectileLightningHazard,
@@ -1977,11 +1985,11 @@ void *PTR_FUN_00556524[8] = { /* orig .data 0x556524 */
     (void *)DeleteShot2_Bullet8,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateShot_Bullet8n_8s_Item,
     (void *)DetonateShot2_Bullet8,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00556544[5] = { /* orig .data 0x556544 */
     (void *)DeletePoisonedBaseObject,
@@ -2005,7 +2013,7 @@ void *PTR_FUN_0055656c[8] = { /* orig .data 0x55656c */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_0055658c[8] = { /* orig .data 0x55658c */
     (void *)FUN_004aac80,
@@ -2015,13 +2023,13 @@ void *PTR_FUN_0055658c[8] = { /* orig .data 0x55658c */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateProjectile,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_005565ac[8] = { /* orig .data 0x5565ac */
     (void *)DeleteShot2_Bullet16,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x488880 PublishProjectileTrackingStateFacing, no prototype/cxx */,
+    (void *)PublishProjectileTrackingStateFacing /* [3] 0x488880 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateShot2_Bullet16,
@@ -2049,18 +2057,18 @@ void *PTR_FUN_005565f8[9] = { /* orig .data 0x5565f8 */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateSuperShot_Bullet4,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeSuperShot_Bullet4
 };
 void *PTR_FUN_0055661c[9] = { /* orig .data 0x55661c */
     (void *)Projectile_ScalarDtor,
     (void *)ResolveNamedState,
     (void *)AnimateProjectileTick,
-    0 /* [3] 0x458690 PublishProjectileTrackingState, no prototype/cxx */,
+    (void *)PublishProjectileTrackingState /* [3] 0x458690 */,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateSuperShot_Bullet12,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */,
+    (void *)IsProjectileInBounds /* [7] 0x458850 */,
     (void *)ExplodeSuperShot_Bullet1_5_6_12_13_15
 };
 void *PTR_FUN_00556640[8] = { /* orig .data 0x556640 */
@@ -2081,7 +2089,7 @@ void *PTR_FUN_00556660[8] = { /* orig .data 0x556660 */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateShot2_Bullet12,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_00556680[8] = { /* orig .data 0x556680 */
     (void *)DeleteShot1_Bullet12,
@@ -2091,7 +2099,7 @@ void *PTR_FUN_00556680[8] = { /* orig .data 0x556680 */
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
     (void *)DetonateShot1_Bullet12,
-    0 /* [7] 0x458850 IsProjectileInBounds, no prototype/cxx */
+    (void *)IsProjectileInBounds /* [7] 0x458850 */
 };
 void *PTR_FUN_005566a0[8] = { /* orig .data 0x5566a0 */
     (void *)Mobile03_ScalarDtor,
