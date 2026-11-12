@@ -870,6 +870,33 @@
         add dword ptr [esp+4], 7
         jmp h_cdecl1
 
+/* Jump tables as the C run-time's memcpy has them: one whose slot 0 is never
+ * used and overlaps the bytes of the preceding instruction, and one that is
+ * indexed with -4..-1 from the address just past its end. */
+        FN t_switch3
+        mov edx, OUT
+        mov eax, A
+        and eax, 3
+        mov ecx, B
+        and ecx, 3
+        sub ecx, 4
+        test eax, eax
+        jz 5f
+        jmp dword ptr [eax*4 + 6f - 4]
+5:      jmp dword ptr [ecx*4 + 7f]
+        .p2align 2
+6:      .long 1f, 2f, 3f
+        .long 4f, 3f, 2f, 1f
+7:
+1:      mov dword ptr [edx], 0x11
+        ret
+2:      mov dword ptr [edx], 0x22
+        ret
+3:      mov dword ptr [edx], 0x33
+        ret
+4:      mov dword ptr [edx], 0x44
+        ret
+
 /* Non-local control flow, shaped like the transfer into a C++ catch block: a deep
  * callee restores the stack and frame pointers of an outer activation and jumps
  * to a continuation label inside it, which then returns to its own caller.

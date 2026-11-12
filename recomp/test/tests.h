@@ -63,7 +63,7 @@ enum { SH_LOGICAL, SH_ARITH, SH_ROT, SH_RC };
     T(t_strlen, K_CUSTOM, 0, 0) T(t_scas_bounded, K_CUSTOM, 0, 0) T(t_memcmp, K_CUSTOM, 0, 0) \
     T(t_extend, K_PAIR, 0, 0) T(t_bits, K_CUSTOM, 0, 0) T(t_xadd_cmpxchg, K_CUSTOM, 0, 0) \
     T(t_wide_arith, K_CUSTOM, 0, 0) T(t_stack, K_PAIR, 0, 0) T(t_calls, K_PAIR, 0, 0) \
-    T(t_nonlocal, K_CUSTOM, 0, 0) \
+    T(t_nonlocal, K_CUSTOM, 0, 0) T(t_switch3, K_PAIR, 0, 0) \
     T(t_switch, K_CUSTOM, 0, 0) T(t_switch2, K_CUSTOM, 0, 0) T(t_loops, K_CUSTOM, 0, 0) \
     T(t_fist, K_CUSTOM, 0, 0) T(t_farith_mem, K_CUSTOM, 0, 0) T(t_farith_memr, K_CUSTOM, 0, 0) \
     T(t_farith_pop, K_CUSTOM, 0, 0) T(t_farith_st0, K_CUSTOM, 0, 0) T(t_farith_sti, K_CUSTOM, 0, 0) \

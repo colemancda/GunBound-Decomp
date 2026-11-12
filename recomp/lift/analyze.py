@@ -311,6 +311,7 @@ class Analysis:
             else:
                 count = bound
         targets = []
+        first = None  # index of the first slot that holds a code address
         i = 0
         while True:
             if count is not None and i >= count:
@@ -320,20 +321,43 @@ class Analysis:
                 break
             t = img.u32(ea)
             if not img.in_text(t):
+                # Leading slots can be unused: memcpy's alignment dispatch indexes its table
+                # with 1..3 only, and slot 0 overlaps the instruction before the table.
+                if first is None and i < 4:
+                    i += 1
+                    continue
                 break
             if count is None:
                 # heuristic scan: stop where known code or another table begins
-                if i > 0 and (ea in self.starts or ea in self.table_bytes or ea in self.insns):
+                if first is not None and (ea in self.starts or ea in self.table_bytes or ea in self.insns):
                     break
                 if i >= 1024:
                     break
+            if first is None:
+                first = i
             targets.append(t)
             i += 1
         if count is None:
             how = "scan"
         elif len(targets) < count:
             how += "-trunc"
-        self.table_bytes[tbl] = 4 * len(targets)
+        if not targets and count is None:
+            # A negative index: memcpy's tail dispatch runs with ecx in -4..-1 and names the
+            # address just past the table. Collect the slots below it.
+            k = 1
+            while k <= 16:
+                ea = tbl - 4 * k
+                if not img.has(ea, 4) or not img.in_text(img.u32(ea)) or self.cover[ea - img.text_start]:
+                    break
+                targets.append(img.u32(ea))
+                k += 1
+            if targets:
+                how = "scan-back"
+                self.table_bytes.setdefault(tbl - 4 * (k - 1), 4 * (k - 1))
+        if not targets:
+            how += "-empty"
+        if first is not None:
+            self.table_bytes[tbl + 4 * first] = 4 * (i - first)
         self.tables[ins.addr] = (tbl, targets, how)
         return targets
 
