@@ -1,15 +1,32 @@
-/* FUN_0051a750 - 0x0051a750 in the original binary.
+/* MpegDct16 - 0x0051a750 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_0051a750.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Called directly (no thunk) by the half-band drivers that take a single
+ * channel of non-interleaved float data: SynthesizeMpeg16HalfMono,
+ * SynthesizeMpeg8HalfMono, MpegPolyphase16Half, MpegPolyphase16HalfInterleaved
+ * (both rings) and the 8-bit pair, as (source, ring slot), followed by the
+ * half-band window thunk. Those drivers are selected by SetupMpegLayerIIIDecoder
+ * with downsample shift 1, i.e. 0x20 >> 1 = 16 subbands per slot, and the
+ * synthesis-table builder InitMpegSynthesisTables lays g_mpegCosTab out as
+ * rows of 16, 8, 4, 2 and 1 factors; this function starts at the second row
+ * (8 entries, 0xf25a80), which is the recursion step for a 16-point input.
+ * Verified in the binary: in[0] is handled alone and in[1..7] are paired
+ * with in[14..8] (stride 4), so in[15] is never read (open item: the
+ * top subband of the 16 is dropped, which is consistent with the half-band
+ * decimation but is not independently confirmed).
+ * Same "Dct" justification as MpegDct32; siblings MpegDct16Interleaved and
+ * MpegDct16MixDown.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0051a750(float *param_1,undefined4 param_2)
+void MpegDct16(float *param_1,undefined4 param_2)
 
 {
   float *pfVar1;

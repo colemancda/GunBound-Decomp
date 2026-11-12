@@ -2,7 +2,7 @@
  *
  * Layer III polyphase synthesis driver: 16-bit PCM, half band,
  * single output channel. Runs 18 time slots of 32 subband samples through the
- * dequantised-spectrum filter FUN_0051a750 and the window/output thunk
+ * dequantised-spectrum filter MpegDct16 and the window/output thunk
  * MpegSynthWindow16HalfThunk.
  *
  * Evidence for the name (all from outside the body):
@@ -33,7 +33,7 @@ void MpegPolyphase16Half(int param_1,int param_2)
   
   iVar1 = 0x12;
   do {
-    FUN_0051a750(param_1,&DAT_005af144 + DAT_005ae93c);
+    MpegDct16(param_1,&DAT_005af144 + DAT_005ae93c);
     MpegSynthWindow16HalfThunk(&DAT_005af144,DAT_005ae93c,param_2);
     param_1 = param_1 + 0x80;
     param_2 = param_2 + 0x20;

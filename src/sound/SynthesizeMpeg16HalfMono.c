@@ -32,7 +32,7 @@ void SynthesizeMpeg16HalfMono(int param_1,int param_2,int param_3)
 {
   if (0 < param_3) {
     do {
-      FUN_0051a750(param_1,&DAT_005af144 + DAT_005ae93c);
+      MpegDct16(param_1,&DAT_005af144 + DAT_005ae93c);
       MpegSynthWindow16HalfThunk(&DAT_005af144,DAT_005ae93c,param_2);
       param_1 = param_1 + 0x100;
       param_2 = param_2 + 0x20;
