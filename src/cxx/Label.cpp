@@ -131,7 +131,7 @@ bool CLabel::OnMouseMove(int x, int y)
     return MouseMoveChildren(x, y) || m_unk39 != 0;
 }
 
-/* 0x50e280, vtable slot 2 (word at 0x557da8). CARVED 2026-10-30. 100
+/* Label_OnMouseDown - 0x50e280 (PROGRESS.csv name), vtable slot 2 (word at 0x557da8). CARVED 2026-10-30. 100
  * bytes, ret 8, the press twin of OnMouseMove:
  *
  *   0x50e287 mov cl,[esi+0x1e] / xor al,al / test cl,cl / jne 0x50e2b9
@@ -145,7 +145,17 @@ bool CLabel::OnMouseMove(int x, int y)
  *
  * A press inside the label arms +0x38 (and m_focused); outside, it
  * disarms both. find_vtable_refs.py finds 0x50e280 only in 0x557da0;
- * no direct calls. */
+ * no direct calls.
+ *
+ * Evidence for the name (all from outside the body): slot 2 (+0x08) of the
+ * label vtable 0x557da0, the slot Widget_MouseDownChildren calls on every
+ * child (call [edx+8] at 0x50e919), and its direct callee is
+ * Widget_MouseDownChildren (0x50e8e0, call at 0x50e2c3). The press flag it
+ * sets (+0x38, together with +0x04) is the one the already named
+ * Label_OnMouseUp (slot 3, 0x5052e0) tests before reporting a click
+ * (verified over the whole body, 0x50e280-0x50e2dd: it writes both bytes
+ * before the broadcast and returns 1 if the broadcast or the flag is set).
+ */
 bool CLabel::OnMouseDown(int x, int y)
 {
     u8 inside = (u8)(!m_hidden && m_x < x && x < m_x + m_width &&
