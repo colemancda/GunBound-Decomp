@@ -363,7 +363,7 @@ void ShowErrorDialog(); /* real args (closeSockets, messageId); K&R-empty so
 void ShowErrorDialogFmt(int param_1,undefined4 param_2,int regEax);
 void ShowMessageDialog();
 void PumpBattleActions();
-uint FUN_00412e00(undefined4 param_1,char *regEdi);
+uint FindFreeScreenshotFilename(undefined4 param_1,char *regEdi);
 void FUN_00412e50();
 void DisplayLocalizedChatMessage(char *regEdi);
 void SendPlayResult();
