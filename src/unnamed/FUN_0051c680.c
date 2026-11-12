@@ -10,7 +10,7 @@
 void FUN_0051c680(undefined4 param_1)
 
 {
-  FUN_0051b030(param_1);
+  MpegImdct36(param_1);
   return;
 }
 
