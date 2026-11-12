@@ -37,7 +37,7 @@ int FUN_00517d40(int param_1,float *param_2,float *param_3,float *param_4,int pa
     param_2 = param_3;
     local_8 = iVar10;
     do {
-      FUN_0051c680(param_1);
+      MpegImdct36Thunk(param_1);
       local_10 = 9;
       pfVar3 = (float *)(param_1 + 0x24);
       pfVar5 = param_2;

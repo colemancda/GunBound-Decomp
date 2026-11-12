@@ -1917,7 +1917,7 @@ undefined8 FUN_0051b667(float *param_1,float *param_2,int param_3,int param_4,in
 void __cdecl MpegFrequencyInversion(int param_3,int param_4);
 undefined ** GetMpegImdctLongTables();
 undefined ** GetMpegImdctShortTables();
-void FUN_0051c680();
+void MpegImdct36Thunk();
 void FUN_0051c690();
 void __cdecl MpegAntialias(int param_3,int param_4);
 void __cdecl MpegDct32(float *param_3,undefined4 *param_4);
