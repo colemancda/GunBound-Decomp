@@ -493,7 +493,10 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
       TreeInsert(auTreeNode,&g_valueGuardMap);
     }
   }
-  cVar2 = CheckGuardedBoolAnd();
+  /* CheckGuardedBoolAnd(bool, cell): `cmp byte [eax+0x45127],2 / sete cl /
+   * push ecx` is the bool, EAX = g_clientContext + 0x67e3cc the cell. */
+  cVar2 = CheckGuardedBoolAnd(*(char *)(g_clientContext + 0x45127) == '\x02',
+                              (byte *)(g_clientContext + 0x67e3cc));
   if (cVar2 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVarArg = PeekPacketChecksumState((void *)&DAT_00e9c578);
