@@ -963,7 +963,7 @@ void __fastcall AnimateProjectileTick();
 void * __thiscall SuperCrystalShot_ScalarDtor();
 void SuperCrystalShot_DtorBody();
 undefined1 FUN_0048f300();
-void __fastcall FUN_00490780();
+void __fastcall AnimateSuperCrystalShot();
 undefined4 * InitSuperShot_Bullet9(undefined4 *regEsi);
 void * __thiscall DeleteSuperShot_Bullet9();
 void DestroySuperShot_Bullet9(undefined4 *regEax);

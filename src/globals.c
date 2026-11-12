@@ -1811,7 +1811,7 @@ void *PTR_FUN_0055631c[9] = { /* orig .data 0x55631c */
 void *PTR_FUN_00556340[8] = { /* orig .data 0x556340 */
     (void *)SuperCrystalShot_ScalarDtor,
     (void *)ResolveNamedState,
-    (void *)FUN_00490780,
+    (void *)AnimateSuperCrystalShot,
     (void *)NoOpMethod,
     (void *)NoOpMethod,
     (void *)SimulateProjectileFrame,
