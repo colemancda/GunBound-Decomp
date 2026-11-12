@@ -336,7 +336,6 @@ float DAT_00588f50 = 800.0f;   /* screen width  */
 float DAT_00588f54 = 600.0f;   /* screen height */
 uint32_t DAT_00588f60 = 16;    /* bit depth */
 uint8_t DAT_00588f64 = 0x1; /* orig .data 0x588f64 */
-void * DAT_0058b248;
 /* DAT_0058b8d6: string bytes now in globals_sized.c (orig .data 0x58b8d6, 2 bytes) */
 /* DAT_0058bb04: string bytes now in globals_sized.c (orig .data 0x58bb04, 2 bytes) */
 /* g_valueGuardLock, DAT_005a9084: moved to globals_sized.c - both are
@@ -1129,7 +1128,6 @@ void *g_mpegImdctShortTabs[4] = { g_mpegImdctShortCos0, g_mpegImdctShortCos1, &D
  * never populates in bring-up). */
 void *PTR_DAT_0056d460 = " ";
 /* 100 x 0x9bc (2492) item records; itemdata.dat loaded here. See FindItemRecordByIcon. */
-uint8_t g_abItemRecords[2492];  /* one record; array is up to 100 x 0x9bc, see FindItemRecordByIcon */
 void *PTR_FUN_00544b5c[2] = { /* orig .data 0x544b5c */
     (void *)FUN_0040a080,
     0 /* [1] 0x40a030 not ported */

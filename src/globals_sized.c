@@ -466,7 +466,6 @@ uint32_t DAT_00553258[10] = {0xf6b9adbc, 0xb0202620, 0x20d3c0d4, 0xf0b5f6b9, 0xb
 uint32_t DAT_00553018[9] = {0xc3bd3432, 0xb5b5a3b0, 0xbac7b020, 0x20d2c7fc, 0xc020f6bc, 0xb0bbc0d6, 0xb0b020cd, 0xcfb4c0bd, 0x002ed9b4}; /* EUC-KR+ASCII '24...... ...... .. ...... .........' */
 uint32_t DAT_0054b460[1] = {0x00000020}; /* ASCII ' ' */
 uint32_t DAT_005535a4[2] = {0x6574756d, 0x00000000}; /* ASCII 'mute' */
-uint32_t DAT_0058bb04[1] = {0x00390039}; /* ASCII '9' */
 uint32_t DAT_0055303c[14] = {0xcfc0b8b8, 0xb0e2b120, 0xe3c720a1, 0xf6c1d8c7, 0xba20c5bd, 0xc0e9b5d0, 0xedb020ba, 0xb920e2b1, 0x20f9c2dd, 0xadbce7bb, 0xbde5b520, 0x20edb0c3, 0xe9b8cfc7, 0x00000000}; /* EUC-KR+ASCII '.... .... ........ ...... .... .... .... ...... ....' */
 uint32_t DAT_00553074[14] = {0xfcbac7b0, 0xbdadbf20, 0x20f7c8c9, 0xbcbccfc7, 0x2e2ee4bf, 0xbcd6c320, 0x20d1c7d2, 0xe7b7cfc7, 0x3220a1bf, 0xb0c3bd30, 0x20bac0a3, 0xbcbccfc7, 0x2e2ee4bf, 0x00000000}; /* EUC-KR+ASCII '.... ...... ........ ...... ...... 20...... ........' */
 uint32_t DAT_00552ebc[4] = {0xb5bfeebf, 0x6b202d20, 0x6867696e, 0x00007374}; /* EUC-KR+ASCII '.... - knights' */

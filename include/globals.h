@@ -436,13 +436,13 @@ extern float DAT_00588f54;
 #define _DAT_00588f54 DAT_00588f54
 extern uint32_t DAT_00588f60;
 extern uint8_t DAT_00588f64;
-extern void * DAT_0058b248;
+#define DAT_0058b248 (*(uint8_t *)(0x0058b248)) /* client-context arena offset 0x0058b248; see the arena-offset note */
 #define _DAT_0058b248 DAT_0058b248
 extern uint8_t DAT_0058b8d6;
 /* Missing from the original scan (see src/README.md's "Global
  * variables" section for the known ~1159-address gap this was pulled
  * from) - added by hand since it was blocking GetItemDescriptionByIcon.c. */
-extern uint8_t DAT_0058bb04;
+#define DAT_0058bb04 (*(uint8_t *)(0x0058bb04)) /* client-context arena offset 0x0058bb04; see the arena-offset note */
 /* g_valueGuardLock (was DAT_005a9068) - the value-guard / packet-encode
  * CRITICAL_SECTION, entered by WinMain before anything could have
  * initialised it; crt_shims_msvc.c's .CRT$XCU hook initialises all three
@@ -1427,7 +1427,7 @@ extern void *g_mpegImdctShortTabs[4]; /* 0x568810 */
 #define PTR_DAT_00568800 (g_mpegImdctLongTabs[0])
 #define PTR_DAT_00568810 (g_mpegImdctShortTabs[0])
 extern void *PTR_DAT_0056d460;
-extern uint8_t g_abItemRecords[2492];
+#define g_abItemRecords (*(uint8_t *)(0x0058b248))  /* client-context arena offset 0x58b248: 100 item records of 0x9bc bytes (was DAT_0058b248); see the arena-offset note */
 extern void *PTR_FUN_00544b5c[2]; /* function-pointer table, orig .data 0x544b5c - see globals.c */
 extern void *PTR_FUN_00544b68[2]; /* function-pointer table, orig .data 0x544b68 - see globals.c */
 extern void *PTR_FUN_00544b74[2]; /* function-pointer table, orig .data 0x544b74 - see globals.c */
