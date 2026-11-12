@@ -1630,6 +1630,22 @@ bool CBuddyPanel::HitTest(int x, int y)
  * the row as plain cdecl arguments (ConnectToSelectedServer.c). */
 extern "C" void ConnectToSelectedServer(int param_1, int serverIndex);
 
+/* WorldListPanel_HitTest - 0x50d710 (PROGRESS.csv name), slot 4 of the
+ * world list panel vtable 0x557f08. LIKELY, same caveat as
+ * BuddyPanel_HitTest.
+ *
+ * Evidence for the name: slot 4 is Widget_HitTest (0x50e9c0) in the base and
+ * the ChannelUserListPanel_HitTest / AvatarStorePanel_HitTest overrides keep
+ * that name. This override ends with the base's own-rect result (m_hidden
+ * gate and the +0x28/+0x30, +0x2c/+0x34 bounds, 0x50d712-0x50d78f), after
+ * resolving the row with the already named WorldListRowHitTest (0x50df40,
+ * call at 0x50d74a) and, for an online row that is not full with input
+ * enabled, calling the named ConnectToSelectedServer (0x4e1bf0). The slot is
+ * dispatched by PanelManager_DispatchRightMouseDown (call [eax+0x10] at
+ * 0x50f210), so it acts as a right-click hook that returns hit status. The
+ * neighbouring names (WorldListPanel_OnMouseDown slot 2, _OnMouseMove slot
+ * 1, _OnCommand slot 7) are existing; WorldListPanel_Draw is slot 9 and is
+ * left as it is. */
 bool CWorldListPanel::HitTest(int x, int y)
 {
     bool hit = false;
