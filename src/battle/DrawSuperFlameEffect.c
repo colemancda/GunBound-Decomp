@@ -21,7 +21,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall DrawSuperFlameEffect(int param_1)
+void __fastcall DrawSuperFlameEffect(int param_1)
 
 {
   int ctx;

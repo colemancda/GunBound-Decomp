@@ -25,7 +25,7 @@
 #include <windows.h>
 
 
-void __thiscall TickRiderEffect(int param_1)
+void __fastcall TickRiderEffect(int param_1)
 
 {
   int iVar1;

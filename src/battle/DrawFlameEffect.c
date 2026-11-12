@@ -27,7 +27,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall DrawFlameEffect(int param_1)
+void __fastcall DrawFlameEffect(int param_1)
 
 {
   int id;

@@ -1492,7 +1492,7 @@ void *PTR_FUN_00555ef0[5] = { /* orig .data 0x555ef0 */
     (void *)DeletePoisonedBaseObject,
     (void *)ResolveNamedState,
     (void *)TickFlameEffect,
-    0 /* [3] 0x471d00 DrawFlameEffect, no prototype/cxx */,
+    (void *)DrawFlameEffect,
     (void *)NoOpMethod
 };
 void *PTR_FUN_00555f04[5] = { /* orig .data 0x555f04 */
@@ -1625,7 +1625,7 @@ void *PTR_FUN_005560bc[5] = { /* orig .data 0x5560bc */
     (void *)DeletePoisonedBaseObject,
     (void *)ResolveNamedState,
     (void *)TickFlameEffect,
-    0 /* [3] 0x47ead0 DrawSuperFlameEffect, no prototype/cxx */,
+    (void *)DrawSuperFlameEffect,
     (void *)NoOpMethod
 };
 void *PTR_FUN_005560d0[8] = { /* orig .data 0x5560d0 */
@@ -1923,8 +1923,8 @@ void *PTR_FUN_0055649c[8] = { /* orig .data 0x55649c */
 void *PTR_FUN_005564bc[5] = { /* orig .data 0x5564bc */
     (void *)DeletePoisonedBaseObject,
     (void *)ResolveNamedState,
-    0 /* [2] 0x4a2920 TickRiderEffect, no prototype/cxx */,
-    0 /* [3] 0x4a2a00 DrawRiderEffect, no prototype/cxx */,
+    (void *)TickRiderEffect,
+    (void *)DrawRiderEffect,
     (void *)NoOpMethod
 };
 void *PTR_FUN_005564d0[8] = { /* orig .data 0x5564d0 */

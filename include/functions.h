@@ -844,6 +844,10 @@ void __fastcall RenderFirewallHazard();
 undefined4 * __fastcall InitFlameEffect(undefined4 param_1,undefined4 param_2,undefined4 *regEax);
 void FUN_00471b40(uint spriteKey, uint sortKey, int rowBase, int stride);
 int __fastcall TickFlameEffect();
+void __fastcall DrawFlameEffect();         /* CFlameEffect vtable 0x555ef0 slot 3 */
+void __fastcall DrawSuperFlameEffect();    /* CSuperFlameEffect vtable slot 3 */
+void __fastcall TickRiderEffect();         /* CRiderEffect vtable 0x5564bc slot 2 */
+void __fastcall DrawRiderEffect();         /* CRiderEffect vtable 0x5564bc slot 3 */
 void * __thiscall Mobile12_ScalarDtor(void *param_1,int param_2);
 void Mobile12_Destructor(undefined4 *regEax);
 void __thiscall Mobile12_MainAction();
