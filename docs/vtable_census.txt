@@ -324,8 +324,8 @@ vtable 0x555b38  installs=1  slots=5
 vtable 0x555b54  installs=1  slots=5
    0: 0x40ca00  DeletePoisonedBaseObject
    1: 0x461c60  ResolveNamedState
-   2: 0x44fd70  FUN_0044fd70
-   3: 0x44fff0  FUN_0044fff0
+   2: 0x44fd70  TickSpeechBalloon
+   3: 0x44fff0  RenderSpeechBalloon
    4: 0x429800  NoOpMethod
 
 vtable 0x555b68  installs=1  slots=5
@@ -639,7 +639,7 @@ vtable 0x555fbc  installs=2  slots=8  UNCARVED=1
    0: 0x476f50  ItemCase_ScalarDtor
    1: 0x461c60  ResolveNamedState
    2: 0x477920  UNCARVED
-   3: 0x477930  FUN_00477930
+   3: 0x477930  RenderItemCase
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
    6: 0x4572b0  DetonateProjectile
@@ -893,7 +893,7 @@ vtable 0x55631c  installs=3  slots=9
 vtable 0x556340  installs=2  slots=8
    0: 0x48f260  SuperCrystalShot_ScalarDtor
    1: 0x461c60  ResolveNamedState
-   2: 0x490780  FUN_00490780
+   2: 0x490780  AnimateSuperCrystalShot
    3: 0x429800  NoOpMethod
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
@@ -1261,7 +1261,7 @@ vtable 0x557278  installs=1  slots=18  UNCARVED=1
   17: 0x429800  NoOpMethod
 
 vtable 0x5572dc  installs=29  slots=1
-   0: 0x4e5430  FUN_004e5430
+   0: 0x4e5430  CriticalSection_ScalarDtor
 
 vtable 0x5572e0  installs=2  slots=2
    0: 0x4038b0  NoOpMethodStdcall1
@@ -1278,7 +1278,7 @@ vtable 0x5572f0  installs=2  slots=4
    3: 0x429800  NoOpMethod
 
 vtable 0x557300  installs=3  slots=6  UNCARVED=2
-   0: 0x4e9b80  FUN_004e9b80
+   0: 0x4e9b80  CameraNode_ScalarDtor
    1: 0x4e9bb0  UNCARVED
    2: 0x429800  NoOpMethod
    3: 0x4e9cc0  SceneNode_UpdateTransformAndCamera
@@ -1524,7 +1524,7 @@ vtable 0x557c84  installs=1  slots=10
 vtable 0x557cac  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus
    1: 0x50e3a0  Widget_OnDragMove
-   2: 0x5078d0  FUN_005078d0
+   2: 0x5078d0  LobbyPanel_OnMouseDown
    3: 0x50e4c0  Widget_OnMouseUp
    4: 0x507310  ChannelUserListPanel_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
@@ -1536,7 +1536,7 @@ vtable 0x557cac  installs=1  slots=10
 vtable 0x557cd4  installs=1  slots=10
    0: 0x50e860  Widget_SetFocus
    1: 0x50e3a0  Widget_OnDragMove
-   2: 0x5078d0  FUN_005078d0
+   2: 0x5078d0  LobbyPanel_OnMouseDown
    3: 0x50e4c0  Widget_OnMouseUp
    4: 0x50e9c0  Widget_HitTest
    5: 0x50ea50  Widget_DispatchKeyToChildren
