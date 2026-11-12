@@ -1,14 +1,27 @@
-/* FUN_00412e50 - 0x00412e50 in the original binary.
+/* SaveScreenshotBmp - 0x00412e50 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified. See src/README.md's "Raw/verbatim ports"
+ * section for status.
+ *
+ * (Notes in other files that still say FUN_00412e50 mean this function.)
+ *
+ * NAMED (batch 48), HIGH. Writes the back buffer to a numbered .bmp. Its
+ * sole caller is GameTick, behind DAT_00793520, which WndProc sets in its
+ * key handler for VK 0x7a (F11); GameTick then reads the DAT_00793521 flag
+ * this function raises and formats localized string 9000 with the saved
+ * file name (copied to DAT_005b22d0). The file name comes from
+ * FindFreeScreenshotFilename (format string %s%s%07d.bmp, directory
+ * g_screenPath, prefix the literal GunBound at 0x552748). The body writes
+ * a 14-byte file header (magic 0x4d42) and a 40-byte info header for
+ * 800x600, 24 bpp, then fwrite()s 600 rows of 0x960 bytes converted from
+ * the 16-bit surface; the byte tables at 0x56d3e0/0x56d400 are the 5- and
+ * 6-bit expansion tables.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00412e50(void)
+void SaveScreenshotBmp(void)
 
 {
   char cVar1;

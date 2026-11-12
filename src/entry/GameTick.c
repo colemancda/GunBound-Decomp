@@ -457,7 +457,7 @@ LAB_004139be:
     }
     if (DAT_00793520 != '\0') {
       DAT_00793520 = '\0';
-      FUN_00412e50();
+      SaveScreenshotBmp();
     }
     g_screenSurface = 0;
     (*(SurfaceUnlockFn *)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);

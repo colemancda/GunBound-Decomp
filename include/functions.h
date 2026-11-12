@@ -364,7 +364,7 @@ void ShowErrorDialogFmt(int param_1,undefined4 param_2,int regEax);
 void ShowMessageDialog();
 void PumpBattleActions();
 uint FindFreeScreenshotFilename(undefined4 param_1,char *regEdi);
-void FUN_00412e50();
+void SaveScreenshotBmp();
 void DisplayLocalizedChatMessage(char *regEdi);
 void SendPlayResult();
 void BlendARGB4444Texel(ushort *dest,ushort *src);
