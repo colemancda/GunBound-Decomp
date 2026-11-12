@@ -141,7 +141,7 @@ void AtlGetThreadACPThunk();
 void ThrowCxxException();
 void __fastcall FUN_004010e0();
 undefined4 __fastcall FUN_00401100();
-void FUN_00401180(undefined4 *regEsi);
+void HeartbeatWorker_Construct(undefined4 *regEsi);
 void FUN_004011b0(undefined4 *regEsi);
 void __fastcall FUN_00401200();
 void __fastcall FUN_00401350();
