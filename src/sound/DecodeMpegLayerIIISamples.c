@@ -177,7 +177,7 @@ undefined8 DecodeMpegLayerIIISamples(byte *param_1,undefined4 *param_2)
       uVar1 = DAT_005ae92c;
       uVar5 = DAT_005ae344;
       DAT_005ae934 = DAT_005ae934 + _Size;
-      if (DAT_005ae930 < 0) {
+      if ((int)DAT_005ae930 < 0) {
         uVar6 = CONCAT11(DAT_005ae92c,DAT_005ae92c);
         for (uVar7 = DAT_005ae344 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
           *param_2 = CONCAT22(uVar6,uVar6);
