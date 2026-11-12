@@ -1861,7 +1861,7 @@ void MpegPolyphase8HalfInterleaved();
 void MpegPolyphase8Quarter();
 void MpegPolyphase8QuarterInterleaved();
 undefined4 * GetMpegImdctWindowTable();
-int FUN_00517d40();
+int MpegImdctViaKernels();
 void FUN_00518080();
 int MpegImdctThunk(); /* returns the new band state in EAX (MpegImdct's final mov eax,[0x5687fc]) */
 void MpegFrequencyInversionThunk();

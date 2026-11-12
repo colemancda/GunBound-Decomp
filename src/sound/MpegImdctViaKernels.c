@@ -1,13 +1,27 @@
-/* FUN_00517d40 - 0x00517d40 in the original binary.
+/* MpegImdctViaKernels - 0x00517d40 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_00517d40.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Its sole caller is SynthesizeMpegLayerIIIMixDown, whose own header says that
+ * on the mixed-block / differing-block-type path channel 0 is transformed by
+ * MpegImdctThunk (-> MpegImdct) and channel 1 by this function, accumulating
+ * into the same output scratch (0x5ada3c). It is the same algorithm as
+ * MpegImdct (block type 2 mapped to 0, (n + 17) / 18 blocks windowed from
+ * 0xf25b00 + type * 0x90, the type-2 window at 0xf25c20 for the tail), but
+ * instead of inlining the transforms it calls MpegImdct36Thunk for each long
+ * block and MpegImdct12Thunk for each remaining block, hence ViaKernels. It
+ * returns the new band limit (block count * 18).
+ * The two functions differ in signature (6 stack arguments here, 7 for
+ * MpegImdct) and this one is used only for the second channel of the
+ * mix-down path.
  */
 #include "ghidra_types.h"
 
 
-int FUN_00517d40(int param_1,float *param_2,float *param_3,float *param_4,int param_5,int param_6)
+int MpegImdctViaKernels(int param_1,float *param_2,float *param_3,float *param_4,int param_5,int param_6)
 
 {
   float fVar1;

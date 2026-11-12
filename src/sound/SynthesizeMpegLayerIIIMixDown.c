@@ -18,7 +18,7 @@
  * Two paths. When both channels have the same block type and neither has
  * the mixed-block flag (+4 of the side-info record) the sum above is done
  * and a single IMDCT of the channel 0 row follows; otherwise channel 0 is
- * transformed by MpegImdctThunk and channel 1 by FUN_00517d40 (which
+ * transformed by MpegImdctThunk and channel 1 by MpegImdctViaKernels (which
  * accumulates into the same output scratch 0x5ada3c), each with its own
  * block type and limit (this path does not clamp the limits to
  * DAT_00563d8c). Both then call MpegFrequencyInversionThunk and the
@@ -73,7 +73,7 @@ void SynthesizeMpegLayerIIIMixDown(int param_1,uint param_2)
       iVar2 = g_mpegBandStartTab[DAT_005aba28 - 1];
     }
     (&DAT_005ae7d0)[param_2 * 2] =
-         FUN_00517d40(&DAT_00f25f00 + 0x480 + param_2 * 0x240,&DAT_00f25f00 + param_2 * 0x240,
+         MpegImdctViaKernels(&DAT_00f25f00 + 0x480 + param_2 * 0x240,&DAT_00f25f00 + param_2 * 0x240,
                       &DAT_005ada3c,iVar4,iVar2,iVar1);
   }
   MpegFrequencyInversionThunk(&DAT_005ada3c,iVar3);
