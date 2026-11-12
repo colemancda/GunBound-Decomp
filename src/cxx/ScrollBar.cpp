@@ -256,13 +256,24 @@ void CScrollBar::OnCommand(int evt, int id, int arg)
 
 extern "C" unsigned int ScrollListWidget_PositionFromThumbY(int thisPtr, int grabAdjustedY);
 
-/* 0x50f460, vtable slot 1. Record the position, then: if still dragging
+/* ScrollListWidget_OnMouseMove - 0x50f460 (PROGRESS.csv name), vtable slot 1. Record the position, then: if still dragging
  * the thumb, feed (m_grabOffset + y) into the drag-position solver
  * (ScrollListWidget_PositionFromThumbY - see that file's own header for the register-drop fix
  * this relies on) and, if the resulting scroll position changed,
  * broadcast cmd 0x2000 to the parent. Reports consumption via the
  * bounds test OR the children's own consumption, same shape as the
- * other handlers. */
+ * other handlers.
+ *
+ * Evidence for the name (all from outside the body): it is slot 1 (+0x04) of
+ * the scroll bar vtable 0x557e90, between Widget_SetFocus and the already
+ * named ScrollListWidget_OnMouseDown (slot 2, 0x50f500) and
+ * ScrollListWidget_OnMouseUp (slot 3, 0x50f5f0). Slot 1 is the slot the
+ * mouse-move broadcast calls on every child (Widget_MouseMoveChildren,
+ * call [edx+4] at 0x50e8a9) and PanelManager_DispatchMouseMove calls on every
+ * panel (call [eax+4] at 0x50f040, reached from WM_MOUSEMOVE), and the same
+ * slot is WorldListPanel_OnMouseMove (0x50d7a0) in the 0x557f08 vtable. Its
+ * sole callee, ScrollListWidget_PositionFromThumbY, names this as its caller.
+ */
 bool CScrollBar::OnMouseMove(int x, int y)
 {
     m_lastX = x;

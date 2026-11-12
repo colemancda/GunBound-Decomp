@@ -2,7 +2,7 @@
  *
  * CScrollBar drag-position solver: given the mouse Y already offset by
  * the thumb grab point (m_grabOffset + mouseY, computed by the sole
- * caller FUN_0050f460/CScrollBar's mouse-move handler at 0x50f460), maps
+ * caller ScrollListWidget_OnMouseMove/CScrollBar's mouse-move handler at 0x50f460), maps
  * it back to a scroll position in [0, total-pageSize]. Uses the same
  * thumb-height floor/round-to-5 shape as ScrollListWidget_ThumbHeight
  * (0x50e050).
