@@ -1822,7 +1822,7 @@ undefined8 DecodeMpegLayerIIIDispatch(); /* EDX:EAX passed through from [0x563da
 undefined8 DecodeMpegLayerIIISamples();
 undefined8 DecodeMpegLayerIIISamplesLSF(); /* EDX:EAX = (output bytes, frame bytes) */
 void DecodeMpegLayerIIIGranule();
-undefined4 FUN_00515b90();
+undefined4 ParseMpegLayerIIIHeaderAndSideInfoLSF();
 void InitMpegSynthesisTables();
 void SynthesizeMpeg16FullMono();
 void SynthesizeMpeg16FullMixDown();

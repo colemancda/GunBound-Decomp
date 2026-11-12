@@ -12,7 +12,7 @@
  * no PROGRESS row; the 0x514fa0 trampoline of the 0x563aec table reaches it
  * through [0x563da8]. Like its sibling it reads a 12-bit sync (0xfff, or
  * 0xffe which also sets DAT_005aba34 = 1, the MPEG-2.5 flag), then lets
- * FUN_00515b90 parse the rest of the header and the side information (that
+ * ParseMpegLayerIIIHeaderAndSideInfoLSF parse the rest of the header and the side information (that
  * routine is passed DAT_005ae938 and returns the number of bytes it
  * consumed), manages the bit reservoir with the same 0x1a24 / 0x2000
  * bounds and calls DecodeMpegLayerIIIGranule(buf, DAT_005ae938) once.
@@ -68,7 +68,7 @@ undefined8 DecodeMpegLayerIIISamplesLSF(byte *param_1,undefined4 *param_2)
       return 0;
     }
   }
-  iVar9 = FUN_00515b90(DAT_005ae938);
+  iVar9 = ParseMpegLayerIIIHeaderAndSideInfoLSF(DAT_005ae938);
   iVar4 = DAT_005ae33c + DAT_005aba30;
   uVar7 = DAT_005ae934;
   DAT_005ae350 = iVar4;
