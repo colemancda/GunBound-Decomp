@@ -88,9 +88,6 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
-  undefined stack0xfffff6a0;
-  undefined stack0xfffff6b8;
-  undefined1 auMulScratch [0x238];  /* EncodeChecksumDeltaMul (0x40a7d0) writes [arg2+0x220] and [arg2+0x14] */
   undefined4 *puVar1;
   char cVar2;
   int *piVar3;
@@ -109,16 +106,14 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
   undefined *puVar14;
   undefined4 uStack_914;
   undefined4 uStack_90c;
-  undefined1 auStack_724 [12];
-  undefined1 auStackEmitScratch [0x224];
-  int iStack_718;
-  int iStack_700;
-  int iStack_6f0;
-  int iStack_6e8;
-  undefined1 auStack_518 [84];
-  int iStack_4c4;
-  undefined1 auStack_2ec [76];
-  int iStack_2a0;
+  undefined1 auStackEmitScratch [0x224];   /* frame object A */
+  undefined1 auScratchB [0x238];   /* B; Mul/Div write [arg2+0x220] and [arg2+0x14] */
+  undefined1 auScratchC [0x238];   /* C */
+  undefined1 auScratchD [0x238];   /* D */
+  undefined4 auTreeNode [2];       /* TreeInsert's out pair (stub ignores it) */
+  int iVarMul;
+  int iVarDiv;
+  int iVarArg;
   undefined1 uStack_c8;
   undefined4 uStack_c0;
   undefined4 uStack_b8;
@@ -417,217 +412,150 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     uStack_88 = 1;
     EmitChecksumSum(piVar3 + 0x930, (void *)auStackEmitScratch);
     uStack_88 = 0xffffffff;
-    if (uStack_90c != 0) {
-      ScrambleChecksumGuardBytes(uStack_90c,&g_valueGuardKeyTable);
-      TreeInsert();
+    if (*(int *)(auStackEmitScratch + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auStackEmitScratch + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x9b9,auStackEmitScratch,4);
     uStack_88 = 2;
     EmitChecksumSum(piVar3 + 0x9b9, (void *)auStackEmitScratch);
     uStack_88 = 0xffffffff;
-    if (uStack_90c != 0) {
-      ScrambleChecksumGuardBytes(uStack_90c,&g_valueGuardKeyTable);
-      TreeInsert();
+    if (*(int *)(auStackEmitScratch + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auStackEmitScratch + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
     EncodeChecksumDeltaDiv(piVar3 + 0xa42,auStackEmitScratch,4);
     uStack_88 = 3;
     EmitChecksumSum(piVar3 + 0xa42, (void *)auStackEmitScratch);
     uStack_88 = 0xffffffff;
-    if (uStack_90c != 0) {
-      ScrambleChecksumGuardBytes(uStack_90c,&g_valueGuardKeyTable);
-      TreeInsert();
+    if (*(int *)(auStackEmitScratch + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auStackEmitScratch + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
   }
+  /* DROPPED-ARGUMENT FIX (2026-11-12): same six Mul/Div rounds as
+   * SpawnShot_Type13 (this function's 0x4310f5-0x431779 is the identical
+   * instruction stream, frame shifted by 4): scratches A (auStackEmitScratch),
+   * B, C, D are the 0x224-byte frame objects 0x224 apart; see that file's
+   * note for the per-round shape.  Here A..D sit at frame -0x8a4, -0x680,
+   * -0x45c, -0x238 in the esp-tracked model. */
   cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x5b818));
-  pcVar10 = (code *)LeaveCriticalSection;
-  pcVar9 = (code *)EnterCriticalSection;
   if (cVar2 == '\x01') {
-    EncodeChecksumDeltaMul();
-    pcVar9 = (code *)EnterCriticalSection;
-    uStack_88 = 4;
+    iVarMul = EncodeChecksumDeltaMul(piVar3 + 2352,auScratchB,3);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    PeekPacketChecksumState((void *)&DAT_00e55ab8);
-    pcVar10 = (code *)LeaveCriticalSection;
+    iVarArg = PeekPacketChecksumState((void *)&DAT_00e55ab8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    uVar15 = EncodeChecksumDeltaDiv();
-    SUBFIELD(uStack_88,0,undefined1) = 5;
+    iVarDiv = EncodeChecksumDeltaDiv(iVarMul,auStackEmitScratch,iVarArg);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x431184
-     * (`lea edi,[ebp + 0x24c0]`): cell is piVar3+0x930 (== piVar3+0x24c0
-     * bytes) - matches the identical, explicitly-confirmed pattern in
-     * the sibling functions in this batch (src/unnamed/SpawnShot_Type9.c,
-     * .../SpawnShot_Type13.c). See tools/encodeoutgoingpacketfield_sites.json.
-     * FIXED (2026-07-16): also merged the value arg (sum of the two
-     * adjacent PeekPacketChecksumState() calls, matching the disasm's
-     * `add eax,ecx` between them). */
-    EncodeOutgoingPacketField(piVar3 + 0x930, PeekPacketChecksumState((void *)(piVar3 + 0x930)) + PeekPacketChecksumState((void *)uVar15));
+    iVarArg = PeekPacketChecksumState((void *)(piVar3 + 2352));
+    EncodeOutgoingPacketField(piVar3 + 2352,iVarArg + PeekPacketChecksumState((void *)iVarDiv));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    uStack_88 = CONCAT31(SUBFIELD(uStack_88,1,undefined3),4);
-    if (uStack_90c != 0) {
-      ScrambleChecksumGuardBytes(uStack_90c,&g_valueGuardKeyTable);
-      TreeInsert();
-      pcVar10 = (code *)LeaveCriticalSection;
+    if (*(int *)(auStackEmitScratch + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auStackEmitScratch + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
-    uStack_88 = 0xffffffff;
-    if (iStack_6e8 != 0) {
-      ScrambleChecksumGuardBytes(iStack_6e8,&g_valueGuardKeyTable);
-      TreeInsert();
-      pcVar10 = (code *)LeaveCriticalSection;
+    if (*(int *)(auScratchB + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auScratchB + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
-    EncodeChecksumDeltaMul();
-    uStack_88 = 6;
+    iVarMul = EncodeChecksumDeltaMul(piVar3 + 2489,auStackEmitScratch,3);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    PeekPacketChecksumState((void *)&DAT_00e55ab8);
-    (*pcVar10)();
-    uVar15 = EncodeChecksumDeltaDiv();
-    uStack_8c = 7;
+    iVarArg = PeekPacketChecksumState((void *)&DAT_00e55ab8);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    iVarDiv = EncodeChecksumDeltaDiv(iVarMul,auScratchB,iVarArg);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x43128b
-     * (`lea edi,[ebp + 0x26e4]`): cell is piVar3+0x9b9 (== piVar3+0x26e4
-     * bytes). See tools/encodeoutgoingpacketfield_sites.json.
-     * FIXED (2026-07-16): also merged the value arg - see piVar3+0x930's
-     * note above. */
-    EncodeOutgoingPacketField(piVar3 + 0x9b9, PeekPacketChecksumState((void *)(piVar3 + 0x9b9)) + PeekPacketChecksumState((void *)uVar15));
-    (*pcVar10)();
-    uStack_90 = CONCAT31(SUBFIELD(uStack_90,1,undefined3),6);
-    if (iStack_6f0 != 0) {
-      ScrambleChecksumGuardBytes(iStack_6f0,&g_valueGuardKeyTable);
-      TreeInsert();
-      pcVar10 = (code *)LeaveCriticalSection;
+    iVarArg = PeekPacketChecksumState((void *)(piVar3 + 2489));
+    EncodeOutgoingPacketField(piVar3 + 2489,iVarArg + PeekPacketChecksumState((void *)iVarDiv));
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    if (*(int *)(auScratchB + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auScratchB + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
-    uStack_90 = 0xffffffff;
-    if (uStack_914 != 0) {
-      ScrambleChecksumGuardBytes(uStack_914,&g_valueGuardKeyTable);
-      TreeInsert();
-      pcVar10 = (code *)LeaveCriticalSection;
+    if (*(int *)(auStackEmitScratch + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auStackEmitScratch + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
-    EncodeChecksumDeltaMul();
-    uStack_90 = 8;
+    iVarMul = EncodeChecksumDeltaMul(piVar3 + 2626,auStackEmitScratch,3);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    puVar14 = (undefined *)PeekPacketChecksumState((void *)&DAT_00e55ab8);
-    (*pcVar10)();
-    uVar15 = EncodeChecksumDeltaDiv();
-    uStack_94 = 9;
+    iVarArg = PeekPacketChecksumState((void *)&DAT_00e55ab8);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    iVarDiv = EncodeChecksumDeltaDiv(iVarMul,auScratchB,iVarArg);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x431392
-     * (`lea edi,[ebp + 0x2908]`): cell is piVar3+0xa42 (== piVar3+0x2908
-     * bytes). See tools/encodeoutgoingpacketfield_sites.json.
-     * FIXED (2026-07-16): also merged the value arg - see piVar3+0x930's
-     * note above. */
-    EncodeOutgoingPacketField(piVar3 + 0xa42, PeekPacketChecksumState((void *)(piVar3 + 0xa42)) + PeekPacketChecksumState((void *)uVar15));
-    (*pcVar10)();
-    uStack_88 = CONCAT31(SUBFIELD(uStack_88,1,undefined3),8);
-    if (iStack_6e8 != 0) {
-      ScrambleChecksumGuardBytes(iStack_6e8,&g_valueGuardKeyTable);
-      TreeInsert();
-      pcVar10 = (code *)LeaveCriticalSection;
+    iVarArg = PeekPacketChecksumState((void *)(piVar3 + 2626));
+    EncodeOutgoingPacketField(piVar3 + 2626,iVarArg + PeekPacketChecksumState((void *)iVarDiv));
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    if (*(int *)(auScratchB + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auScratchB + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
-    uStack_88 = 0xffffffff;
-    if (uStack_90c != 0) {
-      ScrambleChecksumGuardBytes(uStack_90c,&g_valueGuardKeyTable);
-      TreeInsert();
-      pcVar10 = (code *)LeaveCriticalSection;
+    if (*(int *)(auStackEmitScratch + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auStackEmitScratch + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
   }
   cVar2 = CheckGuardedBoolAnd();
   if (cVar2 != '\0') {
-    (*pcVar9)();
-    iVar4 = PeekPacketChecksumState((void *)&DAT_00e9c578);
-    (*pcVar10)();
-    EncodeChecksumDeltaMul();
-    uStack_90 = 10;
-    (*pcVar9)();
-    PeekPacketChecksumState((void *)&DAT_00796aa0);
-    puVar13 = &g_valueGuardLock;
-    (*pcVar10)();
-    uVar15 = EncodeChecksumDeltaDiv(puVar14);
-    uStack_98 = 0xb;
-    (*pcVar9)();
-    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4314d1
-     * (`lea edi,[ebp + 0x24c0]`): cell is piVar3+0x930 (== piVar3+0x24c0
-     * bytes) - matches the identical, explicitly-confirmed pattern in
-     * the sibling functions in this batch, and the two explicitly-
-     * confirmed sites immediately following (0x4315e6/0x4316fe). See
-     * tools/encodeoutgoingpacketfield_sites.json.
-     * FIXED (2026-07-16): also merged the value arg - single (not
-     * summed) PeekPacketChecksumState() here, unlike the earlier three
-     * 0x930/0x9b9/0xa42 sites. */
-    EncodeOutgoingPacketField(piVar3 + 0x930, PeekPacketChecksumState((void *)uVar15));
-    puVar14 = &g_valueGuardLock;
-    (*pcVar10)();
-    uStack_a0 = CONCAT31(SUBFIELD(uStack_a0,1,undefined3),10);
-    if (iStack_700 != 0) {
-      ScrambleChecksumGuardBytes(iStack_700,&g_valueGuardKeyTable);
-      TreeInsert(&stack0xfffff6b8,&g_valueGuardMap);
-    }
-    uStack_a0 = 0xffffffff;
-    ScrambleChecksumGuardBytes();
-    TreeInsert(&stack0xfffff6b8,&g_valueGuardMap);
-    pcVar10 = (code *)LeaveCriticalSection;
-    (*pcVar9)(&g_valueGuardLock);
-    PeekPacketChecksumState((void *)&DAT_00e9c578);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    iVarArg = PeekPacketChecksumState((void *)&DAT_00e9c578);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    EncodeChecksumDeltaMul(piVar3 + 0x9b9,auMulScratch,puVar13);
-    uStack_a8 = 0xc;
-    (*pcVar9)(&g_valueGuardLock);
-    PeekPacketChecksumState((void *)&DAT_00796aa0);
-    puVar12 = &g_valueGuardLock;
+    iVarMul = EncodeChecksumDeltaMul(piVar3 + 2352,auStackEmitScratch,iVarArg);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    iVarArg = PeekPacketChecksumState((void *)&DAT_00796aa0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    uVar15 = EncodeChecksumDeltaDiv(puVar13,auStack_724,puVar14);
-    uStack_b0 = 0xd;
-    (*pcVar9)(&g_valueGuardLock);
-    uVar6 = PeekPacketChecksumState((void *)uVar15);
-    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4315e6
-     * (`lea edi,[ebp + 0x26e4]`): cell is piVar3+0x9b9 (== piVar3+0x26e4
-     * bytes) - the same cell explicitly passed to EncodeChecksumDeltaMul
-     * above. See tools/encodeoutgoingpacketfield_sites.json. */
-    EncodeOutgoingPacketField(piVar3 + 0x9b9,uVar6);
-    puVar14 = &g_valueGuardLock;
+    iVarDiv = EncodeChecksumDeltaDiv(iVarMul,auScratchB,iVarArg);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EncodeOutgoingPacketField(piVar3 + 2352,PeekPacketChecksumState((void *)iVarDiv));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    uStack_b8 = CONCAT31(SUBFIELD(uStack_b8,1,undefined3),0xc);
-    if (iStack_718 != 0) {
-      ScrambleChecksumGuardBytes(iStack_718,&g_valueGuardKeyTable);
-      TreeInsert(&stack0xfffff6a0,&g_valueGuardMap);
-      pcVar10 = (code *)LeaveCriticalSection;
+    if (*(int *)(auScratchB + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auScratchB + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
-    uStack_b8 = 0xffffffff;
-    if (iVar4 != 0) {
-      ScrambleChecksumGuardBytes(iVar4,&g_valueGuardKeyTable);
-      TreeInsert(&stack0xfffff6a0,&g_valueGuardMap);
-      pcVar10 = (code *)LeaveCriticalSection;
+    if (*(int *)(auStackEmitScratch + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auStackEmitScratch + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
-    (*pcVar9)(&g_valueGuardLock);
-    PeekPacketChecksumState((void *)&DAT_00e9c578);
-    (*pcVar10)(&g_valueGuardLock);
-    EncodeChecksumDeltaMul(piVar3 + 0xa42,auStack_2ec,puVar12);
-    uStack_c0 = 0xe;
-    (*pcVar9)(&g_valueGuardLock);
-    PeekPacketChecksumState((void *)&DAT_00796aa0);
-    (*pcVar10)(&g_valueGuardLock);
-    uVar15 = EncodeChecksumDeltaDiv(puVar12,auStack_518,puVar14);
-    uStack_c8 = 0xf;
-    (*pcVar9)(&g_valueGuardLock);
-    uVar6 = PeekPacketChecksumState((void *)uVar15);
-    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4316fe
-     * (`lea edi,[ebp + 0x2908]`): cell is piVar3+0xa42 (== piVar3+0x2908
-     * bytes) - the same cell explicitly passed to EncodeChecksumDeltaMul
-     * above. See tools/encodeoutgoingpacketfield_sites.json. */
-    EncodeOutgoingPacketField(piVar3 + 0xa42,uVar6);
-    (*pcVar10)(&g_valueGuardLock);
-    uStack_88 = CONCAT31(SUBFIELD(uStack_88,1,undefined3),0xe);
-    if (iStack_4c4 != 0) {
-      ScrambleChecksumGuardBytes(iStack_4c4,&g_valueGuardKeyTable);
-      TreeInsert();
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    iVarArg = PeekPacketChecksumState((void *)&DAT_00e9c578);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    iVarMul = EncodeChecksumDeltaMul(piVar3 + 2489,auStackEmitScratch,iVarArg);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    iVarArg = PeekPacketChecksumState((void *)&DAT_00796aa0);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    iVarDiv = EncodeChecksumDeltaDiv(iVarMul,auScratchB,iVarArg);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EncodeOutgoingPacketField(piVar3 + 2489,PeekPacketChecksumState((void *)iVarDiv));
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    if (*(int *)(auScratchB + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auScratchB + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
-    uStack_88 = 0xffffffff;
-    if (iStack_2a0 != 0) {
-      ScrambleChecksumGuardBytes(iStack_2a0,&g_valueGuardKeyTable);
-      TreeInsert();
+    if (*(int *)(auStackEmitScratch + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auStackEmitScratch + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
+    }
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    iVarArg = PeekPacketChecksumState((void *)&DAT_00e9c578);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    iVarMul = EncodeChecksumDeltaMul(piVar3 + 2626,auScratchD,iVarArg);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    iVarArg = PeekPacketChecksumState((void *)&DAT_00796aa0);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    iVarDiv = EncodeChecksumDeltaDiv(iVarMul,auScratchC,iVarArg);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EncodeOutgoingPacketField(piVar3 + 2626,PeekPacketChecksumState((void *)iVarDiv));
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    if (*(int *)(auScratchC + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auScratchC + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
+    }
+    if (*(int *)(auScratchD + 0x14) != 0) {
+      ScrambleChecksumGuardBytes(*(int *)(auScratchD + 0x14),&g_valueGuardKeyTable);
+      TreeInsert(auTreeNode,&g_valueGuardMap);
     }
   }
   /* EDX = [0x5b3484] + 0x6a7f88, EDI = ebp, the projectile whose +0x2908 cell is encoded in the tail (original call at 0x431787); the port had passed (0,0,NULL). */
   RegisterActiveObject(0, (int)g_clientContext + 0x6a7f88, (undefined4 *)piVar3);
-  *unaff_FS_OFFSET = uStack_90;
+  *unaff_FS_OFFSET = uStack_c;
   return;
 }
 
