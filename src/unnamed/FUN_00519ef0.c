@@ -60,7 +60,7 @@ void FUN_00519ef0(void)
     } while (local_28 < 9);
     local_28 = iVar6 + 2;
   } while (local_28 < 0x12);
-  puVar3 = (undefined4 *)FUN_0051c670();
+  puVar3 = (undefined4 *)GetMpegImdctShortTables();
   pfVar4 = (float *)*puVar3;
   pfVar8 = (float *)puVar3[1];
   pfVar5 = (float *)puVar3[2];

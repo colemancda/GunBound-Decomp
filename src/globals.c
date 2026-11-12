@@ -1132,7 +1132,7 @@ const char PTR_DAT_00555650[] = "%8d"; /* orig .data 0x555650, was a zeroed void
 char *PTR_DAT_00563b40 = (char *)g_mpegScaleTab;
 /* Table-pointer records at 0x568800 (36-point set) and 0x568810 (12-point set): three float table pointers each and a pad
  * word (raw 0xf25900 0xf25960 0xf259a0 0 | 0xf258c0 0xf258e0 0xf25a30 0). FUN_00519ef0 reads them through
- * GetMpegImdctLongTables / FUN_0051c670 and fills the tables, so the pointers must be set before it runs. */
+ * GetMpegImdctLongTables / GetMpegImdctShortTables and fills the tables, so the pointers must be set before it runs. */
 void *g_mpegImdctLongTabs[4] = { g_mpegImdctLongCos0, g_mpegImdctLongCos1, g_mpegImdctLongCos2, 0 };
 void *g_mpegImdctShortTabs[4] = { g_mpegImdctShortCos0, g_mpegImdctShortCos1, &DAT_00f25a30, 0 };
 /* GetLocalizedString's not-found fallback return value. Was zero-init
