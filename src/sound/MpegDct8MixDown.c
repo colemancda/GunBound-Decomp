@@ -1,15 +1,25 @@
-/* FUN_0051ad70 - 0x0051ad70 in the original binary.
+/* MpegDct8MixDown - 0x0051ad70 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_0051ad70.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Its only callers are SynthesizeMpeg16QuarterMixDown and
+ * SynthesizeMpeg8QuarterMixDown, the quarter-band drivers for a two-channel
+ * stream mixed down to one output channel (the same slot where the mono
+ * drivers call MpegDct8). Verified in the body: the first and last input
+ * pairs are averaged, (in[2k] + in[2k+1]) * 0.5 with the constant at
+ * 0x544b00 (0.5 in the binary), over the 16-float input, before the same
+ * third-row (0xf25aa0) factor step as MpegDct8.
+ * It is to MpegDct8 what MpegDct32MixDown is to MpegDct32.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0051ad70(float *param_1,undefined4 param_2)
+void MpegDct8MixDown(float *param_1,undefined4 param_2)
 
 {
   float fVar1;
