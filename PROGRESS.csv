@@ -1169,7 +1169,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e9af0,61,FUN_004e9af0,false,1,2,RAW-src
 004e9b30,72,FUN_004e9b30,false,1,1,RAW-src
 004e9b80,30,FUN_004e9b80,false,1,2,RAW-src
-004e9ba0,11,FUN_004e9ba0,false,2,1,RAW-src
+004e9ba0,11,CameraNode_DtorBody,false,2,1,RAW-src
 004e9cc0,420,SceneNode_UpdateTransformAndCamera,false,1,5,RAW-src
 004e9e90,372,LZHUFInsertNode,false,4,0,RAW-src
 004ea010,247,LZHUFDeleteNode,false,2,0,RAW-src

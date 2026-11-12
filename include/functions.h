@@ -1277,7 +1277,7 @@ void FUN_004e9ad0(undefined4 *regEax);
 void FUN_004e9af0(undefined4 *regEbx);
 undefined4 * FUN_004e9b30(undefined4 regEcx,undefined4 *regEdx,undefined4 regEax);
 void * __thiscall FUN_004e9b80(void *param_1,int param_2);
-void __fastcall FUN_004e9ba0(undefined4 *param_1);
+void __fastcall CameraNode_DtorBody(undefined4 *param_1);
 void __thiscall SceneNode_UpdateTransformAndCamera();
 void LZHUFInsertNode(int in_EAX, int unaff_ESI);
 void __fastcall LZHUFDeleteNode(undefined4 param_1,int param_2,int regEax);
