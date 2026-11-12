@@ -1,15 +1,27 @@
-/* FUN_0051a8b0 - 0x0051a8b0 in the original binary.
+/* MpegDct16Interleaved - 0x0051a8b0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_0051a8b0.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Called directly by the half-band drivers that read a channel-interleaved
+ * float source: SynthesizeMpeg16HalfStereo and SynthesizeMpeg8HalfStereo
+ * (on source and on source + 4), and the FirstChannel / SecondChannel
+ * drivers of both bit depths (second channel passes source + 4), each followed
+ * by the half-band window thunk. It is to MpegDct16 what MpegDct32Interleaved
+ * is to MpegDct32. Verified in the binary: the same second-row (0xf25a80)
+ * factors as MpegDct16 applied to in[0], in[2] ... in[28], i.e. the pairs are
+ * taken at stride 2 floats.
+ * Same "Dct" justification as MpegDct32 (rows of 16/8/4/2/1 built by
+ * InitMpegSynthesisTables; half band = 16 subbands from the downsample shift).
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0051a8b0(float *param_1,undefined4 param_2)
+void MpegDct16Interleaved(float *param_1,undefined4 param_2)
 
 {
   int iVar1;

@@ -1818,7 +1818,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0051a470,469,MpegDct32MixDown,false,2,1,RAW-src
 0051a650,251,FUN_0051a650,false,19,0,RAW-src
 0051a750,338,MpegDct16,false,8,1,RAW-src
-0051a8b0,321,FUN_0051a8b0,false,8,1,RAW-src
+0051a8b0,321,MpegDct16Interleaved,false,8,1,RAW-src
 0051aa00,369,FUN_0051aa00,false,2,1,RAW-src
 0051ab80,248,FUN_0051ab80,false,8,1,RAW-src
 0051ac80,231,FUN_0051ac80,false,8,1,RAW-src

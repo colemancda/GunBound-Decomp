@@ -1894,7 +1894,7 @@ void MpegDct32InterleavedThunk();
 void MpegDct32MixDown();
 void FUN_0051a650();
 void MpegDct16();
-void FUN_0051a8b0();
+void MpegDct16Interleaved();
 void FUN_0051aa00();
 void FUN_0051ab80();
 void FUN_0051ac80();
