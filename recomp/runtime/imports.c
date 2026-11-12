@@ -21,7 +21,6 @@ RtProcess g_proc;
 #define H_STDOUT 0x00000014u
 #define H_STDERR 0x00000018u
 #define H_PROCESS_HEAP 0x00140000u
-#define H_FAKE_MODULE 0x7C800000u
 #define H_GENERIC 0x00000100u
 
 #define set_last_error rt_set_last_error
@@ -51,20 +50,6 @@ H(k32_GetVersionExA) {
     return 1;
 }
 
-/* ------------------------------------------------------------ modules */
-H(k32_GetModuleHandleA) {
-    UNUSED;
-    if (!a[0]) return g_image.base;
-    if (g_trace_imports) fprintf(stderr, " {\"%s\"}", gstr(a[0]));
-    const char *base = strrchr(gstr(a[0]), '\\');
-    base = base ? base + 1 : gstr(a[0]);
-    const char *self = strrchr(g_image.guest_path, '\\') + 1;
-    if (!strcasecmp(base, self)) return g_image.base;
-    if (!strncasecmp(base, "kernel32", 8)) return H_FAKE_MODULE;
-    set_last_error(c, 126); /* ERROR_MOD_NOT_FOUND */
-    return 0;
-}
-
 H(k32_GetModuleFileNameA) {
     UNUSED;
     uint32_t n = (uint32_t)strlen(g_image.guest_path);
@@ -74,26 +59,6 @@ H(k32_GetModuleFileNameA) {
     st8(a[1] + n, 0);
     return n;
 }
-
-/* No other modules exist yet: every lookup fails, which sends the CRT down its fallback paths. */
-H(k32_GetProcAddress) {
-    UNUSED;
-    if (g_trace_imports) {
-        if (a[1] > 0xFFFF) fprintf(stderr, " {\"%s\"}", gstr(a[1]));
-        else fprintf(stderr, " {#%u}", a[1]);
-    }
-    set_last_error(c, 127); /* ERROR_PROC_NOT_FOUND */
-    return 0;
-}
-
-H(k32_LoadLibraryA) {
-    UNUSED;
-    if (g_trace_imports) fprintf(stderr, " {\"%s\"}", gstr(a[0]));
-    set_last_error(c, 126);
-    return 0;
-}
-
-H(k32_FreeLibrary) { UNUSED; return 1; }
 
 /* -------------------------------------------------- process parameters */
 H(k32_GetCommandLineA) { UNUSED; return g_proc.cmdline_a; }
@@ -124,12 +89,6 @@ H(k32_GetStdHandle) {
 }
 
 H(k32_SetStdHandle) { UNUSED; return 1; }
-
-H(k32_GetFileType) {
-    UNUSED;
-    if (a[0] == H_STDIN || a[0] == H_STDOUT || a[0] == H_STDERR) return 2; /* FILE_TYPE_CHAR */
-    return 0;
-}
 
 H(k32_GetCurrentProcessId) { UNUSED; return 0x00000A28u; }
 H(k32_GetCurrentProcess) { UNUSED; return 0xFFFFFFFFu; }
@@ -408,11 +367,7 @@ H(k32_LockResource) { UNUSED; return a[0]; }
 static const ImportDef defs[] = {
     {"kernel32.dll", "GetVersion", k32_GetVersion, 0, 0},
     {"kernel32.dll", "GetVersionExA", k32_GetVersionExA, 1, 0},
-    {"kernel32.dll", "GetModuleHandleA", k32_GetModuleHandleA, 1, 0},
     {"kernel32.dll", "GetModuleFileNameA", k32_GetModuleFileNameA, 3, 0},
-    {"kernel32.dll", "GetProcAddress", k32_GetProcAddress, 2, 0},
-    {"kernel32.dll", "LoadLibraryA", k32_LoadLibraryA, 1, 0},
-    {"kernel32.dll", "FreeLibrary", k32_FreeLibrary, 1, 0},
     {"kernel32.dll", "GetCommandLineA", k32_GetCommandLineA, 0, 0},
     {"kernel32.dll", "GetStartupInfoA", k32_GetStartupInfoA, 1, 0},
     {"kernel32.dll", "GetEnvironmentStringsW", k32_GetEnvironmentStringsW, 0, 0},
@@ -421,7 +376,6 @@ static const ImportDef defs[] = {
     {"kernel32.dll", "FreeEnvironmentStringsA", k32_FreeEnvironmentStrings, 1, 0},
     {"kernel32.dll", "GetStdHandle", k32_GetStdHandle, 1, 0},
     {"kernel32.dll", "SetStdHandle", k32_SetStdHandle, 2, 0},
-    {"kernel32.dll", "GetFileType", k32_GetFileType, 1, 0},
     {"kernel32.dll", "GetCurrentProcessId", k32_GetCurrentProcessId, 0, 0},
     {"kernel32.dll", "GetCurrentProcess", k32_GetCurrentProcess, 0, 0},
     {"kernel32.dll", "GetLastError", k32_GetLastError, 0, 0},

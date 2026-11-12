@@ -107,7 +107,7 @@ typedef struct ImportTable {
 #define RT_COUNTOF(a) (sizeof(a) / sizeof((a)[0]))
 #define RT_EXPORT_IMPORTS(sym, defs) const ImportTable sym = {defs, RT_COUNTOF(defs)}
 extern const ImportTable rt_imports_kernel, rt_imports_thread, rt_imports_seh, rt_imports_user, rt_imports_file,
-    rt_imports_registry, rt_imports_misc, rt_imports_winsock;
+    rt_imports_registry, rt_imports_misc, rt_imports_winsock, rt_imports_ddraw, rt_imports_dinput;
 
 #define H(name) static uint32_t name(CPU *c, const uint32_t *a)
 #define UNUSED (void)c, (void)a
@@ -178,6 +178,7 @@ extern RtProcess g_proc;
 /* ---- run-time options (main.c) ---- */
 typedef struct RtOptions {
     char gamedir[512];     /* host directory holding the game's files */
+    char savedir[512];     /* where the guest's writes go; an overlay when it differs from gamedir */
     char regfile[512];     /* registry backing file */
     int headless;          /* no window; frames can still be dumped */
     int dump_frame;        /* 1-based presented frame to dump, 0 = none */

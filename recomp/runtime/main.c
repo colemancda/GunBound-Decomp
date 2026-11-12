@@ -13,7 +13,9 @@ static void usage(const char *argv0) {
             "                      (default: the directory of --exe)\n"
             "  --cmdline STRING    the guest command line, verbatim. The launcher starts the game\n"
             "                      with a command line that is only its 96-character session token.\n"
-            "  --registry FILE     registry backing file (default: recomp-registry.txt in --gamedir)\n"
+            "  --savedir DIR       where files the game writes go (default: --gamedir). A different\n"
+            "                      directory is an overlay, and the game directory is never written.\n"
+            "  --registry FILE     registry backing file (default: recomp-registry.txt in --savedir)\n"
             "  --headless          do not open a window\n"
             "  --dump-frame N      write presented frame N (1 = first) as a PNG\n"
             "  --dump-path FILE    where --dump-frame writes (default: frame.png)\n"
@@ -85,6 +87,7 @@ int main(int argc, char **argv) {
         else if (!strcmp(o, "--headless")) g_opt.headless = 1;
         else if (!strcmp(o, "--exe") && has) exe = argv[++i];
         else if (!strcmp(o, "--gamedir") && has) snprintf(g_opt.gamedir, sizeof g_opt.gamedir, "%s", argv[++i]);
+        else if (!strcmp(o, "--savedir") && has) snprintf(g_opt.savedir, sizeof g_opt.savedir, "%s", argv[++i]);
         else if (!strcmp(o, "--registry") && has) snprintf(g_opt.regfile, sizeof g_opt.regfile, "%s", argv[++i]);
         else if (!strcmp(o, "--cmdline") && has) raw_cmdline = argv[++i];
         else if (!strcmp(o, "--dump-frame") && has) g_opt.dump_frame = atoi(argv[++i]);
@@ -103,11 +106,8 @@ int main(int argc, char **argv) {
         snprintf(tmp, sizeof tmp, "%s", exe);
         snprintf(g_opt.gamedir, sizeof g_opt.gamedir, "%s", dirname(tmp));
     }
-    if (!g_opt.regfile[0]) {
-        size_t n = strlen(g_opt.gamedir);
-        snprintf(g_opt.regfile, sizeof g_opt.regfile, "%.*s/recomp-registry.txt", (int)(n > 480 ? 480 : n),
-                 g_opt.gamedir);
-    }
+    if (!g_opt.savedir[0]) snprintf(g_opt.savedir, sizeof g_opt.savedir, "%s", g_opt.gamedir);
+    if (!g_opt.regfile[0]) snprintf(g_opt.regfile, sizeof g_opt.regfile, "%.480s/recomp-registry.txt", g_opt.savedir);
 
     setvbuf(stderr, NULL, _IOLBF, 0);
     rt_mem_init();
