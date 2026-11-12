@@ -2023,33 +2023,40 @@ extern float DAT_00568318[264];
 #define DAT_00568654 (DAT_00568318[207]) /* 0x568654 = 0x568318 + 0x33c */
 #define DAT_005686d4 (DAT_00568318[239]) /* 0x5686d4 = 0x568318 + 0x3bc */
 #define DAT_00568714 (DAT_00568318[255]) /* 0x568714 = 0x568318 + 0x3fc */
-extern float DAT_00568738;
-extern float DAT_0056873c;
-extern float DAT_00568740;
-extern float DAT_00568744;
-extern float DAT_00568748;
-extern float DAT_0056874c;
-extern float DAT_00568750;
-extern float DAT_00568754;
-extern float DAT_00568758;
-extern float DAT_0056875c;
-extern float DAT_00568760;
-extern float DAT_00568764;
-extern float DAT_00568768;
-extern float DAT_0056876c;
-extern float DAT_00568770;
-extern float DAT_00568774;
-extern float DAT_00568778;
-extern float DAT_0056877c;
-extern float DAT_00568798;
-extern float DAT_0056879c;
-extern float DAT_005687a0;
-extern float DAT_005687a4;
-extern float DAT_005687a8;
-extern float DAT_005687ac;
-extern float DAT_005687b0;
-extern float DAT_005687b4;
-extern float DAT_005687b8;
+/* g_mpegImdctScratch (0x568738, 0x84 bytes): the IMDCT scratch the 36- and 12-point
+ * kernels write and re-read.  MpegImdct36/MpegImdct12 load eax=0x568738 and
+ * ebx=0x568798 as bases and index across them (0x568798 = +0x60), and
+ * DAT_00568318[264] ends exactly at 0x568738, so these are one object:
+ * array A = [0..17] (36-point uses 0..9 and 10..19 by stride 0x14), array B =
+ * [24..32].  The old DAT_ names are macros into it. */
+extern float g_mpegImdctScratch[33];
+#define DAT_00568738 (g_mpegImdctScratch[0])
+#define DAT_0056873c (g_mpegImdctScratch[1])
+#define DAT_00568740 (g_mpegImdctScratch[2])
+#define DAT_00568744 (g_mpegImdctScratch[3])
+#define DAT_00568748 (g_mpegImdctScratch[4])
+#define DAT_0056874c (g_mpegImdctScratch[5])
+#define DAT_00568750 (g_mpegImdctScratch[6])
+#define DAT_00568754 (g_mpegImdctScratch[7])
+#define DAT_00568758 (g_mpegImdctScratch[8])
+#define DAT_0056875c (g_mpegImdctScratch[9])
+#define DAT_00568760 (g_mpegImdctScratch[10])
+#define DAT_00568764 (g_mpegImdctScratch[11])
+#define DAT_00568768 (g_mpegImdctScratch[12])
+#define DAT_0056876c (g_mpegImdctScratch[13])
+#define DAT_00568770 (g_mpegImdctScratch[14])
+#define DAT_00568774 (g_mpegImdctScratch[15])
+#define DAT_00568778 (g_mpegImdctScratch[16])
+#define DAT_0056877c (g_mpegImdctScratch[17])
+#define DAT_00568798 (g_mpegImdctScratch[24])
+#define DAT_0056879c (g_mpegImdctScratch[25])
+#define DAT_005687a0 (g_mpegImdctScratch[26])
+#define DAT_005687a4 (g_mpegImdctScratch[27])
+#define DAT_005687a8 (g_mpegImdctScratch[28])
+#define DAT_005687ac (g_mpegImdctScratch[29])
+#define DAT_005687b0 (g_mpegImdctScratch[30])
+#define DAT_005687b4 (g_mpegImdctScratch[31])
+#define DAT_005687b8 (g_mpegImdctScratch[32])
 extern uint32_t DAT_005687fc;
 extern uint32_t *DAT_0056881c; /* used dereferenced and assigned a uint32_t value at call sites */
 extern uint32_t DAT_00568840;

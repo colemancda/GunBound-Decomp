@@ -3007,33 +3007,7 @@ float DAT_00568318[264] = { /* orig .data 0x568318..0x568737; the MP3 synthesis 
   -0.0249328595f, 0.00193786598f, -0.00169372605f, -9.15530036e-05f, -0.00158691395f, -0.0239105206f,
   -0.148422241f, -0.976852417f, 0.152206421f, 0.000686645973f, -0.00222778297f, 7.62940035e-05f
 };
-float DAT_00568738;
-float DAT_0056873c;
-float DAT_00568740;
-float DAT_00568744;
-float DAT_00568748;
-float DAT_0056874c;
-float DAT_00568750;
-float DAT_00568754;
-float DAT_00568758;
-float DAT_0056875c;
-float DAT_00568760;
-float DAT_00568764;
-float DAT_00568768;
-float DAT_0056876c;
-float DAT_00568770;
-float DAT_00568774;
-float DAT_00568778;
-float DAT_0056877c;
-float DAT_00568798;
-float DAT_0056879c;
-float DAT_005687a0;
-float DAT_005687a4;
-float DAT_005687a8;
-float DAT_005687ac;
-float DAT_005687b0;
-float DAT_005687b4;
-float DAT_005687b8;
+float g_mpegImdctScratch[33]; /* runtime scratch, orig 0x568738 (zero in the image) */
 uint32_t DAT_005687fc;
 uint32_t *DAT_0056881c;
 uint32_t DAT_00568840;
