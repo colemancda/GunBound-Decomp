@@ -183,7 +183,8 @@ typedef struct RtOptions {
     int dump_frame;        /* 1-based presented frame to dump, 0 = none */
     char dump_path[512];
     int exit_after_frame;  /* stop after this many presented frames, 0 = never */
-    int scale;             /* window scale factor, 0 = fit the display */
+    int scale;             /* window size as a multiple of the guest screen, 0 = automatic */
+    int fullscreen;        /* borderless full-screen window, letterboxed */
     int verbose;           /* log window messages and COM calls */
 } RtOptions;
 extern RtOptions g_opt;

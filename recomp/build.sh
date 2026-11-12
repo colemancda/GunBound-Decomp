@@ -13,6 +13,7 @@
 #   OPT          optimisation level for the lifted code (default -O1)
 #   EXTRA_CFLAGS extra compiler flags for everything (e.g. -DRT_DYNAMIC_BASE)
 #   LIFT_FLAGS   extra lifter flags (e.g. --no-flag-liveness)
+#   NO_SDL       1 = build without SDL2 (headless only)
 #   VARIANT      suffix for the output directories, to keep an experimental build
 #                (other LIFT_FLAGS / EXTRA_CFLAGS) next to the normal one
 set -euo pipefail
@@ -45,6 +46,19 @@ aarch64)
     ;;
 esac
 command -v "$cc" >/dev/null || { echo "compiler not found: $cc" >&2; exit 2; }
+
+# SDL2: the host's through sdl2-config, the cross build's from the compiler's sysroot.
+# NO_SDL=1 builds a headless-only program.
+if [ "${NO_SDL:-0}" = 1 ]; then
+    sdl_cflags="-DRT_NO_SDL"
+    sdl_libs=""
+elif [ "$target" = host ]; then
+    sdl_cflags="$(sdl2-config --cflags)"
+    sdl_libs="$(sdl2-config --libs)"
+else
+    sdl_cflags="-I$("$cc" -print-sysroot)/usr/include/SDL2 -D_REENTRANT"
+    sdl_libs="-lSDL2"
+fi
 [ -f "$exe" ] || { echo "original executable not found: $exe (set RECOMP_EXE)" >&2; exit 2; }
 
 # ---- 1. lift (shared by all targets; redone when the lifter or the inputs change)
@@ -71,7 +85,7 @@ cflags_common="-std=gnu11 -pthread -fno-strict-aliasing -fwrapv -fno-stack-prote
 {
     echo "cc = $cc"
     echo "gen_cflags = $opt -foptimize-sibling-calls $cflags_common -w"
-    echo "rt_cflags = -O2 -g $cflags_common -Wall -Wextra -Wno-unused-parameter"
+    echo "rt_cflags = -O2 -g $cflags_common $sdl_cflags -Wall -Wextra -Wno-unused-parameter"
     echo "rule gen"
     echo "  command = \$cc \$gen_cflags -c \$in -o \$out"
     echo "  description = CC \$out"
@@ -80,12 +94,15 @@ cflags_common="-std=gnu11 -pthread -fno-strict-aliasing -fwrapv -fno-stack-prote
     echo "  depfile = \$out.d"
     echo "  description = CC \$out"
     echo "rule link"
-    echo "  command = \$cc -o \$out \$in -lm -pthread"
+    echo "  command = \$cc -o \$out \$in -lm -pthread $sdl_libs"
     echo "  description = LINK \$out"
     objs=""
     for src in "$gen"/chunk_*.c "$gen/tables.c"; do
         o="obj/$(basename "${src%.c}").o"
-        echo "build $o: gen $src | $here/runtime/cpu.h $here/runtime/rt.h $gen/funcs.h"
+        # the lifted code is written against cpu.h alone; only tables.c sees rt.h
+        deps="$here/runtime/cpu.h $gen/funcs.h"
+        [ "$(basename "$src")" = tables.c ] && deps="$deps $here/runtime/rt.h"
+        echo "build $o: gen $src | $deps"
         objs="$objs $o"
     done
     for src in "$here"/runtime/*.c; do

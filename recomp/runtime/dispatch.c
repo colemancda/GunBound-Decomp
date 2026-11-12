@@ -57,6 +57,7 @@ static const ImportTable *const import_tables[] = {
     &rt_imports_kernel,
     &rt_imports_thread,
     &rt_imports_seh,
+    &rt_imports_user,
 };
 
 const ImportDef *rt_find_import_def(const char *dll, const char *name) {
