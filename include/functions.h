@@ -1896,7 +1896,7 @@ void FUN_0051a650();
 void MpegDct16();
 void MpegDct16Interleaved();
 void MpegDct16MixDown();
-void FUN_0051ab80();
+void MpegDct8();
 void FUN_0051ac80();
 void FUN_0051ad70();
 void MpegSynthWindow16FullThunk();

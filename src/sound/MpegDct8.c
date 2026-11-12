@@ -1,15 +1,29 @@
-/* FUN_0051ab80 - 0x0051ab80 in the original binary.
+/* MpegDct8 - 0x0051ab80 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Named above, but still a raw/near-verbatim port of Ghidra's decompiler
+ * output, not hand-verified; see src/README.md's "Raw/verbatim ports"
+ * section. (Previously FUN_0051ab80.)
+ *
+ * Evidence for the name (all from outside the body):
+ * Called directly by the quarter-band drivers that take a single channel of
+ * non-interleaved float data: SynthesizeMpeg16QuarterMono,
+ * SynthesizeMpeg8QuarterMono, MpegPolyphase16Quarter,
+ * MpegPolyphase16QuarterInterleaved (both rings) and the 8-bit pair, as
+ * (source, ring slot), followed by the quarter-band window thunk.
+ * SetupMpegLayerIIIDecoder selects those drivers with downsample shift 2,
+ * 0x20 >> 2 = 8 subbands per slot, and the quarter-band step uses the
+ * 4-entry third row of g_mpegCosTab (0xf25aa0) that InitMpegSynthesisTables
+ * builds. Verified in the binary: in[0] pairs with in[7] and in[1..3] with
+ * in[6..4], so all eight inputs are read at stride 4.
+ * Same "Dct" justification as MpegDct32; siblings MpegDct8Interleaved and
+ * MpegDct8MixDown.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0051ab80(float *param_1,undefined4 param_2)
+void MpegDct8(float *param_1,undefined4 param_2)
 
 {
   float *pfVar1;
