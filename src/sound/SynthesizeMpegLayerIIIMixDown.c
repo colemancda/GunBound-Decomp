@@ -11,7 +11,7 @@
  * table[col] with col = (param_5 & 3) + 1 for a non-mono stream, and the
  * same column scheme picks SynthesizeMpeg*MixDown in the 0x563a60 table
  * (column 2 = mix down; its reader averages the two channels). Here
- * FUN_00518080(ch0, ch1, n) adds the channel 1 spectrum row (0xf27100 + granule *
+ * AccumulateFloatArray(ch0, ch1, n) adds the channel 1 spectrum row (0xf27100 + granule *
  * 0x900) into the channel 0 row (0xf25f00 + granule * 0x900), n =
  * the larger of the two channels' limits clamped to DAT_00563d8c.
  *
@@ -52,7 +52,7 @@ void SynthesizeMpegLayerIIIMixDown(int param_1,uint param_2)
     if (iVar4 == 2) {
       iVar2 = 0;
     }
-    FUN_00518080(&DAT_00f25f00 + param_2 * 0x240,&DAT_00f25f00 + 0x480 + param_2 * 0x240,iVar1);
+    AccumulateFloatArray(&DAT_00f25f00 + param_2 * 0x240,&DAT_00f25f00 + 0x480 + param_2 * 0x240,iVar1);
     iVar3 = MpegImdctThunk(&DAT_00f25f00 + param_2 * 0x240,&DAT_00f25f00 + uVar5 * 0x240,
                            &DAT_005ada3c,iVar4,iVar2,iVar1,(&DAT_005ae7cc)[uVar5 * 2]);
     (&DAT_005ae7cc)[param_2 * 2] = iVar3;

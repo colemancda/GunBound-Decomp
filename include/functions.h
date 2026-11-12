@@ -1862,7 +1862,7 @@ void MpegPolyphase8Quarter();
 void MpegPolyphase8QuarterInterleaved();
 undefined4 * GetMpegImdctWindowTable();
 int MpegImdctViaKernels();
-void FUN_00518080();
+void AccumulateFloatArray();
 int MpegImdctThunk(); /* returns the new band state in EAX (MpegImdct's final mov eax,[0x5687fc]) */
 void MpegFrequencyInversionThunk();
 undefined * GetMpegAntialiasCsCaTable();
