@@ -1078,7 +1078,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e4340,65,FindGroundHeightAtColumn,false,40,0,RAW-src
 004e4390,57,ScanTerrainUpForSolid,false,5,0,RAW-src
 004e43d0,55,ScanTerrainLeftForSolid,false,5,0,RAW-src
-004e4410,64,FUN_004e4410,false,5,0,RAW-src
+004e4410,64,ScanTerrainRightForSolid,false,5,0,RAW-src
 004e4450,1300,CarveTerrainCrater,false,3,5,RAW-src
 004e4970,578,ApplyCraterExcavation,false,23,5,RAW-src
 004e4bc0,319,DarkenTerrainScorchRow,false,5,1,RAW-src

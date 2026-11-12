@@ -1189,7 +1189,7 @@ void ReleaseStageResources(int param_1);
 int __fastcall FindGroundHeightAtColumn();
 int ScanTerrainUpForSolid(int regEsi,int regEax,int regEdi);
 int __fastcall ScanTerrainLeftForSolid(int param_1,int param_2,int regEax);
-undefined4 __fastcall FUN_004e4410();
+undefined4 __fastcall ScanTerrainRightForSolid();
 void CarveTerrainCrater(int param_1,int param_2,int param_3,int regEax,int regEsi);
 void ApplyCraterExcavation(int param_1,int param_2,int param_3,undefined4 param_4,
                            undefined4 param_5,undefined4 param_6,undefined4 param_7,

@@ -254,7 +254,7 @@ LAB_004a0a52:
         puStack_8 = (undefined1 *)0x2;
         PeekChecksumStateUnderLock(param_1 + 0x45e);
         PeekChecksumStateUnderLock(uVar5);
-        iVar3 = FUN_004e4410();
+        iVar3 = ScanTerrainRightForSolid();
         puStack_8 = (undefined1 *)0xffffffff;
         ScrubChecksumGuard();
         uVar5 = EncodeChecksumDeltaSub(piVar15,auStack_ac4,8);

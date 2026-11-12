@@ -298,7 +298,7 @@ LAB_004a1e19:
             local_4 = 0x14;
             PeekChecksumStateUnderLock(param_1);
             PeekChecksumStateUnderLock(uVar9);
-            iVar7 = FUN_004e4410();
+            iVar7 = ScanTerrainRightForSolid();
             local_4 = 0xffffffff;
             ScrubChecksumGuard();
             uVar9 = EncodeChecksumDeltaSub(param_1,local_1350,4);
@@ -307,7 +307,7 @@ LAB_004a1e19:
             SUBFIELD(local_4,0,undefined1) = 0x16;
             PeekChecksumStateUnderLock(uVar9);
             PeekChecksumStateUnderLock(uVar10);
-            iVar11 = FUN_004e4410();
+            iVar11 = ScanTerrainRightForSolid();
             local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x15);
             ScrubChecksumGuard();
             local_4 = 0xffffffff;
@@ -318,7 +318,7 @@ LAB_004a1e19:
             SUBFIELD(local_4,0,undefined1) = 0x18;
             PeekChecksumStateUnderLock(uVar9);
             PeekChecksumStateUnderLock(uVar10);
-            iVar8 = FUN_004e4410();
+            iVar8 = ScanTerrainRightForSolid();
             local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x17);
             ScrubChecksumGuard();
             local_4 = 0xffffffff;
