@@ -13,7 +13,18 @@ Nothing derived from the game binary is committed. The lifted C, objects and
 binaries live under `recomp/build/`, which is ignored, and the program needs the
 original executable and the game's data files at run time.
 
-## Status: milestone 3
+## Status: milestone 4
+
+The aarch64 build runs on the handheld. On a Retroid Pocket 5 with ROCKNIX it
+starts from a launcher in the Ports menu's directory, fills the screen, plays
+sound, logs in to a server on the local network and plays a battle against a
+client on a PC at the game's own frame rate. A game controller and the
+touchscreen are input devices now: the left stick moves the pointer, A is the
+space bar, a finger is the pointer with the left button held. All of that was
+driven over ssh by scripted input; see "The handheld" for what exactly was
+checked on the device and what still waits for someone to hold it.
+
+What milestone 3 reached is unchanged:
 
 The game runs against a server. Driven by scripted input, without a display,
 the x86_64 build goes from the Softnyx logo and the title screen to the world
@@ -40,12 +51,9 @@ physical screen (see "What was verified where").
 
 The x86_64 build and the aarch64 build (under `qemu-aarch64`) behave the same
 up to the world list: on a virtual clock the frames they present are identical
-pixel for pixel, which `test/frames.sh` checks. Under qemu the aarch64 build
-has also logged in, joined a room and become its master; a battle has not been
-run on aarch64.
+pixel for pixel, which `test/frames.sh` checks.
 
-Not there yet: input devices other than a pointer and a keyboard, and
-everything specific to the handheld.
+Not there yet: text entry without a keyboard, and any work on speed.
 
 ## Building and running
 
@@ -69,7 +77,8 @@ In the game: click the world, then SERVER; CREATE makes a room, a click on a
 room card and JOIN enters one; in a room the master's START (READY for the
 others) begins the game once the teams are even. In battle the space bar
 charges and fires, which is the only battle control exercised so far.
-Alt+Enter switches full screen.
+Alt+Enter switches full screen. A game controller works as described under
+"Controller and touch".
 
 The steps by hand:
 
@@ -103,8 +112,12 @@ What the game needs:
   `GetCommandLineA()` is exactly 96 characters, the hexadecimal form of three
   AES blocks its launcher builds from the user name and password.
   `tools/make_token.py USER [PASSWORD]` builds one the same way, reading the key
-  from `orig/Launcher.cs`; pass it with `--cmdline`. The token is only looked at
-  by the server at login.
+  from `orig/Launcher.cs`; pass it with `--cmdline`. The program can do the
+  same itself, for machines without Python: `--login USER PASSWORD` reads the
+  key from `Launcher.cs` (or from `launcher.key`, 32 hexadecimal digits) in
+  the game or save directory, or from the file named by `--login-key`. The
+  key is in neither the repository nor the program. The token is only looked
+  at by the server at login.
 - **Registry values**, kept in a text file in `.reg` format (`--registry`, default
   `recomp-registry.txt` in the save directory). It is created with the two values
   the game cannot start without, under `HKEY_LOCAL_MACHINE\Software\Softnyx\GunBound`:
@@ -130,14 +143,20 @@ Options:
 | `--broker HOST[:PORT]` | the server that lists the worlds (default port 8372); stored in the registry file |
 | `--local-address IP` | bind every socket to this address and report it as the machine's own. With 127.0.0.2, 127.0.0.3, ... (not 127.0.0.1) several instances can run on one machine |
 | `--headless` | no window |
-| `--scale N`, `--fullscreen` | window size as a multiple of 800x600; start full screen (Alt+Enter switches at any time) |
+| `--login USER PASSWORD`, `--login-key FILE`, `--print-token` | make the session token from the launcher's key instead of taking it from `--cmdline`; print it and exit |
+| `--scale N`, `--window-size WxH`, `--fullscreen` | window size as a multiple of 800x600 or in pixels; start full screen (Alt+Enter switches at any time) |
 | `--scale-mode MODE` | `fit`: the largest picture with the game's aspect ratio (default); `integer`: whole multiples only; `stretch`: fill the window |
 | `--filter FILTER` | `sharp`: point sampling up to the next whole multiple, then bilinear down to the picture's size (default); `nearest`; `linear` |
 | `--no-sound`, `--dump-audio FILE` | tell the game there is no sound device; write the mixed sound to a WAV file instead of playing it (works headless) |
 | `--dump-frame N[,N...]`, `--dump-every N`, `--dump-path FILE` | write presented frames (1 = first) as PNG files; a `%d` in the path is the frame number |
 | `--dump-window` | frame dumps also write `FILE.window.png`, what the window shows after scaling |
 | `--frames N` | exit after N presented frames |
-| `--input SCRIPT`, `--input-file FILE` | synthetic input, `"FRAME:command;..."` or one step per line: `move X Y`, `click X Y`, `down`, `up`, `rdown`, `rup`, `key VK DIK`, `keydown VK DIK`, `keyup VK DIK` (hexadecimal), `text STRING`, `fullscr`, `quit`. `+N` as the frame counts from the previous step |
+| `--input SCRIPT`, `--input-file FILE` | synthetic input, `"FRAME:command;..."` or one step per line: `move X Y`, `click X Y`, `down`, `up`, `rdown`, `rup`, `key VK DIK`, `keydown VK DIK`, `keyup VK DIK` (hexadecimal), `text STRING`, `fullscr`, `quit`; for the controller `stick X Y`, `rstick X Y` (percent), `pdown B`, `pup B`, `ptap B`, `plug`, `unplug`; for a finger `tdown X Y`, `tmove X Y` (thousandths of the window), `tup`. `+N` as the frame counts from the previous step |
+| `--no-pad`, `--pad-speed N`, `--pad-config FILE`, `--print-pad-config` | game controllers: ignore them; pointer speed at full deflection in game pixels per second (default 600); a mapping file; print the mapping in force, in that file's format |
+| `--pad-virtual` | attach an SDL virtual controller that the `--input` controller commands drive, so that a test goes through SDL's controller code (needs a window; `SDL_VIDEODRIVER=dummy` provides one without a display) |
+| `--trace-input` | log controller and touch input, the key, character and pointer messages the game's window procedures receive, and what its DirectInput devices read |
+| `--guest-cpu N\|auto\|any` | confine all guest threads to one CPU (`auto`: the fastest one), which gives them x86's memory ordering; the default is `auto` except on x86, where it is `any`. See "Threads and memory ordering" |
+| `--profile FILE` | sample the program counter as CPU time is used and write the counts at exit; `tools/profile_report.py FILE [BINARY]` prints the table |
 | `--virtual-clock` | guest time advances with the main thread's work instead of real time: runs are repeatable and as fast as the machine allows |
 | `--trace-net` | log the bytes of everything sent and received on sockets |
 | `--trace-imports`, `--verbose` | log every host-function call; log window messages, files, registry, sockets and COM object creation |
@@ -175,6 +194,25 @@ the host build and from the aarch64 build under qemu, and requires them to be
 identical. It needs the game's files (`GAMEDIR`).
 
 ```
+recomp/test/pad.sh [host|aarch64 ...]   # controller and touch, no device and no server
+```
+
+`pad.sh` runs the game to its world-list screen while a script pushes the left
+stick, presses A, the right trigger and B, unplugs and plugs the controller,
+drags a finger and ends with Back+Start. It passes when the pointer moved by
+the right amount, the cursor the game draws is at that place in a dumped
+frame, the space bar arrived as `WM_KEYDOWN`, `WM_CHAR` and `WM_KEYUP` and was
+read down and up by the game's DirectInput keyboard, the trigger clicked, and
+the finger pressed and released the left button at the mapped positions. Each
+build is driven twice: headless, with the commands entering just below SDL,
+and in a 1920x1080 window on SDL's dummy video driver with `--pad-virtual`,
+where they are an SDL virtual joystick and SDL touch events and SDL's
+controller mapping, hot-plug events and the scaling rectangle are on the path.
+The SDL2 in the cross compiler's sysroot has neither the dummy video driver
+nor virtual joysticks, so under qemu the second way is skipped; it was run by
+hand on the device instead.
+
+```
 recomp/test/online.sh [HOST:PORT]    # two instances against a running server
 ```
 
@@ -183,7 +221,11 @@ instances of the host build log in as `admin` and `tester`; the first creates a
 room, the second joins and readies, the first starts the game and both hold the
 space bar when their turn may have come. It reports each stage from the packets
 the clients received and leaves frames and logs in `recomp/build/online/`. It
-takes about 90 seconds, because the game runs in real time.
+takes about 90 seconds, because the game runs in real time. It also checks
+that the room's title went out with its space and that the power bar filled
+while the fire key was held. With `PAD=1` the space in the title and the fire
+key are the controller's A button. The battle needs a server that sends what
+the client reads (see "Against the reference server").
 
 ## Design
 
@@ -254,7 +296,10 @@ table that the loader applies.
 | `file.c`, `registry.c` | files with the save-directory overlay, resources; the registry file |
 | `winsock.c` | ws2_32 on BSD sockets, with a poller thread for `WSAAsyncSelect` and `WSAEventSelect`; the local-address option and the network trace |
 | `user32.c` | window classes, windows, per-thread message queues, timers, focus and activation, a built-in EDIT class, `wsprintfA`, gdi32 and imm32 |
-| `video.c` | the SDL2 window and its scaling, input translation, the raw input log, scripted input, PNG output |
+| `video.c` | the SDL2 window and its scaling, input translation (pointer, keyboard, SDL game controllers, touch), the raw input log, scripted input, PNG output |
+| `pad.c` | controller buttons, sticks and fingers turned into pointer and keyboard input; the mapping and its configuration file |
+| `login.c` | `--login`: AES-128 and the session token |
+| `profile.c` | `--profile`: the sampling profiler |
 | `ddraw.c`, `raster.c` | DirectDraw 7 surfaces and the Direct3D 7 device; the triangle rasteriser |
 | `dinput.c` | DirectInput 8 keyboard and mouse |
 | `dsound.c` | DirectSound 8 buffers on a software mixer, played through SDL audio or written to a WAV file |
@@ -279,6 +324,8 @@ RGB565 through a streaming texture. The picture's rectangle in the window is
 computed by the runtime (not by SDL's logical size), pointer positions are
 mapped back through it, and pointer motion is reported in guest pixels, so
 that the cursor the game draws from relative motion stays under the pointer.
+
+*Controller and touch.* See the section of that name below.
 
 *Sound.* The game creates a primary buffer and 16 two-second secondary buffers
 (22050 Hz, 16 bit, stereo), decodes its own MP3 music and effects, and streams
@@ -500,18 +547,20 @@ on the x86_64 build, in real time against the server.
   contents were read back (`--dump-window`): a 1440x1080 picture centred in
   1920x1080 for `fit`, 800x600 for `integer`, the whole screen for `stretch`,
   and the switch to full screen and back.
-- *Not verified*: a physical screen, SDL's `kmsdrm` and `x11` drivers, pointer
-  and keyboard events arriving through SDL (the scripts enter below SDL's
-  event translation; that path was last exercised in milestone 2), the
-  Alt+Enter key itself (the script command `fullscr` calls the same function),
-  and an audio device: the SDL audio path ran on SDL's `dummy` driver only.
+- *On the handheld*: see "The handheld".
+- *Not verified*: SDL's `kmsdrm` and `x11` drivers, pointer and keyboard
+  events of real devices arriving through SDL on the PC (the scripts enter
+  below SDL's event translation; that path was last exercised in milestone 2),
+  the Alt+Enter key itself (the script command `fullscr` calls the same
+  function), and the sound by ear: SDL's audio ran on its `dummy` driver on
+  the PC and on PulseAudio on the handheld, unheard.
 - *Sound*: the mix written by `--dump-audio` during a session is continuous
   stereo without clipping, with music from the logo on; it has been measured,
   not listened to.
-- *aarch64*: the instruction tests and the frame comparison; under qemu the
-  build also logged in and joined a room. In the ready room qemu falls to a
-  few frames per second, which says little about the device but means a battle
-  has not been run on aarch64.
+- *aarch64*: under qemu the instruction tests, the frame comparison, the
+  controller test and, from the packaged launcher, login and the lobby; a
+  battle on the device itself (qemu falls to a few frames per second in the
+  ready room).
 
 ## Known gaps
 
@@ -543,13 +592,9 @@ Arithmetic
   other than FS are trapped; none occur.
 
 Threads
-- Guest threads are host threads and the lifted code reads and writes guest
-  memory with plain loads and stores. The game was written for x86, where
-  stores become visible to other processors in order; on aarch64 they need not.
-  The game guards what its threads share (the event ring between the network
-  threads and the main thread, the send queues) with critical sections, and
-  nothing has gone wrong under qemu, but qemu on x86 cannot show such a fault.
-  This is the first thing to suspect if the device shows rare hangs.
+- See "Threads and memory ordering". With the default `--guest-cpu auto` the
+  guest's threads share one CPU; with `--guest-cpu any` on aarch64 the unlocked
+  rings listed there are exposed.
 
 Windows
 - Sound: no 3D buffers, effects or position notifications (the game uses none).
@@ -560,9 +605,9 @@ Windows
   vertices, lines, points, a second texture stage, fog and specular colour are
   not implemented and are reported when asked for; none was asked for.
   Interpolation is not perspective correct.
-- Input: pointer and keyboard only. The visible cursor follows relative motion,
-  which the runtime derives from the pointer's position in guest pixels; a
-  touchscreen can use the same path. No gamepad mapping, no on-screen keyboard.
+- Input: no on-screen keyboard, so a room title or a chat line needs a real
+  keyboard. One finger only. A touch in the black bars beside the picture
+  counts as a touch on the picture's edge.
 - The EDIT control keeps text and a caret position but draws nothing (the game
   draws the text itself) and has no clipboard or selection editing.
 - Strings are Latin-1 (code page 1252). `LCMAP_SORTKEY` is not supported.
@@ -586,41 +631,209 @@ Performance (not addressed yet)
   has not been measured.
 - Under `qemu-aarch64` the title and world-list screens run at full speed, the
   ready room at a few frames per second.
+- A profile of one client through such a session (`--profile`, x86_64): 37% of
+  the CPU time in `texel` and 30% in `rt_raster_triangle` (`raster.c`: the
+  Direct3D rasteriser, almost all of it the stage background and the effects),
+  11% in the game's LZHUF decompressor while loading (`LZHUFUpdate`,
+  `DecodeChar`, `DecodeLZHUFBlock`), 4% in `State11_InBattle_ClearEffectTextures`,
+  5% in the sprite blitters (`BlitSpriteRowClipped`, `BlitSprite16bpp`), 2% in
+  the MP3 decoder; 28% lifted code in all, 70% runtime. On the Retroid Pocket 5
+  the same session: 24% `rt_raster_triangle`, 22% `texel`, 7%
+  `BlitSpriteRowClipped`, 6% `State11_InBattle_ClearEffectTextures`, 8% LZHUF,
+  3% `FlushCompositorLayer`; 45% lifted code, 53% runtime. The device used 41 s
+  of one core for the 92 s and kept the game's 20 frames per second; nothing
+  has been optimised.
 
-## Next milestone: the handheld
+## Controller and touch
 
-The target is a Retroid Pocket 5 (Snapdragon 865, 1920x1080) running ROCKNIX:
-aarch64, glibc, a Wayland compositor, SDL2 on the system.
+The game knows a mouse and a keyboard. It reads them three ways, and input
+from a controller or a finger has to arrive on all of them at once:
 
-1. *Toolchain and packaging.* The aarch64 program built here links only
-   `libc`, `libm` and `libSDL2-2.0.so.0` and needs glibc 2.38 (the batocera
-   buildroot it is built with). ROCKNIX's glibc is newer, so the same binary
-   should load there; the open question is its SDL2, which is checked by
-   running it. If the glibc floor has to come down, build against an older
-   sysroot (Debian 11 arm64, glibc 2.31, is what PortMaster ports use) rather
-   than linking statically: SDL2 must stay the system's, because it carries the
-   device's video and audio back ends. Package it as a port: a directory under
-   `/storage/roms/ports/` with the binary, a launch script modelled on
-   `recomp/run.sh` (token, `--gamedir`, `--savedir`, `--broker`, `--fullscreen`)
-   and the user's own copies of the executable and data files. `--dump-frame`
-   and `--dump-window` work over ssh for a first look without the screen.
-2. *Speed.* A battle costs about three quarters of one core of the development
-   machine (see Performance), so the device will need work here. Profile first:
-   the candidates are the rasteriser's per-pixel loop under the full-screen
-   stage background and the lifted blitters, which are compiled at `-O1` with
-   every register in memory.
-3. *Input.* Touch as an absolute pointer: SDL's touch events through the same
-   mapping as the mouse (they are ignored today so that the synthetic mouse
-   events SDL makes from them can be replaced deliberately). Gamepad through
-   SDL's game controller API inside the runtime, not an external key mapper,
-   because the game reads the keyboard through DirectInput state and the
-   pointer through relative motion: left stick or d-pad as the arrow keys in
-   battle and as pointer motion in menus, A as the left button and space bar,
-   B as escape, shoulder buttons for the item keys F1-F8, and an on-screen or
-   chorded text entry for the room title, chat and nothing else. The account
-   comes from the launch script, so no keyboard is needed to log in.
-4. *The server.* The three packet differences listed above have to be settled
+- window messages with absolute positions (`WM_MOUSEMOVE`, the button
+  messages) for the widgets, and `WM_KEYDOWN`/`WM_CHAR` for text fields;
+- the DirectInput mouse, whose relative motion moves the cursor the game draws;
+- the DirectInput keyboard, read in buffered mode by a thread of the game's
+  own every 10 ms. Battle keys come only from here: the space bar going down
+  starts charging and its release fires (0x4b82b0).
+
+`pad.c` therefore produces exactly what `video.c` produces for a real mouse
+and keyboard, through the same functions: a pointer step updates the absolute
+position, queues `WM_MOUSEMOVE` and adds the same step to the relative motion
+and the raw input log; a key sets the key state, logs a DirectInput event and
+queues the key message, and a held key repeats as on Windows.
+
+The mapping (`--print-pad-config` prints it in the format `--pad-config` reads):
+
+| control | default |
+|---|---|
+| left stick | the pointer: nothing inside the dead zone (15% of the travel), then speed = `--pad-speed` (600 game pixels per second) x (remaining travel)^2, so that small deflections are precise and the rim is fast |
+| right stick | the pointer at 0.35 of that speed |
+| A | Space: down on press, up on release (charge and fire) |
+| B | Escape |
+| X, right trigger, left stick click | left mouse button |
+| Y, left trigger | right mouse button |
+| d-pad | arrow keys (move, angle) |
+| Start | Enter |
+| Back / Select | Tab |
+| left / right shoulder | F7 / F8, the two function keys the battle's key handler acts on besides the item keys |
+| Back + Start | close the game: the window's close message, and the process is ended two seconds later if it is still there |
+
+A button can be any key (`key f1`, `key 0xVK 0xDIK`), a mouse button or
+nothing, a stick the pointer at some speed, the arrow keys or nothing. F1 to
+F6 (the item slots) are not on any button by default. Button names are SDL's
+game controller names, so what "A" is depends on the mapping SDL has for the
+device. A mouse click from a button or a finger is held for at least two
+frames, because the game samples the buttons once a frame.
+
+Controllers are SDL game controllers: every one with a mapping is opened, all
+act as one, and they may come and go at any time; when one goes, everything
+it held is released. A joystick without a mapping is reported with its GUID.
+
+Touch: the first finger down is the pointer with the left button held, mapped
+through the picture's rectangle like the mouse; other fingers are ignored
+until it lifts. SDL's synthetic mouse events for touches are turned off. A
+Wayland compositor reports the system pointer's unchanged position again
+after every touch; such events are recognised and dropped, or the game's
+cursor would jump back there.
+
+## Threads and memory ordering
+
+The game was written for x86, where all processors see each other's stores in
+the order they were made (TSO). aarch64 does not promise that, and the lifted
+code reads and writes guest memory with plain loads and stores. What the
+game's threads share, from its code:
+
+| thread (start routine) | count | what it does |
+|---|---|---|
+| main | 1 | everything else: `GameTick`, drawing, the window procedure |
+| socket worker (0x405dc0, body 0x405dd0, events handled at 0x4e57c0) | 4 | one per TCP connection: `WSAEventSelect`, connect, `recv`, queued sends |
+| input worker (0x4156b0, loop 0x4157b0) | 1 | every 10 ms: reads the DirectInput keyboard (0x4ede50) |
+| heartbeat (0x4156c0, loop 0x415810) | 1 | every 10 s: sends a packet (0x401200) |
+| UDP worker (0x4f47e0, body 0x4e6770) | 1 | peer-to-peer datagrams: receive, resend, keep alive |
+| sound stream (0x4ef870, body 0x4ef880) | one per channel | every 100 ms: play cursor, refill a DirectSound buffer |
+
+| shared state | writer -> reader | protection in the game |
+|---|---|---|
+| input event ring (indices 0x795070 / 0x795074) | `EnqueueInputEvent` 0x4f2da0 on the socket workers, the input worker and the main thread -> `ProcessInputEventQueue` 0x412130 on the main thread | none: the slot is written, then the index |
+| per-connection receive ring (connection +0x24234 / +0x24238) | `ReceiveFramedPackets` 0x4e5610 on a socket worker -> `ProcessIncomingPackets` 0x4d27e0 on the main thread | none: data, then index |
+| game event ring (0x793798 / 0x79379c) | `QueueGameEvent` 0x4e5dc0 on the UDP worker -> `PumpBattleActions` 0x412cc3 on the main thread | none: data, then index |
+| sound channel fields (+0x14, +0x38, +0x4c) | play calls on the main thread -> the stream thread | written without the channel's lock, then `SetEvent` |
+| connection state (+0x22a, +0x22c, socket +0x24) | socket worker <-> main thread | plain fields |
+| send queue (connection +0x24a40) | main thread -> socket worker | critical section, correct |
+| replay and broadcast state | main thread <-> UDP worker | critical sections and `InterlockedExchange` |
+| key repeat timers (0xe52810 +0x258) | input worker <-> `GameTick` | none (a race on x86 as well) |
+
+The three rings are the danger. Each publishes by storing the data and then
+the index, with no lock and no locked instruction. On x86 that is enough for
+one writer and one reader, because the reader cannot see the new index before
+the data. On aarch64 it can: the two stores may become visible in either
+order, and the main thread would then act on an event, a packet or a battle
+action that is not there yet. (The input event ring has several writers and
+is not safe on x86 either; that race is the game's own and is left alone.)
+
+What the runtime does about it:
+
+1. *One CPU for the guest* (`--guest-cpu`, on by default except on x86). All
+   guest threads are confined to a single CPU, the fastest one. Threads that
+   take turns on one processor see each other's stores in program order, which
+   restores x86's guarantee completely, for these rings and for anything not
+   found by reading the code, without touching the lifted code. The main
+   thread is the only one that does much work, so little is lost. Threads the
+   runtime and SDL start for themselves (SDL's audio thread, the socket
+   poller, the graphics driver's) are not confined; what they share with the
+   guest is guarded by host locks, apart from the sound mixer, which reads
+   sample data the game is writing, as a sound card would.
+2. *Full barriers where x86 had them.* `lock xadd`, `lock cmpxchg` and `xchg`
+   with memory (about 37 sites, nearly all string reference counts) are atomic
+   builtins followed and preceded by a full barrier on aarch64, because on x86
+   they also order the plain loads and stores around them. The same barrier is
+   in `EnterCriticalSection`, `LeaveCriticalSection`, `SetEvent`, `ResetEvent`,
+   the wait functions and `InterlockedExchange`.
+
+The second measure alone does not make the rings safe; it is the first that
+does. With `--guest-cpu any` on aarch64 the rings are exposed. One battle on
+the device ran that way without a visible fault, which shows only that the
+window is small.
+
+## The handheld
+
+The target is a Retroid Pocket 5 (Snapdragon 865, 1920x1080, built-in
+controller, touchscreen) running ROCKNIX.
+
+```
+recomp/package.sh [--login USER PASSWORD] [--broker HOST[:PORT]]
+```
+
+builds the aarch64 program and writes `recomp/build/dist/gunbound-rocknix/`
+and `gunbound-rocknix.tar.gz`: `GunBound.sh`, the launcher that goes into
+`/storage/roms/ports/`, and next to it the directory `gunbound/` with the
+program (debug information removed), `gunbound.conf` (account, server
+address, further options), `pad.cfg`, `README.txt` with the steps to copy it
+to the device over ssh and run it, `BUILD-INFO.txt`, and an empty `game/` for
+the user's own files. No game data goes into the package; the program is
+derived from the game's executable, so the package is for the owner of the
+game. `--login` adds a ready session token, so that the device needs no key;
+otherwise the launcher makes the token on the device with `--login` from a
+`Launcher.cs` in `game/` or a `launcher.key`.
+
+The launcher follows the other ports on the device: it sources PortMaster's
+`control.txt` and calls `get_controls` (which gives SDL the controller
+mappings made in EmulationStation), selects sway's Wayland display, asks
+PortMaster's helper to put the window full screen, logs to
+`gunbound/log.txt`, and runs the program with `--fullscreen --scale-mode fit`.
+If the port directory does not allow execution (a FAT card) it runs a copy
+from `/tmp`. Arguments are passed on, so
+`bash GunBound.sh --headless --frames 200 --dump-frame 150` works over ssh.
+
+What the program needs: `/lib/ld-linux-aarch64.so.1`, `libc.so.6` and
+`libm.so.6` with glibc symbols up to 2.38 (the batocera buildroot toolchain it
+is built with), and `libSDL2-2.0.so.0`, 2.0.14 or newer. ROCKNIX release
+20261101 has glibc 2.44 and SDL 2.32.10 (the real SDL2, with Wayland,
+PulseAudio and PipeWire); its package files show glibc 2.40 in July 2025 and
+2.41 from April 2026, so the floor of 2.38 is below anything recent.
+
+Checked on the device (ROCKNIX 20261101, kernel 7.2), over ssh, with scripted
+input:
+
+- The installed port starts from `GunBound.sh`: a Wayland window on sway with
+  SDL's OpenGL renderer, 1920x1080 with a 1440x1080 picture (read back with
+  `--dump-window`), sound on PulseAudio.
+- Login, lobby, creating a room and a whole battle against a client on a PC,
+  with a server on the PC: 1750 frames in 92 s, the game's frame rate, using
+  41 s of one core; datagrams in both directions, none relayed. The battle was
+  run headless; on the screen only the path to the lobby was run, where
+  presenting costs about 0.5 s of CPU per 330 frames.
+- The controller code through SDL: the `pad.sh` scenario with `--pad-virtual`
+  in the full-screen window (stick, A, trigger, hot-plug, B, Back+Start, on
+  which the game closed by itself).
+- The built-in controller is seen by SDL as a game controller ("DualSense
+  Wireless Controller": ROCKNIX's InputPlumber presents the built-in pad as
+  one) and its sticks' resting noise arrives as about 3% deflection, inside
+  the dead zone: the pointer does not drift.
+- The touchscreen: events injected into its kernel device arrive as SDL touch
+  events and land where they should through the rotation of the panel and the
+  picture's rectangle (the centre of the panel is 400,300).
+- A battle with `--guest-cpu any` as well as with the default.
+
+Not checked: anyone pressing the real buttons or touching the real screen
+(events written to the built-in pad's kernel device are overwritten by its
+next report, so its buttons could not be driven from a script); which
+physical button SDL calls A with the user's EmulationStation mapping (the
+mapping file says the one labelled A); a battle on the screen rather than
+headless; starting it from the Ports menu instead of ssh; how long the
+battery lasts.
+
+## Next
+
+1. *Play it by hand* on the device, and settle the controls: whether the
+   pointer speed and curve suit the stick, which buttons should carry the item
+   keys F1 to F6, and a way to enter text without a keyboard.
+2. *Speed.* The device keeps up today (45% of one core over a session with a
+   battle), but most of the runtime's share is the software rasteriser. The
+   candidates are a span-based inner loop with the texture format and the
+   blend mode resolved per triangle instead of per pixel, and the lifted
+   blitters, which are compiled at `-O1` with every register in memory.
+3. *The server.* The three packet differences listed above have to be settled
    in the server before a battle works against it.
-5. *Robustness.* Guest exceptions from host faults, an interpreter fallback for
-   code reached only through computed addresses, and a look at memory ordering
-   between guest threads on aarch64 (see Known gaps).
+4. *Robustness.* Guest exceptions from host faults, and an interpreter
+   fallback for code reached only through computed addresses.
