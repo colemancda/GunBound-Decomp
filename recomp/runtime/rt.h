@@ -107,7 +107,7 @@ typedef struct ImportTable {
 #define RT_COUNTOF(a) (sizeof(a) / sizeof((a)[0]))
 #define RT_EXPORT_IMPORTS(sym, defs) const ImportTable sym = {defs, RT_COUNTOF(defs)}
 extern const ImportTable rt_imports_kernel, rt_imports_thread, rt_imports_seh, rt_imports_user, rt_imports_file,
-    rt_imports_registry, rt_imports_misc, rt_imports_winsock, rt_imports_ddraw, rt_imports_dinput;
+    rt_imports_registry, rt_imports_misc, rt_imports_winsock, rt_imports_ddraw, rt_imports_dinput, rt_imports_dsound;
 
 #define H(name) static uint32_t name(CPU *c, const uint32_t *a)
 #define UNUSED (void)c, (void)a
@@ -133,6 +133,7 @@ void rt_backtrace(CPU *c);
 void rt_fatal(CPU *c, int code, const char *fmt, ...) __attribute__((noreturn, format(printf, 3, 4)));
 void rt_install_fault_handler(void); /* call once on every host thread that runs guest code */
 void rt_print_import_stats(void);
+void rt_audio_report(void);          /* dsound.c: how much was mixed, and finish the WAV file */
 void rt_exit(int code) __attribute__((noreturn)); /* leave the process from any thread */
 void rt_log(const char *fmt, ...) __attribute__((format(printf, 1, 2)));
 
@@ -182,15 +183,27 @@ typedef struct RtOptions {
     char savedir[512];     /* where the guest's writes go; an overlay when it differs from gamedir */
     char regfile[512];     /* registry backing file */
     int headless;          /* no window; frames can still be dumped */
-    int dump_frame;        /* 1-based presented frame to dump, 0 = none */
+    int dump_frames[64];   /* 1-based presented frames to dump */
+    int ndump_frames;
+    int dump_every;        /* also dump every Nth frame, 0 = no */
     char dump_path[512];
     int exit_after_frame;  /* stop after this many presented frames, 0 = never */
     int scale;             /* window size as a multiple of the guest screen, 0 = automatic */
-    int fullscreen;        /* borderless full-screen window, letterboxed */
+    int fullscreen;        /* start as a borderless full-screen window */
+    int scale_mode;        /* RT_SCALE_*: how the picture is fitted into the window */
+    int filter;            /* RT_FILTER_*: how it is sampled */
+    int dump_window;       /* frame dumps also write what the window shows, after scaling */
     int verbose;           /* log window messages and COM calls */
-    char input_script[1024]; /* synthetic input, see video.c */
+    char input_script[16384]; /* synthetic input, see video.c */
     int virtual_clock;     /* guest time is a counter advanced by the main thread */
+    int trace_net;         /* log every datagram and stream chunk sent or received */
+    int no_sound;          /* DirectSoundCreate8 reports that there is no sound device */
+    char dump_audio[512];  /* WAV file the mixed sound is written to instead of a device */
+    char broker[160];      /* HOST[:PORT] written to the registry as the game's server (registry.c) */
+    char local_address[32]; /* IPv4 address sockets are bound to, "" = any (winsock.c) */
 } RtOptions;
 extern RtOptions g_opt;
+enum { RT_SCALE_FIT = 0, RT_SCALE_INTEGER, RT_SCALE_STRETCH };
+enum { RT_FILTER_SHARP = 0, RT_FILTER_NEAREST, RT_FILTER_LINEAR };
 
 #endif

@@ -64,6 +64,7 @@ static const ImportTable *const import_tables[] = {
     &rt_imports_misc,
     &rt_imports_ddraw,
     &rt_imports_dinput,
+    &rt_imports_dsound,
 };
 
 const ImportDef *rt_find_import_def(const char *dll, const char *name) {
@@ -153,6 +154,7 @@ void rt_import_call(CPU *c, uint32_t idx) {
 }
 
 void rt_print_import_stats(void) {
+    rt_audio_report();
     unsigned used = 0, impl = 0, total = 0;
     for (uint32_t i = 0; i < g_nimports; i++) {
         if (!g_imports[i].iat_va) continue;

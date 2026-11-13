@@ -7,7 +7,8 @@
  *
  * The file is read at the first registry call and rewritten whenever the guest
  * changes a value. When it does not exist it is created with the two values the
- * game cannot start without: its install location and its client version.
+ * game cannot start without (its install location and its client version) and
+ * the settings its launcher provisions. --broker overrides the server address.
  */
 #define _GNU_SOURCE
 #include <ctype.h>
@@ -146,21 +147,53 @@ static char *parse_quoted(char **pp) {
     return out;
 }
 
+static const char *const game_keys[] = {
+    "HKEY_CURRENT_USER\\Software\\Softnyx\\GunBound",
+    "HKEY_LOCAL_MACHINE\\Software\\Softnyx\\GunBound",
+};
+
+/* --broker HOST[:PORT]: where the game looks for its server list. */
+static void apply_broker_option(void) {
+    if (!g_opt.broker[0]) return;
+    char host[sizeof g_opt.broker];
+    unsigned port = 8372;
+    snprintf(host, sizeof host, "%s", g_opt.broker);
+    char *colon = strrchr(host, ':');
+    if (colon) {
+        *colon = 0;
+        port = (unsigned)atoi(colon + 1);
+    }
+    for (size_t i = 0; i < RT_COUNTOF(game_keys); i++) {
+        RegKey *k = key_find(game_keys[i]);
+        if (!k) k = key_create(game_keys[i]);
+        set_sz(k, "IP", host);
+        set_sz(k, "BuddyIP", host);
+        set_dword(k, "Port", port);
+    }
+}
+
 static void reg_load(void) {
     if (loaded) return;
     loaded = 1;
     FILE *f = fopen(g_opt.regfile, "r");
     if (!f) {
-        static const char *const game_keys[] = {
-            "HKEY_CURRENT_USER\\Software\\Softnyx\\GunBound",
-            "HKEY_LOCAL_MACHINE\\Software\\Softnyx\\GunBound",
-        };
+        /* What the game's launcher writes for a fresh installation. */
+        static const uint8_t one = 1, two = 2, zero = 0;
         for (size_t i = 0; i < RT_COUNTOF(game_keys); i++) {
             RegKey *k = key_create(game_keys[i]);
             set_sz(k, "Location", "C:\\GunBound\\");
             set_dword(k, "Version", 280);
+            set_dword(k, "AutoRefresh", 1);
+            value_set(k, "Background", REG_BINARY, &one, 1);
+            value_set(k, "Effect3D", REG_BINARY, &two, 1);
+            set_dword(k, "EffectVolume", 95);
+            set_dword(k, "MusicVolume", 95);
+            value_set(k, "MidiMode", REG_BINARY, &one, 1);
+            set_dword(k, "MouseSpeed", 50);
+            value_set(k, "ShootingMode", REG_BINARY, &zero, 1);
         }
-        rt_log("recomp: no registry file at %s; created one with the default Location and Version\n", g_opt.regfile);
+        rt_log("recomp: no registry file at %s; created one with the launcher's default settings\n", g_opt.regfile);
+        apply_broker_option();
         reg_save();
         return;
     }
@@ -216,6 +249,7 @@ static void reg_load(void) {
         free(name);
     }
     fclose(f);
+    apply_broker_option();
 }
 
 /* Path of a key handle, or NULL. Under reg_mu. */

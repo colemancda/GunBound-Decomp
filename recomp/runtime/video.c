@@ -158,6 +158,7 @@ static void input_char(int ch) {
  *   down, up     left button;  rdown, rup  right button
  *   key VK DIK   press and release a key (Windows virtual key and DirectInput code, hex)
  *   text STRING  characters, as typed
+ *   fullscr      what Alt+Enter does: switch between a window and full screen
  *   quit         the window's close button */
 typedef struct ScriptStep {
     unsigned frame;
@@ -165,12 +166,16 @@ typedef struct ScriptStep {
     int a, b;
     char text[64];
 } ScriptStep;
-static ScriptStep script[64];
+static ScriptStep script[1024];
 static unsigned nscript, script_pos;
 static int script_parsed;
+static unsigned script_release_at; /* frame at which a `click` lets go of the button */
+
+static void script_toggle_fullscreen(void);
 
 static void script_parse(void) {
     script_parsed = 1;
+    unsigned last_frame = 0;
     const char *p = g_opt.input_script;
     while (*p && nscript < RT_COUNTOF(script)) {
         ScriptStep *s = &script[nscript];
@@ -178,12 +183,16 @@ static void script_parse(void) {
         size_t len = strcspn(p, ";");
         memset(s, 0, sizeof *s);
         snprintf(step, sizeof step, "%.*s", (int)(len < sizeof step - 1 ? len : sizeof step - 1), p);
-        if (sscanf(step, " %u : %7s %95[^\n]", &s->frame, s->cmd, rest) < 2) {
+        const char *q = step + strspn(step, " \t");
+        int relative = *q == '+'; /* +N: N frames after the previous step */
+        if (sscanf(q + relative, " %u : %7s %95[^\n]", &s->frame, s->cmd, rest) < 2) {
             rt_log("recomp: --input: cannot parse \"%s\"\n", step);
             break;
         }
+        if (relative) s->frame += last_frame;
+        last_frame = s->frame;
         if (!strcmp(s->cmd, "text")) snprintf(s->text, sizeof s->text, "%s", rest);
-        else if (!strcmp(s->cmd, "key")) sscanf(rest, "%x %x", (unsigned *)&s->a, (unsigned *)&s->b);
+        else if (!strncmp(s->cmd, "key", 3)) sscanf(rest, "%x %x", (unsigned *)&s->a, (unsigned *)&s->b);
         else sscanf(rest, "%d %d", &s->a, &s->b);
         nscript++;
         p += len;
@@ -194,10 +203,21 @@ static void script_parse(void) {
 static void script_run(void) {
     if (!script_parsed) script_parse();
     unsigned now = rt_video_frames();
-    while (script_pos < nscript && script[script_pos].frame <= now && npending < 32) {
+    if (script_release_at && now >= script_release_at) {
+        script_release_at = 0;
+        input_mouse_button(1, 0, 1);
+    }
+    while (!script_release_at && script_pos < nscript && script[script_pos].frame <= now && npending < 32) {
         const ScriptStep *s = &script[script_pos++];
         if (g_opt.verbose) rt_log("[input] frame %u: %s %d %d %s\n", now, s->cmd, s->a, s->b, s->text);
         if (!strcmp(s->cmd, "move")) input_mouse_move(s->a, s->b, s->a - rt_mouse_x, s->b - rt_mouse_y);
+        else if (!strcmp(s->cmd, "click")) {
+            /* move and press now, release two frames later: the game samples input once a frame */
+            input_mouse_move(s->a, s->b, s->a - rt_mouse_x, s->b - rt_mouse_y);
+            input_mouse_button(1, 1, 1);
+            script_release_at = now + 2;
+        } else if (!strcmp(s->cmd, "keydown")) input_key(s->a, s->b, 1, 0);
+        else if (!strcmp(s->cmd, "keyup")) input_key(s->a, s->b, 0, 0);
         else if (!strcmp(s->cmd, "down")) input_mouse_button(1, 1, 1);
         else if (!strcmp(s->cmd, "up")) input_mouse_button(1, 0, 1);
         else if (!strcmp(s->cmd, "rdown")) input_mouse_button(3, 1, 1);
@@ -207,6 +227,8 @@ static void script_run(void) {
             input_key(s->a, s->b, 0, 0);
         } else if (!strcmp(s->cmd, "text")) {
             for (const char *t = s->text; *t; t++) input_char((unsigned char)*t);
+        } else if (!strcmp(s->cmd, "fullscr")) {
+            script_toggle_fullscreen();
         } else if (!strcmp(s->cmd, "quit")) {
             RtInputEvent ev = {.type = RT_EV_QUIT};
             queue_event(&ev);
@@ -313,11 +335,19 @@ static void dump_frame(const uint16_t *px, int w, int h) {
         rgb[3 * i + 2] = (uint8_t)((b << 3) | (b >> 2));
         nonblack += p != 0;
     }
-    if (rt_write_png(g_opt.dump_path, rgb, w, h))
-        rt_log("recomp: frame %u written to %s (%dx%d, %u of %d pixels not black)\n", frame_count, g_opt.dump_path, w,
-               h, nonblack, w * h);
+    /* "%d" (or "%05d") in the path is the frame number */
+    char path[600];
+    const char *pc = strchr(g_opt.dump_path, '%');
+    size_t digits = pc ? strspn(pc + 1, "0123456789") : 0;
+    if (pc && pc[1 + digits] == 'd' && !strchr(pc + 1, '%'))
+        snprintf(path, sizeof path, g_opt.dump_path, (int)frame_count);
     else
-        rt_log("recomp: could not write frame %u to %s\n", frame_count, g_opt.dump_path);
+        snprintf(path, sizeof path, "%s", g_opt.dump_path);
+    if (rt_write_png(path, rgb, w, h))
+        rt_log("recomp: frame %u written to %s (%dx%d, %u of %d pixels not black)\n", frame_count, path, w, h,
+               nonblack, w * h);
+    else
+        rt_log("recomp: could not write frame %u to %s\n", frame_count, path);
     free(rgb);
 }
 
@@ -374,24 +404,99 @@ static const struct { uint8_t vk, dik; } keymap[SDL_NUM_SCANCODES] = {
     [SDL_SCANCODE_RALT] = {0x12, 0xB8}, [SDL_SCANCODE_RGUI] = {0x5C, 0xDC},
 };
 
+/* ---- scaling
+ * The guest frame is drawn into `view`, a rectangle of the window in renderer
+ * output pixels:
+ *   fit      the largest rectangle with the guest's aspect ratio (default)
+ *   integer  the largest whole multiple of the guest size
+ *   stretch  the whole window
+ * and filtered one of three ways:
+ *   nearest  point sampling
+ *   linear   bilinear
+ *   sharp    point-sampled up to the next whole multiple, then bilinear down to
+ *            the view: pixels stay crisp at ratios such as 1.8 (600 -> 1080).
+ *            This is the default; it is the same as nearest when the view is a
+ *            whole multiple.
+ * Pointer positions are mapped back through the same rectangle. */
+static SDL_Rect view;                /* where the picture is, in output pixels */
+static int out_w, out_h;             /* renderer output size */
+static SDL_Texture *prescale;        /* render target for the sharp filter */
+static int prescale_k;
+static int is_fullscreen;
+static int swallow_return_up;        /* the Enter of Alt+Enter is not passed to the guest */
+static unsigned window_dump_at;      /* frame whose window contents are to be written (--dump-window) */
+
+static void view_update(void) {
+    int ow = 0, oh = 0;
+    if (SDL_GetRendererOutputSize(renderer, &ow, &oh) != 0 || ow <= 0 || oh <= 0) SDL_GetWindowSize(window, &ow, &oh);
+    out_w = ow;
+    out_h = oh;
+    int w = screen_w, h = screen_h;
+    if (g_opt.scale_mode == RT_SCALE_STRETCH) {
+        view = (SDL_Rect){0, 0, ow, oh};
+        return;
+    }
+    int vw, vh;
+    if (g_opt.scale_mode == RT_SCALE_INTEGER) {
+        int k = ow / w < oh / h ? ow / w : oh / h;
+        if (k < 1) k = 1;
+        vw = w * k;
+        vh = h * k;
+    } else if ((int64_t)ow * h <= (int64_t)oh * w) { /* limited by the width */
+        vw = ow;
+        vh = (int)(((int64_t)ow * h + w / 2) / w);
+    } else {
+        vh = oh;
+        vw = (int)(((int64_t)oh * w + h / 2) / h);
+    }
+    view = (SDL_Rect){(ow - vw) / 2, (oh - vh) / 2, vw, vh};
+}
+
+/* Window coordinates (as in SDL's pointer events) to guest screen coordinates. */
+static void window_to_guest(int wx, int wy, int *gx, int *gy) {
+    int ww = 0, wh = 0;
+    SDL_GetWindowSize(window, &ww, &wh);
+    if (ww <= 0 || wh <= 0 || view.w <= 0 || view.h <= 0) {
+        *gx = wx;
+        *gy = wy;
+        return;
+    }
+    int64_t ox = (int64_t)wx * out_w / ww, oy = (int64_t)wy * out_h / wh;
+    *gx = clampi((int)((ox - view.x) * screen_w / view.w), 0, screen_w - 1);
+    *gy = clampi((int)((oy - view.y) * screen_h / view.h), 0, screen_h - 1);
+}
+
+static void set_fullscreen(int on) {
+    if (SDL_SetWindowFullscreen(window, on ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0) != 0) {
+        rt_log("recomp: cannot switch %s full screen: %s\n", on ? "to" : "from", SDL_GetError());
+        return;
+    }
+    is_fullscreen = on;
+    pthread_mutex_lock(&frame_mu);
+    frame_dirty = frame_px != NULL;
+    pthread_mutex_unlock(&frame_mu);
+}
+
+static void script_toggle_fullscreen(void) {
+    if (have_window) set_fullscreen(!is_fullscreen);
+}
+
 static void sdl_open(const char *title, int width, int height) {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0) {
         rt_log("recomp: SDL_Init failed (%s); continuing without a window\n", SDL_GetError());
         return;
     }
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-    uint32_t flags = SDL_WINDOW_RESIZABLE;
+    uint32_t flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
     int w = width, h = height;
     SDL_DisplayMode dm;
     if (g_opt.scale > 0) {
         w *= g_opt.scale;
         h *= g_opt.scale;
-    } else if (g_opt.fullscreen) {
-        flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
     } else if (SDL_GetDesktopDisplayMode(0, &dm) == 0 && dm.w >= width * 2 + 64 && dm.h >= height * 2 + 64) {
         w *= 2;
         h *= 2;
     }
+    if (g_opt.fullscreen) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
     window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, flags);
     if (window) renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (window && !renderer) renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
@@ -399,11 +504,39 @@ static void sdl_open(const char *title, int width, int height) {
         rt_log("recomp: cannot create the SDL window (%s); continuing without one\n", SDL_GetError());
         return;
     }
-    SDL_RenderSetLogicalSize(renderer, width, height);
+    is_fullscreen = g_opt.fullscreen;
     SDL_StartTextInput();
     have_window = 1;
-    rt_log("recomp: SDL window %dx%d for a %dx%d guest screen, video driver %s\n", w, h, width, height,
-           SDL_GetCurrentVideoDriver());
+    view_update();
+    SDL_RendererInfo info;
+    memset(&info, 0, sizeof info);
+    SDL_GetRendererInfo(renderer, &info);
+    static const char *const modes[] = {"fit", "integer", "stretch"}, *const filters[] = {"sharp", "nearest", "linear"};
+    rt_log("recomp: SDL %s window %dx%d (output %dx%d, picture %dx%d at %d,%d) for a %dx%d guest screen; "
+           "renderer %s, scaling %s, filter %s%s\n",
+           SDL_GetCurrentVideoDriver(), w, h, out_w, out_h, view.w, view.h, view.x, view.y, width, height,
+           info.name ? info.name : "?", modes[g_opt.scale_mode], filters[g_opt.filter],
+           is_fullscreen ? ", full screen" : "");
+}
+
+/* Writes what the window shows (after scaling) next to the guest frame dump. */
+static void dump_window(unsigned frame) {
+    int w = out_w, h = out_h;
+    uint8_t *rgb = malloc((size_t)w * (size_t)h * 3);
+    if (!rgb) return;
+    char path[620], base[600];
+    const char *pc = strchr(g_opt.dump_path, '%');
+    size_t digits = pc ? strspn(pc + 1, "0123456789") : 0;
+    if (pc && pc[1 + digits] == 'd' && !strchr(pc + 1, '%')) snprintf(base, sizeof base, g_opt.dump_path, (int)frame);
+    else snprintf(base, sizeof base, "%s", g_opt.dump_path);
+    char *dot = strrchr(base, '.');
+    if (dot && !strchr(dot, '/')) *dot = 0;
+    snprintf(path, sizeof path, "%s.window.png", base);
+    if (SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_RGB24, rgb, w * 3) == 0 && rt_write_png(path, rgb, w, h))
+        rt_log("recomp: window contents at frame %u written to %s (%dx%d)\n", frame, path, w, h);
+    else
+        rt_log("recomp: could not write the window contents to %s (%s)\n", path, SDL_GetError());
+    free(rgb);
 }
 
 static void sdl_flush(void) {
@@ -417,10 +550,52 @@ static void sdl_flush(void) {
         }
         if (texture) SDL_UpdateTexture(texture, NULL, frame_px, frame_w * 2);
         frame_dirty = 0;
+        unsigned dump_at = window_dump_at;
+        window_dump_at = 0;
         pthread_mutex_unlock(&frame_mu);
+        view_update();
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
-        if (texture) SDL_RenderCopy(renderer, texture, NULL, NULL);
+        if (texture) {
+            SDL_Texture *src = texture;
+            int filter = g_opt.filter;
+            /* sharp: an intermediate picture k times the guest size, k the next whole
+             * multiple at or above the view's scale */
+            int k = (view.w + tex_w - 1) / tex_w;
+            if ((view.h + tex_h - 1) / tex_h > k) k = (view.h + tex_h - 1) / tex_h;
+            if (filter == RT_FILTER_SHARP && (k <= 1 || (view.w == tex_w * k && view.h == tex_h * k)))
+                filter = RT_FILTER_NEAREST;
+            if (filter == RT_FILTER_SHARP) {
+                SDL_RendererInfo info;
+                memset(&info, 0, sizeof info);
+                SDL_GetRendererInfo(renderer, &info);
+                while (k > 1 && ((info.max_texture_width && tex_w * k > info.max_texture_width) ||
+                                 (info.max_texture_height && tex_h * k > info.max_texture_height)))
+                    k--;
+                if (!SDL_RenderTargetSupported(renderer) || k <= 1) filter = RT_FILTER_LINEAR;
+            }
+            if (filter == RT_FILTER_SHARP) {
+                if (!prescale || prescale_k != k) {
+                    if (prescale) SDL_DestroyTexture(prescale);
+                    prescale = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB565, SDL_TEXTUREACCESS_TARGET, tex_w * k,
+                                                 tex_h * k);
+                    prescale_k = k;
+                    if (prescale) SDL_SetTextureScaleMode(prescale, SDL_ScaleModeLinear);
+                }
+                if (prescale && SDL_SetRenderTarget(renderer, prescale) == 0) {
+                    SDL_SetTextureScaleMode(texture, SDL_ScaleModeNearest);
+                    SDL_RenderCopy(renderer, texture, NULL, NULL);
+                    SDL_SetRenderTarget(renderer, NULL);
+                    src = prescale;
+                } else {
+                    filter = RT_FILTER_LINEAR;
+                }
+            }
+            if (src == texture)
+                SDL_SetTextureScaleMode(texture, filter == RT_FILTER_NEAREST ? SDL_ScaleModeNearest : SDL_ScaleModeLinear);
+            SDL_RenderCopy(renderer, src, NULL, &view);
+        }
+        if (dump_at) dump_window(dump_at);
         SDL_RenderPresent(renderer);
         return;
     }
@@ -445,16 +620,24 @@ static void sdl_translate(const SDL_Event *e) {
             pthread_mutex_unlock(&frame_mu);
         }
         break;
-    case SDL_MOUSEMOTION:
-        input_mouse_move(e->motion.x, e->motion.y, e->motion.xrel, e->motion.yrel);
+    case SDL_MOUSEMOTION: {
+        if (e->motion.which == SDL_TOUCH_MOUSEID) break; /* touch will be handled as touch */
+        /* The game moves its cursor by relative motion: report the motion in guest
+         * pixels, so that the cursor it draws stays under the pointer at any scale. */
+        int x, y;
+        window_to_guest(e->motion.x, e->motion.y, &x, &y);
+        input_mouse_move(x, y, x - rt_mouse_x, y - rt_mouse_y);
         break;
+    }
     case SDL_MOUSEBUTTONDOWN:
     case SDL_MOUSEBUTTONUP: {
+        if (e->button.which == SDL_TOUCH_MOUSEID) break;
         int b = e->button.button == SDL_BUTTON_LEFT ? 1 : e->button.button == SDL_BUTTON_RIGHT ? 3 :
                 e->button.button == SDL_BUTTON_MIDDLE ? 2 : 0;
         if (!b) break;
-        rt_mouse_x = clampi(e->button.x, 0, screen_w - 1);
-        rt_mouse_y = clampi(e->button.y, 0, screen_h - 1);
+        int x, y;
+        window_to_guest(e->button.x, e->button.y, &x, &y);
+        if (x != rt_mouse_x || y != rt_mouse_y) input_mouse_move(x, y, x - rt_mouse_x, y - rt_mouse_y);
         input_mouse_button(b, e->type == SDL_MOUSEBUTTONDOWN, e->button.clicks);
         break;
     }
@@ -464,6 +647,18 @@ static void sdl_translate(const SDL_Event *e) {
     case SDL_KEYDOWN:
     case SDL_KEYUP: {
         SDL_Scancode sc = e->key.keysym.scancode;
+        /* Alt+Enter switches between a window and full screen, as it did on Windows. */
+        if (sc == SDL_SCANCODE_RETURN || sc == SDL_SCANCODE_KP_ENTER) {
+            if (e->type == SDL_KEYDOWN && (e->key.keysym.mod & KMOD_ALT)) {
+                if (!e->key.repeat) set_fullscreen(!is_fullscreen);
+                swallow_return_up = 1;
+                break;
+            }
+            if (e->type == SDL_KEYUP && swallow_return_up) {
+                swallow_return_up = 0;
+                break;
+            }
+        }
         if (sc >= SDL_NUM_SCANCODES || !keymap[sc].vk) break;
         input_key(keymap[sc].vk, keymap[sc].dik, e->type == SDL_KEYDOWN, e->key.repeat);
         break;
@@ -494,9 +689,12 @@ static void sdl_poll(void) {
 
 void rt_video_warp_mouse(int x, int y) {
     if (!have_window || !rt_video_on_video_thread()) return;
-    int wx, wy;
-    SDL_RenderLogicalToWindow(renderer, (float)x, (float)y, &wx, &wy);
-    SDL_WarpMouseInWindow(window, wx, wy);
+    int ww = 0, wh = 0;
+    SDL_GetWindowSize(window, &ww, &wh);
+    if (out_w <= 0 || out_h <= 0) return;
+    int64_t ox = view.x + ((int64_t)x * view.w + view.w / 2) / screen_w;
+    int64_t oy = view.y + ((int64_t)y * view.h + view.h / 2) / screen_h;
+    SDL_WarpMouseInWindow(window, (int)(ox * ww / out_w), (int)(oy * wh / out_h));
 }
 
 void rt_video_show_cursor(int show) {
@@ -515,6 +713,7 @@ void rt_video_message_box(const char *caption, const char *text) {
 #else /* RT_NO_SDL */
 
 static void sdl_open(const char *title, int width, int height) { (void)title, (void)width, (void)height; }
+static void script_toggle_fullscreen(void) {}
 static void sdl_flush(void) {}
 static void sdl_poll(void) {}
 void rt_video_warp_mouse(int x, int y) { (void)x, (void)y; }
@@ -574,7 +773,12 @@ void rt_video_present(const void *pixels, int width, int height, int pitch, int 
     frame_dirty = 1;
     unsigned n = __atomic_add_fetch(&frame_count, 1, __ATOMIC_RELAXED);
     if (n == 1) rt_log("recomp: first frame presented (%dx%d)\n", width, height);
-    if (g_opt.dump_frame > 0 && n == (unsigned)g_opt.dump_frame) dump_frame(frame_px, width, height);
+    int dump = g_opt.dump_every > 0 && n % (unsigned)g_opt.dump_every == 0;
+    for (int i = 0; i < g_opt.ndump_frames; i++) dump |= n == (unsigned)g_opt.dump_frames[i];
+    if (dump) dump_frame(frame_px, width, height);
+#ifndef RT_NO_SDL
+    if (dump && g_opt.dump_window && have_window) window_dump_at = n;
+#endif
     pthread_mutex_unlock(&frame_mu);
     if (rt_video_on_video_thread()) flush_frame();
     if (g_opt.exit_after_frame > 0 && n >= (unsigned)g_opt.exit_after_frame) {

@@ -17,18 +17,42 @@ static void usage(const char *argv0) {
             "                      directory is an overlay, and the game directory is never written.\n"
             "  --registry FILE     registry backing file (default: recomp-registry.txt in --savedir)\n"
             "  --headless          do not open a window\n"
-            "  --dump-frame N      write presented frame N (1 = first) as a PNG\n"
-            "  --dump-path FILE    where --dump-frame writes (default: frame.png)\n"
+            "  --dump-frame N[,N]  write presented frame N (1 = first) as a PNG; can be repeated\n"
+            "  --dump-every N      also write every Nth presented frame\n"
+            "  --dump-path FILE    where frames are written (default: frame.png); a %%d in the name\n"
+            "                      is replaced by the frame number, and is needed for several frames\n"
             "  --frames N          exit after N presented frames\n"
             "  --scale N           window size as a multiple of 800x600 (default: 2 on a large display)\n"
-            "  --fullscreen        full-screen window with the picture scaled to fit\n"
+            "  --fullscreen        start full screen; Alt+Enter switches at any time\n"
+            "  --scale-mode MODE   fit (keep the aspect ratio, default), integer (whole multiples\n"
+            "                      only) or stretch (fill the window)\n"
+            "  --filter FILTER     sharp (whole-multiple point sampling, then bilinear; default),\n"
+            "                      nearest or linear\n"
+            "  --dump-window       frame dumps also write FILE.window.png: the window's contents\n"
             "  --input SCRIPT      synthetic input: \"FRAME:command;...\" with the commands move X Y,\n"
-            "                      down, up, rdown, rup, key VK DIK, text STRING, quit\n"
+            "                      down, up, click X Y, rdown, rup, key VK DIK, keydown/keyup VK DIK,\n"
+            "                      text STRING, fullscr, quit. A frame written +N counts from the previous step.\n"
+            "  --input-file FILE   the same, one step per line; # starts a comment line\n"
+            "  --no-sound          tell the game there is no sound device\n"
+            "  --dump-audio FILE   write the mixed sound to a WAV file (44.1 kHz stereo) instead of\n"
+            "                      playing it; works headless\n"
+            "  --broker HOST[:PORT] the server the game asks for its world list (default port 8372);\n"
+            "                      stored in the registry file as IP, BuddyIP and Port\n"
+            "  --local-address IP  the local IPv4 address: sockets are bound to it and the game is told\n"
+            "                      it is this machine's address. With 127.0.0.2, 127.0.0.3, ... (not\n"
+            "                      127.0.0.1) several instances can run on one machine.\n"
             "  --virtual-clock     guest time advances with the main thread's work instead of real\n"
             "                      time: runs are repeatable and as fast as the machine allows\n"
+            "  --trace-net         log the bytes of everything sent and received on sockets\n"
             "  --trace-imports     log every Win32 import call with its arguments and result\n"
             "  --verbose           log window messages, COM calls and file access\n",
             argv0);
+}
+
+/* --input and --input-file can be repeated; the steps are concatenated. */
+static void add_input(const char *steps) {
+    size_t n = strlen(g_opt.input_script);
+    snprintf(g_opt.input_script + n, sizeof g_opt.input_script - n, "%s%s", n ? ";" : "", steps);
 }
 
 static void build_process(int argc, char **argv, int first_guest_arg, const char *raw_cmdline) {
@@ -94,13 +118,57 @@ int main(int argc, char **argv) {
         else if (!strcmp(o, "--savedir") && has) snprintf(g_opt.savedir, sizeof g_opt.savedir, "%s", argv[++i]);
         else if (!strcmp(o, "--registry") && has) snprintf(g_opt.regfile, sizeof g_opt.regfile, "%s", argv[++i]);
         else if (!strcmp(o, "--cmdline") && has) raw_cmdline = argv[++i];
-        else if (!strcmp(o, "--dump-frame") && has) g_opt.dump_frame = atoi(argv[++i]);
+        else if (!strcmp(o, "--dump-frame") && has) {
+            /* one frame number or a comma-separated list; the option can be repeated */
+            for (const char *p = argv[++i]; *p;) {
+                if (g_opt.ndump_frames < (int)RT_COUNTOF(g_opt.dump_frames))
+                    g_opt.dump_frames[g_opt.ndump_frames++] = atoi(p);
+                p += strcspn(p, ",");
+                if (*p) p++;
+            }
+        }
+        else if (!strcmp(o, "--dump-every") && has) g_opt.dump_every = atoi(argv[++i]);
         else if (!strcmp(o, "--dump-path") && has) snprintf(g_opt.dump_path, sizeof g_opt.dump_path, "%s", argv[++i]);
         else if (!strcmp(o, "--frames") && has) g_opt.exit_after_frame = atoi(argv[++i]);
         else if (!strcmp(o, "--scale") && has) g_opt.scale = atoi(argv[++i]);
         else if (!strcmp(o, "--fullscreen")) g_opt.fullscreen = 1;
+        else if (!strcmp(o, "--scale-mode") && has) {
+            const char *v = argv[++i];
+            if (!strcmp(v, "fit")) g_opt.scale_mode = RT_SCALE_FIT;
+            else if (!strcmp(v, "integer")) g_opt.scale_mode = RT_SCALE_INTEGER;
+            else if (!strcmp(v, "stretch")) g_opt.scale_mode = RT_SCALE_STRETCH;
+            else { usage(argv[0]); return 2; }
+        }
+        else if (!strcmp(o, "--filter") && has) {
+            const char *v = argv[++i];
+            if (!strcmp(v, "sharp")) g_opt.filter = RT_FILTER_SHARP;
+            else if (!strcmp(v, "nearest")) g_opt.filter = RT_FILTER_NEAREST;
+            else if (!strcmp(v, "linear")) g_opt.filter = RT_FILTER_LINEAR;
+            else { usage(argv[0]); return 2; }
+        }
+        else if (!strcmp(o, "--dump-window")) g_opt.dump_window = 1;
         else if (!strcmp(o, "--virtual-clock")) g_opt.virtual_clock = 1;
-        else if (!strcmp(o, "--input") && has) snprintf(g_opt.input_script, sizeof g_opt.input_script, "%s", argv[++i]);
+        else if (!strcmp(o, "--no-sound")) g_opt.no_sound = 1;
+        else if (!strcmp(o, "--dump-audio") && has) snprintf(g_opt.dump_audio, sizeof g_opt.dump_audio, "%s", argv[++i]);
+        else if (!strcmp(o, "--broker") && has) snprintf(g_opt.broker, sizeof g_opt.broker, "%s", argv[++i]);
+        else if (!strcmp(o, "--trace-net")) g_opt.trace_net = 1;
+        else if (!strcmp(o, "--local-address") && has)
+            snprintf(g_opt.local_address, sizeof g_opt.local_address, "%s", argv[++i]);
+        else if (!strcmp(o, "--input") && has) add_input(argv[++i]);
+        else if (!strcmp(o, "--input-file") && has) {
+            FILE *f = fopen(argv[++i], "r");
+            if (!f) {
+                fprintf(stderr, "recomp: cannot read %s\n", argv[i]);
+                return 2;
+            }
+            char line[512];
+            while (fgets(line, sizeof line, f)) {
+                line[strcspn(line, "\r\n")] = 0;
+                const char *p = line + strspn(line, " \t");
+                if (*p && *p != '#') add_input(p);
+            }
+            fclose(f);
+        }
         else if (!strcmp(o, "--help") || !strcmp(o, "-h")) { usage(argv[0]); return 0; }
         else if (!strcmp(o, "--")) { i++; break; }
         else if (o[0] == '-' && o[1] == '-') { usage(argv[0]); return 2; }

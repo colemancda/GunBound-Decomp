@@ -17,6 +17,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <strings.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -66,7 +67,8 @@
 
 typedef struct Sock {
     int fd;            /* -1: free slot */
-    int is_dgram, connecting, connected, nonblocking;
+    int is_dgram, connecting, connected, nonblocking, bound;
+    uint16_t bound_port;      /* network byte order; 0 when not bound by the guest */
     uint32_t hwnd, msg;       /* WSAAsyncSelect target */
     RtWaitable *event;        /* WSAEventSelect target */
     uint32_t interest;        /* FD_* mask requested */
@@ -243,6 +245,61 @@ static void set_nonblocking(Sock *s, int on) {
     s->nonblocking = on;
 }
 
+/* The address this machine is known by: --local-address, or else the address of
+ * the interface the default route uses (no packet is sent to find it). 0 if
+ * there is neither. Network byte order. */
+static uint32_t local_address(int explicit_only) {
+    static uint32_t cached;
+    static int have;
+    if (g_opt.local_address[0]) {
+        struct in_addr in;
+        if (inet_aton(g_opt.local_address, &in)) return in.s_addr;
+    }
+    if (explicit_only) return 0;
+    if (!have) {
+        have = 1;
+        int fd = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+        if (fd >= 0) {
+            struct sockaddr_in sa = {.sin_family = AF_INET, .sin_port = htons(9)};
+            socklen_t len = sizeof sa;
+            inet_aton("192.0.2.1", &sa.sin_addr);
+            if (connect(fd, (struct sockaddr *)&sa, sizeof sa) == 0 &&
+                getsockname(fd, (struct sockaddr *)&sa, &len) == 0)
+                cached = sa.sin_addr.s_addr;
+            close(fd);
+        }
+    }
+    return cached;
+}
+
+/* With --local-address, a socket that the guest has not bound is bound to that
+ * address before its first use, so that its traffic leaves from there. */
+static void bind_local(uint32_t h, int fd) {
+    uint32_t ad = local_address(1);
+    if (!ad) return;
+    pthread_mutex_lock(&sock_mu);
+    Sock *s = sock_get(h);
+    int need = s && !s->bound;
+    if (s) s->bound = 1;
+    pthread_mutex_unlock(&sock_mu);
+    if (!need) return;
+    struct sockaddr_in sa = {.sin_family = AF_INET};
+    sa.sin_addr.s_addr = ad;
+    if (bind(fd, (struct sockaddr *)&sa, sizeof sa) != 0)
+        rt_log("recomp: cannot bind a socket to %s: %s\n", g_opt.local_address, strerror(errno));
+}
+
+/* --trace-net: one line per transfer, with the guest frame number as a clock. */
+static void trace_io(const char *what, uint32_t h, const struct sockaddr_in *peer, uint32_t buf, long n) {
+    if (!g_opt.trace_net || n < 0) return;
+    char hex[3 * 96 + 8], where[40] = "";
+    long show = n > 96 ? 96 : n;
+    for (long i = 0; i < show; i++) snprintf(hex + 3 * i, 4, " %02x", ld8(buf + (uint32_t)i));
+    if (show == 0) hex[0] = 0;
+    if (peer) snprintf(where, sizeof where, " %s:%u", inet_ntoa(peer->sin_addr), ntohs(peer->sin_port));
+    rt_log("[net] %s %x%s %ld bytes:%s%s\n", what, h, where, n, hex, n > show ? " ..." : "");
+}
+
 /* ------------------------------------------------------------- startup */
 H(ws_WSAStartup) {
     UNUSED;
@@ -346,6 +403,7 @@ H(ws_connect) {
     sa.sin_family = AF_INET;
     if (g_opt.verbose || g_trace_imports)
         rt_log("[net] socket %x connect to %s:%u\n", a[0], inet_ntoa(sa.sin_addr), ntohs(sa.sin_port));
+    bind_local(a[0], fd);
     int r = connect(fd, (struct sockaddr *)&sa, sizeof sa);
     int e = errno;
     pthread_mutex_lock(&sock_mu);
@@ -375,7 +433,20 @@ H(ws_bind) {
     struct sockaddr_in sa;
     memcpy(&sa, G(a[1]), sizeof sa);
     sa.sin_family = AF_INET;
-    if (bind(fd, (struct sockaddr *)&sa, sizeof sa) != 0) return fail(c, wsa_error(errno));
+    if (sa.sin_addr.s_addr == 0) sa.sin_addr.s_addr = local_address(1);
+    int r = bind(fd, (struct sockaddr *)&sa, sizeof sa);
+    int e = errno;
+    if (g_opt.verbose || g_trace_imports)
+        rt_log("[net] socket %x bind to %s:%u%s%s\n", a[0], inet_ntoa(sa.sin_addr), ntohs(sa.sin_port),
+               r ? " failed: " : "", r ? strerror(e) : "");
+    if (r != 0) return fail(c, wsa_error(e));
+    pthread_mutex_lock(&sock_mu);
+    Sock *s = sock_get(a[0]);
+    if (s) {
+        s->bound = 1;
+        s->bound_port = sa.sin_port;
+    }
+    pthread_mutex_unlock(&sock_mu);
     return 0;
 }
 
@@ -417,6 +488,7 @@ H(ws_send) {
         if (e == EAGAIN) rearm(a[0], FD_WRITE);
         return fail(c, wsa_error(e));
     }
+    trace_io("send", a[0], NULL, a[1], r);
     return (uint32_t)r;
 }
 
@@ -428,26 +500,37 @@ H(ws_recv) {
     int e = errno;
     rearm(a[0], FD_READ);
     if (r < 0) return fail(c, wsa_error(e));
+    trace_io("recv", a[0], NULL, a[1], r);
     return (uint32_t)r;
 }
 
 H(ws_sendto) {
-    int fd = sock_fd(a[0], NULL);
+    Sock info;
+    int fd = sock_fd(a[0], &info);
     if (fd < 0) return fail(c, WSAENOTSOCK);
     struct sockaddr_in sa;
     ssize_t r;
+    bind_local(a[0], fd);
     if (a[4] && a[5] >= 16) {
         memcpy(&sa, G(a[4]), sizeof sa);
         sa.sin_family = AF_INET;
+        /* The game delivers its own events to itself by sending them to
+         * 127.0.0.1 at the port its socket is bound to. A socket bound to
+         * --local-address is not reachable there. */
+        if (sa.sin_addr.s_addr == htonl(INADDR_LOOPBACK) && info.bound_port && sa.sin_port == info.bound_port &&
+            local_address(1))
+            sa.sin_addr.s_addr = local_address(1);
         r = sendto(fd, G(a[1]), a[2], MSG_NOSIGNAL, (struct sockaddr *)&sa, sizeof sa);
     } else {
         r = send(fd, G(a[1]), a[2], MSG_NOSIGNAL);
     }
     if (r < 0) {
         int e = errno;
+        if (g_opt.trace_net) rt_log("[net] sendto %x failed: %s\n", a[0], strerror(e));
         if (e == EAGAIN) rearm(a[0], FD_WRITE);
         return fail(c, wsa_error(e));
     }
+    trace_io("sendto", a[0], a[4] && a[5] >= 16 ? &sa : NULL, a[1], r);
     return (uint32_t)r;
 }
 
@@ -461,6 +544,7 @@ H(ws_recvfrom) {
     int e = errno;
     rearm(a[0], FD_READ);
     if (r < 0) return fail(c, wsa_error(e));
+    trace_io("recvfrom", a[0], &sa, a[1], r);
     if (a[4] && a[5] && ld32(a[5]) >= 16) {
         memcpy(G(a[4]), &sa, 16);
         st16(a[4], 2);
@@ -569,6 +653,9 @@ H(ws_gethostname) {
 H(ws_gethostbyname) {
     static __thread uint32_t buf;
     const char *name = rt_gstr(a[0]);
+    char self[256] = "";
+    gethostname(self, sizeof self - 1);
+    if (!*name) name = self; /* Windows: the empty name is this machine */
     struct addrinfo hints, *res = NULL;
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_INET;
@@ -588,6 +675,16 @@ H(ws_gethostbyname) {
         if (k == n) addrs[n++] = ad;
     }
     freeaddrinfo(res);
+    /* The machine's own name: Windows answers with the addresses of its network
+     * interfaces, and the game passes the first one on as where its peers can
+     * reach it. Many Linux systems resolve the host name to a loopback alias. */
+    if (!strcasecmp(name, self)) {
+        uint32_t ad = local_address(0);
+        if (ad && (g_opt.local_address[0] || (ntohl(addrs[0]) >> 24) == 127)) {
+            addrs[0] = ad;
+            n = 1;
+        }
+    }
     if (!buf) buf = rt_heap_alloc(512, 1);
     /* layout: hostent (16) | alias list (4) | address pointers (36) | addresses (32) | name */
     uint32_t aliases = buf + 16, list = buf + 20, data = buf + 56, nm = buf + 88;

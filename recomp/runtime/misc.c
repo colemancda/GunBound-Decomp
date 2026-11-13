@@ -106,18 +106,6 @@ H(k32_GetProcAddress) {
     return rt_host_fn(m->name, name, def->fn, def->nargs);
 }
 
-/* ------------------------------------------------------------------ dsound
- * Sound is not implemented. DirectSoundCreate8 reports that there is no sound
- * device, which the game handles by running silent. */
-H(ds_DirectSoundCreate8) {
-    UNUSED;
-    static int said;
-    if (!__atomic_exchange_n(&said, 1, __ATOMIC_SEQ_CST))
-        rt_log("recomp: DirectSoundCreate8: sound is not implemented; reporting no sound device\n");
-    if (a[1]) st32(a[1], 0);
-    return 0x88780078u; /* DSERR_NODRIVER */
-}
-
 /* ------------------------------------------------------------ winmm, ole32 */
 H(winmm_timeGetTime) { UNUSED; return (uint32_t)(rt_mono_ns() / 1000000ull); }
 H(ole_CoInitialize) { UNUSED; return S_OK; }
@@ -245,7 +233,6 @@ static const ImportDef defs[] = {
     {"kernel32.dll", "LoadLibraryA", k32_LoadLibraryA, 1, 0},
     {"kernel32.dll", "FreeLibrary", k32_FreeLibrary, 1, 0},
     {"kernel32.dll", "GetProcAddress", k32_GetProcAddress, 2, 0},
-    {"dsound.dll", "DirectSoundCreate8", ds_DirectSoundCreate8, 3, 0},
     {"winmm.dll", "timeGetTime", winmm_timeGetTime, 0, 0},
     {"ole32.dll", "CoInitialize", ole_CoInitialize, 1, 0},
     {"ole32.dll", "CoUninitialize", ole_CoUninitialize, 0, 0},
