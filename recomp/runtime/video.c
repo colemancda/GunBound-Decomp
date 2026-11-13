@@ -724,10 +724,9 @@ static void sdl_open(const char *title, int width, int height) {
     }
     is_fullscreen = g_opt.fullscreen;
     /* Where the system has an on-screen keyboard (iOS, Android), text input
-     * raises it. The game cannot say when it wants text: it keeps the focus on
-     * its one EDIT window from the start and routes the keys to the text field
-     * it draws itself. So the keyboard is hidden until the player asks for it
-     * with a three-finger tap (rt_video_want_text). Elsewhere text input stays on. */
+     * raises it, so it is started only when one of the game's text fields
+     * becomes active (user32.c, EM_LIMITTEXT) or the player asks with a
+     * three-finger tap (rt_video_want_text). Elsewhere text input stays on. */
     keyboard_follows_focus = SDL_HasScreenKeyboardSupport();
     /* Return (which sends a chat line) also puts the keyboard away: the
      * iPhone's keyboard has no key of its own for that. */
@@ -1061,6 +1060,13 @@ void rt_video_open(const char *title, int width, int height) {
 }
 
 static int text_wanted, text_shown = -1;
+static int text_x = -1, text_y = -1; /* the game's caret, guest coordinates; -1: not known */
+static int text_rect_at = -2;        /* the caret row the text input rectangle was set for */
+
+void rt_video_text_at(int x, int y) {
+    __atomic_store_n(&text_x, x, __ATOMIC_RELAXED);
+    __atomic_store_n(&text_y, y, __ATOMIC_RELAXED);
+}
 
 void rt_video_want_text(int on) {
     if (on < 0) on = !__atomic_load_n(&text_wanted, __ATOMIC_RELAXED);
@@ -1080,22 +1086,33 @@ static void flush_frame(void) {
     }
     if (keyboard_follows_focus && want != text_shown) {
         if (want) {
-            /* The game's chat lines (lobby, room, battle) sit in the bottom fifth
-             * of its screen, under where the keyboard comes up. Telling
-             * SDL so makes it slide the picture up above the keyboard instead of
-             * leaving those lines under it. In window coordinates, like pointer events. */
-            int ww = 0, wh = 0;
-            SDL_GetWindowSize(window, &ww, &wh);
-            if (out_w > 0 && out_h > 0) {
-                SDL_Rect r = {view.x * ww / out_w, (view.y + view.h * 4 / 5) * wh / out_h, view.w * ww / out_w,
-                              (view.h / 5) * wh / out_h};
-                SDL_SetTextInputRect(&r);
-            }
+            text_rect_at = -2; /* set below */
             SDL_StartTextInput();
         } else
             SDL_StopTextInput();
         text_shown = want;
         if (g_opt.trace_input) rt_log("[input] on-screen keyboard %s\n", want ? "shown" : "hidden");
+    }
+    if (keyboard_follows_focus && text_shown == 1) {
+        /* Tell SDL where the text field is, so that it slides the picture up
+         * just enough to keep the field above the keyboard: a strip around the
+         * game's caret, or the bottom fifth of the picture (where its chat lines
+         * are) while the caret is not known. Window coordinates, like pointer events. */
+        int ty = __atomic_load_n(&text_y, __ATOMIC_RELAXED);
+        int at = ty < 0 ? -1 : ty;
+        if (at != text_rect_at) {
+            int ww = 0, wh = 0;
+            SDL_GetWindowSize(window, &ww, &wh);
+            if (out_w > 0 && out_h > 0 && screen_h > 0) {
+                int top = ty < 0 ? screen_h * 4 / 5 : clampi(ty - 8, 0, screen_h - 1);
+                int bottom = ty < 0 ? screen_h : clampi(ty + 24, top + 1, screen_h);
+                int oy0 = view.y + top * view.h / screen_h, oy1 = view.y + bottom * view.h / screen_h;
+                SDL_Rect r = {view.x * ww / out_w, oy0 * wh / out_h, view.w * ww / out_w, (oy1 - oy0) * wh / out_h};
+                SDL_SetTextInputRect(&r);
+                if (g_opt.trace_input) rt_log("[input] text field at game y %d..%d\n", top, bottom);
+            }
+            text_rect_at = at;
+        }
     }
     sdl_flush();
 #endif

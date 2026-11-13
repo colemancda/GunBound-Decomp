@@ -463,6 +463,14 @@ static uint32_t edit_wndproc(CPU *c, const uint32_t *a) {
     switch (msg) {
     case EM_LIMITTEXT:
         w->text_limit = wp ? wp : 30000;
+        /* The game draws its text fields itself and types into one hidden EDIT
+         * window that keeps the focus throughout. When it makes one of its
+         * fields active (the lobby's or a room's chat line, a dialog's room
+         * title or password) it gives that window the field's text, its length
+         * limit and the caret: the limit marks the moment a field takes typing,
+         * which is when an on-screen keyboard should come up. */
+        if (hwnd == focus_hwnd) rt_video_want_text(1);
+        if (g_opt.trace_input) rt_log("[edit] %x limit %u, text \"%s\" (frame %u)\n", hwnd, wp, w->text, rt_video_frames());
         break;
     case EM_SETSEL:
         w->sel_start = wp > len ? (uint32_t)len : wp;
@@ -1182,7 +1190,20 @@ H(imm_ImmDisableIME) { UNUSED; return 1; }
 H(imm_ImmGetContext) { UNUSED; return 0; }
 H(imm_ImmGetOpenStatus) { UNUSED; return 0; }
 H(imm_ImmGetCompositionStringA) { UNUSED; return 0; }
-H(imm_ImmSetCompositionWindow) { UNUSED; return 0; }
+/* ImmSetCompositionWindow(himc, COMPOSITIONFORM*): {style, POINT current, RECT area}.
+ * The game puts the IME's window at its caret: the place of the text field
+ * that takes typing, in screen coordinates (rt_video_text_at). */
+H(imm_ImmSetCompositionWindow) {
+    if (a[1]) {
+        int x = (int32_t)ld32(a[1] + 4), y = (int32_t)ld32(a[1] + 8);
+        static int lx = -1, ly = -1;
+        if ((x != lx || y != ly) && g_opt.trace_input)
+            rt_log("[edit] caret at %d,%d (style %x, frame %u)\n", x, y, ld32(a[1]), rt_video_frames());
+        lx = x, ly = y;
+        rt_video_text_at(x, y);
+    }
+    return 1;
+}
 
 static const ImportDef defs[] = {
     {"user32.dll", "RegisterClassA", user_RegisterClassA, 1, 0},

@@ -925,18 +925,24 @@ Input on iOS:
   *two-finger tap* is a right click at the pointer (the first finger also
   clicks left where it lands). A short *three-finger tap* shows or hides the
   on-screen keyboard; `osk` in an `--input` script does the same.
-- *The keyboard* is hidden at first and opens only when asked for. The game
-  cannot say when it wants text: it puts the focus on its one EDIT window at
-  start-up and keeps it there, routing keys to the text field it draws. Return
-  sends a chat line and puts the keyboard away. While it is up the picture
-  slides up, so that the chat line (in the bottom fifth of the game's screen)
-  stays above it. With a hardware keyboard none of this is needed.
-- Typed characters reach the game's text control as `WM_CHAR`, but in the
-  simulator the lobby's chat line stayed empty. SDL's UIKit keyboard sends a
-  key's key-down and key-up before its text, where Windows puts `WM_CHAR` in
-  between, and the game acts on key messages; the runtime now delivers such
-  text before the key-up. Whether that is enough has not been seen: the
-  simulator's input connection failed before it could be typed into again.
+- *The keyboard* comes up when one of the game's text fields becomes active,
+  as a Windows text field would take the caret. The game draws its fields
+  itself and types into one hidden EDIT window that keeps the focus from
+  start-up, so focus says nothing; but each time it activates a field (the
+  lobby's or a room's chat line, a dialog's room title or password) it sends
+  that window `EM_LIMITTEXT` with the field's length (80 for the lobby chat,
+  20 for a room title, 60 when the chat line is restored after a dialog), and
+  it places the IME at its caret with `ImmSetCompositionWindow` (49,522 for
+  the lobby chat, 339,246 for the room title). The first raises the keyboard;
+  the second tells SDL where the field is, so that the picture slides up just
+  enough to keep the field above the keyboard. Return sends a chat line and
+  puts the keyboard away; a three-finger tap shows or hides it at any time.
+- *Typing* reaches the game as on Windows: SDL's UIKit keyboard sends a key's
+  key-down and key-up before its text, where Windows puts `WM_CHAR` in
+  between, and the game ignored characters that came that way; the runtime
+  delivers such text before the key-up. In the simulator a chat line typed on
+  the on-screen keyboard went out to the server and came back into the
+  lobby's chat, and a room title was typed into the create-room dialog.
 - *Controllers* come through Apple's GameController framework, read by SDL's
   MFi driver: MFi, Xbox and DualSense pads, with the mapping of "Controller
   and touch". The app declares itself a controller game
