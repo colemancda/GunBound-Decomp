@@ -1,13 +1,18 @@
 #!/usr/bin/env bash
 # Build the statically recompiled client.
 #
-#   recomp/build.sh [host|aarch64|macos] [--relift]
+#   recomp/build.sh [host|aarch64|macos|ios|iossim] [--relift]
 #
 # host     native build with the system compiler      -> recomp/build/host/gunbound
 # aarch64  cross build for Linux/arm64 (glibc)         -> recomp/build/aarch64/gunbound
 # macos    native build on a Mac with Xcode's clang    -> recomp/build/macos/gunbound
 #          (arm64 by default, MACOS_ARCH=x86_64 for Intel; SDL2 from sdl2-config,
 #          e.g. Homebrew's)
+# ios      iOS devices, arm64                          -> recomp/build/ios/gunbound
+# iossim   the iOS simulator on an Apple Silicon Mac   -> recomp/build/iossim/gunbound
+#          Both link SDL2 from recomp/ios/build_sdl.sh when it has been built, and
+#          are headless (RT_NO_SDL) otherwise; the .app is made by recomp/ios/build_ios.sh.
+#          IOS_MIN sets the deployment target (default 15.0).
 #
 # Environment:
 #   RECOMP_EXE   original executable to lift (default: orig/GunBound.gme)
@@ -50,8 +55,20 @@ macos)
     target_flags="-arch ${MACOS_ARCH:-arm64} -isysroot $(xcrun --sdk macosx --show-sdk-path) -mmacosx-version-min=${MACOS_MIN:-13.0}"
     target_libs="-framework Foundation -lobjc" # runtime/darwin.c
     ;;
+ios | iossim)
+    cc="$(xcrun -f clang)"
+    if [ "$target" = ios ]; then sdk=iphoneos triple="arm64-apple-ios${IOS_MIN:-15.0}"
+    else sdk=iphonesimulator triple="arm64-apple-ios${IOS_MIN:-15.0}-simulator"; fi
+    target_flags="-target $triple -isysroot $(xcrun --sdk $sdk --show-sdk-path)"
+    target_libs="-framework Foundation -lobjc"
+    sdl_ios="$here/build/deps/sdl-ios/$sdk"
+    if [ "${NO_SDL:-0}" != 1 ] && [ ! -f "$sdl_ios/lib/libSDL2.a" ]; then
+        echo "note: no SDL2 for $sdk in $sdl_ios (recomp/ios/build_sdl.sh); building headless" >&2
+        NO_SDL=1
+    fi
+    ;;
 *)
-    echo "usage: $0 [host|aarch64|macos] [--relift]" >&2
+    echo "usage: $0 [host|aarch64|macos|ios|iossim] [--relift]" >&2
     exit 2
     ;;
 esac
@@ -62,6 +79,12 @@ command -v "$cc" >/dev/null || { echo "compiler not found: $cc" >&2; exit 2; }
 if [ "${NO_SDL:-0}" = 1 ]; then
     sdl_cflags="-DRT_NO_SDL"
     sdl_libs=""
+elif [ "$target" = ios ] || [ "$target" = iossim ]; then
+    # SDL's UIKit code owns main() and calls SDL_main: the runtime's main is
+    # renamed and recomp/ios/ios_main.c (in the app) builds its arguments
+    sdl_cflags="-I$sdl_ios/include/SDL2"
+    ios_main=1
+    sdl_libs="$sdl_ios/lib/libSDL2main.a $sdl_ios/lib/libSDL2.a -framework AVFoundation -framework AudioToolbox -framework CoreAudio -framework CoreBluetooth -framework CoreGraphics -framework CoreHaptics -framework CoreMotion -framework GameController -framework Metal -framework OpenGLES -framework QuartzCore -framework UIKit -liconv"
 elif [ "$target" = host ] || [ "$target" = macos ]; then
     sdl_cflags="$(sdl2-config --cflags)"
     sdl_libs="$(sdl2-config --libs)"
@@ -100,7 +123,7 @@ cflags_common="${target_flags:-} -std=gnu11 -pthread -fno-strict-aliasing -fwrap
     echo "  command = \$cc \$gen_cflags -c \$in -o \$out"
     echo "  description = CC \$out"
     echo "rule rt"
-    echo "  command = \$cc \$rt_cflags -MMD -MF \$out.d -c \$in -o \$out"
+    echo "  command = \$cc \$rt_cflags \$rt_extra -MMD -MF \$out.d -c \$in -o \$out"
     echo "  depfile = \$out.d"
     echo "  description = CC \$out"
     echo "rule link"
@@ -118,8 +141,13 @@ cflags_common="${target_flags:-} -std=gnu11 -pthread -fno-strict-aliasing -fwrap
     for src in "$here"/runtime/*.c; do
         o="obj/rt_$(basename "${src%.c}").o"
         echo "build $o: rt $src"
+        [ "${ios_main:-0}" = 1 ] && [ "$(basename "$src")" = main.c ] && echo "  rt_extra = -Dmain=rt_main"
         objs="$objs $o"
     done
+    if [ "${ios_main:-0}" = 1 ]; then
+        echo "build obj/ios_main.o: rt $here/ios/ios_main.c"
+        objs="$objs obj/ios_main.o"
+    fi
     echo "build gunbound: link $objs"
     echo "default gunbound"
 } > "$out/build.ninja"
