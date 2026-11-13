@@ -28,6 +28,7 @@ void rt_pad_stick(int which, double x, double y); /* 0 left, 1 right; -1..1, y d
 void rt_pad_release_all(void);                    /* the controller went away */
 void rt_pad_tick(void);                           /* pointer motion, key repeat, delayed releases */
 void rt_touch(int phase, int x, int y);           /* guest screen coordinates */
+void rt_touch_right_click(void);                 /* a two-finger tap */
 
 /* The input events video.c accepts from here. */
 void rt_in_mouse_move_to(int x, int y);

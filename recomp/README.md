@@ -911,8 +911,45 @@ the World List.
   `Info.plist` (landscape, full screen, file sharing, local network) and
   `ios/ios_main.c`, which turns the app's Documents folder and an optional
   `gunbound.conf` into the runtime's arguments (SDL calls it as `SDL_main`;
-  the runtime's `main` is compiled as `rt_main`). Not built yet: SDL for iOS
-  has not been compiled.
+  the runtime's `main` is compiled as `rt_main`).
+
+The app runs in the simulator (iPhone 17, iOS 26.5): full screen in
+landscape, the 800x600 picture fitted at 1608x1206 in 2622x1206 and
+centred, Metal, CoreAudio. With the game's files and a `gunbound.conf`
+copied into its Documents folder it logged in to the reference server on the
+LAN and reached the lobby, driven by taps that landed where they should.
+
+Input on iOS:
+
+- *A finger* is the pointer with the left button, as on the handheld. A short
+  *two-finger tap* is a right click at the pointer (the first finger also
+  clicks left where it lands). A short *three-finger tap* shows or hides the
+  on-screen keyboard; `osk` in an `--input` script does the same.
+- *The keyboard* is hidden at first and opens only when asked for. The game
+  cannot say when it wants text: it puts the focus on its one EDIT window at
+  start-up and keeps it there, routing keys to the text field it draws. Return
+  sends a chat line and puts the keyboard away. While it is up the picture
+  slides up, so that the chat line (in the bottom fifth of the game's screen)
+  stays above it. With a hardware keyboard none of this is needed.
+- Typed characters reach the game's text control as `WM_CHAR`, but in the
+  simulator the lobby's chat line stayed empty. SDL's UIKit keyboard sends a
+  key's key-down and key-up before its text, where Windows puts `WM_CHAR` in
+  between, and the game acts on key messages; the runtime now delivers such
+  text before the key-up. Whether that is enough has not been seen: the
+  simulator's input connection failed before it could be typed into again.
+- *Controllers* come through Apple's GameController framework, read by SDL's
+  MFi driver: MFi, Xbox and DualSense pads, with the mapping of "Controller
+  and touch". The app declares itself a controller game
+  (`GCSupportsControllerUserInteraction`, the extended gamepad profile), and
+  SDL's own Bluetooth (HIDAPI) drivers are off on iOS, as they would need the
+  Bluetooth permission. In the simulator its "Gamepad" was opened through the
+  MFi driver (GUID `0500a5d0ac05000004000000fa256d04`: Bluetooth, Apple's
+  vendor number, SDL's `m` for MFi); no buttons were pressed. The accelerometer
+  is not offered as a joystick. A mouse or trackpad on an iPad is a pointer.
+
+Not done on iOS: a physical device (needs a signing identity and profile),
+pausing on `applicationWillResignActive`, the memory ordering of the three
+rings, and the frame rate on a device.
 
 ## Next
 

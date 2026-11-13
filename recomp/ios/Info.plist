@@ -58,6 +58,21 @@
 	<!-- an empty launch screen: without one iOS runs the app in a letterboxed legacy size -->
 	<key>UILaunchScreen</key>
 	<dict/>
+	<!-- game controllers through Apple's GameController framework (MFi, Xbox,
+	     DualSense), which SDL's MFi driver reads; their input goes to the game,
+	     not to the system's user interface -->
+	<key>GCSupportsControllerUserInteraction</key>
+	<true/>
+	<key>GCSupportedGameControllers</key>
+	<array>
+		<dict>
+			<key>ProfileName</key>
+			<string>ExtendedGamepad</string>
+		</dict>
+	</array>
+	<!-- a mouse or trackpad on an iPad as a pointer -->
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 	<!-- servers and peers on the local network (TCP to the broker and world server, UDP 8363) -->
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>GunBound connects to game servers and other players on your local network.</string>

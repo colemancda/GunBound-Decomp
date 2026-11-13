@@ -613,9 +613,12 @@ static void activate_window(CPU *c, uint32_t hwnd) {
 static uint32_t set_focus(CPU *c, uint32_t hwnd) {
     pthread_mutex_lock(&user_mu);
     uint32_t old = focus_hwnd;
-    int valid = hwnd == 0 || win_get(hwnd) != NULL;
+    Window *w = hwnd ? win_get(hwnd) : NULL;
+    int valid = hwnd == 0 || w != NULL;
     if (valid) focus_hwnd = hwnd;
     pthread_mutex_unlock(&user_mu);
+    if (g_opt.trace_input && valid && old != hwnd)
+        rt_log("[input] focus %x -> %x (%s)\n", old, hwnd, w && w->cls ? w->cls->name : "-");
     if (!valid || old == hwnd) return old;
     uint32_t r;
     if (old && !send_message(c, old, WM_KILLFOCUS, hwnd, 0, &r)) return old;
