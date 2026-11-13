@@ -1,0 +1,283 @@
+/* Entry point of the recompiled program: build the guest process and run it from the PE entry. */
+#include <libgen.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "pad.h"
+#include "rt.h"
+
+static void usage(const char *argv0) {
+    fprintf(stderr,
+            "usage: %s [options] [--] [guest command line arguments...]\n"
+            "  --exe PATH          the original executable (default: $RECOMP_EXE, then ./GunBound.gme)\n"
+            "  --gamedir DIR       directory with the game's files, the guest's C:\\GunBound\n"
+            "                      (default: the directory of --exe)\n"
+            "  --cmdline STRING    the guest command line, verbatim. The launcher starts the game\n"
+            "                      with a command line that is only its 96-character session token.\n"
+            "  --savedir DIR       where files the game writes go (default: --gamedir). A different\n"
+            "                      directory is an overlay, and the game directory is never written.\n"
+            "  --registry FILE     registry backing file (default: recomp-registry.txt in --savedir)\n"
+            "  --headless          do not open a window\n"
+            "  --dump-frame N[,N]  write presented frame N (1 = first) as a PNG; can be repeated\n"
+            "  --dump-every N      also write every Nth presented frame\n"
+            "  --dump-path FILE    where frames are written (default: frame.png); a %%d in the name\n"
+            "                      is replaced by the frame number, and is needed for several frames\n"
+            "  --frames N          exit after N presented frames\n"
+            "  --scale N           window size as a multiple of 800x600 (default: 2 on a large display)\n"
+            "  --window-size WxH   window size in pixels\n"
+            "  --fullscreen        start full screen; Alt+Enter switches at any time\n"
+            "  --scale-mode MODE   fit (keep the aspect ratio, default), integer (whole multiples\n"
+            "                      only) or stretch (fill the window)\n"
+            "  --filter FILTER     sharp (whole-multiple point sampling, then bilinear; default),\n"
+            "                      nearest or linear\n"
+            "  --dump-window       frame dumps also write FILE.window.png: the window's contents\n"
+            "  --input SCRIPT      synthetic input: \"FRAME:command;...\" with the commands move X Y,\n"
+            "                      down, up, click X Y, rdown, rup, key VK DIK, keydown/keyup VK DIK,\n"
+            "                      text STRING, fullscr, quit. A frame written +N counts from the previous step.\n"
+            "  --input-file FILE   the same, one step per line; # starts a comment line\n"
+            "  --no-sound          tell the game there is no sound device\n"
+            "  --dump-audio FILE   write the mixed sound to a WAV file (44.1 kHz stereo) instead of\n"
+            "                      playing it; works headless\n"
+            "  --broker HOST[:PORT] the server the game asks for its world list (default port 8372);\n"
+            "                      stored in the registry file as IP, BuddyIP and Port\n"
+            "  --local-address IP  the local IPv4 address: sockets are bound to it and the game is told\n"
+            "                      it is this machine's address. With 127.0.0.2, 127.0.0.3, ... (not\n"
+            "                      127.0.0.1) several instances can run on one machine.\n"
+            "  --virtual-clock     guest time advances with the main thread's work instead of real\n"
+            "                      time: runs are repeatable and as fast as the machine allows\n"
+            "  --login USER PASSWORD  make the session token here instead of taking it from --cmdline.\n"
+            "                      The key is read from Launcher.cs (the launcher's source) or launcher.key\n"
+            "                      (32 hexadecimal digits) in the game or save directory\n"
+            "  --login-key FILE    where --login reads the key instead\n"
+            "  --print-token       with --login: print the token and exit\n"
+            "  --no-pad            ignore game controllers. By default the left stick moves the pointer,\n"
+            "                      A is the space bar, X and the right trigger the left mouse button;\n"
+            "                      --print-pad-config shows all of it. Back+Start closes the game.\n"
+            "  --pad-speed N       pointer speed at full deflection, game pixels per second (default 600)\n"
+            "  --pad-config FILE   controller mapping, in the format --print-pad-config prints\n"
+            "  --print-pad-config  print the controller mapping in force and exit\n"
+            "  --pad-virtual       attach an SDL virtual controller for the --input commands stick,\n"
+            "                      pdown, pup, ptap, plug and unplug to drive (for tests; needs a window,\n"
+            "                      which SDL_VIDEODRIVER=dummy provides without a display)\n"
+            "  --trace-input       log controller, touch, key and pointer input on its way to the game\n"
+            "  --guest-cpu N|auto|any  run all guest threads on one CPU, which gives them the memory\n"
+            "                      ordering of x86 (default: auto, the fastest CPU, except on x86: any)\n"
+            "  --profile FILE      sample the program counter every millisecond of CPU time and write\n"
+            "                      the counts to FILE at exit (see tools/profile_report.py)\n"
+            "  --trace-net         log the bytes of everything sent and received on sockets\n"
+            "  --trace-imports     log every Win32 import call with its arguments and result\n"
+            "  --verbose           log window messages, COM calls and file access\n",
+            argv0);
+}
+
+/* --input and --input-file can be repeated; the steps are concatenated. */
+static void add_input(const char *steps) {
+    size_t n = strlen(g_opt.input_script);
+    snprintf(g_opt.input_script + n, sizeof g_opt.input_script - n, "%s%s", n ? ";" : "", steps);
+}
+
+static void build_process(int argc, char **argv, int first_guest_arg, const char *raw_cmdline) {
+    /* Command line: quoted module path followed by the guest arguments, unless given verbatim. */
+    char cmd[2048];
+    if (raw_cmdline) {
+        snprintf(cmd, sizeof cmd, "%s", raw_cmdline);
+    } else {
+        size_t n = (size_t)snprintf(cmd, sizeof cmd, "\"%s\"", g_image.guest_path);
+        for (int i = first_guest_arg; i < argc && n < sizeof cmd; i++)
+            n += (size_t)snprintf(cmd + n, sizeof cmd - n, " %s", argv[i]);
+    }
+    g_proc.cmdline_a = rt_sys_strdup(cmd);
+
+    /* Environment: a small fixed block, in ANSI and UTF-16 form. */
+    static const char *const env[] = {
+        "ALLUSERSPROFILE=C:\\Documents and Settings\\All Users",
+        "COMPUTERNAME=RECOMP",
+        "OS=Windows_NT",
+        "PATH=C:\\WINDOWS\\system32;C:\\WINDOWS",
+        "SystemDrive=C:",
+        "SystemRoot=C:\\WINDOWS",
+        "TEMP=C:\\TEMP",
+        "TMP=C:\\TEMP",
+        "USERNAME=player",
+        "windir=C:\\WINDOWS",
+    };
+    uint32_t total = 1;
+    for (size_t i = 0; i < sizeof env / sizeof env[0]; i++) total += (uint32_t)strlen(env[i]) + 1;
+    g_proc.env_a = rt_sys_alloc(total);
+    g_proc.env_w = rt_sys_alloc(total * 2);
+    uint32_t o = 0;
+    for (size_t i = 0; i < sizeof env / sizeof env[0]; i++) {
+        for (const char *p = env[i];; p++) {
+            st8(g_proc.env_a + o, (uint8_t)*p);
+            st16(g_proc.env_w + 2 * o, (uint8_t)*p);
+            o++;
+            if (!*p) break;
+        }
+    }
+    st8(g_proc.env_a + o, 0);
+    st16(g_proc.env_w + 2 * o, 0);
+
+    /* PEB: only the fields user-mode code commonly reads directly. The TEB is set up per thread. */
+    st8(GUEST_PEB + 2, 0);                    /* BeingDebugged */
+    st32(GUEST_PEB + 8, g_image.base);        /* ImageBaseAddress */
+    st32(GUEST_PEB + 0x18, 0x00140000);       /* ProcessHeap */
+}
+
+int main(int argc, char **argv) {
+    const char *exe = getenv("RECOMP_EXE");
+    const char *raw_cmdline = NULL;
+    const char *login_user = NULL, *login_password = NULL, *login_key = NULL, *pad_config = NULL;
+    int print_token = 0, print_pad = 0;
+    double pad_speed = 0;
+    static char token[97];
+    int i = 1;
+    g_opt.pad = 1;
+#if defined(__x86_64__) || defined(__i386__)
+    g_opt.guest_cpu = -1;
+#else
+    g_opt.guest_cpu = -2;
+#endif
+    snprintf(g_opt.dump_path, sizeof g_opt.dump_path, "frame.png");
+    for (; i < argc; i++) {
+        const char *o = argv[i];
+        int has = i + 1 < argc;
+        if (!strcmp(o, "--trace-imports")) g_trace_imports = 1;
+        else if (!strcmp(o, "--verbose")) g_opt.verbose = 1;
+        else if (!strcmp(o, "--headless")) g_opt.headless = 1;
+        else if (!strcmp(o, "--exe") && has) exe = argv[++i];
+        else if (!strcmp(o, "--gamedir") && has) snprintf(g_opt.gamedir, sizeof g_opt.gamedir, "%s", argv[++i]);
+        else if (!strcmp(o, "--savedir") && has) snprintf(g_opt.savedir, sizeof g_opt.savedir, "%s", argv[++i]);
+        else if (!strcmp(o, "--registry") && has) snprintf(g_opt.regfile, sizeof g_opt.regfile, "%s", argv[++i]);
+        else if (!strcmp(o, "--cmdline") && has) raw_cmdline = argv[++i];
+        else if (!strcmp(o, "--dump-frame") && has) {
+            /* one frame number or a comma-separated list; the option can be repeated */
+            for (const char *p = argv[++i]; *p;) {
+                if (g_opt.ndump_frames < (int)RT_COUNTOF(g_opt.dump_frames))
+                    g_opt.dump_frames[g_opt.ndump_frames++] = atoi(p);
+                p += strcspn(p, ",");
+                if (*p) p++;
+            }
+        }
+        else if (!strcmp(o, "--dump-every") && has) g_opt.dump_every = atoi(argv[++i]);
+        else if (!strcmp(o, "--dump-path") && has) snprintf(g_opt.dump_path, sizeof g_opt.dump_path, "%s", argv[++i]);
+        else if (!strcmp(o, "--frames") && has) g_opt.exit_after_frame = atoi(argv[++i]);
+        else if (!strcmp(o, "--scale") && has) g_opt.scale = atoi(argv[++i]);
+        else if (!strcmp(o, "--window-size") && has) sscanf(argv[++i], "%dx%d", &g_opt.window_w, &g_opt.window_h);
+        else if (!strcmp(o, "--fullscreen")) g_opt.fullscreen = 1;
+        else if (!strcmp(o, "--scale-mode") && has) {
+            const char *v = argv[++i];
+            if (!strcmp(v, "fit")) g_opt.scale_mode = RT_SCALE_FIT;
+            else if (!strcmp(v, "integer")) g_opt.scale_mode = RT_SCALE_INTEGER;
+            else if (!strcmp(v, "stretch")) g_opt.scale_mode = RT_SCALE_STRETCH;
+            else { usage(argv[0]); return 2; }
+        }
+        else if (!strcmp(o, "--filter") && has) {
+            const char *v = argv[++i];
+            if (!strcmp(v, "sharp")) g_opt.filter = RT_FILTER_SHARP;
+            else if (!strcmp(v, "nearest")) g_opt.filter = RT_FILTER_NEAREST;
+            else if (!strcmp(v, "linear")) g_opt.filter = RT_FILTER_LINEAR;
+            else { usage(argv[0]); return 2; }
+        }
+        else if (!strcmp(o, "--dump-window")) g_opt.dump_window = 1;
+        else if (!strcmp(o, "--virtual-clock")) g_opt.virtual_clock = 1;
+        else if (!strcmp(o, "--no-sound")) g_opt.no_sound = 1;
+        else if (!strcmp(o, "--dump-audio") && has) snprintf(g_opt.dump_audio, sizeof g_opt.dump_audio, "%s", argv[++i]);
+        else if (!strcmp(o, "--broker") && has) snprintf(g_opt.broker, sizeof g_opt.broker, "%s", argv[++i]);
+        else if (!strcmp(o, "--trace-net")) g_opt.trace_net = 1;
+        else if (!strcmp(o, "--login") && i + 2 < argc) {
+            login_user = argv[++i];
+            login_password = argv[++i];
+        }
+        else if (!strcmp(o, "--login-key") && has) login_key = argv[++i];
+        else if (!strcmp(o, "--print-token")) print_token = 1;
+        else if (!strcmp(o, "--no-pad")) g_opt.pad = 0;
+        else if (!strcmp(o, "--pad")) g_opt.pad = 1;
+        else if (!strcmp(o, "--pad-virtual")) g_opt.pad_virtual = 1;
+        else if (!strcmp(o, "--pad-speed") && has) pad_speed = atof(argv[++i]);
+        else if (!strcmp(o, "--pad-config") && has) pad_config = argv[++i];
+        else if (!strcmp(o, "--print-pad-config")) print_pad = 1;
+        else if (!strcmp(o, "--trace-input")) g_opt.trace_input = 1;
+        else if (!strcmp(o, "--profile") && has) snprintf(g_opt.profile, sizeof g_opt.profile, "%s", argv[++i]);
+        else if (!strcmp(o, "--guest-cpu") && has) {
+            const char *v = argv[++i];
+            g_opt.guest_cpu = !strcmp(v, "auto") ? -2 : !strcmp(v, "any") ? -1 : atoi(v);
+        }
+        else if (!strcmp(o, "--local-address") && has)
+            snprintf(g_opt.local_address, sizeof g_opt.local_address, "%s", argv[++i]);
+        else if (!strcmp(o, "--input") && has) add_input(argv[++i]);
+        else if (!strcmp(o, "--input-file") && has) {
+            FILE *f = fopen(argv[++i], "r");
+            if (!f) {
+                fprintf(stderr, "recomp: cannot read %s\n", argv[i]);
+                return 2;
+            }
+            char line[512];
+            while (fgets(line, sizeof line, f)) {
+                line[strcspn(line, "\r\n")] = 0;
+                const char *p = line + strspn(line, " \t");
+                if (*p && *p != '#') add_input(p);
+            }
+            fclose(f);
+        }
+        else if (!strcmp(o, "--help") || !strcmp(o, "-h")) { usage(argv[0]); return 0; }
+        else if (!strcmp(o, "--")) { i++; break; }
+        else if (o[0] == '-' && o[1] == '-') { usage(argv[0]); return 2; }
+        else break;
+    }
+    if (!exe) exe = "GunBound.gme";
+    {
+        char tmp[512];
+        snprintf(tmp, sizeof tmp, "%s", exe);
+        snprintf(g_opt.exedir, sizeof g_opt.exedir, "%s", dirname(tmp));
+    }
+    if (!g_opt.gamedir[0]) snprintf(g_opt.gamedir, sizeof g_opt.gamedir, "%s", g_opt.exedir);
+    if (!g_opt.savedir[0]) snprintf(g_opt.savedir, sizeof g_opt.savedir, "%s", g_opt.gamedir);
+    if (!g_opt.regfile[0]) snprintf(g_opt.regfile, sizeof g_opt.regfile, "%.480s/recomp-registry.txt", g_opt.savedir);
+
+    if (pad_config && !rt_pad_load_config(pad_config)) return 2;
+    if (pad_speed > 0) rt_pad_set_speed(pad_speed);
+    if (print_pad) {
+        rt_pad_print_config(stdout);
+        return 0;
+    }
+    if (login_user) {
+        if (!rt_login_token(login_user, login_password, login_key, token)) return 2;
+        raw_cmdline = token;
+    }
+    if (print_token) {
+        if (!login_user) {
+            fprintf(stderr, "recomp: --print-token needs --login USER PASSWORD\n");
+            return 2;
+        }
+        puts(token);
+        return 0;
+    }
+
+    setvbuf(stderr, NULL, _IOLBF, 0);
+    rt_affinity_init();
+    rt_profile_start();
+    rt_mem_init();
+    snprintf(g_image.guest_path, sizeof g_image.guest_path, "C:\\GunBound\\GunBound.gme");
+    rt_build_ftab();
+    rt_load_pe(exe);
+    build_process(argc, argv, i, raw_cmdline);
+    rt_install_fault_handler();
+
+    RtThread *th = rt_thread_init_main();
+    CPU *c = &th->cpu;
+    ESP = GUEST_STACK_TOP - 0x40;
+    EBX = GUEST_PEB;
+    PUSH32(GUEST_EXIT_ADDR);
+    uint32_t slot = ESP;
+
+    fprintf(stderr, "recomp: %u lifted functions, image %s mapped at 0x%08x, entry 0x%08x\n", rt_nfuncs, exe,
+            g_image.base, g_image.entry);
+    rt_call(c, g_image.entry);
+
+    if (c->eip != GUEST_EXIT_ADDR || c->ret_sp != slot)
+        rt_fatal(c, 4, "entry point returned to 0x%08x instead of the exit address",
+                 c->eip == RT_NL_PENDING ? c->nl_eip : c->eip);
+    rt_log("\nguest entry point returned, eax=%u\n", EAX);
+    rt_print_import_stats();
+    rt_exit((int)(EAX & 0xFF));
+}
