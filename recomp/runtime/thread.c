@@ -84,6 +84,7 @@ void rt_sleep_ns(uint64_t ns) {
  *
  * The confinement is inherited: the main thread is confined before any other
  * thread exists and every guest thread descends from it. */
+#if defined(__linux__)
 static cpu_set_t affinity_all, affinity_guest;
 static int affinity_on;
 
@@ -127,6 +128,42 @@ void rt_affinity_init(void) {
 void rt_affinity_host(int enter) {
     if (!affinity_on || !rt_cpu()) return;
     sched_setaffinity(0, sizeof(cpu_set_t), enter ? &affinity_all : &affinity_guest);
+}
+#else
+/* Darwin has no CPU affinity: the threads cannot be confined, and the rings are
+ * exposed exactly as with --guest-cpu any on Linux (see the README). */
+void rt_affinity_init(void) {
+    if (g_opt.guest_cpu == -1) return;
+    rt_log("recomp: --guest-cpu: this system cannot confine threads to a CPU; guest threads are not confined\n");
+}
+void rt_affinity_host(int enter) { (void)enter; }
+#endif
+
+/* Condition variables timed against CLOCK_MONOTONIC. Darwin has no
+ * pthread_condattr_setclock; its relative wait is used instead. */
+void rt_cond_init_mono(pthread_cond_t *cv) {
+#if defined(__APPLE__)
+    pthread_cond_init(cv, NULL);
+#else
+    pthread_condattr_t at;
+    pthread_condattr_init(&at);
+    pthread_condattr_setclock(&at, CLOCK_MONOTONIC);
+    pthread_cond_init(cv, &at);
+    pthread_condattr_destroy(&at);
+#endif
+}
+
+int rt_cond_timedwait_mono(pthread_cond_t *cv, pthread_mutex_t *mu, const struct timespec *deadline) {
+#if defined(__APPLE__)
+    struct timespec now;
+    clock_gettime(CLOCK_MONOTONIC, &now);
+    int64_t ns = (int64_t)(deadline->tv_sec - now.tv_sec) * 1000000000ll + (deadline->tv_nsec - now.tv_nsec);
+    if (ns <= 0) return ETIMEDOUT;
+    struct timespec rel = {(time_t)(ns / 1000000000ll), (long)(ns % 1000000000ll)};
+    return pthread_cond_timedwait_relative_np(cv, mu, &rel);
+#else
+    return pthread_cond_timedwait(cv, mu, deadline);
+#endif
 }
 
 /* ------------------------------------------------------------ handle table */
@@ -202,12 +239,7 @@ static pthread_cond_t sync_cv;
 static pthread_once_t sync_once = PTHREAD_ONCE_INIT;
 static RtWaitable *named_objects;
 
-static void sync_init(void) {
-    pthread_condattr_t at;
-    pthread_condattr_init(&at);
-    pthread_condattr_setclock(&at, CLOCK_MONOTONIC);
-    pthread_cond_init(&sync_cv, &at);
-}
+static void sync_init(void) { rt_cond_init_mono(&sync_cv); }
 
 RtWaitable *rt_waitable_new(int kind, int manual_reset, int signaled) {
     pthread_once(&sync_once, sync_init);
@@ -314,7 +346,7 @@ static uint32_t wait_many(CPU *c, RtWaitable **ws, uint32_t n, int wait_all, uin
         }
         if (ms == INFINITE) {
             pthread_cond_wait(&sync_cv, &sync_mu);
-        } else if (pthread_cond_timedwait(&sync_cv, &sync_mu, &deadline) == ETIMEDOUT) {
+        } else if (rt_cond_timedwait_mono(&sync_cv, &sync_mu, &deadline) == ETIMEDOUT) {
             ms = 0; /* one more look at the objects, then report the timeout */
         }
     }

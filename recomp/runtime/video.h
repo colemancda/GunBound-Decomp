@@ -37,6 +37,10 @@ void rt_video_show_cursor(int show);
 void rt_video_set_title(const char *title);
 void rt_video_message_box(const char *caption, const char *text);
 unsigned rt_video_frames(void);
+/* show (1) or hide (0) the on-screen keyboard where there is one; -1 toggles */
+void rt_video_want_text(int on);
+/* where the game's active text field is (its caret, guest screen coordinates) */
+void rt_video_text_at(int x, int y);
 
 /* Input state shared with DirectInput (written by the video thread). */
 extern uint8_t rt_vk_state[256];   /* bit 7: down, bit 0: toggled */

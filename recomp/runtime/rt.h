@@ -2,6 +2,9 @@
 #ifndef RECOMP_RT_H
 #define RECOMP_RT_H
 
+#include <pthread.h>
+#include <time.h>
+
 #include "cpu.h"
 
 /* ---- tables emitted by the lifter (tables.c) ---- */
@@ -176,6 +179,12 @@ uint64_t rt_host_ns(void);
 void rt_affinity_init(void);        /* once, on the main thread, before any other thread exists */
 void rt_affinity_host(int enter);   /* 1: lift the confinement while host threads are started; 0: restore it */        /* real time, also on the virtual clock */
 void rt_sleep_ns(uint64_t ns);    /* let guest time pass on the calling thread */
+#if defined(__APPLE__)
+void rt_darwin_no_app_nap(void);  /* darwin.c: no App Nap once there is a window */
+#endif
+/* condition variables whose timed waits take a CLOCK_MONOTONIC deadline */
+void rt_cond_init_mono(pthread_cond_t *cv);
+int rt_cond_timedwait_mono(pthread_cond_t *cv, pthread_mutex_t *mu, const struct timespec *deadline);
 
 /* ---- process state shared by import handlers ---- */
 typedef struct RtProcess {

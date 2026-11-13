@@ -14,6 +14,7 @@ import csv
 import os
 import re
 import subprocess
+import sys
 
 
 def main():
@@ -39,7 +40,10 @@ def main():
     for line in out.decode().splitlines():
         parts = line.split()
         if len(parts) == 3 and parts[1] in "tTwW":
-            syms.append((int(parts[0], 16), parts[2]))
+            name = parts[2]
+            if sys.platform == "darwin" and name.startswith("_"):
+                name = name[1:]  # Mach-O symbols carry C names with a leading underscore
+            syms.append((int(parts[0], 16), name))
     syms.sort()
     starts = [s[0] for s in syms]
 

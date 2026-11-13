@@ -287,7 +287,8 @@ table that the loader applies.
 | file | |
 |---|---|
 | `cpu.h` | CPU state and the inline helpers the lifted code uses |
-| `mem.c` | the guest address space, 1 GiB reserved at host address 4 GiB so that guest address `a` is host address `0x100000000 + a` (`-DRT_DYNAMIC_BASE` uses a variable base); the guest heap and the `VirtualAlloc` arena, both locked |
+| `mem.c` | the guest address space, 1 GiB reserved at host address 4 GiB so that guest address `a` is host address `0x100000000 + a` (`-DRT_DYNAMIC_BASE` uses a variable base, `RT_STATIC_BASE` an array in the program's data, see "macOS and iOS"); the guest heap and the `VirtualAlloc` arena, both locked |
+| `darwin.c` | macOS: no App Nap once there is a window |
 | `loader.c` | maps the PE image, points every IAT slot at a fake address, applies the lifter's patches; refuses an executable whose code section does not match the lifted one |
 | `dispatch.c` | indirect calls, host-function dispatch, `rt_call_guest`, the non-local return search, guest call stacks and the fault handler |
 | `thread.c` | guest threads on pthreads (a `CPU`, TEB and guest stack each), the handle table, events, mutexes, the wait functions, critical sections, TLS, the guest clock |
@@ -531,10 +532,12 @@ scratch copy of the server, the same scripted session plays a battle.
    not the function that picks). The client expects an actual mobile there.
    The random map is picked from all cases including "random" (0) itself.
 
-One run in about thirty stalled at "PLEASE WAIT" after connecting to the world
-server: the server logged the connection and no request. It has not happened
-again and the client was not being traced at the time, so which side was at
-fault is not known.
+Now and then the client stays at "PLEASE WAIT" after connecting to the world
+server: the server logs the connection and no request. That is the server's
+doing. A traced client had sent its first request (the 6-byte nonce request,
+accepted by the kernel), and a Python client that does nothing but connect and
+send the same 6 bytes got no answer on 2 of 20 fresh connections (macOS,
+server built with Xcode's Swift 6, November 2026).
 
 ## What was verified where
 
@@ -822,6 +825,137 @@ physical button SDL calls A with the user's EmulationStation mapping (the
 mapping file says the one labelled A); a battle on the screen rather than
 headless; starting it from the Ports menu instead of ssh; how long the
 battery lasts.
+
+## macOS and iOS
+
+The same lifted C and runtime build for Apple's systems with Xcode's clang:
+
+```
+recomp/build.sh macos     # -> recomp/build/macos/gunbound (SDL2 from sdl2-config, e.g. Homebrew)
+recomp/build.sh iossim    # -> recomp/build/iossim/gunbound, an iOS-simulator executable
+recomp/build.sh ios       # -> recomp/build/ios/gunbound, for devices
+recomp/test/run.sh macos
+```
+
+`build.sh` uses `xcrun -f clang`, not the first `clang` on `PATH` (a swiftly
+or Homebrew clang has no SDK). Lifting takes 8 s and compiling 14 s on a
+10-core Apple Silicon Mac (87 s of CPU for the 110 chunks at `-O1`). The iOS
+targets link SDL2 from `recomp/ios/build_sdl.sh` when it has been built and
+are headless otherwise. The self-test assembles the snippets with LLVM's
+tools (`clang --target=i386-linux-gnu`, `ld.lld`, `llvm-objcopy`, `llvm-nm`,
+from a swiftly toolchain or `X86_LLVM_BIN`) when GNU's are missing.
+
+What differs from Linux, all in the runtime:
+
+- *Guest memory.* On Darwin 4 GiB is the executable's own address, and on
+  macOS 27 everything from 8 GiB to 448 GiB was refused by `mmap` as well; iOS
+  has far less address space and no fixed address that is sure to be free. The
+  guest window is therefore a 1 GiB zero-fill array in the program's own data
+  (`RT_STATIC_BASE`, the default on Darwin): the base is a link-time symbol
+  (`adrp`+`add`, no load), it is placed by the loader wherever the image goes,
+  and it costs memory only for pages that are written. `RT_DYNAMIC_BASE` and a
+  fixed `-DRT_GUEST_BASE=0x7000000000ULL` (free on macOS) also work. On a
+  run of 600 frames on the virtual clock the three were within 1% of each
+  other, but that run is 59% rasteriser and 8% lifted code, so the blitters'
+  cost under each has not really been measured.
+- *Pages* are 16 KiB on Apple's processors: commits are rounded to host
+  pages. `MADV_DONTNEED` does not zero pages on Darwin, so `VirtualFree`
+  clears the range itself.
+- *Threads* cannot be confined to a CPU: `--guest-cpu` only logs that it
+  cannot. The three rings of "Threads and memory ordering" are exposed as with
+  `--guest-cpu any` on Linux (see below).
+- Condition variables wait with `pthread_cond_timedwait_relative_np`; no
+  `POLLRDHUP` (a closed peer is noticed at the next `recv`), `SOCK_CLOEXEC`,
+  `accept4`, or `pipe2` before macOS/iOS 27; the profiler uses `setitimer`
+  and the Mach-O image's own `__TEXT`.
+- *App Nap.* Once there is a window, macOS throttles the timers of a hidden or
+  covered application, and the game, which paces itself with `Sleep`, fell to
+  about 2 frames per second. `runtime/darwin.c` takes a user-initiated,
+  latency-critical `NSProcessInfo` activity when the window is made.
+
+Verified on macOS 27 (Apple Silicon):
+
+- `test/run.sh macos`: all 93128 vectors, with each of the three guest bases.
+- Headless on the virtual clock, the World List; frames identical to the iOS
+  simulator's (below).
+- In a window (SDL's cocoa driver through sdl2-compat on SDL3, Metal renderer,
+  1600x1200 on a Retina display, CoreAudio): the World List, and against the
+  reference server on the LAN login and the lobby.
+- `test/online.sh` needs two addresses: a Mac has only 127.0.0.1 on its
+  loopback interface until `sudo ifconfig lo0 alias 127.0.0.2 up` (and .3).
+  127.0.0.1 itself cannot be one of them: what an instance sends to 127.0.0.1
+  is meant for itself and goes to its own address. With 127.0.0.1 and the
+  LAN address (a wrong set-up for that reason) one instance stopped in
+  `DedupPendingBattleActionQueues` under `PumpBattleActions`, the consumer of
+  the game event ring, on a guest access to 0xd6002e87. With the peers'
+  traffic misrouted that proves nothing about ordering, but it is the place
+  to watch.
+
+Open on macOS: in a window, after a minute or so in the lobby, the frame rate
+falls (560 frames took 40 s and 100 s in two runs, 1200 frames more than 5
+minutes) while the main thread spends 90% of its time in the game's own
+`Sleep(45 - elapsed)` (GameTick, 0x413a44): sleeps last longer than asked. The
+same session headless keeps 20 frames per second, and so does the window at
+the World List.
+
+### iOS
+
+- `build.sh iossim` and `build.sh ios` compile everything unchanged.
+- The headless simulator executable runs inside the simulator
+  (`xcrun simctl spawn booted recomp/build/iossim/gunbound --exe ... --headless`):
+  the World List on the virtual clock with frames byte-identical to the macOS
+  build's, and against the reference server on the LAN login and the lobby.
+- The app: `recomp/ios/build_sdl.sh` builds SDL2 2.32 as static libraries for
+  devices and the simulator from a checkout of SDL, and `recomp/ios/build_ios.sh
+  [--sim] [--install [DEVICE]] [--run]` makes `GunBound.app` with
+  `Info.plist` (landscape, full screen, file sharing, local network) and
+  `ios/ios_main.c`, which turns the app's Documents folder and an optional
+  `gunbound.conf` into the runtime's arguments (SDL calls it as `SDL_main`;
+  the runtime's `main` is compiled as `rt_main`).
+
+The app runs in the simulator (iPhone 17, iOS 26.5): full screen in
+landscape, the 800x600 picture fitted at 1608x1206 in 2622x1206 and
+centred, Metal, CoreAudio. With the game's files and a `gunbound.conf`
+copied into its Documents folder it logged in to the reference server on the
+LAN and reached the lobby, driven by taps that landed where they should.
+
+Input on iOS:
+
+- *A finger* is the pointer with the left button, as on the handheld. A short
+  *two-finger tap* is a right click at the pointer (the first finger also
+  clicks left where it lands). A short *three-finger tap* shows or hides the
+  on-screen keyboard; `osk` in an `--input` script does the same.
+- *The keyboard* comes up when one of the game's text fields becomes active,
+  as a Windows text field would take the caret. The game draws its fields
+  itself and types into one hidden EDIT window that keeps the focus from
+  start-up, so focus says nothing; but each time it activates a field (the
+  lobby's or a room's chat line, a dialog's room title or password) it sends
+  that window `EM_LIMITTEXT` with the field's length (80 for the lobby chat,
+  20 for a room title, 60 when the chat line is restored after a dialog), and
+  it places the IME at its caret with `ImmSetCompositionWindow` (49,522 for
+  the lobby chat, 339,246 for the room title). The first raises the keyboard;
+  the second tells SDL where the field is, so that the picture slides up just
+  enough to keep the field above the keyboard. Return sends a chat line and
+  puts the keyboard away; a three-finger tap shows or hides it at any time.
+- *Typing* reaches the game as on Windows: SDL's UIKit keyboard sends a key's
+  key-down and key-up before its text, where Windows puts `WM_CHAR` in
+  between, and the game ignored characters that came that way; the runtime
+  delivers such text before the key-up. In the simulator a chat line typed on
+  the on-screen keyboard went out to the server and came back into the
+  lobby's chat, and a room title was typed into the create-room dialog.
+- *Controllers* come through Apple's GameController framework, read by SDL's
+  MFi driver: MFi, Xbox and DualSense pads, with the mapping of "Controller
+  and touch". The app declares itself a controller game
+  (`GCSupportsControllerUserInteraction`, the extended gamepad profile), and
+  SDL's own Bluetooth (HIDAPI) drivers are off on iOS, as they would need the
+  Bluetooth permission. In the simulator its "Gamepad" was opened through the
+  MFi driver (GUID `0500a5d0ac05000004000000fa256d04`: Bluetooth, Apple's
+  vendor number, SDL's `m` for MFi); no buttons were pressed. The accelerometer
+  is not offered as a joystick. A mouse or trackpad on an iPad is a pointer.
+
+Not done on iOS: a physical device (needs a signing identity and profile),
+pausing on `applicationWillResignActive`, the memory ordering of the three
+rings, and the frame rate on a device.
 
 ## Next
 

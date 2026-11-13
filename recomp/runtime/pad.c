@@ -418,6 +418,13 @@ void rt_pad_tick(void) {
 
 /* ---------------------------------------------------------------- touch
  * One finger is the pointer with its left button held. */
+/* A tap with two fingers: a right click where the pointer is. */
+void rt_touch_right_click(void) {
+    if (g_opt.trace_input) rt_log("[touch] two-finger tap: right click\n");
+    hold_mouse(3, 1);
+    hold_mouse(3, 0); /* held for the minimum two frames by hold_mouse */
+}
+
 void rt_touch(int phase, int x, int y) {
     if (g_opt.trace_input) rt_log("[touch] %s %d %d\n", phase == RT_TOUCH_DOWN ? "down" : phase == RT_TOUCH_UP ? "up" : "move", x, y);
     if (phase == RT_TOUCH_UP) {

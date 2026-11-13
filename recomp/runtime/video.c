@@ -180,6 +180,7 @@ void rt_in_quit(void) {
  *                ls, rs, lt, rt, dpup, dpdown, dpleft, dpright)
  *   plug, unplug the controller appears, goes away
  *   tdown X Y, tmove X Y, tup   a finger, in thousandths of the window's width and height
+ *   osk                         show or hide the on-screen keyboard (a three-finger tap)
  * With --pad-virtual the controller commands drive an SDL virtual joystick, and
  * with a window the finger commands are SDL touch events, so that they take the
  * same way in as a real device; otherwise they enter just below SDL.
@@ -286,6 +287,7 @@ static void script_run(void) {
         else if (!strcmp(s->cmd, "tdown")) script_touch(RT_TOUCH_DOWN, s->a, s->b);
         else if (!strcmp(s->cmd, "tmove")) script_touch(RT_TOUCH_MOVE, s->a, s->b);
         else if (!strcmp(s->cmd, "tup")) script_touch(RT_TOUCH_UP, 0, 0);
+        else if (!strcmp(s->cmd, "osk")) rt_video_want_text(-1); /* what a three-finger tap does */
         else {
             rt_log("recomp: --input: unknown command \"%s\"\n", s->cmd);
         }
@@ -407,6 +409,7 @@ static void dump_frame(const uint16_t *px, int w, int h) {
 
 /* ------------------------------------------------------------------- SDL */
 #ifndef RT_NO_SDL
+static int keyboard_follows_focus; /* see rt_video_open */
 static SDL_Window *window;
 static SDL_Renderer *renderer;
 static SDL_Texture *texture;
@@ -566,7 +569,9 @@ static void pad_added(int index) {
     for (size_t i = 0; i < RT_COUNTOF(pads); i++) {
         if (!pads[i]) {
             pads[i] = gc;
-            rt_log("recomp: controller connected: %s\n", SDL_GameControllerName(gc) ? SDL_GameControllerName(gc) : "?");
+            char guid[33];
+            SDL_JoystickGetGUIDString(SDL_JoystickGetGUID(SDL_GameControllerGetJoystick(gc)), guid, sizeof guid);
+            rt_log("recomp: controller connected: %s (%s)\n", SDL_GameControllerName(gc) ? SDL_GameControllerName(gc) : "?", guid);
             return;
         }
     }
@@ -679,6 +684,13 @@ static void sdl_open(const char *title, int width, int height) {
     /* a touch is handled as a touch: no synthetic mouse events from it, nor the reverse */
     SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
     SDL_SetHint(SDL_HINT_MOUSE_TOUCH_EVENTS, "0");
+    SDL_SetHint(SDL_HINT_ACCELEROMETER_AS_JOYSTICK, "0"); /* a phone is not a controller */
+#if defined(__IPHONEOS__) || defined(__TVOS__)
+    /* Controllers come through Apple's GameController framework (SDL's MFi
+     * driver), which knows MFi, Xbox and DualSense pads; SDL's own Bluetooth
+     * drivers would need the Bluetooth permission and add nothing. */
+    SDL_SetHint(SDL_HINT_JOYSTICK_HIDAPI, "0");
+#endif
     rt_affinity_host(1); /* threads SDL and the graphics driver start are not the guest's */
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0) {
         rt_affinity_host(0);
@@ -699,6 +711,9 @@ static void sdl_open(const char *title, int width, int height) {
         h *= 2;
     }
     if (g_opt.fullscreen) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+#if defined(__APPLE__)
+    rt_darwin_no_app_nap();
+#endif
     window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, flags);
     if (window) renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (window && !renderer) renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
@@ -708,7 +723,16 @@ static void sdl_open(const char *title, int width, int height) {
         return;
     }
     is_fullscreen = g_opt.fullscreen;
-    SDL_StartTextInput();
+    /* Where the system has an on-screen keyboard (iOS, Android), text input
+     * raises it, so it is started only when one of the game's text fields
+     * becomes active (user32.c, EM_LIMITTEXT) or the player asks with a
+     * three-finger tap (rt_video_want_text). Elsewhere text input stays on. */
+    keyboard_follows_focus = SDL_HasScreenKeyboardSupport();
+    /* Return (which sends a chat line) also puts the keyboard away: the
+     * iPhone's keyboard has no key of its own for that. */
+    SDL_SetHint(SDL_HINT_RETURN_KEY_HIDES_IME, "1");
+    if (keyboard_follows_focus) SDL_StopTextInput();
+    else SDL_StartTextInput();
     have_window = 1;
     view_update();
     if (g_opt.fullscreen) SDL_ShowCursor(SDL_DISABLE); /* the game draws its own */
@@ -915,10 +939,24 @@ static void sdl_translate(const SDL_Event *e) {
     case SDL_FINGERDOWN:
     case SDL_FINGERMOTION:
     case SDL_FINGERUP: {
-        /* the first finger down is the pointer; others are ignored until it lifts */
-        static int finger_active;
+        /* the first finger down is the pointer; others are ignored until it lifts,
+         * except that a short tap with two fingers is a right click and one with
+         * three shows or hides the on-screen keyboard */
+        static int finger_active, fingers_down, gesture_fingers;
+        static uint64_t gesture_start_ns;
         static SDL_FingerID finger;
         int phase = e->type == SDL_FINGERDOWN ? RT_TOUCH_DOWN : e->type == SDL_FINGERUP ? RT_TOUCH_UP : RT_TOUCH_MOVE;
+        if (phase == RT_TOUCH_DOWN) {
+            if (fingers_down++ == 0) {
+                gesture_fingers = 0;
+                gesture_start_ns = rt_host_ns();
+            }
+            if (fingers_down > gesture_fingers) gesture_fingers = fingers_down;
+        } else if (phase == RT_TOUCH_UP && fingers_down > 0 && --fingers_down == 0 && gesture_fingers >= 2 &&
+                   rt_host_ns() - gesture_start_ns < 300000000ull) {
+            if (gesture_fingers == 2) rt_touch_right_click();
+            else rt_video_want_text(-1);
+        }
         if (phase == RT_TOUCH_DOWN && !finger_active) {
             finger_active = 1;
             finger = e->tfinger.fingerId;
@@ -951,8 +989,19 @@ static void sdl_translate(const SDL_Event *e) {
 }
 
 static void sdl_poll(void) {
-    SDL_Event e;
-    while (npending < 32 && SDL_PollEvent(&e)) sdl_translate(&e);
+    SDL_Event e, next;
+    while (npending < 32 && SDL_PollEvent(&e)) {
+        /* Windows sends a key's WM_CHAR between its key-down and key-up, and the
+         * game acts on that order. SDL's on-screen keyboard (UIKit) sends the
+         * key-down and key-up first and the text after them: deliver such
+         * text before the key-up. */
+        if (e.type == SDL_KEYUP && SDL_PeepEvents(&next, 1, SDL_PEEKEVENT, SDL_FIRSTEVENT, SDL_LASTEVENT) == 1 &&
+            next.type == SDL_TEXTINPUT) {
+            SDL_PeepEvents(&next, 1, SDL_GETEVENT, SDL_TEXTINPUT, SDL_TEXTINPUT);
+            sdl_translate(&next);
+        }
+        sdl_translate(&e);
+    }
 }
 
 void rt_video_warp_mouse(int x, int y) {
@@ -1010,8 +1059,63 @@ void rt_video_open(const char *title, int width, int height) {
     video_open = 1;
 }
 
+static int text_wanted, text_shown = -1;
+static int text_x = -1, text_y = -1; /* the game's caret, guest coordinates; -1: not known */
+static int text_rect_at = -2;        /* the caret row the text input rectangle was set for */
+
+void rt_video_text_at(int x, int y) {
+    __atomic_store_n(&text_x, x, __ATOMIC_RELAXED);
+    __atomic_store_n(&text_y, y, __ATOMIC_RELAXED);
+}
+
+void rt_video_want_text(int on) {
+    if (on < 0) on = !__atomic_load_n(&text_wanted, __ATOMIC_RELAXED);
+    __atomic_store_n(&text_wanted, on, __ATOMIC_RELAXED);
+}
+
+/* on the video thread */
 static void flush_frame(void) {
-    if (have_window) sdl_flush();
+    if (!have_window) return;
+#ifndef RT_NO_SDL
+    int want = __atomic_load_n(&text_wanted, __ATOMIC_RELAXED);
+    if (keyboard_follows_focus && text_shown == 1 && want && !SDL_IsTextInputActive()) {
+        /* put away by the system (Return, or the user): follow it */
+        rt_video_want_text(0);
+        want = text_shown = 0;
+        if (g_opt.trace_input) rt_log("[input] on-screen keyboard put away\n");
+    }
+    if (keyboard_follows_focus && want != text_shown) {
+        if (want) {
+            text_rect_at = -2; /* set below */
+            SDL_StartTextInput();
+        } else
+            SDL_StopTextInput();
+        text_shown = want;
+        if (g_opt.trace_input) rt_log("[input] on-screen keyboard %s\n", want ? "shown" : "hidden");
+    }
+    if (keyboard_follows_focus && text_shown == 1) {
+        /* Tell SDL where the text field is, so that it slides the picture up
+         * just enough to keep the field above the keyboard: a strip around the
+         * game's caret, or the bottom fifth of the picture (where its chat lines
+         * are) while the caret is not known. Window coordinates, like pointer events. */
+        int ty = __atomic_load_n(&text_y, __ATOMIC_RELAXED);
+        int at = ty < 0 ? -1 : ty;
+        if (at != text_rect_at) {
+            int ww = 0, wh = 0;
+            SDL_GetWindowSize(window, &ww, &wh);
+            if (out_w > 0 && out_h > 0 && screen_h > 0) {
+                int top = ty < 0 ? screen_h * 4 / 5 : clampi(ty - 8, 0, screen_h - 1);
+                int bottom = ty < 0 ? screen_h : clampi(ty + 24, top + 1, screen_h);
+                int oy0 = view.y + top * view.h / screen_h, oy1 = view.y + bottom * view.h / screen_h;
+                SDL_Rect r = {view.x * ww / out_w, oy0 * wh / out_h, view.w * ww / out_w, (oy1 - oy0) * wh / out_h};
+                SDL_SetTextInputRect(&r);
+                if (g_opt.trace_input) rt_log("[input] text field at game y %d..%d\n", top, bottom);
+            }
+            text_rect_at = at;
+        }
+    }
+    sdl_flush();
+#endif
 }
 
 int rt_video_poll(RtInputEvent *ev) {
