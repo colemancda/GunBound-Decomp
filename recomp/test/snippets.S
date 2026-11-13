@@ -993,9 +993,10 @@ h_nl_cont:                          /* also the catch continuation of the catchi
         mov eax, esp
         sub eax, ebx
         mov ecx, esp
-        call 1f                    /* call/pop get-pc idiom */
-1:      pop eax
-        sub eax, offset 1b
+        call .Lgetpc               /* call/pop get-pc idiom */
+.Lgetpc:
+        pop eax
+        sub eax, offset .Lgetpc     /* a named label: LLVM's assembler has no "offset 1b" */
         mov [ebx+20], eax
         sub ecx, esp
         mov [ebx+24], ecx

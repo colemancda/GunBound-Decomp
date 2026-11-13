@@ -2,12 +2,15 @@
 # Lifter self-test: hand-written x86 snippets are lifted, run on the runtime and
 # compared with the same snippets executed natively on an x86 CPU.
 #
-#   recomp/test/run.sh [host|aarch64] [--update]
+#   recomp/test/run.sh [host|aarch64|macos] [--update]
 #
 # The native reference needs an x86 host that can run 32-bit programs; without one
 # (or for the aarch64 target, which runs under qemu-aarch64) the committed
 # expected.txt is used. --update rewrites expected.txt from the native reference.
 # EXTRA_CFLAGS adds compiler flags for the lifted harness (e.g. -DRT_DYNAMIC_BASE).
+# The snippets are assembled with gcc -m32 and GNU ld/objcopy/nm where they exist,
+# otherwise with LLVM's (clang --target=i386-linux-gnu, ld.lld, llvm-objcopy,
+# llvm-nm, found on PATH or through X86_LLVM_BIN, e.g. a swiftly toolchain on a Mac).
 set -euo pipefail
 
 target="${1:-host}"
@@ -27,14 +30,34 @@ aarch64)
     cc="${AARCH64_CC:-/home/coleman/Developer/batocera.linux/output/h616/host/bin/aarch64-buildroot-linux-gnu-gcc}"
     sysroot="$("$cc" -print-sysroot)"
     ;;
-*) echo "usage: $0 [host|aarch64] [--update]" >&2; exit 2 ;;
+macos)
+    cc="$(xcrun -f clang)"
+    target_flags="-arch ${MACOS_ARCH:-arm64} -isysroot $(xcrun --sdk macosx --show-sdk-path)"
+    target_libs="-framework Foundation -lobjc"
+    ;;
+*) echo "usage: $0 [host|aarch64|macos] [--update]" >&2; exit 2 ;;
 esac
 
+# x86 tools for the snippets: GNU, or LLVM's cross tools
+if ld -m elf_i386 -v >/dev/null 2>&1 && gcc -m32 -E -x c /dev/null >/dev/null 2>&1; then
+    as32=(gcc -m32) ld32=(ld -m elf_i386) objcopy=objcopy nm=nm
+else
+    llvm_bin="${X86_LLVM_BIN:-}"
+    if [ -z "$llvm_bin" ]; then
+        for d in "$(dirname "$(command -v ld.lld 2>/dev/null || echo /nonexistent/x)")" "$HOME/.swiftly/bin" /opt/homebrew/opt/llvm/bin /usr/local/opt/llvm/bin; do
+            [ -x "$d/ld.lld" ] && [ -x "$d/llvm-objcopy" ] && [ -x "$d/clang" ] && { llvm_bin="$d"; break; }
+        done
+    fi
+    [ -n "$llvm_bin" ] || { echo "no x86 assembler: need gcc -m32 and GNU ld, or clang, ld.lld and llvm-objcopy (X86_LLVM_BIN)" >&2; exit 2; }
+    as32=("$llvm_bin/clang" --target=i386-linux-gnu) ld32=("$llvm_bin/ld.lld" -m elf_i386)
+    objcopy="$llvm_bin/llvm-objcopy" nm="$llvm_bin/llvm-nm"
+fi
+
 # ---- 1. assemble the snippets into a flat blob at 0x401000
-gcc -m32 -c "$here/snippets.S" -o "$build/snippets.o"
-ld -m elf_i386 -Ttext=0x401000 -e t_add32 -o "$build/snippets.elf" "$build/snippets.o"
-objcopy -O binary -j .text "$build/snippets.elf" "$build/snippets.bin"
-entries="$(nm "$build/snippets.elf" | awk '$2 == "T" && $3 ~ /^[th]_/ { printf "%s%s=%s", sep, $1, $3; sep = "," }')"
+"${as32[@]}" -c "$here/snippets.S" -o "$build/snippets.o"
+"${ld32[@]}" -Ttext=0x401000 -e t_add32 -o "$build/snippets.elf" "$build/snippets.o"
+"$objcopy" -O binary -j .text "$build/snippets.elf" "$build/snippets.bin"
+entries="$("$nm" "$build/snippets.elf" | awk '$2 == "T" && $3 ~ /^[th]_/ { printf "%s%s=%s", sep, $1, $3; sep = "," }')"
 
 # ---- 2. native reference (x86 hosts with 32-bit support only)
 have_ref=0
@@ -69,9 +92,9 @@ for mode in liveness noliveness; do
     fi
     rt_srcs="$(ls "$recomp"/runtime/*.c | grep -v '/main\.c$')"
     # shellcheck disable=SC2086
-    "$cc" -std=gnu11 -O1 -fno-strict-aliasing -fwrapv -foptimize-sibling-calls -w ${EXTRA_CFLAGS:-} \
+    "$cc" ${target_flags:-} -std=gnu11 -O1 -fno-strict-aliasing -fwrapv -foptimize-sibling-calls -w ${EXTRA_CFLAGS:-} \
         -I"$recomp/runtime" -I"$gen" -I"$here" \
-        -DRT_NO_SDL "$gen"/chunk_*.c "$gen/tables.c" $rt_srcs "$here/lifted_main.c" -lm -pthread \
+        -DRT_NO_SDL "$gen"/chunk_*.c "$gen/tables.c" $rt_srcs "$here/lifted_main.c" -lm -pthread ${target_libs:-} \
         -o "$out/lifted_$mode"
     run=("$out/lifted_$mode")
     [ -n "$sysroot" ] && run=(qemu-aarch64 -L "$sysroot" "$out/lifted_$mode")

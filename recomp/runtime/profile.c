@@ -9,13 +9,20 @@
  * Samples outside the executable (libc, SDL, the kernel's vdso) are counted
  * under the address 0. tools/profile_report.py turns the file into a table. */
 #define _GNU_SOURCE
-#include <link.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#if defined(__APPLE__)
+#include <sys/ucontext.h>
+#include <mach-o/dyld.h>
+#include <mach-o/getsect.h>
+#include <sys/time.h>
+#else
+#include <link.h>
 #include <ucontext.h>
+#endif
 
 #include "rt.h"
 
@@ -23,12 +30,18 @@
 static uintptr_t *samples;
 static unsigned nsamples;
 static uintptr_t exe_base, exe_lo, exe_hi;
+#if !defined(__APPLE__)
 extern char __executable_start[], etext[];
+#endif
 
 static void on_prof(int sig, siginfo_t *si, void *ctx) {
     (void)sig, (void)si;
     ucontext_t *uc = ctx;
-#if defined(__x86_64__)
+#if defined(__APPLE__) && defined(__aarch64__)
+    uintptr_t pc = (uintptr_t)uc->uc_mcontext->__ss.__pc;
+#elif defined(__APPLE__) && defined(__x86_64__)
+    uintptr_t pc = (uintptr_t)uc->uc_mcontext->__ss.__rip;
+#elif defined(__x86_64__)
     uintptr_t pc = (uintptr_t)uc->uc_mcontext.gregs[REG_RIP];
 #elif defined(__aarch64__)
     uintptr_t pc = (uintptr_t)uc->uc_mcontext.pc;
@@ -40,24 +53,40 @@ static void on_prof(int sig, siginfo_t *si, void *ctx) {
     if (i < MAX_SAMPLES) samples[i] = pc;
 }
 
+#if !defined(__APPLE__)
 static int find_base(struct dl_phdr_info *info, size_t size, void *data) {
     (void)size, (void)data;
     exe_base = info->dlpi_addr; /* the first object is the executable */
     return 1;
 }
+#endif
 
 void rt_profile_start(void) {
     if (!g_opt.profile[0]) return;
     samples = calloc(MAX_SAMPLES, sizeof *samples);
     if (!samples) return;
+#if defined(__APPLE__)
+    /* addresses as nm prints them: unslid, from the image's own __TEXT */
+    unsigned long size = 0;
+    uint8_t *text = getsegmentdata((const struct mach_header_64 *)_dyld_get_image_header(0), "__TEXT", &size);
+    exe_base = (uintptr_t)_dyld_get_image_vmaddr_slide(0);
+    exe_lo = (uintptr_t)text;
+    exe_hi = exe_lo + size;
+#else
     dl_iterate_phdr(find_base, NULL);
     exe_lo = (uintptr_t)__executable_start;
     exe_hi = (uintptr_t)etext;
+#endif
     struct sigaction sa;
     memset(&sa, 0, sizeof sa);
     sa.sa_sigaction = on_prof;
     sa.sa_flags = SA_SIGINFO | SA_RESTART;
     sigaction(SIGPROF, &sa, NULL);
+#if defined(__APPLE__)
+    /* no POSIX timers: the process's CPU-time interval timer raises SIGPROF the same way */
+    struct itimerval itv = {{0, 1000}, {0, 1000}};
+    if (setitimer(ITIMER_PROF, &itv, NULL) != 0) rt_log("recomp: --profile: cannot start the timer\n");
+#else
     timer_t t;
     struct sigevent se;
     memset(&se, 0, sizeof se);
@@ -66,6 +95,7 @@ void rt_profile_start(void) {
     struct itimerspec its = {{0, 1000000}, {0, 1000000}};
     if (timer_create(CLOCK_PROCESS_CPUTIME_ID, &se, &t) != 0 || timer_settime(t, 0, &its, NULL) != 0)
         rt_log("recomp: --profile: cannot start the timer\n");
+#endif
 }
 
 static int cmp_addr(const void *a, const void *b) {

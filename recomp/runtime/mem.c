@@ -4,16 +4,25 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/mman.h>
+#include <unistd.h>
 
 #include "rt.h"
 
-#ifdef RT_DYNAMIC_BASE
+#if defined(RT_STATIC_BASE)
+/* Zero-fill: costs address space only until a page is written. */
+uint8_t rt_guest_mem[GUEST_SIZE] __attribute__((aligned(16384))) = {0}; /* a host page */
+#elif defined(RT_DYNAMIC_BASE)
 uint8_t *g_mem;
 #endif
 
 #ifndef MAP_FIXED_NOREPLACE
+#if defined(__linux__)
 #define MAP_FIXED_NOREPLACE 0x100000
+#else
+#define MAP_FIXED_NOREPLACE 0 /* elsewhere the address is a hint, checked below */
+#endif
 #endif
 
 static uint32_t sys_brk = GUEST_STR_BASE;
@@ -22,7 +31,13 @@ static pthread_mutex_t heap_mu = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t va_mu = PTHREAD_MUTEX_INITIALIZER;
 
 void rt_mem_init(void) {
-#ifdef RT_DYNAMIC_BASE
+#if defined(RT_STATIC_BASE)
+    /* uncommitted guest memory faults, as with the mapping */
+    if (mprotect(rt_guest_mem, GUEST_SIZE, PROT_NONE) != 0) {
+        perror("recomp: mprotect guest memory");
+        exit(2);
+    }
+#elif defined(RT_DYNAMIC_BASE)
     void *p = mmap(NULL, GUEST_SIZE, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
     if (p == MAP_FAILED) {
         perror("recomp: mmap guest memory");
@@ -48,9 +63,18 @@ void rt_mem_init(void) {
     memset(G(GUEST_IMP_BASE), 0xC3, GUEST_IMP_SIZE);
 }
 
+/* The host's page size: 4 KiB on the PC, 16 KiB on Apple's processors. Guest
+ * pages are 4 KiB; protections change in whole host pages around them. */
+static uint32_t host_page_mask(void) {
+    static uint32_t mask;
+    if (!mask) mask = (uint32_t)sysconf(_SC_PAGESIZE) - 1;
+    return mask;
+}
+
 void rt_mem_commit(uint32_t addr, uint32_t size) {
-    uint32_t lo = addr & ~0xFFFu;
-    uint64_t hi = ((uint64_t)addr + size + 0xFFF) & ~0xFFFull;
+    uint32_t m = host_page_mask();
+    uint32_t lo = addr & ~m;
+    uint64_t hi = ((uint64_t)addr + size + m) & ~(uint64_t)m;
     if (hi > GUEST_SIZE) {
         fprintf(stderr, "recomp: commit outside guest memory: %#x+%#x\n", addr, size);
         exit(2);
@@ -282,7 +306,18 @@ int rt_vfree(uint32_t addr, uint32_t size, uint32_t type) {
         len = size ? ((addr + size + 0xFFF) & ~0xFFFu) - lo : r->base + r->size - lo;
     }
     /* Drop the pages so that the range reads as zeros when it is committed or reused. */
+#if defined(__linux__)
     madvise(G(lo), len, MADV_DONTNEED);
+#else
+    /* Elsewhere MADV_DONTNEED keeps the contents: clear the range by hand, then
+     * let the system take back the whole host pages inside it. */
+    uint32_t m = host_page_mask();
+    uint32_t plo = lo & ~m, phi = (uint32_t)(((uint64_t)lo + len + m) & ~(uint64_t)m);
+    mprotect(G(plo), phi - plo, PROT_READ | PROT_WRITE);
+    memset(G(lo), 0, len);
+    uint32_t ilo = (lo + m) & ~m, ihi = (lo + len) & ~m;
+    if (ihi > ilo) madvise(G(ilo), ihi - ilo, MADV_FREE);
+#endif
     pthread_mutex_unlock(&va_mu);
     return 1;
 }

@@ -60,12 +60,24 @@ typedef struct CPU {
 #define BH (c->r[3].b.h)
 
 /* ------------------------------------------------------------------ memory */
-/* Guest address a lives at host address G(a). The mapping sits at a fixed host
- * address by default so that the base is a compile-time constant. */
+/* Guest address a lives at host address G(a). Three ways to place it:
+ *   default          a mapping at a fixed host address (RT_GUEST_BASE), so that
+ *                    the base is a compile-time constant;
+ *   RT_STATIC_BASE   a 1 GiB zero-fill array in the program's own data, so that
+ *                    the base is a link-time symbol (one adrp+add, no load);
+ *                    the default on Darwin, where 4 GiB is the executable's own
+ *                    address and iOS leaves no fixed address that is sure to be free;
+ *   RT_DYNAMIC_BASE  a mapping wherever mmap puts it, the base in a variable. */
+#if defined(__APPLE__) && !defined(RT_GUEST_BASE) && !defined(RT_DYNAMIC_BASE) && !defined(RT_STATIC_BASE)
+#define RT_STATIC_BASE 1
+#endif
 #ifndef RT_GUEST_BASE
 #define RT_GUEST_BASE 0x100000000ULL
 #endif
-#ifdef RT_DYNAMIC_BASE
+#if defined(RT_STATIC_BASE)
+extern uint8_t rt_guest_mem[];
+#define G(a) (rt_guest_mem + (uint32_t)(a))
+#elif defined(RT_DYNAMIC_BASE)
 extern uint8_t *g_mem;
 #define G(a) (g_mem + (uint32_t)(a))
 #else

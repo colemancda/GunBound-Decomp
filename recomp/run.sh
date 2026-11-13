@@ -21,7 +21,8 @@
 #   --scale N, --scale-mode fit|integer|stretch, --filter sharp|nearest|linear
 #                        window size and scaling, see recomp/README.md
 #   --headless           no window (for scripted runs; combine with -- --frames N ...)
-#   --target host|aarch64  which build to run (default: host; aarch64 runs under qemu)
+#   --target host|aarch64|macos  which build to run (default: host, macos on a Mac;
+#                        aarch64 runs under qemu)
 #   --no-build           do not rebuild first
 #
 # Environment: RECOMP_EXE (default orig/GunBound.gme), GUNBOUND_GAMEDIR, GUNBOUND_SERVER.
@@ -38,6 +39,7 @@ broker=127.0.0.1:8372
 server=0
 instance=0
 target=host
+[ "$(uname -s)" = Darwin ] && target=macos
 build=1
 pass=()
 
@@ -53,7 +55,7 @@ while [ $# -gt 0 ]; do
     --no-build) build=0; shift ;;
     --fullscreen | --headless) pass+=("$1"); shift ;;
     --scale | --scale-mode | --filter) pass+=("$1" "$2"); shift 2 ;;
-    -h | --help) sed -n '2,28p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h | --help) sed -n '2,29p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     --) shift; pass+=("$@"); break ;;
     *) echo "run.sh: unknown option $1 (options for the game binary go after --)" >&2; exit 2 ;;
     esac

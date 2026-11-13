@@ -150,10 +150,7 @@ static void add_class(const char *name, uint32_t proc, uint32_t style, uint32_t 
 }
 
 static void user_init(void) {
-    pthread_condattr_t at;
-    pthread_condattr_init(&at);
-    pthread_condattr_setclock(&at, CLOCK_MONOTONIC);
-    pthread_cond_init(&user_cv, &at);
+    rt_cond_init_mono(&user_cv);
     def_proc_addr = rt_host_fn("user32.dll", "DefWindowProcA", user_DefWindowProcA, 4);
     edit_proc_addr = rt_host_fn("user32.dll", "<EDIT window procedure>", edit_wndproc, 4);
     static_proc_addr = def_proc_addr;
@@ -947,7 +944,7 @@ H(user_GetMessageA) {
                 pthread_cond_wait(&user_cv, &user_mu);
             } else {
                 struct timespec ts = {(time_t)(due / 1000000000ull), (long)(due % 1000000000ull)};
-                pthread_cond_timedwait(&user_cv, &user_mu, &ts);
+                rt_cond_timedwait_mono(&user_cv, &user_mu, &ts);
             }
         }
         pthread_mutex_unlock(&user_mu);

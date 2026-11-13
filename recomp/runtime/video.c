@@ -699,6 +699,9 @@ static void sdl_open(const char *title, int width, int height) {
         h *= 2;
     }
     if (g_opt.fullscreen) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+#if defined(__APPLE__)
+    rt_darwin_no_app_nap();
+#endif
     window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, flags);
     if (window) renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (window && !renderer) renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);

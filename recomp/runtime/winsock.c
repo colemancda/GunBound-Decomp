@@ -23,6 +23,23 @@
 #include <unistd.h>
 
 #include "rt.h"
+
+#if defined(__APPLE__)
+/* Darwin: no POLLRDHUP (a closed peer is then seen at the next recv, which
+ * re-arms FD_READ), no SOCK_CLOEXEC, no accept4, pipe2 only recently. Nothing is ever exec'd. */
+#define POLLRDHUP 0
+#define SOCK_CLOEXEC 0
+#define accept4(fd, sa, len, flags) accept(fd, sa, len)
+#define pipe2 rt_pipe2 /* only in recent SDKs, and not on older systems */
+static int rt_pipe2(int fd[2], int flags) {
+    if (pipe(fd) != 0) return -1;
+    for (int i = 0; i < 2; i++) {
+        if (flags & O_NONBLOCK) fcntl(fd[i], F_SETFL, fcntl(fd[i], F_GETFL) | O_NONBLOCK);
+        if (flags & O_CLOEXEC) fcntl(fd[i], F_SETFD, FD_CLOEXEC);
+    }
+    return 0;
+}
+#endif
 #include "user.h"
 
 #define FD_READ 0x01u
