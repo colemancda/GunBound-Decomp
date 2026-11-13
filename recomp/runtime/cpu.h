@@ -149,16 +149,37 @@ static inline void rt_jmp(CPU *c, uint32_t a, uint32_t from) {
     do { uint32_t t_ = (t); uint32_t s_ = ESP - 4; ESP = s_; st32(s_, (ra)); rt_call(c, t_); RT_RETCHECK(ra, s_); } while (0)
 #define RET(n) do { uint32_t s_ = ESP; c->ret_sp = s_; c->eip = ld32(s_); ESP = s_ + 4 + (n); return; } while (0)
 
+/* On x86 a locked instruction is also a full memory barrier: every store the
+ * thread made before it is visible to the others before any load after it is
+ * made. The atomic builtins promise that only among themselves, and on aarch64
+ * the plain loads and stores around them can still be reordered across the
+ * operation, so the barrier is made explicit there (`dmb ish`). The runtime
+ * also uses it where Windows itself executed a locked instruction: critical
+ * sections, events, mutexes, the wait functions. */
+#if defined(__x86_64__) || defined(__i386__)
+#define RT_FULL_BARRIER() ((void)0)
+#else
+#define RT_FULL_BARRIER() __atomic_thread_fence(__ATOMIC_SEQ_CST)
+#endif
+
 /* `lock`-prefixed read-modify-write instructions and `xchg` with memory are atomic. */
 static inline uint32_t rt_atomic_xadd32(uint32_t a, uint32_t v) {
-    return __atomic_fetch_add((uint32_t *)G(a), v, __ATOMIC_SEQ_CST);
+    RT_FULL_BARRIER();
+    uint32_t r = __atomic_fetch_add((uint32_t *)G(a), v, __ATOMIC_SEQ_CST);
+    RT_FULL_BARRIER();
+    return r;
 }
 static inline uint32_t rt_atomic_xchg32(uint32_t a, uint32_t v) {
-    return __atomic_exchange_n((uint32_t *)G(a), v, __ATOMIC_SEQ_CST);
+    RT_FULL_BARRIER();
+    uint32_t r = __atomic_exchange_n((uint32_t *)G(a), v, __ATOMIC_SEQ_CST);
+    RT_FULL_BARRIER();
+    return r;
 }
 /* Returns the value found at a; the exchange happened if that equals expect. */
 static inline uint32_t rt_atomic_cmpxchg32(uint32_t a, uint32_t expect, uint32_t v) {
+    RT_FULL_BARRIER();
     __atomic_compare_exchange_n((uint32_t *)G(a), &expect, v, 0, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST);
+    RT_FULL_BARRIER();
     return expect;
 }
 

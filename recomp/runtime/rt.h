@@ -134,6 +134,10 @@ void rt_fatal(CPU *c, int code, const char *fmt, ...) __attribute__((noreturn, f
 void rt_install_fault_handler(void); /* call once on every host thread that runs guest code */
 void rt_print_import_stats(void);
 void rt_audio_report(void);          /* dsound.c: how much was mixed, and finish the WAV file */
+void rt_profile_start(void);         /* profile.c: --profile */
+void rt_profile_write(void);
+/* login.c: the 96-digit session token for --login; 0 (after a message) if it cannot be made */
+int rt_login_token(const char *user, const char *password, const char *key_file, char token[97]);
 void rt_exit(int code) __attribute__((noreturn)); /* leave the process from any thread */
 void rt_log(const char *fmt, ...) __attribute__((format(printf, 1, 2)));
 
@@ -167,6 +171,10 @@ void rt_waitable_set_exit_code(RtWaitable *w, uint32_t code);
 static inline void rt_set_last_error(CPU *c, uint32_t e) { st32(c->fs_base + TEB_LAST_ERROR, e); }
 static inline const char *rt_gstr(uint32_t a) { return a ? (const char *)G(a) : "(null)"; }
 uint64_t rt_mono_ns(void);        /* the guest's monotonic clock */
+uint64_t rt_host_ns(void);
+/* --guest-cpu: the guest's threads all run on one CPU (see thread.c). */
+void rt_affinity_init(void);        /* once, on the main thread, before any other thread exists */
+void rt_affinity_host(int enter);   /* 1: lift the confinement while host threads are started; 0: restore it */        /* real time, also on the virtual clock */
 void rt_sleep_ns(uint64_t ns);    /* let guest time pass on the calling thread */
 
 /* ---- process state shared by import handlers ---- */
@@ -179,6 +187,7 @@ extern RtProcess g_proc;
 
 /* ---- run-time options (main.c) ---- */
 typedef struct RtOptions {
+    char exedir[512];      /* directory of the original executable */
     char gamedir[512];     /* host directory holding the game's files */
     char savedir[512];     /* where the guest's writes go; an overlay when it differs from gamedir */
     char regfile[512];     /* registry backing file */
@@ -189,6 +198,7 @@ typedef struct RtOptions {
     char dump_path[512];
     int exit_after_frame;  /* stop after this many presented frames, 0 = never */
     int scale;             /* window size as a multiple of the guest screen, 0 = automatic */
+    int window_w, window_h; /* window size in pixels, 0 = from scale */
     int fullscreen;        /* start as a borderless full-screen window */
     int scale_mode;        /* RT_SCALE_*: how the picture is fitted into the window */
     int filter;            /* RT_FILTER_*: how it is sampled */
@@ -200,6 +210,11 @@ typedef struct RtOptions {
     int no_sound;          /* DirectSoundCreate8 reports that there is no sound device */
     char dump_audio[512];  /* WAV file the mixed sound is written to instead of a device */
     char broker[160];      /* HOST[:PORT] written to the registry as the game's server (registry.c) */
+    int pad;               /* game controllers are used (default) */
+    int pad_virtual;       /* attach an SDL virtual controller for the input script to drive */
+    int trace_input;       /* log controller, touch and key events on their way to the game */
+    int guest_cpu;         /* CPU the guest's threads are confined to; -1 = not confined (thread.c) */
+    char profile[512];     /* file the sampling profile is written to (profile.c) */
     char local_address[32]; /* IPv4 address sockets are bound to, "" = any (winsock.c) */
 } RtOptions;
 extern RtOptions g_opt;

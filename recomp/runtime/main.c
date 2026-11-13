@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "pad.h"
 #include "rt.h"
 
 static void usage(const char *argv0) {
@@ -23,6 +24,7 @@ static void usage(const char *argv0) {
             "                      is replaced by the frame number, and is needed for several frames\n"
             "  --frames N          exit after N presented frames\n"
             "  --scale N           window size as a multiple of 800x600 (default: 2 on a large display)\n"
+            "  --window-size WxH   window size in pixels\n"
             "  --fullscreen        start full screen; Alt+Enter switches at any time\n"
             "  --scale-mode MODE   fit (keep the aspect ratio, default), integer (whole multiples\n"
             "                      only) or stretch (fill the window)\n"
@@ -43,6 +45,25 @@ static void usage(const char *argv0) {
             "                      127.0.0.1) several instances can run on one machine.\n"
             "  --virtual-clock     guest time advances with the main thread's work instead of real\n"
             "                      time: runs are repeatable and as fast as the machine allows\n"
+            "  --login USER PASSWORD  make the session token here instead of taking it from --cmdline.\n"
+            "                      The key is read from Launcher.cs (the launcher's source) or launcher.key\n"
+            "                      (32 hexadecimal digits) in the game or save directory\n"
+            "  --login-key FILE    where --login reads the key instead\n"
+            "  --print-token       with --login: print the token and exit\n"
+            "  --no-pad            ignore game controllers. By default the left stick moves the pointer,\n"
+            "                      A is the space bar, X and the right trigger the left mouse button;\n"
+            "                      --print-pad-config shows all of it. Back+Start closes the game.\n"
+            "  --pad-speed N       pointer speed at full deflection, game pixels per second (default 600)\n"
+            "  --pad-config FILE   controller mapping, in the format --print-pad-config prints\n"
+            "  --print-pad-config  print the controller mapping in force and exit\n"
+            "  --pad-virtual       attach an SDL virtual controller for the --input commands stick,\n"
+            "                      pdown, pup, ptap, plug and unplug to drive (for tests; needs a window,\n"
+            "                      which SDL_VIDEODRIVER=dummy provides without a display)\n"
+            "  --trace-input       log controller, touch, key and pointer input on its way to the game\n"
+            "  --guest-cpu N|auto|any  run all guest threads on one CPU, which gives them the memory\n"
+            "                      ordering of x86 (default: auto, the fastest CPU, except on x86: any)\n"
+            "  --profile FILE      sample the program counter every millisecond of CPU time and write\n"
+            "                      the counts to FILE at exit (see tools/profile_report.py)\n"
             "  --trace-net         log the bytes of everything sent and received on sockets\n"
             "  --trace-imports     log every Win32 import call with its arguments and result\n"
             "  --verbose           log window messages, COM calls and file access\n",
@@ -105,7 +126,17 @@ static void build_process(int argc, char **argv, int first_guest_arg, const char
 int main(int argc, char **argv) {
     const char *exe = getenv("RECOMP_EXE");
     const char *raw_cmdline = NULL;
+    const char *login_user = NULL, *login_password = NULL, *login_key = NULL, *pad_config = NULL;
+    int print_token = 0, print_pad = 0;
+    double pad_speed = 0;
+    static char token[97];
     int i = 1;
+    g_opt.pad = 1;
+#if defined(__x86_64__) || defined(__i386__)
+    g_opt.guest_cpu = -1;
+#else
+    g_opt.guest_cpu = -2;
+#endif
     snprintf(g_opt.dump_path, sizeof g_opt.dump_path, "frame.png");
     for (; i < argc; i++) {
         const char *o = argv[i];
@@ -131,6 +162,7 @@ int main(int argc, char **argv) {
         else if (!strcmp(o, "--dump-path") && has) snprintf(g_opt.dump_path, sizeof g_opt.dump_path, "%s", argv[++i]);
         else if (!strcmp(o, "--frames") && has) g_opt.exit_after_frame = atoi(argv[++i]);
         else if (!strcmp(o, "--scale") && has) g_opt.scale = atoi(argv[++i]);
+        else if (!strcmp(o, "--window-size") && has) sscanf(argv[++i], "%dx%d", &g_opt.window_w, &g_opt.window_h);
         else if (!strcmp(o, "--fullscreen")) g_opt.fullscreen = 1;
         else if (!strcmp(o, "--scale-mode") && has) {
             const char *v = argv[++i];
@@ -152,6 +184,24 @@ int main(int argc, char **argv) {
         else if (!strcmp(o, "--dump-audio") && has) snprintf(g_opt.dump_audio, sizeof g_opt.dump_audio, "%s", argv[++i]);
         else if (!strcmp(o, "--broker") && has) snprintf(g_opt.broker, sizeof g_opt.broker, "%s", argv[++i]);
         else if (!strcmp(o, "--trace-net")) g_opt.trace_net = 1;
+        else if (!strcmp(o, "--login") && i + 2 < argc) {
+            login_user = argv[++i];
+            login_password = argv[++i];
+        }
+        else if (!strcmp(o, "--login-key") && has) login_key = argv[++i];
+        else if (!strcmp(o, "--print-token")) print_token = 1;
+        else if (!strcmp(o, "--no-pad")) g_opt.pad = 0;
+        else if (!strcmp(o, "--pad")) g_opt.pad = 1;
+        else if (!strcmp(o, "--pad-virtual")) g_opt.pad_virtual = 1;
+        else if (!strcmp(o, "--pad-speed") && has) pad_speed = atof(argv[++i]);
+        else if (!strcmp(o, "--pad-config") && has) pad_config = argv[++i];
+        else if (!strcmp(o, "--print-pad-config")) print_pad = 1;
+        else if (!strcmp(o, "--trace-input")) g_opt.trace_input = 1;
+        else if (!strcmp(o, "--profile") && has) snprintf(g_opt.profile, sizeof g_opt.profile, "%s", argv[++i]);
+        else if (!strcmp(o, "--guest-cpu") && has) {
+            const char *v = argv[++i];
+            g_opt.guest_cpu = !strcmp(v, "auto") ? -2 : !strcmp(v, "any") ? -1 : atoi(v);
+        }
         else if (!strcmp(o, "--local-address") && has)
             snprintf(g_opt.local_address, sizeof g_opt.local_address, "%s", argv[++i]);
         else if (!strcmp(o, "--input") && has) add_input(argv[++i]);
@@ -175,15 +225,37 @@ int main(int argc, char **argv) {
         else break;
     }
     if (!exe) exe = "GunBound.gme";
-    if (!g_opt.gamedir[0]) {
+    {
         char tmp[512];
         snprintf(tmp, sizeof tmp, "%s", exe);
-        snprintf(g_opt.gamedir, sizeof g_opt.gamedir, "%s", dirname(tmp));
+        snprintf(g_opt.exedir, sizeof g_opt.exedir, "%s", dirname(tmp));
     }
+    if (!g_opt.gamedir[0]) snprintf(g_opt.gamedir, sizeof g_opt.gamedir, "%s", g_opt.exedir);
     if (!g_opt.savedir[0]) snprintf(g_opt.savedir, sizeof g_opt.savedir, "%s", g_opt.gamedir);
     if (!g_opt.regfile[0]) snprintf(g_opt.regfile, sizeof g_opt.regfile, "%.480s/recomp-registry.txt", g_opt.savedir);
 
+    if (pad_config && !rt_pad_load_config(pad_config)) return 2;
+    if (pad_speed > 0) rt_pad_set_speed(pad_speed);
+    if (print_pad) {
+        rt_pad_print_config(stdout);
+        return 0;
+    }
+    if (login_user) {
+        if (!rt_login_token(login_user, login_password, login_key, token)) return 2;
+        raw_cmdline = token;
+    }
+    if (print_token) {
+        if (!login_user) {
+            fprintf(stderr, "recomp: --print-token needs --login USER PASSWORD\n");
+            return 2;
+        }
+        puts(token);
+        return 0;
+    }
+
     setvbuf(stderr, NULL, _IOLBF, 0);
+    rt_affinity_init();
+    rt_profile_start();
     rt_mem_init();
     snprintf(g_image.guest_path, sizeof g_image.guest_path, "C:\\GunBound\\GunBound.gme");
     rt_build_ftab();

@@ -234,7 +234,9 @@ static void start_poller(void) {
     pthread_attr_t at;
     pthread_attr_init(&at);
     pthread_attr_setdetachstate(&at, PTHREAD_CREATE_DETACHED);
+    rt_affinity_host(1);
     pthread_create(&pt, &at, poller_main, NULL);
+    rt_affinity_host(0);
     pthread_attr_destroy(&at);
 }
 

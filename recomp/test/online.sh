@@ -9,6 +9,9 @@
 # Environment:
 #   RECOMP_EXE   the original executable (default: orig/GunBound.gme)
 #   GAMEDIR      the game's files (default: the directory of RECOMP_EXE)
+#   PAD=1        play with the game controller instead of the keyboard: the space
+#                in the room's title and the shots are the controller's A button
+#                (the input script's ptap, pdown and pup commands)
 #
 # The server must be running (recomp/run.sh --server starts one, as does
 # `swift run GunBoundServer` in the server package) and must create accounts on
@@ -37,13 +40,19 @@ host_script="$host_script;900:click 706 573;1150:keydown 20 39;1175:keyup 20 39;
 guest_script="260:click 125 72;275:click 462 573;600:click 86 261;650:click 130 85;680:click 706 573"
 guest_script="$guest_script;800:click 706 573;1150:keydown 20 39;1175:keyup 20 39;1500:keydown 20 39;1530:keyup 20 39"
 
+if [ "${PAD:-0}" = 1 ]; then
+    host_script="${host_script//text Recomp room/text Recomp;+3:ptap a;+3:text room}"
+    host_script="${host_script//keydown 20 39/pdown a}"; host_script="${host_script//keyup 20 39/pup a}"
+    guest_script="${guest_script//keydown 20 39/pdown a}"; guest_script="${guest_script//keyup 20 39/pup a}"
+fi
+
 run() { # name user address script
     local token
     token="$(python3 "$recomp/tools/make_token.py" "$2" 1234)"
     mkdir -p "$out/save-$1"
     timeout 300 "$bin" --exe "$exe" --gamedir "$gamedir" --savedir "$out/save-$1" --headless --cmdline "$token" \
         --broker "$broker" --local-address "$3" --trace-net --input "$4" --frames "$frames" \
-        --dump-frame 350,560,860,1000,1200,1260,1700 --dump-path "$out/$1-%d.png" > "$out/$1.log" 2>&1
+        --trace-input --dump-frame 350,560,860,1000,1145,1172,1200,1260,1700 --dump-path "$out/$1-%d.png" > "$out/$1.log" 2>&1
 }
 run host admin 127.0.0.2 "$host_script" &
 p1=$!
@@ -73,5 +82,17 @@ check "game started (3432)" both "32 34"
 check "every datagram reached its peer: none was relayed through the server (4500)" eval '! sent host "00 45" && ! sent guest "00 45"'
 n1=$(datagrams host 127.0.0.3); n2=$(datagrams guest 127.0.0.2)
 check "peer-to-peer traffic in both directions ($n1 and $n2 datagrams)" [ "$n1" -ge 10 -a "$n2" -ge 10 ]
+# The room's title as the first instance sent it (opcode 2120), with its space.
+check "the room was created with the title \"Recomp room\"" grep -Eq "^\[net\] send .* 20 21 .*52 65 63 6f 6d 70 20 72 6f 6f 6d" "$out/host.log"
+# The power bar (red, at the bottom of the screen) while the fire key is held: empty
+# before the press at frame 1150, filling at 1172 on the instance whose turn it is.
+red() { python3 "$here/cursor.py" --red "$out/$1-$2.png" 245 566 645 592 2>/dev/null || echo 0; }
+b0=$(( $(red host 1145) + $(red guest 1145) )); b1h=$(red host 1172); b1g=$(red guest 1172)
+check "the power bar charged while the fire key was held (red pixels: $b0 before; $b1h and $b1g during)" \
+    [ "$b0" -lt 50 -a "$(( b1h > b1g ? b1h : b1g ))" -ge 1000 ]
+if [ "${PAD:-0}" = 1 ]; then
+    check "the fire key was the controller's A button, read by the game's DirectInput keyboard" \
+        eval 'grep -q "^\[pad\] a down" "$out/host.log" && grep -q "^\[dinput\] key 39 down" "$out/host.log" && ! grep -q "keydown 20 39" "$out/host.log"'
+fi
 echo "frames and logs are in $out"
 exit $status

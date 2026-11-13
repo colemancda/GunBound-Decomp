@@ -996,6 +996,10 @@ H(user_DispatchMessageA) {
     Window *w = win_get(hwnd);
     uint32_t proc = w ? w->wndproc : 0;
     pthread_mutex_unlock(&user_mu);
+    /* --trace-input: key, character and button messages as the game's window procedure gets them */
+    if (g_opt.trace_input && proc && ((msg >= 0x100 && msg <= 0x105) || (msg >= 0x200 && msg <= 0x206)))
+        rt_log("[msg] %04x wparam %x at %d,%d -> window procedure %08x\n", msg, wp, (int)(lp & 0xFFFF), (int)(lp >> 16),
+               proc);
     if (proc) call_proc(c, proc, hwnd, msg, wp, lp, &r);
     return r;
 }

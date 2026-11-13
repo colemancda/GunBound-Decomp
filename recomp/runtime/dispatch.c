@@ -45,6 +45,7 @@ void rt_log(const char *fmt, ...) {
 }
 
 void rt_exit(int code) {
+    rt_profile_write();
     fflush(stdout);
     fflush(stderr);
     /* Other guest threads may be anywhere, including inside host libraries: do not

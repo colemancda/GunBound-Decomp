@@ -220,7 +220,9 @@ static void mixer_start(void) {
         want.samples = 1024;
         want.callback = sdl_audio_cb;
         SDL_AudioDeviceID dev = 0;
+        rt_affinity_host(1); /* SDL's audio thread is not confined with the guest's threads */
         if (SDL_InitSubSystem(SDL_INIT_AUDIO) == 0) dev = SDL_OpenAudioDevice(NULL, 0, &want, &have, 0);
+        rt_affinity_host(0);
         if (dev) {
             SDL_PauseAudioDevice(dev, 0);
             rt_log("recomp: sound on SDL audio driver %s, %d Hz, %u-frame buffer\n", SDL_GetCurrentAudioDriver(),
@@ -234,7 +236,9 @@ static void mixer_start(void) {
     pthread_attr_t at;
     pthread_attr_init(&at);
     pthread_attr_setdetachstate(&at, PTHREAD_CREATE_DETACHED);
+    rt_affinity_host(1);
     pthread_create(&pt, &at, clock_main, NULL);
+    rt_affinity_host(0);
     pthread_attr_destroy(&at);
     if (wav) rt_log("recomp: sound is written to %s (%d Hz stereo)\n", g_opt.dump_audio, MIX_RATE);
 }

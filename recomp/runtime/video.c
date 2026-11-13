@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "pad.h"
 #include "rt.h"
 #include "video.h"
 
@@ -150,6 +151,21 @@ static void input_char(int ch) {
     queue_event(&ev);
 }
 
+/* What pad.c produces from a controller or a finger. */
+void rt_in_mouse_move_to(int x, int y) {
+    x = clampi(x, 0, screen_w - 1);
+    y = clampi(y, 0, screen_h - 1);
+    if (x != rt_mouse_x || y != rt_mouse_y) input_mouse_move(x, y, x - rt_mouse_x, y - rt_mouse_y);
+}
+void rt_in_mouse_move_by(int dx, int dy) { rt_in_mouse_move_to(rt_mouse_x + dx, rt_mouse_y + dy); }
+void rt_in_mouse_button(int button, int down, int clicks) { input_mouse_button(button, down, clicks); }
+void rt_in_key(int vk, int dik, int down, int repeat) { input_key(vk, dik, down, repeat); }
+void rt_in_char(int ch) { input_char(ch); }
+void rt_in_quit(void) {
+    RtInputEvent ev = {.type = RT_EV_QUIT};
+    queue_event(&ev);
+}
+
 /* ------------------------------------------------------------ input script
  * --input "FRAME:command;FRAME:command;...": synthetic input, applied once the
  * given number of frames has been presented. It is what makes the input path
@@ -159,6 +175,14 @@ static void input_char(int ch) {
  *   key VK DIK   press and release a key (Windows virtual key and DirectInput code, hex)
  *   text STRING  characters, as typed
  *   fullscr      what Alt+Enter does: switch between a window and full screen
+ *   stick X Y, rstick X Y   controller stick deflection in percent (-100..100, Y down)
+ *   pdown B, pup B, ptap B  controller button by name (a, b, x, y, back, start, lb, rb,
+ *                ls, rs, lt, rt, dpup, dpdown, dpleft, dpright)
+ *   plug, unplug the controller appears, goes away
+ *   tdown X Y, tmove X Y, tup   a finger, in thousandths of the window's width and height
+ * With --pad-virtual the controller commands drive an SDL virtual joystick, and
+ * with a window the finger commands are SDL touch events, so that they take the
+ * same way in as a real device; otherwise they enter just below SDL.
  *   quit         the window's close button */
 typedef struct ScriptStep {
     unsigned frame;
@@ -170,6 +194,14 @@ static ScriptStep script[1024];
 static unsigned nscript, script_pos;
 static int script_parsed;
 static unsigned script_release_at; /* frame at which a `click` lets go of the button */
+static int script_tap_button = -1; /* controller button a `ptap` holds, */
+static unsigned script_tap_until;  /* and the frame at which it lets go */
+
+/* Controller and finger commands: through SDL when it can carry them (see below). */
+static void script_pad_button(int button, int down);
+static void script_pad_stick(int which, int px, int py);
+static void script_pad_plug(int plug);
+static void script_touch(int phase, int px, int py);
 
 static void script_toggle_fullscreen(void);
 
@@ -191,7 +223,8 @@ static void script_parse(void) {
         }
         if (relative) s->frame += last_frame;
         last_frame = s->frame;
-        if (!strcmp(s->cmd, "text")) snprintf(s->text, sizeof s->text, "%s", rest);
+        snprintf(s->text, sizeof s->text, "%s", rest);
+        if (!strcmp(s->cmd, "text")) {}
         else if (!strncmp(s->cmd, "key", 3)) sscanf(rest, "%x %x", (unsigned *)&s->a, (unsigned *)&s->b);
         else sscanf(rest, "%d %d", &s->a, &s->b);
         nscript++;
@@ -207,7 +240,11 @@ static void script_run(void) {
         script_release_at = 0;
         input_mouse_button(1, 0, 1);
     }
-    while (!script_release_at && script_pos < nscript && script[script_pos].frame <= now && npending < 32) {
+    if (script_tap_button >= 0 && now >= script_tap_until) {
+        script_pad_button(script_tap_button, 0);
+        script_tap_button = -1;
+    }
+    while (!script_release_at && script_tap_button < 0 && script_pos < nscript && script[script_pos].frame <= now && npending < 32) {
         const ScriptStep *s = &script[script_pos++];
         if (g_opt.verbose) rt_log("[input] frame %u: %s %d %d %s\n", now, s->cmd, s->a, s->b, s->text);
         if (!strcmp(s->cmd, "move")) input_mouse_move(s->a, s->b, s->a - rt_mouse_x, s->b - rt_mouse_y);
@@ -232,7 +269,24 @@ static void script_run(void) {
         } else if (!strcmp(s->cmd, "quit")) {
             RtInputEvent ev = {.type = RT_EV_QUIT};
             queue_event(&ev);
-        } else {
+        } else if (!strcmp(s->cmd, "stick")) script_pad_stick(0, s->a, s->b);
+        else if (!strcmp(s->cmd, "rstick")) script_pad_stick(1, s->a, s->b);
+        else if (!strcmp(s->cmd, "pdown") || !strcmp(s->cmd, "pup") || !strcmp(s->cmd, "ptap")) {
+            char name[32] = "";
+            sscanf(s->text, "%31s", name);
+            int b = rt_pad_button_by_name(name);
+            if (b < 0) rt_log("recomp: --input: no controller button \"%s\"\n", name);
+            else if (s->cmd[1] == 't') {
+                script_pad_button(b, 1);
+                script_tap_button = b;
+                script_tap_until = now + 2;
+            } else script_pad_button(b, s->cmd[1] == 'd');
+        } else if (!strcmp(s->cmd, "plug")) script_pad_plug(1);
+        else if (!strcmp(s->cmd, "unplug")) script_pad_plug(0);
+        else if (!strcmp(s->cmd, "tdown")) script_touch(RT_TOUCH_DOWN, s->a, s->b);
+        else if (!strcmp(s->cmd, "tmove")) script_touch(RT_TOUCH_MOVE, s->a, s->b);
+        else if (!strcmp(s->cmd, "tup")) script_touch(RT_TOUCH_UP, 0, 0);
+        else {
             rt_log("recomp: --input: unknown command \"%s\"\n", s->cmd);
         }
     }
@@ -481,15 +535,163 @@ static void script_toggle_fullscreen(void) {
     if (have_window) set_fullscreen(!is_fullscreen);
 }
 
+/* ---- game controllers
+ * Every controller SDL has a mapping for is opened and all of them act as one.
+ * They come and go at any time (SDL_CONTROLLERDEVICEADDED / REMOVED). */
+static SDL_GameController *pads[8];
+static int pads_ready;
+static int virtual_index = -1; /* device index of the --pad-virtual joystick */
+static SDL_Joystick *virtual_joy;
+
+static void pad_added(int index) {
+    if (!SDL_IsGameController(index)) {
+        char guid[40];
+        SDL_JoystickGetGUIDString(SDL_JoystickGetDeviceGUID(index), guid, sizeof guid);
+        rt_log("recomp: joystick \"%s\" (%s) has no game controller mapping and is ignored; add one to\n"
+               "        SDL_GAMECONTROLLERCONFIG or to the file named by SDL_GAMECONTROLLERCONFIG_FILE\n",
+               SDL_JoystickNameForIndex(index) ? SDL_JoystickNameForIndex(index) : "?", guid);
+        return;
+    }
+    SDL_GameController *gc = SDL_GameControllerOpen(index);
+    if (!gc) {
+        rt_log("recomp: cannot open controller %d: %s\n", index, SDL_GetError());
+        return;
+    }
+    for (size_t i = 0; i < RT_COUNTOF(pads); i++) {
+        if (pads[i] == gc) { /* already open: SDL announces the ones present at start as well */
+            SDL_GameControllerClose(gc);
+            return;
+        }
+    }
+    for (size_t i = 0; i < RT_COUNTOF(pads); i++) {
+        if (!pads[i]) {
+            pads[i] = gc;
+            rt_log("recomp: controller connected: %s\n", SDL_GameControllerName(gc) ? SDL_GameControllerName(gc) : "?");
+            return;
+        }
+    }
+    SDL_GameControllerClose(gc);
+}
+
+static void pad_removed(SDL_JoystickID id) {
+    for (size_t i = 0; i < RT_COUNTOF(pads); i++) {
+        if (pads[i] && SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(pads[i])) == id) {
+            rt_log("recomp: controller disconnected: %s\n",
+                   SDL_GameControllerName(pads[i]) ? SDL_GameControllerName(pads[i]) : "?");
+            SDL_GameControllerClose(pads[i]);
+            pads[i] = NULL;
+            rt_pad_release_all(); /* nothing stays held */
+        }
+    }
+}
+
+static void virtual_plug(int plug) {
+#if SDL_VERSION_ATLEAST(2, 0, 14)
+    if (plug && virtual_index < 0) {
+        virtual_index = SDL_JoystickAttachVirtual(SDL_JOYSTICK_TYPE_GAMECONTROLLER, 6, 15, 0);
+        if (virtual_index < 0) {
+            rt_log("recomp: --pad-virtual: %s\n", SDL_GetError());
+            return;
+        }
+        virtual_joy = SDL_JoystickOpen(virtual_index);
+        if (virtual_joy) { /* the triggers rest at the low end of their axes */
+            SDL_JoystickSetVirtualAxis(virtual_joy, SDL_CONTROLLER_AXIS_TRIGGERLEFT, -32768);
+            SDL_JoystickSetVirtualAxis(virtual_joy, SDL_CONTROLLER_AXIS_TRIGGERRIGHT, -32768);
+        }
+    } else if (!plug && virtual_index >= 0) {
+        if (virtual_joy) SDL_JoystickClose(virtual_joy);
+        virtual_joy = NULL;
+        /* the device index may have changed since it was attached */
+        for (int i = 0; i < SDL_NumJoysticks(); i++)
+            if (SDL_JoystickIsVirtual(i)) SDL_JoystickDetachVirtual(i);
+        virtual_index = -1;
+    }
+#else
+    (void)plug;
+    rt_log("recomp: --pad-virtual needs SDL 2.0.14\n");
+#endif
+}
+
+static void pads_open(void) {
+    if (!g_opt.pad) return;
+    if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) != 0) {
+        rt_log("recomp: no game controller support (%s)\n", SDL_GetError());
+        return;
+    }
+    pads_ready = 1;
+    if (g_opt.pad_virtual) virtual_plug(1);
+    int n = SDL_NumJoysticks();
+    for (int i = 0; i < n; i++) pad_added(i);
+    if (!n) rt_log("recomp: no controller connected yet\n");
+}
+
+static void script_pad_button(int button, int down) {
+#if SDL_VERSION_ATLEAST(2, 0, 14)
+    if (virtual_joy) {
+        if (button == RT_PAD_LT || button == RT_PAD_RT)
+            SDL_JoystickSetVirtualAxis(virtual_joy, button == RT_PAD_LT ? SDL_CONTROLLER_AXIS_TRIGGERLEFT
+                                                                         : SDL_CONTROLLER_AXIS_TRIGGERRIGHT,
+                                       down ? 32767 : -32768);
+        else SDL_JoystickSetVirtualButton(virtual_joy, button, (Uint8)down);
+        return;
+    }
+#endif
+    if (g_opt.pad_virtual && pads_ready) return; /* unplugged */
+    rt_pad_button(button, down);
+}
+
+static void script_pad_stick(int which, int px, int py) {
+#if SDL_VERSION_ATLEAST(2, 0, 14)
+    if (virtual_joy) {
+        SDL_JoystickSetVirtualAxis(virtual_joy, which ? SDL_CONTROLLER_AXIS_RIGHTX : SDL_CONTROLLER_AXIS_LEFTX,
+                                   (Sint16)clampi(px * 32767 / 100, -32767, 32767));
+        SDL_JoystickSetVirtualAxis(virtual_joy, which ? SDL_CONTROLLER_AXIS_RIGHTY : SDL_CONTROLLER_AXIS_LEFTY,
+                                   (Sint16)clampi(py * 32767 / 100, -32767, 32767));
+        return;
+    }
+#endif
+    if (g_opt.pad_virtual && pads_ready) return;
+    rt_pad_stick(which, px / 100.0, py / 100.0);
+}
+
+static void script_pad_plug(int plug) {
+    if (g_opt.pad_virtual && pads_ready) virtual_plug(plug);
+    else if (!plug) rt_pad_release_all();
+}
+
+static void script_touch(int phase, int px, int py) {
+    if (have_window) {
+        SDL_Event e;
+        memset(&e, 0, sizeof e);
+        e.type = phase == RT_TOUCH_DOWN ? SDL_FINGERDOWN : phase == RT_TOUCH_UP ? SDL_FINGERUP : SDL_FINGERMOTION;
+        e.tfinger.touchId = 1;
+        e.tfinger.fingerId = 1;
+        e.tfinger.x = (float)px / 1000.0f;
+        e.tfinger.y = (float)py / 1000.0f;
+        e.tfinger.pressure = phase == RT_TOUCH_UP ? 0.0f : 1.0f;
+        SDL_PushEvent(&e);
+        return;
+    }
+    rt_touch(phase, px * screen_w / 1000, py * screen_h / 1000);
+}
+
 static void sdl_open(const char *title, int width, int height) {
+    /* a touch is handled as a touch: no synthetic mouse events from it, nor the reverse */
+    SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
+    SDL_SetHint(SDL_HINT_MOUSE_TOUCH_EVENTS, "0");
+    rt_affinity_host(1); /* threads SDL and the graphics driver start are not the guest's */
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0) {
+        rt_affinity_host(0);
         rt_log("recomp: SDL_Init failed (%s); continuing without a window\n", SDL_GetError());
         return;
     }
     uint32_t flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
     int w = width, h = height;
     SDL_DisplayMode dm;
-    if (g_opt.scale > 0) {
+    if (g_opt.window_w > 0 && g_opt.window_h > 0) {
+        w = g_opt.window_w;
+        h = g_opt.window_h;
+    } else if (g_opt.scale > 0) {
         w *= g_opt.scale;
         h *= g_opt.scale;
     } else if (SDL_GetDesktopDisplayMode(0, &dm) == 0 && dm.w >= width * 2 + 64 && dm.h >= height * 2 + 64) {
@@ -502,12 +704,16 @@ static void sdl_open(const char *title, int width, int height) {
     if (window && !renderer) renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
     if (!window || !renderer) {
         rt_log("recomp: cannot create the SDL window (%s); continuing without one\n", SDL_GetError());
+        rt_affinity_host(0);
         return;
     }
     is_fullscreen = g_opt.fullscreen;
     SDL_StartTextInput();
     have_window = 1;
     view_update();
+    if (g_opt.fullscreen) SDL_ShowCursor(SDL_DISABLE); /* the game draws its own */
+    pads_open();
+    rt_affinity_host(0);
     SDL_RendererInfo info;
     memset(&info, 0, sizeof info);
     SDL_GetRendererInfo(renderer, &info);
@@ -602,6 +808,8 @@ static void sdl_flush(void) {
     pthread_mutex_unlock(&frame_mu);
 }
 
+static int warp_x, warp_y, warp_pending; /* where rt_video_warp_mouse last sent the pointer, in window coordinates */
+
 static void sdl_translate(const SDL_Event *e) {
     switch (e->type) {
     case SDL_QUIT: {
@@ -621,7 +829,24 @@ static void sdl_translate(const SDL_Event *e) {
         }
         break;
     case SDL_MOUSEMOTION: {
-        if (e->motion.which == SDL_TOUCH_MOUSEID) break; /* touch will be handled as touch */
+        if (e->motion.which == SDL_TOUCH_MOUSEID) break; /* a touch is handled as a touch */
+        /* A motion event that reports the place the system's pointer already was in is not
+         * a movement: a Wayland compositor sends one when the pointer enters the window, at
+         * start and again after every touch. The stick or the finger may have moved the
+         * game's pointer since, and it must stay where they left it. */
+        static int last_x, last_y, have_last;
+        if (warp_pending && e->motion.x == warp_x && e->motion.y == warp_y) {
+            warp_pending = 0; /* the echo of SetCursorPos, which has set the position already */
+            break;
+        }
+        if (!have_last || (e->motion.x == last_x && e->motion.y == last_y)) {
+            have_last = 1;
+            last_x = e->motion.x;
+            last_y = e->motion.y;
+            break;
+        }
+        last_x = e->motion.x;
+        last_y = e->motion.y;
         /* The game moves its cursor by relative motion: report the motion in guest
          * pixels, so that the cursor it draws stays under the pointer at any scale. */
         int x, y;
@@ -663,6 +888,49 @@ static void sdl_translate(const SDL_Event *e) {
         input_key(keymap[sc].vk, keymap[sc].dik, e->type == SDL_KEYDOWN, e->key.repeat);
         break;
     }
+    case SDL_CONTROLLERDEVICEADDED:
+        if (pads_ready) pad_added(e->cdevice.which);
+        break;
+    case SDL_CONTROLLERDEVICEREMOVED:
+        pad_removed(e->cdevice.which);
+        break;
+    case SDL_CONTROLLERBUTTONDOWN:
+    case SDL_CONTROLLERBUTTONUP:
+        if (e->cbutton.button < RT_PAD_LT) rt_pad_button(e->cbutton.button, e->type == SDL_CONTROLLERBUTTONDOWN);
+        break;
+    case SDL_CONTROLLERAXISMOTION: {
+        SDL_GameController *gc = SDL_GameControllerFromInstanceID(e->caxis.which);
+        if (!gc) break;
+        int ax = e->caxis.axis;
+        if (ax == SDL_CONTROLLER_AXIS_TRIGGERLEFT || ax == SDL_CONTROLLER_AXIS_TRIGGERRIGHT) {
+            rt_pad_trigger(ax == SDL_CONTROLLER_AXIS_TRIGGERRIGHT, e->caxis.value / 32767.0);
+        } else if (ax <= SDL_CONTROLLER_AXIS_RIGHTY) {
+            int right = ax >= SDL_CONTROLLER_AXIS_RIGHTX;
+            rt_pad_stick(right,
+                         SDL_GameControllerGetAxis(gc, right ? SDL_CONTROLLER_AXIS_RIGHTX : SDL_CONTROLLER_AXIS_LEFTX) / 32767.0,
+                         SDL_GameControllerGetAxis(gc, right ? SDL_CONTROLLER_AXIS_RIGHTY : SDL_CONTROLLER_AXIS_LEFTY) / 32767.0);
+        }
+        break;
+    }
+    case SDL_FINGERDOWN:
+    case SDL_FINGERMOTION:
+    case SDL_FINGERUP: {
+        /* the first finger down is the pointer; others are ignored until it lifts */
+        static int finger_active;
+        static SDL_FingerID finger;
+        int phase = e->type == SDL_FINGERDOWN ? RT_TOUCH_DOWN : e->type == SDL_FINGERUP ? RT_TOUCH_UP : RT_TOUCH_MOVE;
+        if (phase == RT_TOUCH_DOWN && !finger_active) {
+            finger_active = 1;
+            finger = e->tfinger.fingerId;
+        } else if (!finger_active || e->tfinger.fingerId != finger) break;
+        if (phase == RT_TOUCH_UP) finger_active = 0;
+        /* normalised window coordinates, mapped through the picture's rectangle */
+        int ww = 0, wh = 0, x, y;
+        SDL_GetWindowSize(window, &ww, &wh);
+        window_to_guest((int)(e->tfinger.x * (float)ww), (int)(e->tfinger.y * (float)wh), &x, &y);
+        rt_touch(phase, x, y);
+        break;
+    }
     case SDL_TEXTINPUT: {
         /* UTF-8 to Latin-1, the guest's code page; other characters are dropped. */
         const uint8_t *p = (const uint8_t *)e->text.text;
@@ -694,7 +962,10 @@ void rt_video_warp_mouse(int x, int y) {
     if (out_w <= 0 || out_h <= 0) return;
     int64_t ox = view.x + ((int64_t)x * view.w + view.w / 2) / screen_w;
     int64_t oy = view.y + ((int64_t)y * view.h + view.h / 2) / screen_h;
-    SDL_WarpMouseInWindow(window, (int)(ox * ww / out_w), (int)(oy * wh / out_h));
+    warp_x = (int)(ox * ww / out_w);
+    warp_y = (int)(oy * wh / out_h);
+    warp_pending = 1;
+    SDL_WarpMouseInWindow(window, warp_x, warp_y);
 }
 
 void rt_video_show_cursor(int show) {
@@ -714,6 +985,10 @@ void rt_video_message_box(const char *caption, const char *text) {
 
 static void sdl_open(const char *title, int width, int height) { (void)title, (void)width, (void)height; }
 static void script_toggle_fullscreen(void) {}
+static void script_pad_button(int button, int down) { rt_pad_button(button, down); }
+static void script_pad_stick(int which, int px, int py) { rt_pad_stick(which, px / 100.0, py / 100.0); }
+static void script_pad_plug(int plug) { if (!plug) rt_pad_release_all(); }
+static void script_touch(int phase, int px, int py) { rt_touch(phase, px * screen_w / 1000, py * screen_h / 1000); }
 static void sdl_flush(void) {}
 static void sdl_poll(void) {}
 void rt_video_warp_mouse(int x, int y) { (void)x, (void)y; }
@@ -745,6 +1020,7 @@ int rt_video_poll(RtInputEvent *ev) {
     if (npending == 0) {
         if (g_opt.input_script[0]) script_run();
         if (have_window) sdl_poll();
+        if (npending < 32) rt_pad_tick();
     }
     if (npending == 0) return 0;
     *ev = pending[0];

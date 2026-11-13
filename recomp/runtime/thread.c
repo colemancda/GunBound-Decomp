@@ -50,6 +50,12 @@ uint64_t rt_mono_ns(void) {
     return (uint64_t)ts.tv_sec * 1000000000ull + (uint64_t)ts.tv_nsec;
 }
 
+uint64_t rt_host_ns(void) {
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return (uint64_t)ts.tv_sec * 1000000000ull + (uint64_t)ts.tv_nsec;
+}
+
 /* Let ns of guest time pass on the calling thread. */
 void rt_sleep_ns(uint64_t ns) {
     if (g_opt.virtual_clock) {
@@ -63,6 +69,64 @@ void rt_sleep_ns(uint64_t ns) {
     }
     struct timespec ts = {.tv_sec = (time_t)(ns / 1000000000ull), .tv_nsec = (long)(ns % 1000000000ull)};
     while (nanosleep(&ts, &ts) != 0 && errno == EINTR) {}
+}
+
+/* ------------------------------------------------------------ --guest-cpu
+ * The game was written for x86, where every processor sees another's stores in
+ * the order they were made. aarch64 promises less, and code that shares memory
+ * between threads without a lock can go wrong there in ways it never could on
+ * x86. Lifted code uses plain loads and stores, so the cheap and complete cure
+ * is to run all guest threads on one CPU: threads that take turns on a single
+ * processor always see each other's stores in program order. The game's worker
+ * threads do little, so nothing much is lost. Threads the runtime and SDL start
+ * for themselves (sound, the socket poller, the graphics driver) are left free;
+ * what they share with the guest goes through host locks.
+ *
+ * The confinement is inherited: the main thread is confined before any other
+ * thread exists and every guest thread descends from it. */
+static cpu_set_t affinity_all, affinity_guest;
+static int affinity_on;
+
+void rt_affinity_init(void) {
+    if (g_opt.guest_cpu == -1) return;
+    if (sched_getaffinity(0, sizeof affinity_all, &affinity_all) != 0) return;
+    int cpu = g_opt.guest_cpu;
+    if (cpu < 0) {
+        /* automatic: the fastest CPU this process may use, the last of them if several are */
+        unsigned long best = 0;
+        for (int i = 0; i < CPU_SETSIZE; i++) {
+            if (!CPU_ISSET(i, &affinity_all)) continue;
+            char path[96];
+            unsigned long f = 1;
+            snprintf(path, sizeof path, "/sys/devices/system/cpu/cpu%d/cpufreq/cpuinfo_max_freq", i);
+            FILE *fp = fopen(path, "r");
+            if (fp) {
+                if (fscanf(fp, "%lu", &f) != 1) f = 1;
+                fclose(fp);
+            }
+            if (f >= best) {
+                best = f;
+                cpu = i;
+            }
+        }
+    }
+    if (cpu < 0 || cpu >= CPU_SETSIZE || !CPU_ISSET(cpu, &affinity_all)) {
+        rt_log("recomp: --guest-cpu: CPU %d is not available to this process; guest threads are not confined\n", cpu);
+        return;
+    }
+    CPU_ZERO(&affinity_guest);
+    CPU_SET(cpu, &affinity_guest);
+    if (sched_setaffinity(0, sizeof affinity_guest, &affinity_guest) != 0) {
+        rt_log("recomp: --guest-cpu: cannot confine the guest's threads to CPU %d\n", cpu);
+        return;
+    }
+    affinity_on = 1;
+    rt_log("recomp: guest threads run on CPU %d only (--guest-cpu)\n", cpu);
+}
+
+void rt_affinity_host(int enter) {
+    if (!affinity_on || !rt_cpu()) return;
+    sched_setaffinity(0, sizeof(cpu_set_t), enter ? &affinity_all : &affinity_guest);
 }
 
 /* ------------------------------------------------------------ handle table */
@@ -212,6 +276,7 @@ static void waitable_acquire(RtWaitable *w, uint32_t tid) {
 }
 
 static uint32_t wait_many(CPU *c, RtWaitable **ws, uint32_t n, int wait_all, uint32_t ms) {
+    RT_FULL_BARRIER();
     struct timespec deadline;
     if (ms != INFINITE) {
         clock_gettime(CLOCK_MONOTONIC, &deadline);
@@ -307,6 +372,7 @@ H(k32_OpenEventA) {
 }
 
 H(k32_SetEvent) {
+    RT_FULL_BARRIER(); /* what the caller stored before signalling is visible to whoever wakes */
     RtWaitable *w = rt_handle_get(a[0], RT_H_WAITABLE);
     if (!w || w->kind != RT_W_EVENT) {
         rt_set_last_error(c, ERROR_INVALID_HANDLE);
@@ -317,6 +383,7 @@ H(k32_SetEvent) {
 }
 
 H(k32_ResetEvent) {
+    RT_FULL_BARRIER();
     RtWaitable *w = rt_handle_get(a[0], RT_H_WAITABLE);
     if (!w || w->kind != RT_W_EVENT) {
         rt_set_last_error(c, ERROR_INVALID_HANDLE);
@@ -742,6 +809,7 @@ H(k32_EnterCriticalSection) {
     st32(a[0] + 4, ld32(a[0] + 4) + 1);
     st32(a[0] + 8, ld32(a[0] + 8) + 1);
     st32(a[0] + 12, c->thread_id);
+    RT_FULL_BARRIER(); /* as the locked instruction in the original was */
     return 0;
 }
 
@@ -756,7 +824,9 @@ H(k32_LeaveCriticalSection) {
     st32(a[0] + 8, rec);
     st32(a[0] + 4, ld32(a[0] + 4) - 1);
     if (rec == 0) st32(a[0] + 12, 0);
+    RT_FULL_BARRIER();
     pthread_mutex_unlock(m);
+    RT_FULL_BARRIER();
     return 0;
 }
 

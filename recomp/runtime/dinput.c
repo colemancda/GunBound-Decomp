@@ -127,6 +127,8 @@ H(did_GetDeviceState) {
     } else {
         int dx, dy, dz;
         rt_mouse_take_motion(&dx, &dy, &dz);
+        if (g_opt.trace_input && (dx || dy))
+            rt_log("[dinput] mouse motion %d,%d -> game; pointer at %d,%d\n", dx, dy, rt_mouse_x, rt_mouse_y);
         if (a[1] >= 12) {
             st32(a[2], (uint32_t)dx);
             st32(a[2] + 4, (uint32_t)dy);
@@ -145,6 +147,7 @@ H(did_GetDeviceData) {
     if (!d || !a[3] || (a[1] != 16 && a[1] != 20)) return DIERR_INVALIDPARAM;
     if (!d->acquired) return DIERR_NOTACQUIRED;
     uint32_t want = ld32(a[3]), got = 0;
+    int trace_motion[2] = {0, 0};
     unsigned cur = d->cursor;
     int overflow = 0;
     RtRawInput ev;
@@ -165,10 +168,19 @@ H(did_GetDeviceData) {
             st32(p + 8, ev.time_ms);
             st32(p + 12, ev.seq);
             if (a[1] == 20) st32(p + 16, 0);
+            /* --trace-input: what the game reads; pointer motion is summed up below */
+            if (g_opt.trace_input && !(a[4] & 1)) {
+                if (d->kind == DEV_KEYBOARD) rt_log("[dinput] key %02x %s -> game\n", ofs, ev.value ? "down" : "up");
+                else if (ev.kind == RT_RAW_BUTTON) rt_log("[dinput] mouse button %u %s -> game\n", ofs - 12, ev.value ? "down" : "up");
+                else if (ofs < 8) trace_motion[ofs / 4] += ev.value;
+            }
         }
         got++;
     }
     if (!(a[4] & 1)) d->cursor = cur; /* DIGDD_PEEK leaves the data in the buffer */
+    if (g_opt.trace_input && (trace_motion[0] || trace_motion[1]))
+        rt_log("[dinput] mouse motion %d,%d -> game; pointer at %d,%d\n", trace_motion[0], trace_motion[1], rt_mouse_x,
+               rt_mouse_y);
     st32(a[3], got);
     return overflow ? DI_BUFFEROVERFLOW : DI_OK;
 }
